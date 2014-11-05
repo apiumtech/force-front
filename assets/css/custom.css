@@ -16,3 +16,12 @@
 .filterTable td{
     padding: 5px;
 }
+.filterNone{
+    background: url('../plugins/DataTables-1.9.4/img/sort_both.png') no-repeat right;
+}
+.filterAsc{
+    background: url('../plugins/DataTables-1.9.4/img/sort_asc.png') no-repeat right;
+}
+.filterDesc{
+    background: url('../plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
+}
