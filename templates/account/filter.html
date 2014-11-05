@@ -2,15 +2,16 @@
     <div class="col-md-12 ui-sortable ">
         <div class="double-border filters-div">
             <h6>Filter by</h6>
-                <span ng-click="event.onShowAvailableOwners(data.ownerFilter)">
+                <span data-toggle="dropdown" ng-click="event.onShowAvailableOwners(data.ownerFilter)">
                     Owner <i class="fa fa-caret-down"></i>
                 </span>
-                <ul class="dropdown-menu pull-right">
-                    <li ng-repeat="column in data.currentHiddenColumns" ng-click="event.onAddColumn(column)">
-                        <a>{{ column.name }}</a>
+                <ul class="dropdown-menu ownersDropdown">
+                    <li><h6>Available Owners</h6></li>
+                    <li><input type="text" ng-model="data.ownerFilter" ng-click="$event.stopPropagation();" ng-change="event.onShowAvailableOwners(data.ownerFilter);" /></li>
+                    <li ng-repeat="owner in data.availableOwners">
+                        <input type="checkbox" ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();" ng-value="owner.selected" />
+                        <span>{{ owner.name }} &nbsp; </span>
                     </li>
-                    <li class="divider"></li>
-                    <li><a href="" class="btn-link">Restore default</a></li>
                 </ul>
                 <span>
                     Views <i class="fa fa-caret-down"></i>
@@ -22,10 +23,6 @@
                     <i class="fa fa-caret-down"></i>
                 </span>
             <button ng-click="event.onShowAvailableFilters()" type="button" class="btn btn-white m-r-5 m-b-5">Add filters</button>
-            <input type="text" ng-keyup="event.onNameFilterKeyUp($event, data.currentSearchQuery)" ng-model="data.currentSearchQuery" />
-            <span ng-repeat="name in data.autocomplete">
-                <span ng-click="event.onSelectNameAutocompletion(name)">{{ name }}</span>
-            </span>
         </div>
         <hr />
         <div ng-if="data.showAvailableFilters">
@@ -33,18 +30,12 @@
             <span ng-repeat="filter in data.availableFilters" ng-click="event.onAddFilter(filter)">{{ filter.name }} &nbsp; </span>
             <hr />
         </div>
-        <div ng-if="data.showAvailableOwners">
-            <h6>Available Owners</h6>
-            <input type="text" ng-model="data.ownerFilter" ng-change="event.onShowAvailableOwners(data.ownerFilter)" />
-            <ul>
-                <li ng-repeat="owner in data.availableOwners"><input type="checkbox" ng-click="event.onToggleOwnerFilter(owner)" ng-value="owner.selected" /><span>{{ owner.name }} &nbsp; </span></li>
-            </ul>
-            <hr />
-        </div>
         <div class="col-md-12">
             <div ng-repeat="filter in data.customFilters">
                 <span>{{ filter.name }}: </span>
-                <input type="text" ng-keyup="event.onFilterKeyUp($event, filter, filter.value)" ng-model="filter.value" />
+                <form ng-submit="event.onFilterKeyUp(filter, filter.value)">
+                    <input type="text" ng-model="filter.value" />
+                </form>
                 <span ng-click="event.onRemoveFilter(filter)">x</span>
             </div>
         </div>

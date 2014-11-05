@@ -11,22 +11,22 @@ app.registerPresenter(function (container) {
             model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
-        view.event.onNameFilterKeyUp = function ($event, currentValue) {
-            if ($event.which == 13) {
-                model.setFilter("name", currentValue)
-                    .then(view.showTableDataFilteredByName.bind(view), view.showError.bind(view))
-            } else if (currentValue != '') {
-                model.getNameAutocompletion(currentValue)
-                    .then(view.showAccountAutocomplete.bind(view), view.showError.bind(view));
-            }
-        };
+        //view.event.onNameFilterChange = function (currentValue) {
+        //    if (currentValue != '') {
+        //        model.getNameAutocompletion(currentValue)
+        //            .then(view.showAccountAutocomplete.bind(view), view.showError.bind(view));
+        //    }
+        //}.bind(this);
 
-        view.event.onFilterKeyUp = function ($event, name, currentValue) {
-            if ($event.which == 13) {
-                model.setFilter(name, currentValue)
-                    .then(view.showTableData.bind(view), view.showError.bind(view));
-            }
-        };
+        view.event.onNameFilterChanged = function (currentValue) {
+            model.setFilter({columnKey: "name"}, currentValue)
+                .then(view.showTableDataFilteredByName.bind(view), view.showError.bind(view))
+        }
+
+        view.event.onFilterKeyUp = function (name, currentValue) {
+            model.setFilter(name, currentValue)
+                .then(view.showTableData.bind(view), view.showError.bind(view));
+        }
 
         view.event.onShowAvailableFilters = function () {
             model.getAvailableFilters()

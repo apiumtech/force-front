@@ -159,6 +159,15 @@ app.registerModel(function (container) {
             this.sorting.dir = 'asc';
         }
 
+        var dir = this.sorting.dir;
+        this.columns.forEach(function (k) {
+           if (k.columnKey == field.columnKey) {
+               k.sorting = dir;
+           } else {
+               delete k.sorting;
+           }
+        });
+
         this.queryBuilder.setOrder(this.sorting.field, this.sorting.dir);
         this.queryBuilder.setPage(0);
 

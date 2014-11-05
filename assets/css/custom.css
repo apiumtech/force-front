@@ -1,3 +1,9 @@
 .columnFields{
-    margin: 15px;
+    margin: 15px 15px 0 0;
+}
+.ownersDropdown{
+    margin-top: -70px;
+}
+.searchInput{
+    margin: 0 15px 15px 0;
 }
