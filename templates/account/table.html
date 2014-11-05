@@ -16,8 +16,8 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu pull-right">
-                    <li ng-repeat="column in data.currentHiddenColumns" ng-click="event.onAddColumn(column)">
-                        <a>{{ column.name }}</a>
+                    <li ng-repeat="element in data.currentHiddenColumns" ng-click="event.onToggleColumn(element.column)">
+                        <a>{{ element.column.name }} {{ element.enabled ? 'OK' : 'KO' }} </a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="" class="btn-link">Restore default</a></li>
@@ -35,9 +35,6 @@
                             {{ header.name }}
                         </span>
                         </strong>
-                    <span style="cursor: pointer" ng-click="event.onRemoveColumn(header)">
-                        x
-                    </span>
                     </th>
                 </tr>
                 </thead>

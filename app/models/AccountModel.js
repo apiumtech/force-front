@@ -45,6 +45,14 @@ app.registerModel(function (container) {
         }
     }
 
+    function inArray(array, field) {
+        return removeFromArray(array, field).length != array.length;
+    }
+
+    function removeFromArray(array, field) {
+        return array.filter(function (k) { return k != field; });
+    }
+
     function AccountModel($fakeDatabase, $queryBuilder) {
         this.fakeDatabase = $fakeDatabase;
         this.queryBuilder = $queryBuilder;
@@ -77,6 +85,16 @@ app.registerModel(function (container) {
         this.queryBuilder.setPage(0);
 
         return this.getAccounts();
+    };
+
+    AccountModel.prototype.toggleField = function (column) {
+        if (inArray(this.columnKeys, column.columnKey)) {
+            removeFromArray(this.columnKeys, column.columnKey);
+            return this.removeField(column);
+        } else {
+            this.columnKeys.push(column.columnKey);
+            return this.addField(column);
+        }
     };
 
     AccountModel.prototype.addField = function (column) {
@@ -158,7 +176,9 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getAllFields = function () {
         return Q.fcall(function () {
-            return this.fakeDatabase.getAllAccountFields().data;
+            return this.fakeDatabase.getAllAccountFields().data.map(function (k) {
+                return { column: k, enabled: inArray(this.columnKeys, k.columnKey) };
+            }.bind(this));
         }.bind(this));
     };
 
@@ -181,7 +201,6 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getAvailableFields = function () {
         var cols = this.columnKeys;
-        console.log(cols);
         return this.getAllFields()
             .then(function (allColumns) {
                 return allColumns
@@ -218,6 +237,7 @@ app.registerModel(function (container) {
         this.columnKeys = colList.map(function (k) {
             return k.columnKey;
         });
+
         this.columns = colList;
     };
 
