@@ -51,7 +51,7 @@ app.registerModel(function (container) {
     function FakeDatabase($currentFields, $currentAccounts, $currentOwners) {
         this.allFields = $currentFields.slice(0);
 
-        this.currentFields = $currentFields.slice(0);
+        this.currentFields = $currentFields.slice(0).filter(function (k) { return k.columnKey != 'imgUrl' });
         this.currentAccounts = $currentAccounts.slice(0);
         this.currentOwners = $currentOwners.slice(0);
     }

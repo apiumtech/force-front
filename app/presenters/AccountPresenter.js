@@ -76,7 +76,7 @@ app.registerPresenter(function (container) {
         }.bind(this);
 
         view.event.onShowAvailableColumns = function () {
-            model.getAvailableFields()
+            model.getAllFields()
                 .then(view.showColumnList.bind(view), view.showError.bind(view));
         }.bind(this);
 

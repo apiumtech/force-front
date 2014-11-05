@@ -14,10 +14,6 @@ describe("FakeDatabase", function () {
             name: "Nombre"
         },
         {
-            columnKey: "imgUrl",
-            name: ""
-        },
-        {
             columnKey: "class",
             name: "Class."
         },
@@ -81,14 +77,12 @@ describe("FakeDatabase", function () {
         expect(db.getAccountFields()).toEqual(expected);
     });
 
-    it("should get a basic response of a element", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
-        var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: 0, limit: 1}});
-        var expected = {
+    var dataProvider = [
+        {
+            offset: 0, limit: 1, filters : [], expected: {
             success: true, data: [{
                 "following": true,
                 "name": "Apple",
-                "imgUrl": "/img/apple.png",
                 "class": "C",
                 "contactInfo": {
                     "validAddress": true,
@@ -102,18 +96,13 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-        };
-        expect(result).toEqual(expected);
-    });
-
-    it("should get a basic response of a element with offset", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
-        var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: 1, limit: 1}});
-        var expected = {
+            }
+        },
+        {
+            offset: 1, limit: 1, filters : [], expected: {
             success: true, data: [{
                 "following": false,
                 "name": "Microsoft",
-                "imgUrl": "/img/microsoft.png",
                 "class": "C",
                 "contactInfo": {
                     "validAddress": true,
@@ -127,18 +116,13 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-        };
-        expect(result).toEqual(expected);
-    });
-
-    it("should get a basic response of a element with filtering", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
-        var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: 0, limit: 200}, filters: [{ "columnKey": "name", "value": "osoft" }] });
-        var expected = {
+            }
+        },
+        {
+            offset: 0, limit: 200, filters : [{ "columnKey": "name", "value": "osoft" }], expected: {
             success: true, data: [{
                 "following": false,
                 "name": "Microsoft",
-                "imgUrl": "/img/microsoft.png",
                 "class": "C",
                 "contactInfo": {
                     "validAddress": true,
@@ -152,7 +136,14 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-        };
-        expect(result).toEqual(expected);
-    });
+            }
+        }
+    ]
+    dataProvider.forEach(function(test){
+        it("should get a basic response of a element", function () {
+            var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
+            var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit}, filters: test.filters});
+            expect(result).toEqual(test.expected);
+        });
+    })
 });
