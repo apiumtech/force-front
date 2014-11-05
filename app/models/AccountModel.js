@@ -62,30 +62,14 @@ app.registerModel(function (container) {
         this.sorting = {};
     }
 
-    AccountModel.prototype.setFilter = function (column, value) {
-        this.queryBuilder.setFilter(column.columnKey, value);
+    AccountModel.prototype.setFilter = function (filter) {
+        if (filter.value == undefined) {
+            this.queryBuilder.removeFilter(filter.columnKey);
+        } else {
+            this.queryBuilder.setFilter(filter.columnKey, filter.value);
+        }
+
         this.queryBuilder.setPage(0);
-
-        return this.getAccounts();
-    };
-
-    AccountModel.prototype.addFilter = function (column, value) {
-        var cols = this.columns;
-        return Q.fcall(function () {
-            this.queryBuilder.setFilter(column.columnKey, value);
-            return this.queryBuilder.build().filters.map(function (f) {
-                return cols.filter(function (k) {
-                    return k.columnKey == f.columnKey;
-                })[0];
-            });
-        }.bind(this));
-    };
-
-
-    AccountModel.prototype.removeFilter = function (column) {
-        this.queryBuilder.removeFilter(column.columnKey);
-        this.queryBuilder.setPage(0);
-
         return this.getAccounts();
     };
 
@@ -125,31 +109,6 @@ app.registerModel(function (container) {
     AccountModel.prototype.nextPage = function () {
         this.queryBuilder.nextPage();
         return this.getAccounts();
-    };
-
-    AccountModel.prototype.toggleOwnerFilter = function (owner) {
-        var objA = this.selectedOwners.filter(function (k) {
-            return k.id == owner.id;
-        });
-        if (objA.length > 0) {
-            var obj = objA[0];
-            obj.selected = !obj.selected;
-
-            if (obj.selected) {
-                this.selectedOwners.push(owner);
-            }
-        } else {
-            owner.selected = true;
-            this.selectedOwners.push(owner);
-        }
-
-        this.selectedOwners = this.selectedOwners.filter(function (value, index, self) {
-            return self.indexOf(value) === index && value.selected;
-        });
-
-        return this.setFilter({columnKey: "responsible.id"}, this.selectedOwners.map(function (k) {
-            return k.id;
-        }));
     };
 
     AccountModel.prototype.sortByField = function (field) {
@@ -202,37 +161,6 @@ app.registerModel(function (container) {
         }
     };
 
-    AccountModel.prototype.getNameAutocompletion = function (name) {
-        return Q.fcall(function () {
-            return this.fakeDatabase.autocompleteName(name).data.filter(function (e, i, arr) {
-                return arr.lastIndexOf(e) === i;
-            });
-        }.bind(this));
-    };
-
-    AccountModel.prototype.getAvailableFields = function () {
-        var cols = this.columnKeys;
-        return this.getAllFields()
-            .then(function (allColumns) {
-                return allColumns
-                    .filter(function (k) {
-                        return cols.indexOf(k.columnKey) < 0;
-                    });
-            });
-    };
-
-    AccountModel.prototype.getAvailableFilters = function () {
-        return Q.fcall(function () {
-            return this.fakeDatabase.getAvailableFilters().data;
-        }.bind(this));
-    };
-
-    AccountModel.prototype.getAvailableOwners = function (name) {
-        return Q.fcall(function () {
-            return this.fakeDatabase.getAvailableOwners(name || "").data;
-        }.bind(this));
-    };
-
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
         this.queryBuilder.allFields();
@@ -241,7 +169,7 @@ app.registerModel(function (container) {
         mergeOrSave(this, queryResult);
 
         var data = this.data.map(function (k) { return flatObject(k).sort(sortByPosition(this.columnKeys)) }.bind(this));
-        return {headers: this.columns, elements: data };
+        return { headers: this.columns, elements: data };
     };
 
     AccountModel.prototype._setColumnList = function (colList) {

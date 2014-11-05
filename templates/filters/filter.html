@@ -1,4 +1,4 @@
-<div class="row">
+<div ng-controller="FilterController" class="row">
     <div class="col-md-12 ui-sortable ">
         <div class="double-border filters-div">
             <h6>Filter by</h6>
@@ -37,7 +37,7 @@
         <div class="filters-div">
             <table class="filterTable">
                 <tr ng-repeat="filter in data.customFilters">
-                    <td><span>{{ filter.name }}:</td>
+                    <td><span>{{ filter.name }}:</span></td>
                     <td>
                         <form ng-submit="event.onFilterKeyUp(filter, filter.value)" class="dataTables_filter">
                             <input type="text" ng-model="filter.value" />

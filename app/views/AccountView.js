@@ -8,7 +8,7 @@ app.registerView(function (container) {
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
-    function AccountView($scope, model, presenter) {
+    function AccountView($scope, $model, $presenter) {
         this.data = {};
         this.event = {};
         this.fn = {};
@@ -19,11 +19,8 @@ app.registerView(function (container) {
         $scope.event = this.event;
         $scope.fn = this.fn;
 
-        this.data.showAvailableFilters = false;
-        this.data.showAvailableOwners = false;
-
-        this.model = model;
-        this.presenter = presenter;
+        this.model = $model;
+        this.presenter = $presenter;
 
         this.fn.isImageHeader = function (header) {
             return header.name.charAt(0) == '/';
@@ -53,34 +50,6 @@ app.registerView(function (container) {
 
     AccountView.prototype.addTableData = function (data) {
         this.data.accounts = this.data.accounts.concat(data.elements);
-    };
-
-    AccountView.prototype.showAccountAutocomplete = function (data) {
-        this.data.autocomplete = data;
-    };
-
-    AccountView.prototype.showSelectedAccountNameFilter = function (name) {
-        this.data.currentSearchQuery = name;
-    };
-
-    AccountView.prototype.showAvailableFilters = function (filters) {
-        this.data.showAvailableFilters = true;
-        this.data.availableFilters = filters;
-    };
-
-    AccountView.prototype.showFilters = function (filters) {
-        this.data.customFilters = filters;
-        this.data.showAvailableFilters = true;
-        this.data.availableFilters = [];
-    };
-
-    AccountView.prototype.showAvailableOwners = function (owners) {
-        this.data.showAvailableOwners = true;
-        this.data.availableOwners = owners;
-    };
-
-    AccountView.prototype.showCustomFilters = function (filters) {
-        this.data.customFilters = filters;
     };
 
     AccountView.prototype.showError = function (error) {

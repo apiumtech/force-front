@@ -24,9 +24,12 @@ function main() {
             'services/EventBus', 'services/AjaxService', 'services/ajax/AuthAjaxService', 'services/QueryBuilder',
             'services/ObjectMerger',
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
+            // Channels
+            'services/bus/FilterChannel',
 
             'models/fakes/FakeDatabase',
-            'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel'
+            'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
+            'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'
         ]
     };
 

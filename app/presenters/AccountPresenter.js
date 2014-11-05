@@ -3,44 +3,29 @@
  */
 
 app.registerPresenter(function (container) {
-    function AccountPresenter() {
+    var FilterChannel = container.getService('services/bus/FilterChannel');
+
+    function AccountPresenter(filterEventChannel) {
+        this.filterChannel = filterEventChannel;
     }
 
     AccountPresenter.prototype.show = function (view, model) {
+        var channel = this.filterChannel;
         view.event.onInit = function () {
             model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
-        //view.event.onNameFilterChange = function (currentValue) {
-        //    if (currentValue != '') {
-        //        model.getNameAutocompletion(currentValue)
-        //            .then(view.showAccountAutocomplete.bind(view), view.showError.bind(view));
-        //    }
-        //}.bind(this);
+        channel.listen(function (event) {
+            if (event.set) {
+                model.setFilter(event.set)
+                    .then(view.showTableData.bind(view), view.showError.bind(view));
+            }
+        });
 
-        view.event.onNameFilterChanged = function (currentValue) {
-            model.setFilter({columnKey: "name"}, currentValue)
-                .then(view.showTableDataFilteredByName.bind(view), view.showError.bind(view))
-        }
-
-        view.event.onFilterKeyUp = function (name, currentValue) {
-            model.setFilter(name, currentValue)
+        /** region table **/
+        view.event.onNameFilterChanged = function (value) {
+            model.setFilter({columnKey: "name", value: value})
                 .then(view.showTableData.bind(view), view.showError.bind(view));
-        }
-
-        view.event.onShowAvailableFilters = function () {
-            model.getAvailableFilters()
-                .then(view.showAvailableFilters.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onAddFilter = function (column) {
-            model.addFilter(column, undefined)
-                .then(view.showFilters.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onSelectNameAutocompletion = function (value) {
-            model.setFilter(name, value)
-                .then(view.showTableDataFilteredByName.bind(view), view.showError.bind(view));
         };
 
         view.event.onSort = function (field) {
@@ -49,33 +34,15 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onToggleColumn = function (column) {
+            channel.send({ remove: column });
+
             model.toggleField(column)
-                .then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onRemoveColumn = function (column) {
-            model.removeField(column)
-                .then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onRemoveFilter = function (filter) {
-            model.removeFilter(filter)
-                .then(view.showTableDataWithoutFilter.bind(view, filter), view.showError.bind(view))
-        };
-
-        view.event.onToggleOwnerFilter = function (owner) {
-            model.toggleOwnerFilter(owner)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onShowAvailableOwners = function (nameFilter) {
             model.getAvailableOwners(nameFilter)
                 .then(view.showAvailableOwners.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onAddColumn = function (column) {
-            model.addField(column)
-                .then(view.showTableData.bind(view));
         };
 
         view.event.onShowAvailableColumns = function () {
@@ -87,10 +54,13 @@ app.registerPresenter(function (container) {
             model.nextPage()
                 .then(view.addTableData.bind(view), view.showError.bind(view));
         };
+        /** end region **/
     };
 
-    AccountPresenter.newInstance = function () {
-        return Some(new AccountPresenter());
+    AccountPresenter.newInstance = function ($filterChannel) {
+        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+
+        return Some(new AccountPresenter(filterChannel));
     };
 
     return { newInstance: AccountPresenter.newInstance };
