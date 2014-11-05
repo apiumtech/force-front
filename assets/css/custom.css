@@ -2,8 +2,17 @@
     margin: 15px 15px 0 0;
 }
 .ownersDropdown{
-    margin-top: -70px;
+    padding: 10px;
+}
+.ownersDropdown li{
+    padding: 5px;
+}
+.ownersDropdown li:hover{
+    cursor: pointer;
 }
 .searchInput{
     margin: 0 15px 15px 0;
+}
+.filterTable td{
+    padding: 5px;
 }
