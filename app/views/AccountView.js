@@ -24,6 +24,10 @@ app.registerView(function (container) {
 
         this.model = model;
         this.presenter = presenter;
+
+        this.fn.isImageHeader = function (header) {
+            return header.name.charAt(0) == '/';
+        }
     }
 
     AccountView.prototype.show = function () {

@@ -9,15 +9,17 @@ app.registerModel(function (container) {
     var QueryBuilder = container.getService('services/QueryBuilder');
 
     // converts {a: 1, b: 2} / [{name: 'a', value: 1}, {name: 'b', value: 2}]
-    function flatObject(acc) {
+    function flatObject(acc, base) {
+        var prefix = (base ? base + "." : "");
+
         var result = [];
         for (var i in acc) {
             if (acc.hasOwnProperty(i)) {
                 var el = acc[i];
                 if (typeof el == "object") {
-                    result = result.concat(flatObject(el));
+                    result = result.concat(flatObject(el, i));
                 } else {
-                    result.push({name: i, value: el});
+                    result.push({name: prefix + i, value: el});
                 }
             }
         }
@@ -26,7 +28,7 @@ app.registerModel(function (container) {
 
     function sortByPosition(onColumnList) {
         return function (a, b) {
-            return onColumnList.indexOf(b.columnKey) - onColumnList.indexOf(a.columnKey);
+            return onColumnList.indexOf(a.name) - onColumnList.indexOf(b.name);
         };
     }
 
@@ -214,7 +216,6 @@ app.registerModel(function (container) {
             .then(function (allColumns) {
                 return allColumns
                     .filter(function (k) {
-                        console.log(k);
                         return cols.indexOf(k.columnKey) < 0;
                     });
             });
@@ -239,7 +240,8 @@ app.registerModel(function (container) {
         var queryResult = this.fakeDatabase.getAccounts(query);
         mergeOrSave(this, queryResult);
 
-        return {headers: this.columns, elements: this.data.map(flatObject).sort(sortByPosition(this.columnKeys))};
+        var data = this.data.map(function (k) { return flatObject(k).sort(sortByPosition(this.columnKeys)) }.bind(this));
+        return {headers: this.columns, elements: data };
     };
 
     AccountModel.prototype._setColumnList = function (colList) {
