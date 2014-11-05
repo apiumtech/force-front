@@ -124,12 +124,13 @@ app.registerModel(function (container) {
             }
         });
 
-        var usingQueryFields = (query.fields && query.fields.length > 0);
+        var usingQueryFields = (query.fields && query.fields.length > 0) || false;
         var finalQueryFields = usingQueryFields ? query.fields : this.currentFields;
 
         data = data.slice(query.order.offset, query.order.offset + query.order.limit).map(function (el) {
             return createObject(el, finalQueryFields);
         }.bind(this));
+
         return {success: true, data: data, merge: usingQueryFields};
     };
 

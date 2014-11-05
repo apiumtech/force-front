@@ -23,7 +23,8 @@ requirejs.config({
         'functional-option': '/base/framework/Option',
         'framework': '/base/framework/ApplicationFactory',
         'meld': '/base/node_modules/meld/meld',
-        'sinon': '/base/node_modules/sinon/lib/sinon'
+        'sinon': '/base/node_modules/sinon/lib/sinon',
+        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
     },
 
     'shim': {
@@ -34,6 +35,11 @@ requirejs.config({
         'angular-route': {
             deps: ['angular'],
             exports: 'angular-route'
+        },
+
+        'infinite-scroll': {
+            deps: [ 'angular' ],
+            exports: 'infinite-scroll'
         },
 
         'jquery': {
@@ -50,7 +56,7 @@ requirejs.config({
         }
     },
 
-    'deps': ['angular', 'angular-route', 'jquery', 'q', 'sinon', 'postal', 'meld', 'framework', 'functional-option', 'main'],
+    'deps': ['angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option', 'main'],
 
     callback: test_main
 });
