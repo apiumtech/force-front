@@ -368,20 +368,38 @@ app.registerService(function (container) {
             },
             {
                 "following": false,
-                "name": "Microsoft",
+                "name": "Apple",
                 "imgUrl": "/img/microsoft.png",
-                "class": "C",
+                "class": "B",
                 "contactInfo": {
                     "validAddress": true,
                     "country": "USA",
-                    "city": "Unknown",
-                    "address": "Fake Avenue, 656",
-                    "phoneNumber": "(000) 000 000"
+                    "city": "Palo Alto",
+                    "address": "Fake Avenue, 657",
+                    "phoneNumber": "(000) 000 001"
+                },
+                "modified": 1348790410,
+                "responsible": {
+                    "id": 2,
+                    "name": "Andrea Perazzi"
+                }
+            },
+            {
+                "following": false,
+                "name": "IBM",
+                "imgUrl": "/img/microsoft.png",
+                "class": "A",
+                "contactInfo": {
+                    "validAddress": false,
+                    "country": "USA",
+                    "city": "New York",
+                    "address": "Fake Avenue, 658",
+                    "phoneNumber": "(000) 000 002"
                 },
                 "modified": 1348790400,
                 "responsible": {
-                    "id": 0,
-                    "name": "Carlos Zamorano"
+                    "id": 1,
+                    "name": "Antonio Sanchez"
                 }
             },
             {
@@ -396,25 +414,7 @@ app.registerService(function (container) {
                     "address": "Fake Avenue, 656",
                     "phoneNumber": "(000) 000 000"
                 },
-                "modified": 1348790400,
-                "responsible": {
-                    "id": 0,
-                    "name": "Carlos Zamorano"
-                }
-            },
-            {
-                "following": false,
-                "name": "Microsoft",
-                "imgUrl": "/img/microsoft.png",
-                "class": "C",
-                "contactInfo": {
-                    "validAddress": true,
-                    "country": "USA",
-                    "city": "Unknown",
-                    "address": "Fake Avenue, 656",
-                    "phoneNumber": "(000) 000 000"
-                },
-                "modified": 1348790400,
+                "modified": 1328790400,
                 "responsible": {
                     "id": 0,
                     "name": "Carlos Zamorano"
