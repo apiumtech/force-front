@@ -7,23 +7,7 @@ describe("AccountPresenter", function () {
     function exerciseCreatePresenter() {
         return AccountPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create AccountPresenter");
     }
-
-    function exerciseFakePromise() {
-        return { then: function () {} };
-    }
-
-    function exerciseFakeOkPromise() {
-        return { then: function (a, b) { a(); } };
-    }
-
-    function exerciseFakeKoPromise() {
-        return { then: function (a, b) { b(); } };
-    }
-
-    function exerciseFakeChannel() {
-        return { listen: function () {}, send: function () {} };
-    }
-
+    
     [
         { viewEvent: 'onInit', modelMethod: 'getAccounts', onSuccess: 'showTableData', onError: 'showError' },
         { viewEvent: 'onNameFilterChanged', modelMethod: 'setNameFilter', onSuccess: 'showTableData', onError: 'showError' },

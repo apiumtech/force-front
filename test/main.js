@@ -100,20 +100,18 @@ if (!Function.prototype.bind) {
 }
 /*************************************/
 
-function fakePromise(doneValue, errorValue) {
-    var self = {
-        then: function (onOk, onFail) {
-            if (doneValue) {
-                onOk(doneValue);
-                return self;
-            }
+function exerciseFakePromise() {
+    return { then: function () { return exerciseFakePromise(); } };
+}
 
-            if (errorValue) {
-                onFail(errorValue);
-                return self;
-            }
-        }
-    };
+function exerciseFakeOkPromise() {
+    return { then: function (a, b) { a(); return exerciseFakeOkPromise(); } };
+}
 
-    return self;
+function exerciseFakeKoPromise() {
+    return { then: function (a, b) { b(); return exerciseFakeKoPromise(); } };
+}
+
+function exerciseFakeChannel() {
+    return { listen: function () {}, send: function () {} };
 }

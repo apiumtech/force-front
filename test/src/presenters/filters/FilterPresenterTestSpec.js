@@ -8,22 +8,6 @@ describe("FilterPresenter", function () {
         return FilterPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create FilterPresenter");
     }
 
-    function exerciseFakePromise() {
-        return { then: function () { return exerciseFakePromise(); } };
-    }
-
-    function exerciseFakeOkPromise() {
-        return { then: function (a, b) { a(); return exerciseFakeOkPromise(); } };
-    }
-
-    function exerciseFakeKoPromise() {
-        return { then: function (a, b) { b(); return exerciseFakeKoPromise(); } };
-    }
-
-    function exerciseFakeChannel() {
-        return { listen: function () {}, send: function () {} };
-    }
-
     [
         { viewEvent: 'onFilterKeyUp', modelMethod: 'addFilter', onSuccess: '*', onError: 'showError' },
         { viewEvent: 'onShowAvailableFilters', modelMethod: 'getAvailableFilters', onSuccess: 'showAvailableFilters', onError: 'showError' },
