@@ -56,7 +56,7 @@ requirejs.config({
         }
     },
 
-    'deps': ['angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option', 'main'],
+    'deps': ['angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'sinon', 'framework', 'functional-option', 'main'],
 
     callback: test_main
 });

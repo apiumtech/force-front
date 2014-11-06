@@ -32,7 +32,7 @@ describe("AccountModel", function () {
 
     it("should save data as is if not merged", function () {
         var model = exerciseCreateModel();
-        var msg = {merge: false, data: [{ a: 1, b: 2}, {a: 2, b: 3}]};
+        var msg = {merge: false, data: [{a: 1, b: 2}, {a: 2, b: 3}]};
 
         model._mergeOrSave(msg);
         expect(model.data).toEqual(msg.data);
@@ -40,10 +40,10 @@ describe("AccountModel", function () {
 
     it("should merge data", function () {
         var model = exerciseCreateModel();
-        var step1 = {merge: false, data: [{ a: 1, b: 2}, {a: 2, b: 3}]};
+        var step1 = {merge: false, data: [{a: 1, b: 2}, {a: 2, b: 3}]};
         model._mergeOrSave(step1);
 
-        var step2 = {merge: true, data: [{ c: 3 }, { d: 4 }]};
+        var step2 = {merge: true, data: [{c: 3}, {d: 4}]};
         model._mergeOrSave(step2);
 
         expect(model.data).toEqual([{a: 1, b: 2, c: 3}, {a: 2, b: 3, d: 4}]);

@@ -36,7 +36,7 @@ app.registerPresenter(function (container) {
         view.event.onRemoveFilter = function (filter) {
             model.removeFilter(filter)
                 .then(channel.send, view.showError.bind(view))
-                .then(view.showFilters.bind(view));
+                .then(view.showFilters.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleOwnerFilter = function (owner) {
