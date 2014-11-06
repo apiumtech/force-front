@@ -11,6 +11,7 @@ app.registerPresenter(function (container) {
 
     AccountPresenter.prototype.show = function (view, model) {
         var channel = this.filterChannel;
+
         view.event.onInit = function () {
             model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
         };

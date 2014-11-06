@@ -137,13 +137,13 @@ app.registerModel(function (container) {
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
         var queryResult = this.fakeDatabase.getAccounts(query);
-        this._mergeOrSave(this, queryResult);
+        this._mergeOrSave(queryResult);
 
-        return { headers: this.columns, elements: this.data.map(this._mapGatewayInput) };
+        return { headers: this.columns, elements: this.data.map(this._mapGatewayInput.bind(this)) };
     };
 
     AccountModel.prototype._mapGatewayInput = function (gatewayDataObject) {
-        return this._flatObject(k).sort(this._sortByPosition(this.columnKeys));
+        return this._flatObject(gatewayDataObject).sort(this._sortByPosition(this.columnKeys));
     };
 
     AccountModel.prototype._setColumnList = function (colList) {
@@ -178,18 +178,18 @@ app.registerModel(function (container) {
         };
     };
 
-    AccountModel.prototype._mergeOrSave = function (model, response) {
+    AccountModel.prototype._mergeOrSave = function (response) {
         if (response.merge) { // merge
             var result = [];
             for (var i = 0; i < response.data.length; i++) {
-                var value = ObjectMerger.leftMerge(model.data[i], response.data[i]);
+                var value = ObjectMerger.leftMerge(this.data[i], response.data[i]);
                 result.push(value);
             }
 
-            model.data = result;
+            this.data = result;
             return result;
         } else { // save
-            model.data = response.data;
+            this.data = response.data;
         }
     };
 

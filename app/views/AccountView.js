@@ -66,5 +66,5 @@ app.registerView(function (container) {
         return Some(view);
     };
 
-    return {newInstance: AccountView.newInstance};
+    return { newInstance: AccountView.newInstance };
 });
