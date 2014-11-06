@@ -3,8 +3,8 @@
  */
 app.registerService(function (container) {
     return {
-        defaultQuery: { order: {field: 'name', direction: 'asc', offset: 0, limit: 5 } },
-        defaultPageLimit: 5,
+        defaultQuery: { order: {field: 'name', direction: 'asc', offset: 0, limit: 3 } },
+        defaultPageLimit: 2,
         fakeAccountData: [
             {
                 "following": false,
