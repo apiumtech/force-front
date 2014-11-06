@@ -17,8 +17,8 @@
                 </a>
                 <ul class="dropdown-menu pull-right">
                     <li ng-repeat="element in data.currentHiddenColumns" ng-click="event.onToggleColumn(element.column)">
-                        <a ng-if="!fn.isImageHeader(element.column)">{{ element.column.name }} {{ element.enabled ? 'OK' : 'KO' }}</a>
-                        <a ng-if="fn.isImageHeader(element.column)"><img src="{{ element.column.name }}" /> {{ element.enabled ? 'OK' : 'KO' }}</a>
+                        <a ng-if="!fn.isImageHeader(element.column)">{{ element.column.name }} <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
+                        <a ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"> <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="" class="btn-link">Restore default</a></li>
@@ -41,9 +41,7 @@
                             <span ng-if="!fn.isImageHeader(header)">
                                 {{ header.name }}
                             </span>
-                            <span ng-if="fn.isImageHeader(header)">
-                                <img src="{{ header.name }}" />
-                            </span>
+                            <span ng-if="fn.isImageHeader(header)" class="glyphicon glyphicon-map-marker"></span>
                         </strong>
                     </th>
                 </tr>
@@ -52,15 +50,14 @@
                 <tr ng-repeat="account in data.accounts" class="gradeX">
                     <td ng-repeat="field in account">
                         <div ng-switch on="field.name">
-                        <span ng-switch-when="modified">
-                            {{ (field.value * 1000) | date: 'dd/MM/yyyy' }}
-                        </span>
-                        <span ng-switch-when="following">
-                            <input type="checkbox" readonly="readonly" ng-model="field.value"/>
-                        </span>
-                        <span ng-switch-when="imgUrl">
-                            <img src="{{ field.value }}" />
-                        </span>
+                            <span ng-switch-when="modified">
+                                {{ (field.value * 1000) | date: 'dd/MM/yyyy' }}
+                            </span>
+                            <span ng-switch-when="following">
+                                <input type="checkbox" readonly="readonly"/>
+                            </span>
+                            <span ng-switch-when="imgUrl" class="glyphicon glyphicon-map-marker"></span>
+                            <span ng-switch-when="contactInfo.validAddress" ng-class="{'glyphicon glyphicon-ok': field.value==true}"></span>
                             <span ng-switch-default>{{field.value}}</span>
                         </div>
                     </td>
