@@ -85,6 +85,9 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.sortByField = function (field) {
+        console.log(field);
+        console.log(this.sorting);
+        
         var fieldName = field.columnKey;
         if (this.sorting.field == fieldName) {
             this.sorting.dir = this.sorting.dir == 'asc' ? 'desc' : 'asc';
