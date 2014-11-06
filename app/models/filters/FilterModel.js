@@ -15,14 +15,14 @@ app.registerModel(function (container) {
     FilterModel.prototype.addFilter = function (filter) {
         return Q.fcall(function () {
             this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; }).concat([filter]);
-            return this.filters;
+            return this._publicVisibleFilters();
         }.bind(this));
     };
 
     FilterModel.prototype.removeFilter = function (filter) {
         return Q.fcall(function () {
             this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; });
-            return this.filters;
+            return this._publicVisibleFilters();
         }.bind(this));
     };
 
@@ -64,6 +64,10 @@ app.registerModel(function (container) {
 
         var filterValue = this.selectedOwners.map(function (k) { return k.id; });
         return this.addFilter({ columnKey: "responsible.id", value: filterValue});
+    };
+
+    FilterModel.prototype._publicVisibleFilters = function () {
+        return this.filters.filter(function (k) { return k.columnKey != 'responsible.id'; });
     };
 
     FilterModel.newInstance = function (db) {

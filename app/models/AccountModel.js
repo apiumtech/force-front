@@ -21,6 +21,7 @@ app.registerModel(function (container) {
         this.queryBuilder = $queryBuilder;
         this.sorting = {};
         this.filterName = "";
+        this.allColumns = null;
     }
 
     AccountModel.prototype.setNameFilter = function (value) {
@@ -85,9 +86,6 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.sortByField = function (field) {
-        console.log(field);
-        console.log(this.sorting);
-        
         var fieldName = field.columnKey;
         if (this.sorting.field == fieldName) {
             this.sorting.dir = this.sorting.dir == 'asc' ? 'desc' : 'asc';
@@ -122,7 +120,9 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getAllFields = function () {
         return Q.fcall(function () {
-            var ref = this.columns || this.fakeDatabase.getAllAccountFields().data;
+            var ref = this.allColumns || this.fakeDatabase.getAllAccountFields().data;
+            this.allColumns = ref;
+
             return ref.map(function (k) {
                 return { column: k, enabled: inArray(this.columnKeys, k.columnKey) };
             }.bind(this));
@@ -142,6 +142,7 @@ app.registerModel(function (container) {
         var query = this.queryBuilder.build();
         var queryResult = this.fakeDatabase.getAccounts(query);
         this._mergeOrSave(queryResult);
+        this.queryBuilder.allFields();
 
         return { headers: this.columns, elements: this.data.map(this._mapGatewayInput.bind(this)) };
     };

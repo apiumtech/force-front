@@ -134,19 +134,6 @@ app.registerModel(function (container) {
         return {success: true, data: data, merge: usingQueryFields};
     };
 
-    FakeDatabase.prototype.autocompleteName = function (name) {
-        var data = this.currentAccounts;
-        var lwName = name.toLowerCase();
-
-        return {
-            success: true, data: data.filter(function (v) {
-                return v.name.toLowerCase().indexOf(lwName) != -1;
-            }).map(function (v) {
-                return v.name;
-            })
-        };
-    };
-
     FakeDatabase.prototype.getAvailableFilters = function () {
         return {
             success: true, data: [
