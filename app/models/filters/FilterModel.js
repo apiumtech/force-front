@@ -15,14 +15,14 @@ app.registerModel(function (container) {
     FilterModel.prototype.addFilter = function (filter) {
         return Q.fcall(function () {
             this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; }).concat([filter]);
-            return this._publicVisibleFilters();
+            return this.filters;
         }.bind(this));
     };
 
     FilterModel.prototype.removeFilter = function (filter) {
         return Q.fcall(function () {
             this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; });
-            return this._publicVisibleFilters();
+            return this.filters;
         }.bind(this));
     };
 

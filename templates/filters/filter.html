@@ -36,7 +36,7 @@
         </div>
         <div class="filters-div">
             <table class="filterTable">
-                <tr ng-repeat="filter in data.customFilters">
+                <tr ng-repeat="filter in data.customFilters" ng-if="filter.columnKey != 'responsible.id'">
                     <td><span>{{ filter.name }}:</span></td>
                     <td>
                         <form ng-submit="event.onFilterKeyUp(filter, filter.value)" class="dataTables_filter">
