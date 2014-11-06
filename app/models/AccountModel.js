@@ -119,7 +119,8 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getAllFields = function () {
         return Q.fcall(function () {
-            return this.fakeDatabase.getAllAccountFields().data.map(function (k) {
+            var ref = this.columns || this.fakeDatabase.getAllAccountFields().data;
+            return ref.map(function (k) {
                 return { column: k, enabled: inArray(this.columnKeys, k.columnKey) };
             }.bind(this));
         }.bind(this));
@@ -136,7 +137,6 @@ app.registerModel(function (container) {
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
-        console.log(query);
         var queryResult = this.fakeDatabase.getAccounts(query);
         this._mergeOrSave(queryResult);
 
