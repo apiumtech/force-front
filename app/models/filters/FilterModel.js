@@ -8,8 +8,23 @@ app.registerModel(function (container) {
 
     function FilterModel($fakeDatabase) {
         this.fakeDatabase = $fakeDatabase;
-        this.columns = [];
+        this.filters = [];
+        this.selectedOwners = [];
     }
+
+    FilterModel.prototype.addFilter = function (filter) {
+        return Q.fcall(function () {
+            this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; }).concat([filter]);
+            return this.filters;
+        }.bind(this));
+    };
+
+    FilterModel.prototype.removeFilter = function (filter) {
+        return Q.fcall(function () {
+            this.filters = this.filters.filter(function (k) { return k.columnKey != filter.columnKey; });
+            return this.filters;
+        }.bind(this));
+    };
 
     FilterModel.prototype.getAvailableFilters = function () {
         return Q.fcall(function () {
@@ -19,7 +34,12 @@ app.registerModel(function (container) {
 
     FilterModel.prototype.getAvailableOwners = function (name) {
         return Q.fcall(function () {
-            return this.fakeDatabase.getAvailableOwners(name || "").data;
+            return this.fakeDatabase.getAvailableOwners(name || "").data.map(function (k) {
+                k.selected = this.selectedOwners.filter(function (v) { return v.id == k.id }).length > 0;
+                console.log(k);
+
+                return k;
+            }.bind(this));
         }.bind(this));
     };
 
@@ -27,6 +47,7 @@ app.registerModel(function (container) {
         var objA = this.selectedOwners.filter(function (k) {
             return k.id == owner.id;
         });
+
         if (objA.length > 0) {
             var obj = objA[0];
             obj.selected = !obj.selected;
@@ -43,17 +64,11 @@ app.registerModel(function (container) {
             return self.indexOf(value) === index && value.selected;
         });
 
-        return {
-            set: {
-                    columnKey: "responsible.id",
-                    value: this.selectedOwners.map(function (k) {
-                        return k.id;
-                    })
-                }
-        };
+        var filterValue = this.selectedOwners.map(function (k) { return k.id; });
+        return this.addFilter({ columnKey: "responsible.id", value: filterValue});
     };
 
-    FilterModel.newInstance = function (db, qb) {
+    FilterModel.newInstance = function (db) {
         var database = db || FakeDatabase.newInstance(undefined, Configuration.fakeAccountData).getOrElse(throwException("We could not create a FakeDatabase!!!"));
         return Some(new FilterModel(database));
     };

@@ -10,7 +10,7 @@
                     <li><h6>Available Owners</h6></li>
                     <li class="dataTables_filter"><input type="text" ng-model="data.ownerFilter" ng-click="$event.stopPropagation();" ng-change="event.onShowAvailableOwners(data.ownerFilter);" /></li>
                     <li ng-repeat="owner in data.availableOwners">
-                        <input type="checkbox" ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();" ng-value="owner.selected" />
+                        <input type="checkbox" ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();" ng-checked="owner.selected" />
                         <span>{{ owner.name }} &nbsp; </span>
                     </li>
                 </ul>

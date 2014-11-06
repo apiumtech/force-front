@@ -13,16 +13,13 @@ app.registerPresenter(function (container) {
 
         channel.listen(function (event) {
            if (event.remove) {
-
+                model.removeFilter(event.remove)
+                    .then(view.showFilters.bind(view), view.showError.bind(view));
            }
         });
-        view.event.onNameFilterChanged = function (currentValue) {
-            model.setFilter({columnKey: "name"}, currentValue)
-                .then(channel.send, view.showError.bind(view))
-        };
 
         view.event.onFilterKeyUp = function (name, currentValue) {
-            model.setFilter(name, currentValue)
+            model.addFilter(name, currentValue)
                 .then(channel.send, view.showError.bind(view))
         };
 
@@ -33,18 +30,23 @@ app.registerPresenter(function (container) {
 
         view.event.onAddFilter = function (column) {
             model.addFilter(column, undefined)
-                .then(channel.send, view.showError.bind(view))
                 .then(view.showFilters.bind(view), view.showError.bind(view));
         };
 
         view.event.onRemoveFilter = function (filter) {
             model.removeFilter(filter)
                 .then(channel.send, view.showError.bind(view))
+                .then(view.showFilters.bind(view));
         };
 
         view.event.onToggleOwnerFilter = function (owner) {
             model.toggleOwnerFilter(owner)
                 .then(channel.send, view.showError.bind(view))
+        };
+
+        view.event.onShowAvailableOwners = function (nameFilter) {
+            model.getAvailableOwners(nameFilter)
+                .then(view.showAvailableOwners.bind(view), view.showError.bind(view));
         };
     };
 

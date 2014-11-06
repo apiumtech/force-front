@@ -16,15 +16,15 @@ app.registerPresenter(function (container) {
         };
 
         channel.listen(function (event) {
-            if (event.set) {
-                model.setFilter(event.set)
+            if (!event.remove) {
+                model.setFilters(event)
                     .then(view.showTableData.bind(view), view.showError.bind(view));
             }
         });
 
         /** region table **/
         view.event.onNameFilterChanged = function (value) {
-            model.setFilter({columnKey: "name", value: value})
+            model.setNameFilter(value)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
@@ -38,11 +38,6 @@ app.registerPresenter(function (container) {
 
             model.toggleField(column)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onShowAvailableOwners = function (nameFilter) {
-            model.getAvailableOwners(nameFilter)
-                .then(view.showAvailableOwners.bind(view), view.showError.bind(view));
         };
 
         view.event.onShowAvailableColumns = function () {

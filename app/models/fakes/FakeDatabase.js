@@ -81,7 +81,7 @@ app.registerModel(function (container) {
             data = data.filter(function (element) {
                 var i = 0;
 
-                var validFilters = query.filters.filter(function (k) { return k.columnKey != undefined; });
+                var validFilters = query.filters.filter(function (k) { return k.columnKey != undefined && k.value != undefined; });
                 for (; i < validFilters.length; i++) {
                     var filter = query.filters[i];
                     var key = filter.columnKey;

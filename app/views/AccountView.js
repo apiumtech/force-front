@@ -36,18 +36,6 @@ app.registerView(function (container) {
         this.data.accounts = data.elements;
     };
 
-    AccountView.prototype.showTableDataFilteredByName = function (data) {
-        this.showTableData(data);
-        this.data.autocomplete = [];
-    };
-
-    AccountView.prototype.showTableDataWithoutFilter = function (filter, data) {
-        this.showTableData(data);
-        this.data.customFilters = this.data.customFilters.filter(function (k) {
-            return k.columnKey != filter.columnKey
-        });
-    };
-
     AccountView.prototype.addTableData = function (data) {
         this.data.accounts = this.data.accounts.concat(data.elements);
     };

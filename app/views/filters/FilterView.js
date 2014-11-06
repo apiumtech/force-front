@@ -48,6 +48,10 @@ app.registerView(function (container) {
         this.data.customFilters = filters;
     };
 
+    FilterView.prototype.showError = function (error) {
+        this.data.currentError = error;
+    };
+
     FilterView.newInstance = function ($scope, $model, $presenter) {
         var scope = $scope || {};
         var model = $model || FilterModel.newInstance().getOrElse(throwException("FilterModel could not be instantiated!!"));

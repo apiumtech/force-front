@@ -30,6 +30,11 @@ app.registerService(function (container) {
         return this;
     };
 
+    QueryBuilder.prototype.withoutFilter = function () {
+        this.query.filters = [];
+        return this;
+    };
+
     QueryBuilder.prototype.addField = function (name) {
         if (this.query.fields.indexOf(name) == -1) {
             this.query.fields.push(name);

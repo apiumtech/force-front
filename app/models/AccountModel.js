@@ -58,20 +58,32 @@ app.registerModel(function (container) {
     function AccountModel($fakeDatabase, $queryBuilder) {
         this.fakeDatabase = $fakeDatabase;
         this.queryBuilder = $queryBuilder;
-        this.selectedOwners = [];
         this.sorting = {};
+        this.filterName = "";
     }
 
-    AccountModel.prototype.setFilter = function (filter) {
-        if (filter.value == undefined) {
-            this.queryBuilder.removeFilter(filter.columnKey);
-        } else {
-            this.queryBuilder.setFilter(filter.columnKey, filter.value);
-        }
+    AccountModel.prototype.setNameFilter = function (value) {
+        this.filterName = value || "";
 
+        this.queryBuilder.setFilter("name", this.filterName || "" );
         this.queryBuilder.setPage(0);
         return this.getAccounts();
     };
+
+    AccountModel.prototype.setFilters = function (filters) {
+        this.queryBuilder.withoutFilter();
+
+        (filters || []).forEach(function (filter) {
+            if (filter.value != undefined) {
+                this.queryBuilder.setFilter(filter.columnKey, filter.value);
+            }
+        }.bind(this));
+
+        this.queryBuilder.setFilter("name", this.filterName || "" );
+        this.queryBuilder.setPage(0);
+        return this.getAccounts();
+    };
+
 
     AccountModel.prototype.toggleField = function (column) {
         if (inArray(this.columnKeys, column.columnKey)) {
@@ -163,8 +175,6 @@ app.registerModel(function (container) {
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
-        this.queryBuilder.allFields();
-
         var queryResult = this.fakeDatabase.getAccounts(query);
         mergeOrSave(this, queryResult);
 
