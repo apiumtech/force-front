@@ -7,7 +7,7 @@ describe("AccountPresenter", function () {
     function exerciseCreatePresenter() {
         return AccountPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create AccountPresenter");
     }
-    
+
     [
         { viewEvent: 'onInit', modelMethod: 'getAccounts', onSuccess: 'showTableData', onError: 'showError' },
         { viewEvent: 'onNameFilterChanged', modelMethod: 'setNameFilter', onSuccess: 'showTableData', onError: 'showError' },
@@ -23,8 +23,7 @@ describe("AccountPresenter", function () {
 
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakePromise());
 
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
+                emitEvent(presenter, view, model);
 
                 expect(model[e.modelMethod]).toHaveBeenCalled();
             });
@@ -37,8 +36,7 @@ describe("AccountPresenter", function () {
                 view[e.onSuccess] = jasmine.createSpy();
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakeOkPromise());
 
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
+                emitEvent(presenter, view, model);
 
                 expect(view[e.onSuccess]).toHaveBeenCalled();
             });
@@ -51,8 +49,7 @@ describe("AccountPresenter", function () {
                 view[e.onError] = jasmine.createSpy();
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakeKoPromise());
 
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
+                emitEvent(presenter, view, model);
 
                 expect(view[e.onError]).toHaveBeenCalled();
             });
@@ -71,6 +68,11 @@ describe("AccountPresenter", function () {
                 model[e.modelMethod] = function () {};
 
                 return model;
+            }
+
+            function emitEvent(presenter, view, model) {
+                presenter.show(view, model);
+                view.event[e.viewEvent]();
             }
         });
 });
