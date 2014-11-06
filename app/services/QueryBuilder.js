@@ -55,20 +55,20 @@ app.registerService(function (container) {
         this.query.order.direction = type;
 
         this.query.order.offset = 0;
-        this.query.order.limit = Configuration.defaultPageLimit || 10;
+        this.query.order.limit = this.query.order.limit || Configuration.defaultPageLimit || 2;
 
         return this;
     };
 
     QueryBuilder.prototype.setPage = function (offset, limit) {
         this.query.order.offset = offset;
-        this.query.order.limit = limit || this.query.order.limit;
+        this.query.order.limit = limit || this.query.order.limit || Configuration.defaultPageLimit || 2;
 
         return this;
     };
 
     QueryBuilder.prototype.nextPage = function () {
-        this.query.order.offset += this.query.order.limit;
+        this.query.order.offset += this.query.order.limit || Configuration.defaultPageLimit || 2;
         return this;
     };
 

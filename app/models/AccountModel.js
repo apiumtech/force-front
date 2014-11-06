@@ -136,6 +136,7 @@ app.registerModel(function (container) {
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
+        console.log(query);
         var queryResult = this.fakeDatabase.getAccounts(query);
         this._mergeOrSave(queryResult);
 
