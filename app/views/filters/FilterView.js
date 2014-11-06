@@ -52,15 +52,20 @@ app.registerView(function (container) {
         this.data.currentError = error;
     };
 
-    FilterView.newInstance = function ($scope, $model, $presenter) {
+    FilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || FilterModel.newInstance().getOrElse(throwException("FilterModel could not be instantiated!!"));
         var presenter = $presenter || FilterPresenter.newInstance().getOrElse(throwException("FilterPresenter could not be instantiated!!"));
 
         var view = new FilterView(scope, model, presenter);
 
-        ViewRepaintAspect.weave(view);
-        LogErrorAspect.weave(view);
+        if ($viewRepAspect !== false) {
+            ($viewRepAspect  || ViewRepaintAspect).weave(view);
+        }
+
+        if ($logErrorAspect !== false) {
+            ($logErrorAspect || LogErrorAspect).weave(view);
+        }
 
         return Some(view);
     };

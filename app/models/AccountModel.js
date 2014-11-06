@@ -8,45 +8,6 @@ app.registerModel(function (container) {
     var ObjectMerger = container.getService("services/ObjectMerger").getInstance();
     var QueryBuilder = container.getService('services/QueryBuilder');
 
-    // converts {a: 1, b: 2} / [{name: 'a', value: 1}, {name: 'b', value: 2}]
-    function flatObject(acc, base) {
-        var prefix = (base ? base + "." : "");
-
-        var result = [];
-        for (var i in acc) {
-            if (acc.hasOwnProperty(i)) {
-                var el = acc[i];
-                if (typeof el == "object") {
-                    result = result.concat(flatObject(el, i));
-                } else {
-                    result.push({name: prefix + i, value: el});
-                }
-            }
-        }
-        return result;
-    }
-
-    function sortByPosition(onColumnList) {
-        return function (a, b) {
-            return onColumnList.indexOf(a.name) - onColumnList.indexOf(b.name);
-        };
-    }
-
-    function mergeOrSave(model, response) {
-        if (response.merge) { // merge
-            var result = [];
-            for (var i = 0; i < response.data.length; i++) {
-                var value = ObjectMerger.leftMerge(model.data[i], response.data[i]);
-                result.push(value);
-            }
-
-            model.data = result;
-            return result;
-        } else { // save
-            model.data = response.data;
-        }
-    }
-
     function inArray(array, field) {
         return removeFromArray(array, field).length != array.length;
     }
@@ -176,10 +137,13 @@ app.registerModel(function (container) {
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
         var queryResult = this.fakeDatabase.getAccounts(query);
-        mergeOrSave(this, queryResult);
+        this._mergeOrSave(this, queryResult);
 
-        var data = this.data.map(function (k) { return flatObject(k).sort(sortByPosition(this.columnKeys)) }.bind(this));
-        return { headers: this.columns, elements: data };
+        return { headers: this.columns, elements: this.data.map(this._mapGatewayInput) };
+    };
+
+    AccountModel.prototype._mapGatewayInput = function (gatewayDataObject) {
+        return this._flatObject(k).sort(this._sortByPosition(this.columnKeys));
     };
 
     AccountModel.prototype._setColumnList = function (colList) {
@@ -188,6 +152,45 @@ app.registerModel(function (container) {
         });
 
         this.columns = colList;
+    };
+
+    // converts {a: 1, b: 2} / [{name: 'a', value: 1}, {name: 'b', value: 2}]
+    AccountModel.prototype._flatObject = function (acc, base) {
+        var prefix = (base ? base + "." : "");
+
+        var result = [];
+        for (var i in acc) {
+            if (acc.hasOwnProperty(i)) {
+                var el = acc[i];
+                if (typeof el == "object") {
+                    result = result.concat(this._flatObject(el, i));
+                } else {
+                    result.push({name: prefix + i, value: el});
+                }
+            }
+        }
+        return result;
+    };
+
+    AccountModel.prototype._sortByPosition = function (onColumnList) {
+        return function (a, b) {
+            return onColumnList.indexOf(a.name) - onColumnList.indexOf(b.name);
+        };
+    };
+
+    AccountModel.prototype._mergeOrSave = function (model, response) {
+        if (response.merge) { // merge
+            var result = [];
+            for (var i = 0; i < response.data.length; i++) {
+                var value = ObjectMerger.leftMerge(model.data[i], response.data[i]);
+                result.push(value);
+            }
+
+            model.data = result;
+            return result;
+        } else { // save
+            model.data = response.data;
+        }
     };
 
     AccountModel.newInstance = function (db, qb) {

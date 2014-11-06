@@ -5,9 +5,13 @@ app.registerController(function (container) {
     var FilterView = container.getView("views/filters/FilterView");
 
     function FilterController($scope) {
-        this.view = FilterView.newInstance($scope).getOrElse(throwException("Could not create FilterView!"));
-        this.view.show();
+        FilterController.configureView($scope);
     }
+
+    FilterController.configureView = function ($scope) {
+        this.view = FilterView.newInstance($scope).getOrElse(throwException("Could not create AccountView!"));
+        this.view.show();
+    };
 
     return FilterController;
 });

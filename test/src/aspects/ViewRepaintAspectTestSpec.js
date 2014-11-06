@@ -26,7 +26,6 @@ describe('ViewRepaintAspect', function () {
         ViewRepaintAspect.weave(SomeObject);
 
         var object = new SomeObject();
-
         expect(spy).not.toHaveBeenCalled();
     });
 

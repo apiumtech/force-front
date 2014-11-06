@@ -5,10 +5,11 @@ app.registerService(function (container) {
     var meld = container.getFunction('meld');
 
     return {
+        _log: console.log,
         weave: function (view) {
             meld.before(view, "showError", function (error) {
-                console.log(error.stack);
-            });
+                this._log(error.stack);
+            }.bind(this));
         }
     };
 });

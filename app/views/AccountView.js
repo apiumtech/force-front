@@ -37,7 +37,7 @@ app.registerView(function (container) {
     };
 
     AccountView.prototype.addTableData = function (data) {
-        this.data.accounts = this.data.accounts.concat(data.elements);
+        this.data.accounts = (this.data.accounts || []).concat(data.elements);
     };
 
     AccountView.prototype.showError = function (error) {
@@ -48,15 +48,20 @@ app.registerView(function (container) {
         this.data.currentHiddenColumns = list;
     };
 
-    AccountView.newInstance = function ($scope, $model, $presenter) {
+    AccountView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || AccountModel.newInstance().getOrElse(throwException("AccountModel could not be instantiated!!"));
         var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwException("AccountPresenter could not be instantiated!!"));
 
         var view = new AccountView(scope, model, presenter);
 
-        ViewRepaintAspect.weave(view);
-        LogErrorAspect.weave(view);
+        if ($viewRepAspect !== false) {
+            ($viewRepAspect  || ViewRepaintAspect).weave(view);
+        }
+
+        if ($logErrorAspect !== false) {
+            ($logErrorAspect || LogErrorAspect).weave(view);
+        }
 
         return Some(view);
     };
