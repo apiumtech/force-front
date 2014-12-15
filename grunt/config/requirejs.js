@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         compile: {
             options: {
                 baseUrl: './',
-                mainConfigFile: 'require.cfg.js',
+                mainConfigFile: 'require.build-cfg.js',
                 name: 'app/main.js',
                 out: 'build/force-manager.min.js',
                 optimize: 'none'
