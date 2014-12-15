@@ -1,5 +1,5 @@
 var require = {
-    'baseUrl': '/app',
+    'baseUrl': 'app/',
     'paths': {
         'lodash': '/node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
