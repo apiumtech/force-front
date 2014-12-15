@@ -1,26 +1,28 @@
-module.exports = function (grunt) {
-    // region tasks
-    require('load-grunt-tasks')(grunt);
-    grunt.loadNpmTasks('grunt-karma');
-    // endregion
+module.exports = function(grunt) {
+    'use strict';
 
-    grunt.initConfig({
-        karma: {
-            unit: {
-                configFile: 'test/karma.conf.js'
-            },
-            //continuous integration mode: run tests once in PhantomJS browser.
-            continuous: {
-                configFile: 'test/karma.conf.js',
-                singleRun: true
-            }
-        },
-        shell: {
-            config: {
-                command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git force-design; fi'
-            }
-        }
+    var config = {
+        pkg: grunt.file.readJSON('package.json'),
+        tmpDir: 'build/tmp',
+        tmpSrcDir: 'src'
+    };
+
+    grunt.initConfig(config);
+
+    // Read config files from the `grunt/config/` folder
+    grunt.file.expand('grunt/config/*.js').forEach(function (path) {
+        var property = /grunt\/config\/(.+)\.js/.exec(path)[1],
+        module = require('./' + path);
+        config[property] = typeof module === 'function' ? module(grunt) : module;
     });
 
-    grunt.registerTask('default', ['shell']);
+    // Load development dependencies specified in package.json
+    for (var dependency in config.pkg.devDependencies) {
+        if (/^grunt-/.test(dependency)) {
+            grunt.loadNpmTasks(dependency);
+        }
+    }
+
+    // Load tasks from the `grunt-tasks/` folder
+    grunt.loadTasks('grunt/tasks');
 };
