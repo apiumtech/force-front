@@ -14,8 +14,13 @@ module.exports = function (grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
+        },
+        shell: {
+            config: {
+                command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git force-design; fi'
+            }
         }
     });
 
-    grunt.registerTask('default', []);
+    grunt.registerTask('default', ['shell']);
 };
