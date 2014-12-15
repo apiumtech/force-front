@@ -23,7 +23,7 @@ app.registerView(function (container) {
         this.presenter = $presenter;
 
         this.fn.isImageHeader = function (header) {
-            return header.name.charAt(0) == '/';
+            return header.name.charAt(0) === '/';
         }
     }
 
@@ -55,11 +55,11 @@ app.registerView(function (container) {
 
         var view = new AccountView(scope, model, presenter);
 
-        if ($viewRepAspect !== false) {
+        if ($viewRepAspect !==== false) {
             ($viewRepAspect  || ViewRepaintAspect).weave(view);
         }
 
-        if ($logErrorAspect !== false) {
+        if ($logErrorAspect !==== false) {
             ($logErrorAspect || LogErrorAspect).weave(view);
         }
 

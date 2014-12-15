@@ -9,11 +9,11 @@ app.registerModel(function (container) {
     var QueryBuilder = container.getService('services/QueryBuilder');
 
     function inArray(array, field) {
-        return removeFromArray(array, field).length != array.length;
+        return removeFromArray(array, field).length !== array.length;
     }
 
     function removeFromArray(array, field) {
-        return array.filter(function (k) { return k != field; });
+        return array.filter(function (k) { return k !== field; });
     }
 
     function AccountModel($fakeDatabase, $queryBuilder) {
@@ -36,7 +36,7 @@ app.registerModel(function (container) {
         this.queryBuilder.withoutFilter();
 
         (filters || []).forEach(function (filter) {
-            if (filter.value != undefined) {
+            if (filter.value !== undefined) {
                 this.queryBuilder.setFilter(filter.columnKey, filter.value);
             }
         }.bind(this));
@@ -87,8 +87,8 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.sortByField = function (field) {
         var fieldName = field.columnKey;
-        if (this.sorting.field == fieldName) {
-            this.sorting.dir = this.sorting.dir == 'asc' ? 'desc' : 'asc';
+        if (this.sorting.field === fieldName) {
+            this.sorting.dir = this.sorting.dir === 'asc' ? 'desc' : 'asc';
         } else {
             this.sorting.field = fieldName;
             this.sorting.dir = 'asc';
@@ -96,7 +96,7 @@ app.registerModel(function (container) {
 
         var dir = this.sorting.dir;
         this.columns.forEach(function (k) {
-           if (k.columnKey == field.columnKey) {
+           if (k.columnKey === field.columnKey) {
                k.sorting = dir;
            } else {
                delete k.sorting;
@@ -130,7 +130,7 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.getAccounts = function () {
-        if (this.columns == null) {
+        if (this.columns === null) {
             return this.getCurrentFields()
                 .then(this._queryData.bind(this));
         } else {
@@ -167,7 +167,7 @@ app.registerModel(function (container) {
         for (var i in acc) {
             if (acc.hasOwnProperty(i)) {
                 var el = acc[i];
-                if (typeof el == "object") {
+                if (typeof el === "object") {
                     result = result.concat(this._flatObject(el, i));
                 } else {
                     result.push({name: prefix + i, value: el});

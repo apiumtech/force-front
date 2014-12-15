@@ -12,7 +12,7 @@ app.registerService(function (container) {
 
     QueryBuilder.prototype.setFilter = function (name, value) {
         this.query.filters =
-            this.query.filters.filter(function (k) { return k.columnKey != name; })
+            this.query.filters.filter(function (k) { return k.columnKey !== name; })
                 .concat([{columnKey: name, value: value}]);
 
         return this;
@@ -20,7 +20,7 @@ app.registerService(function (container) {
 
     QueryBuilder.prototype.removeFilter = function (name) {
         this.query.filters =
-            this.query.filters.filter(function (k) { return k.columnKey != name; });
+            this.query.filters.filter(function (k) { return k.columnKey !== name; });
 
         return this;
     };
@@ -36,7 +36,7 @@ app.registerService(function (container) {
     };
 
     QueryBuilder.prototype.addField = function (name) {
-        if (this.query.fields.indexOf(name) == -1) {
+        if (this.query.fields.indexOf(name) === -1) {
             this.query.fields.push(name);
         }
 
@@ -45,7 +45,7 @@ app.registerService(function (container) {
 
     QueryBuilder.prototype.removeField = function (name) {
         this.query.fields =
-            this.query.fields.filter(function (k) { return k != name; });
+            this.query.fields.filter(function (k) { return k !== name; });
 
         return this;
     };

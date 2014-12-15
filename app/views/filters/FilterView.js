@@ -59,11 +59,11 @@ app.registerView(function (container) {
 
         var view = new FilterView(scope, model, presenter);
 
-        if ($viewRepAspect !== false) {
+        if ($viewRepAspect !==== false) {
             ($viewRepAspect  || ViewRepaintAspect).weave(view);
         }
 
-        if ($logErrorAspect !== false) {
+        if ($logErrorAspect !==== false) {
             ($logErrorAspect || LogErrorAspect).weave(view);
         }
 

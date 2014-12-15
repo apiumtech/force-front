@@ -3,11 +3,11 @@
  */
 app.registerModel(function (container) {
     function accessToPath(object, dotPath) {
-        if (object == null) {
+        if (object === null) {
             return null;
         }
 
-        if (dotPath.indexOf('.') != -1) {
+        if (dotPath.indexOf('.') !== -1) {
             var plot = dotPath.split('.', 1);
             return accessToPath(object[plot[0]], dotPath.substring(plot[0].length + 1));
         } else {
@@ -16,20 +16,20 @@ app.registerModel(function (container) {
     }
 
     function writeToPath(object, dotPath, value) {
-        if (object == null) {
+        if (object === null) {
             return null;
         }
 
-        if (dotPath.indexOf('.') != -1) {
+        if (dotPath.indexOf('.') !== -1) {
             var plot = dotPath.split('.', 1);
 
-            if (object[plot[0]] == null) {
+            if (object[plot[0]] === null) {
                 object[plot[0]] = {};
             }
 
             writeToPath(object[plot[0]], dotPath.substring(plot[0].length + 1), value);
         } else {
-            if (object[dotPath] == null) {
+            if (object[dotPath] === null) {
                 object[dotPath] = {};
             }
 
@@ -51,7 +51,7 @@ app.registerModel(function (container) {
     function FakeDatabase($currentFields, $currentAccounts, $currentOwners) {
         this.allFields = $currentFields.slice(0);
 
-        this.currentFields = $currentFields.slice(0).filter(function (k) { return k.columnKey != 'imgUrl' });
+        this.currentFields = $currentFields.slice(0).filter(function (k) { return k.columnKey !== 'imgUrl' });
         this.currentAccounts = $currentAccounts.slice(0);
         this.currentOwners = $currentOwners.slice(0);
     }
@@ -70,7 +70,7 @@ app.registerModel(function (container) {
 
     FakeDatabase.prototype.deleteAccountField = function (columnKey) {
         this.currentFields = this.currentFields.filter(function (k) {
-            return k.columnKey != columnKey;
+            return k.columnKey !== columnKey;
         });
     };
 
@@ -81,18 +81,18 @@ app.registerModel(function (container) {
             data = data.filter(function (element) {
                 var i = 0;
 
-                var validFilters = query.filters.filter(function (k) { return k.columnKey != undefined && k.value != undefined; });
+                var validFilters = query.filters.filter(function (k) { return k.columnKey !== undefined && k.value !== undefined; });
                 for (; i < validFilters.length; i++) {
                     var filter = query.filters[i];
                     var key = filter.columnKey;
                     var value = filter.value;
 
                     var data = accessToPath(element, key);
-                    if (Object.prototype.toString.call(value) == "[object Array]") {
-                        var found = value.length == 0;
+                    if (Object.prototype.toString.call(value) === "[object Array]") {
+                        var found = value.length === 0;
                         for (var j = 0; j < value.length; j++) {
                             var valueUnionVal = value[j];
-                            if (data == valueUnionVal) {
+                            if (data === valueUnionVal) {
                                 found = true;
                                 break;
                             }
@@ -100,8 +100,8 @@ app.registerModel(function (container) {
                         if (!found) {
                             return false;
                         }
-                    } else if (value != undefined) {
-                        if (data.toLowerCase().indexOf(value.toLowerCase()) == -1) {
+                    } else if (value !== undefined) {
+                        if (data.toLowerCase().indexOf(value.toLowerCase()) === -1) {
                             return false;
                         }
                     }
@@ -116,8 +116,8 @@ app.registerModel(function (container) {
             var bField = accessToPath(b, query.order.field);
             var direction = query.order.direction;
 
-            var multiplier = direction == "asc" ? 1 : -1;
-            if (typeof aField == "string" && typeof bField == "string") {
+            var multiplier = direction === "asc" ? 1 : -1;
+            if (typeof aField === "string" && typeof bField === "string") {
                 return aField.localeCompare(bField) * multiplier;
             } else {
                 return (aField - bField) * multiplier;
@@ -148,7 +148,7 @@ app.registerModel(function (container) {
         var data = this.currentOwners;
         return {
             success: true, data: data.filter(function (k) {
-                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) !== -1;
             })
         };
     };

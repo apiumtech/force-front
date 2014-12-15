@@ -15,7 +15,7 @@ app.registerService(function (container) {
         });
 
         allKeys.forEach(function (key) {
-            if (typeof b[key] == "object") {
+            if (typeof b[key] === "object") {
                 if (deep) {
                     result[key] = this.leftMerge(a[key], b[key]);
                 } else {
