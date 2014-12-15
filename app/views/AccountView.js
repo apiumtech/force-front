@@ -55,16 +55,16 @@ app.registerView(function (container) {
 
         var view = new AccountView(scope, model, presenter);
 
-        if ($viewRepAspect !==== false) {
-            ($viewRepAspect  || ViewRepaintAspect).weave(view);
+        if ($viewRepAspect !== false) {
+            ($viewRepAspect || ViewRepaintAspect).weave(view);
         }
 
-        if ($logErrorAspect !==== false) {
+        if ($logErrorAspect !== false) {
             ($logErrorAspect || LogErrorAspect).weave(view);
         }
 
         return Some(view);
     };
 
-    return { newInstance: AccountView.newInstance };
+    return {newInstance: AccountView.newInstance};
 });

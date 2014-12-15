@@ -13,7 +13,7 @@ app.registerService(function (container) {
     };
 
     AuthAjaxService.newInstance = function ($underlyingAjaxService) {
-      return Some($underlyingAjaxService || new DelegateAjaxService());
+        return Some($underlyingAjaxService || new DelegateAjaxService());
     };
 
     return AuthAjaxService;

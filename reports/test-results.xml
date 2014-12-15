@@ -1,28 +1,24 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.8 (Linux)" package="" timestamp="2014-12-15T16:13:42" id="0" hostname="kevin-debian" tests="75" errors="0" failures="0" time="0.021">
+  <testsuite name="PhantomJS 1.9.8 (Linux)" package="" timestamp="2014-12-15T16:34:37" id="0" hostname="kevin-debian" tests="75" errors="0" failures="0" time="0.022">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
     </properties>
     <testcase name="should call the _log function after running showError" time="0.003" classname="PhantomJS 1.9.8 (Linux).LogErrorAspect"/>
     <testcase name="should call the $apply function on a constructor" time="0" classname="PhantomJS 1.9.8 (Linux).LogErrorAspect"/>
-    <testcase name="should call the $apply function after running some public method" time="0" classname="PhantomJS 1.9.8 (Linux).ViewRepaintAspect"/>
+    <testcase name="should call the $apply function after running some public method" time="0.001" classname="PhantomJS 1.9.8 (Linux).ViewRepaintAspect"/>
     <testcase name="should call the $apply function on a constructor" time="0" classname="PhantomJS 1.9.8 (Linux).ViewRepaintAspect"/>
     <testcase name="should call the $apply function on a method that starts with a uppercase letter" time="0" classname="PhantomJS 1.9.8 (Linux).ViewRepaintAspect"/>
     <testcase name="should not call the $apply function after running some private method" time="0" classname="PhantomJS 1.9.8 (Linux).ViewRepaintAspect"/>
-    <testcase name="should call AccountController.configureView global method" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountController"/>
+    <testcase name="should call AccountController.configureView global method" time="0" classname="PhantomJS 1.9.8 (Linux).AccountController"/>
     <testcase name="should call FilterController.configureView global method" time="0" classname="PhantomJS 1.9.8 (Linux).FilterController"/>
-    <testcase name="should flat an object as an array" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
-    <testcase name="should sort a flatted object by a template" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
-    <testcase name="should save data as is if not merged" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
-    <testcase name="should merge data" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
     <testcase name="should call the model method getAccounts on onInit" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showTableData when getAccounts finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call showError when getAccounts failed" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call the model method setNameFilter on onNameFilterChanged" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call showTableData when setNameFilter finished OK" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call showError when getAccounts failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call the model method setNameFilter on onNameFilterChanged" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call showTableData when setNameFilter finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showError when setNameFilter failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call the model method sortByField on onSort" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call the model method sortByField on onSort" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showTableData when sortByField finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showError when sortByField failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call the model method toggleField on onToggleColumn" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
@@ -30,55 +26,59 @@
     <testcase name="should call showError when toggleField failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call the model method getAllFields on onShowAvailableColumns" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showColumnList when getAllFields finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call showError when getAllFields failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call showError when getAllFields failed" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call the model method nextPage on onAccountsNextPage" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call addTableData when nextPage finished OK" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
+    <testcase name="should call addTableData when nextPage finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
     <testcase name="should call showError when nextPage failed" time="0" classname="PhantomJS 1.9.8 (Linux).AccountPresenter"/>
-    <testcase name="should call the model method addFilter on onFilterKeyUp" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
+    <testcase name="should flat an object as an array" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
+    <testcase name="should sort a flatted object by a template" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
+    <testcase name="should save data as is if not merged" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
+    <testcase name="should merge data" time="0" classname="PhantomJS 1.9.8 (Linux).AccountModel"/>
+    <testcase name="should return a default table fields list" time="0.001" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should register a new column in the table fields list" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should delete an existing column in the table fields list" time="0.001" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should get a basic response of a element" time="0.001" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should get a basic response of a element" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should get a basic response of a element" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
+    <testcase name="should call the model method addFilter on onFilterKeyUp" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call * when addFilter finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when addFilter failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
-    <testcase name="should call the model method getAvailableFilters on onShowAvailableFilters" time="0.002" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
+    <testcase name="should call the model method getAvailableFilters on onShowAvailableFilters" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showAvailableFilters when getAvailableFilters finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when getAvailableFilters failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call the model method addFilter on onAddFilter" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
-    <testcase name="should call showFilters when addFilter finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
+    <testcase name="should call showFilters when addFilter finished OK" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when addFilter failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call the model method removeFilter on onRemoveFilter" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showFilters when removeFilter finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when removeFilter failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
-    <testcase name="should call the model method toggleOwnerFilter on onToggleOwnerFilter" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
+    <testcase name="should call the model method toggleOwnerFilter on onToggleOwnerFilter" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call * when toggleOwnerFilter finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when toggleOwnerFilter failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
-    <testcase name="should call the model method getAvailableOwners on onShowAvailableOwners" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
+    <testcase name="should call the model method getAvailableOwners on onShowAvailableOwners" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showAvailableOwners when getAvailableOwners finished OK" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
     <testcase name="should call showError when getAvailableOwners failed" time="0" classname="PhantomJS 1.9.8 (Linux).FilterPresenter"/>
-    <testcase name="should respond to events in a subscribed channel" time="0.001" classname="PhantomJS 1.9.8 (Linux).EventBus"/>
-    <testcase name="should not catch events on different subscriptions" time="0" classname="PhantomJS 1.9.8 (Linux).EventBus"/>
     <testcase name="should merge two objects literally" time="0" classname="PhantomJS 1.9.8 (Linux).ObjectMerger"/>
     <testcase name="should merge two objects deeply" time="0.001" classname="PhantomJS 1.9.8 (Linux).ObjectMerger"/>
-    <testcase name="should merge two objects with the left side as the priority" time="0" classname="PhantomJS 1.9.8 (Linux).ObjectMerger"/>
-    <testcase name="should return a default table fields list" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should register a new column in the table fields list" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should delete an existing column in the table fields list" time="0.001" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should get a basic response of a element" time="0" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should get a basic response of a element" time="0.003" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should get a basic response of a element" time="0.001" classname="PhantomJS 1.9.8 (Linux).FakeDatabase"/>
-    <testcase name="should call presenter&apos;s show method on show()" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView"/>
+    <testcase name="should merge two objects with the left side as the priority" time="0.003" classname="PhantomJS 1.9.8 (Linux).ObjectMerger"/>
+    <testcase name="should call presenter&apos;s show method on show()" time="0.001" classname="PhantomJS 1.9.8 (Linux).AccountView"/>
     <testcase name="should assign the headers field" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView showTableData behaviour"/>
     <testcase name="should assign the elements field" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView showTableData behaviour"/>
     <testcase name="showTableData behaviour should add to the elements field" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView"/>
     <testcase name="showError should set the correct message" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView"/>
     <testcase name="showColumnList should set a list of columns" time="0" classname="PhantomJS 1.9.8 (Linux).AccountView"/>
-    <testcase name="should call presenter&apos;s show method on show()" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterView"/>
+    <testcase name="should call presenter&apos;s show method on show()" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView"/>
     <testcase name="should assign the showAvailableFilters field to true" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showAvailableFilters behaviour"/>
     <testcase name="should assign the availableFilters field" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showAvailableFilters behaviour"/>
-    <testcase name="should assign the showAvailableFilters field to true" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterView showFilters behaviour"/>
+    <testcase name="should assign the showAvailableFilters field to true" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showFilters behaviour"/>
     <testcase name="should assign the availableFilters field to an empty array" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showFilters behaviour"/>
     <testcase name="should assign the customFilters field" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showFilters behaviour"/>
     <testcase name="should assign the showAvailableOwners field to true" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showAvailableOwners behaviour"/>
     <testcase name="should assign the availableOwners field" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView showAvailableOwners behaviour"/>
     <testcase name="showCustomFilters should assign the customFilters field" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView"/>
-    <testcase name="shouldError should assign the currentError field" time="0" classname="PhantomJS 1.9.8 (Linux).FilterView"/>
+    <testcase name="shouldError should assign the currentError field" time="0.001" classname="PhantomJS 1.9.8 (Linux).FilterView"/>
+    <testcase name="should respond to events in a subscribed channel" time="0" classname="PhantomJS 1.9.8 (Linux).EventBus"/>
+    <testcase name="should not catch events on different subscriptions" time="0.001" classname="PhantomJS 1.9.8 (Linux).EventBus"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

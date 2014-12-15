@@ -13,7 +13,9 @@ app.registerModel(function (container) {
     }
 
     function removeFromArray(array, field) {
-        return array.filter(function (k) { return k !== field; });
+        return array.filter(function (k) {
+            return k !== field;
+        });
     }
 
     function AccountModel($fakeDatabase, $queryBuilder) {
@@ -27,7 +29,7 @@ app.registerModel(function (container) {
     AccountModel.prototype.setNameFilter = function (value) {
         this.filterName = value || "";
 
-        this.queryBuilder.setFilter("name", this.filterName || "" );
+        this.queryBuilder.setFilter("name", this.filterName || "");
         this.queryBuilder.setPage(0);
         return this.getAccounts();
     };
@@ -41,7 +43,7 @@ app.registerModel(function (container) {
             }
         }.bind(this));
 
-        this.queryBuilder.setFilter("name", this.filterName || "" );
+        this.queryBuilder.setFilter("name", this.filterName || "");
         this.queryBuilder.setPage(0);
         return this.getAccounts();
     };
@@ -96,11 +98,11 @@ app.registerModel(function (container) {
 
         var dir = this.sorting.dir;
         this.columns.forEach(function (k) {
-           if (k.columnKey === field.columnKey) {
-               k.sorting = dir;
-           } else {
-               delete k.sorting;
-           }
+            if (k.columnKey === field.columnKey) {
+                k.sorting = dir;
+            } else {
+                delete k.sorting;
+            }
         });
 
         this.queryBuilder.setOrder(this.sorting.field, this.sorting.dir);
@@ -124,7 +126,7 @@ app.registerModel(function (container) {
             this.allColumns = ref;
 
             return ref.map(function (k) {
-                return { column: k, enabled: inArray(this.columnKeys, k.columnKey) };
+                return {column: k, enabled: inArray(this.columnKeys, k.columnKey)};
             }.bind(this));
         }.bind(this));
     };
@@ -144,7 +146,7 @@ app.registerModel(function (container) {
         this._mergeOrSave(queryResult);
         this.queryBuilder.allFields();
 
-        return { headers: this.columns, elements: this.data.map(this._mapGatewayInput.bind(this)) };
+        return {headers: this.columns, elements: this.data.map(this._mapGatewayInput.bind(this))};
     };
 
     AccountModel.prototype._mapGatewayInput = function (gatewayDataObject) {

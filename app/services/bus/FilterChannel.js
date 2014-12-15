@@ -12,5 +12,5 @@ app.registerService(function (container) {
         return Some(EventBus.createChannel("LocalTableFilter", tableName || "Global"));
     };
 
-    return { newInstance: FilterChannel.newInstance };
+    return {newInstance: FilterChannel.newInstance};
 });

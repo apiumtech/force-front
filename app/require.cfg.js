@@ -20,12 +20,12 @@ var require = {
         },
 
         'infinite-scroll': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'infinite-scroll'
         },
 
         'angular-route': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'angular-route'
         },
 

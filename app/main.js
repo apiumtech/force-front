@@ -10,14 +10,14 @@ function main() {
         $routeProvider.otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
     }
 
-    AngularConfig.$inject = [ '$routeProvider' ];
+    AngularConfig.$inject = ['$routeProvider'];
 
     /** Application Building **/
-     app = ApplicationFactory.newRequireApplication("RequireJS")
-        .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [ 'ngRoute', 'infinite-scroll' ], AngularConfig));
+    app = ApplicationFactory.newRequireApplication("RequireJS")
+        .composedWith(ApplicationFactory.newAngularApplication('AngularApp', ['ngRoute', 'infinite-scroll'], AngularConfig));
 
     app.manifest = {
-        authors: [ 'apiumtech' ],
+        authors: ['apiumtech'],
         version: 0.1,
         src: [
             'Configuration',

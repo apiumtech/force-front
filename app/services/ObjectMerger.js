@@ -2,9 +2,9 @@
  * Created by kevin on 10/30/14.
  */
 app.registerService(function (container) {
-   function ObjectMerger() {
+    function ObjectMerger() {
 
-   }
+    }
 
     ObjectMerger.prototype.leftMerge = function (a, b, deep) {
         deep = deep || true;
@@ -19,7 +19,7 @@ app.registerService(function (container) {
                 if (deep) {
                     result[key] = this.leftMerge(a[key], b[key]);
                 } else {
-                    result[key] = a[key] || b[key] ;
+                    result[key] = a[key] || b[key];
                 }
             } else {
                 result[key] = a[key] || b[key];
@@ -34,5 +34,9 @@ app.registerService(function (container) {
     };
 
     var instance = new ObjectMerger();
-    return { getInstance: function () { return instance; }};
+    return {
+        getInstance: function () {
+            return instance;
+        }
+    };
 });

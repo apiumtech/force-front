@@ -16,5 +16,5 @@ app.registerService(function (container) {
         return Some(new AjaxService());
     };
 
-    return { newInstance: AjaxService.newInstance };
+    return {newInstance: AjaxService.newInstance};
 });

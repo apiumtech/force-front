@@ -35,7 +35,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onToggleColumn = function (column) {
-            channel.send({ remove: column });
+            channel.send({remove: column});
 
             model.toggleField(column)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
@@ -59,5 +59,5 @@ app.registerPresenter(function (container) {
         return Some(new AccountPresenter(filterChannel));
     };
 
-    return { newInstance: AccountPresenter.newInstance };
+    return {newInstance: AccountPresenter.newInstance};
 });

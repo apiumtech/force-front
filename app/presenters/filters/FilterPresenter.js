@@ -12,10 +12,10 @@ app.registerPresenter(function (container) {
         var channel = this.filterChannel;
 
         channel.listen(function (event) {
-           if (event.remove) {
+            if (event.remove) {
                 model.removeFilter(event.remove)
                     .then(view.showFilters.bind(view), view.showError.bind(view));
-           }
+            }
         });
 
         view.event.onFilterKeyUp = function (name, currentValue) {
