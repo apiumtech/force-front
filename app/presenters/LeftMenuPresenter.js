@@ -9,8 +9,7 @@ app.registerPresenter(function (container) {
         this.filterChannel = filterEventChannel;
     }
 
-    LeftMenuPresenter.prototype.show = function (view, model) {
-        var channel = this.filterChannel;
+    LeftMenuPresenter.prototype.show = function (view) {
 
         view.event.onInit = function () {
             console.log('init left menu');
