@@ -21,7 +21,7 @@ app.registerView(function (container) {
         if (element.slideToggle) element.slideToggle(250);
     };
 
-    LeftMenuView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    LeftMenuView.newInstance = function ($scope, $presenter) {
         var scope = $scope || {};
         var presenter = $presenter || LeftMenuPresenter.newInstance().getOrElse(throwException("LeftMenuPresenter could not be instantiated!!"));
 

@@ -5,7 +5,7 @@ describe("LeftMenuView", function () {
     var LeftMenuView = app.getView('views/LeftMenuView');
 
     function exerciseCreateView(presenter) {
-        return LeftMenuView.newInstance({}, {}, presenter || {
+        return LeftMenuView.newInstance({}, presenter || {
             show: function () {
             }
         }, false, false).getOrElse(throwException("Could not create LeftMenuView!"));
