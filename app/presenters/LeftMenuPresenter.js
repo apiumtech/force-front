@@ -3,10 +3,8 @@
  */
 
 app.registerPresenter(function (container) {
-    var FilterChannel = container.getService('services/bus/FilterChannel');
 
-    function LeftMenuPresenter(filterEventChannel) {
-        this.filterChannel = filterEventChannel;
+    function LeftMenuPresenter() {
     }
 
     LeftMenuPresenter.prototype.show = function (view) {
@@ -20,9 +18,8 @@ app.registerPresenter(function (container) {
         };
     };
 
-    LeftMenuPresenter.newInstance = function ($filterChannel) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
-        return Some(new LeftMenuPresenter(filterChannel));
+    LeftMenuPresenter.newInstance = function () {
+        return Some(new LeftMenuPresenter());
     };
 
     return {newInstance: LeftMenuPresenter.newInstance};

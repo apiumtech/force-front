@@ -4,8 +4,6 @@
 
 app.registerView(function (container) {
     var LeftMenuPresenter = container.getPresenter('presenters/LeftMenuPresenter');
-    var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
-    var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
     function LeftMenuView($scope, $presenter) {
         this.event = {};
@@ -28,14 +26,6 @@ app.registerView(function (container) {
         var presenter = $presenter || LeftMenuPresenter.newInstance().getOrElse(throwException("LeftMenuPresenter could not be instantiated!!"));
 
         var view = new LeftMenuView(scope, presenter);
-
-        if ($viewRepAspect !== false) {
-            ($viewRepAspect || ViewRepaintAspect).weave(view);
-        }
-
-        if ($logErrorAspect !== false) {
-            ($logErrorAspect || LogErrorAspect).weave(view);
-        }
 
         return Some(view);
     };
