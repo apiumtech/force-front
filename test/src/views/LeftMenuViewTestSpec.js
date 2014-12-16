@@ -24,7 +24,7 @@ describe("LeftMenuView", function () {
         e.setAttribute("class", "sub-menu");
         document.getElementsByTagName('body')[0].appendChild(e);
 
-        view.toggleAnalyticsSubmenu(e);
+        view.fn.toggleAnalyticsSubmenu(e);
         expect(e.style.display).toEqual('');
     });
 });

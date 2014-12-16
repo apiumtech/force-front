@@ -4,7 +4,7 @@
         <!-- begin sidebar user -->
         <ul class="nav">
             <!-- begin sidebar minify button -->
-            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify" ng-click="fn.toggleSideBar()"><i class="fa fa-angle-double-left"></i></a></li>
             <!-- end sidebar minify button -->
         </ul>
         <!-- end sidebar user -->
@@ -22,7 +22,7 @@
             <li><a href="documents.html"><i class="fa icon-doc"></i> <span>Documents</span></a></li>
             <li><a href="activity.html"><i class="fa icon-activity"></i> <span>Activity</span></a></li>
 
-            <li class="has-sub" ng-click="event.onToggleSubMenu('.sub-menu')">
+            <li class="has-sub" ng-click="fn.toggleAnalyticsSubmenu('.sub-menu')">
                 <a href="javascript:;" >
                     <b class="caret pull-right"></b>
                     <i class="fa icon-chart-bar"></i>

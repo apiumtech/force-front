@@ -8,13 +8,8 @@ app.registerPresenter(function (container) {
     }
 
     LeftMenuPresenter.prototype.show = function (view) {
-
         view.event.onInit = function () {
             console.log('init left menu');
-        };
-
-        view.event.onToggleSubMenu = function (target) {
-            view.toggleAnalyticsSubmenu(target);
         };
     };
 
