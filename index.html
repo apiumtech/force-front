@@ -21,10 +21,11 @@
 <body>
     <div class="fade page-sidebar-fixed page-header-fixed in">
         <ng-include src="'templates/topMenu.html'"></ng-include>
-        <ng-include src="'templates/leftMenu.html'"></ng-include>
+        <ng-include src="'templates/leftMenu.html'" ng-controller="LeftMenuController"></ng-include>
         <div class="content" ng-view></div>
     </div>
 </body>
 <script src="assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
 <script src="assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+</body>
 </html>
