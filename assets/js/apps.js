@@ -1,8 +1,8 @@
 /*   
 Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
-Version: 1.3.0
+Version: 1.4.0
 Author: Sean Ngu
-Website: http://www.seantheme.com/color-admin-v1.3/
+Website: http://www.seantheme.com/color-admin-v1.4/
     ----------------------------
         APPS CONTENT TABLE
     ----------------------------
@@ -40,7 +40,16 @@ var handleSlimScroll = function() {
 var generateSlimScroll = function(element) {
     var dataHeight = $(element).attr('data-height');
         dataHeight = (!dataHeight) ? $(element).height() : dataHeight;
-    $(element).slimScroll({height: dataHeight, alwaysVisible: true});
+    
+    var scrollBarOption = {
+        height: dataHeight, 
+        alwaysVisible: true
+    };
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        scrollBarOption.wheelStep = 1;
+        scrollBarOption.touchScrollStep = 100;
+    }
+    $(element).slimScroll(scrollBarOption);
 };
 
 
@@ -70,7 +79,7 @@ var handleSidebarMenu = function() {
 ------------------------------------------------ */
 var handleMobileSidebarToggle = function() {
     var sidebarProgress = false;
-    $('.sidebar').click(function(e) {
+    $('.sidebar').on('click touchstart', function(e) {
         if ($(e.target).closest('.sidebar').length !== 0) {
             sidebarProgress = true;
         } else {
@@ -78,7 +87,7 @@ var handleMobileSidebarToggle = function() {
             e.stopPropagation();
         }
     });
-    $(document).click(function(e) {
+    $(document).on('click touchstart', function(e) {
         if ($(e.target).closest('.sidebar').length === 0) {
             sidebarProgress = false;
         }
@@ -153,10 +162,8 @@ var handleSidebarMinify = function() {
 ------------------------------------------------ */
 var handlePageContentView = function() {
   "use strict";
-  $(window).load(function() {
-      $.when($('#page-loader').addClass('hide')).done(function() {
-        $('#page-container').addClass('in');
-      });
+  $.when($('#page-loader').addClass('hide')).done(function() {
+    $('#page-container').addClass('in');
   });
 };
 
@@ -243,7 +250,7 @@ var handlePanelAction = function() {
         } else {
             $('body').addClass('panel-expand');
             $(this).closest('.panel').addClass('panel-expand');
-            $('[class*=col]').sortable('disable');
+            $('[class*=no-sortable]').sortable('disable');
         }
         $(window).trigger('resize');
     });
@@ -254,7 +261,7 @@ var handlePanelAction = function() {
 ------------------------------------------------ */
 var handleDraggablePanel = function() {
   "use strict";
-  var target = '[class*=col]';
+  var target = '[class*=drag-target]';
   var targetHandle = '.panel-heading';
   var connectedTarget = '.row > [class*=col]';
   
@@ -370,8 +377,21 @@ var handleThemePageStructureControl = function() {
         } else {
             $('#page-container').removeClass('page-sidebar-fixed');
             if ($('.sidebar .slimScrollDiv').length !== 0) {
-                $('.sidebar [data-scrollbar="true"]').slimScroll({destroy: true});
-                $('.sidebar [data-scrollbar="true"]').removeAttr('style');
+                if ($(window).width() <= 979) {
+                    $('.sidebar').each(function() {
+                        if (!($('#page-container').hasClass('page-with-two-sidebar') && $(this).hasClass('sidebar-right'))) {
+                            $(this).find('.slimScrollBar').remove();
+                            $(this).find('.slimScrollRail').remove();
+                            $(this).find('[data-scrollbar="true"]').removeAttr('style');
+                            var targetElement = $(this).find('[data-scrollbar="true"]').parent();
+                            var targetHtml = $(targetElement).html();
+                            $(targetElement).replaceWith(targetHtml);
+                        }
+                    });
+                } else if ($(window).width() > 979) {
+                    $('.sidebar [data-scrollbar="true"]').slimScroll({destroy: true});
+                    $('.sidebar [data-scrollbar="true"]').removeAttr('style');
+                }
             }
             if ($('#page-container .sidebar-bg').length === 0) {
                 $('#page-container').append('<div class="sidebar-bg"></div>');
