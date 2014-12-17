@@ -35,7 +35,7 @@
         }
         return true;
     }
-    
+
     function errFun(msg) {
         return function () {
             throw new Error(msg)
@@ -46,19 +46,19 @@
         var impl = obj || {};
 
         impl.getFunction = impl.getObject;
-        impl.getView = impl.getController = impl.getPresenter = impl.getModel =
-        impl.getService = function (name) {
-            var x = impl.getObject(name);
-            if (!x) {
-                throw new Error("Could not find object: " + name);
-            }
+        impl.getView = impl.getController = impl.getPresenter = impl.getModel = impl.getDirective =
+            impl.getService = function (name) {
+                var x = impl.getObject(name);
+                if (!x) {
+                    throw new Error("Could not find object: " + name);
+                }
 
-            if (isFunction(x)) {
-                return x();
-            } else {
-                return x;
-            }
-        };
+                if (isFunction(x)) {
+                    return x();
+                } else {
+                    return x;
+                }
+            };
 
         return impl;
     }
@@ -67,16 +67,16 @@
         var impl = obj || {};
 
         impl.registerFunction = impl.registerObject;
-        impl.registerView = impl.registerController = impl.registerPresenter = impl.registerModel =
-        impl.registerService = impl.register = function (cfg, factory) {
-            if (factory == null) {
-                ensureFunction(cfg, "factory");
-                impl.registerObject({}, cfg);
-            } else {
-                ensureFunction(factory, "factory");
-                impl.registerObject(cfg, factory);
-            }
-        };
+        impl.registerView = impl.registerController = impl.registerPresenter = impl.registerModel = impl.registerDirective =
+            impl.registerService = impl.register = function (cfg, factory) {
+                if (factory == null) {
+                    ensureFunction(cfg, "factory");
+                    impl.registerObject({}, cfg);
+                } else {
+                    ensureFunction(factory, "factory");
+                    impl.registerObject(cfg, factory);
+                }
+            };
 
         return impl;
     }
@@ -84,7 +84,9 @@
     jsScope.ApplicationFactory = {
         newApplication: function (name, impl) {
             // ensure that the configuration is valid before creating the application.
-            if (impl == null) { throw new Error("impl must not be null."); }
+            if (impl == null) {
+                throw new Error("impl must not be null.");
+            }
             ensureFunction(impl.registerObject, "registerObject");
             ensureFunction(impl.getObject, "getObject");
 
@@ -137,12 +139,20 @@
                     if (cfg.name != null && cfg.dependencies != null) {
                         jsScope.define(cfg.name, cfg.dependencies, factory);
                     } else if (cfg.name != null && cfg.dependencies == null) {
-                        jsScope.define(cfg.name, [ ], function (require) {
-                            return factory.bind(require, applyGetsTo({require: require, getObject: require, registerObject: errFun("Parameter is a read-only context") }));
+                        jsScope.define(cfg.name, [], function (require) {
+                            return factory.bind(require, applyGetsTo({
+                                require: require,
+                                getObject: require,
+                                registerObject: errFun("Parameter is a read-only context")
+                            }));
                         });
                     } else {
                         jsScope.define(function (require) {
-                            return factory.bind(require, applyGetsTo({require: require, getObject: require, registerObject: errFun("Parameter is a read-only context") }));
+                            return factory.bind(require, applyGetsTo({
+                                require: require,
+                                getObject: require,
+                                registerObject: errFun("Parameter is a read-only context")
+                            }));
                         });
                     }
                 };
@@ -156,7 +166,8 @@
                     }
                 };
 
-                impl.initialize = function () {};
+                impl.initialize = function () {
+                };
 
                 return jsScope.ApplicationFactory.newApplication(name, impl);
             }
@@ -189,9 +200,18 @@
 
                     jsScope.require(["Application"], function (app) {
                         app.manifest.src.forEach(function (value) {
-                           if (value.indexOf("Controller") != -1) {
-                               angularApp.controller(value.substring(value.lastIndexOf('/') + 1), app.getController(value));
-                           }
+                            if (value.indexOf("Controller") != -1) {
+                                angularApp.controller(value.substring(value.lastIndexOf('/') + 1), app.getController(value));
+                            }
+                            else if (value.indexOf("Directive") != -1) {
+                                var directiveFullName = value.substring(value.lastIndexOf('/') + 1);
+                                var directiveName = directiveFullName.replace('Directive', '');
+                                // convert MyDirective => myDirective, in HTML we use my-directive
+                                directiveName = directiveName.charAt(0).toLowerCase() + directiveName.slice(1);
+                                var directiveFactory = app.getDirective(value);
+
+                                angularApp.directive(directiveName, directiveFactory);
+                            }
                         });
 
                         jsScope.angular.bootstrap(document, [name]);

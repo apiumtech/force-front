@@ -7,7 +7,10 @@ var app = null;
 function main() {
     /** AngularJS App Configuration **/
     function AngularConfig($routeProvider) {
-        $routeProvider.otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
+
+        $routeProvider
+            .when('/analytics/intensity', {templateUrl: '/templates/analytics/intensity.html', controller: 'IntensityController'})
+            .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
     }
 
     AngularConfig.$inject = ['$routeProvider'];
@@ -29,6 +32,9 @@ function main() {
 
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
+            // Intensity Page
+            'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel', 'directives/IntensityDirective',
+
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'
         ]
