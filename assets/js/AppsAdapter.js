@@ -431,10 +431,12 @@ app.registerService(function(container){
             return {
                 //main function
                 initSideBar: function () {
+                    setTimeout(handleSlimScroll, 50);
 
                     // sidebar
                     handleSidebarMenu();
                     handleMobileSidebarToggle();
+
                     handleSidebarMinify();
 
                     handleAfterPageLoadAddClass();
