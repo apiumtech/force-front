@@ -23,7 +23,8 @@ requirejs.config({
         'functional-option': '/base/framework/Option',
         'framework': '/base/framework/ApplicationFactory',
         'meld': '/base/node_modules/meld/meld',
-        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min'
+        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
+        'AppsAdapter': '/base/assets/js/AppsAdapter'
     },
 
     'shim': {

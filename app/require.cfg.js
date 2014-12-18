@@ -11,7 +11,8 @@ var require = {
         'q': '/node_modules/q/q',
         'functional-option': '/framework/Option',
         'framework': '/framework/ApplicationFactory',
-        'meld': '/node_modules/meld/meld'
+        'meld': '/node_modules/meld/meld',
+        'AppsAdapter': '/assets/js/AppsAdapter'
     },
 
     'shim': {

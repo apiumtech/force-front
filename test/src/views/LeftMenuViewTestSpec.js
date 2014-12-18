@@ -17,14 +17,4 @@ describe("LeftMenuView", function () {
         expect(view.presenter.show).toHaveBeenCalledWith(view);
     });
 
-    it("toggleColumn should show submenu elements", function () {
-        var view = exerciseCreateView();
-
-        var e = document.createElement("ul");
-        e.setAttribute("class", "sub-menu");
-        document.getElementsByTagName('body')[0].appendChild(e);
-
-        view.fn.toggleAnalyticsSubmenu(e);
-        expect(e.style.display).toEqual('');
-    });
 });

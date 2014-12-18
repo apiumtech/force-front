@@ -12,6 +12,7 @@ module.exports = function(config) {
             {pattern: 'framework/**/*.js', included: false},
             {pattern: 'app/**/*.js', included: false},
             {pattern: 'test/src/**/*.js', included: false},
+            {pattern: 'assets/js/AppsAdapter.js', included: false},
             /** Load Tests **/
             'test/main.js'
 

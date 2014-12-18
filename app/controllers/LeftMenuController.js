@@ -3,9 +3,11 @@
  */
 app.registerController(function (container) {
     var LeftMenuView = container.getView("views/LeftMenuView");
+    var AppsAdapter = container.getService("AppsAdapter");
 
     function LeftMenuController($scope) {
         LeftMenuController.configureView($scope);
+        AppsAdapter.initSideBar();
     }
 
     LeftMenuController.configureView = function ($scope) {

@@ -24,6 +24,7 @@ function main() {
         version: 0.1,
         src: [
             'Configuration',
+            'AppsAdapter',
             'services/EventBus', 'services/AjaxService', 'services/ajax/AuthAjaxService', 'services/QueryBuilder',
             'services/ObjectMerger',
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
