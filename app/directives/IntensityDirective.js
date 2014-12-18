@@ -9,7 +9,8 @@ app.registerDirective(function (container) {
             scope: {
                 name: "@"
             },
-            template: '<p>Good Morning, {{name}}</p>'
+            templateUrl: '/templates/intensityDir.html'
+
         }
     }
 

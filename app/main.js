@@ -30,10 +30,14 @@ function main() {
             // Channels
             'services/bus/FilterChannel',
 
+            'views/BaseView', 'services/WidgetBase',
+
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
             // Intensity Page
-            'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel', 'directives/IntensityDirective',
+            'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
+            'directives/PageHeaderDirective',
+            'directives/WidgetWrapperDirective', 'controllers/WidgetWrapperController', 'views/directives/WidgetWrapperView',
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'
