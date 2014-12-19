@@ -15,7 +15,7 @@ app.registerView(function (container) {
 
     IntensityView.prototype = Object.create(BaseView.prototype);
 
-    //TODO: pull newInstance to BaseView
+    //TODO: pull newInstance to BaseView (use decorator to call super())
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
