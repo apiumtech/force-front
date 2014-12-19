@@ -21,9 +21,14 @@ app.registerView(function (container) {
         this.presenter = $presenter;
     }
 
-    BaseView.prototype.showError = function (error) {
-
+    BaseView.prototype.show = function () {
+        this.presenter.show(this);
     };
+
+    BaseView.prototype.showError = function (error) {
+        this.presenter.showError(error);
+    };
+
 
     return BaseView;
 });
