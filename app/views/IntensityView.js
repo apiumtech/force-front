@@ -3,6 +3,7 @@
  */
 
 app.registerView(function (container) {
+
     var IntensityPresenter = container.getPresenter('presenters/IntensityPresenter');
     var IntensityModel = container.getModel('models/IntensityModel');
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
@@ -22,6 +23,10 @@ app.registerView(function (container) {
         this.model = $model;
         this.presenter = $presenter;
     }
+
+    IntensityView.prototype.show = function () {
+        this.presenter.show(this);
+    };
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};

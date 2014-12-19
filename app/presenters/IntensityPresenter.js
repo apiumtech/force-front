@@ -6,6 +6,12 @@ app.registerPresenter(function(container){
 
     }
 
+    IntensityPresenter.prototype.show = function (view) {
+        view.event.onInit = function () {
+            console.log('init left menu');
+        };
+    };
+
     IntensityPresenter.newInstance = function() {
         return Some(new IntensityPresenter());
     };
