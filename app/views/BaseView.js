@@ -7,19 +7,49 @@ app.registerView(function (container) {
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
     function BaseView($scope, $model, $presenter) {
-        this.data = {};
+        this.$scope = $scope;
         this.event = {};
         this.fn = {};
-
-        this.$scope = $scope;
-
-        $scope.data = this.data;
-        $scope.event = this.event;
-        $scope.fn = this.fn;
+        this.data = {};
 
         this.model = $model;
         this.presenter = $presenter;
     }
+
+    BaseView.prototype = Object.create(Object.prototype, {
+        $scope: {
+            get: function () {
+                return this._scope;
+            },
+            set: function (value) {
+                this._scope = value;
+            }
+        },
+        data: {
+            get: function () {
+                return this._scope.data;
+            },
+            set: function (value) {
+                this._scope.data = value;
+            }
+        },
+        event: {
+            get: function () {
+                return this._scope.event;
+            },
+            set: function (value) {
+                return this._scope.event = value;
+            }
+        },
+        fn: {
+            get: function () {
+                return this._scope.fn;
+            },
+            set: function (value) {
+                return this._scope.fn = value;
+            }
+        }
+    });
 
     BaseView.prototype.show = function () {
         this.presenter.show(this, this.model);

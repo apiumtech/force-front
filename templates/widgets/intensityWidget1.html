@@ -1,5 +1,5 @@
 <div class="col-md-12 drag-and-drop ui-sortable" ng-controller="WidgetWrapperController">
-    <div class="panel panel-inverse" ng-class="{'panel-expand': isExpanded}">
+    <div class="panel panel-inverse" ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
         <div class="panel-heading">
             <div ng-include="'/templates/widgets/header.buttons.html'"></div>
             <h4 class="panel-title">
@@ -7,6 +7,9 @@
             </h4>
         </div>
         <div class="panel-body">
+            <div class="panel-loader" ng-show="isLoading">
+                <span class="spinner-small"></span>
+            </div>
             <div ng-include="'/templates/analytics/chart1.html'"></div>
         </div>
     </div>

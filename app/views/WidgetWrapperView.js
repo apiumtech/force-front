@@ -11,6 +11,13 @@ app.registerView(function (container) {
         this.element = $element;
         var self = this;
         $scope.isExpanded = false;
+        $scope.isLoading = false;
+
+        self.reloadWidgetChannel.listen(function (event) {
+            if (event.reloadedComplete) {
+                $scope.isLoading = false;
+            }
+        });
 
         this.fn.toggleCollapsePanel = function () {
             self.element.find('.panel-body').slideToggle();
@@ -21,6 +28,7 @@ app.registerView(function (container) {
         };
 
         this.fn.reloadPanel = function () {
+            $scope.isLoading = true;
             self.reloadWidgetChannel.send({reloadWidget: true});
         };
 

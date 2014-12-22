@@ -27,6 +27,9 @@ app.registerPresenter(function (container) {
         view.event.onReloadWidgetRequested = function () {
             self.reloadWidgetChannel.send({reloadWidget: true});
         };
+        view.event.onReloadWidgetDone = function () {
+            self.reloadWidgetChannel.send({reloadedComplete: true});
+        };
     };
 
     IntensityFirstWidgetPresenter.newInstance = function (reloadWidgetChannel) {
