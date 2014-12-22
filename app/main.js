@@ -38,7 +38,14 @@ function main() {
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
 
-            'controllers/WidgetWrapperController', 'views/directives/WidgetWrapperView',
+            // Wrapper for widget
+            'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
+
+            // intensity 1st widget
+            'services/bus/ReloadWidgetChannel',
+            'controllers/IntensityFirstWidgetController', 'views/IntensityFirstWidgetView', 'models/IntensityFirstWidgetModel', 'presenters/IntensityFirstWidgetPresenter',
+
+            // intensity 2nd widget
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'

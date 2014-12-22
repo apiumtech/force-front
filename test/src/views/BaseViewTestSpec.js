@@ -5,9 +5,10 @@ describe("BaseView", function () {
     var BaseView = app.getView('views/BaseView');
 
     it("should call presenter's show method on show()", function () {
-        var view = new BaseView({}, {}, {show: jasmine.createSpy()});
+        var model = {};
+        var view = new BaseView({}, model, {show: jasmine.createSpy()});
         view.show();
-        expect(view.presenter.show).toHaveBeenCalledWith(view);
+        expect(view.presenter.show).toHaveBeenCalledWith(view, model);
     });
 
     it("should call presenter's showError method on showError()", function () {

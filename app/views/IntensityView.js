@@ -24,7 +24,7 @@ app.registerView(function (container) {
 
         var view = new IntensityView(scope, model, presenter);
 
-        return view._aspectAppend($viewRepAspect, $logErrorAspect);
+        return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
     return {newInstance: IntensityView.newInstance};
