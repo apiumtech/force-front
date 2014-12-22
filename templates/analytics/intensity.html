@@ -241,9 +241,9 @@
 
 <!-- begin row -->
 <div class="row">
-
-    <div ng-include="'/templates/widgets/intensityWidget1.html'"></div>
-    <div ng-include="'/templates/widgets/intensityWidget2.html'"></div>
+    <div ng-repeat="widget in widgets">
+        <div ng-include="'/templates/widgets/widgetBase.html'"></div>
+    </div>
     <!--<widget-wrapper title="Evolucion en el tiempo">-->
     <!--<div ng-include="'/templates/analytics/chart1.html'"></div>-->
     <!--</widget-wrapper>-->

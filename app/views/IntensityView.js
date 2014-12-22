@@ -11,6 +11,11 @@ app.registerView(function (container) {
 
     function IntensityView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+
+        this.$scope.widgets = [
+            {title: 'Widget A', type: 1},
+            {title: 'Widget B', type: 2}
+        ];
     }
 
     IntensityView.prototype = Object.create(BaseView.prototype);
