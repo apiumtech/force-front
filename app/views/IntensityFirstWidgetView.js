@@ -8,7 +8,7 @@ app.registerView(function (container) {
 
     function IntensityFirstWidgetView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
-        this.element = element;
+        this.element = element || {};
         //scope.data = this.data;
     }
 
@@ -33,12 +33,10 @@ app.registerView(function (container) {
     };
 
     IntensityFirstWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
-        var element = $element || {};
         var model = $model || IntensityFirstWidgetModel.newInstance().getOrElse(throwException("Cannot instantiate IntensityFirstWidgetModel"));
         var presenter = $presenter || IntensityFirstWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate IntensityFirstWidgetPresenter"));
 
-        var view = new IntensityFirstWidgetView(scope, element, model, presenter);
+        var view = new IntensityFirstWidgetView($scope, $element, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
