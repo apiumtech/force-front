@@ -23,11 +23,10 @@ app.registerView(function (container) {
     //TODO: pull newInstance to BaseView (use decorator to call super())
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
         var model = $model || IntensityModel.newInstance().getOrElse(throwException("IntensityModel could not be instantiated!!"));
         var presenter = $presenter || IntensityPresenter.newInstance().getOrElse(throwException("IntensityPresenter could not be instantiated!!"));
 
-        var view = new IntensityView(scope, model, presenter);
+        var view = new IntensityView($scope, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

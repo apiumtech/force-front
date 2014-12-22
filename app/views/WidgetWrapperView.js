@@ -8,7 +8,7 @@ app.registerView(function (container) {
     function WidgetWrapperView($scope, $element) {
         BaseView.call(this, $scope);
         this.reloadWidgetChannel = ReloadWidgetChannel.newInstance().getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
-        this.element = $element;
+        this.element = $element || {};
         var self = this;
         $scope.isExpanded = false;
         $scope.isLoading = false;
@@ -40,7 +40,7 @@ app.registerView(function (container) {
     WidgetWrapperView.prototype = Object.create(BaseView.prototype);
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-        var view = new WidgetWrapperView($scope || {}, $element || {});
+        var view = new WidgetWrapperView($scope, $element);
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
