@@ -29,6 +29,28 @@ app.registerView(function (container) {
         this.presenter.showError(error);
     };
 
+    BaseView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+        var scope = $scope || {};
+        var model = $model || IntensityModel.newInstance().getOrElse(throwException("IntensityModel could not be instantiated!!"));
+        var presenter = $presenter || IntensityPresenter.newInstance().getOrElse(throwException("IntensityPresenter could not be instantiated!!"));
+
+        var view = new BaseView(scope, model, presenter);
+
+        return view._aspectAppend($viewRepAspect, $logErrorAspect);
+    };
+
+    BaseView.prototype._aspectAppend = function ($viewRepAspect, $logErrorAspect) {
+        if ($viewRepAspect !== false) {
+            ($viewRepAspect || ViewRepaintAspect).weave(this);
+        }
+
+        if ($logErrorAspect !== false) {
+            ($logErrorAspect || LogErrorAspect).weave(this);
+        }
+
+        return Some(this);
+    };
+
 
     return BaseView;
 });

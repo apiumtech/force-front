@@ -7,7 +7,9 @@
 </ul>
 <!-- end breadcrumb -->
 
-<page-header title="Intensity"></page-header>
+<h1 class="page-header">
+    Intensity
+</h1>
 
 <!-- begin filters -->
 <div class="row filters-div sales-filters-div">
@@ -240,12 +242,14 @@
 <!-- begin row -->
 <div class="row">
 
-    <widget-wrapper title="Evolucion en el tiempo">
-        <div ng-include="'/templates/analytics/chart1.html'"></div>
-    </widget-wrapper>
-    <widget-wrapper title="Ranking">
-        <div ng-include="'/templates/analytics/chart2.html'"></div>
-    </widget-wrapper>
+    <div ng-include="'/templates/widgets/rankingWidget.html'"></div>
+    <div ng-include="'/templates/widgets/rankingWidget2.html'"></div>
+    <!--<widget-wrapper title="Evolucion en el tiempo">-->
+    <!--<div ng-include="'/templates/analytics/chart1.html'"></div>-->
+    <!--</widget-wrapper>-->
+    <!--<widget-wrapper title="Ranking">-->
+    <!--<div ng-include="'/templates/analytics/chart2.html'"></div>-->
+    <!--</widget-wrapper>-->
 
 </div>
 <!-- end row -->

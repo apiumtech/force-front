@@ -10,7 +10,7 @@ app.registerView(function (container) {
     var IntensityModel = container.getModel('models/IntensityModel');
 
     function IntensityView($scope, $model, $presenter) {
-        BaseView.call(this,$scope, $model, $presenter);
+        BaseView.call(this, $scope, $model, $presenter);
     }
 
     IntensityView.prototype = Object.create(BaseView.prototype);
@@ -24,15 +24,7 @@ app.registerView(function (container) {
 
         var view = new IntensityView(scope, model, presenter);
 
-        if ($viewRepAspect !== false) {
-            ($viewRepAspect || ViewRepaintAspect).weave(view);
-        }
-
-        if ($logErrorAspect !== false) {
-            ($logErrorAspect || LogErrorAspect).weave(view);
-        }
-
-        return Some(view);
+        return view._aspectAppend($viewRepAspect, $logErrorAspect);
     };
 
     return {newInstance: IntensityView.newInstance};

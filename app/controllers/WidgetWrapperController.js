@@ -4,9 +4,9 @@
 app.registerController(function (container) {
     var WidgetWrapperView = container.getView('views/directives/WidgetWrapperView');
 
-    function WidgetController($scope, $element) {
+    function WidgetWrapperController($scope, $element) {
         this.view = Some(new WidgetWrapperView($scope, $element)).getOrElse(throwException("Cannot instantiate WidgetWrapperView"));
     }
 
-    return WidgetController;
+    return WidgetWrapperController;
 });

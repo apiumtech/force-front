@@ -5,7 +5,7 @@ app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
 
     function WidgetWrapperView($scope, $element) {
-        BaseView.call($scope, this);
+        BaseView.call(this, $scope);
         this.element = $element;
         var self = this;
         $scope.isExpanded = false;
