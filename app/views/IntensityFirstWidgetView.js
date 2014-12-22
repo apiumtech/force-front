@@ -9,6 +9,7 @@ app.registerView(function (container) {
     function IntensityFirstWidgetView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
         this.element = element;
+        //scope.data = this.data;
     }
 
     IntensityFirstWidgetView.prototype = Object.create(BaseView.prototype);
@@ -20,11 +21,15 @@ app.registerView(function (container) {
     };
 
     IntensityFirstWidgetView.prototype.onReloadWidgetSuccess = function (data) {
-        console.log(data);
+        var self = this;
+        self.data = data.data;
+        self.event.onReloadWidgetDone();
     };
 
     IntensityFirstWidgetView.prototype.onReloadWidgetError = function (error) {
+        var self = this;
         this.showError(error);
+        self.event.onReloadWidgetDone();
     };
 
     IntensityFirstWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
