@@ -9,7 +9,6 @@ app.registerView(function (container) {
     function IntensityFirstWidgetView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
         this.element = element || {};
-        //scope.data = this.data;
     }
 
     IntensityFirstWidgetView.prototype = Object.create(BaseView.prototype);

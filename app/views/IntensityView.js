@@ -13,8 +13,8 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.$scope.widgets = [
-            {title: 'Widget A', type: 1},
-            {title: 'Widget B', type: 2}
+            {title: 'Widget A', template: '/templates/analytics/chart1.html'},
+            {title: 'Widget B', template: '/templates/analytics/chart2.html'}
         ];
     }
 
