@@ -6,5 +6,5 @@ describe("IntensityFirstWidgetView", function () {
     var WidgetBaseView = app.getView('views/WidgetBaseView');
     var sut;
 
-    
+
 });
