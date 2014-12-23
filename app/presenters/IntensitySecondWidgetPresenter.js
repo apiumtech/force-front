@@ -4,17 +4,17 @@
 
 app.registerPresenter(function (container) {
     var ReloadWidgetChannel = container.getService('services/bus/ReloadWidgetChannel');
-    var widgetName = "intensityWidgetA";
+    var widgetName = "intensityWidgetB";
 
-    function IntensityFirstWidgetPresenter(reloadWidgetChannel) {
+    function IntensitySecondWidgetPresenter(reloadWidgetChannel) {
         this.reloadWidgetChannel = reloadWidgetChannel;
     }
 
-    IntensityFirstWidgetPresenter.prototype.showError = function (error) {
+    IntensitySecondWidgetPresenter.prototype.showError = function (error) {
         alert(error.message);
     };
 
-    IntensityFirstWidgetPresenter.prototype.show = function (view, model) {
+    IntensitySecondWidgetPresenter.prototype.show = function (view, model) {
         var self = this,
             channel = this.reloadWidgetChannel;
 
@@ -33,10 +33,10 @@ app.registerPresenter(function (container) {
         };
     };
 
-    IntensityFirstWidgetPresenter.newInstance = function (reloadWidgetChannel) {
+    IntensitySecondWidgetPresenter.newInstance = function (reloadWidgetChannel) {
         var _reloadWidgetChannel = reloadWidgetChannel || ReloadWidgetChannel.newInstance(widgetName).getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
-        return Some(new IntensityFirstWidgetPresenter(_reloadWidgetChannel));
+        return Some(new IntensitySecondWidgetPresenter(_reloadWidgetChannel));
     };
 
-    return IntensityFirstWidgetPresenter;
+    return IntensitySecondWidgetPresenter;
 });

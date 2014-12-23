@@ -1,7 +1,30 @@
-<div class="col-md-12 drag-and-drop ui-sortable" ng-controller="WidgetWrapperController">
+<div class="col-md-12 drag-and-drop ui-sortable"
+     ng-controller="WidgetWrapperController"
+     data-widgetName="{{widget.name}}">
     <div class="panel panel-inverse" ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
         <div class="panel-heading">
-            <div ng-include="'/templates/widgets/header.buttons.html'"></div>
+            <div class="panel-heading-btn">
+                <a href="javascript:;"
+                   class="btn btn-xs btn-icon btn-circle btn-default"
+                   ng-click="fn.expandPanel()">
+                    <i class="fa fa-expand"></i>
+                </a>
+                <a href="javascript:;"
+                   class="btn btn-xs btn-icon btn-circle btn-success"
+                   ng-click="fn.reloadPanel()">
+                    <i class="fa fa-repeat"></i>
+                </a>
+                <a href="javascript:;"
+                   class="btn btn-xs btn-icon btn-circle btn-warning"
+                   ng-click="fn.toggleCollapsePanel()">
+                    <i class="fa fa-minus"></i>
+                </a>
+                <a href="javascript:;"
+                   class="btn btn-xs btn-icon btn-circle btn-danger"
+                   ng-click="fn.closeWidget()">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
             <h4 class="panel-title">
                 {{widget.title}}
             </h4>

@@ -9,7 +9,10 @@ function main() {
     function AngularConfig($routeProvider) {
 
         $routeProvider
-            .when('/analytics/intensity', {templateUrl: '/templates/analytics/intensity.html', controller: 'IntensityController'})
+            .when('/analytics/intensity', {
+                templateUrl: '/templates/analytics/intensity.html',
+                controller: 'IntensityController'
+            })
             .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
     }
 
@@ -31,7 +34,10 @@ function main() {
             // Channels
             'services/bus/FilterChannel',
 
-            'views/BaseView', 'services/WidgetBase',
+            'views/BaseView',
+            'views/WidgetBaseView',
+
+            'services/WidgetBase',
 
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
@@ -46,6 +52,8 @@ function main() {
             'controllers/IntensityFirstWidgetController', 'views/IntensityFirstWidgetView', 'models/IntensityFirstWidgetModel', 'presenters/IntensityFirstWidgetPresenter',
 
             // intensity 2nd widget
+            'controllers/IntensitySecondWidgetController', 'views/IntensitySecondWidgetView', 'models/IntensitySecondWidgetModel', 'presenters/IntensitySecondWidgetPresenter',
+
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'

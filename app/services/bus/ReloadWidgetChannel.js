@@ -8,8 +8,8 @@ app.registerService(function (container) {
 
     }
 
-    ReloadWidget.newInstance = function () {
-        return Some(EventBus.createChannel("ReloadWidget", "Global"));
+    ReloadWidget.newInstance = function (widgetName) {
+        return Some(EventBus.createChannel("ReloadWidget", widgetName || "Global"));
     };
 
     return {newInstance: ReloadWidget.newInstance};

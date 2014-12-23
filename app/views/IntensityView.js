@@ -13,14 +13,20 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.$scope.widgets = [
-            {title: 'Widget A', template: '/templates/analytics/chart1.html'},
-            {title: 'Widget B', template: '/templates/analytics/chart2.html'}
+            {
+                title: 'Widget A',
+                template: '/templates/analytics/chart1.html',
+                name: "intensityWidgetA"
+            },
+            {
+                title: 'Widget B',
+                template: '/templates/analytics/chart2.html',
+                name: "intensityWidgetB"
+            }
         ];
     }
 
     IntensityView.prototype = Object.create(BaseView.prototype);
-
-    //TODO: pull newInstance to BaseView (use decorator to call super())
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || IntensityModel.newInstance().getOrElse(throwException("IntensityModel could not be instantiated!!"));

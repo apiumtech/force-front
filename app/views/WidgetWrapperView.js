@@ -7,17 +7,21 @@ app.registerView(function (container) {
 
     function WidgetWrapperView($scope, $element) {
         BaseView.call(this, $scope);
-        this.reloadWidgetChannel = ReloadWidgetChannel.newInstance().getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
         this.element = $element || {};
         var self = this;
         $scope.isExpanded = false;
         $scope.isLoading = false;
 
-        self.reloadWidgetChannel.listen(function (event) {
-            if (event.reloadedComplete) {
-                $scope.isLoading = false;
-            }
-        });
+        setTimeout(function () {
+            var widgetName = self.element.attr("data-widgetname");
+            self.reloadWidgetChannel = ReloadWidgetChannel.newInstance(widgetName).getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
+
+            self.reloadWidgetChannel.listen(function (event) {
+                if (event.reloadedComplete) {
+                    $scope.isLoading = false;
+                }
+            });
+        }, 0);
 
         this.fn.toggleCollapsePanel = function () {
             self.element.find('.panel-body').slideToggle();
