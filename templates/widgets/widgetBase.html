@@ -33,7 +33,11 @@
             <div class="panel-loader" ng-if="isLoading">
                 <span class="spinner-small"></span>
             </div>
-            <div ng-include="widget.template"></div>
+            <div class="alert alert-warning" ng-if="hasError">
+                <i class="glyphicon glyphicon-warning-sign"></i>
+                {{errorMessage}}
+            </div>
+            <div ng-show="!hasError" ng-include="widget.template"></div>
         </div>
     </div>
 </div>

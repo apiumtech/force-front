@@ -39,7 +39,7 @@ app.registerService(function (container) {
         }
     });
 
-    WidgetBase.prototype.onReloadWidgetRequested = function () {
+    WidgetBase.prototype.reloadWidget = function () {
         if (!this.widgetName)
             throw new Error("Widget Name is not defined");
         if (!this.widgetType)

@@ -11,25 +11,30 @@ app.registerPresenter(function (container) {
     }
 
     IntensityFirstWidgetPresenter.prototype.showError = function (error) {
-        alert(error.message);
+        console.log(error);
+        alert("An error has occurred. Please check the log");
     };
 
     IntensityFirstWidgetPresenter.prototype.show = function (view, model) {
         var self = this,
-            channel = this.reloadWidgetChannel;
+            channel = this.reloadWidgetChannel,
+            $view = view,
+            $model = model;
 
         channel.listen(function (event) {
             if (event.reloadWidget) {
-                model.onReloadWidgetRequested()
-                    .then(view.onReloadWidgetSuccess.bind(view), view.onReloadWidgetError.bind(view));
+                $model.reloadWidget()
+                    .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
             }
         });
 
-        view.event.onReloadWidgetRequested = function () {
-            self.reloadWidgetChannel.send({reloadWidget: true});
+        view.event.onReloadWidgetStart = function () {
+            self.reloadWidgetChannel.sendReloadSignal();
         };
-        view.event.onReloadWidgetDone = function () {
-            self.reloadWidgetChannel.send({reloadedComplete: true});
+
+
+        view.event.onReloadWidgetDone = function (errMsg) {
+            self.reloadWidgetChannel.sendReloadCompleteSignal(errMsg);
         };
     };
 

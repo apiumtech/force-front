@@ -14,8 +14,8 @@ describe("IntensityFirstWidgetPresenter", function () {
         var view;
 
         [{
-            event: "onReloadWidgetRequested",
-            modelMethod: "onReloadWidgetRequested",
+            event: "onReloadWidgetStart",
+            modelMethod: "reloadWidget",
             onError: "onReloadWidgetError",
             onSuccess: "onReloadWidgetSuccess"
         }].forEach(function (item) {

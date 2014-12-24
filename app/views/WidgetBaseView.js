@@ -11,12 +11,12 @@ app.registerView(function (container) {
         this.element = element || {};
     }
 
-    WidgetBaseView.prototype = Object.create(BaseView.prototype);
+    WidgetBaseView.prototype = Object.create(BaseView.prototype, {});
 
     WidgetBaseView.prototype.__show = BaseView.prototype.show;
     WidgetBaseView.prototype.show = function () {
-        this.__show();
-        this.event.onReloadWidgetRequested();
+        this.__show.call(this);
+        this.event.onReloadWidgetStart();
     };
 
     WidgetBaseView.prototype.onReloadWidgetSuccess = function (data) {
@@ -27,8 +27,21 @@ app.registerView(function (container) {
 
     WidgetBaseView.prototype.onReloadWidgetError = function (error) {
         var self = this;
-        this.showError(error);
-        self.event.onReloadWidgetDone();
+        var errorMessage;
+
+        switch (error.readyState) {
+            case 0:
+                errorMessage = "Error while requesting data. Cannot open connection to the server. Please check internet setting";
+                break;
+            case 4:
+                errorMessage = "Error while requesting data. Error: " + error.responseText || error.statusText;
+                break;
+
+            default:
+                errorMessage = "Error while requesting data.";
+                break;
+        }
+        self.event.onReloadWidgetDone(errorMessage);
     };
 
     return WidgetBaseView;

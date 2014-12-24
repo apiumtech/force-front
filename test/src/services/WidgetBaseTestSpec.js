@@ -16,12 +16,12 @@ describe("widgetBase", function () {
         expect(sut._reload).toHaveBeenCalled();
     });
 
-    describe("onReloadWidgetRequested", function () {
+    describe("reloadWidget", function () {
         it("should throw exception if widgetName is not defined", function () {
             expect(function () {
                 sut.widgetName = "";
                 sut.widgetType = "has_type";
-                sut.onReloadWidgetRequested();
+                sut.reloadWidget();
             }).toThrowError();
         });
 
@@ -29,7 +29,7 @@ describe("widgetBase", function () {
             expect(function () {
                 sut.widgetName = "has_name";
                 sut.widgetType = "";
-                sut.onReloadWidgetRequested();
+                sut.reloadWidget();
             }).toThrowError();
         });
     })

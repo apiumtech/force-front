@@ -11,7 +11,8 @@ app.registerPresenter(function (container) {
     }
 
     IntensitySecondWidgetPresenter.prototype.showError = function (error) {
-        alert(error.message);
+        console.log(error);
+        alert("An error has occurred. Please check the log");
     };
 
     IntensitySecondWidgetPresenter.prototype.show = function (view, model) {
@@ -20,16 +21,17 @@ app.registerPresenter(function (container) {
 
         channel.listen(function (event) {
             if (event.reloadWidget) {
-                model.onReloadWidgetRequested()
+                model.reloadWidget()
                     .then(view.onReloadWidgetSuccess.bind(view), view.onReloadWidgetError.bind(view));
             }
         });
 
-        view.event.onReloadWidgetRequested = function () {
-            self.reloadWidgetChannel.send({reloadWidget: true});
+        view.event.onReloadWidgetStart = function () {
+            self.reloadWidgetChannel.sendReloadSignal();
         };
-        view.event.onReloadWidgetDone = function () {
-            self.reloadWidgetChannel.send({reloadedComplete: true});
+
+        view.event.onReloadWidgetDone = function (errMsg) {
+            self.reloadWidgetChannel.sendReloadCompleteSignal(errMsg);
         };
     };
 

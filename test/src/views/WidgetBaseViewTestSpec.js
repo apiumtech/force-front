@@ -12,13 +12,14 @@ describe("WidgetBaseView", function () {
 
         function exerciseContructViewInstance() {
             sut = new WidgetBaseView({}, {}, {}, presenter);
-            sut.event.onReloadWidgetRequested = jasmine.createSpy();
+            sut.event.onReloadWidgetStart = jasmine.createSpy();
         }
 
-        it("should call show() on presenter", function () {
+        it("should call show() on parent class", function () {
             exerciseContructViewInstance();
+            spyOn(sut, '__show');
             sut.show();
-            expect(presenter.show).toHaveBeenCalled();
+            expect(sut.__show).toHaveBeenCalled();
         });
     });
 

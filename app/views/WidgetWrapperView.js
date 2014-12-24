@@ -11,14 +11,17 @@ app.registerView(function (container) {
         var self = this;
         $scope.isExpanded = false;
         $scope.isLoading = false;
+        $scope.hasError = false;
 
         setTimeout(function () {
             var widgetName = self.element.attr("data-widgetname");
             self.reloadWidgetChannel = ReloadWidgetChannel.newInstance(widgetName).getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
 
             self.reloadWidgetChannel.listen(function (event) {
-                if (event.reloadedComplete) {
+                if (event.reloadCompleted) {
                     $scope.isLoading = false;
+                    $scope.hasError = event.reloadError;
+                    $scope.errorMessage = (event.reloadError) ? event.errorMessage : null;
                 }
             });
         }, 0);
