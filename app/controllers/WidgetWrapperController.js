@@ -6,6 +6,7 @@ app.registerController(function (container) {
 
     function WidgetWrapperController($scope, $element) {
         this.view = WidgetWrapperView.newInstance($scope, $element).getOrElse(throwException("Cannot instantiate WidgetWrapperView"));
+        this.view.show();
     }
 
     return WidgetWrapperController;

@@ -38,7 +38,7 @@ app.registerView(function (container) {
                 return this._scope.event;
             },
             set: function (value) {
-                return this._scope.event = value;
+                this._scope.event = value;
             }
         },
         fn: {
@@ -46,17 +46,19 @@ app.registerView(function (container) {
                 return this._scope.fn;
             },
             set: function (value) {
-                return this._scope.fn = value;
+                this._scope.fn = value;
             }
         }
     });
 
     BaseView.prototype.show = function () {
-        this.presenter.show(this, this.model);
+        if (this.presenter)
+            this.presenter.show(this, this.model);
     };
 
     BaseView.prototype.showError = function (error) {
-        this.presenter.showError(error);
+        if (this.presenter)
+            this.presenter.showError(error);
     };
 
     BaseView.prototype._injectAspects = function ($viewRepAspect, $logErrorAspect) {
