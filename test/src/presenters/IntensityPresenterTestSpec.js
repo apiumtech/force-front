@@ -6,6 +6,7 @@ describe("IntensityPresenter", function () {
 
 
     describe("show() ", function () {
+        
         [
             {
                 viewEvent: "onLoaded",
@@ -24,6 +25,7 @@ describe("IntensityPresenter", function () {
                     view[onSuccess] = jasmine.createSpy();
                     view[onError] = jasmine.createSpy();
                     view.event = {};
+                    view.bindElementEvents = jasmine.createSpy();
 
                     return view;
                 }
