@@ -3,8 +3,6 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
-    var IntensityFirstWidgetModel = container.getModel('models/IntensityFirstWidgetModel');
-    var IntensityFirstWidgetPresenter = container.getPresenter('presenters/IntensityFirstWidgetPresenter');
 
     function WidgetBaseView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);

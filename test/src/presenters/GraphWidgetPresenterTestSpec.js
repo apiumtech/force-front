@@ -2,11 +2,11 @@
  * Created by justin on 12/22/14.
  */
 describe("IntensityFirstWidgetPresenter", function () {
-    var IntensityFirstWidgetPresenter = app.getPresenter('presenters/IntensityFirstWidgetPresenter');
+    var GraphWidgetPresenter = app.getPresenter('presenters/GraphWidgetPresenter');
     var sut;
 
     beforeEach(function () {
-        sut = IntensityFirstWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate IntensityFirstWidgetPresenter"));
+        sut = GraphWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate GraphWidgetPresenter"));
     });
 
     describe("show() method", function () {

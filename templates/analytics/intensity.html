@@ -239,8 +239,12 @@
 </div>
 <!-- end filters-->
 
-<div class="row">
+<div class="row widget-container">
     <div ng-repeat="widget in widgets">
-        <div ng-include="'/templates/widgets/widgetBase.html'"></div>
+        <div data-widgetname="{{widget.widgetName}}"
+             data-widgetid="{{widget.widgetId}}"
+             ng-include="'/templates/widgets/widgetWrapper.html'"></div>
+
+        <!--<widget-wrapper widget="widget"></widget-wrapper>-->
     </div>
 </div>

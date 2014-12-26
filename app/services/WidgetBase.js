@@ -6,26 +6,36 @@ app.registerService(function (container) {
     var Q = container.getFunction('q');
 
     function WidgetBase() {
-        this._fetchPoint = 'http://localhost:8065/api/widgets';
-        this._widgetName = '';
-        this._widgetType = '';
+        this.fetchPoint = 'http://localhost:8065/api/widget';
+        this._widgetId = '';
     }
 
     WidgetBase.prototype = Object.create(Object.prototype, {
-        widgetName: {
+        widgetId: {
             get: function () {
-                return this._widgetName;
+                return this._widgetId;
             },
             set: function (value) {
-                this._widgetName = value;
+                this._widgetId = value;
+                this._reload();
             }
         },
-        widgetType: {
+        column: {
             get: function () {
-                return this._widgetType;
+                return this._column;
             },
             set: function (value) {
-                this._widgetType = value;
+                this._column = value;
+                this._updatePosition();
+            }
+        },
+        order: {
+            get: function () {
+                return this.order;
+            },
+            set: function (value) {
+                this.order = value;
+                this._updatePosition();
             }
         },
         fetchPoint: {
@@ -40,10 +50,8 @@ app.registerService(function (container) {
     });
 
     WidgetBase.prototype.reloadWidget = function () {
-        if (!this.widgetName)
-            throw new Error("Widget Name is not defined");
-        if (!this.widgetType)
-            throw new Error("Widget Type is not defined");
+        if (!this.widgetId)
+            throw new Error("Widget Id is not defined");
 
         return Q.fcall(this._reload.bind(this));
     };
@@ -51,10 +59,27 @@ app.registerService(function (container) {
     WidgetBase.prototype._reload = function () {
         var deferred = Q.defer();
         var self = this;
-        var url = self.fetchPoint + '/' + self.widgetType + '/' + self.widgetName;
+        var url = self.fetchPoint + '/' + self.widgetId;
         $.ajax({
             url: url,
             type: 'get',
+            contentType: 'application/json'
+        }).success(function (data) {
+            deferred.resolve(JSON.parse(data));
+        }).error(function (error) {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
+    };
+
+    WidgetBase.prototype._updatePosition = function () {
+        var deferred = Q.defer();
+        var self = this;
+        var url = self.fetchPoint + '/' + self.widgetId + '/updatePosition';
+        $.ajax({
+            url: url,
+            type: 'POST',
             contentType: 'application/json'
         }).success(function (data) {
             deferred.resolve(JSON.parse(data));

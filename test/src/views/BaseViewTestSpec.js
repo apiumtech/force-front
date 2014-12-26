@@ -16,5 +16,4 @@ describe("BaseView", function () {
         view.showError("some error");
         expect(view.presenter.showError).toHaveBeenCalledWith("some error");
     });
-
 });

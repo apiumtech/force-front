@@ -1,6 +1,6 @@
 <div class="col-md-12 drag-and-drop ui-sortable"
      ng-controller="WidgetWrapperController"
-     data-widgetName="{{widget.name}}">
+     data-widgetname="{{widget.name}}">
     <div class="panel panel-inverse" ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -26,7 +26,7 @@
                 </a>
             </div>
             <h4 class="panel-title">
-                {{widget.title}}
+                {{widget.widgetName}}
             </h4>
         </div>
         <div class="panel-body">
@@ -37,7 +37,7 @@
                 <i class="glyphicon glyphicon-warning-sign"></i>
                 {{errorMessage}}
             </div>
-            <div ng-show="!hasError" ng-include="widget.template"></div>
+            <div ng-show="!hasError" data-widgetid="{{widget.widgetId}}" ng-include="widget.template"></div>
         </div>
     </div>
 </div>

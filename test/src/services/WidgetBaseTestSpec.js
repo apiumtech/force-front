@@ -5,11 +5,8 @@ describe("widgetBase", function () {
     var WidgetBase = app.getService("services/WidgetBase");
     var sut;
 
-    beforeEach(function () {
-        sut = new WidgetBase();
-    });
-
     it("When fetchPoint is updated, should call reload()", function () {
+        sut = new WidgetBase();
         sut._reload = jasmine.createSpy();
 
         sut.fetchPoint = "abcdef";
@@ -17,18 +14,9 @@ describe("widgetBase", function () {
     });
 
     describe("reloadWidget", function () {
-        it("should throw exception if widgetName is not defined", function () {
+        it("should throw exception if widgetId is not defined", function () {
+            sut = new WidgetBase();
             expect(function () {
-                sut.widgetName = "";
-                sut.widgetType = "has_type";
-                sut.reloadWidget();
-            }).toThrowError();
-        });
-
-        it("should throw exception if widgetType is not defined", function () {
-            expect(function () {
-                sut.widgetName = "has_name";
-                sut.widgetType = "";
                 sut.reloadWidget();
             }).toThrowError();
         });

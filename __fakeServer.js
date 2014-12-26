@@ -9,22 +9,41 @@ var app = express();
 app.use(express.static(mainPath));
 
 app.get('/img/*', function (req, res) {
-    console.log('Req.url', req.url);
     app.render(mainPath + req.url);
 });
 
-app.get('/api/widgets/intensity/:id', function (request, response) {
+app.get('/api/widgets/intensity', function (request, response) {
+    setTimeout(function () {
+        response.end(JSON.stringify({
+            success: true,
+            data: [
+                {
+                    widgetType: "graph",
+                    widgetName: "Widget A",
+                    widgetId: "1",
+                    order: 1,
+                    columns: 1
+                },
+                {
+                    widgetType: "table",
+                    widgetName: "Widget B",
+                    widgetId: "2",
+                    order: 2,
+                    columns: 1
+                }
+            ]
+        }));
+    }, 1000);
+});
+
+app.get('/api/widget/:id', function (request, response) {
     var id = request.params.id;
     setTimeout(function () {
         response.end(JSON.stringify({
             success: true,
             data: {
-                imgUrl: "http://" + getDomain() + "/img/intensity-chart-" + id + ".jpg",
-                widgetId: "",
-                widgetType: "",
-                params: "",
-                order: 1,
-                columns: 1
+                widgetId: id,
+                params: "{img: 'http://" + getDomain() + "/img/intensity-chart-" + id + ".jpg'}"
             }
         }));
     }, 1000);

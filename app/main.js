@@ -38,7 +38,7 @@ function main() {
             'views/WidgetBaseView',
 
             'services/WidgetBase',
-            'services/base64Encoder',
+            'services/Base64Encoder',
 
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
@@ -48,9 +48,10 @@ function main() {
             // Wrapper for widget
             'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
 
-            // intensity 1st widget
             'services/bus/ReloadWidgetChannel',
-            'controllers/IntensityFirstWidgetController', 'views/IntensityFirstWidgetView', 'models/IntensityFirstWidgetModel', 'presenters/IntensityFirstWidgetPresenter',
+            'directives/WidgetWrapperDirective',
+            // Graph widget
+            'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
             // intensity 2nd widget
             'controllers/IntensitySecondWidgetController', 'views/IntensitySecondWidgetView', 'models/IntensitySecondWidgetModel', 'presenters/IntensitySecondWidgetPresenter',
