@@ -239,12 +239,14 @@
 </div>
 <!-- end filters-->
 
-<div class="row widget-container">
-    <div ng-repeat="widget in widgets">
-        <div data-widgetname="{{widget.widgetName}}"
-             data-widgetid="{{widget.widgetId}}"
-             ng-include="'/templates/widgets/widgetWrapper.html'"></div>
-
-        <!--<widget-wrapper widget="widget"></widget-wrapper>-->
+<div class="row">
+    <div class="col-md-12 drag-and-drop">
+        <div ng-repeat="widget in widgets" class="widget-container">
+            <ng-include src="'/templates/widgets/widgetWrapper.html'"
+                        data-widgetname="{{widget.widgetName}}"
+                        data-widgetid="{{widget.widgetId}}"
+                    >
+            </ng-include>
+        </div>
     </div>
 </div>

@@ -22,6 +22,37 @@ app.registerView(function (container) {
         this.event.onLoaded();
     };
 
+    IntensityView.prototype.bindElementEvents = function () {
+        var handleDraggablePanel = function (e) {
+            "use strict";
+            var t = ".panel-heading";
+            var n = ".row > [class*=col]";
+            $(e).sortable({
+                handle: t,
+                connectWith: n,
+                start: function (event, ui) {
+                    var oldIndex = ui.item.closest('.widget-container').index();
+                    console.log('start index: ', oldIndex);
+                },
+                stop: function (event, ui) {
+                    var newIndex = ui.item.closest('.widget-container').index();
+                    console.log('stop index:', newIndex);
+                }
+            });
+            $(e).data("sortable", true);
+        };
+
+        var element = "[class*=drag-and-drop]";
+        $(document).on('mouseover', element, function (e) {
+                var $this = $(this);
+                if ($this.data('sortable'))
+                    return;
+                e.preventDefault();
+                handleDraggablePanel($this);
+            }
+        );
+    };
+
     IntensityView.prototype.decorateWidget = function (widgetsData) {
         widgetsData.forEach(function (widget) {
             widget.template = '/templates/widgets/' + widget.widgetType + '.html';

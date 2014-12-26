@@ -30,6 +30,13 @@ app.get('/api/widgets/intensity', function (request, response) {
                     widgetId: "2",
                     order: 2,
                     columns: 1
+                },
+                {
+                    widgetType: "table",
+                    widgetName: "Widget C",
+                    widgetId: "3",
+                    order: 3,
+                    columns: 1
                 }
             ]
         }));
