@@ -6,12 +6,14 @@ var app = null;
 
 function main() {
     var $i18nextProviderOptions = {
-        lng: 'en-US',
+        lng: 'en',
         useCookie: false,
         useLocalStorage: false,
-        fallbackLng: 'en-US',
+        fallbackLng: 'en',
         resGetPath: '/app/translations/__lng__.json'
     };
+    // make sure i18n configuration is loaded before the other controllers and apps
+    i18n.init($i18nextProviderOptions);
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = $i18nextProviderOptions;

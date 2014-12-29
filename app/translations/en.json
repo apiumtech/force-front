@@ -3,6 +3,9 @@
   "commonText": {
     "Export": "Export"
   },
+  "Errors": {
+    "IntensityViewCannotInstantiate": "Could not create IntensityView!"
+  },
   "Intensity": {
     "Filters": {
       "AllUsers": "All Users",
