@@ -6,7 +6,7 @@ describe("IntensityPresenter", function () {
 
 
     describe("show() ", function () {
-        
+
         [
             {
                 viewEvent: "onLoaded",
