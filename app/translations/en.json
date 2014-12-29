@@ -27,10 +27,7 @@
       "SelectDateRange": "Select the date range",
       "Customized": "Customized",
       "To": "to",
-      "Last7days": "Last 7 days",
-      "Last15days": "Last 15 days",
-      "Last30days": "Last 30 days",
-      "Last90days": "Last 90 days"
+      "LastxxDays": "Last __xx__ days"
     }
   }
 }
