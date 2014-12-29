@@ -44,8 +44,8 @@ app.registerView(function (container) {
 
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || IntensityModel.newInstance().getOrElse(throwException("IntensityModel could not be instantiated!!"));
-        var presenter = $presenter || IntensityPresenter.newInstance().getOrElse(throwException("IntensityPresenter could not be instantiated!!"));
+        var model = $model || IntensityModel.newInstance().getOrElse(throwInstantiateException(IntensityModel));
+        var presenter = $presenter || IntensityPresenter.newInstance().getOrElse(throwInstantiateException(IntensityPresenter));
 
         var view = new IntensityView($scope, model, presenter);
 

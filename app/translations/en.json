@@ -7,7 +7,8 @@
     "Show": "Show"
   },
   "Errors": {
-    "IntensityViewCannotInstantiate": "Could not create IntensityView!"
+    "IntensityViewCannotInstantiate": "Could not create IntensityView!",
+    "CannotInstantiateClass": "Cannot instantiate __class__"
   },
   "Header": {
     "EnterKeyword": "Enter keyword"

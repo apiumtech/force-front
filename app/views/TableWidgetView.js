@@ -14,18 +14,7 @@ app.registerView(function (container) {
         self.configureEvents();
     }
 
-    TableWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
-        widget: {
-            get: function () {
-                return this.$scope._widget;
-            },
-            set: function (value) {
-                this.$scope._widget = value;
-                this.presenter.widgetEventChannel = this._getWidgetChannelInstance(value.widgetType + "||" + value.widgetId);
-                this.fn.onWidgetAssigned(value);
-            }
-        }
-    });
+    TableWidgetView.prototype = Object.create(WidgetBaseView.prototype, {});
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -33,12 +22,6 @@ app.registerView(function (container) {
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();
-        };
-
-        self.fn.onWidgetAssigned = function (value) {
-            self.model.widgetId = value.widgetId;
-            self.model.order = value.order;
-            self.model.column = value.column;
         };
     };
 
@@ -48,13 +31,9 @@ app.registerView(function (container) {
         self.event.onReloadWidgetDone();
     };
 
-    TableWidgetView.prototype._getWidgetChannelInstance = function (widgetName) {
-        return WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-    };
-
     TableWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || TableWidgetModel.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetModel"));
-        var presenter = $presenter || TableWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetPresenter"));
+        var model = $model || TableWidgetModel.newInstance().getOrElse(throwInstantiateException(TableWidgetModel));
+        var presenter = $presenter || TableWidgetPresenter.newInstance().getOrElse(throwInstantiateException(TableWidgetPresenter));
 
         var view = new TableWidgetView($scope, $element, model, presenter);
 

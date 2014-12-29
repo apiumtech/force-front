@@ -53,4 +53,10 @@
         };
     };
 
+    jsScope.throwInstantiateException = function (classObj) {
+        if (!isFunction(classObj)) return;
+        var className = classObj.name;
+        return throwException(i18n.t("Errors.CannotInstantiateClass", {class: className}));
+    };
+
 })(window);
