@@ -8,6 +8,7 @@
   },
   "Intensity": {
     "Filters": {
+      "FilterBy": "Filter by",
       "AllUsers": "All Users",
       "DateRange": "In this date range"
     }

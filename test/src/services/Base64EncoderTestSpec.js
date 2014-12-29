@@ -2,7 +2,7 @@
  * Created by justin on 12/23/14.
  */
 describe("Base64Encoder", function () {
-    var Base64Encoder = app.getService('services/Base64Encoder');
+    var Base64Encoder = app.getService('services/b64StringEncoder');
     var sut = Base64Encoder.instance();
     var validBase64String = "RGVjb2RlIGFuZCBFbmNvZGUgQmFzZTY0ICh1c2luZyBKYXZhU2NyaXB0KQ==",
         inValidBase64String = "&^#**/asd;;'[";

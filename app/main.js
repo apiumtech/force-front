@@ -56,7 +56,7 @@ function main() {
             'views/WidgetBaseView',
 
             'services/WidgetBase',
-            'services/Base64Encoder',
+            'services/b64StringEncoder',
 
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
