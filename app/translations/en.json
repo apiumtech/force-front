@@ -1,16 +1,36 @@
 {
   "hello": "Hello",
   "commonText": {
-    "Export": "Export"
+    "Export": "Export",
+    "Apply": "Apply",
+    "Cancel": "Cancel",
+    "Show": "Show"
   },
   "Errors": {
     "IntensityViewCannotInstantiate": "Could not create IntensityView!"
+  },
+  "Header": {
+    "EnterKeyword": "Enter keyword"
   },
   "Intensity": {
     "Filters": {
       "FilterBy": "Filter by",
       "AllUsers": "All Users",
-      "DateRange": "In this date range"
+      "Team": "Team",
+      "Hierarchy": "Hierarchy",
+      "RecentSelected": "Recent selected",
+      "SearchOwner": "Search owner",
+      "AllUserSelectsAllEnvironments": "All users (selects all environments)",
+      "ForceES": "Force ES (Environment ES)",
+      "ForceUK": "Force UK (Environment ES)",
+      "DateRange": "In this date range",
+      "SelectDateRange": "Select the date range",
+      "Customized": "Customized",
+      "To": "to",
+      "Last7days": "Last 7 days",
+      "Last15days": "Last 15 days",
+      "Last30days": "Last 30 days",
+      "Last90days": "Last 90 days"
     }
   }
 }
