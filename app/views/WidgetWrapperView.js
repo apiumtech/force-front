@@ -60,15 +60,14 @@ app.registerView(function (container) {
             wrapper.data("WrapperView", self);
 
             var dragAndDropPanel = self.element.closest(".drag-and-drop");
-            var dragAndDropContainer = dragAndDropPanel.parent(); // detect $(".row > .drag-and-drop")
 
-            if (!dragAndDropPanel.length || !dragAndDropContainer.is(".row") || dragAndDropContainer.data("isSortable"))
+            if (!dragAndDropPanel.length || dragAndDropPanel.data("isSortable"))
                 return;
 
             // sortable jquery can only be bound once, so exit if already bound
             var __beforeDragPosition, __afterDragPosition;
             var handler = ".panel-heading";
-            var connector = ".row > .drag-and-drop";
+            var connector = ".drag-and-drop";
             dragAndDropPanel.sortable({
                 handle: handler,
                 connectWith: connector,
@@ -82,14 +81,14 @@ app.registerView(function (container) {
 
                     var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
                     if (currentMovingViewInstance)
-                        currentMovingViewInstance.fn.sendMoveSignal(__beforeDragPosition, __afterDragPosition);
+                        currentMovingViewInstance.fn.sendMoveSignal(__beforeDragPosition, __afterDragPosition, event);
                 }
             });
-            dragAndDropContainer.data("isSortable", true);
+            dragAndDropPanel.data("isSortable", true);
         };
 
-        this.fn.sendMoveSignal = function (oldPosition, newPosition) {
-            self.widgetEventChannel.sendMoveSignal(oldPosition, newPosition);
+        this.fn.sendMoveSignal = function (oldPosition, newPosition, event) {
+            self.widgetEventChannel.sendMoveSignal(oldPosition, newPosition, event);
         };
     };
 

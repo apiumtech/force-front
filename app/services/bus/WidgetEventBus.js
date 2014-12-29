@@ -23,14 +23,14 @@ app.registerService(function (container) {
         })
     };
 
-    WidgetEventBus.prototype.sendMoveSignal = function (oldPosition, newPosition) {
-        this.send({widgetMoved: true, oldPosition: oldPosition, newPosition: newPosition});
+    WidgetEventBus.prototype.sendMoveSignal = function (oldPosition, newPosition, moveEvent) {
+        this.send({widgetMoved: true, oldPosition: oldPosition, newPosition: newPosition, moveEvent: moveEvent});
     };
 
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {
         this.listen(function (event) {
-            if (event.widgetMoved && event.oldPosition && event.newPosition) {
-                callback(event.oldPosition, event.newPosition);
+            if (event.widgetMoved && undefined !== event.oldPosition && undefined !== event.newPosition) {
+                callback(event.oldPosition, event.newPosition, event.moveEvent);
             }
         });
     };

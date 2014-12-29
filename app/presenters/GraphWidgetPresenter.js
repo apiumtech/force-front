@@ -27,6 +27,10 @@ app.registerPresenter(function (container) {
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
         });
+
+        self.widgetEventChannel.onMoveSignalReceived(function (oldPosition, newPosition, moveEvent) {
+            self._executeMoveWidget(oldPosition, newPosition, moveEvent);
+        });
     };
 
     GraphWidgetPresenter.prototype._executeLoadWidget = function () {
@@ -36,6 +40,20 @@ app.registerPresenter(function (container) {
 
         $model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
+    };
+
+    GraphWidgetPresenter.prototype._executeMoveWidget = function (oldPosition, newPosition, moveEvent) {
+        var self = this,
+            $view = self.$view,
+            $model = self.$model,
+            $moveEvent = moveEvent;
+
+        // TODO: this will work synchronously, but with async it doesn't. how can we revert the sorting when ajax fails?
+        $moveEvent.preventDefault();
+
+        setTimeout(function () {
+            $moveEvent.preventDefault();
+        }, 1000);
     };
 
     GraphWidgetPresenter.prototype.showError = function (error) {
