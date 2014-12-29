@@ -24,12 +24,17 @@ requirejs.config({
         'framework': '/base/framework/ApplicationFactory',
         'meld': '/base/node_modules/meld/meld',
         'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-        'AppsAdapter': '/base/assets/js/AppsAdapter'
+        'AppsAdapter': '/base/assets/js/AppsAdapter',
+        'i18next': '/base/assets/js/vendor/i18next-1.7.7.min',
+        'ng-i18next': '/base/assets/js/vendor/ng-i18next'
     },
 
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+        'i18next': {
+            exports: 'i18next'
         },
 
         'angular-route': {
@@ -37,8 +42,13 @@ requirejs.config({
             exports: 'angular-route'
         },
 
+        'ng-i18next': {
+            deps: ['angular', 'i18next'],
+            exports: 'ng-i18next'
+        },
+
         'infinite-scroll': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'infinite-scroll'
         },
 
@@ -56,7 +66,12 @@ requirejs.config({
         }
     },
 
-    'deps': ['angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option', 'main'],
+    'deps': [
+        'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
+
+        'i18next', 'ng-i18next',
+        'main'
+    ],
 
     callback: test_main
 });
@@ -101,17 +116,35 @@ if (!Function.prototype.bind) {
 /*************************************/
 
 function exerciseFakePromise() {
-    return { then: function () { return exerciseFakePromise(); } };
+    return {
+        then: function () {
+            return exerciseFakePromise();
+        }
+    };
 }
 
 function exerciseFakeOkPromise() {
-    return { then: function (a, b) { a(); return exerciseFakeOkPromise(); } };
+    return {
+        then: function (a, b) {
+            a();
+            return exerciseFakeOkPromise();
+        }
+    };
 }
 
 function exerciseFakeKoPromise() {
-    return { then: function (a, b) { b(); return exerciseFakeKoPromise(); } };
+    return {
+        then: function (a, b) {
+            b();
+            return exerciseFakeKoPromise();
+        }
+    };
 }
 
 function exerciseFakeChannel() {
-    return { listen: function () {}, send: function () {} };
+    return {
+        listen: function () {
+        }, send: function () {
+        }
+    };
 }

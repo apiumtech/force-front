@@ -1,0 +1,12 @@
+{
+  "hello": "Hello",
+  "commonText": {
+    "Export": "Export"
+  },
+  "Intensity": {
+    "Filters": {
+      "AllUsers": "All Users",
+      "DateRange": "In this date range"
+    }
+  }
+}

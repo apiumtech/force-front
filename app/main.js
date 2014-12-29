@@ -5,8 +5,20 @@
 var app = null;
 
 function main() {
+    var $i18nextProviderOptions = {
+        lng: 'en-US',
+        useCookie: false,
+        useLocalStorage: false,
+        fallbackLng: 'en-US',
+        resGetPath: '/app/translations/__lng__.json'
+    };
+
+    angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
+        $i18nextProvider.options = $i18nextProviderOptions;
+    }]);
+
     /** AngularJS App Configuration **/
-    function AngularConfig($routeProvider) {
+    function AngularConfig($routeProvider, $i18nextProvider) {
 
         $routeProvider
             .when('/analytics/intensity', {
@@ -16,11 +28,15 @@ function main() {
             .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
     }
 
-    AngularConfig.$inject = ['$routeProvider'];
+    AngularConfig.$inject = ['$routeProvider', '$i18nextProvider'];
 
     /** Application Building **/
     app = ApplicationFactory.newRequireApplication("RequireJS")
-        .composedWith(ApplicationFactory.newAngularApplication('AngularApp', ['ngRoute', 'infinite-scroll'], AngularConfig));
+        .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
+            'ngRoute',
+            'jm.i18next',
+            'infinite-scroll'
+        ], AngularConfig));
 
     app.manifest = {
         authors: ['apiumtech'],

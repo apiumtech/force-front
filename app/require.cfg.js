@@ -12,12 +12,17 @@ var require = {
         'functional-option': '/framework/Option',
         'framework': '/framework/ApplicationFactory',
         'meld': '/node_modules/meld/meld',
-        'AppsAdapter': '/assets/js/AppsAdapter'
+        'AppsAdapter': '/assets/js/AppsAdapter',
+        'i18next': '/assets/js/vendor/i18next-1.7.7.min',
+        'ng-i18next': '/assets/js/vendor/ng-i18next'
     },
 
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+        'i18next': {
+            exports: 'i18next'
         },
 
         'infinite-scroll': {
@@ -28,6 +33,11 @@ var require = {
         'angular-route': {
             deps: ['angular'],
             exports: 'angular-route'
+        },
+
+        'ng-i18next': {
+            deps: ['angular', 'i18next'],
+            exports: 'ng-i18next'
         },
 
         'jquery': {
@@ -44,7 +54,10 @@ var require = {
         }
     },
 
-    'deps': ['angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option'],
+    'deps': [
+        'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
+        'i18next', 'ng-i18next'
+    ],
 
     callback: main
 };
