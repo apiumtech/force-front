@@ -30,13 +30,6 @@ app.get('/api/widgets/intensity', function (request, response) {
                     widgetId: "2",
                     order: 2,
                     columns: 1
-                },
-                {
-                    widgetType: "table",
-                    widgetName: "Widget C",
-                    widgetId: "3",
-                    order: 3,
-                    columns: 1
                 }
             ]
         }));
@@ -46,14 +39,16 @@ app.get('/api/widgets/intensity', function (request, response) {
 app.get('/api/widget/:id', function (request, response) {
     var id = request.params.id;
     setTimeout(function () {
-        response.end(JSON.stringify({
-            success: true,
-            data: {
-                widgetId: id,
-                params: "{img: 'http://" + getDomain() + "/img/intensity-chart-" + id + ".jpg'}"
-            }
-        }));
-    }, 1000);
+            response.end(JSON.stringify({
+                success: true,
+                data: {
+                    widgetId: id,
+                    params: '{ "img": "http://' + getDomain() + '/img/intensity-chart-' + id + '.jpg" }'
+                }
+            }));
+        },
+        1000
+    );
 });
 
 function getDomain() {

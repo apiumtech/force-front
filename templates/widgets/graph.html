@@ -1,3 +1,3 @@
-<div ng-controller="GraphWidgetController">
-    <img src="{{data.imgUrl}}" class="img-responsive"/>
+<div ng-controller="GraphWidgetController" ng-init="fn.assignWidget(widget)">
+    <img src="{{data.params.img}}" class="img-responsive"/>
 </div>

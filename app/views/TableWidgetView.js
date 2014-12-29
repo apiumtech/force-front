@@ -4,17 +4,17 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var GraphWidgetModel = container.getModel('models/GraphWidgetModel');
-    var GraphWidgetPresenter = container.getPresenter('presenters/GraphWidgetPresenter');
+    var TableWidgetModel = container.getModel('models/TableWidgetModel');
+    var TableWidgetPresenter = container.getPresenter('presenters/TableWidgetPresenter');
 
-    function GraphWidgetView(scope, element, model, presenter) {
+    function TableWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         scope._widget = null;
         var self = this;
         self.configureEvents();
     }
 
-    GraphWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    TableWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
         widget: {
             get: function () {
                 return this.$scope._widget;
@@ -27,9 +27,8 @@ app.registerView(function (container) {
         }
     });
 
-    GraphWidgetView.prototype.configureEvents = function () {
+    TableWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -43,24 +42,24 @@ app.registerView(function (container) {
         };
     };
 
-    GraphWidgetView.prototype.onReloadWidgetSuccess = function (data) {
+    TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
         self.data = data.data;
         self.event.onReloadWidgetDone();
     };
 
-    GraphWidgetView.prototype._getWidgetChannelInstance = function (widgetName) {
+    TableWidgetView.prototype._getWidgetChannelInstance = function (widgetName) {
         return WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
     };
 
-    GraphWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || GraphWidgetModel.newInstance().getOrElse(throwException("Cannot instantiate GraphWidgetModel"));
-        var presenter = $presenter || GraphWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate GraphWidgetPresenter"));
+    TableWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+        var model = $model || TableWidgetModel.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetModel"));
+        var presenter = $presenter || TableWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetPresenter"));
 
-        var view = new GraphWidgetView($scope, $element, model, presenter);
+        var view = new TableWidgetView($scope, $element, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    return GraphWidgetView;
+    return TableWidgetView;
 });

@@ -6,17 +6,17 @@ app.registerModel(function (container) {
     var WidgetBase = container.getService('services/WidgetBase');
     var Q = container.getFunction('q');
 
-    function IntensitySecondWidgetModel() {
+    function TableWidgetModel() {
         WidgetBase.call(this);
         this.widgetType = 'intensity';
         this.widgetName = '2';
     }
 
-    IntensitySecondWidgetModel.prototype = Object.create(WidgetBase.prototype);
+    TableWidgetModel.prototype = Object.create(WidgetBase.prototype);
 
-    IntensitySecondWidgetModel.newInstance = function () {
-        return Some(new IntensitySecondWidgetModel());
+    TableWidgetModel.newInstance = function () {
+        return Some(new TableWidgetModel());
     };
 
-    return IntensitySecondWidgetModel;
+    return TableWidgetModel;
 });

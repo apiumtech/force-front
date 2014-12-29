@@ -8,8 +8,6 @@ app.registerModel(function (container) {
 
     function GraphWidgetModel() {
         WidgetBase.call(this);
-        this.widgetType = 'intensity';
-        this.widgetName = '1';
     }
 
     GraphWidgetModel.prototype = Object.create(WidgetBase.prototype);

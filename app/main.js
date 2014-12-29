@@ -66,13 +66,13 @@ function main() {
             // Wrapper for widget
             'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
 
-            'services/bus/ReloadWidgetChannel',
-            'directives/WidgetWrapperDirective',
+            'services/bus/WidgetEventBus',
+
             // Graph widget
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
-            // intensity 2nd widget
-            'controllers/IntensitySecondWidgetController', 'views/IntensitySecondWidgetView', 'models/IntensitySecondWidgetModel', 'presenters/IntensitySecondWidgetPresenter',
+            // table widget
+            'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',

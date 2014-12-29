@@ -3,19 +3,25 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
-    var ReloadWidgetChannel = container.getService('services/bus/ReloadWidgetChannel');
+    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
 
     function WidgetWrapperView($scope, $element) {
         BaseView.call(this, $scope);
         this.element = $element || {};
         var self = this;
-        setTimeout(function () {
 
-            console.log($(self.element).parent().attr("data-widgetid"));
-        }, 0);
         $scope.isExpanded = false;
         $scope.isLoading = false;
         $scope.hasError = false;
+
+        self.configureEvents();
+    }
+
+    WidgetWrapperView.prototype = Object.create(BaseView.prototype, {});
+
+    WidgetWrapperView.prototype.configureEvents = function () {
+        var self = this,
+            $scope = self.$scope;
 
         this.fn.toggleCollapsePanel = function () {
             self.element.find('.panel-body').slideToggle();
@@ -27,41 +33,68 @@ app.registerView(function (container) {
 
         this.fn.reloadPanel = function () {
             $scope.isLoading = true;
-            self.reloadWidgetChannel.sendReloadSignal();
+            self.widgetEventChannel.sendReloadSignal();
         };
 
         this.fn.closeWidget = function () {
             self.element.remove();
         };
 
-        setTimeout(function () {
-            self.createEventBusChannel();
-        }, 0);
-    }
-
-    WidgetWrapperView.prototype = Object.create(BaseView.prototype);
-
-    WidgetWrapperView.prototype.__show = BaseView.prototype.show;
-    WidgetWrapperView.prototype.show = function () {
-        this.__show.call(this);
-        this.$scope.widgetTemplate = '<div ng-include="widget.template"></div>';
-    };
-
-    WidgetWrapperView.prototype.createEventBusChannel = function () {
-        var self = this;
-        var widgetName = self.element.attr("data-widgetname");
-        self.reloadWidgetChannel = self._getReloadWidgetChannelInstance(widgetName);
-        self.reloadWidgetChannel.listen(function (event) {
-            if (event.reloadCompleted) {
+        this.fn.initWidget = function (widget) {
+            var widgetName = widget.widgetType + "||" + widget.widgetId;
+            self.widget = widget;
+            self.widgetEventChannel = self._getWidgetChannelInstance(widgetName);
+            self.widgetEventChannel.onReloadCompleteSignalReceived(function (reloadError, errorMessage) {
                 self.$scope.isLoading = false;
-                self.$scope.hasError = event.reloadError;
-                self.$scope.errorMessage = (event.reloadError) ? event.errorMessage : null;
-            }
-        });
+                self.$scope.hasError = reloadError;
+                self.$scope.errorMessage = (reloadError) ? errorMessage : null;
+            });
+
+            self.fn.bindDraggableEvents();
+        };
+
+        this.fn.bindDraggableEvents = function () {
+            // map the dom to current view instance
+            var wrapperContainer = ".widget-container";
+            var wrapper = self.element.closest(wrapperContainer);
+            wrapper.data("WrapperView", self);
+
+            var dragAndDropPanel = self.element.closest(".drag-and-drop");
+            var dragAndDropContainer = dragAndDropPanel.parent(); // detect $(".row > .drag-and-drop")
+
+            if (!dragAndDropPanel.length || !dragAndDropContainer.is(".row") || dragAndDropContainer.data("isSortable"))
+                return;
+
+            // sortable jquery can only be bound once, so exit if already bound
+            var __beforeDragPosition, __afterDragPosition;
+            var handler = ".panel-heading";
+            var connector = ".row > .drag-and-drop";
+            dragAndDropPanel.sortable({
+                handle: handler,
+                connectWith: connector,
+                start: function (event, ui) {
+                    var _currentMovingWidget = ui.item.closest(wrapperContainer);
+                    __beforeDragPosition = _currentMovingWidget.index();
+                },
+                stop: function (event, ui) {
+                    var _currentMovingWidget = ui.item.closest(wrapperContainer);
+                    __afterDragPosition = _currentMovingWidget.index();
+
+                    var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
+                    if (currentMovingViewInstance)
+                        currentMovingViewInstance.fn.sendMoveSignal(__beforeDragPosition, __afterDragPosition);
+                }
+            });
+            dragAndDropContainer.data("isSortable", true);
+        };
+
+        this.fn.sendMoveSignal = function (oldPosition, newPosition) {
+            self.widgetEventChannel.sendMoveSignal(oldPosition, newPosition);
+        };
     };
 
-    WidgetWrapperView.prototype._getReloadWidgetChannelInstance = function (widgetName) {
-        return ReloadWidgetChannel.newInstance(widgetName).getOrElse(throwException("Cannot instantiate ReloadWidgetChannel"));
+    WidgetWrapperView.prototype._getWidgetChannelInstance = function (widgetName) {
+        return WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
     };
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {

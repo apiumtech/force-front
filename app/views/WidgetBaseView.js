@@ -14,13 +14,6 @@ app.registerView(function (container) {
     WidgetBaseView.prototype.__show = BaseView.prototype.show;
     WidgetBaseView.prototype.show = function () {
         this.__show.call(this);
-        this.event.onReloadWidgetStart();
-    };
-
-    WidgetBaseView.prototype.onReloadWidgetSuccess = function (data) {
-        var self = this;
-        self.data = data.data;
-        self.event.onReloadWidgetDone();
     };
 
     WidgetBaseView.prototype.onReloadWidgetError = function (error) {
@@ -36,7 +29,10 @@ app.registerView(function (container) {
                 break;
 
             default:
-                errorMessage = "Error while requesting data.";
+                var err = "";
+                if (error instanceof Error)
+                    err = error.message;
+                errorMessage = "Error while requesting data. " + err;
                 break;
         }
         self.event.onReloadWidgetDone(errorMessage);

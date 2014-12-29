@@ -1,6 +1,6 @@
 <div class="panel panel-inverse"
      ng-controller="WidgetWrapperController"
-     data-widgetname="{{widget.name}}"
+     ng-init="fn.initWidget(widget)"
      ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
     <div class="panel-heading">
         <div class="panel-heading-btn">
@@ -37,6 +37,6 @@
             <i class="glyphicon glyphicon-warning-sign"></i>
             {{errorMessage}}
         </div>
-        <div ng-show="!hasError" data-widgetid="{{widget.widgetId}}" ng-include="widget.template"></div>
+        <div ng-show="!hasError" ng-include="widget.template"></div>
     </div>
 </div>

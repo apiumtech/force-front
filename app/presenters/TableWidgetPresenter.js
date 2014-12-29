@@ -4,13 +4,13 @@
 
 app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var widgetName = "intensityWidgetA";
+    var widgetName = "tableWidget";
 
-    function GraphWidgetPresenter(widgetEventChannel) {
+    function TableWidgetPresenter(widgetEventChannel) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
-    GraphWidgetPresenter.prototype = Object.create(Object.prototype, {
+    TableWidgetPresenter.prototype = Object.create(Object.prototype, {
         widgetEventChannel: {
             get: function () {
                 return this._widgetEventChannel;
@@ -22,14 +22,14 @@ app.registerPresenter(function (container) {
         }
     });
 
-    GraphWidgetPresenter.prototype.rebindChannelListener = function () {
+    TableWidgetPresenter.prototype.rebindChannelListener = function () {
         var self = this;
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
         });
     };
 
-    GraphWidgetPresenter.prototype._executeLoadWidget = function () {
+    TableWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
             $model = self.$model;
@@ -38,12 +38,12 @@ app.registerPresenter(function (container) {
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
-    GraphWidgetPresenter.prototype.showError = function (error) {
+    TableWidgetPresenter.prototype.showError = function (error) {
         console.log(error);
         alert("An error has occurred. Please check the log");
     };
 
-    GraphWidgetPresenter.prototype.show = function (view, model) {
+    TableWidgetPresenter.prototype.show = function (view, model) {
         var self = this;
         self.$view = view;
         self.$model = model;
@@ -59,10 +59,10 @@ app.registerPresenter(function (container) {
         };
     };
 
-    GraphWidgetPresenter.newInstance = function (widgetEventChannel) {
+    TableWidgetPresenter.newInstance = function (widgetEventChannel) {
         var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new GraphWidgetPresenter(_widgetEventChannel));
+        return Some(new TableWidgetPresenter(_widgetEventChannel));
     };
 
-    return GraphWidgetPresenter;
+    return TableWidgetPresenter;
 });

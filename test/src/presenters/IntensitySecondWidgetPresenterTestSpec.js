@@ -1,12 +1,12 @@
 /**
  * Created by justin on 12/22/14.
  */
-describe("IntensitySecondWidgetPresenter", function () {
-    var IntensitySecondWidgetPresenter = app.getPresenter('presenters/IntensitySecondWidgetPresenter');
+describe("TableWidgetPresenter", function () {
+    var TableWidgetPresenter = app.getPresenter('presenters/TableWidgetPresenter');
     var sut;
 
     beforeEach(function () {
-        sut = IntensitySecondWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate IntensitySecondWidgetPresenter"));
+        sut = TableWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetPresenter"));
     });
 
     describe("show() method", function () {

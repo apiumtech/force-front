@@ -17,7 +17,6 @@ app.registerService(function (container) {
             },
             set: function (value) {
                 this._widgetId = value;
-                this._reload();
             }
         },
         column: {
@@ -26,16 +25,14 @@ app.registerService(function (container) {
             },
             set: function (value) {
                 this._column = value;
-                this._updatePosition();
             }
         },
         order: {
             get: function () {
-                return this.order;
+                return this._order;
             },
             set: function (value) {
-                this.order = value;
-                this._updatePosition();
+                this._order = value;
             }
         },
         fetchPoint: {
@@ -65,7 +62,13 @@ app.registerService(function (container) {
             type: 'get',
             contentType: 'application/json'
         }).success(function (data) {
-            deferred.resolve(JSON.parse(data));
+            var serverResponse = JSON.parse(data);
+            if (serverResponse && serverResponse.success) {
+                if (serverResponse.data.params) {
+                    serverResponse.data.params = JSON.parse(serverResponse.data.params);
+                }
+                deferred.resolve(serverResponse);
+            }
         }).error(function (error) {
             deferred.reject(error);
         });
