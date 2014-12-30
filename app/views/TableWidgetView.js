@@ -31,6 +31,14 @@ app.registerView(function (container) {
         self.event.onReloadWidgetDone();
     };
 
+    TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
+        alert("Widget moved to new position");
+    };
+
+    TableWidgetView.prototype.onMoveWidgetError = function (error) {
+        this.showError(error);
+    };
+
     TableWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || TableWidgetModel.newInstance().getOrElse(throwInstantiateException(TableWidgetModel));
         var presenter = $presenter || TableWidgetPresenter.newInstance().getOrElse(throwInstantiateException(TableWidgetPresenter));

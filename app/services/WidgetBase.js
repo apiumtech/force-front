@@ -109,22 +109,5 @@ app.registerService(function (container) {
         return deferred.promise;
     };
 
-    WidgetBase.prototype._updatePosition = function () {
-        var deferred = Q.defer();
-        var self = this;
-        var url = self.fetchPoint + '/' + self.widgetId + '/updatePosition';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            contentType: 'application/json'
-        }).success(function (data) {
-            deferred.resolve(JSON.parse(data));
-        }).error(function (error) {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-    };
-
     return WidgetBase;
 });

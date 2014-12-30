@@ -1,8 +1,8 @@
 /**
  * Created by justin on 12/22/14.
  */
-describe("GraphWidgetView", function () {
-    var GraphWidgetView = app.getView('views/GraphWidgetView');
+describe("TableWidgetView", function () {
+    var TableWidgetView = app.getView('views/TableWidgetView');
     var WidgetBaseView = app.getView('views/WidgetBaseView');
     var sut;
 
@@ -12,7 +12,7 @@ describe("GraphWidgetView", function () {
 
     describe("configureEvents", function () {
         beforeEach(function () {
-            sut = GraphWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(GraphWidgetView));
+            sut = TableWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
         });
 
         it("should declare method assignWidget", function () {
@@ -53,7 +53,7 @@ describe("GraphWidgetView", function () {
         };
 
         function instantiateSut() {
-            sut = new GraphWidgetView({}, {});
+            sut = new TableWidgetView({}, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
@@ -72,5 +72,5 @@ describe("GraphWidgetView", function () {
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
         });
-    })
+    });
 });

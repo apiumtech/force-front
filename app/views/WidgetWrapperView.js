@@ -61,8 +61,9 @@ app.registerView(function (container) {
 
             var dragAndDropPanel = self.element.closest(".drag-and-drop");
 
-            if (!dragAndDropPanel.length || dragAndDropPanel.data("isSortable"))
+            if (!dragAndDropPanel.length || dragAndDropPanel.data("isSortable")) {
                 return;
+            }
 
             // sortable jquery can only be bound once, so exit if already bound
             var __beforeDragPosition, __afterDragPosition;
@@ -80,8 +81,9 @@ app.registerView(function (container) {
                     __afterDragPosition = _currentMovingWidget.index();
 
                     var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
-                    if (currentMovingViewInstance)
+                    if (currentMovingViewInstance) {
                         currentMovingViewInstance.fn.sendMoveSignal(__beforeDragPosition, __afterDragPosition, event);
+                    }
                 }
             });
             dragAndDropPanel.data("isSortable", true);
