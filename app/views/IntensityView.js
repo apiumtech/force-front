@@ -12,6 +12,11 @@ app.registerView(function (container) {
     function IntensityView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         $scope.widgets = [];
+        var self = this;
+
+        self.fn.loadWidgets = function () {
+            self.event.onLoaded();
+        };
     }
 
     IntensityView.prototype = Object.create(BaseView.prototype);
@@ -19,11 +24,7 @@ app.registerView(function (container) {
     IntensityView.prototype.__show = BaseView.prototype.show;
     IntensityView.prototype.show = function () {
         this.__show.call(this);
-        this.event.onLoaded();
-    };
-
-    IntensityView.prototype.bindElementEvents = function () {
-
+        this.fn.loadWidgets();
     };
 
     IntensityView.prototype.decorateWidget = function (widgetsData) {
@@ -34,6 +35,9 @@ app.registerView(function (container) {
 
     IntensityView.prototype.onWidgetsLoaded = function (widgetsData) {
         this.decorateWidget.call(this, widgetsData);
+        widgetsData.sort(function (widgetA, widgetB) {
+            return widgetA.order - widgetB.order;
+        })
         this.$scope.widgets = widgetsData;
     };
 

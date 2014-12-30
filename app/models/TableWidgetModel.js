@@ -12,7 +12,7 @@ app.registerModel(function (container) {
         this.widgetName = '2';
     }
 
-    TableWidgetModel.prototype = Object.create(WidgetBase.prototype);
+    TableWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
     TableWidgetModel.newInstance = function () {
         return Some(new TableWidgetModel());

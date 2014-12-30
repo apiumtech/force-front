@@ -10,7 +10,7 @@ app.registerModel(function (container) {
         WidgetBase.call(this);
     }
 
-    GraphWidgetModel.prototype = Object.create(WidgetBase.prototype);
+    GraphWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
     GraphWidgetModel.newInstance = function () {
         return Some(new GraphWidgetModel());

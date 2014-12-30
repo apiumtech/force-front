@@ -14,8 +14,6 @@ app.registerPresenter(function (container) {
             model.getWidgets()
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
         };
-
-        view.bindElementEvents();
     };
 
     IntensityPresenter.newInstance = function () {

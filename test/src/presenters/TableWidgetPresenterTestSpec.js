@@ -62,5 +62,25 @@ describe("TableWidgetPresenter", function () {
                 }
             });
     });
-})
-;
+
+
+    describe("_executeMoveWidget", function () {
+        var model = {
+            moveWidget: function (newIndex, oldIndex) {
+            }
+        };
+        var view = {
+            event: {},
+            onMoveWidgetSuccess: jasmine.createSpy(),
+            onMoveWidgetError: jasmine.createSpy()
+        };
+
+        it("Should call moveWidget on model", function () {
+            sut.show(view, model);
+            var oldIndex = 0, newIndex = 3;
+            spyOn(model, 'moveWidget').and.returnValue(exerciseFakePromise());
+            sut._executeMoveWidget(oldIndex, newIndex);
+            expect(model.moveWidget).toHaveBeenCalledWith(oldIndex, newIndex);
+        });
+    });
+});

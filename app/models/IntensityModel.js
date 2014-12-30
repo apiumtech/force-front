@@ -17,8 +17,7 @@ app.registerModel(function (container) {
             type: 'get',
             contentType: 'application/json'
         }).success(function (data) {
-            var parsedData = JSON.parse(data)
-            deferred.resolve(undefined != parsedData.data ? parsedData.data : parsedData);
+            deferred.resolve(data.data);
         }).error(function (error) {
             deferred.reject(error);
         });

@@ -48,12 +48,8 @@ app.registerPresenter(function (container) {
             $model = self.$model,
             $moveEvent = moveEvent;
 
-        // TODO: this will work synchronously, but with async it doesn't. how can we revert the sorting when ajax fails?
-        $moveEvent.preventDefault();
-
-        //setTimeout(function () {
-        //    $moveEvent.preventDefault();
-        //}, 1000);
+        $model.moveWidget(oldPosition, newPosition)
+            .then($view.onMoveWidgetSuccess.bind($view), $view.onMoveWidgetError.bind($view));
     };
 
     GraphWidgetPresenter.prototype.showError = function (error) {

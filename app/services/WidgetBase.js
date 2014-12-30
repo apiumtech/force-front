@@ -41,7 +41,6 @@ app.registerService(function (container) {
             },
             set: function (value) {
                 this._fetchPoint = value;
-                this._reload();
             }
         }
     });
@@ -62,7 +61,7 @@ app.registerService(function (container) {
             type: 'get',
             contentType: 'application/json'
         }).success(function (data) {
-            var serverResponse = JSON.parse(data);
+            var serverResponse = data;
             if (serverResponse && serverResponse.success) {
                 if (serverResponse.data.params) {
                     serverResponse.data.params = JSON.parse(serverResponse.data.params);
@@ -70,6 +69,40 @@ app.registerService(function (container) {
                 deferred.resolve(serverResponse);
             }
         }).error(function (error) {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
+    };
+
+    WidgetBase.prototype.moveWidget = function (oldIndex, newIndex) {
+        if (!this.widgetId)
+            throw new Error("Widget Id is not defined");
+
+        return Q.fcall(this._moveWidget.bind(this, oldIndex, newIndex));
+    };
+
+    WidgetBase.prototype._moveWidget = function (oldIndex, newIndex) {
+        var deferred = Q.defer();
+        var self = this;
+        var url = self.fetchPoint + '/' + self.widgetId + '/move';
+        $.ajax({
+            url: url,
+            type: 'post',
+            accept: 'application/json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                oldIndex: oldIndex,
+                newIndex: newIndex
+            })
+        }).done(function (data) {
+            var serverResponse = data;
+            if (serverResponse && serverResponse.success) {
+                deferred.resolve(serverResponse);
+            } else {
+                deferred.reject(new Error("Error while moving widget"));
+            }
+        }).fail(function (error) {
             deferred.reject(error);
         });
 

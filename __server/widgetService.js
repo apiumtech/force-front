@@ -12,7 +12,7 @@ var widgetList = [
         widgetName: "Widget A",
         widgetId: 1,
         order: 0,
-        columns: 1
+        column: 1
     },
     {
         page: "intensity",
@@ -20,7 +20,7 @@ var widgetList = [
         widgetName: "Widget B",
         widgetId: 2,
         order: 1,
-        columns: 1
+        column: 1
     },
     {
         page: "intensity",
@@ -28,7 +28,7 @@ var widgetList = [
         widgetName: "Widget C",
         widgetId: 3,
         order: 2,
-        columns: 1
+        column: 1
     }
 ];
 
@@ -37,10 +37,18 @@ widgetService.getWidgetFromPage = function (page) {
         return widget.page === page;
     }));
 
-    return _.each(pageWidgets, function (widget) {
-        delete widget.page;
-        delete widget.params;
+    var list = [];
+    _.each(pageWidgets, function (widget) {
+        var w = {
+            widgetType: widget.widgetType,
+            widgetName: widget.widgetName,
+            widgetId: widget.widgetId,
+            order: widget.order,
+            column: widget.column
+        };
+        list.push(w);
     });
+    return list;
 };
 
 widgetService.moveWidget = function (widgetId, oldIndex, newIndex, request, response) {
