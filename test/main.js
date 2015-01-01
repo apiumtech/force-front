@@ -25,7 +25,7 @@ requirejs.config({
         'meld': '/base/node_modules/meld/meld',
         'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'AppsAdapter': '/base/assets/js/AppsAdapter',
-        'i18next': '/base/assets/js/vendor/i18next-1.7.7.min',
+        'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/base/assets/js/vendor/ng-i18next'
     },
 
