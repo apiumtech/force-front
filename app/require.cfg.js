@@ -13,7 +13,7 @@ var require = {
         'framework': '/framework/ApplicationFactory',
         'meld': '/node_modules/meld/meld',
         'AppsAdapter': '/assets/js/AppsAdapter',
-        'i18next': '/assets/js/vendor/i18next-1.7.7.min',
+        'i18next': '/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/assets/js/vendor/ng-i18next'
     },
 
