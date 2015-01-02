@@ -19,7 +19,7 @@ app.registerModel(function (container) {
     }
 
     function AccountModel($fakeDatabase, $queryBuilder) {
-        this.fakeDatabase = $fakeDatabase;
+        this.gateway = $fakeDatabase;
         this.queryBuilder = $queryBuilder;
         this.sorting = {};
         this.filterName = "";
@@ -113,7 +113,7 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getCurrentFields = function () {
         return Q.fcall(function () {
-            var accFieldsList = this.fakeDatabase.getAccountFields().data;
+            var accFieldsList = this.gateway.getAccountFields().data;
             this._setColumnList(accFieldsList);
 
             return accFieldsList;
@@ -122,7 +122,7 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.getAllFields = function () {
         return Q.fcall(function () {
-            var ref = this.allColumns || this.fakeDatabase.getAllAccountFields().data;
+            var ref = this.allColumns || this.gateway.getAllAccountFields().data;
             this.allColumns = ref;
 
             return ref.map(function (k) {
@@ -142,7 +142,7 @@ app.registerModel(function (container) {
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
-        var queryResult = this.fakeDatabase.getAccounts(query);
+        var queryResult = this.gateway.getAccounts(query);
         this._mergeOrSave(queryResult);
         this.queryBuilder.allFields();
 
