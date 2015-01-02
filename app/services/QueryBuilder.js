@@ -8,6 +8,7 @@ app.registerService(function (container) {
         this.query = $defaultQuery;
         this.query.filters = this.query.filters || [];
         this.query.fields = this.query.fields || [];
+        this.query.order = this.query.order || {};
     }
 
     QueryBuilder.prototype.setFilter = function (name, value) {
