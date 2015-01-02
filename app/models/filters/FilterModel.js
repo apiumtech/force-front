@@ -40,7 +40,7 @@ app.registerModel(function (container) {
         return Q.fcall(function () {
             return this.fakeDatabase.getAvailableOwners(name || "").data.map(function (k) {
                 k.selected = this.selectedOwners.filter(function (v) {
-                    return v.id === k.id
+                    return v.id === k.id;
                 }).length > 0;
                 return k;
             }.bind(this));

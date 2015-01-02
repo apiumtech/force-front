@@ -3,7 +3,7 @@
  */
 app.registerModel(function (container) {
     function accessToPath(object, dotPath) {
-        if (object == null) {
+        if (object === null) {
             return null;
         }
 
@@ -16,20 +16,20 @@ app.registerModel(function (container) {
     }
 
     function writeToPath(object, dotPath, value) {
-        if (object == null) {
+        if (object === null) {
             return null;
         }
 
         if (dotPath.indexOf('.') != -1) {
             var plot = dotPath.split('.', 1);
 
-            if (object[plot[0]] == null) {
+            if (object[plot[0]] === null) {
                 object[plot[0]] = {};
             }
 
             writeToPath(object[plot[0]], dotPath.substring(plot[0].length + 1), value);
         } else {
-            if (object[dotPath] == null) {
+            if (object[dotPath] === null) {
                 object[dotPath] = {};
             }
 
@@ -52,7 +52,7 @@ app.registerModel(function (container) {
         this.allFields = $currentFields.slice(0);
 
         this.currentFields = $currentFields.slice(0).filter(function (k) {
-            return k.columnKey != 'imgUrl'
+            return k.columnKey != 'imgUrl';
         });
         this.currentAccounts = $currentAccounts.slice(0);
         this.currentOwners = $currentOwners.slice(0);
@@ -84,7 +84,7 @@ app.registerModel(function (container) {
                 var i = 0;
 
                 var validFilters = query.filters.filter(function (k) {
-                    return k.columnKey != undefined && k.value != undefined;
+                    return k.columnKey !== undefined && k.value !== undefined;
                 });
                 for (; i < validFilters.length; i++) {
                     var filter = query.filters[i];
@@ -92,8 +92,8 @@ app.registerModel(function (container) {
                     var value = filter.value;
 
                     var data = accessToPath(element, key);
-                    if (Object.prototype.toString.call(value) == "[object Array]") {
-                        var found = value.length == 0;
+                    if (Object.prototype.toString.call(value) === "[object Array]") {
+                        var found = value.length === 0;
                         for (var j = 0; j < value.length; j++) {
                             var valueUnionVal = value[j];
                             if (data == valueUnionVal) {
@@ -104,7 +104,7 @@ app.registerModel(function (container) {
                         if (!found) {
                             return false;
                         }
-                    } else if (value != undefined) {
+                    } else if (value !== undefined) {
                         if (data.toLowerCase().indexOf(value.toLowerCase()) == -1) {
                             return false;
                         }

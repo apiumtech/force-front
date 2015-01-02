@@ -24,7 +24,7 @@ app.registerView(function (container) {
 
         this.fn.isImageHeader = function (header) {
             return header.name.charAt(0) === '/';
-        }
+        };
     }
 
     AccountView.prototype.show = function () {

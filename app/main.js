@@ -27,7 +27,7 @@ function main() {
                 templateUrl: '/templates/analytics/intensity.html',
                 controller: 'IntensityController'
             })
-            .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'})
+            .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'});
     }
 
     AngularConfig.$inject = ['$routeProvider', '$i18nextProvider'];

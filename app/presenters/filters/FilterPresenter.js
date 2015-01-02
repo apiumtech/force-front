@@ -20,7 +20,7 @@ app.registerPresenter(function (container) {
 
         view.event.onFilterKeyUp = function (name, currentValue) {
             model.addFilter(name, currentValue)
-                .then(channel.send, view.showError.bind(view))
+                .then(channel.send, view.showError.bind(view));
         };
 
         view.event.onShowAvailableFilters = function () {
@@ -41,7 +41,7 @@ app.registerPresenter(function (container) {
 
         view.event.onToggleOwnerFilter = function (owner) {
             model.toggleOwnerFilter(owner)
-                .then(channel.send, view.showError.bind(view))
+                .then(channel.send, view.showError.bind(view));
         };
 
         view.event.onShowAvailableOwners = function (nameFilter) {

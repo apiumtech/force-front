@@ -138,12 +138,13 @@ describe("FakeDatabase", function () {
             }], merge: false
             }
         }
-    ]
+    ];
+
     dataProvider.forEach(function(test){
         it("should get a basic response of a element", function () {
             var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
             var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit}, filters: test.filters});
             expect(result).toEqual(test.expected);
         });
-    })
+    });
 });

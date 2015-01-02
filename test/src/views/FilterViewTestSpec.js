@@ -88,6 +88,5 @@ describe("FilterView", function () {
 
         view.showError(msg);
         expect(view.data.currentError).toEqual(msg);
-    })
-
+    });
 });
