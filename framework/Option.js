@@ -14,7 +14,7 @@
     jsScope.None = function () {
         return {
             getOrElse: function (elseFn) {
-                if (elseFn ==   = null) {
+                if (elseFn === null) {
                     throw new Error("Don't use null values if you are using the Option monad!");
                 }
 

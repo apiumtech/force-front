@@ -2,8 +2,12 @@
  * Created by kevin on 10/28/14.
  */
 app.registerModel(function (container) {
+    function isEmpty(o) {
+        return o === null || o === undefined;
+    }
+
     function accessToPath(object, dotPath) {
-        if (object === null) {
+        if (isEmpty(object)) {
             return null;
         }
 
@@ -16,20 +20,20 @@ app.registerModel(function (container) {
     }
 
     function writeToPath(object, dotPath, value) {
-        if (object === null) {
+        if (isEmpty(object)) {
             return null;
         }
 
         if (dotPath.indexOf('.') != -1) {
             var plot = dotPath.split('.', 1);
 
-            if (object[plot[0]] === null) {
+            if (isEmpty(object[plot[0]])) {
                 object[plot[0]] = {};
             }
 
             writeToPath(object[plot[0]], dotPath.substring(plot[0].length + 1), value);
         } else {
-            if (object[dotPath] === null) {
+            if (isEmpty(object[dotPath])) {
                 object[dotPath] = {};
             }
 

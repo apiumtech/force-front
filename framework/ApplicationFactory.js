@@ -25,6 +25,10 @@
  **/
 
 (function (jsScope) {
+    function isEmpty(o) {
+        return o === null || o === undefined;
+    }
+
     function isFunction(func) {
         return Object.prototype.toString.call(func) == '[object Function]';
     }
@@ -69,7 +73,7 @@
         impl.registerFunction = impl.registerObject;
         impl.registerView = impl.registerController = impl.registerPresenter = impl.registerModel = impl.registerDirective =
             impl.registerService = impl.register = function (cfg, factory) {
-                if (factory === null) {
+                if (isEmpty(factory)) {
                     ensureFunction(cfg, "factory");
                     impl.registerObject({}, cfg);
                 } else {
@@ -84,7 +88,7 @@
     jsScope.ApplicationFactory = {
         newApplication: function (name, impl) {
             // ensure that the configuration is valid before creating the application.
-            if (impl === null) {
+            if (isEmpty(impl)) {
                 throw new Error("impl must not be null.");
             }
             ensureFunction(impl.registerObject, "registerObject");
@@ -136,9 +140,9 @@
                 var impl = {type: 'require'};
                 impl.registerObject = function (configuration, factory) {
                     var cfg = configuration || {};
-                    if (cfg.name !== null && cfg.dependencies !== null) {
+                    if (!isEmpty(cfg.name) && !isEmpty(cfg.dependencies)) {
                         jsScope.define(cfg.name, cfg.dependencies, factory);
-                    } else if (cfg.name !== null && cfg.dependencies === null) {
+                    } else if (!isEmpty(cfg.name) && isEmpty(cfg.dependencies)) {
                         jsScope.define(cfg.name, [], function (require) {
                             return factory.bind(require, applyGetsTo({
                                 require: require,
@@ -175,7 +179,7 @@
         },
 
         newAngularApplication: function (name, modules, config) {
-            if (jsScope.angular === null) {
+            if (isEmpty(jsScope.angular)) {
                 throw new Error("AngularJS is not loaded into the current scope");
             }
 
