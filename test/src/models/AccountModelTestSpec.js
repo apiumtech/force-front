@@ -137,6 +137,62 @@ describe("AccountModel", function () {
         })
     });
 
+    describe("addField", function () {
+        var sut = null;
+        var column = "a";
+
+        beforeEach(function () {
+            sut = exerciseCreateModel();
+            sut.addField(column);
+        });
+
+        it("should apply add the new field", function () {
+            expect(sut.queryBuilder.build()).toEqual({
+                filters: [],
+                fields: [column],
+                order: defaultOrder
+            });
+        });
+
+        it("should set the first page", function () {
+            expect(sut.queryBuilder.build().order.offset).toEqual(0);
+        });
+    });
+
+    describe("removeField", function () {
+        var sut = null;
+        var column = "a";
+
+        beforeEach(function () {
+            sut = exerciseCreateModel();
+            sut.addField(column);
+        });
+
+        it("should ignore non-existing fields", function () {
+            sut.removeField({columnKey: "??"});
+            expect(sut.queryBuilder.build()).toEqual({
+                filters: [],
+                fields: [column],
+                order: defaultOrder
+            });
+        });
+
+        it("should remove an existing field", function () {
+            sut.removeField({columnKey: column});
+            expect(sut.queryBuilder.build().fields).toEqual([]);
+        });
+
+        it("should remove an existing filter for this field", function () {
+            sut.setFilters([{columnKey: "a", value: "b"}]);
+            sut.removeField({columnKey: column});
+            expect(sut.queryBuilder.build().filters).toEqual([{columnKey: "name", value: ""}]);
+        });
+
+        it("should set the first page", function () {
+            expect(sut.queryBuilder.build().order.offset).toEqual(0);
+        });
+    });
+
     describe("private methods", function () {
         it("should flat an object as an array", function () {
             var model = exerciseCreateModel();
