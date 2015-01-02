@@ -1,7 +1,7 @@
 /**
  * Created by kevin on 10/28/14.
  */
-app.registerModel(function (container) {
+app.registerModel(function () {
     function isEmpty(o) {
         return o === null || o === undefined;
     }
