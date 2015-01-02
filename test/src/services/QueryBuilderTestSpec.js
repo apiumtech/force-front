@@ -18,7 +18,7 @@ describe("QueryBuilder", function () {
 
             it("should contain a default empty query", function () {
                 expect(sut.query).toEqual({filters: [], fields: [], order: {}});
-            })
+            });
         });
 
         describe("default query constructor", function () {
@@ -31,7 +31,7 @@ describe("QueryBuilder", function () {
 
             it("should contain the default query", function () {
                 expect(sut.query).toEqual(defaultQuery);
-            })
+            });
         });
     });
 

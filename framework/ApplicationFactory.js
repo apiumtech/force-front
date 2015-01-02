@@ -175,7 +175,7 @@
 
                 return jsScope.ApplicationFactory.newApplication(name, impl);
             }
-            throw new Error("RequireJS is not loaded! (require must be injected into the provided jsScope)")
+            throw new Error("RequireJS is not loaded! (require must be injected into the provided jsScope)");
         },
 
         newAngularApplication: function (name, modules, config) {
