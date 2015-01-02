@@ -74,12 +74,6 @@ app.registerModel(function (container) {
         return this.addFilter({columnKey: "responsible.id", value: filterValue});
     };
 
-    FilterModel.prototype._publicVisibleFilters = function () {
-        return this.filters.filter(function (k) {
-            return k.columnKey !== 'responsible.id';
-        });
-    };
-
     FilterModel.newInstance = function (db) {
         var database = db || FakeDatabase.newInstance(undefined, Configuration.fakeAccountData).getOrElse(throwException("We could not create a FakeDatabase!!!"));
         return Some(new FilterModel(database));

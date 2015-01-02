@@ -17,7 +17,7 @@ describe('LogErrorAspect', function () {
         expect(LogErrorAspect._log).toHaveBeenCalledWith("someStack");
     });
 
-    it("should call the $apply function on a constructor", function () {
+    it("should not call the _log function on a call to another public function that isn't showError", function () {
         var LogErrorAspect = app.getService('aspects/LogErrorAspect');
         LogErrorAspect._log = jasmine.createSpy();
 
