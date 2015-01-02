@@ -8,12 +8,21 @@ describe("AccountModel", function () {
     var FakeDatabase = app.getModel('models/fakes/FakeDatabase');
 
     function exerciseQueryBuilder() {
-        return QueryBuilder.newInstance().getOrElse(throwException("Could not create query builder!"));
+        return QueryBuilder.newInstance({}).getOrElse(throwException("Could not create query builder!"));
+    }
+
+    function exerciseFakeDb() {
+        return FakeDatabase.newInstance().getOrElse(throwException("Could not create fake db!"));
     }
 
     function exerciseCreateModel(gateway, queryBuilder) {
-        return AccountModel.newInstance(gateway || {}, queryBuilder || exerciseQueryBuilder()).getOrElse(throwException("Could not create AccountModel!"));
+        return AccountModel.newInstance(gateway || exerciseFakeDb(), queryBuilder || exerciseQueryBuilder()).getOrElse(throwException("Could not create AccountModel!"));
     }
+
+    var defaultOrder = {
+        offset: 0,
+        limit: 15
+    };
 
     describe("constructor", function () {
         describe("empty constructor", function () {
@@ -25,6 +34,14 @@ describe("AccountModel", function () {
 
             it("should contain empty sorting", function () {
                 expect(sut.sorting).toEqual({});
+            });
+
+            it("should contain empty columnKeys", function () {
+                expect(sut.columnKeys).toEqual([]);
+            });
+
+            it("should contain empty columns", function () {
+                expect(sut.columns).toEqual([]);
             });
 
             it("should contain empty filterName", function () {
@@ -51,6 +68,73 @@ describe("AccountModel", function () {
                 expect(sut.queryBuilder).toEqual(querybuilder);
             })
         });
+    });
+
+    describe("setNameFilter", function () {
+        var sut = null;
+        var name = "name";
+
+        beforeEach(function () {
+            sut = exerciseCreateModel();
+            sut.setNameFilter(name);
+        });
+
+        it("should apply the name filter", function () {
+            expect(sut.queryBuilder.build()).toEqual({
+                filters: [{columnKey: "name", value: name}],
+                fields: [],
+                order: defaultOrder
+            });
+        });
+
+        it("should set the first page", function () {
+            expect(sut.queryBuilder.build().order.offset).toEqual(0);
+        });
+    });
+
+    describe("setFilters", function () {
+        function exerciseFilter(name, value) {
+            return { columnKey: name, value: value };
+
+        }
+        function exerciseNameFilter(name) {
+            return exerciseFilter("name", name);
+        }
+
+        var filterDefName = exerciseNameFilter('');
+        var filterA_undefined = exerciseFilter("a", undefined);
+        var filterA_A = exerciseFilter("a", "a");
+
+        var sut = exerciseCreateModel();
+        [
+            { filters: [], expected: [ filterDefName ] },
+            { filters: null, expected: [ filterDefName ] },
+            { filters: undefined, expected: [ filterDefName ] },
+            { filters: [ filterA_undefined ], expected: [ filterDefName ]},
+            { filters: [ filterA_A ], expected: [ filterA_A, filterDefName ]}
+        ].forEach(function (testCase) {
+                it("should set the filters", function () {
+                    sut.setFilters(testCase.filters);
+                    expect(sut.queryBuilder.build().filters).toEqual(testCase.expected);
+                });
+            });
+    });
+
+    describe("toggleField", function () {
+        it("should add a new field", function () {
+            var sut = exerciseCreateModel();
+            sut.toggleField({ columnKey: "a" });
+
+            expect(sut.columnKeys).toEqual(["a"]);
+        });
+
+        it("should remove an existing field", function () {
+            var sut = exerciseCreateModel();
+            sut.toggleField({ columnKey: "a" });
+            sut.toggleField({ columnKey: "a" });
+
+            expect(sut.columnKeys).toEqual([]);
+        })
     });
 
     describe("private methods", function () {

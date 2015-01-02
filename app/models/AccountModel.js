@@ -24,6 +24,8 @@ app.registerModel(function (container) {
         this.sorting = {};
         this.filterName = "";
         this.allColumns = null;
+        this.columnKeys = [];
+        this.columns = [];
     }
 
     AccountModel.prototype.setNameFilter = function (value) {
