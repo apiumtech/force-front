@@ -68,4 +68,11 @@ function getDomain() {
     return (port && port != 80) ? "localhost:" + port : "localhost";
 }
 
+(function(){
+    var app2 = express();
+    app2.use(bodyParser());
+    app2.use(express.static(__dirname));
+    app2.listen(8081);
+})();
+
 app.listen(port);
