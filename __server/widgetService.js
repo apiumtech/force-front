@@ -21,14 +21,6 @@ var widgetList = [
         widgetId: 2,
         order: 1,
         column: 1
-    },
-    {
-        page: "intensity",
-        widgetType: "table",
-        widgetName: "Widget C",
-        widgetId: 3,
-        order: 2,
-        column: 1
     }
 ];
 

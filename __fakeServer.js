@@ -3,13 +3,14 @@
  */
 var express = require('express');
 var bodyParser = require('body-parser');
-var port = 8065;
+var port = 8081;
 var mainPath = "__server/assets";
 var delay = 1000;
 
 var app = express();
 app.use(bodyParser());
-app.use(express.static(mainPath));
+app.use(express.static("./"));
+app.use(express.static("./__server/assets"));
 
 app.get('/img/*', function (req, res) {
     app.render(mainPath + req.url);
@@ -67,12 +68,5 @@ app.post('/api/widget/:id/move', function (request, response) {
 function getDomain() {
     return (port && port != 80) ? "localhost:" + port : "localhost";
 }
-
-(function(){
-    var app2 = express();
-    app2.use(bodyParser());
-    app2.use(express.static(__dirname));
-    app2.listen(8081);
-})();
 
 app.listen(port);
