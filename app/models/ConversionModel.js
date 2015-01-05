@@ -1,29 +1,15 @@
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
+    var WidgetDecoratedPageModel = container.getModel("models/WidgetDecoratedPageModel");
+
     var WidgetService = container.getService("services/WidgetService");
 
     function ConversionModel(widgetService) {
-        this.widgetService = widgetService;
+        WidgetDecoratedPageModel.call(this, widgetService);
         this.pageName = "conversion";
     }
 
-    ConversionModel.prototype._getWidgets = function () {
-        var deferred = Q.defer();
-
-        this.widgetService.getWidgetsForPage(this.pageName)
-            .then(function (data) {
-                deferred.resolve(data.data);
-            })
-            .fail(function (error) {
-                deferred.reject(error);
-            });
-
-        return deferred.promise;
-    };
-
-    ConversionModel.prototype.getWidgets = function () {
-        return Q.fcall(this._getWidgets.bind(this));
-    };
+    ConversionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
 
     ConversionModel.newInstance = function (widgetService) {
         var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));

@@ -34,7 +34,7 @@ describe("IntensityModel", function () {
         it("should call getWidgetsForPage from service", function () {
             spyOn(widgetService, 'getWidgetsForPage').and.returnValue(fakeAjax());
             sut._getWidgets();
-            expect(widgetService.getWidgetsForPage).toHaveBeenCalledWith(sut.pageName);
+            expect(widgetService.getWidgetsForPage).toHaveBeenCalledWith('intensity');
         });
     });
 });

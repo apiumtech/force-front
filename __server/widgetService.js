@@ -53,6 +53,36 @@ var widgetList = [
         widgetId: 5,
         order: 2,
         column: 2
+    },
+    {
+        page: "conversion",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-4.jpg',
+        row: 1,
+        widgetId: 9,
+        order: 1,
+        column: 1
+    },
+    {
+        page: "conversion",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-5.jpg',
+        row: 1,
+        widgetId: 10,
+        order: 1,
+        column: 2
+    },
+    {
+        page: "conversion",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-2.jpg',
+        row: 2,
+        widgetId: 15,
+        order: 1,
+        column: 1
     }
 ];
 

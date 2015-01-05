@@ -69,6 +69,7 @@ function main() {
             'services/b64StringEncoder',
 
             'models/fakes/FakeDatabase',
+            'models/WidgetDecoratedPageModel',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
