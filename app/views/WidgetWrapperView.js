@@ -67,10 +67,12 @@ app.registerView(function (container) {
 
             // sortable jquery can only be bound once, so exit if already bound
             var __beforeDragPosition, __afterDragPosition,
-                __beforeDragColumn, __afterDragColumn;
+                __beforeDragColumn, __afterDragColumn,
+                __beforeDragRow, __afterDragRow;
+
             var handler = ".panel-heading";
             var connector = ".drag-and-drop";
-            dragAndDropPanel.sortable({
+            $(".drag-and-drop").sortable({
                 handle: handler,
                 connectWith: connector,
                 start: function (event, ui) {
@@ -78,28 +80,32 @@ app.registerView(function (container) {
                         _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
 
                     __beforeDragPosition = _currentMovingWidget.index();
-                    __beforeDragColumn = _currentColumnOfMovingWidget.index();
+                    __beforeDragColumn = _currentColumnOfMovingWidget.data("widgetcolumn");
+                    __beforeDragRow = _currentColumnOfMovingWidget.data("widgetrow");
                 },
                 stop: function (event, ui) {
                     var _currentMovingWidget = ui.item.closest(wrapperContainer),
                         _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
 
                     __afterDragPosition = _currentMovingWidget.index();
-                    __afterDragColumn = _currentColumnOfMovingWidget.index();
+                    __afterDragColumn = _currentColumnOfMovingWidget.data("widgetcolumn");
+                    __afterDragRow = _currentColumnOfMovingWidget.data("widgetrow");
 
                     var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
                     if (currentMovingViewInstance) {
                         currentMovingViewInstance.fn.sendMoveSignal({
                             order: __beforeDragPosition,
-                            column: __beforeDragColumn
+                            column: __beforeDragColumn,
+                            row: __beforeDragRow
                         }, {
                             order: __afterDragPosition,
-                            column: __afterDragColumn
+                            column: __afterDragColumn,
+                            row: __afterDragRow
                         }, event);
                     }
                 }
             });
-            dragAndDropPanel.data("isSortable", true);
+            $(".drag-and-drop").data("isSortable", true);
         };
 
         this.fn.sendMoveSignal = function (oldPosition, newPosition, event) {

@@ -19,6 +19,9 @@ app.registerView(function (container) {
 
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
         this.decorateWidget.call(this, widgetsData);
+        widgetsData.sort(function (widgetA, widgetB) {
+            return widgetA.order - widgetB.order;
+        });
         this._rearrangeWidgetsList(widgetsData);
         this.$scope.widgets = widgetsData;
     };

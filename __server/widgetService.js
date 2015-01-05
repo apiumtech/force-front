@@ -26,12 +26,33 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "map",
-        widgetName: "Widget C",
+        widgetType: "table",
+        widgetName: "GEOGRAPHICAL DISTRIBUTION",
         imgUrl: 'chart-3.jpg',
+        row: 1,
         widgetId: 3,
         order: 1,
         column: 1
+    },
+    {
+        page: "distribution",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-4.jpg',
+        row: 2,
+        widgetId: 4,
+        order: 3,
+        column: 1
+    },
+    {
+        page: "distribution",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-5.jpg',
+        row: 2,
+        widgetId: 5,
+        order: 2,
+        column: 2
     }
 ];
 
@@ -47,7 +68,8 @@ widgetService.getWidgetFromPage = function (page) {
             widgetName: widget.widgetName,
             widgetId: widget.widgetId,
             order: widget.order,
-            column: widget.column
+            column: widget.column,
+            row: widget.row
         };
         list.push(w);
     });
@@ -64,8 +86,12 @@ widgetService.moveWidget = function (widgetId, oldIndex, newIndex, request, resp
         });
         return;
     }
+
+    widget.row = newIndex.row;
+    widget.column = newIndex.column;
+
     var samePageWidget = _.filter(widgetList, function (wg) {
-        return wg.page === widget.page;
+        return wg.page === widget.page && wg.row === widget.row && wg.column === widget.column;
     });
     samePageWidget = _.sortBy(samePageWidget, function (wg) {
         return wg.order;
@@ -80,6 +106,7 @@ widgetService.moveWidget = function (widgetId, oldIndex, newIndex, request, resp
     samePageWidget.splice(newIndex.order, 0, samePageWidget.splice(oldIndex.order, 1)[0]);
     var i = 0;
     _.each(samePageWidget, function (wg) {
+        if (undefined === wg) return;
         wg.order = i;
         i++;
     });

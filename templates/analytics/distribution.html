@@ -16,15 +16,23 @@
 <!-- end filters-->
 
 <div class="row">
-    <div class="col-md-12 drag-and-drop">
-        <div ng-repeat="widget in widgets" class="widget-container">
+    <div class="col-md-12 drag-and-drop" data-widgetrow="1">
+        <div ng-repeat="widget in widgets" ng-if="widget.row == 1" class="widget-container">
             <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
         </div>
     </div>
-    <div class="col-md-6 drag-and-drop">
-
+    <div class="col-md-6 drag-and-drop" data-widgetrow="2" data-widgetcolumn="1">
+        <div ng-repeat="widget in widgets"
+             ng-if="widget.row == 2 && widget.column == 1"
+             class="widget-container">
+            <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
+        </div>
     </div>
-    <div class="col-md-6 drag-and-drop">
-
+    <div class="col-md-6 drag-and-drop" data-widgetrow="2" data-widgetcolumn="2">
+        <div ng-repeat="widget in widgets"
+             ng-if="widget.row == 2 && widget.column == 2"
+             class="widget-container">
+            <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
+        </div>
     </div>
 </div>
