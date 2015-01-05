@@ -46,7 +46,7 @@ app.get('/api/widget/:id', function (request, response) {
             success: true,
             data: {
                 widgetId: widget.widgetId,
-                params: '{"img": "http://' + getDomain() + '/img/intensity-chart-' + id + '.jpg"}'
+                params: '{"img": "http://' + getDomain() + '/img/' + widget.imgUrl + '"}'
             }
         });
     }, delay);

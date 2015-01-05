@@ -4,9 +4,11 @@
 
 app.registerService(function (container) {
     var Q = container.getFunction('q');
+    var AjaxService = container.getService("services/AjaxService");
 
-    function WidgetBase() {
-        this.fetchPoint = 'http://localhost:8065/api/widget';
+    function WidgetBase(ajaxService) {
+        this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        this.fetchPoint = '/api/widget';
         this._widgetId = '';
     }
 

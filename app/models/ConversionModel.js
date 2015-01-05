@@ -1,17 +1,13 @@
-/**
- * Created by justin on 12/17/14.
- */
-
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
     var WidgetService = container.getService("services/WidgetService");
 
-    function IntensityModel(widgetService) {
+    function ConversionModel(widgetService) {
         this.widgetService = widgetService;
-        this.pageName = "intensity";
+        this.pageName = "conversion";
     }
 
-    IntensityModel.prototype._getWidgets = function () {
+    ConversionModel.prototype._getWidgets = function () {
         var deferred = Q.defer();
 
         this.widgetService.getWidgetsForPage(this.pageName)
@@ -25,15 +21,15 @@ app.registerModel(function (container) {
         return deferred.promise;
     };
 
-    IntensityModel.prototype.getWidgets = function () {
+    ConversionModel.prototype.getWidgets = function () {
         return Q.fcall(this._getWidgets.bind(this));
     };
 
-    IntensityModel.newInstance = function (widgetService) {
+    ConversionModel.newInstance = function (widgetService) {
         var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
 
-        return Some(new IntensityModel(_widgetService));
+        return Some(new ConversionModel(_widgetService));
     };
 
-    return IntensityModel;
+    return ConversionModel;
 });

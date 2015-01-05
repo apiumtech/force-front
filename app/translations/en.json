@@ -13,22 +13,22 @@
   "Header": {
     "EnterKeyword": "Enter keyword"
   },
+  "Filters": {
+    "FilterBy": "Filter by",
+    "AllUsers": "All Users",
+    "Team": "Team",
+    "Hierarchy": "Hierarchy",
+    "RecentSelected": "Recent selected",
+    "SearchOwner": "Search owner",
+    "AllUserSelectsAllEnvironments": "All users (selects all environments)",
+    "ForceES": "Force ES (Environment ES)",
+    "ForceUK": "Force UK (Environment ES)",
+    "DateRange": "In this date range",
+    "SelectDateRange": "Select the date range",
+    "Customized": "Customized",
+    "To": "to",
+    "LastxxDays": "Last __xx__ days"
+  },
   "Intensity": {
-    "Filters": {
-      "FilterBy": "Filter by",
-      "AllUsers": "All Users",
-      "Team": "Team",
-      "Hierarchy": "Hierarchy",
-      "RecentSelected": "Recent selected",
-      "SearchOwner": "Search owner",
-      "AllUserSelectsAllEnvironments": "All users (selects all environments)",
-      "ForceES": "Force ES (Environment ES)",
-      "ForceUK": "Force UK (Environment ES)",
-      "DateRange": "In this date range",
-      "SelectDateRange": "Select the date range",
-      "Customized": "Customized",
-      "To": "to",
-      "LastxxDays": "Last __xx__ days"
-    }
   }
 }

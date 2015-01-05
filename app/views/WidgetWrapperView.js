@@ -66,23 +66,36 @@ app.registerView(function (container) {
             }
 
             // sortable jquery can only be bound once, so exit if already bound
-            var __beforeDragPosition, __afterDragPosition;
+            var __beforeDragPosition, __afterDragPosition,
+                __beforeDragColumn, __afterDragColumn;
             var handler = ".panel-heading";
             var connector = ".drag-and-drop";
             dragAndDropPanel.sortable({
                 handle: handler,
                 connectWith: connector,
                 start: function (event, ui) {
-                    var _currentMovingWidget = ui.item.closest(wrapperContainer);
+                    var _currentMovingWidget = ui.item.closest(wrapperContainer),
+                        _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
+
                     __beforeDragPosition = _currentMovingWidget.index();
+                    __beforeDragColumn = _currentColumnOfMovingWidget.index();
                 },
                 stop: function (event, ui) {
-                    var _currentMovingWidget = ui.item.closest(wrapperContainer);
+                    var _currentMovingWidget = ui.item.closest(wrapperContainer),
+                        _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
+
                     __afterDragPosition = _currentMovingWidget.index();
+                    __afterDragColumn = _currentColumnOfMovingWidget.index();
 
                     var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
                     if (currentMovingViewInstance) {
-                        currentMovingViewInstance.fn.sendMoveSignal(__beforeDragPosition, __afterDragPosition, event);
+                        currentMovingViewInstance.fn.sendMoveSignal({
+                            order: __beforeDragPosition,
+                            column: __beforeDragColumn
+                        }, {
+                            order: __afterDragPosition,
+                            column: __afterDragColumn
+                        }, event);
                     }
                 }
             });
@@ -95,7 +108,7 @@ app.registerView(function (container) {
     };
 
     WidgetWrapperView.prototype._getWidgetChannelInstance = function (widgetName) {
-        return WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
+        return WidgetEventBus.newInstance(widgetName).getOrElse(throwInstantiateException(WidgetEventBus));
     };
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {

@@ -11,53 +11,70 @@ describe("IntensityView", function () {
         }, false, false).getOrElse(throwException("Could not create IntensityView!"));
     }
 
-    it("should call presenter's show method on show()", function () {
-        var model = {};
-        var view = exerciseCreateView(model, {show: jasmine.createSpy()});
-        view.event.onLoaded = jasmine.createSpy();
-        view.show();
-        expect(view.presenter.show).toHaveBeenCalledWith(view, model);
-    });
-
-    describe("decorateWidget", function () {
-        it("Should specific template for widgets", function () {
-            var view = exerciseCreateView({}, {});
-            var widgetData = [{
-                widgetType: "bar"
-            }];
-
-            view.decorateWidget(widgetData);
-            expect(widgetData[0].template).not.toBeNull();
-
-            expect(widgetData[0].template).toEqual('/templates/widgets/' + widgetData[0].widgetType + '.html');
+    describe("loadWidgets method", function () {
+        it("should fire event 'onLoaded'", function () {
+            var model = {};
+            var view = exerciseCreateView(model, {show: jasmine.createSpy()});
+            view.event.onLoaded = jasmine.createSpy();
+            view.fn.loadWidgets();
+            expect(view.event.onLoaded).toHaveBeenCalled();
         });
     });
 
-    describe("onWidgetsLoaded", function () {
+    describe("show() method", function () {
+        var view, model;
+
+        function exerciseExecShowMethod() {
+            model = {};
+            view = exerciseCreateView(model, {show: jasmine.createSpy()});
+            view.fn.loadWidgets = jasmine.createSpy();
+            view.show();
+        }
+
+        it("should call presenter's show method on show()", function () {
+            exerciseExecShowMethod();
+            expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+        });
+
+        it("should call load widget()", function () {
+            exerciseExecShowMethod();
+            expect(view.fn.loadWidgets).toHaveBeenCalled();
+        });
+    });
+
+    describe("_rearrangeWidgetsList", function () {
         var view, widgetsData;
 
         beforeEach(function () {
             view = exerciseCreateView({}, {});
             widgetsData = [{
-                widgetType: "bars"
+                order: 3,
+                column: 1
             }, {
-                widgetType: "lines"
+                order: 5,
+                column: 1
             }, {
-                widgetType: "pie"
+                order: 2,
+                column: 1
             }];
         });
 
-        it("should call decorateWidget", function () {
-            spyOn(view, 'decorateWidget');
-            view.onWidgetsLoaded(widgetsData);
-            expect(view.decorateWidget).toHaveBeenCalledWith(widgetsData);
-        });
+        it("should sort widgets by order", function () {
+            var sortedWidgets = [
+                {
+                    order: 2,
+                    column: 1
+                }, {
+                    order: 3,
+                    column: 1
+                }, {
+                    order: 5,
+                    column: 1
+                }
+            ];
 
-        it("view's scope should have data", function () {
-            spyOn(view, 'decorateWidget').and.returnValue(function (data) {
-            });
-            view.onWidgetsLoaded(widgetsData);
-            expect(view.$scope.widgets).toEqual(widgetsData);
+            view._rearrangeWidgetsList(widgetsData);
+            expect(widgetsData).toEqual(sortedWidgets);
         });
     });
 

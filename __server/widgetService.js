@@ -10,6 +10,7 @@ var widgetList = [
         page: "intensity",
         widgetType: "graph",
         widgetName: "Widget A",
+        imgUrl: 'chart-1.jpg',
         widgetId: 1,
         order: 0,
         column: 1
@@ -18,7 +19,17 @@ var widgetList = [
         page: "intensity",
         widgetType: "table",
         widgetName: "Widget B",
+        imgUrl: 'chart-2.jpg',
         widgetId: 2,
+        order: 1,
+        column: 1
+    },
+    {
+        page: "distribution",
+        widgetType: "map",
+        widgetName: "Widget C",
+        imgUrl: 'chart-3.jpg',
+        widgetId: 3,
         order: 1,
         column: 1
     }
@@ -60,13 +71,13 @@ widgetService.moveWidget = function (widgetId, oldIndex, newIndex, request, resp
         return wg.order;
     });
 
-    if (newIndex >= samePageWidget.length) {
-        var k = newIndex - samePageWidget.length;
+    if (newIndex.order >= samePageWidget.length) {
+        var k = newIndex.order - samePageWidget.length;
         while ((k--) + 1) {
             this.push(undefined);
         }
     }
-    samePageWidget.splice(newIndex, 0, samePageWidget.splice(oldIndex, 1)[0]);
+    samePageWidget.splice(newIndex.order, 0, samePageWidget.splice(oldIndex.order, 1)[0]);
     var i = 0;
     _.each(samePageWidget, function (wg) {
         wg.order = i;

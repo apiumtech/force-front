@@ -23,6 +23,14 @@ function main() {
     function AngularConfig($routeProvider, $i18nextProvider) {
 
         $routeProvider
+            .when('/analytics/conversion', {
+                templateUrl: '/templates/analytics/conversion.html',
+                controller: 'ConversionController'
+            })
+            .when('/analytics/distribution', {
+                templateUrl: '/templates/analytics/distribution.html',
+                controller: 'DistributionController'
+            })
             .when('/analytics/intensity', {
                 templateUrl: '/templates/analytics/intensity.html',
                 controller: 'IntensityController'
@@ -53,15 +61,23 @@ function main() {
             'services/bus/FilterChannel',
 
             'views/BaseView',
+            'views/WidgetDecoratedPageView',
             'views/WidgetBaseView',
 
             'services/WidgetBase',
+            'services/WidgetService',
             'services/b64StringEncoder',
 
             'models/fakes/FakeDatabase',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
+
+            // Distribution Page
+            'controllers/DistributionController', 'views/DistributionView', 'presenters/DistributionPresenter', 'models/DistributionModel',
+
+            // Conversion Page
+            'controllers/ConversionController', 'views/ConversionView', 'presenters/ConversionPresenter', 'models/ConversionModel',
 
             // Wrapper for widget
             'controllers/WidgetWrapperController', 'views/WidgetWrapperView',

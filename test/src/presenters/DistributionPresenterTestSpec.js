@@ -1,11 +1,9 @@
-/**
- * Created by justin on 12/26/14.
- */
-describe("IntensityPresenter", function () {
-    var IntensityPresenter = app.getPresenter("presenters/IntensityPresenter");
+describe("DistributionPresenter", function () {
+    var DistributionPresenter = app.getPresenter("presenters/DistributionPresenter");
 
 
     describe("show() ", function () {
+
         [
             {
                 viewEvent: "onLoaded",
@@ -36,14 +34,13 @@ describe("IntensityPresenter", function () {
                     return model;
                 }
 
-                var model, view, sut;
-                beforeEach(function () {
-                    model = createModel();
-                    view = createView();
-                    sut = IntensityPresenter.newInstance().getOrElse(throwInstantiateException(IntensityPresenter));
-                });
-
                 describe("When '" + viewEvent + "' on view fired", function () {
+                    var model, view, sut;
+                    beforeEach(function () {
+                        model = createModel();
+                        view = createView();
+                        sut = DistributionPresenter.newInstance().getOrElse(throwInstantiateException(DistributionPresenter));
+                    });
 
                     it("presenter should connect event to '" + modelMethod + "' method on model", function () {
                         spyOn(model, modelMethod).and.returnValue(exerciseFakePromise())
