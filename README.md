@@ -5,5 +5,6 @@ for adding the design folder just run
 
 `grunt shell:config`
 
---- 22-12-2014
-Please run 'node __fakeServer.js' for faking response of Intensity widgets
+--- Jan 05 2015
+* Run 'node __fakeServer.js'
+* Navigate to http://localhost:8081 to run the application
