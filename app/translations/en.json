@@ -56,7 +56,9 @@
   },
   "Errors": {
     "IntensityViewCannotInstantiate": "Could not create IntensityView!",
-    "CannotInstantiateClass": "Cannot instantiate __class__"
+    "CannotInstantiateClass": "Cannot instantiate __class__",
+    "NoWidgetAvailable": "No widget available",
+    "LoadingWidgets": "Loading widgets"
   },
   "Header": {
     "EnterKeyword": "Enter keyword",

@@ -1,0 +1,10 @@
+<div ng-if="widgets.length==0">
+    <div class="alert alert-warning">
+        {{'Errors.NoWidgetAvailable' | i18next }}
+    </div>
+</div>
+<div ng-if="widgets==null">
+    <div class="alert alert-info">
+        <span class="spinner-small"></span> {{'Errors.LoadingWidgets' | i18next }}
+    </div>
+</div>

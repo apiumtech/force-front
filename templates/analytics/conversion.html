@@ -16,6 +16,7 @@
 <!-- end filters-->
 
 <div class="row">
+    <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
     <div class="col-md-6 drag-and-drop" data-widgetrow="1" data-widgetcolumn="1">
         <div ng-repeat="widget in widgets"
              ng-if="widget.row == 1 && widget.column == 1"

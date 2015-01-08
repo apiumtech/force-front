@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mainPath = "__server/assets";
+var port = 8081;
 var delay = 1000;
 
 var app = express();

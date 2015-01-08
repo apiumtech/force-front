@@ -6,7 +6,7 @@ app.registerView(function (container) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
-        $scope.widgets = [];
+        $scope.widgets = null;
     }
 
     WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {});
