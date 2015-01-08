@@ -27,7 +27,6 @@ app.registerView(function (container) {
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {
-        alert("error while loading widgets");
         console.log(error);
     };
 

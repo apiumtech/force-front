@@ -1,14 +1,17 @@
 <div ng-init="event.onInit()">
     <ul class="pull-right">
-        <li><a href="javascript:;">Export</a></li>
+        <li><a href="javascript:;">{{'commonText.Export' |i18next}}</a></li>
     </ul>
-    <h1 class="page-header">Account
-        <a href="javascript:;" class="btn btn-primary m-r-5">Create accounts</a>
+    <h1 class="page-header">{{'Account.AccountTitle' | i18next}}
+        <a href="javascript:;" class="btn btn-primary m-r-5">
+            {{'Account.CreateAccount' | i18next}}
+        </a>
     </h1>
+
     <div ng-include="'/templates/filters/filter.html'"></div>
     <div ng-include="'/templates/account/table.html'"></div>
 
     <div style="text-align: center; border-top: 1px solid gray; position: fixed; width: 100%; left: 0; bottom: 0;">
-        {{ data.currentError }}
+        {{data.currentError}}
     </div>
 </div>

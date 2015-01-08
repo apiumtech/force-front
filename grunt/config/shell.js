@@ -7,6 +7,9 @@ module.exports = function (grunt) {
     return {
         config: {
             command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git force-design; fi'
+        },
+        fakeServer: {
+            command: 'nodemon __fakeServer.js'
         }
     };
 };

@@ -21,7 +21,6 @@ function main() {
 
     /** AngularJS App Configuration **/
     function AngularConfig($routeProvider, $i18nextProvider) {
-
         $routeProvider
             .when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
