@@ -1,22 +1,19 @@
-/**
- * Created by justin on 12/17/14.
- */
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
-var port = 8081;
 var mainPath = "__server/assets";
 var delay = 1000;
 
 var app = express();
 app.use(bodyParser());
-app.use(express.static("./"));
 app.use(express.static("./__server/assets"));
 
 app.get('/img/*', function (req, res) {
     app.render(mainPath + req.url);
 });
 
-var WidgetService = require(__dirname + "/__server/widgetService");
+var WidgetService = require(__dirname + "/widgetService");
 app.get('/api/widgets/:page', function (request, response) {
     setTimeout(function () {
         var page = request.params.page;
@@ -66,7 +63,8 @@ app.post('/api/widget/:id/move', function (request, response) {
 });
 
 function getDomain() {
-    return (port && port != 80) ? "localhost:" + port : "localhost";
+    return (port && port !== 80) ? "localhost:" + port : "localhost";
 }
 
-app.listen(port);
+//app.listen(port);
+module.exports = app;
