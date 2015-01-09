@@ -4,3 +4,4 @@ lib
 *.log
 force-design
 reports
+*.min
