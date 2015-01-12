@@ -16,6 +16,7 @@ requirejs.config({
         'lodash': '/base/node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '/base/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '/base/node_modules/angular-route/angular-route.min',
+        'angular-draganddrop': '/base/node_modules/angular-draganddrop/angular-draganddrop.min',
         'angular': '/base/node_modules/angular/angular.min',
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
         'postal': '/base/node_modules/postal/lib/postal.min',
@@ -26,7 +27,8 @@ requirejs.config({
         'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
-        'ng-i18next': '/base/assets/js/vendor/ng-i18next'
+        'ng-i18next': '/base/assets/js/vendor/ng-i18next',
+        'underscore': '/base/node_modules/underscore/underscore-min'
     },
 
     'shim': {
@@ -40,6 +42,11 @@ requirejs.config({
         'angular-route': {
             deps: ['angular'],
             exports: 'angular-route'
+        },
+
+        'angular-draganddrop': {
+            deps: [ 'angular' ],
+            exports: 'angular-draganddrop'
         },
 
         'ng-i18next': {
@@ -68,7 +75,7 @@ requirejs.config({
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-
+        'underscore', 'angular-draganddrop',
         'i18next', 'ng-i18next',
         'main'
     ],

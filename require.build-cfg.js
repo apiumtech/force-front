@@ -4,7 +4,7 @@ requirejs.config({
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '../node_modules/angular-route/angular-route.min',
-        'angular-draggable': '../node_modules/angular-draganddrop/angular-draganddrop.min',
+        'angular-draganddrop': '../node_modules/angular-draganddrop/angular-draganddrop.min',
         'angular': '../node_modules/angular/angular.min',
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '../node_modules/jquery/dist/jquery.min',
@@ -37,9 +37,9 @@ requirejs.config({
             exports: 'angular-route'
         },
 
-        'angular-draggable': {
+        'angular-draganddrop': {
             deps: [ 'angular' ],
-            exports: 'angular-draggable'
+            exports: 'angular-draganddrop'
         },
        // 'ng-i18next': {
          //   deps: ['angular', 'i18next'],
@@ -62,7 +62,7 @@ requirejs.config({
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'i18next', 'angular-draggable', 'underscore',
+        'i18next', 'angular-draganddrop', 'underscore',
 
         'main'
     ]
