@@ -15,8 +15,7 @@ app.registerService(function (container) {
         this.query.filters =
             this.query.filters.filter(function (k) {
                 return k.columnKey !== name;
-            })
-                .concat([{columnKey: name, value: value}]);
+            }).concat([{columnKey: name, value: value}]);
 
         return this;
     };
