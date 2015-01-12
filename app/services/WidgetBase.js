@@ -23,8 +23,9 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.reloadWidget = function () {
-        if (!this.widgetId)
+        if (!this.widgetId) {
             throw new Error("Widget Id is not defined");
+        }
 
         return this._reload();
     };
@@ -35,9 +36,10 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.moveWidget = function (oldIndex, newIndex) {
-        if (!this.widgetId)
+        if (!this.widgetId) {
             throw new Error("Widget Id is not defined");
-
+        }
+        
         return this._moveWidget(oldIndex, newIndex);
     };
 
