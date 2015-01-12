@@ -27,9 +27,16 @@ app.registerService(function (container) {
         this.send({widgetMoved: true, oldPosition: oldPosition, newPosition: newPosition, moveEvent: moveEvent});
     };
 
+    function notSamePosition(newPosition, oldPosition){
+        if((newPosition.row === oldPosition.row) && (newPosition.order === oldPosition.order) && (newPosition.column === oldPosition.column)){
+            return false;
+        }
+        return true;
+    }
+
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {
         this.listen(function (event) {
-            if (event.widgetMoved && undefined !== event.oldPosition && undefined !== event.newPosition) {
+            if (event.widgetMoved && (undefined !== event.oldPosition) && notSamePosition(event.newPosition,event.oldPosition) && (undefined !== event.newPosition)) {
                 callback(event.oldPosition, event.newPosition, event.moveEvent);
             }
         });
