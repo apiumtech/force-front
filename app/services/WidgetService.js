@@ -45,10 +45,7 @@ app.registerService(function (container) {
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json',
-            data: JSON.stringify({
-                oldIndex: oldIndex,
-                newIndex: newIndex
-            })
+            data: { oldIndex: oldIndex, newIndex: newIndex }
         };
         return this.ajaxService.ajax(params);
     };

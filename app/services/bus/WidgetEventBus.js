@@ -29,7 +29,6 @@ app.registerService(function (container) {
 
     function notSamePosition(newPosition, oldPosition){
         return !((newPosition.row === oldPosition.row) && (newPosition.order === oldPosition.order) && (newPosition.column === oldPosition.column));
-
     }
 
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {

@@ -91,10 +91,7 @@ describe("WidgetService", function () {
             expect(ajaxService.ajax).toHaveBeenCalled();
             expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual('/api/widget/' + widgetId + '/move');
             expect(ajaxService.ajax.calls.mostRecent().args[0].type).toEqual("post");
-            expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual(JSON.stringify({
-                oldIndex: oldIndex,
-                newIndex: newIndex
-            }));
+            expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual({ oldIndex: oldIndex, newIndex: newIndex });
         });
     });
 });

@@ -1,5 +1,4 @@
 app.registerModel(function (container) {
-    var Q = container.getFunction('q');
     var WidgetDecoratedPageModel = container.getModel("models/WidgetDecoratedPageModel");
 
     var WidgetService = container.getService("services/WidgetService");
