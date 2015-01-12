@@ -30,7 +30,7 @@
     }
 
     function isFunction(func) {
-        return Object.prototype.toString.call(func) == '[object Function]';
+        return Object.prototype.toString.call(func) === '[object Function]';
     }
 
     function ensureFunction(func, paramName) {
@@ -99,7 +99,7 @@
             impl = applyGetsTo(impl);
 
             impl.isComposedWith = function (type) {
-                return impl.type.indexOf(type) != -1;
+                return impl.type.indexOf(type) !== -1;
             };
 
             impl.composedWith = function (anotherImpl) {
@@ -204,10 +204,10 @@
 
                     jsScope.require(["Application"], function (app) {
                         app.manifest.src.forEach(function (value) {
-                            if (value.indexOf("Controller") != -1) {
+                            if (value.indexOf("Controller") !== -1) {
                                 angularApp.controller(value.substring(value.lastIndexOf('/') + 1), app.getController(value));
                             }
-                            else if (value.indexOf("Directive") != -1) {
+                            else if (value.indexOf("Directive") !== -1) {
                                 var directiveFullName = value.substring(value.lastIndexOf('/') + 1);
                                 var directiveName = directiveFullName.replace('Directive', '');
                                 // convert MyDirective => myDirective, in HTML we use my-directive
