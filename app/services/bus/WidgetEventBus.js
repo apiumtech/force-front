@@ -20,7 +20,7 @@ app.registerService(function (container) {
             if (event.reloadWidget) {
                 callback(event);
             }
-        })
+        });
     };
 
     WidgetEventBus.prototype.sendMoveSignal = function (oldPosition, newPosition, moveEvent) {

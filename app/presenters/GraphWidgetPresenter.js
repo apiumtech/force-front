@@ -42,7 +42,6 @@ app.registerPresenter(function (container) {
 
     GraphWidgetPresenter.prototype.showError = function (error) {
         console.log(error);
-        alert("An error has occurred. Please check the log");
     };
 
     GraphWidgetPresenter.prototype.show = function (view, model) {

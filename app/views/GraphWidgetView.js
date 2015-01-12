@@ -33,7 +33,7 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        alert("Widget moved to new position");
+        console.log("Widget moved to new position");
     };
 
     GraphWidgetView.prototype.onMoveWidgetError = function (error) {

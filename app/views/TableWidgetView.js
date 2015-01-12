@@ -32,7 +32,7 @@ app.registerView(function (container) {
     };
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        alert("Widget moved to new position");
+        console.log("Widget moved to new position");
     };
 
     TableWidgetView.prototype.onMoveWidgetError = function (error) {

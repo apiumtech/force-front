@@ -54,7 +54,6 @@ app.registerPresenter(function (container) {
 
     TableWidgetPresenter.prototype.showError = function (error) {
         console.log(error);
-        alert("An error has occurred. Please check the log");
     };
 
     TableWidgetPresenter.prototype.show = function (view, model) {

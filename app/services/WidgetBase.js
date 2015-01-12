@@ -13,7 +13,7 @@ app.registerService(function (container) {
     }
 
     WidgetBase.prototype.normalizeServerInput = function (input) {
-        var empty = function () { return { data: { params: {} }, success: false }};
+        var empty = function () { return { data: { params: {} }, success: false }; };
         if (input == null || input.data == null || input.data.params == null || input.data.widgetId == null) {
             return empty();
         }
