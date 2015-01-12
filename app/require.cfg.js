@@ -15,7 +15,8 @@ var require = {
         'meld': '/node_modules/meld/meld',
         'AppsAdapter': '/assets/js/AppsAdapter',
         'i18next': '/node_modules/i18next/lib/dep/i18next.min',
-        'ng-i18next': '/assets/js/vendor/ng-i18next'
+        'ng-i18next': '/assets/js/vendor/ng-i18next',
+        'underscore': '/node_modules/underscore/underscore-min'
     },
 
     'shim': {
@@ -61,8 +62,8 @@ var require = {
     },
 
     'deps': [
-        'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'i18next', 'ng-i18next'
+        'angular', 'infinite-scroll', 'angular-route', 'angular-draggable', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
+        'i18next', 'ng-i18next', 'underscore'
     ],
 
     callback: main

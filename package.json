@@ -11,7 +11,8 @@
     "ng-infinite-scroll": ">= 1.1.2",
     "postal": ">= 0.10.3",
     "q": ">= 1.0.1",
-    "require": "*"
+    "require": "*",
+    "underscore": "^1.7.0"
   },
   "engine": "node 0.4.1",
   "devDependencies": {

@@ -3,6 +3,7 @@
  */
 app.registerService(function (container) {
     var Q = container.getFunction('q');
+    var _ = container.getFunction('underscore');
 
     function AjaxService(ajaxImpl) {
         this.ajaxImpl = ajaxImpl;
@@ -17,7 +18,7 @@ app.registerService(function (container) {
     };
 
     AjaxService.prototype.mapRequest = function (params) {
-        var request = Object.create(Object.prototype, params);
+        var request = _.clone(params);
 
         if (typeof request.data != "string") {
             request.data = JSON.stringify(request.data);
