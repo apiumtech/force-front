@@ -4,7 +4,6 @@
 
 app.registerModel(function (container) {
     var WidgetBase = container.getService('services/WidgetBase');
-    var Q = container.getFunction('q');
 
     function GraphWidgetModel() {
         WidgetBase.call(this);

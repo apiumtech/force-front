@@ -5,7 +5,7 @@ app.registerService(function (container) {
     var EventBus = container.getService("services/EventBus").getInstance();
 
     function WidgetEventBus(widgetName) {
-        this.channel = WidgetEventBus._initChannel(widgetName).getOrElse("Cannot instantiate channel");
+        this.channel = WidgetEventBus._initChannel(widgetName).getOrElse(throwException("Cannot instantiate channel"));
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
@@ -28,10 +28,8 @@ app.registerService(function (container) {
     };
 
     function notSamePosition(newPosition, oldPosition){
-        if((newPosition.row === oldPosition.row) && (newPosition.order === oldPosition.order) && (newPosition.column === oldPosition.column)){
-            return false;
-        }
-        return true;
+        return !((newPosition.row === oldPosition.row) && (newPosition.order === oldPosition.order) && (newPosition.column === oldPosition.column));
+
     }
 
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {

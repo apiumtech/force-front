@@ -72,7 +72,9 @@ app.registerView(function (container) {
 
             var handler = ".panel-heading";
             var connector = ".drag-and-drop";
-            $(".drag-and-drop").sortable({
+
+            var dragAndDropables = $(".drag-and-drop");
+            dragAndDropables.sortable({
                 handle: handler,
                 connectWith: connector,
                 start: function (event, ui) {
@@ -105,7 +107,7 @@ app.registerView(function (container) {
                     }
                 }
             });
-            $(".drag-and-drop").data("isSortable", true);
+            dragAndDropables.data("isSortable", true);
         };
 
         this.fn.sendMoveSignal = function (oldPosition, newPosition, event) {

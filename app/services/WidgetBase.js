@@ -9,87 +9,41 @@ app.registerService(function (container) {
     function WidgetBase(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         this.fetchPoint = '/api/widget';
-        this._widgetId = '';
+        this.widgetId = '';
     }
 
-    WidgetBase.prototype = Object.create(Object.prototype, {
-        widgetId: {
-            get: function () {
-                return this._widgetId;
-            },
-            set: function (value) {
-                this._widgetId = value;
-            }
-        },
-        column: {
-            get: function () {
-                return this._column;
-            },
-            set: function (value) {
-                this._column = value;
-            }
-        },
-        order: {
-            get: function () {
-                return this._order;
-            },
-            set: function (value) {
-                this._order = value;
-            }
-        },
-        fetchPoint: {
-            get: function () {
-                return this._fetchPoint;
-            },
-            set: function (value) {
-                this._fetchPoint = value;
-            }
+    WidgetBase.prototype.normalizeServerInput = function (input) {
+        var empty = function () { return { data: { params: {} }, success: false }};
+        if (input == null || input.data == null || input.data.params == null || input.data.widgetId == null) {
+            return empty();
         }
-    });
+
+        input.data.params = JSON.parse(input.data.params);
+        return input;
+    };
 
     WidgetBase.prototype.reloadWidget = function () {
         if (!this.widgetId)
             throw new Error("Widget Id is not defined");
 
-        return Q.fcall(this._reload.bind(this));
+        return this._reload();
     };
 
     WidgetBase.prototype._reload = function () {
-        var deferred = Q.defer();
-        var self = this;
-        var url = self.fetchPoint + '/' + self.widgetId;
-        $.ajax({
-            url: url,
-            type: 'get',
-            contentType: 'application/json'
-        }).success(function (data) {
-            var serverResponse = data;
-            if (serverResponse && serverResponse.success) {
-                if (serverResponse.data.params) {
-                    serverResponse.data.params = JSON.parse(serverResponse.data.params);
-                }
-                deferred.resolve(serverResponse);
-            }
-        }).error(function (error) {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
+        var request = {url: this.fetchPoint + '/' + this.widgetId, type: 'get', contentType: 'application/json'};
+        return this.ajaxService.ajax(request).then(this.normalizeServerInput, throwException("Could not normalize server input!"));
     };
 
     WidgetBase.prototype.moveWidget = function (oldIndex, newIndex) {
         if (!this.widgetId)
             throw new Error("Widget Id is not defined");
 
-        return Q.fcall(this._moveWidget.bind(this, oldIndex, newIndex));
+        return this._moveWidget(oldIndex, newIndex);
     };
 
     WidgetBase.prototype._moveWidget = function (oldIndex, newIndex) {
-        var deferred = Q.defer();
-        var self = this;
-        var url = self.fetchPoint + '/' + self.widgetId + '/move';
-        $.ajax({
-            url: url,
+        var request = {
+            url: this.fetchPoint + '/' + this.widgetId + '/move',
             type: 'post',
             accept: 'application/json',
             contentType: 'application/json',
@@ -97,18 +51,9 @@ app.registerService(function (container) {
                 oldIndex: oldIndex,
                 newIndex: newIndex
             })
-        }).done(function (data) {
-            var serverResponse = data;
-            if (serverResponse && serverResponse.success) {
-                deferred.resolve(serverResponse);
-            } else {
-                deferred.reject(new Error("Error while moving widget"));
-            }
-        }).fail(function (error) {
-            deferred.reject(error);
-        });
+        };
 
-        return deferred.promise;
+        return this.ajaxService.ajax(request);
     };
 
     return WidgetBase;
