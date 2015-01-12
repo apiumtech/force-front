@@ -1,0 +1,309 @@
+/* Common Forcemanager styles -  overwites Theme's default style */
+body {
+ background: @bg_body url(http://new.forcemanager.net/assets/images/bg-linen.png) 0 0 repeat !important;
+ font-weight: 300;
+
+}	
+
+ul.no-bullet {
+list-style: outside none none;
+margin: 0px;
+padding-left: 0px;
+}
+.a , a{
+  font-size: @body_font_size;
+  color:@blue;
+}
+
+
+a.main {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.row > [class*="col-"].ui-sortable {
+  min-height: 10px;
+}
+/* a:hover{
+  border-bottom: 1px dashed currentcolor !important;
+  text-decoration: none;
+}
+*/
+.page-header{
+margin: 10px 0 10px;
+  
+}
+.page-header-fixed {
+  padding-top: 35px;
+}
+// Text colors
+.brand-red-text {
+  color: @red_text;
+}
+
+.brand-red-text:hover {
+  color: @red_text_hover;
+}
+
+//Animations
+
+
+.animated-slow {
+  -webkit-animation-duration: 300 ms;
+  animation-duration: 300 ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+
+// .btn-default
+.btn.btn-default {
+  font-weight: normal;
+  color: #333;
+  background: @gray-ultralight70;
+  border-color: @gray-light;
+
+  &:focus, 
+  &:active, 
+  &.active {
+    background: @gray-ultralight70;
+    border-color: @gray ;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);	  
+  }
+  &:hover{
+
+    border-color: @gray ;
+    background: linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
+  }
+  
+}
+/******** buttons************/
+.btn-sm, .btn-group-sm>.btn {
+padding: 8px 18px;
+}
+
+.btn.btn-follow {
+  padding: 8px 6px 2px 9px;
+  text-align: center;
+}
+
+
+.btn-follow.active, .btn-follow:active, .btn-follow:focus, .btn-follow:hover, .open .dropdown-toggle.btn-follow{
+  border-color: @brand-primary !important;
+  color: @brand-primary !important;
+}
+
+.btn-follow.active i:before, .btn-follow:active i:before, .btn-follow:focus i:before, .open .dropdown-toggle.btn-follow i:before {
+  content: 'K';
+  border-color: @brand-primary !important;
+  color: @brand-primary !important;
+}
+
+/*.btn-follow.active, .btn-follow:active{
+border-color: @brand-primary;
+background-color: @brand-primary;
+color: @white;	
+}*/
+
+.btn:active, .btn.active {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: none !important;
+}
+
+
+//h1, h2 ..
+h1, .h1{
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+text-transform: uppercase;
+font-weight: 300 !important; 
+}
+h6, .h6 {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  margin-top: 20px;
+  color:@gray !important;
+}	
+
+.panel{
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 2px 3px 0px @gray-lighter;
+}
+.panel-inverse > .panel-heading, .panel-inverse  {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.panel-title {
+  color: #edeeee;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}	
+
+
+
+//nav top
+
+.header {
+ height: 45px !important;
+ background: rgba(255, 255, 255, 0.95) !important;
+}
+
+
+
+
+
+
+i.ic-notifications{
+  font-size: 25px;
+  margin-top: 2px;
+  position: relative;
+  left: 2px;
+}
+
+.navbar-brand{
+  padding: 5px 20px 0px;
+}
+
+.navbar {
+    .navbar-nav > li > a {
+    padding: 14px 9px 10px !important;
+      .label {
+        position: absolute;
+        top: 8px;}
+        padding: 14px 9px 5px !important;
+  }
+
+  min-height: 45px !important;
+
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid @gray-light;
+
+}
+
+
+//dropdown
+
+.dropdown-menu { 
+  font-size: @body_font_size;
+
+  padding: 15px !important;
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: scroll;
+  p{
+    font-size: @body_font_size;
+    display: block;
+    margin: 5px 0px 5px !important;
+  }
+
+
+
+
+
+ li.text-link {
+  padding:0px;
+  a{
+
+   .a;
+   background-color: transparent;
+   clear: none;
+   padding: 0px !important;
+   &:hover{
+     a:hover;
+     cursor: pointer;
+   }
+
+
+
+ }
+
+ a.brand-red-text{
+  .brand-red-text
+
+}
+}
+
+li > a {
+  font-size: @body_font_size;
+  font-weight: 300;
+}
+}
+
+
+
+.divider{
+height: 1px;
+margin: 9px 0;
+overflow: hidden;
+background-color: #e5e5e5;
+}
+
+
+// colors
+
+.green_bg {
+  background-color: @green;
+}
+
+.blue_bg{
+  background-color: @blue;
+}
+
+
+.aqua_bg{
+  background-color: @aqua;
+}
+
+
+.purple_bg{
+  background-color: @purple;
+}
+
+
+.orange_bg{
+  background-color: @orange;
+}
+
+.white_bg{
+  background-color: @white;
+}
+
+.yellow_bg{
+  background-color: @dark_yellow;
+}
+
+// borders
+
+.border-grey{
+  border: 1px solid @gray-ultralight;
+}
+
+// pop-overs
+
+.pop-over-div{
+  position: relative;
+  background-color: red;
+  
+}
+
+
+span.container-popover div.popover{
+  display: none;
+  min-width: 300px;
+  z-index: 1040;
+}
+
+
+span.container-popover:hover div.popover{
+  display: inline;
+}

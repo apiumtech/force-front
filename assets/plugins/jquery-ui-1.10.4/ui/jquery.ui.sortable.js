@@ -69,7 +69,8 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 		var o = this.options;
 		this.containerCache = {};
-		this.element.addClass("ui-sortable");
+		if(!this.element.hasClass('ui-no-sortable'))
+			this.element.addClass("ui-sortable");
 
 		//Get the items
 		this.refresh();

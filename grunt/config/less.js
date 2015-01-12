@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     return {
         'dev': {
             'options': {
-                'paths': ['assets/', '/'],
+                'paths': ['assets/', '/', 'force-design/assets/'],
                 'cleancss': true,
                 'optimize': 0,
                 'strictImports': true,

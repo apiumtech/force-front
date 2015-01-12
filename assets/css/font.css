@@ -1,0 +1,283 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "forcemanager";
+  src:url("fonts (design@forcemanager.net)/forcemanager.eot");
+  src:url("fonts (design@forcemanager.net)/forcemanager.eot?#iefix") format("embedded-opentype"),
+    url("fonts (design@forcemanager.net)/forcemanager.woff") format("woff"),
+    url("fonts (design@forcemanager.net)/forcemanager.ttf") format("truetype"),
+    url("fonts (design@forcemanager.net)/forcemanager.svg#forcemanager") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "forcemanager" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="ic-"]:before,
+[class*=" ic-"]:before {
+  font-family: "forcemanager" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic-accept:before {
+  content: "a";
+}
+.ic-accounts:before {
+  content: "b";
+}
+.ic-activity:before {
+  content: "c";
+}
+.ic-agenda:before {
+  content: "d";
+}
+.ic-arr-left:before {
+  content: "e";
+}
+.ic-arr-left2:before {
+  content: "f";
+}
+.ic-arr-right:before {
+  content: "g";
+}
+.ic-arr-right2:before {
+  content: "h";
+}
+.ic-attachment:before {
+  content: "i";
+}
+.ic-call-in:before {
+  content: "j";
+}
+.ic-call-missing:before {
+  content: "k";
+}
+.ic-call-out:before {
+  content: "l";
+}
+.ic-camera:before {
+  content: "m";
+}
+.ic-checkin:before {
+  content: "n";
+}
+.ic-close:before {
+  content: "o";
+}
+.ic-contact:before {
+  content: "p";
+}
+.ic-contacts:before {
+  content: "q";
+}
+.ic-conversion:before {
+  content: "r";
+}
+.ic-conversion2:before {
+  content: "s";
+}
+.ic-copy:before {
+  content: "t";
+}
+.ic-dashboard:before {
+  content: "u";
+}
+.ic-distribution:before {
+  content: "v";
+}
+.ic-document-generic:before {
+  content: "w";
+}
+.ic-documents:before {
+  content: "x";
+}
+.ic-download:before {
+  content: "y";
+}
+.ic-edit:before {
+  content: "z";
+}
+.ic-edit-circle:before {
+  content: "A";
+}
+.ic-email:before {
+  content: "B";
+}
+.ic-email-in:before {
+  content: "C";
+}
+.ic-email-out:before {
+  content: "D";
+}
+.ic-enlarge:before {
+  content: "E";
+}
+.ic-expand-left:before {
+  content: "F";
+}
+.ic-expand-right:before {
+  content: "G";
+}
+.ic-export:before {
+  content: "H";
+}
+.ic-filter:before {
+  content: "I";
+}
+.ic-flag:before {
+  content: "J";
+}
+.ic-flag-filled:before {
+  content: "K";
+}
+.ic-folder-closed:before {
+  content: "L";
+}
+.ic-goals:before {
+  content: "M";
+}
+.ic-help:before {
+  content: "N";
+}
+.ic-ic-account-checkin:before {
+  content: "O";
+}
+.ic-ic-folder-opened:before {
+  content: "P";
+}
+.ic-ic-lost:before {
+  content: "Q";
+}
+.ic-ic-opportunity-checkin:before {
+  content: "R";
+}
+.ic-ic-won:before {
+  content: "S";
+}
+.ic-image:before {
+  content: "T";
+}
+.ic-info:before {
+  content: "U";
+}
+.ic-intensity:before {
+  content: "V";
+}
+.ic-lock:before {
+  content: "W";
+}
+.ic-logout:before {
+  content: "X";
+}
+.ic-map-locator:before {
+  content: "Y";
+}
+.ic-microphone:before {
+  content: "Z";
+}
+.ic-minus:before {
+  content: "0";
+}
+.ic-minus-circle:before {
+  content: "1";
+}
+.ic-notes:before {
+  content: "2";
+}
+.ic-notifications:before {
+  content: "3";
+}
+.ic-offers:before {
+  content: "4";
+}
+.ic-opportunities:before {
+  content: "5";
+}
+.ic-phone-settings:before {
+  content: "6";
+}
+.ic-plus:before {
+  content: "7";
+}
+.ic-plus-circle:before {
+  content: "8";
+}
+.ic-print:before {
+  content: "9";
+}
+.ic-products:before {
+  content: "!";
+}
+.ic-prohibited:before {
+  content: "\"";
+}
+.ic-reduce:before {
+  content: "#";
+}
+.ic-refresh:before {
+  content: "$";
+}
+.ic-refresh2:before {
+  content: "%";
+}
+.ic-reports:before {
+  content: "&";
+}
+.ic-route:before {
+  content: "'";
+}
+.ic-saleanalytics:before {
+  content: "(";
+}
+.ic-salesforce:before {
+  content: ")";
+}
+.ic-search:before {
+  content: "*";
+}
+.ic-settings:before {
+  content: "+";
+}
+.ic-share:before {
+  content: ",";
+}
+.ic-shopping-cart:before {
+  content: "-";
+}
+.ic-success:before {
+  content: ".";
+}
+.ic-trash:before {
+  content: "/";
+}
+.ic-upload:before {
+  content: ":";
+}
+.ic-user-connection:before {
+  content: ";";
+}
+.ic-warning:before {
+  content: "<";
+}
+.ic-checkin-filled:before {
+  content: "=";
+}

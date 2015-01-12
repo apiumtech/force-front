@@ -5,8 +5,11 @@ module.exports = function (grunt) {
     'use strict';
 
     return {
-        config: {
+        'pull-design': {
             command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git force-design; fi'
+        },
+        'migrate-design': {
+            command: 'cp -R force-design/assets/ .'
         }
     };
 };
