@@ -4,6 +4,7 @@ requirejs.config({
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '../node_modules/angular-route/angular-route.min',
+        'angular-draggable': '../node_modules/angular-draganddrop/angular-draganddrop.min',
         'angular': '../node_modules/angular/angular.min',
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '../node_modules/jquery/dist/jquery.min',
@@ -13,7 +14,7 @@ requirejs.config({
         'framework': '../framework/ApplicationFactory',
         'meld': '../node_modules/meld/meld',
         'AppsAdapter': '/assets/js/AppsAdapter',
-        'i18next': '../node_modules/i18next/lib/dep/i18next.min',
+        'i18next': '../node_modules/i18next/lib/dep/i18next.min'
         //'ng-i18next': '/assets/js/vendor/ng-i18next'
     },
 
@@ -35,6 +36,10 @@ requirejs.config({
             exports: 'angular-route'
         },
 
+        'angular-draggable': {
+            deps: [ 'angular' ],
+            exports: 'angular-draggable'
+        },
        // 'ng-i18next': {
          //   deps: ['angular', 'i18next'],
            // exports: 'ng-i18next'

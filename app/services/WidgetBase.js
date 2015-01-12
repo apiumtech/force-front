@@ -3,7 +3,6 @@
  */
 
 app.registerService(function (container) {
-    var Q = container.getFunction('q');
     var AjaxService = container.getService("services/AjaxService");
 
     function WidgetBase(ajaxService) {
@@ -39,7 +38,7 @@ app.registerService(function (container) {
         if (!this.widgetId) {
             throw new Error("Widget Id is not defined");
         }
-        
+
         return this._moveWidget(oldIndex, newIndex);
     };
 
