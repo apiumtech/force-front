@@ -15,7 +15,8 @@ requirejs.config({
         'meld': '../node_modules/meld/meld',
         'AppsAdapter': '/assets/js/AppsAdapter',
         'i18next': '../node_modules/i18next/lib/dep/i18next.min',
-        'underscore': '../node_modules/underscore/underscore-min'
+        'underscore': '../node_modules/underscore/underscore-min',
+        'flot': '../node_modules/flot/jquery.flot'
         //'ng-i18next': '/assets/js/vendor/ng-i18next'
     },
 
@@ -50,6 +51,10 @@ requirejs.config({
             exports: '$'
         },
 
+        'flot': {
+            exports: 'flot'
+        },
+
         'functional-option': {
             exports: 'Option'
         },
@@ -62,7 +67,7 @@ requirejs.config({
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'i18next', 'angular-draganddrop', 'underscore',
+        'i18next', 'angular-draganddrop', 'underscore', 'flot',
 
         'main'
     ]

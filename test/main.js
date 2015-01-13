@@ -63,6 +63,10 @@ requirejs.config({
             exports: '$'
         },
 
+        'flot': {
+            exports: 'flot'
+        },
+
         'functional-option': {
             exports: 'Option'
         },

@@ -13,6 +13,7 @@
 
     jsScope.None = function () {
         return {
+            isOption: true,
             getOrElse: function (elseFn) {
                 if (elseFn === null) {
                     throw new Error("Don't use null values if you are using the Option monad!");
@@ -23,6 +24,9 @@
                 } else {
                     return elseFn;
                 }
+            },
+            map: function () {
+                return jsScope.None;
             },
 
             isEmpty: true
@@ -35,16 +39,23 @@
         }
 
         return {
+            isOption: true,
             getOrElse: function () {
                 return x;
             },
-
+            map: function (fx) {
+                if (isFunction(fx)) {
+                    return jsScope.Some(fx(x));
+                } else {
+                    return jsScope.Some(fx);
+                }
+            },
             isEmpty: false
         };
     };
 
     jsScope.Option = function (x) {
-        return (x ? Some(x) : None());
+        return (x ? jsScope.Some(x) : jsScope.None());
     };
 
     jsScope.throwException = function (instance) {

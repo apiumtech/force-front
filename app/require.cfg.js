@@ -16,7 +16,10 @@ var require = {
         'AppsAdapter': '/assets/js/AppsAdapter',
         'i18next': '/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/assets/js/vendor/ng-i18next',
-        'underscore': '/node_modules/underscore/underscore-min'
+        'underscore': '/node_modules/underscore/underscore-min',
+        'flot': '/node_modules/flot/jquery.flot',
+        'flot-categories': '/node_modules/flot/jquery.flot.categories',
+        'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair'
     },
 
     'shim': {
@@ -51,6 +54,20 @@ var require = {
             exports: '$'
         },
 
+        'flot': {
+            exports: 'flot'
+        },
+
+        'flot-categories': {
+            exports: 'flotCategories',
+            deps: ['flot']
+        },
+
+        'flot-crosshair': {
+            exports: 'flotCrosshair',
+            deps: ['flot']
+        },
+
         'functional-option': {
             exports: 'Option'
         },
@@ -63,7 +80,7 @@ var require = {
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'i18next', 'ng-i18next', 'underscore'
+        'i18next', 'ng-i18next', 'underscore', 'flot', 'flot-categories', 'flot-crosshair'
     ],
 
     callback: main

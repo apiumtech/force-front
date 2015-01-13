@@ -7,11 +7,30 @@ app.registerView(function (container) {
     var GraphWidgetModel = container.getModel('models/GraphWidgetModel');
     var GraphWidgetPresenter = container.getPresenter('presenters/GraphWidgetPresenter');
 
+    var Plot = container.getService('plots/Plot');
+    var LineGraphPlot = container.getService('plots/LineGraphPlot');
+
+    var d1 = [[0, 42], [1, 53], [2,66], [3, 60], [4, 68], [5, 66], [6,71],[7, 75], [8, 69], [9,70], [10, 68], [11, 72], [12, 78], [13, 86]];
+    var d2 = [[0, 12], [1, 26], [2,13], [3, 18], [4, 35], [5, 23], [6, 18],[7, 35], [8, 24], [9,14], [10, 14], [11, 29], [12, 30], [13, 43]];
+
+    function onlyVal(data) {
+        return data[1];
+    }
+
     function GraphWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         scope._widget = null;
         var self = this;
         self.configureEvents();
+
+        var lgp1 = LineGraphPlot.newInstance("Page Views", d1.map(onlyVal), false, true);
+        var lgp2 = LineGraphPlot.newInstance("Visitors", d2.map(onlyVal), false, true);
+        var plot = Plot.basic(["Visits"], [lgp1, lgp2]).getOrElse(throwException("invalid plot!"));
+
+        setTimeout(function () {
+            var widget = $(".widget");
+            plot.paint(widget);
+        }, 5);
     }
 
     GraphWidgetView.prototype = Object.create(WidgetBaseView.prototype, {});

@@ -58,7 +58,9 @@ function main() {
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
             // Channels
             'services/bus/FilterChannel',
-
+            // plots
+            'plots/Plot', 'plots/LineGraphPlot',
+            // views
             'views/BaseView',
             'views/WidgetDecoratedPageView',
             'views/WidgetBaseView',
@@ -89,7 +91,6 @@ function main() {
 
             // table widget
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
-
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'

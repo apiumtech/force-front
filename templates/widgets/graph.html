@@ -1,3 +1,6 @@
 <div ng-controller="GraphWidgetController" ng-init="fn.assignWidget(widget)">
-    <img src="{{data.params.img}}" class="img-responsive"/>
+    <img style="display: none" src="{{data.params.img}}" class="img-responsive" />
+    <div class="widget-placeholder" style="width: 880px; height: 300px;">
+        <div class="widget" style="width: 100%; height: 100%;"></div>
+    </div>
 </div>
