@@ -41,7 +41,7 @@ app.registerPresenter(function (container) {
     };
 
     GraphWidgetPresenter.prototype.showError = function (error) {
-        console.log(error);
+
     };
 
     GraphWidgetPresenter.prototype.show = function (view, model) {

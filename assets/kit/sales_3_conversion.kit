@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Conversion</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+		<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<!-- @include "includes/base_css.html" -->  
+	<!-- ================== END BASE CSS STYLE ================== -->
+
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<link href="assets/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet" />
+	<link href="assets/plugins/ionRangeSlider/css/ion.rangeSlider.skinnice.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+	<link href="assets/plugins/password-indicator/css/password-indicator.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+	<link href="assets/plugins/jquery-tag-it/css/jquery.tagit.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-header-fixed page-sidebar-fixed">
+	
+	<!-- @include "includes/navbar-fixed-top.html" --> 
+	<!-- @include "includes/sidebar.html" --> 
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ul class=" pull-right no-bullet m-t-20">
+          <li><a href=""><i class="fa ic-export"></i> Export</a></li>
+        </ul>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">Conversion </h1>
+			<!-- end page-header -->
+			<!-- begin filters -->
+			<div class="row filters-div sales-filters-div"> 
+				<!-- begin col-12 -->
+				<div class="col-md-12  ">
+					<div class="line-border clearfix "></div>
+
+					<div class="row m-b-5">
+						<div class="col-md-9 ">
+							<h6>Filter by</h6>
+
+
+							<ul class="nav navbar-nav row row m-t-10">
+								<li class="dropdown">
+									<a id="drop1" href="#" class="dropdown-toggle m-r-30" data-toggle="dropdown" >
+										All users
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu media-list  animated fadeInDown">
+										<li class="media">
+											<div class="btn-group pull-right">
+
+												<button class="btn btn-white btn-sm active">Team</button>
+
+												<button class="btn btn-white btn-sm">Hierarchy</button>
+											</div>
+											<span class="pull-right m-t-5">Show</span></li>
+											<!-- recent added users -->
+											<li class="media">
+												<h6>Recent selected</h6>
+												<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+
+												<div class="pull-left m-t-5">
+													<strong>All users</strong></div></li>
+													<!-- END recent added users -->
+													<!-- search users -->
+													<li class="m-t-10 m-b-10"><form>
+
+														<input type="text" class="form-control ic-user" placeholder="Search owner" />
+
+
+													</form></li>
+													<!-- END search users -->
+													<!-- Starts users tree -->
+													<li class="users-tree"> 
+														<div class="clearfix">
+															<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+
+															<div class="m-t-5 pull-left">
+																<strong>All users (selects all environments)</strong></div>
+															</div>
+															<!-- Start Firts Environmet -->  
+															<ul class="m-t-10">
+																<li>
+																	<div class="clearfix">
+																		<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																		<div class="pull-left m-t-5">
+																			<strong>Force ES (Environment ES)</strong></div>
+																		</div>
+
+																		<ul class="clearfix">
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Carlos Gomez</div>
+																			</li>
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
+																			</li>
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Carlos Gomez</div>
+																			</li>
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
+																			</li>
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
+																			</li>
+																			<li class="clearfix">
+
+																				<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																				<div class="pull-left m-t-5"> Carlos Gomez</div>
+																			</li>
+																		</ul>
+																		<!-- END Environmet -->             
+																	</li>
+																</ul>
+																<!-- END Environmet -->
+																<!-- Start Second Environmet -->  
+																<ul class="m-t-10">
+																	<li>
+																		<div class="clearfix">
+																			<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																			<div class="pull-left m-t-10">
+																				<strong>Force UK (Environment ES)</strong></div>
+																			</div>
+
+																			<ul class="clearfix">
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Carlos Gomez</div>
+																				</li>
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
+																				</li>
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Carlos Gomez</div>
+																				</li>
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
+																				</li>
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
+																				</li>
+																				<li class="clearfix">
+
+																					<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+																					<div class="pull-left m-t-10"> Carlos Gomez</div>
+																				</li>
+																			</ul>
+																			<!-- END Environmet -->             
+																		</li>
+																	</ul>
+																	<!-- END Environmet -->
+
+
+																</li>
+																<!-- END users tree -->
+															</ul>
+														</li>
+
+														<li class="dropdown ">
+															<span class="pull-left date-range m-r-10">
+
+																In this date range </span>
+
+																<div class="input-group " style="width:300px; margin-bottom: 4px; ">
+
+																	<input type="text" class="form-control" placeholder="01/05/2014 - 11/07/2014">
+																	<div class="input-group-btn" >
+																		<ul class="dropdown-menu media-list pull-right animated fadeInDown"  style="width:300px; max-width:300px;">
+																			<li ><h6 class="m-t-20">Selecciona el rango de fechas</h6></li>
+																			<li class="divider"></li>
+																			<li>
+																				<div class="row">
+																					<div class="col-md-12">
+																						<p>Personalizado</p></div>
+																						<div class="col-md-12">
+																							<div class="input-group input-daterange">
+																								<input type="text" class="form-control " name="start" placeholder="01/05/2014 " </><!-- por defecto ultimo mes-->
+																								<span class="input-group-addon">to</span>
+																								<input type="text" class="form-control " name="end" placeholder="01/06/2014" />
+																							</div>
+																						</div>
+																					</div>
+																				</li>
+																				<li class="divider"></li>
+																				<li class="m-t-10 m-b-5 text-link "><a>Ultimos 7 dias</a></li>
+																				<li class="m-t-10 m-b-5 text-link "><a>Ultimos 15 dias</a></li>
+																				<li class="m-t-10 m-b-5 text-link "><a>Ultimos 30 dias</a></li>
+																				<li class="m-t-10 m-b-5 text-link "><a>Ultimos 90 dias</a></li>
+																				<li class="divider"></li>
+																				<li class="m-t-10 m-b-5 text-link clearfix">
+																					<a class="btn btn-default btn-sm pull-left">Aplicar</a> 
+																					<a class="pull-left m-l-10 m-t-5">Cancelar</a>
+
+																				</li>
+
+																			</ul>
+																			<button type="button" class="btn btn-primary  btn-sm dropdown-toggle" data-toggle="dropdown">
+																				<span class="caret"></span>
+																			</button>
+
+																		</div>
+																	</div>
+
+
+
+
+
+																</li>
+
+															</ul>
+
+														</div>
+
+
+
+													</div>
+													<!-- end filters-div -->
+													<div class="line-border clearfix m-b-30 "></div>
+												</div>
+											</div>
+											<!-- end filters--> 
+
+											<!-- begin row -->
+											<div class="row">
+
+											
+													<!-- begin col-md-6 **** Diagrama actividad / ventas -->
+													<div class="col-md-6">
+													<div class="panel panel-inverse">
+													<div class="panel-heading">
+							                            <div class="panel-heading-btn">
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+							                            </div>
+							                            <h4 class="panel-title">iagrama actividad / ventas</h4>
+							                        </div>
+														   <div class="panel-body">
+														   		<div class="clearfix m-b-20 ">
+																	<div class="btn-group pull-right">
+																		<button class="btn btn-white btn-sm active">Toda la actividad</button>
+																		<button class="btn btn-white btn-sm ">Solo visita</button>
+																	
+																	</div>
+																</div>
+									                            <div id="donut-chart" class="height-sm"></div>
+									                       </div>
+													</div></div>
+													<!-- end col-md-6 -->
+
+															<!-- begin col-md-6 ***** Efectividad visitas/venta-->
+													<div class="col-md-6">
+													<div class="panel panel-inverse">
+													<div class="panel-heading">
+							                            <div class="panel-heading-btn">
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+							                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+							                            </div>
+							                            <h4 class="panel-title">Efectividad visitas/venta</h4>
+							                        </div>
+														   <div class="panel-body">
+														   		<div class="clearfix m-b-20 ">
+																	<div class="btn-group pull-right">
+																		<button class="btn btn-white btn-sm active">Toda la actividad</button>
+																		<button class="btn btn-white btn-sm ">Solo visita</button>
+																	
+																	</div>
+																</div>
+									                            <div id="bar-chart" class="height-sm"></div>
+									                       </div>
+													</div></div>
+													<!-- end col-md-6 -->
+													<!-- begin col-12 -->
+													<div class="col-md-12">
+														<!-- begin Ranking diagram -->
+														<div class="panel panel-inverse">
+															<div class="panel-heading">
+																<div class="panel-heading-btn">
+																	<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+																	<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+																	<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+																	<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+																</div>
+																<h4 class="panel-title">Ranking</h4>
+															</div>
+															<div class="panel-body">
+																<div class="btn-group m-r-5 m-b-5  pull-right"> <a href="javascript:;" data-toggle="dropdown" class="btn btn-default btn-sm  dropdown-toggle">Add columns <span class="caret"></span></a>
+																	<ul class="dropdown-menu pull-right ">
+																		
+																		<li class="text-link"><a href="javascript:;" class="btn-link">Restore default</a></li>
+																		<li class="divider"></li>
+																		<!-- default values -->
+
+																		<li> 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " checked>
+
+																			<div class="media-body">
+
+																				<p>Vendedor</p>
+
+																			</div>
+
+
+																		</li>
+																		<li> 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " checked>
+
+																			<div class="media-body">
+
+																				<p>I. Act</p>
+
+																			</div>
+
+
+																		</li>
+																		<li> 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " checked>
+
+																			<div class="media-body">
+
+																				<p>Visitas</p>
+
+																			</div>
+
+
+																		</li>
+																		<li> 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " checked>
+
+																			<div class="media-body">
+
+																				<p>Gestiones</p>
+
+																			</div>
+
+
+																		</li>
+																		<!-- default values -->
+
+																		<li> 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Indice de actividad</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Visitas</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Gestiones</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Actividad</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Tiempo al telefono</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 " >
+
+																			<div class="media-body">
+
+																				<p>Ofertas (cantidad)</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+																			<div class="media-body">
+
+																				<p>Ofertas (valor)</p>
+
+																			</div>
+
+
+																		</li>
+																		<li > 
+
+																			<input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+																			<div class="media-body">
+
+																				<p>Emails</p>
+
+																			</div>
+
+
+																		</li>
+																		
+
+
+
+																	</ul>
+																</div>
+
+																<!-- dropdown-->
+
+
+
+																<div class="table-responsive m-t-20">
+
+																	<table class="table table-striped  table-picture-40">
+																		<thead>
+																			<tr>
+																				<th>#</th>
+																				<th>Vendedor</th>
+																				<th>I. Act</th>
+																				<th>Visitas</th>
+																				<th>Gestiones</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr class="even gradeX">
+																				<td><p class=" m-t-10 ">1</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="odd gradeX">
+																				<td><p class=" m-t-10 ">2</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="even gradeX">
+																				<td><p class=" m-t-10 ">3</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="odd gradeX">
+																				<td><p class=" m-t-10 ">4</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="even gradeX">
+																				<td><p class=" m-t-10 ">5</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="odd gradeX">
+																				<td><p class=" m-t-10 ">6</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="even gradeX">
+																				<td><p class=" m-t-10 ">7</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="odd gradeX">
+																				<td><p class=" m-t-10 ">8</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="even gradeX">
+																				<td><p class=" m-t-10 ">9</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+																			<tr class="odd gradeX">
+																				<td><p class=" m-t-10 ">10</td>
+																				<td><div class="pull-left img-user m-b-10"><img src="assets/img/user-2.jpg" class="media-object" alt=""></div><div class="pull-left  m-t-10 m-l-10"><a href="">Pedro Lorem ipsum</a></div></td>
+																				<td><p class=" m-t-10 ">10.0</p></td>
+																				<td><p class=" m-t-10 ">54</p></td>
+																				<td><p class=" m-t-10 ">245</p></td>
+																			</tr>
+
+																		
+
+
+																		</tbody>
+																	</table>
+
+
+																</div>
+															</div>
+														</div>
+
+														<!-- end evolution diagram -->
+													</div>
+													<!-- end col-12 -->
+
+													
+
+												
+
+												</div>
+												<!-- end row -->
+
+
+
+											</div>
+											<!-- end #content -->
+
+
+											<!-- begin scroll to top btn -->
+											<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+											<!-- end scroll to top btn -->
+										</div>
+										<!-- end page container -->
+
+<!-- ================== BEGIN BASE JS ================== -->
+		<!-- @include "includes/base_js.html" -->  
+		<!-- ================== END BASE JS ================== -->
+
+
+		<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+
+	<script src="assets/plugins/flot/jquery.flot.min.js"></script>
+	<script src="assets/plugins/flot/jquery.flot.time.min.js"></script>
+	<script src="assets/plugins/flot/jquery.flot.resize.min.js"></script>
+	<script src="assets/plugins/flot/jquery.flot.pie.min.js"></script>
+	<script src="assets/plugins/sparkline/jquery.sparkline.js"></script>
+
+	<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="assets/js/chart-morris.demo.min.js"></script>
+	<script src="assets/js/dashboard.min.js"></script>
+
+	<script src="assets/js/apps.min.js"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+		<script>
+			$(document).ready(function() {
+				App.init();
+				Dashboard.init();
+			Chart.init();
+			});
+		</script>
+	</body>
+	</html>

@@ -1,0 +1,469 @@
+/* Style for all details pages */
+
+
+// Dashboard
+body{
+	background-color: @gray-ultradark;
+}
+
+.btn-xs img{
+	height: 12px;
+}
+
+.dashboard {
+	.panel-opportunity{
+		ul li{
+
+			padding: 15px 15px;
+			margin: 0px -15px;
+
+			&:hover{
+				background-color: @gray-ultralight70;
+				.btn-group{
+				display: block;
+			}
+			}
+			.btn-group{
+				display: none;
+			}
+
+		}
+		hr{
+			margin: 0px;
+		}
+	}
+
+}
+.col-md-4 .timeline-small {
+	height: 1725px !important;
+}
+
+.timeline-small {
+	height:800px !important;
+	.timeline-header{
+		border-bottom: none;
+	}
+	.timeline {
+		&:before {
+			left: 17px;
+			width: 3px;
+		}
+		> li{
+			min-height: 10px;
+		}
+		> li + li {
+			margin-top: 10px;
+		}
+		
+		.timeline-time {
+			position: static;
+			width: 100%;
+			padding-top:0px;
+			text-align: left;
+
+			.date {
+
+				font-size: 12px;
+				float: right;
+				/*			margin-left: 45px;*/
+				margin-top: 5px;
+			}
+			.time {
+				font-size: 12px;
+				display: inline;
+				/*text-align: right;*/
+			}
+			.label-activity{
+
+				padding: 0px;
+
+				font-size: 16px;
+				margin-left: 45px;
+
+				text-align: left;
+			}
+			.owner{
+				float:left;
+				margin-top: 5px;
+				} a{
+					font-size: 12px;
+					text-align: right
+				}
+			}
+			.timeline-icon {
+				top: 15px;
+				left: 0%;
+				float: left;
+
+				width: 30px;
+
+				a{
+					width: 30px;
+					height: 30px;
+					border: 3px solid #2d353c;
+					i{
+
+						font-size: 14px;
+						vertical-align: 5px;
+
+					}
+				}
+			}
+			.timeline-body{
+				padding: 15px;
+				margin-left: 45px;
+				&:hover{
+					-webkit-box-shadow: 8px 8px 0px -6px @gray-ultralight;
+					-moz-box-shadow: 8px 8px 0px -6px @gray-ultralight;
+					box-shadow: 8px 8px 0px -6px @gray-ultralight;
+
+					cursor:pointer;
+					.timeline-header .timeline-edit-btn{
+						display:block !important; 
+
+					}
+
+
+				}
+				.timeline-time{
+					margin-top: -10px;
+					padding-bottom: 4px;
+
+				}
+				.timeline-header {
+					padding-bottom:0px;
+					.pull-left{
+						width: 100%;
+					}
+					.timeline-edit-btn{
+						position: absolute;
+						right: 6px;
+						display: none;
+						top: 6px;
+						.btn{
+							padding: 5px 3px 1px 7px;
+							text-align: center;
+
+						}
+					}
+
+				}
+
+			}
+
+		}
+
+
+	}
+
+
+	.box0 {
+		text-align: center;
+
+		img{
+			width: 90%;
+			margin: 0px auto;
+		}
+	}
+	.panel-best-agents{
+		.best-agent-info{
+			position: absolute;
+			background-color: white;
+			border: 1px solid @gray-ultralight70;
+			height: 170px;
+			width: 16.66666667% * 3;
+			left: 16.66666667%;
+			z-index: 99999;
+			border-right: 1px solid @gray-light;
+			border-top: 1px solid @gray-light;
+			border-bottom: 1px solid @gray-light;
+			&:after{
+				content: '';
+				display: block;
+				position: absolute;
+				border: 10px solid transparent;
+				border-right-color: #fff;
+
+				left: -20px;
+				top: 70px;
+			}
+			&:before{
+				content: '';
+				display: block;
+				position: absolute;
+				border: 12px solid transparent;
+				border-right-color: #f7f8f8;
+				left: -24px;
+				top: 68px;
+			}
+			.best-agent-left{
+				width: 30% ;	
+				float: left;
+				text-align: center;
+				img{
+					width: 80%;
+					margin: 10px auto;
+
+				}
+				i{
+					width: 80px;
+					height: 73px;
+					border-radius: 230px;
+					text-align: center;
+					vertical-align: middle;
+					font-size: 51px;
+					margin: 10px auto;
+					padding-top: 25px;
+					color: #989d9f;
+					display: block;
+				}
+
+			}
+			.best-agent-right{
+				width: 33.333333% * 2;
+				float: left;	
+				padding-top: 10px;
+				.clearfix{
+					.border-dotted-bottom;
+				}
+			}
+			
+		}
+		.col-md-2 {
+			padding-bottom: 10px;
+			min-height: 170px;
+			&:hover{
+				background-color: @gray-ultralight70;
+				border: 1px solid @gray-light;
+			}
+		} 
+
+	}
+
+
+
+// Account detail 
+.account-logo-div {
+	img{
+
+		height: 60px;
+		width: 100px;
+
+		/*	.border-grey */
+	}
+
+}
+
+.ic-arr-left, .ic-arr-right{
+	position: relative;
+	top: 1px;
+}
+
+.prev-buttons{
+	margin-top: -22px;
+	position: absolute;
+	right: 4px;
+}
+
+#map-canvas {
+	width: 100%;
+	height: 160px;
+	background-color: @gray-ultralight70;
+}
+
+p .ic-info{
+	font-size: 20px;
+	position: relative;
+	top: 5px;
+}
+
+.panel-detail {
+
+	border-top: 4px solid #edeeee;
+
+	p{
+		margin-bottom: 0px;
+	}
+	h6{
+		color: #242a30 !important;
+	}
+	&.panel-account-detail{
+		border-top-color: @brand-primary;
+	}
+}
+
+.boolean-no{
+	text-decoration: line-through;
+}
+
+button {
+	[class^="ic-"]:before, [class*=" ic-"]:before{
+		position: relative;
+		top: 1px;
+	}
+
+}
+
+
+.panel-opportunity {
+	
+	h6{
+		color:@gray-ultradark !important;
+	}
+	li{
+		padding: 0px 0px;
+	}
+	hr {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+.panel-body.timeline-div {
+	height: 310px;
+	overflow-y: scroll;
+
+	background-color: @gray-ultralight70;
+
+	.timeline-body {
+
+		margin-right: 0%;
+	}
+	.timeline-header{
+
+		.pull-left{
+			width: 75%;
+		}
+		.btn{
+
+			float:left;
+		}
+	}
+}
+
+
+//product
+
+.product-detail-page {
+	.panel-product-detail{
+		border-color: @purple;
+
+	}
+
+	i.ic-products{
+		position: relative;
+		top: 4px;
+	}
+	.panel-grey{
+		background-color: #f7f8f8;
+	}
+}
+
+// product carousel
+
+h2{
+	margin: 0;     
+	color: #666;
+	padding-top: 90px;
+	font-size: 52px;
+	font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+	background: #333;    
+	text-align: center;
+	height: 300px !important;
+}
+.carousel{
+	margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+
+.carousel-indicators {
+
+	bottom: -37px;
+	li {
+
+		border: 1px solid @brand-gray;
+		&.active{
+			background-color: @brand-gray;
+		}
+	}
+}
+
+a.carousel-control span {
+	top: 50%;
+	position: absolute;
+	margin-top: -20px;
+	&.ic-arr-left2{
+		margin-left: -40px;
+	}
+	&:before{
+		font-size: 40px;
+		color:white;
+
+	}
+}
+
+// Quotes
+
+.quote-detail-page {
+	.panel-product-detail{
+		border-color: @aqua;
+
+	}
+
+	i.ic-products{
+		position: relative;
+		top: 4px;
+	}
+}
+
+.panel-card-highlighted {
+	margin: 0 -15px;
+	background: #f0f3f4;
+	padding: 10px 20px;
+	margin-top: -15px;
+}
+
+tr.panel-card-highlighted {
+	td{
+		font-size: 16px;
+	}
+}
+td.total-price{
+
+	background-color: #54585a;
+	color: #FFF;
+
+
+}
+
+// Accounts detail
+.contact-logo-div img{
+	border-radius: 200px;
+	width: 80px;
+}
+
+//Contacts detail
+#editcontact {
+	.form-group 
+
+	img{
+		width: 160px;
+		height: 160px;
+		border-radius: 200px;
+		margin-left: -70px;
+	}
+	.btn-picture{
+		margin-top: -40px !important;}
+}
+
+
+//Opportunity detail
+
+.panel-opportunity-detail{
+		border-color: @aqua;
+
+}

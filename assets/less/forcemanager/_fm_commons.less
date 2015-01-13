@@ -1,6 +1,6 @@
 /* Common Forcemanager styles -  overwites Theme's default style */
 body {
- background: @bg_body url(http://new.forcemanager.net/assets/images/bg-linen.png) 0 0 repeat !important;
+ background: @bg_body url(../img/bg-linen.png) 0 0 repeat !important;
  font-weight: 300;
 
 }	
@@ -9,16 +9,24 @@ ul.no-bullet {
 list-style: outside none none;
 margin: 0px;
 padding-left: 0px;
+li {
+  .edit-delete-div a{
+    margin-left: 20px;
+
+  }
+}
 }
 .a , a{
   font-size: @body_font_size;
   color:@blue;
+  cursor: pointer;
 }
 
 
-a.main {
+a.main, .main {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 16px; 
+    cursor: pointer;
 }
 
 .row > [class*="col-"].ui-sortable {
@@ -37,14 +45,26 @@ margin: 10px 0 10px;
   padding-top: 35px;
 }
 // Text colors
-.brand-red-text {
-  color: @red_text;
+.brand-red-text{
+  color: @red;
+}
+
+.modal-footer .brand-red-text:hover{
+  color: @red;
 }
 
 .brand-red-text:hover {
   color: @red_text_hover;
 }
 
+
+.border-dotted-left{
+  border-left: 1px dotted @gray-light;
+}
+
+.border-dotted-bottom{
+border-bottom: 1px dotted #babebf;
+}
 //Animations
 
 
@@ -54,7 +74,15 @@ margin: 10px 0 10px;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+// Forms
 
+.form-control-auto{
+  width: auto !important;
+}
+
+.form-control {
+border: 1px solid @gray-light;
+}
 
 // .btn-default
 .btn.btn-default {
@@ -82,13 +110,13 @@ margin: 10px 0 10px;
 padding: 8px 18px;
 }
 
-.btn.btn-follow {
+.btn.btn-squared {
   padding: 8px 6px 2px 9px;
   text-align: center;
 }
 
 
-.btn-follow.active, .btn-follow:active, .btn-follow:focus, .btn-follow:hover, .open .dropdown-toggle.btn-follow{
+.btn-squared.active, .btn-squared:active, .btn-squared:focus, .btn-squared:hover, .open .dropdown-toggle.btn-squared{
   border-color: @brand-primary !important;
   color: @brand-primary !important;
 }
@@ -111,6 +139,14 @@ color: @white;
   box-shadow: none !important;
 }
 
+.btn.btn-inverse {
+color: @brand-primary;
+background: white;
+border-color: @brand-primary;
+&:hover{
+ .btn.btn-primary;
+}
+}
 
 //h1, h2 ..
 h1, .h1{
@@ -126,13 +162,14 @@ h6, .h6 {
   color:@gray !important;
 }	
 
-.panel{
-  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  box-shadow: 2px 3px 0px @gray-lighter;
-}
+
+
 .panel-inverse > .panel-heading, .panel-inverse  {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+  h6, .h6{
+    color: @gray-ultradark !important;
+  }
 }
 
 .panel-title {
@@ -198,8 +235,11 @@ i.ic-notifications{
 
   padding: 15px !important;
   min-width: 200px;
-  max-height: 300px;
+  &.dropdown-scrollable{
+     max-height: 300px;
   overflow-y: scroll;
+  }
+ 
   p{
     font-size: @body_font_size;
     display: block;
@@ -282,10 +322,13 @@ background-color: #e5e5e5;
   background-color: @dark_yellow;
 }
 
+.badge{
+  background-color: @brand-gray;
+}
 // borders
 
 .border-grey{
-  border: 1px solid @gray-ultralight;
+  border: 1px solid @gray-light;
 }
 
 // pop-overs
@@ -307,3 +350,97 @@ span.container-popover div.popover{
 span.container-popover:hover div.popover{
   display: inline;
 }
+
+
+// nav top div
+
+.expiring-date-div{
+ 
+  border:1px solid @red;
+height: 33px;
+border-radius: 4px;
+padding-left: 20px;
+margin-right: 40px;
+     p{
+    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 8px;
+    padding-right: 10px;
+      }
+    button{
+      height: 32px;
+      border-radius: 0px 3px 3px 0px !important;
+    }
+}
+
+
+// modals
+.modal-header {
+padding: 20px ;
+p{
+  margin-bottom: 0px !important;
+}
+
+}
+.modal-body h6{
+  margin:0px !important;
+}
+
+// Pipeline
+
+.sold-title{
+  font-size: 20px;
+}
+
+
+.arrow_box {
+  /*position: relative;
+  background: #88b7d5;
+  border: 4px solid #;*/
+}
+/*
+.arrow_box:after, .arrow_box:before {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow_box:after {
+border-color: rgba(136, 183, 213, 0);
+
+border-width: 71px;
+margin-top: -71px;
+}
+.arrow_box:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-left-color: #;
+  border-width: 36px;
+  margin-top: -36px;
+}
+
+.bg-green.arrow_box:after{
+  border-left-color: lighten(@green, 15%);
+
+} 
+
+.bg-blue.arrow_box:after{
+  border-left-color: lighten(@blue, 15%);
+
+} 
+
+
+.aqua_bg.arrow_box:after{
+  border-left-color: @light_aqua;
+
+} 
+
+.widget{
+  overflow: visible;
+}
+*/

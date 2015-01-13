@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
     return {
         'pull-design': {
-            command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git force-design; fi'
+            command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git --branch develop --single-branch force-design; fi'
         },
         'migrate-design': {
             command: 'cp -R force-design/assets/ .'

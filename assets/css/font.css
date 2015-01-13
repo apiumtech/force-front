@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "forcemanager";
-  src:url("fonts (design@forcemanager.net)/forcemanager.eot");
-  src:url("fonts (design@forcemanager.net)/forcemanager.eot?#iefix") format("embedded-opentype"),
-    url("fonts (design@forcemanager.net)/forcemanager.woff") format("woff"),
-    url("fonts (design@forcemanager.net)/forcemanager.ttf") format("truetype"),
-    url("fonts (design@forcemanager.net)/forcemanager.svg#forcemanager") format("svg");
+  src:url("fonts/forcemanager.eot");
+  src:url("fonts/forcemanager.eot?#iefix") format("embedded-opentype"),
+    url("fonts/forcemanager.woff") format("woff"),
+    url("fonts/forcemanager.ttf") format("truetype"),
+    url("fonts/forcemanager.svg#forcemanager") format("svg");
   font-weight: normal;
   font-style: normal;
 
@@ -280,4 +280,34 @@
 }
 .ic-checkin-filled:before {
   content: "=";
+}
+.ic-cron:before {
+  content: ">";
+}
+.ic-data:before {
+  content: "?";
+}
+.ic-devices:before {
+  content: "@";
+}
+.ic-permissions:before {
+  content: "[";
+}
+.ic-parameters:before {
+  content: "]";
+}
+.ic-views:before {
+  content: "^";
+}
+.ic-users:before {
+  content: "_";
+}
+.ic-sqltester:before {
+  content: "`";
+}
+.ic-massives:before {
+  content: "{";
+}
+.ic-trophy:before {
+  content: "|";
 }

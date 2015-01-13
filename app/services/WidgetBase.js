@@ -43,6 +43,7 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype._moveWidget = function (oldIndex, newIndex) {
+        console.log(oldIndex + " -> " + newIndex + ": " + this.widgetId);
         var request = {
             url: this.fetchPoint + '/' + this.widgetId + '/move',
             type: 'post',

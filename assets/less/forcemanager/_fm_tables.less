@@ -1,67 +1,118 @@
 
 .edit-delete-div {
-	display: none;
-	margin-top: -4px;
+	
 	a i {
-    margin-right: 4px;
-    position: relative;
-    top: 1px;
-}
-}
-
-tr:hover .edit-delete-div {
-	display:block;
-}
-
-tr.odd td.sorting_1, tr.even td.sorting_1{
-	background-color: @light_orange !important;
+		margin-right: 4px;
+		position: relative;
+		top: 1px;
+	}
 }
 
 
 
-.table {
-	background-color: @white;
+tr {
+	.edit-delete-div {
+		display: none; 
+		width: 120px;
+		position: absolute;
+		a{
+			cursor: pointer;
+		}
 
-	&.table-listing{
-		thead{
-			tr {
-				th{
-					background-color: @brand-gray;
-					color: @white;
-					font-size: @body_font_size;
-					font-weight: 300 !important;
-					text-transform: uppercase;
+	}
 
+	&:hover .edit-delete-div {
+		display:block;
+	}
+
+}
+
+
+tr.odd {
+	/*.edit-delete-div{
+		background: #f0f3f5;
+		}*/
+
+		td.sorting_1, tr.even td.sorting_1{
+			background-color: @light_orange !important;
+		}
+	}
+
+
+
+	.table {
+		background-color: @white;
+
+		&.table-listing{
+			width: 100%;
+			max-width: 100% !important;
+			table-layout: fixed;
+			
+			thead{
+				tr {
+					th{
+						&:hover{
+							background-color: @gray-ultradark;
+						}
+						background-color: @brand-gray;
+						.panel-title 
+
+
+					}
+				}
+			}
+
+
+		}
+		& > thead {
+			& > tr {
+				& > th.sorting_asc {
+					background-color: @brand-primary;
+					color:@white;
+					&:hover{
+						background-color: @brand-primary-hover;
+					}
+				}
+				& > th.sorting_desc {
+					background-color: @brand-primary;
+					color:@white;
+					&:hover{
+						background-color: @brand-primary-hover;
+					}
 				}
 			}
 		}
+		tbody{
+			tr{
+				&:hover .edit-delete-div {
+					display:block;
+				}
+				&.odd td.sorting_1 {
+					background-color: @extralight_orange !important;
+				}
+				&.even td.sorting_1{
+					background-color: @extralight_orange !important;
+				}
+				td{
+					height: 53px;
+					/*padding: 10px 15px 0px !important;*/
+					&.edit-delete-td{
 
+						padding-bottom: 25px !important;
 
-	}
-	& > thead {
-		& > tr {
-			& > th.sorting_asc {
-				background-color: @brand-primary;
-				color:@white;
+					}
+				}
+				&.align-middle td{
+					vertical-align: middle;
+
+				}
 			}
-			& > th.sorting_desc {
-				background-color: @brand-primary;
-					color:@white;
-			}
+
+			
+
+			
 		}
 	}
-	tbody{
-		tr:hover .edit-delete-div {
-			display:block;
-		}
 
-		tr.odd td.sorting_1, tr.even td.sorting_1{
-			background-color: @extralight_orange !important;
-		}
 
-		tr td{
-			height: 53px;
-padding: 10px 15px 0px !important;
-		}
-	}
-}
+

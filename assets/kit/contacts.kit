@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Contacts</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<!-- @include "includes/base_css.html" -->  
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/DataTables-1.9.4/css/data-table.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+	        <style>
+.table-responsive .col-md-6,  .table-responsive .col-md-6 {
+  display: none;
+}   </style>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+		<!-- @include "includes/navbar-fixed-top.html" --> 
+		<!-- @include "includes/sidebar.html" --> 
+		
+
+		<!-- begin #content -->
+		<div id="content" class="content"> 
+			<!-- begin breadcrumb -->
+			<ul class=" pull-right no-bullet m-t-20">
+				<li><a href="javascript:;"><i class="fa ic-export"></i>Export</a></li>
+			</ul>
+			<!-- end breadcrumb --> 
+			<!-- begin page-header -->
+			<h1 class="page-header m-r-10"> Contacts  <a href="javascript:;" class=" btn btn-primary m-l-20"> <span class="ic-plus m-r-5" ></span>Create contact</a></h1>
+			<!-- end page-header --> 
+
+			<!-- begin filters -->
+			<div class="row filters-div"> 
+				<!-- begin col-12 -->
+				<div class="col-md-12 ui-sortable ">
+					<div class="line-border clearfix "></div>
+
+					<div class="row m-b-5">
+						<div class="col-md-9 ui-sortable">
+							<h6>Filter by</h6>
+
+							<ul class="nav navbar-nav row row m-t-10">
+								<li class="dropdown">
+									<a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" >
+										Account
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu media-list  animated-slow fadeInDown">
+										<li class="m-t-10 m-b-10"><form>
+
+											<input type="text" class="form-control ic-user" placeholder="Search account" />
+
+										</form></li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object "> <img src="assets/img/user-11.jpg"></div>
+											<div class="media-body">
+
+												<p>Ikea</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+											<div class="media-body">
+
+												<p>Leroy Merlin</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+											<div class="media-body">
+
+												<p>Ikea</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object "> <img src="assets/img/user-13.jpg"></div>
+											<div class="media-body">
+
+												<p>Leroy Merlin</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+											<div class="media-body">
+
+												<p>Ikea</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object "> <img src="assets/img/user-14.jpg"></div>
+											<div class="media-body">
+
+												<p>Leroy Merlin</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+											<div class="pull-left media-object "> <img src="assets/img/user-11.jpg"></div>
+											<div class="media-body">
+
+												<p>Ikea</p>
+
+											</div>
+
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown ">
+									<a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" >
+										Role 
+										<span class="caret"></span>
+
+									</a>
+									<ul class="dropdown-menu media-list  animated-slow fadeInDown">
+										<li class="m-t-10 m-b-10"><form>
+
+											<input type="text" class="form-control ic-user" placeholder="Search account" />
+
+										</form></li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>Dir. Comercial</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>Dept. Compras</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>Dept. Marketing</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>CEO</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>Dept. Compras</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>Dept. Marketing</p>
+
+											</div>
+
+										</li>
+										<li class="media"> 
+
+											<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+											<div class="media-body">
+
+												<p>CEO</p>
+
+											</div>
+
+										</li>
+
+
+
+
+
+
+									</ul>
+								</li>
+								<li class="dropdown ">
+									<a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown">
+										Tel. number
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu animated-slow fadeInDown">
+										<li class="m-t-10 m-b-10"><form>
+
+											<input type="text" class="form-control ic-user" placeholder="Type in phone number" />
+
+										</form></li>
+
+									</ul>
+
+								</li>
+
+								<li class="dropdown ">
+									<a id="drop2" href="#" class="dropdown-toggle btn btn-default btn-sm m-r-5 m-b-5" data-toggle="dropdown">
+										Add filters
+
+									</a>
+
+								</li>
+							</ul>
+
+
+
+						</div>
+						<div class="col-md-3 ui-sortable">
+							<form>
+								<div class="input-group m-b-15 m-t-30 ">
+									<input type="text" class="form-control " placeholder="Buscar">
+									<span class="input-group-btn">
+										<button class="btn btn-sm btn-default" type="button"><i class="fa ic-search"></i></button>
+									</span> </div>
+								</form>
+							</div>
+
+
+						</div>
+						<!-- end filters-div -->
+						<div class="line-border clearfix m-b-30 "></div>
+					</div>
+				</div>
+				<!-- end filters--> 
+
+				<!-- begin row -->
+				<div class="row"> 
+					<!-- begin col-12 -->
+					  <div class="col-md-12">
+           <!-- begin panel -->
+           <div class="panel panel-inverse">
+            <div class="panel-heading">
+              <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+              </div>
+              <h4 class="panel-title">258 results</h4>
+            </div>
+            <div class="panel-body">
+
+            <div class="btn-group m-r-5 m-b-5  pull-right"> <a href="javascript:;" data-toggle="dropdown" class="btn btn-default btn-sm  dropdown-toggle">Fields <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-scrollable pull-right ">
+
+                      <li class="text-link"><a href="javascript:;" class="btn-link">Restore default</a></li>
+                      <li class="divider"></li>
+
+
+                      <li> 
+
+                        <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                        <div class="media-body">
+
+                         <p>Class</p>
+
+                       </div>
+
+
+                     </li>
+                     <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                      <div class="media-body">
+
+                        <p>Geolocalization</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                      <div class="media-body">
+
+                        <p>Country</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                      <div class="media-body">
+
+                        <p>City</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                      <div class="media-body">
+
+                        <p>Address</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                      <div class="media-body">
+
+                        <p>Tel number</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                      <div class="media-body">
+
+                        <p>Modification</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                      <div class="media-body">
+
+                        <p>Owner</p>
+
+                      </div>
+
+
+                    </li>
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                      <div class="media-body">
+
+                        <p>Other field</p>
+
+                      </div>
+
+
+                    </li>
+
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                      <div class="media-body">
+
+                        <p>Other field</p>
+
+                      </div>
+
+
+                    </li>
+
+                    <li> 
+
+                      <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                      <div class="media-body">
+
+                        <p>Other field</p>
+
+                      </div>
+
+
+                    </li>
+
+                  </ul>
+                </div>
+                <button type="button" class="btn btn-default btn-sm  dropdown-toggle pull-right m-r-10">Show map</button>
+
+
+           <div class="table-responsive">
+							<table id="data-table" class="table table-striped table-bordered ">
+								<thead>
+									<tr>
+										<th >MR / MRS</th>
+										<th >Name</th>
+										<th>Surname</th>
+										<th>Account</th>
+										<th>Role</th>
+										<th>Landline</th>
+										<th>Mobile</th>
+
+									</tr>
+								</thead>
+
+
+								<tbody>
+									<tr class="odd gradeX">
+										<td class="user-img">
+											<!-- Button trigger modal -->
+
+											<img src="assets/img/users/u6.jpg" class="pull-left"> <p class="pull-left m-l-10">Mrs.</p>
+											<div class="edit-delete-div" >
+
+												<a data-toggle="modal" data-target="#editcontact"><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div>
+
+											</td>
+											<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+											</td>
+											<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+											<td><a href="">Ikea Iberica</a></strong></td>
+											<td>Dept. Marketing</td>
+											<td>+34 0089 678300</td>
+											<td>+34 633457689</td>
+
+										</tr>
+										<tr class="gradeX">
+											<td class="user-img"><img src="assets/img/users/u1.jpg" class="pull-left"> <p class="pull-left m-l-10">Mrs.</p>
+												<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+												<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+												</td>
+												<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+												<td><a href="">Ikea Iberica</a></strong></td>
+												<td>Dept. Marketing</td>
+												<td>+34 0089 678300</td>
+												<td>+34 633457689</td>
+
+											</tr>
+											<tr class="odd gradeX">
+												<td class="user-img"><img src="assets/img/users/u5.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+													<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+													<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+													</td>
+													<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+													<td><a href="">Ikea Iberica</a></strong></td>
+													<td>Dept. Marketing</td>
+													<td>+34 0089 678300</td>
+													<td>+34 633457689</td>
+
+												</tr>
+												<tr class="gradeX">
+													<td class="user-img"><img src="assets/img/users/u2.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+														<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+														<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+														</td>
+														<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+														<td><a href="">Ikea Iberica</a></strong></td>
+														<td>Dept. Marketing</td>
+														<td>+34 0089 678300</td>
+														<td>+34 633457689</td>
+
+													</tr>
+													<tr class="odd gradeX">
+														<td class="user-img"><img src="assets/img/users/u3.jpg" class="pull-left"> <p class="pull-left m-l-10">Mrs.</p>
+															<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+															<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+															</td>
+															<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+															<td><a href="">Ikea Iberica</a></strong></td>
+															<td>Dept. Marketing</td>
+															<td>+34 0089 678300</td>
+															<td>+34 633457689</td>
+
+														</tr>
+														<tr class="gradeX">
+															<td class="user-img"><img src="assets/img/users/u4.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+																<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+																<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+																</td>
+																<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+																<td><a href="">Ikea Iberica</a></strong></td>
+																<td>Dept. Marketing</td>
+																<td>+34 0089 678300</td>
+																<td>+34 633457689</td>
+
+															</tr>
+															<tr class="odd gradeX">
+																<td class="user-img"><img src="assets/img/users/u1.jpg" class="pull-left"> <p class="pull-left m-l-10">Mrs.</p>
+																	<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+																	<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+																	</td>
+																	<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+																	<td><a href="">Ikea Iberica</a></strong></td>
+																	<td>Dept. Marketing</td>
+																	<td>+34 0089 678300</td>
+																	<td>+34 633457689</td>
+
+																</tr>
+																<tr class="gradeX">
+																	<td class="user-img"><img src="assets/img/users/u2.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+																		<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+																		<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+																		</td>
+																		<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+																		<td><a href="">Ikea Iberica</a></strong></td>
+																		<td>Dept. Marketing</td>
+																		<td>+34 0089 678300</td>
+																		<td>+34 633457689</td>
+
+																	</tr>
+																	<tr class="odd gradeX">
+																		<td class="user-img"><img src="assets/img/users/u3.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+																			<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+																			<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+																			</td>
+																			<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+																			<td><a href="">Ikea Iberica</a></strong></td>
+																			<td>Dept. Marketing</td>
+																			<td>+34 0089 678300</td>
+																			<td>+34 633457689</td>
+
+																		</tr>
+																		<tr class="gradeX">
+																			<td class="user-img"><img src="assets/img/users/u4.jpg" class="pull-left"> <p class="pull-left m-l-10">Mr.</p>
+																				<div class="edit-delete-div"><a href=""><i class="fa ic-edit"></i>Edit</a> | <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a></div></td>
+																				<td><a href="detail-contacts.html" class="main">Mario </a> <a href="detail-contacts.html" class=" pull-right"></a>
+																				</td>
+																				<td><a href="detail-contacts.html" class="main">Rossi </a> <a href="detail-contacts.html" class=" pull-right"></a></td>
+																				<td><a href="">Ikea Iberica</a></strong></td>
+																				<td>Dept. Marketing</td>
+																				<td>+34 0089 678300</td>
+																				<td>+34 633457689</td>
+
+																			</tr>
+
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+													</div>
+													</div>
+													<!-- end col-12 --> 
+
+												</div>
+
+												<!-- begin scroll to top btn --> 
+												<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a> 
+												<!-- end scroll to top btn --> 
+											</div>
+											<!-- end page container --> 
+
+
+
+											<!-- end #content -->
+
+
+											<!-- begin scroll to top btn -->
+											<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+											<!-- end scroll to top btn -->
+										</div>
+										<!-- end page container -->
+										<!-- modals -->
+										<div class="modal fade" id="editcontact">
+											<div class="modal-dialog ">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+														<h4 class="modal-title"><i class="ic-edit"></i> Edit contact - Mario Rossi</h4>
+														
+													</div>
+													<div class="modal-body" style=" max-height:490px; overflow-y: scroll;">
+
+														<form class="form-horizontal">
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable"></label>
+																<div class="col-md-9 ui-sortable" >
+																	<img src="assets/img/users/u6.jpg"><br>
+																	<button type="button" class="btn btn-default btn-sm btn-picture m-t-10"> Change picture</button>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Gender</label>
+																<div class="col-md-9 ui-sortable">
+																	<select class="form-control form-control-auto">
+																		<option>Mr.</option>
+																		<option>Miss</option>
+																
+																	</select>
+																</div>
+															</div>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">First name</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="Mario">
+																</div>
+															</div>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">Last Name</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="Rossi">
+																</div>
+															</div>
+															<hr></hr>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">Phone number</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="+39 06 8766534">
+																</div>
+															</div>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">Other phone</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="+39 3475632456">
+																</div>
+															</div>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">Email</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="">
+																</div>
+															</div>
+
+															<hr></hr>
+															<div class="form-group">
+															<label class="col-md-3 control-label ui-sortable">Account</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder="Ikea Iberica SL" disabled="">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Role</label>
+																<div class="col-md-9 ui-sortable">
+																	<select class="form-control">
+																		<option>select one</option>
+																		<option>Dpt. Marketing</option>
+																		<option>Dpt. Compras</option>
+																		<option>Dpt. Marketing</option>
+																		<option>Dpt. Compras</option>
+																	</select>
+																</div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Skype</label>
+																<div class="col-md-9 ui-sortable">
+																	<div class="input-group">
+
+																		<input type="text" class="form-control">
+																		<div class="input-group-btn">
+
+
+																			<button type="button" class="btn btn-sm btn-default">Configurar</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<hr></hr>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Address</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder=" " >
+																</div>
+															</div>
+															
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">City</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder=" " >
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Region/State</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder=" " >
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Postcode</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control" placeholder=" " >
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Country</label>
+																<div class="col-md-9 ui-sortable">
+																	<select class="form-control">
+																		<option>Spain</option>
+																			<option>Spain</option>
+																			<option>Spain</option>
+																			<option>Spain</option>
+																			<option>Spain</option>
+																	</select>
+																</div>
+															</div>
+											
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Comments</label>
+																<div class="col-md-9 ui-sortable">
+																	<textarea class="form-control" placeholder="" rows="5"></textarea>
+																</div>
+															</div>
+															<hr></hr>
+															
+
+
+															<div class="form-group">
+																<h6 class="col-md-3 text-right">Extra fields</h6>
+															</div>
+
+
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Checkbox</label>
+																<div class="col-md-9 ui-sortable">
+																	<div class="checkbox">
+																		<label>
+																			<input type="checkbox" value="">
+																			Checkbox Label 1
+																		</label>
+																	</div>
+																	<div class="checkbox">
+																		<label>
+																			<input type="checkbox" value="">
+																			Checkbox Label 2
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Inline Checkbox</label>
+																<div class="col-md-9 ui-sortable">
+																	<label class="checkbox-inline">
+																		<input type="checkbox" value="">
+																		Checkbox Label 1
+																	</label>
+																	<label class="checkbox-inline">
+																		<input type="checkbox" value="">
+																		Checkbox Label 2
+																	</label>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Radio Button</label>
+																<div class="col-md-9 ui-sortable">
+																	<div class="radio">
+																		<label>
+																			<input type="radio" name="optionsRadios" value="option1" checked="">
+																			Radio option 1
+																		</label>
+																	</div>
+																	<div class="radio">
+																		<label>
+																			<input type="radio" name="optionsRadios" value="option2">
+																			Radio option 2
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-3 control-label ui-sortable">Inline Radio Button</label>
+																<div class="col-md-9 ui-sortable">
+																	<label class="radio-inline">
+																		<input type="radio" name="optionsRadios" value="option1" checked="">
+																		Radio option 1
+																	</label>
+																	<label class="radio-inline">
+																		<input type="radio" name="optionsRadios" value="option2">
+																		Radio option 2
+																	</label>
+																</div>
+															</div>
+															<div class="form-group has-success has-feedback">
+																<label class="col-md-3 control-label ui-sortable">Input with Success</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control">
+																	<span class="fa fa-check form-control-feedback"></span>
+																</div>
+															</div>
+															<div class="form-group has-warning has-feedback">
+																<label class="col-md-3 control-label ui-sortable">Input with Warning</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control">
+																	<span class="fa fa-warning form-control-feedback"></span>
+																</div>
+															</div>
+															<div class="form-group has-error has-feedback">
+																<label class="col-md-3 control-label ui-sortable">Input with Error</label>
+																<div class="col-md-9 ui-sortable">
+																	<input type="text" class="form-control">
+																	<span class="fa fa-times form-control-feedback"></span>
+																</div>
+															</div>
+															
+														</form>
+
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default brand-red-text pull-left" data-dismiss="modal"><i class="fa ic-trash"></i> Delete</button>
+											            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+											            <button type="button" class="btn btn-primary">Save</button>
+											         </div>
+												</div><!-- /.modal-content -->
+											</div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
+										<!-- modals -->
+
+										<!-- ================== BEGIN BASE JS ================== -->
+										<script src="assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+										<script src="assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+										<script src="assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+		<!-- ================== END BASE JS ================== -->
+
+		<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+		<script src="assets/plugins/DataTables-1.9.4/js/jquery.dataTables.js"></script>
+		<script src="assets/plugins/DataTables-1.9.4/js/data-table.js"></script>
+		<script src="assets/js/apps.min.js"></script>
+		<!-- ================== END PAGE LEVEL JS ================== -->
+		<script>
+			$(document).ready(function() {
+				App.init();
+			});
+		</script>
+	</body>
+	</html>

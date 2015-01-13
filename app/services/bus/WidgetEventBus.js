@@ -34,6 +34,7 @@ app.registerService(function (container) {
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {
         this.listen(function (event) {
             if (event.widgetMoved && (undefined !== event.oldPosition) && notSamePosition(event.newPosition,event.oldPosition) && (undefined !== event.newPosition)) {
+                console.log("event received");
                 callback(event.oldPosition, event.newPosition, event.moveEvent);
             }
         });
