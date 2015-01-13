@@ -15,10 +15,12 @@ describe("LineGraphPlot", function () {
         { action: 'show', parameter: false, it: 'should return a new visible plot', onField: 'hidden'},
         { action: 'fill', parameter: true, it: 'should return a new filled plot', onField: 'filled'},
         { action: 'empty', parameter: false, it: 'should return a new empty plot', onField: 'filled'},
-        { action: 'data', parameter: [], it: 'should return a new plot with the new data', onField: 'plotData'}
+        { action: 'data', parameter: [], it: 'should return a new plot with the new data', onField: 'plotData'},
+        { action: 'data', parameter: null, it: 'should return a new plot with the new data', onField: 'plotData', expected: [] }
     ].forEach(function (testCase) {
         describe(testCase.action, function () {
             var value = testCase.parameter;
+            var expected = testCase.expected || value;
 
             function exerciseCase(sut) {
                 return sut[testCase.action](value);
@@ -28,7 +30,7 @@ describe("LineGraphPlot", function () {
                 var sut = exerciseAnySut();
                 var output = exerciseCase(sut);
 
-                expect(output[testCase.onField]).toEqual(value);
+                expect(output[testCase.onField]).toEqual(expected);
             });
 
             describe("final state of other fields", function () {
