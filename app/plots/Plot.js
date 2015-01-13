@@ -9,35 +9,39 @@ app.registerService(function () {
         this.paintPlot = plotImpl;
     }
 
-    function _isNotEmpty(e) {
+    Plot._isNotEmpty = function (e) {
+        if (!e) {
+            return false;
+        }
+
         return e.isOption ? !e.isEmpty : e != null;
-    }
+    };
 
-    function _asPlot(e) {
-        return e.isOption ? e.getOrElse(throwException("could not get plot")) : e;
-    }
+    Plot._asPlot = function (e) {
+        if (!e) {
+            throw new Error("e is null");
+        }
 
-    function _asLabel(e, index) {
+        return e.isOption ? e.getOrElse(throwException(new Error("could not get plot"))) : e;
+    };
+
+    Plot._asLabel = function (e, index) {
+        if (!e) {
+            throw new Error("e is null");
+        }
+
         if (e.isOption) { // is a framework option
-            return [index, e.getOrElse(throwException(e))];
-        } else if (e.slice) {
+            return [index, e.getOrElse(throwException(new Error("invalid label")))];
+        } else {
             return [index, e];
         }
-    }
+    };
 
     Plot.prototype.paint = function (element) {
         this.configuration.xaxis = this.configuration.xaxis || {};
         this.configuration.xaxis.ticks = this.labels;
 
-        this.paintPlot(element, this.plots.map(function (e) { return e.digest(element); }).filter(_isNotEmpty), this.configuration);
-        $(element).bind("plothover", function (event, pos, item) {
-            if (item) {
-                var x = item.datapoint[0].toFixed(2),
-                    y = item.datapoint[1].toFixed(2);
-
-                alert("hola: " + y);
-            }
-        });
+        this.paintPlot(element, this.plots.map(function (e) { return e.digest(element); }).filter(Plot._isNotEmpty), this.configuration);
     };
 
     Plot.basic = function (labels, plots) {
@@ -61,8 +65,8 @@ app.registerService(function () {
     };
 
     Plot.newInstance = function (labels, plots, cfg, plotImpl) {
-        var labelArray = labels.map(_asLabel);
-        var plotArray = plots.filter(_isNotEmpty).map(_asPlot);
+        var labelArray = labels.map(Plot._asLabel);
+        var plotArray = plots.filter(Plot._isNotEmpty).map(Plot._asPlot);
         if (plotArray.length == 0) {
             return None();
         }
@@ -70,5 +74,5 @@ app.registerService(function () {
         return Some(new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {}));
     };
 
-    return { basic: Plot.basic, newInstance: Plot.newInstance };
+    return Plot;
 });
