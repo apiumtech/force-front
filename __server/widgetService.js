@@ -11,6 +11,22 @@ var widgetList = [
         widgetType: "graph",
         widgetName: "Widget A",
         imgUrl: 'chart-1.jpg',
+        data: {
+            axis: {
+                x: "Month",
+                y: "Views"
+            },
+            fields: [
+                {
+                    name: "Page Views",
+                    data:  [[1, 53], [2,66], [3, 60], [4, 68], [5, 66], [6,71],[7, 75], [8, 69], [9,70], [10, 68], [11, 72], [12, 78]]
+                },
+                {
+                    name: "Visitors",
+                    data:  [[1, 26], [2,13], [3, 18], [4, 35], [5, 23], [6, 18],[7, 35], [8, 24], [9,14], [10, 14], [11, 29], [12, 30]]
+                }
+            ]
+        },
         widgetId: 1,
         order: 0,
         column: 1
