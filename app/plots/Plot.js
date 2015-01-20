@@ -26,7 +26,7 @@ app.registerService(function () {
     };
 
     Plot._asLabel = function (e, index) {
-        if (!e) {
+        if (e === null || undefined === e) {
             throw new Error("e is null");
         }
 
@@ -41,13 +41,15 @@ app.registerService(function () {
         this.configuration.xaxis = this.configuration.xaxis || {};
         this.configuration.xaxis.ticks = this.labels;
 
-        this.paintPlot(element, this.plots.map(function (e) { return e.digest(element); }).filter(Plot._isNotEmpty), this.configuration);
+        this.paintPlot(element, this.plots.map(function (e) {
+            return e.digest(element);
+        }).filter(Plot._isNotEmpty), this.configuration);
     };
 
     Plot.basic = function (labels, plots) {
         return Plot.newInstance(labels || [], plots, {
-            xaxis: {  tickColor: '#ddd', tickSize: 10 },
-            yaxis: {  tickColor: '#ddd', tickSize: 10 },
+            xaxis: {tickColor: '#ddd', tickSize: 10},
+            yaxis: {tickColor: '#ddd', tickSize: 10},
             grid: {
                 backgroundColor: "#fff",
                 hoverable: true,
@@ -58,7 +60,8 @@ app.registerService(function () {
             },
             legend: {
                 labelBoxBorderColor: '#ddd',
-                margin: 0,
+                margin: 10,
+                noColumns: 1,
                 show: true
             }
         });
@@ -71,7 +74,8 @@ app.registerService(function () {
             return None();
         }
 
-        return Some(new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {}));
+        return Some(new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {
+        }));
     };
 
     return Plot;

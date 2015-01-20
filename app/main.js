@@ -43,6 +43,7 @@ function main() {
     app = ApplicationFactory.newRequireApplication("RequireJS")
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
             'ngRoute',
+            'checklist-model',
             'jm.i18next',
             'infinite-scroll'
         ], AngularConfig));
@@ -60,6 +61,7 @@ function main() {
             'services/bus/FilterChannel',
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
+
             // views
             'views/BaseView',
             'views/WidgetDecoratedPageView',

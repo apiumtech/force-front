@@ -77,7 +77,7 @@ describe("LineGraphPlot", function () {
             var sut = exerciseAnySut();
 
             var result = sut.fill().digest();
-            expect(result.lines.filled).toEqual(true);
+            expect(result.lines.fill).toEqual(true);
         });
 
         [

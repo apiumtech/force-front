@@ -13,10 +13,10 @@ app.registerView(function (container) {
     WidgetBaseView.prototype = Object.create(BaseView.prototype, {
         widget: {
             get: function () {
-                return this.$scope._widget;
+                return this.$scope.widget;
             },
             set: function (value) {
-                this.$scope._widget = value;
+                this.$scope.widget = value;
                 this.presenter.widgetEventChannel = this._getWidgetChannelInstance(value.widgetType + "||" + value.widgetId);
                 this.model.widgetId = value.widgetId;
                 this.model.order = value.order;

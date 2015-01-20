@@ -21,6 +21,16 @@
     "HourAgo_plural": "__hour__ hours ago",
     "NewEmailFrom": "New email from __from__"
   },
+  "LineWidget": {
+    "DataDisplay": "data display",
+    "Filters": {
+      "Hour": "Hour",
+      "Date": "Date",
+      "Month": "Month",
+      "Week": "Week",
+      "ShowFields": "Show Fields"
+    }
+  },
   "LeftMenu": {
     "Dashboard": "Dashboard",
     "Account": "Account",

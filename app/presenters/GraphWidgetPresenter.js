@@ -10,6 +10,18 @@ app.registerPresenter(function (container) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
+    GraphWidgetPresenter.prototype = Object.create(Object.prototype, {
+        widgetEventChannel: {
+            get: function () {
+                return this._widgetEventChannel;
+            },
+            set: function (value) {
+                this._widgetEventChannel = value;
+                this.rebindChannelListener();
+            }
+        }
+    });
+
     GraphWidgetPresenter.prototype.rebindChannelListener = function () {
         var self = this;
         self.widgetEventChannel.onReloadSignalReceived(function () {
@@ -52,7 +64,12 @@ app.registerPresenter(function (container) {
         self.rebindChannelListener();
 
         view.event.onReloadWidgetStart = function () {
+            view.data = {};
             self._executeLoadWidget();
+        };
+
+        view.event.onFilterChanged = function () {
+            console.log(view.$scope.selectedFilter);
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {

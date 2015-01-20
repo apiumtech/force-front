@@ -10,7 +10,70 @@ describe("GraphWidgetPresenter", function () {
     });
 
     describe("Connect view to model", function () {
+        //region test should declare methods
+        var ___view, ___model;
+        [
+            {
+                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
+            },
+            {
+                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
+            },
+            {
+                viewEvent: "onFilterChanged", test: onFilterChangedTest
+            }
+        ].forEach(function (testCase) {
+                var viewEvent = testCase.viewEvent,
+                    test = testCase.test;
+
+                beforeEach(function () {
+                    ___view = {
+                        event: {}
+                    };
+                    ___model = {};
+                    sut.show(___view, ___model);
+                });
+
+                it("should declared '" + viewEvent + "' event for View", function () {
+
+                    expect(___view.event[viewEvent]).not.toBeNull();
+                    expect(isFunction(___view.event[viewEvent])).toEqual(true);
+                });
+
+                describe("when event '" + viewEvent + "' fired", test);
+            });
+
+        function onReloadWidgetStartTest() {
+            it("should call '_executeLoadWidget' method", function () {
+                spyOn(sut, '_executeLoadWidget');
+                ___view.event.onReloadWidgetStart();
+                expect(sut._executeLoadWidget).toHaveBeenCalled();
+            });
+        }
+
+        function onReloadWidgetDoneTest() {
+            it("should call 'sendReloadCompleteSignal' on the channel", function () {
+                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
+                var errMsg = {msg: "test message"};
+                ___view.event.onReloadWidgetDone(errMsg);
+                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
+            });
+        }
+
+        function onFilterChangedTest() {
+
+        }
+
+
+        //endregion test should declare methods
+
+        //region specific methods
         [{
+            method: "_executeLoadWidget",
+            modelMethod: "reloadWidget",
+            onError: "onReloadWidgetError",
+            onSuccess: "onReloadWidgetSuccess"
+        }, {
             method: "_executeLoadWidget",
             modelMethod: "reloadWidget",
             onError: "onReloadWidgetError",
@@ -63,5 +126,7 @@ describe("GraphWidgetPresenter", function () {
                     return v;
                 }
             });
+
+        //endregion
     });
 });
