@@ -69,7 +69,13 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterChanged = function () {
-            console.log(view.$scope.selectedFilter);
+            model.addQuery('filter', view.$scope.selectedFilter);
+            self.widgetEventChannel.sendReloadSignal();
+        };
+
+        view.event.onFilterRangeChanged = function(){
+            model.addQuery('rangeOption', view.$scope.selectedRangeOption);
+            self.widgetEventChannel.sendReloadSignal();
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {

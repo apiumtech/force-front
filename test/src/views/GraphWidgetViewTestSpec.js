@@ -15,6 +15,7 @@ describe("GraphWidgetView", function () {
 
         [
             {method: 'assignWidget', exercise: assignWidgetTestExercise},
+            {method: 'changeFilterRange', exercise: changeFilterRangeTestExercise},
             {method: 'switchToFilled', exercise: switchToFilledTestExercise},
             {method: 'switchToLine', exercise: switchToLineTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
@@ -59,6 +60,27 @@ describe("GraphWidgetView", function () {
                 expect(sut.event.onReloadWidgetStart).toHaveBeenCalled();
             });
 
+        }
+
+        function changeFilterRangeTestExercise() {
+            beforeEach(function () {
+                sut.event.onFilterRangeChanged = jasmine.createSpy();
+            });
+            function performFilterChange() {
+                var param = 'hour';
+                sut.fn.changeFilterRange(param);
+                return param;
+            }
+
+            it("should assign correct value", function () {
+                var param = performFilterChange();
+                expect(sut.$scope.selectedRangeOption).toEqual(param);
+            });
+
+            it("Should fire event onFilterRangeChanged", function () {
+                performFilterChange();
+                expect(sut.event.onFilterRangeChanged).toHaveBeenCalled();
+            });
         }
 
         function switchToFilledTestExercise() {
@@ -284,7 +306,7 @@ describe("GraphWidgetView", function () {
                 spyOn(sut, 'paintChart');
             });
 
-            it("should call getLineGraph()", function () {
+            function performRefreshChart() {
                 sut.data = {
                     fields: [{
                         name: 'abc',
@@ -295,20 +317,14 @@ describe("GraphWidgetView", function () {
                     }]
                 };
                 sut.refreshChart();
+            }
+
+            it("should call getLineGraph()", function () {
+                performRefreshChart();
                 expect(sut.getLineGraph).toHaveBeenCalled();
             });
-
             it("should call paintChart()", function () {
-                sut.data = {
-                    fields: [{
-                        name: 'abc',
-                        data: []
-                    }, {
-                        name: 'def',
-                        data: []
-                    }]
-                };
-                sut.refreshChart();
+                performRefreshChart();
                 expect(sut.paintChart).toHaveBeenCalled();
             });
         });

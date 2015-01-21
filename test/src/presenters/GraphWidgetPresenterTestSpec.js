@@ -21,6 +21,9 @@ describe("GraphWidgetPresenter", function () {
             },
             {
                 viewEvent: "onFilterChanged", test: onFilterChangedTest
+            },
+            {
+                viewEvent: "onFilterRangeChanged", test: onFilterRangeChangedTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -61,7 +64,47 @@ describe("GraphWidgetPresenter", function () {
         }
 
         function onFilterChangedTest() {
+            beforeEach(function () {
+                ___model.addQuery = jasmine.createSpy();
+            });
 
+            function exercisePrepareFilterChangeCall() {
+                ___view.$scope = {selectedFilter: "abcdef"};
+                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                ___view.event.onFilterChanged();
+            }
+
+            it("should call addQuery on model", function () {
+                exercisePrepareFilterChangeCall();
+                expect(___model.addQuery).toHaveBeenCalledWith('filter', 'abcdef');
+            });
+
+            it("should fire sendReloadSignal signal on channel", function () {
+                exercisePrepareFilterChangeCall();
+                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            });
+        }
+
+        function onFilterRangeChangedTest() {
+            beforeEach(function () {
+                ___model.addQuery = jasmine.createSpy();
+            });
+
+            function exercisePrepareFilterChangeCall() {
+                ___view.$scope = {selectedRangeOption: "date"};
+                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                ___view.event.onFilterRangeChanged();
+            }
+
+            it("should call addQuery on model", function () {
+                exercisePrepareFilterChangeCall();
+                expect(___model.addQuery).toHaveBeenCalledWith('rangeOption', 'date');
+            });
+
+            it("should fire sendReloadSignal signal on channel", function () {
+                exercisePrepareFilterChangeCall();
+                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            });
         }
 
 

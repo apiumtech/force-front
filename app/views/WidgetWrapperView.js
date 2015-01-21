@@ -32,7 +32,6 @@ app.registerView(function (container) {
         };
 
         this.fn.reloadPanel = function () {
-            $scope.isLoading = true;
             self.widgetEventChannel.sendReloadSignal();
         };
 
@@ -44,6 +43,9 @@ app.registerView(function (container) {
             var widgetName = widget.widgetType + "||" + widget.widgetId;
             self.widget = widget;
             self.widgetEventChannel = self._getWidgetChannelInstance(widgetName);
+            self.widgetEventChannel.onReloadSignalReceived(function () {
+                $scope.isLoading = true;
+            });
             self.widgetEventChannel.onReloadCompleteSignalReceived(function (reloadError, errorMessage) {
                 self.$scope.isLoading = false;
                 self.$scope.hasError = reloadError;

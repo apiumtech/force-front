@@ -9,16 +9,35 @@ app.registerService(function (container) {
         this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         this.fetchPoint = '/api/widget';
         this.widgetId = '';
+        this.queries = {};
     }
 
     WidgetBase.prototype.normalizeServerInput = function (input) {
-        var empty = function () { return { data: { params: {} }, success: false }; };
+        var empty = function () {
+            return {data: {params: {}}, success: false};
+        };
         if (input == null || input.data == null || input.data.params == null || input.data.widgetId == null) {
             return empty();
         }
 
         input.data.params = JSON.parse(input.data.params);
         return input;
+    };
+
+    WidgetBase.prototype.buildQueryString = function () {
+        var queries = "";
+
+        $.each(this.queries, function (key, value) {
+            if (queries !== "") queries += "&";
+            queries += key + "=" + value;
+        });
+
+        return queries;
+    };
+
+    WidgetBase.prototype.addQuery = function (key, value) {
+        if (!this.queries) this.queries = {};
+        this.queries[key] = value;
     };
 
     WidgetBase.prototype.reloadWidget = function () {
@@ -30,7 +49,18 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype._reload = function () {
-        var request = {url: this.fetchPoint + '/' + this.widgetId, type: 'get', contentType: 'application/json'};
+        var url = this.fetchPoint + '/' + this.widgetId;
+
+        if (this.queries && !isEmptyObject(this.queries)) {
+            var queries = this.buildQueryString();
+            url += "?" + queries;
+        }
+
+        var request = {
+            url: url,
+            type: 'get',
+            contentType: 'application/json'
+        };
         return this.ajaxService.ajax(request).then(this.normalizeServerInput, throwException("Could not normalize server input!"));
     };
 
@@ -49,7 +79,7 @@ app.registerService(function (container) {
             type: 'post',
             accept: 'application/json',
             contentType: 'application/json',
-            data: { oldIndex: oldIndex, newIndex: newIndex }
+            data: {oldIndex: oldIndex, newIndex: newIndex}
         };
 
         return this.ajaxService.ajax(request);

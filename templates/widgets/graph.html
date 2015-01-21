@@ -7,15 +7,32 @@
                     ng-change="event.onFilterChanged()"
                     ng-model="selectedFilter">
                 <option value="{{filter}}"
-                        ng-repeat="filter in filters">{{filter}}</option>
+                        ng-repeat="filter in filters">{{filter}}
+                </option>
             </select>
         </div>
         <div class="col-xs-12 col-sm-6 col-lg-8 m-b-20">
             <div class="btn-group pull-right">
-                <button class="btn btn-white btn-sm active">{{'LineWidget.Filters.Hour' | i18next}}</button>
-                <button class="btn btn-white btn-sm ">{{'LineWidget.Filters.Date' | i18next}}</button>
-                <button class="btn btn-white btn-sm">{{'LineWidget.Filters.Week' | i18next}}</button>
-                <button class="btn btn-white btn-sm">{{'LineWidget.Filters.Month' | i18next}}</button>
+                <button class="btn btn-white btn-sm"
+                        ng-class="{'active': selectedRangeOption=='hour'}"
+                        ng-click="fn.changeFilterRange('hour')">
+                    {{'LineWidget.Filters.Hour' | i18next}}
+                </button>
+                <button class="btn btn-white btn-sm"
+                        ng-class="{'active': selectedRangeOption=='date'}"
+                        ng-click="fn.changeFilterRange('date')">
+                    {{'LineWidget.Filters.Date' | i18next}}
+                </button>
+                <button class="btn btn-white btn-sm"
+                        ng-class="{'active': selectedRangeOption=='week'}"
+                        ng-click="fn.changeFilterRange('week')">
+                    {{'LineWidget.Filters.Week' | i18next}}
+                </button>
+                <button class="btn btn-white btn-sm"
+                        ng-class="{'active': selectedRangeOption=='month'}"
+                        ng-click="fn.changeFilterRange('month')">
+                    {{'LineWidget.Filters.Month' | i18next}}
+                </button>
             </div>
         </div>
     </div>
@@ -28,7 +45,9 @@
         <div class="col-sm-4 col-lg-2 ">
             <div class=" border-grey parameters clearfix">
                 <div class="clearfix">
-                    <h6>{{'LineWidget.Filters.ShowFields' | i18next}}</h6>
+                    <h6>
+                        {{'LineWidget.Filters.ShowFields' | i18next}}
+                    </h6>
 
                     <div class="checkbox">
                         <label ng-repeat="field in availableFields">

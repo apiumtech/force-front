@@ -54,6 +54,14 @@
         };
     };
 
+    jsScope.isEmptyObject = function (obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop)) return false;
+        }
+
+        return true;
+    };
+
     jsScope.Option = function (x) {
         return (x ? jsScope.Some(x) : jsScope.None());
     };

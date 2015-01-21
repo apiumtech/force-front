@@ -22,6 +22,7 @@ app.registerView(function (container) {
         scope.filters = [];
         scope.displayFields = [];
         scope.selectedFilter = "";
+        scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;
         var self = this;
         self.configureEvents();
@@ -32,6 +33,11 @@ app.registerView(function (container) {
     GraphWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
+
+        self.fn.changeFilterRange = function (value) {
+            self.$scope.selectedRangeOption = value;
+            self.event.onFilterRangeChanged();
+        };
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
