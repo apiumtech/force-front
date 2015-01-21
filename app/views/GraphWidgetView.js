@@ -39,6 +39,10 @@ app.registerView(function (container) {
             self.event.onFilterRangeChanged();
         };
 
+        self.fn.changeFilter = function () {
+            self.event.onFilterChanged();
+        };
+
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();

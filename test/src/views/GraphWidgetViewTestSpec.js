@@ -16,6 +16,7 @@ describe("GraphWidgetView", function () {
         [
             {method: 'assignWidget', exercise: assignWidgetTestExercise},
             {method: 'changeFilterRange', exercise: changeFilterRangeTestExercise},
+            {method: 'changeFilter', exercise: changeFilterTestExercise},
             {method: 'switchToFilled', exercise: switchToFilledTestExercise},
             {method: 'switchToLine', exercise: switchToLineTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
@@ -80,6 +81,14 @@ describe("GraphWidgetView", function () {
             it("Should fire event onFilterRangeChanged", function () {
                 performFilterChange();
                 expect(sut.event.onFilterRangeChanged).toHaveBeenCalled();
+            });
+        }
+
+        function changeFilterTestExercise() {
+            it("Should fire event onFilterChanged", function () {
+                sut.event.onFilterChanged = jasmine.createSpy();
+                sut.fn.changeFilter();
+                expect(sut.event.onFilterChanged).toHaveBeenCalled();
             });
         }
 

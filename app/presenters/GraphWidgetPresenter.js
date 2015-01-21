@@ -73,12 +73,15 @@ app.registerPresenter(function (container) {
             self.widgetEventChannel.sendReloadSignal();
         };
 
-        view.event.onFilterRangeChanged = function(){
+        view.event.onFilterRangeChanged = function () {
             model.addQuery('rangeOption', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadSignal();
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {
+            // init the value when widget loaded
+            model.addQuery('filter', view.$scope.selectedFilter);
+            model.addQuery('rangeOption', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
     };

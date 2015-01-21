@@ -55,10 +55,25 @@ describe("GraphWidgetPresenter", function () {
         }
 
         function onReloadWidgetDoneTest() {
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
+            var errMsg = {msg: "test message"};
+            beforeEach(function () {
+                ___model.addQuery = jasmine.createSpy();
+                ___view.$scope = {
+                    selectedFilter: 'selectedFilter',
+                    selectedRangeOption: 'selectedRangeOption'
+                };
                 spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                var errMsg = {msg: "test message"};
                 ___view.event.onReloadWidgetDone(errMsg);
+            });
+
+            it("should call 'addQuery' on model for initialing selectedFilter", function () {
+                expect(___model.addQuery).toHaveBeenCalledWith('filter', 'selectedFilter');
+            });
+            it("should call 'addQuery' on model for initialing selectedRangeOption", function () {
+                expect(___model.addQuery).toHaveBeenCalledWith('rangeOption', 'selectedRangeOption');
+            });
+
+            it("should call 'sendReloadCompleteSignal' on the channel", function () {
                 expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
             });
         }
