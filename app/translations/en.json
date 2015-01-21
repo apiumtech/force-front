@@ -23,6 +23,9 @@
   },
   "LineWidget": {
     "DataDisplay": "data display",
+    "TotalVisits": "Total Visits",
+    "VisitsPerDay": "Visits / Day",
+    "VisitsPerUserPerDay": "Visits / User / Day",
     "Filters": {
       "Hour": "Hour",
       "Date": "Date",
