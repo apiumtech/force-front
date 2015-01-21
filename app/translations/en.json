@@ -22,7 +22,7 @@
     "NewEmailFrom": "New email from __from__"
   },
   "LineWidget": {
-    "DataDisplay": "data display",
+    "DataDisplay": "Data display",
     "TotalVisits": "Total Visits",
     "VisitsPerDay": "Visits / Day",
     "VisitsPerUserPerDay": "Visits / User / Day",

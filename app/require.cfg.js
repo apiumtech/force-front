@@ -19,6 +19,7 @@ var require = {
         'checklist-model': '/assets/js/vendor/checklist-model',
         'underscore': '/node_modules/underscore/underscore-min',
         'flot': '/node_modules/flot/jquery.flot',
+        'flot-resize': '/node_modules/flot/jquery.flot.resize',
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair'
     },
@@ -42,12 +43,12 @@ var require = {
         },
 
         'angular-draganddrop': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'angular-draganddrop'
         },
 
         'checklist-model': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'checklist-model'
         },
 
@@ -62,6 +63,11 @@ var require = {
 
         'flot': {
             exports: 'flot'
+        },
+
+        'flot-resize': {
+            deps: ['jquery', 'flot'],
+            exports: 'flot-resize'
         },
 
         'flot-categories': {
@@ -85,8 +91,12 @@ var require = {
     },
 
     'deps': [
-        'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'i18next', 'ng-i18next', 'underscore', 'flot', 'flot-categories', 'flot-crosshair', 'checklist-model'
+        'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop',
+        'jquery', 'q', 'postal', 'meld',
+        'framework', 'functional-option',
+        'i18next', 'ng-i18next', 'underscore',
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize',
+        'checklist-model'
     ],
 
     callback: main
