@@ -38,6 +38,7 @@ html, body {
     background: url('../plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
 }
 
-.noHover:hover {
+.noHover, .noHover:hover {
     background: initial !important;
+    cursor: default !important;
 }
