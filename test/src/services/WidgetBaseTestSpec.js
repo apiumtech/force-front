@@ -64,6 +64,7 @@ describe("widgetBase", function () {
     describe("_reload", function () {
         beforeEach(function () {
             spyOn(ajaxService, 'ajax').and.returnValue(exerciseFakePromise());
+            spyOn(sut, 'buildQueryString');
         });
 
         [{
@@ -73,7 +74,6 @@ describe("widgetBase", function () {
         }].forEach(function (test) {
                 it("should not call buildQueryString if queries is " + test.msg, function () {
                     sut.queries = test.val;
-                    spyOn(sut, 'buildQueryString');
                     sut._reload();
                     expect(sut.buildQueryString).not.toHaveBeenCalled();
                 });
@@ -84,7 +84,6 @@ describe("widgetBase", function () {
                 filter: 1,
                 range: 'month'
             };
-            spyOn(sut, 'buildQueryString');
             sut._reload();
             expect(sut.buildQueryString).toHaveBeenCalled();
         });

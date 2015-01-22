@@ -29,10 +29,10 @@ app.registerService(function (container) {
     WidgetBase.prototype.buildQueryString = function () {
         var queries = "";
 
-        $.each(this.queries, function (key, value) {
+        for (var prop in this.queries) {
             if (queries !== "") queries += "&";
-            queries += key + "=" + value;
-        });
+            queries += prop + "=" + this.queries[prop];
+        }
 
         return queries;
     };
