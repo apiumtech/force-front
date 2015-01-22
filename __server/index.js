@@ -44,8 +44,7 @@ app.get('/api/widget/:id', function (request, response) {
             success: true,
             data: {
                 widgetId: widget.widgetId,
-                data: widget.data,
-                params: '{"img": "http://' + getDomain() + '/img/' + widget.imgUrl + '"}'
+                params: widget.data
             }
         });
     }, delay);

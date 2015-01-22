@@ -1,31 +1,43 @@
-html, body{
+html, body {
     height: 100%;
 }
 
-.columnFields{
+.columnFields {
     margin: 15px 15px 0 0;
 }
-.ownersDropdown{
+
+.ownersDropdown {
     padding: 10px;
 }
-.ownersDropdown li{
+
+.ownersDropdown li {
     padding: 5px;
 }
-.ownersDropdown li:hover{
+
+.ownersDropdown li:hover {
     cursor: pointer;
 }
-.searchInput{
+
+.searchInput {
     margin: 0 15px 15px 0;
 }
-.filterTable td{
+
+.filterTable td {
     padding: 5px;
 }
-.filterNone{
+
+.filterNone {
     background: url('../plugins/DataTables-1.9.4/img/sort_both.png') no-repeat right;
 }
-.filterAsc{
+
+.filterAsc {
     background: url('../plugins/DataTables-1.9.4/img/sort_asc.png') no-repeat right;
 }
-.filterDesc{
+
+.filterDesc {
     background: url('../plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
+}
+
+.noHover:hover {
+    background: initial !important;
 }

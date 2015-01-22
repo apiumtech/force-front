@@ -43,7 +43,6 @@ function main() {
     app = ApplicationFactory.newRequireApplication("RequireJS")
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
             'ngRoute',
-            'checklist-model',
             'jm.i18next',
             'infinite-scroll'
         ], AngularConfig));

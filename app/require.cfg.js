@@ -16,7 +16,6 @@ var require = {
         'AppsAdapter': '/assets/js/AppsAdapter',
         'i18next': '/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/assets/js/vendor/ng-i18next',
-        'checklist-model': '/assets/js/vendor/checklist-model',
         'underscore': '/node_modules/underscore/underscore-min',
         'flot': '/node_modules/flot/jquery.flot',
         'flot-resize': '/node_modules/flot/jquery.flot.resize',
@@ -45,11 +44,6 @@ var require = {
         'angular-draganddrop': {
             deps: ['angular'],
             exports: 'angular-draganddrop'
-        },
-
-        'checklist-model': {
-            deps: ['angular'],
-            exports: 'checklist-model'
         },
 
         'ng-i18next': {
@@ -95,8 +89,7 @@ var require = {
         'jquery', 'q', 'postal', 'meld',
         'framework', 'functional-option',
         'i18next', 'ng-i18next', 'underscore',
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize',
-        'checklist-model'
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize'
     ],
 
     callback: main

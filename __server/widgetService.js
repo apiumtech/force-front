@@ -74,11 +74,27 @@ var widgetList = [
     {
         page: "intensity",
         widgetType: "table",
-        widgetName: "Widget B",
-        imgUrl: 'chart-2.jpg',
+        widgetName: "Ranking",
         widgetId: 2,
         order: 1,
-        column: 1
+        column: 1,
+        data: {
+            columns: [
+                "Vendedor", "I. Act", "Visitas", "Gestiones"
+            ],
+            data: [
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245]
+            ]
+        }
     },
     {
         page: "distribution",

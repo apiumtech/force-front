@@ -58,6 +58,18 @@ app.registerView(function (container) {
             self.refreshChart();
         };
 
+        self.fn.toggleDisplayField = function (field) {
+            if (self.$scope.displayFields.indexOf(field) === -1) {
+                self.$scope.displayFields.push(field);
+            }
+            else {
+                self.$scope.displayFields = _.filter(self.$scope.displayFields, function (fieldItem) {
+                    return fieldItem !== field;
+                });
+            }
+            self.refreshChart();
+        };
+
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
@@ -65,7 +77,7 @@ app.registerView(function (container) {
 
     GraphWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
-        self.data = data.data.data;
+        self.data = data.data.params;
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
@@ -120,13 +132,12 @@ app.registerView(function (container) {
             return item.name;
         });
 
-        var currentDisplayFields = self.$scope.displayFields;
-        currentDisplayFields = _.filter(currentDisplayFields, function (item) {
+        self.$scope.displayFields = _.filter(self.$scope.displayFields, function (item) {
             return self.$scope.availableFields.indexOf(item) !== -1;
         });
 
-        self.$scope.displayFields = currentDisplayFields.length ?
-            currentDisplayFields :
+        self.$scope.displayFields = self.$scope.displayFields.length ?
+            self.$scope.displayFields :
             self.$scope.availableFields.map(function (item) {
                 return item;
             });

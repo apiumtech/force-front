@@ -19,6 +19,7 @@ describe("GraphWidgetView", function () {
             {method: 'changeFilter', exercise: changeFilterTestExercise},
             {method: 'switchToFilled', exercise: switchToFilledTestExercise},
             {method: 'switchToLine', exercise: switchToLineTestExercise},
+            {method: 'toggleDisplayField', exercise: toggleDisplayFieldTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
         ].forEach(function (testCase) {
                 var method = testCase.method,
@@ -120,6 +121,31 @@ describe("GraphWidgetView", function () {
             });
         }
 
+        function toggleDisplayFieldTestExercise() {
+            it("should remove field if it's already displaying", function () {
+                sut.$scope.displayFields = ["field1", "field2"];
+                var fieldToToggle = "field1";
+                sut.fn.toggleDisplayField(fieldToToggle);
+                expect(sut.$scope.displayFields.length).toEqual(1);
+                expect(sut.$scope.displayFields.indexOf(fieldToToggle)).toEqual(-1);
+            });
+
+            it("should add field if it's not displaying", function () {
+                sut.$scope.displayFields = ["field1", "field2"];
+                var fieldToToggle = "field3";
+                sut.fn.toggleDisplayField(fieldToToggle);
+                expect(sut.$scope.displayFields.length).toEqual(3);
+                expect(sut.$scope.displayFields.indexOf(fieldToToggle)).toEqual(2);
+            });
+
+            it("should call refreshChart", function () {
+                sut.$scope.displayFields = ["field1", "field2"];
+                var fieldToToggle = "field3";
+                sut.fn.toggleDisplayField(fieldToToggle);
+                expect(sut.refreshChart).toHaveBeenCalled();
+            });
+        }
+
         function assertCallRefreshChart(exercise) {
             it("should call refreshChart", function () {
                 exercise();
@@ -132,7 +158,7 @@ describe("GraphWidgetView", function () {
         var fakeResponseData = {
             data: {
                 widgetType: "graph",
-                data: {
+                params: {
                     filters: ['abc', 'def'],
                     fields: []
                 }
@@ -148,13 +174,15 @@ describe("GraphWidgetView", function () {
             spyOn(sut, 'extractFilters');
             spyOn(sut, 'extractDisplayFields');
             spyOn(sut, 'refreshChart');
+            sut.$scope.apply = function () {
+            };
         }
 
         it("Should assign data to scope", function () {
             instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.data).toEqual(fakeResponseData.data.data);
+            expect(sut.data).toEqual(fakeResponseData.data.params);
         });
 
         it("should call extractFilters method", function () {

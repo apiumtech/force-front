@@ -52,9 +52,9 @@
                     <div class="checkbox">
                         <label ng-repeat="field in availableFields">
                             <input type="checkbox"
-                                   ng-click="fn.refreshChart()"
-                                   checklist-value="field"
-                                   checklist-model="displayFields">{{field}}
+                                   ng-checked="displayFields.indexOf(field)>-1"
+                                   ng-click="fn.toggleDisplayField(field)"
+                                   value="{{field}}">{{field}}
                         </label>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
     <div class="row">
         <div class="col-xs-12 m-t-10">
             <span class="container-popover">
-                <span class="btn btn-white btn-lg m-r-10 m-t-10">
+                <span class="btn btn-white btn-lg m-r-10 m-t-10 noHover">
                     <strong>324</strong>
                     <small>
                         {{'LineWidget.TotalVisits' | i18next}}
@@ -130,14 +130,14 @@
                 <!-- popover-->
             </span>
 
-            <a href="javascript:;" class="btn btn-white btn-lg m-r-10 m-t-10">
+            <span class="btn btn-white btn-lg m-r-10 m-t-10 noHover">
                 <strong>58,9 </strong>
                 <small>{{'LineWidget.VisitsPerDay' | i18next}}</small>
-            </a>
-            <a href="javascript:;" class="btn btn-white btn-lg m-r-10 m-t-10">
+            </span>
+            <span class="btn btn-white btn-lg m-r-10 m-t-10 noHover">
                 <strong>5,7</strong>
                 <small>{{'LineWidget.VisitsPerUserPerDay' | i18next}}</small>
-            </a>
+            </span>
         </div>
     </div>
     <!-- all graph-related items here -->

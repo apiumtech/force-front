@@ -20,7 +20,9 @@ app.registerService(function (container) {
             return empty();
         }
 
-        input.data.params = JSON.parse(input.data.params);
+        if (typeof input.data.params === 'string')
+            input.data.params = JSON.parse(input.data.params);
+
         return input;
     };
 
