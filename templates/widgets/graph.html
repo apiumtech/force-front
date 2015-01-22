@@ -52,7 +52,7 @@
                     <div class="checkbox">
                         <label ng-repeat="field in availableFields">
                             <input type="checkbox"
-                                   ng-checked="displayFields.indexOf(field)>-1"
+                                   ng-checked="displayFields.indexOf(field)!=-1"
                                    ng-click="fn.toggleDisplayField(field)"
                                    value="{{field}}">{{field}}
                         </label>

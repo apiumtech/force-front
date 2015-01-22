@@ -62,6 +62,14 @@
         return true;
     };
 
+    jsScope.isArray = function (obj) {
+        return Object.prototype.toString.call(obj) === "[object Array]";
+    };
+
+    jsScope.isFunction = function (obj) {
+        return Object.prototype.toString.call(obj) === "[object Function]";
+    };
+
     jsScope.Option = function (x) {
         return (x ? jsScope.Some(x) : jsScope.None());
     };
