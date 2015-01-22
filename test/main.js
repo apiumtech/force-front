@@ -28,7 +28,6 @@ requirejs.config({
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/base/assets/js/vendor/ng-i18next',
-        'checklist-model': '/base/assets/js/vendor/checklist-model',
         'underscore': '/base/node_modules/underscore/underscore-min'
     },
 
@@ -48,11 +47,6 @@ requirejs.config({
         'angular-draganddrop': {
             deps: [ 'angular' ],
             exports: 'angular-draganddrop'
-        },
-
-        'checklist-model': {
-            deps: [ 'angular' ],
-            exports: 'checklist-model'
         },
 
         'ng-i18next': {
@@ -86,7 +80,7 @@ requirejs.config({
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop',
-        'i18next', 'ng-i18next', 'checklist-model',
+        'i18next', 'ng-i18next',
         'main'
     ],
 
