@@ -28,7 +28,16 @@ app.registerView(function (container) {
         self.configureEvents();
     }
 
-    GraphWidgetView.prototype = Object.create(WidgetBaseView.prototype, {});
+    GraphWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+        availableFields: {
+            get: function () {
+                return this.$scope.availableFields || (this.$scope.availableFields = []);
+            },
+            set: function (value) {
+                this.$scope.availableFields = value;
+            }
+        }
+    });
 
     GraphWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -58,15 +67,13 @@ app.registerView(function (container) {
             self.refreshChart();
         };
 
-        self.fn.toggleDisplayField = function (field) {
-            if (self.$scope.displayFields.indexOf(field) === -1) {
-                self.$scope.displayFields.push(field);
-            }
-            else {
-                self.$scope.displayFields = _.filter(self.$scope.displayFields, function (fieldItem) {
-                    return fieldItem !== field;
-                });
-            }
+        self.fn.toggleDisplayField = function (fieldName) {
+            self.availableFields.forEach(function (field) {
+                if (field.name === fieldName) {
+                    field.isDisplaying = !field.isDisplaying;
+                }
+            });
+
             self.refreshChart();
         };
 
@@ -94,7 +101,7 @@ app.registerView(function (container) {
         var chartFields = [];
 
         data.fields.forEach(function (field) {
-            var lineGraph = self.getLineGraph(field, scope.displayFields, scope.currentChartType);
+            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
             chartFields.push(lineGraph);
         });
 
@@ -106,11 +113,16 @@ app.registerView(function (container) {
         plot.paint($(element));
     };
 
-    GraphWidgetView.prototype.getLineGraph = function (field, displayFields, chartType) {
-        var hidden = displayFields.indexOf(field.name) == -1;
+    GraphWidgetView.prototype.getLineGraph = function (fieldData, availableFields, chartType) {
+        var fieldStatus = _.find(availableFields, function (field) {
+            return field.name === fieldData.name;
+        });
+
+        var hidden = !fieldStatus.isDisplaying;
+
         var filled = chartType === 'filled';
 
-        var lineGraph = GraphWidgetView.getLineGraphInstance(field, hidden, filled);
+        var lineGraph = GraphWidgetView.getLineGraphInstance(fieldData, hidden, filled);
         return lineGraph;
     };
 
@@ -128,19 +140,25 @@ app.registerView(function (container) {
 
     GraphWidgetView.prototype.extractDisplayFields = function () {
         var self = this;
-        self.$scope.availableFields = self.data.fields.map(function (item) {
-            return item.name;
+        var fieldsToMerge = self.availableFields;
+
+        var newFields = self.data.fields.map(function (item) {
+            return {
+                name: item.name,
+                isDisplaying: true
+            };
         });
 
-        self.$scope.displayFields = _.filter(self.$scope.displayFields, function (item) {
-            return self.$scope.availableFields.indexOf(item) !== -1;
-        });
-
-        self.$scope.displayFields = self.$scope.displayFields.length ?
-            self.$scope.displayFields :
-            self.$scope.availableFields.map(function (item) {
-                return item;
+        newFields.forEach(function (field) {
+            var isExisting = _.find(fieldsToMerge, function (c) {
+                return c.name == field.name
             });
+
+            if (undefined === isExisting)
+                fieldsToMerge.push(field);
+        });
+
+        self.availableFields = fieldsToMerge;
     };
 
     GraphWidgetView.prototype.onMoveWidgetSuccess = function (data) {

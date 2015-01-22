@@ -122,27 +122,24 @@ describe("GraphWidgetView", function () {
         }
 
         function toggleDisplayFieldTestExercise() {
-            it("should remove field if it's already displaying", function () {
-                sut.$scope.displayFields = ["field1", "field2"];
-                var fieldToToggle = "field1";
-                sut.fn.toggleDisplayField(fieldToToggle);
-                expect(sut.$scope.displayFields.length).toEqual(1);
-                expect(sut.$scope.displayFields.indexOf(fieldToToggle)).toEqual(-1);
+            beforeEach(function () {
+                sut.availableFields = [{
+                    name: "Page Views",
+                    isDisplaying: true
+                }, {
+                    name: "Visits",
+                    isDisplaying: false
+                }];
             });
 
-            it("should add field if it's not displaying", function () {
-                sut.$scope.displayFields = ["field1", "field2"];
-                var fieldToToggle = "field3";
-                sut.fn.toggleDisplayField(fieldToToggle);
-                expect(sut.$scope.displayFields.length).toEqual(3);
-                expect(sut.$scope.displayFields.indexOf(fieldToToggle)).toEqual(2);
+            it("should hide field if it's displaying", function () {
+                sut.fn.toggleDisplayField("Page Views");
+                expect(sut.availableFields[0].isDisplaying).toEqual(false);
             });
 
-            it("should call refreshChart", function () {
-                sut.$scope.displayFields = ["field1", "field2"];
-                var fieldToToggle = "field3";
-                sut.fn.toggleDisplayField(fieldToToggle);
-                expect(sut.refreshChart).toHaveBeenCalled();
+            it("should show field if it's hidden", function () {
+                sut.fn.toggleDisplayField("Visits");
+                expect(sut.availableFields[1].isDisplaying).toEqual(true);
             });
         }
 
@@ -223,46 +220,59 @@ describe("GraphWidgetView", function () {
         }, {
             name: 'field4', data: []
         }];
-        var expected = ['field1', 'field2', 'field3', 'field4'];
+
 
         beforeEach(function () {
             sut.data = {
                 fields: fields
             };
         });
-        it("should assign availableFields", function () {
-            sut.extractDisplayFields();
-            expect(sut.$scope.availableFields).toEqual(expected);
-        });
 
-        describe("displayFields has value", function () {
-            it("should not change current values if values are available in new data", function () {
-                sut.$scope.displayFields = ['field1', 'field4'];
+        describe("availableFields is empty", function () {
+            it("should assign availableFields", function () {
+                sut.$scope.availableFields = [];
                 sut.extractDisplayFields();
-                expect(sut.$scope.displayFields.length).toEqual(2);
-                expect(sut.$scope.displayFields[0]).toEqual('field1');
-                expect(sut.$scope.displayFields[1]).toEqual('field4');
-            });
-
-            it("should assign new value if current values not in new data", function () {
-                sut.$scope.displayFields = ['field5', 'field6'];
-                exerciseShouldAssignNewValue();
-            });
-        });
-
-        describe("displayFields has no value", function () {
-            it("should assign new value", function () {
-                sut.$scope.displayFields = [];
-                exerciseShouldAssignNewValue();
+                var expected = [{
+                    name: 'field1', isDisplaying: true
+                }, {
+                    name: 'field2', isDisplaying: true
+                }, {
+                    name: 'field3', isDisplaying: true
+                }, {
+                    name: 'field4', isDisplaying: true
+                }];
+                expect(sut.$scope.availableFields).toEqual(expected);
             });
         });
 
-        function exerciseShouldAssignNewValue() {
-            sut.extractDisplayFields();
-            expect(sut.$scope.displayFields.length).toEqual(4);
-            expect(sut.$scope.displayFields).toEqual(expected);
-        }
+        describe("availableFields is not empty", function () {
+            it("should keep the current fields setting", function () {
+                sut.$scope.availableFields = [{
+                    name: 'field1', isDisplaying: true
+                }, {
+                    name: 'field2', isDisplaying: false
+                }, {
+                    name: 'field3', isDisplaying: true
+                }, {
+                    name: 'field4', isDisplaying: false
+                }];
+                var expected = [{
+                    name: 'field1', isDisplaying: true
+                }, {
+                    name: 'field2', isDisplaying: false
+                }, {
+                    name: 'field3', isDisplaying: true
+                }, {
+                    name: 'field4', isDisplaying: false
+                }];
+
+
+                sut.extractDisplayFields();
+                expect(sut.$scope.availableFields).toEqual(expected);
+            });
+        });
     });
+
 
     describe("extractFilters", function () {
         beforeEach(initSut);
@@ -314,21 +324,15 @@ describe("GraphWidgetView", function () {
         describe("data is invalid", function () {
 
             [{
-                testCase: "fields is not defined", prepare: function () {
-                    sut.data = {};
-                }
+                testCase: "fields is not defined", widgetData: {}
             }, {
-                testCase: "fields is null", prepare: function () {
-                    sut.data = {fields: null};
-                }
+                testCase: "fields is null", widgetData: {fields: null}
             }, {
-                testCase: "fields is not array", prepare: function () {
-                    sut.data = {fields: {blah: 123456}};
-                }
+                testCase: "fields is not array", widgetData: {fields: {blah: 123456}}
             }].forEach(function (test) {
                     describe(test.testCase, function () {
                         it("Should not call paintChart", function () {
-                            test.prepare();
+                            sut.data = test.widgetData;
                             spyOn(sut, 'paintChart');
                             sut.refreshChart();
                             expect(sut.paintChart).not.toHaveBeenCalled();
@@ -338,8 +342,10 @@ describe("GraphWidgetView", function () {
         });
 
         describe("data is valid", function () {
+            var spyOnLineGraph;
             beforeEach(function () {
-                spyOn(sut, 'getLineGraph');
+                sut.$scope.currentChartType = 'filled';
+                spyOnLineGraph = spyOn(sut, 'getLineGraph');
                 spyOn(sut, 'paintChart');
             });
 
@@ -356,10 +362,16 @@ describe("GraphWidgetView", function () {
                 sut.refreshChart();
             }
 
-            it("should call getLineGraph()", function () {
+            it("should call getLineGraph() correct times equivalent the available fields", function () {
                 performRefreshChart();
                 expect(sut.getLineGraph).toHaveBeenCalled();
+                expect(spyOnLineGraph.calls.count()).toEqual(sut.data.fields.length);
+
+                expect(spyOnLineGraph.calls.mostRecent().args[0]).toEqual(sut.data.fields[sut.data.fields.length - 1]);
+                expect(spyOnLineGraph.calls.mostRecent().args[1]).toEqual(sut.$scope.availableFields);
+                expect(spyOnLineGraph.calls.mostRecent().args[2]).toEqual('filled');
             });
+
             it("should call paintChart()", function () {
                 performRefreshChart();
                 expect(sut.paintChart).toHaveBeenCalled();
@@ -370,32 +382,37 @@ describe("GraphWidgetView", function () {
     describe("getLineGraph", function () {
         beforeEach(initSut);
 
-        var displayFields = ['field1', 'field2'];
+        var displayFields = [{
+            name: "field1",
+            isDisplaying: true
+        }, {
+            name: "field2",
+            isDisplaying: true
+        }, {
+            name: "field3",
+            isDisplaying: false
+        }];
         var fields = {
             name: "field1", data: []
         };
 
         [{
-            displayFields: ['field1', 'field2'],
             field: {name: "field1", data: []},
             hidden: false,
             filledStatus: 'filled',
             filled: true
         }, {
-            displayFields: ['field1', 'field2'],
             field: {name: "field3", data: []},
             hidden: true,
             filledStatus: 'filled',
             filled: true
         }, {
-            displayFields: ['field1', 'field2'],
             field: {name: "field3", data: []},
             hidden: true,
             filledStatus: 'line',
             filled: false
         }].forEach(function (testCase) {
                 var field = testCase.field,
-                    displayFields = testCase.displayFields,
                     hidden = testCase.hidden,
                     filledStatus = testCase.filledStatus,
                     filled = testCase.filled;
@@ -407,4 +424,5 @@ describe("GraphWidgetView", function () {
                 });
             });
     });
-});
+})
+;
