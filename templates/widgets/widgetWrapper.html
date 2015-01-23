@@ -2,7 +2,10 @@
      ng-controller="WidgetWrapperController"
      ng-init="fn.initWidget(widget)"
      ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
-    <div class="panel-heading">
+    <div class="panel-heading"
+         as-sortable-item-handle
+         on-drag-start="fn.onDragStart($event, $ui)"
+         on-drag-stop="fn.onDragStop($event, $ui)">
         <div class="panel-heading-btn">
             <a href="javascript:;"
                class="btn btn-xs btn-icon btn-circle btn-default"

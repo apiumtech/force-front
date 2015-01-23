@@ -16,6 +16,8 @@ var require = {
         'AppsAdapter': '/assets/js/AppsAdapter',
         'i18next': '/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/assets/js/vendor/ng-i18next',
+        'ng-sortable': '/assets/js/vendor/ng-sortable',
+        'signals': '/assets/js/vendor/js-signals',
         'underscore': '/node_modules/underscore/underscore-min',
         'flot': '/node_modules/flot/jquery.flot',
         'flot-resize': '/node_modules/flot/jquery.flot.resize',
@@ -26,6 +28,9 @@ var require = {
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+        'signals': {
+            exports: 'signals'
         },
         'i18next': {
             exports: 'i18next'
@@ -49,6 +54,11 @@ var require = {
         'ng-i18next': {
             deps: ['angular', 'i18next'],
             exports: 'ng-i18next'
+        },
+
+        'ng-sortable': {
+            deps: ['angular', 'jquery', 'signals'],
+            exports: 'ng-sortable'
         },
 
         'jquery': {
@@ -88,7 +98,7 @@ var require = {
         'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop',
         'jquery', 'q', 'postal', 'meld',
         'framework', 'functional-option',
-        'i18next', 'ng-i18next', 'underscore',
+        'i18next', 'ng-i18next', 'underscore', 'signals', 'ng-sortable',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize'
     ],
 

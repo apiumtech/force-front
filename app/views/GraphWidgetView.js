@@ -20,7 +20,6 @@ app.registerView(function (container) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         scope._widget = null;
         scope.filters = [];
-        scope.displayFields = [];
         scope.selectedFilter = "";
         scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;

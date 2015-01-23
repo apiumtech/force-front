@@ -82,8 +82,11 @@ var widgetList = [
             columns: [
                 "Vendedor", "I. Act", "Visitas", "Gestiones"
             ],
+            metadata: [
+                "string", "image"
+            ],
             data: [
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img-url.png","Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],

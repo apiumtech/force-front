@@ -51,8 +51,14 @@ app.registerView(function (container) {
                 self.$scope.hasError = reloadError;
                 self.$scope.errorMessage = (reloadError) ? errorMessage : null;
             });
+        };
 
-            self.fn.bindDraggableEvents();
+        this.fn.onDragStart = function (event, ui) {
+            console.log("Widget is moving", self, event, ui);
+        };
+
+        this.fn.onDragStop = function (event, ui) {
+            console.log("Widget is moved", self, event, ui);
         };
 
         this.fn.bindDraggableEvents = function () {

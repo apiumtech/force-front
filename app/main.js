@@ -44,6 +44,7 @@ function main() {
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
             'ngRoute',
             'jm.i18next',
+            'forcefront.sortable',
             'infinite-scroll'
         ], AngularConfig));
 

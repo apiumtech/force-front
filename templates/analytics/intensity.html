@@ -17,8 +17,8 @@
 
 <div class="row">
     <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
-    <div class="col-md-12 drag-and-drop">
-        <div ng-repeat="widget in widgets" class="widget-container">
+    <div class="col-md-12 drag-and-drop" as-sortable>
+        <div ng-repeat="widget in widgets" class="widget-container" as-sortable-item sortable-widget="widget">
             <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
         </div>
     </div>
