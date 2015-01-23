@@ -3,7 +3,7 @@ force-front
 
 for adding the design folder just run
 
-`grunt shell:config`
+`grunt reload-design`
 
 --- Jan 12 2015
 * Now 'grunt dev-server' doesn't open a browser. It's really annoying if you use your browser session for other things.
