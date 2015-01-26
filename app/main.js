@@ -85,12 +85,15 @@ function main() {
             'controllers/ConversionController', 'views/ConversionView', 'presenters/ConversionPresenter', 'models/ConversionModel',
 
             // Wrapper for widget
-            'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
+            'controllers/WidgetWrapperController', 'views/WidgetWrapperView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
 
             'services/bus/WidgetEventBus',
 
             // Graph widget
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+
+            // Pie chart widget
+            'controllers/PieChartWidgetController', 'views/PieChartWidgetView',
 
             // table widget
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',

@@ -3,7 +3,6 @@
  */
 describe("GraphWidgetView", function () {
     var GraphWidgetView = app.getView('views/GraphWidgetView');
-    var WidgetBaseView = app.getView('views/WidgetBaseView');
     var sut;
 
     function initSut() {

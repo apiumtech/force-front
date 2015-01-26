@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     GraphWidgetController.configureView = function ($scope, $element) {
-        this.view = GraphWidgetView.newInstance($scope, $element).getOrElse(throwException("Cannot instantiate GraphWidgetView"));
+        this.view = GraphWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(GraphWidgetView));
         this.view.show();
     };
 

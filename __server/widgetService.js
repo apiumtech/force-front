@@ -73,27 +73,30 @@ var widgetList = [
     },
     {
         page: "intensity",
-        widgetType: "donut",
+        widgetType: "pie",
         widgetName: "Distribucion por segmento",
         widgetId: 1029,
         order: 3,
         column: 1,
-        data: [{
-            label: "Chrome",
-            data: 35
-        }, {
-            label: "Firefox",
-            data: 30
-        }, {
-            label: "Safari",
-            data: 15
-        }, {
-            label: "Opera",
-            data: 10
-        }, {
-            label: "IE",
-            data: 5
-        }]
+        data: {
+            filters: ["Toda Va Actividad", "Solo Visita"],
+            params: [{
+                label: "Chrome",
+                data: 35
+            }, {
+                label: "Firefox",
+                data: 30
+            }, {
+                label: "Safari",
+                data: 15
+            }, {
+                label: "Opera",
+                data: 10
+            }, {
+                label: "IE",
+                data: 5
+            }]
+        }
     },
     {
         page: "intensity",
