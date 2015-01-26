@@ -61,6 +61,7 @@ function main() {
             'services/bus/FilterChannel',
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
+            'plots/PieChart',
 
             // views
             'views/BaseView',

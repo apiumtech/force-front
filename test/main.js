@@ -28,6 +28,8 @@ requirejs.config({
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/base/assets/js/vendor/ng-i18next',
+        'signals': '/base/assets/js/vendor/js-signals',
+        'ng-sortable': '/base/assets/js/vendor/ng-sortable',
         'underscore': '/base/node_modules/underscore/underscore-min'
     },
 
@@ -45,13 +47,18 @@ requirejs.config({
         },
 
         'angular-draganddrop': {
-            deps: [ 'angular' ],
+            deps: ['angular'],
             exports: 'angular-draganddrop'
         },
 
         'ng-i18next': {
             deps: ['angular', 'i18next'],
             exports: 'ng-i18next'
+        },
+
+        'ng-sortable': {
+            deps: ['angular', 'jquery', 'signals'],
+            exports: 'ng-sortable'
         },
 
         'infinite-scroll': {
@@ -80,7 +87,7 @@ requirejs.config({
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop',
-        'i18next', 'ng-i18next',
+        'i18next', 'ng-i18next', 'signals', 'ng-sortable',
         'main'
     ],
 

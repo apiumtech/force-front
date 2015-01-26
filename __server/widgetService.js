@@ -73,6 +73,30 @@ var widgetList = [
     },
     {
         page: "intensity",
+        widgetType: "donut",
+        widgetName: "Distribucion por segmento",
+        widgetId: 1029,
+        order: 3,
+        column: 1,
+        data: [{
+            label: "Chrome",
+            data: 35
+        }, {
+            label: "Firefox",
+            data: 30
+        }, {
+            label: "Safari",
+            data: 15
+        }, {
+            label: "Opera",
+            data: 10
+        }, {
+            label: "IE",
+            data: 5
+        }]
+    },
+    {
+        page: "intensity",
         widgetType: "table",
         widgetName: "Ranking",
         widgetId: 2,
@@ -82,11 +106,8 @@ var widgetList = [
             columns: [
                 "Vendedor", "I. Act", "Visitas", "Gestiones"
             ],
-            metadata: [
-                "string", "image"
-            ],
             data: [
-                ["/assets/img-url.png","Pedro Lorem ipsum", 10.0, 54, 245],
+                ["Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],
                 ["Pedro Lorem ipsum", 10.0, 54, 245],
