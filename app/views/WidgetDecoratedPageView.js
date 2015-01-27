@@ -9,21 +9,26 @@ app.registerView(function (container) {
         $scope.widgets = null;
     }
 
-    WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {});
+    WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {
+        widgets: {
+            get: function () {
+                return this.$scope.widgets;
+            },
+            set: function (value) {
+                this.$scope.widgets = value;
+            }
+        }
+    });
 
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
         widgetsData.forEach(function (widget) {
-            widget.template = '/templates/widgets/' + widget.widgetType + '.html';
+            widget.template = '/templates/widgets/' + widget.type + '.html';
         });
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
-        this.decorateWidget.call(this, widgetsData);
-        widgetsData.sort(function (widgetA, widgetB) {
-            return widgetA.order - widgetB.order;
-        });
-        this._rearrangeWidgetsList(widgetsData);
-        this.$scope.widgets = widgetsData;
+        this.decorateWidget.call(this, widgetsData.body);
+        this.widgets = widgetsData.body;
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {

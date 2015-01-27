@@ -10,6 +10,76 @@ describe("TableWidgetPresenter", function () {
     });
 
     describe("Connect view to model", function () {
+        //region test should declare methods
+        var ___view, ___model;
+        [
+            {
+                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
+            },
+            {
+                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
+            }
+        ].forEach(function (testCase) {
+                var viewEvent = testCase.viewEvent,
+                    test = testCase.test;
+
+                beforeEach(function () {
+                    ___view = {
+                        event: {}
+                    };
+                    ___model = {
+                        setFetchEndPoint: jasmine.createSpy()
+                    };
+                    sut.show(___view, ___model);
+                });
+
+                it("should declared '" + viewEvent + "' event for View", function () {
+
+                    expect(___view.event[viewEvent]).not.toBeNull();
+                    expect(isFunction(___view.event[viewEvent])).toEqual(true);
+                });
+
+                describe("when event '" + viewEvent + "' fired", test);
+            });
+
+        function onReloadWidgetStartTest() {
+            beforeEach(function () {
+                ___view.widget = {
+                    dataEndpoint: "/test/end/point"
+                };
+                spyOn(sut, '_executeLoadWidget');
+            });
+            it("should add endpoint to model", function () {
+                ___view.event.onReloadWidgetStart();
+                expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
+            });
+
+            it("should call '_executeLoadWidget' method", function () {
+                ___view.event.onReloadWidgetStart();
+                expect(sut._executeLoadWidget).toHaveBeenCalled();
+            });
+        }
+
+        function onReloadWidgetDoneTest() {
+            var errMsg = {msg: "test message"};
+            beforeEach(function () {
+                ___model.addQuery = jasmine.createSpy();
+                ___view.$scope = {
+                    selectedFilter: 'selectedFilter',
+                    selectedRangeOption: 'selectedRangeOption'
+                };
+                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
+                ___view.event.onReloadWidgetDone(errMsg);
+            });
+
+            it("should call 'sendReloadCompleteSignal' on the channel", function () {
+                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
+            });
+        }
+
+
+        //endregion test should declare methods
+
         [{
             method: "_executeLoadWidget",
             modelMethod: "reloadWidget",

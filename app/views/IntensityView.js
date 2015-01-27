@@ -10,11 +10,6 @@ app.registerView(function (container) {
 
     function IntensityView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
-        var self = this;
-
-        self.fn.loadWidgets = function () {
-            self.event.onLoaded();
-        };
     }
 
     IntensityView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
@@ -22,13 +17,7 @@ app.registerView(function (container) {
     IntensityView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     IntensityView.prototype.show = function () {
         this.__show.call(this);
-        this.fn.loadWidgets();
-    };
-
-    IntensityView.prototype._rearrangeWidgetsList = function (widgetsData) {
-        widgetsData.sort(function (widgetA, widgetB) {
-            return widgetA.order - widgetB.order;
-        });
+        this.event.onLoaded();
     };
 
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

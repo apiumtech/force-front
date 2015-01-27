@@ -18,6 +18,14 @@ describe("widgetBase", function () {
 
     describe("reloadWidget", function () {
         it("should throw exception if widgetId is not defined", function () {
+            sut.fetchPoint = "/test/fetch/point";
+            expect(function () {
+                sut.reloadWidget();
+            }).toThrowError();
+        });
+
+        it("should throw exception if fetchPoint is not defined", function () {
+            sut.widgetId = 20020;
             expect(function () {
                 sut.reloadWidget();
             }).toThrowError();
@@ -25,6 +33,7 @@ describe("widgetBase", function () {
 
         it("should call _reload method if widgetId is defined", function () {
             sut.widgetId = 100;
+            sut.fetchPoint = "/test/fetch/point";
             spyOn(sut, "_reload");
             sut.reloadWidget();
             expect(sut._reload).toHaveBeenCalled();
@@ -58,6 +67,19 @@ describe("widgetBase", function () {
             var expected = 1;
             var actual = sut.queries.filter;
             expect(actual).toEqual(expected);
+        });
+    });
+
+    describe("setFetchEndPoint", function () {
+        it("should throw error if input is null", function () {
+            expect(function () {
+                sut.setFetchEndPoint();
+            }).toThrow(new Error("Input data cannot be null"));
+        });
+
+        it("should assign fetchEndpoint", function () {
+            sut.setFetchEndPoint("/data/1020");
+            expect(sut.fetchPoint).toEqual("/data/1020");
         });
     });
 
@@ -104,12 +126,12 @@ describe("widgetBase", function () {
 
             [{
                 sutQueries: {},
-                fetchPoint: "data-endpoint",
+                fetchPoint: "data-endpoint/1003",
                 widgetId: 1003,
                 expected: "data-endpoint/1003"
             }, {
                 sutQueries: {filter: 1, range: 'month'},
-                fetchPoint: "/api/widgets/getwidget",
+                fetchPoint: "/api/widgets/getwidget/1080",
                 widgetId: 1080,
                 expected: "/api/widgets/getwidget/1080?filter=1&range=month"
             }].forEach(function (test) {

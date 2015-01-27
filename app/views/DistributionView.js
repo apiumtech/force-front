@@ -10,11 +10,6 @@ app.registerView(function (container) {
 
     function DistributionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
-        var self = this;
-
-        self.fn.loadWidgets = function () {
-            self.event.onLoaded();
-        };
     }
 
     DistributionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
@@ -22,11 +17,7 @@ app.registerView(function (container) {
     DistributionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     DistributionView.prototype.show = function () {
         this.__show.call(this);
-        this.fn.loadWidgets();
-    };
-
-    DistributionView.prototype._rearrangeWidgetsList = function (widgetsData) {
-
+        this.event.onLoaded();
     };
 
     DistributionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

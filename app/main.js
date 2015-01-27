@@ -71,6 +71,7 @@ function main() {
             'services/WidgetBase',
             'services/WidgetService',
             'services/b64StringEncoder',
+            'services/StorageService',
 
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',

@@ -17,22 +17,10 @@
 
 <div class="row">
     <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
-    <div class="col-md-12 drag-and-drop" data-widgetrow="1">
-        <div ng-repeat="widget in widgets" ng-if="widget.row == 1" class="widget-container">
-            <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
-        </div>
-    </div>
-    <div class="col-md-6 drag-and-drop" data-widgetrow="2" data-widgetcolumn="1">
+    <div class="widgets-container" as-sortable>
         <div ng-repeat="widget in widgets"
-             ng-if="widget.row == 2 && widget.column == 1"
-             class="widget-container">
-            <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
-        </div>
-    </div>
-    <div class="col-md-6 drag-and-drop" data-widgetrow="2" data-widgetcolumn="2">
-        <div ng-repeat="widget in widgets"
-             ng-if="widget.row == 2 && widget.column == 2"
-             class="widget-container">
+             class="col-md-{{widget.position.size}} widget-container"
+             as-sortable-item sortable-widget="widget">
             <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
         </div>
     </div>

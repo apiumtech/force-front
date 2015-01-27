@@ -10,11 +10,6 @@ app.registerView(function (container) {
 
     function ConversionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
-        var self = this;
-
-        self.fn.loadWidgets = function () {
-            self.event.onLoaded();
-        };
     }
 
     ConversionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
@@ -22,11 +17,7 @@ app.registerView(function (container) {
     ConversionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     ConversionView.prototype.show = function () {
         this.__show.call(this);
-        this.fn.loadWidgets();
-    };
-
-    ConversionView.prototype._rearrangeWidgetsList = function (widgetsData) {
-
+        this.event.onLoaded();
     };
 
     ConversionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

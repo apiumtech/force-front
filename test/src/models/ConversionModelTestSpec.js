@@ -7,10 +7,18 @@ describe("ConversionModel", function () {
         widgetService = {
             getWidgetsForPage: function () {
             }
+        },
+        storageService = {
+            store: function () {
+            },
+            retrieve: function () {
+            },
+            remove: function () {
+            }
         };
 
     beforeEach(function () {
-        sut = ConversionModel.newInstance(widgetService).getOrElse(throwInstantiateException(ConversionModel));
+        sut = ConversionModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(ConversionModel));
     });
     function fakeAjax() {
         return {

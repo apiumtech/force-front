@@ -61,63 +61,6 @@ app.registerView(function (container) {
             console.log("Widget is moved", self, event, ui);
         };
 
-        this.fn.bindDraggableEvents = function () {
-            // map the dom to current view instance
-            var wrapperContainer = ".widget-container";
-            var wrapper = self.element.closest(wrapperContainer);
-            wrapper.data("WrapperView", self);
-
-            var dragAndDropPanel = self.element.closest(".drag-and-drop");
-
-            if (!dragAndDropPanel.length || dragAndDropPanel.data("isSortable")) {
-                return;
-            }
-
-            // sortable jquery can only be bound once, so exit if already bound
-            var __beforeDragPosition, __afterDragPosition,
-                __beforeDragColumn, __afterDragColumn,
-                __beforeDragRow, __afterDragRow;
-
-            var handler = ".panel-heading";
-            var connector = ".drag-and-drop";
-
-            var dragAndDropables = $(".drag-and-drop");
-            dragAndDropables.sortable({
-                handle: handler,
-                connectWith: connector,
-                start: function (event, ui) {
-                    var _currentMovingWidget = ui.item.closest(wrapperContainer),
-                        _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
-
-                    __beforeDragPosition = _currentMovingWidget.index();
-                    __beforeDragColumn = _currentColumnOfMovingWidget.data("widgetcolumn");
-                    __beforeDragRow = _currentColumnOfMovingWidget.data("widgetrow");
-                },
-                stop: function (event, ui) {
-                    var _currentMovingWidget = ui.item.closest(wrapperContainer),
-                        _currentColumnOfMovingWidget = _currentMovingWidget.closest(connector);
-
-                    __afterDragPosition = _currentMovingWidget.index();
-                    __afterDragColumn = _currentColumnOfMovingWidget.data("widgetcolumn");
-                    __afterDragRow = _currentColumnOfMovingWidget.data("widgetrow");
-
-                    var currentMovingViewInstance = _currentMovingWidget.data("WrapperView");
-                    if (currentMovingViewInstance) {
-                        currentMovingViewInstance.fn.sendMoveSignal({
-                            order: __beforeDragPosition,
-                            column: __beforeDragColumn,
-                            row: __beforeDragRow
-                        }, {
-                            order: __afterDragPosition,
-                            column: __afterDragColumn,
-                            row: __afterDragRow
-                        }, event);
-                    }
-                }
-            });
-            dragAndDropables.data("isSortable", true);
-        };
-
         this.fn.sendMoveSignal = function (oldPosition, newPosition, event) {
             self.widgetEventChannel.sendMoveSignal(oldPosition, newPosition, event);
         };

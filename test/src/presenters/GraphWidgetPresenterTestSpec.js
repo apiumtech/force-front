@@ -33,7 +33,9 @@ describe("GraphWidgetPresenter", function () {
                     ___view = {
                         event: {}
                     };
-                    ___model = {};
+                    ___model = {
+                        setFetchEndPoint: jasmine.createSpy()
+                    };
                     sut.show(___view, ___model);
                 });
 
@@ -47,8 +49,18 @@ describe("GraphWidgetPresenter", function () {
             });
 
         function onReloadWidgetStartTest() {
-            it("should call '_executeLoadWidget' method", function () {
+            beforeEach(function () {
+                ___view.widget = {
+                    dataEndpoint: "/test/end/point"
+                };
                 spyOn(sut, '_executeLoadWidget');
+            });
+            it("should add endpoint to model", function () {
+                ___view.event.onReloadWidgetStart();
+                expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
+            });
+
+            it("should call '_executeLoadWidget' method", function () {
                 ___view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });

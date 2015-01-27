@@ -1,4 +1,3 @@
-
 describe("WidgetDecoratedPageView", function () {
     var WidgetDecoratedPageView = app.getView('views/WidgetDecoratedPageView');
 
@@ -21,13 +20,13 @@ describe("WidgetDecoratedPageView", function () {
         it("Should specific template for widgets", function () {
             var view = exerciseCreateView({}, {});
             var widgetData = [{
-                widgetType: "bar"
+                type: "bar"
             }];
 
             view.decorateWidget(widgetData);
             expect(widgetData[0].template).not.toBeNull();
 
-            expect(widgetData[0].template).toEqual('/templates/widgets/' + widgetData[0].widgetType + '.html');
+            expect(widgetData[0].template).toEqual('/templates/widgets/' + widgetData[0].type + '.html');
         });
     });
 
@@ -36,26 +35,30 @@ describe("WidgetDecoratedPageView", function () {
 
         beforeEach(function () {
             view = exerciseCreateView({}, {});
-            widgetsData = [{
-                widgetType: "bars"
-            }, {
-                widgetType: "lines"
-            }, {
-                widgetType: "pie"
-            }];
+            widgetsData = {
+                id: "page-name",
+                layout: "linear",
+                body: [{
+                    type: "bars"
+                }, {
+                    type: "lines"
+                }, {
+                    type: "pie"
+                }]
+            };
         });
 
         it("should call decorateWidget", function () {
             spyOn(view, 'decorateWidget');
             view.onWidgetsLoaded(widgetsData);
-            expect(view.decorateWidget).toHaveBeenCalledWith(widgetsData);
+            expect(view.decorateWidget).toHaveBeenCalledWith(widgetsData.body);
         });
 
         it("view's scope should have data", function () {
             spyOn(view, 'decorateWidget').and.returnValue(function (data) {
             });
             view.onWidgetsLoaded(widgetsData);
-            expect(view.$scope.widgets).toEqual(widgetsData);
+            expect(view.widgets).toEqual(widgetsData.body);
         });
     });
 

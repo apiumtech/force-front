@@ -7,10 +7,18 @@ describe("DistributionModel", function () {
         widgetService = {
             getWidgetsForPage: function () {
             }
+        },
+        storageService = {
+            store: function () {
+            },
+            retrieve: function () {
+            },
+            remove: function () {
+            }
         };
 
     beforeEach(function () {
-        sut = DistributionModel.newInstance(widgetService).getOrElse(throwInstantiateException(DistributionModel));
+        sut = DistributionModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(DistributionModel));
     });
     function fakeAjax() {
         return {

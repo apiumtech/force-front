@@ -7,10 +7,18 @@ describe("IntensityModel", function () {
         widgetService = {
             getWidgetsForPage: function () {
             }
+        },
+        storageService = {
+            store: function () {
+            },
+            retrieve: function () {
+            },
+            remove: function () {
+            }
         };
 
     beforeEach(function () {
-        sut = IntensityModel.newInstance(widgetService).getOrElse(throwInstantiateException(IntensityModel));
+        sut = IntensityModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(IntensityModel));
     });
     function fakeAjax() {
         return {

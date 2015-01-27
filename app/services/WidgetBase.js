@@ -7,8 +7,8 @@ app.registerService(function (container) {
 
     function WidgetBase(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        this.fetchPoint = '/api/widget';
-        this.widgetId = '';
+        this.fetchPoint = null;
+        this.widgetId = null;
         this.queries = {};
     }
 
@@ -37,6 +37,11 @@ app.registerService(function (container) {
         return queries;
     };
 
+    WidgetBase.prototype.setFetchEndPoint = function (endpoint) {
+        if (!endpoint) throw new Error("Input data cannot be null");
+        this.fetchPoint = endpoint;
+    };
+
     WidgetBase.prototype.addQuery = function (key, value) {
         if (!this.queries) this.queries = {};
         this.queries[key] = value;
@@ -46,12 +51,15 @@ app.registerService(function (container) {
         if (!this.widgetId) {
             throw new Error("Widget Id is not defined");
         }
+        if (!this.fetchPoint) {
+            throw new Error("FetchPoint is not defined");
+        }
 
         return this._reload();
     };
 
     WidgetBase.prototype._reload = function () {
-        var url = this.fetchPoint + '/' + this.widgetId;
+        var url = this.fetchPoint;
 
         if (this.queries && !isEmptyObject(this.queries)) {
             var queries = this.buildQueryString();
@@ -63,28 +71,8 @@ app.registerService(function (container) {
             type: 'get',
             contentType: 'application/json'
         };
-        return this.ajaxService.ajax(request).then(this.normalizeServerInput, throwException("Could not normalize server input!"));
-    };
-
-    WidgetBase.prototype.moveWidget = function (oldIndex, newIndex) {
-        if (!this.widgetId) {
-            throw new Error("Widget Id is not defined");
-        }
-
-        return this._moveWidget(oldIndex, newIndex);
-    };
-
-    WidgetBase.prototype._moveWidget = function (oldIndex, newIndex) {
-        console.log(oldIndex + " -> " + newIndex + ": " + this.widgetId);
-        var request = {
-            url: this.fetchPoint + '/' + this.widgetId + '/move',
-            type: 'post',
-            accept: 'application/json',
-            contentType: 'application/json',
-            data: {oldIndex: oldIndex, newIndex: newIndex}
-        };
-
-        return this.ajaxService.ajax(request);
+        return this.ajaxService.ajax(request)
+            .then(this.normalizeServerInput, throwException("Could not normalize server input!"));
     };
 
     return WidgetBase;
