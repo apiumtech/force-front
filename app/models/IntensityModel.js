@@ -16,7 +16,7 @@ app.registerModel(function (container) {
 
     IntensityModel.newInstance = function (widgetService, storageService) {
         var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(WidgetService));
+        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
 
         return Some(new IntensityModel(_widgetService, _storageService));
     };

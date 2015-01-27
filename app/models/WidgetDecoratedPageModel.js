@@ -13,18 +13,17 @@ app.registerModel(function (container) {
             throw new Error("Page Name is not defined");
 
         var deferred = self.defer();
-        var pageLayoutStorageKey = "pageLayout_" + this.pageName;
-        var pageLayoutData = this.storageService.retrieve(pageLayoutStorageKey);
+        var pageLayoutStorageKey = "pageLayout_" + self.pageName;
+        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey);
         if (pageLayoutData) {
             deferred.resolve(pageLayoutData);
         }
         else {
-            this.widgetService.getWidgetsForPage(this.pageName)
+            self.widgetService.getWidgetsForPage(self.pageName)
                 .then(function (data) {
                     self.storageService.store(pageLayoutStorageKey, data.data);
                     deferred.resolve(data.data);
                 },
-
                 function (error) {
                     deferred.reject(error);
                 });
@@ -38,11 +37,7 @@ app.registerModel(function (container) {
 
     WidgetDecoratedPageModel.prototype.defer = function () {
         var deferred = Q.defer();
-        return {
-            promise: deferred.promise,
-            resolve: deferred.resolve,
-            reject: deferred.reject
-        }
+        return deferred;
     };
 
     return WidgetDecoratedPageModel;

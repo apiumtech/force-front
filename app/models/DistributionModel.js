@@ -12,7 +12,7 @@ app.registerModel(function (container) {
 
     DistributionModel.newInstance = function (widgetService, storageService) {
         var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(WidgetService));
+        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
 
         return Some(new DistributionModel(_widgetService, _storageService));
     };

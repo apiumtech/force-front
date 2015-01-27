@@ -13,7 +13,7 @@ app.registerModel(function (container) {
 
     ConversionModel.newInstance = function (widgetService, storageService) {
         var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(WidgetService));
+        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
 
         return Some(new ConversionModel(_widgetService, _storageService));
     };
