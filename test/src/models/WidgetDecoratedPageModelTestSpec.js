@@ -2,7 +2,9 @@
  * Created by Justin on 1/5/2015.
  */
 describe("WidgetDecoratedPageModel", function () {
-    var WidgetDecoratedPageModel = app.getModel("models/WidgetDecoratedPageModel");
+    var WidgetDecoratedPageModel = app.getModel("models/WidgetDecoratedPageModel"),
+        Q = app.getFunction('q');
+
     var sut,
         widgetService = {
             getWidgetsForPage: function () {
@@ -143,6 +145,33 @@ describe("WidgetDecoratedPageModel", function () {
         it("should return the promise deferred", function () {
             var promise = sut._getWidgets();
             expect(promise).toEqual(deferredObject.promise);
+        });
+    });
+
+    describe("getWidgets", function () {
+        beforeEach(function () {
+            Q._____fcall = Q.fcall;
+        });
+
+        afterEach(function () {
+            Q.fcall = Q._____fcall;
+        });
+
+        it("should call fcall from Q lib", function () {
+            Q.fcall = jasmine.createSpy();
+            sut.getWidgets();
+            expect(Q.fcall).toHaveBeenCalled();
+        });
+
+        it("should call _getWidgets method", function () {
+            spyOn(sut, "_getWidgets");
+            Q.fcall = function (method) {
+                return method;
+            };
+
+            sut.getWidgets()();
+
+            expect(sut._getWidgets).toHaveBeenCalled();
         });
     });
 });
