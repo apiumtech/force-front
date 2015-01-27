@@ -69,42 +69,42 @@ var widgetList = [
         },
         widgetId: 1,
         order: 0,
-        column: 1
+        size: 12
     },
-    {
-        page: "intensity",
-        widgetType: "pie",
-        widgetName: "Distribucion por segmento",
-        widgetId: 1029,
-        order: 3,
-        column: 1,
-        data: {
-            filters: ["Toda Va Actividad", "Solo Visita"],
-            params: [{
-                label: "Chrome",
-                data: 35
-            }, {
-                label: "Firefox",
-                data: 30
-            }, {
-                label: "Safari",
-                data: 15
-            }, {
-                label: "Opera",
-                data: 10
-            }, {
-                label: "IE",
-                data: 5
-            }]
-        }
-    },
+    //{
+    //    page: "intensity",
+    //    widgetType: "pie",
+    //    widgetName: "Distribucion por segmento",
+    //    widgetId: 1029,
+    //    order: 3,
+    //    size: 12,
+    //    data: {
+    //        filters: ["Toda Va Actividad", "Solo Visita"],
+    //        params: [{
+    //            label: "Chrome",
+    //            data: 35
+    //        }, {
+    //            label: "Firefox",
+    //            data: 30
+    //        }, {
+    //            label: "Safari",
+    //            data: 15
+    //        }, {
+    //            label: "Opera",
+    //            data: 10
+    //        }, {
+    //            label: "IE",
+    //            data: 5
+    //        }]
+    //    }
+    //},
     {
         page: "intensity",
         widgetType: "table",
         widgetName: "Ranking",
         widgetId: 2,
         order: 1,
-        column: 1,
+        size: 12,
         data: {
             columns: [
                 "Vendedor", "I. Act", "Visitas", "Gestiones"
@@ -128,60 +128,69 @@ var widgetList = [
         widgetType: "table",
         widgetName: "GEOGRAPHICAL DISTRIBUTION",
         imgUrl: 'chart-3.jpg',
-        row: 1,
         widgetId: 3,
         order: 1,
-        column: 1
+        size: 12
     },
     {
         page: "distribution",
         widgetType: "table",
         widgetName: "Widget D",
         imgUrl: 'chart-4.jpg',
-        row: 2,
         widgetId: 4,
-        order: 3,
-        column: 1
+        order: 2,
+        size: 6
     },
     {
         page: "distribution",
         widgetType: "table",
         widgetName: "Widget D",
         imgUrl: 'chart-5.jpg',
-        row: 2,
         widgetId: 5,
-        order: 2,
-        column: 2
+        order: 3,
+        size: 6
+    },
+    {
+        page: "distribution",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-4.jpg',
+        widgetId: 2002,
+        order: 4,
+        size: 6
+    },
+    {
+        page: "distribution",
+        widgetType: "table",
+        widgetName: "Widget D",
+        imgUrl: 'chart-5.jpg',
+        widgetId: 2003,
+        order: 5,
+        size: 6
     },
     {
         page: "conversion",
         widgetType: "table",
         widgetName: "Widget D",
         imgUrl: 'chart-4.jpg',
-        row: 1,
         widgetId: 9,
-        order: 1,
-        column: 1
+        order: 1
     },
     {
         page: "conversion",
         widgetType: "table",
         widgetName: "Widget D",
         imgUrl: 'chart-5.jpg',
-        row: 1,
         widgetId: 10,
-        order: 1,
-        column: 2
+        order: 1
     },
     {
         page: "conversion",
         widgetType: "table",
         widgetName: "Widget D",
         imgUrl: 'chart-2.jpg',
-        row: 2,
         widgetId: 15,
-        order: 1,
-        column: 1
+        order: 2
     }
 ];
 
@@ -190,15 +199,20 @@ widgetService.getWidgetFromPage = function (page) {
         return widget.page === page;
     }));
 
+    pageWidgets = _.sortBy(pageWidgets, function (widget) {
+        return widget.order;
+    });
+
     var list = [];
     _.each(pageWidgets, function (widget) {
         var w = {
-            widgetType: widget.widgetType,
+            type: widget.widgetType,
             widgetName: widget.widgetName,
             widgetId: widget.widgetId,
-            order: widget.order,
-            column: widget.column,
-            row: widget.row
+            position: {
+                size: widget.size
+            },
+            dataEndpoint: "/api/widget/" + widget.widgetId
         };
         list.push(w);
     });

@@ -20,8 +20,9 @@ app.get('/api/widgets/:page', function (request, response) {
         var page = request.params.page;
         var widgets = WidgetService.getWidgetFromPage(page);
         response.json({
-            success: true,
-            data: widgets
+            id: page,
+            layout: "linear",
+            body: widgets
         });
     }, delay);
 });
