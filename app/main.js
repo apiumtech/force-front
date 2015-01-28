@@ -62,6 +62,7 @@ function main() {
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
             'plots/PieChart',
+            'plots/BarChart',
 
             // views
             'views/BaseView',
@@ -76,6 +77,7 @@ function main() {
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',
             'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
+
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
 
@@ -86,7 +88,7 @@ function main() {
             'controllers/ConversionController', 'views/ConversionView', 'presenters/ConversionPresenter', 'models/ConversionModel',
 
             // Wrapper for widget
-            'controllers/WidgetWrapperController', 'views/WidgetWrapperView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
+            'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
 
             'services/bus/WidgetEventBus',
 
@@ -94,9 +96,12 @@ function main() {
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
             // Pie chart widget
-            'controllers/PieChartWidgetController', 'views/PieChartWidgetView',
+            'controllers/PieChartWidgetController', 'views/PieChartWidgetView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
 
-            // table widget
+            // Bar chart widget
+            'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/BarChartWidgetPresenter', 'models/BarChartWidgetModel',
+
+            // Table widget
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',

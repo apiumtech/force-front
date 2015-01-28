@@ -4,6 +4,31 @@
 
 var _ = require("underscore");
 
+var d1 = [];
+for (var a = 0; a <= 5; a += 1) {
+    d1.push([a, parseInt(Math.random() * 5)]);
+}
+var d2 = [];
+for (var b = 0; b <= 5; b += 1) {
+    d2.push([b, parseInt(Math.random() * 5 + 5)]);
+}
+var d3 = [];
+for (var c = 0; c <= 5; c += 1) {
+    d3.push([c, parseInt(Math.random() * 5 + 5)]);
+}
+var d4 = [];
+for (var d = 0; d <= 5; d += 1) {
+    d4.push([d, parseInt(Math.random() * 5 + 5)]);
+}
+var d5 = [];
+for (var e = 0; e <= 5; e += 1) {
+    d5.push([e, parseInt(Math.random() * 5 + 5)]);
+}
+var d6 = [];
+for (var f = 0; f <= 5; f += 1) {
+    d6.push([f, parseInt(Math.random() * 5 + 5)]);
+}
+
 var widgetService = {};
 var widgetList = [
     {
@@ -71,33 +96,6 @@ var widgetList = [
         order: 0,
         size: 12
     },
-    //{
-    //    page: "intensity",
-    //    widgetType: "pie",
-    //    widgetName: "Distribucion por segmento",
-    //    widgetId: 1029,
-    //    order: 3,
-    //    size: 12,
-    //    data: {
-    //        filters: ["Toda Va Actividad", "Solo Visita"],
-    //        params: [{
-    //            label: "Chrome",
-    //            data: 35
-    //        }, {
-    //            label: "Firefox",
-    //            data: 30
-    //        }, {
-    //            label: "Safari",
-    //            data: 15
-    //        }, {
-    //            label: "Opera",
-    //            data: 10
-    //        }, {
-    //            label: "IE",
-    //            data: 5
-    //        }]
-    //    }
-    //},
     {
         page: "intensity",
         widgetType: "table",
@@ -134,12 +132,30 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-4.jpg',
-        widgetId: 4,
-        order: 2,
-        size: 6
+        widgetType: "pie",
+        widgetName: "Distribucion por segmento",
+        widgetId: 1029,
+        order: 3,
+        size: 6,
+        data: {
+            filters: ["Toda Va Actividad", "Solo Visita"],
+            params: [{
+                label: "Chrome",
+                data: 35
+            }, {
+                label: "Firefox",
+                data: 30
+            }, {
+                label: "Safari",
+                data: 15
+            }, {
+                label: "Opera",
+                data: 10
+            }, {
+                label: "IE",
+                data: 5
+            }]
+        }
     },
     {
         page: "distribution",
@@ -161,12 +177,30 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-5.jpg',
+        widgetType: "bar",
+        widgetName: "ANALISIS DE COBERTURA",
         widgetId: 2003,
         order: 5,
-        size: 6
+        size: 6,
+        data: {
+            filters: ["Client Type", "Segment"],
+            axis: {
+                x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+            },
+            bars: [{
+                data: d1, label: "China"
+            }, {
+                data: d2, label: "Russia"
+            }, {
+                data: d3, label: "Canada"
+            }, {
+                data: d4, label: "Japan"
+            }, {
+                data: d5, label: "USA"
+            }, {
+                data: d6, label: "Others"
+            }]
+        }
     },
     {
         page: "conversion",

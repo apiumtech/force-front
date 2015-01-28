@@ -2,12 +2,12 @@
  * Created by justin on 1/26/15.
  */
 
-describe("PieChartWidgetPresenter", function () {
-    var PieChartWidgetPresenter = app.getPresenter('presenters/PieChartWidgetPresenter');
+describe("BarChartWidgetPresenter", function () {
+    var BarChartWidgetPresenter = app.getPresenter('presenters/BarChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {
-        sut = PieChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate PieChartWidgetPresenter"));
+        sut = BarChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate BarChartWidgetPresenter"));
     });
 
     describe("Connect view to model", function () {
@@ -57,7 +57,6 @@ describe("PieChartWidgetPresenter", function () {
                 ___view.event.onReloadWidgetStart();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
-
             it("should call '_executeLoadWidget' method", function () {
                 ___view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();

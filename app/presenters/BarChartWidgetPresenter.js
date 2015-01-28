@@ -6,11 +6,11 @@ app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
     var widgetName = "intensityWidgetA";
 
-    function PieChartWidgetPresenter(widgetEventChannel) {
+    function BarChartWidgetPresenter(widgetEventChannel) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
-    PieChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
         widgetEventChannel: {
             get: function () {
                 return this._widgetEventChannel;
@@ -22,7 +22,7 @@ app.registerPresenter(function (container) {
         }
     });
 
-    PieChartWidgetPresenter.prototype.rebindChannelListener = function () {
+    BarChartWidgetPresenter.prototype.rebindChannelListener = function () {
         var self = this;
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
@@ -33,7 +33,7 @@ app.registerPresenter(function (container) {
         });
     };
 
-    PieChartWidgetPresenter.prototype._executeLoadWidget = function () {
+    BarChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
             $model = self.$model;
@@ -42,7 +42,7 @@ app.registerPresenter(function (container) {
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
-    PieChartWidgetPresenter.prototype._executeMoveWidget = function (oldPosition, newPosition, moveEvent) {
+    BarChartWidgetPresenter.prototype._executeMoveWidget = function (oldPosition, newPosition, moveEvent) {
         var self = this,
             $view = self.$view,
             $model = self.$model,
@@ -52,11 +52,11 @@ app.registerPresenter(function (container) {
             .then($view.onMoveWidgetSuccess.bind($view), $view.onMoveWidgetError.bind($view));
     };
 
-    PieChartWidgetPresenter.prototype.showError = function (error) {
+    BarChartWidgetPresenter.prototype.showError = function (error) {
 
     };
 
-    PieChartWidgetPresenter.prototype.show = function (view, model) {
+    BarChartWidgetPresenter.prototype.show = function (view, model) {
         var self = this;
         self.$view = view;
         self.$model = model;
@@ -79,10 +79,10 @@ app.registerPresenter(function (container) {
         };
     };
 
-    PieChartWidgetPresenter.newInstance = function (widgetEventChannel) {
+    BarChartWidgetPresenter.newInstance = function (widgetEventChannel) {
         var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new PieChartWidgetPresenter(_widgetEventChannel));
+        return Some(new BarChartWidgetPresenter(_widgetEventChannel));
     };
 
-    return PieChartWidgetPresenter;
+    return BarChartWidgetPresenter;
 });

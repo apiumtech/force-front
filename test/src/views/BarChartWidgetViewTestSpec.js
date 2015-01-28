@@ -2,12 +2,12 @@
  * Created by justin on 1/26/15.
  */
 
-describe("PieChartWidgetView", function () {
-    var PieChartWidgetView = app.getView('views/PieChartWidgetView');
+describe("BarChartWidgetView", function () {
+    var BarChartWidgetView = app.getView('views/BarChartWidgetView');
     var sut;
 
     function initSut() {
-        sut = PieChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(PieChartWidgetView));
+        sut = BarChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(BarChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -100,21 +100,24 @@ describe("PieChartWidgetView", function () {
     describe("onReloadWidgetSuccess", function () {
         var fakeResponseData = {
             data: {
-                widgetType: "pie",
+                widgetType: "bar",
                 params: {
                     filters: ["filter1", "filter2"],
-                    params: [
-                        {label: "pie1", data: 30},
-                        {label: "pie4", data: 15},
-                        {label: "pie3", data: 15},
-                        {label: "pie2", data: 40}
+                    axis: {
+                        x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+                    },
+                    bars: [
+                        {label: "bar1", data: [12, 13, 25, 32, 46, 58]},
+                        {label: "bar4", data: [12, 13, 25, 32, 46, 58]},
+                        {label: "bar3", data: [12, 13, 25, 32, 46, 58]},
+                        {label: "bar2", data: [12, 13, 25, 32, 46, 58]}
                     ]
                 }
             }
         };
 
         function instantiateSut() {
-            sut = new PieChartWidgetView({}, {});
+            sut = new BarChartWidgetView({}, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
@@ -151,7 +154,14 @@ describe("PieChartWidgetView", function () {
             instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.data).toEqual(fakeResponseData.data.params.params);
+            expect(sut.data).toEqual(fakeResponseData.data.params.bars);
+        });
+
+        it("Should assign tickLabels to scope", function () {
+            instantiateSut();
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut.tickLabels).toEqual(fakeResponseData.data.params.axis.x);
         });
 
         it("should call refreshChart method", function () {

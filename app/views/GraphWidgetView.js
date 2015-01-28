@@ -18,7 +18,6 @@ app.registerView(function (container) {
 
     function GraphWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
-        scope._widget = null;
         scope.filters = [];
         scope.selectedFilter = "";
         scope.selectedRangeOption = "hour";
