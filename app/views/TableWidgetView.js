@@ -41,6 +41,13 @@ app.registerView(function (container) {
             self.event.onReloadWidgetStart();
         };
 
+        self.fn.isImage = function (string) {
+            if (typeof string !== 'string') return false;
+
+            var isImgReg = new RegExp('\\.(?:jpg|gif|png)$');
+            return !!string.match(isImgReg);
+        };
+
         self.fn.toggleColumn = function (columnName, $event) {
             // prevent the popup from disappearing
             if ($event && $event.stopPropagation)

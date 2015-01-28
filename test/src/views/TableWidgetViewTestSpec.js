@@ -38,6 +38,8 @@ describe("TableWidgetView", function () {
             method: "toggleColumn", test: toggleColumnTestExercise
         }, {
             method: "restoreColumnDisplay", test: restoreColumnDisplayTestExercise
+        }, {
+            method: "isImage", test: isImageTestExercise
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -47,6 +49,44 @@ describe("TableWidgetView", function () {
 
                 describe("calling fn." + method, test.test);
             });
+
+        function isImageTestExercise() {
+            [{
+                testString: 12345, expected: false
+            }, {
+                testString: "/image/img.jpg", expected: true
+            }, {
+                testString: "/image/abc.gif", expected: true
+            }, {
+                testString: "/image/abc.png", expected: true
+            }, {
+                testString: "/path/to/image/img.jpg", expected: true
+            }, {
+                testString: "/path/to/image/abc.gif", expected: true
+            }, {
+                testString: "/path/to/image/abc.png", expected: true
+            }, {
+                testString: "simple string", expected: false
+            }, {
+                testString: "/path/to/image.jpg/", expected: false
+            }, {
+                testString: "/path/to/image.gif/abcdef_string", expected: false
+            }, {
+                testString: "/path/to/image.png/abcdef_string", expected: false
+            }, {
+                testString: ".jpg/path/to/image.jpg/abcdef_string", expected: false
+            }, {
+                testString: ".png/path/to/image.gif/abcdef_string", expected: false
+            }, {
+                testString: ".gif/path/to/image.png/abcdef_string", expected: false
+            }].forEach(function (test) {
+                    describe("with test string: " + test.testString, function () {
+                        it("should return " + test.expected + "", function () {
+                            expect(sut.fn.isImage(test.testString)).toEqual(test.expected);
+                        });
+                    });
+                });
+        }
 
         function assignWidgetTestExercise() {
             function spyEvent() {

@@ -53,7 +53,10 @@
                 <!--</div>-->
                 <!--</td>-->
                 <td ng-repeat="column in row">
-                    <p class=" m-t-10 ">{{column}}</p>
+                    <div ng-if="fn.isImage(column)">
+                        <img src="{{column}}" class="media-object" alt=""/>
+                    </div>
+                    <p class="m-t-10" ng-if="!fn.isImage(column)">{{column}}</p>
                 </td>
             </tr>
             </tbody>

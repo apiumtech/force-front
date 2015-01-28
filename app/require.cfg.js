@@ -17,7 +17,7 @@ var require = {
         'i18next': '/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/assets/js/vendor/ng-i18next',
         'ng-sortable': '/assets/js/vendor/ng-sortable',
-        'signals': '/assets/js/vendor/js-signals',
+        'signals': '/node_modules/signals/dist/signals.min',
         'underscore': '/node_modules/underscore/underscore-min',
         'flot': '/node_modules/flot/jquery.flot',
         'flot-resize': '/node_modules/flot/jquery.flot.resize',

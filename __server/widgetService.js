@@ -107,19 +107,19 @@ var widgetList = [
         size: 12,
         data: {
             columns: [
-                "Vendedor", "I. Act", "Visitas", "Gestiones"
+                "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
             ],
             data: [
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245],
-                ["Pedro Lorem ipsum", 10.0, 54, 245]
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245]
             ]
         }
     },

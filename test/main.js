@@ -28,7 +28,7 @@ requirejs.config({
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/base/assets/js/vendor/ng-i18next',
-        'signals': '/base/assets/js/vendor/js-signals',
+        'signals': '/base/node_modules/signals/dist/signals.min',
         'ng-sortable': '/base/assets/js/vendor/ng-sortable',
         'underscore': '/base/node_modules/underscore/underscore-min'
     },
@@ -36,6 +36,10 @@ requirejs.config({
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+
+        'signals': {
+            exports: 'signals'
         },
         'i18next': {
             exports: 'i18next'
