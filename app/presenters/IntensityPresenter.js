@@ -14,6 +14,10 @@ app.registerPresenter(function (container) {
             model.getWidgets()
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
         };
+
+        view.event.onWidgetMoved = function (widget, newIndex) {
+            console.log("Widget moved: ", widget, " to new index: ", newIndex);
+        };
     };
 
     IntensityPresenter.newInstance = function () {
