@@ -10,7 +10,7 @@ function main() {
         useCookie: false,
         useLocalStorage: false,
         fallbackLng: 'en',
-        resGetPath: '/app/translations/__lng__.json'
+        resGetPath: '/api/translations/__lng__'
     };
     // make sure i18n configuration is loaded before the other controllers and apps
     i18n.init($i18nextProviderOptions);

@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var fs = require("fs");
 var bodyParser = require('body-parser');
 var mainPath = "__server/assets";
 var port = 8081;
@@ -8,6 +9,7 @@ var delay = 1000;
 
 var app = express();
 app.use(bodyParser());
+app.use(express.static("."));
 app.use(express.static("./__server/assets"));
 
 app.get('/img/*', function (req, res) {
@@ -15,6 +17,16 @@ app.get('/img/*', function (req, res) {
 });
 
 var WidgetService = require(__dirname + "/widgetService");
+
+app.get('/api/translations/:language', function (request, response) {
+    var language = request.params.language;
+    fs.readFile("./__server/translations/" + language + ".json", 'utf8', function (error, output) {
+        if (error) throw error;
+
+        response.json(JSON.parse(output));
+    });
+});
+
 app.get('/api/widgets/:page', function (request, response) {
     setTimeout(function () {
         var page = request.params.page;
