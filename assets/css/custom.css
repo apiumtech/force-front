@@ -42,3 +42,7 @@ html, body {
     background: initial !important;
     cursor: default !important;
 }
+
+label.block {
+    display: block;
+}
