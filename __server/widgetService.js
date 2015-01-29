@@ -208,7 +208,8 @@ var widgetList = [
         widgetName: "Widget D",
         imgUrl: 'chart-4.jpg',
         widgetId: 9,
-        order: 1
+        order: 0,
+        size: 6
     },
     {
         page: "conversion",
@@ -216,16 +217,34 @@ var widgetList = [
         widgetName: "Widget D",
         imgUrl: 'chart-5.jpg',
         widgetId: 10,
-        order: 1
+        order: 1,
+        size: 6
     },
     {
         page: "conversion",
         widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-2.jpg',
-        widgetId: 15,
-        order: 2
-    }
+        widgetName: "Ranking",
+        widgetId: 12,
+        order: 1,
+        size: 12,
+        data: {
+            columns: [
+                "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
+            ],
+            data: [
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245]
+            ]
+        }
+    },
 ];
 
 widgetService.getWidgetFromPage = function (page) {

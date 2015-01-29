@@ -24,7 +24,7 @@ app.registerService(function (container) {
     };
 
     WidgetEventBus.prototype.sendMoveSignal = function (oldPosition, newPosition, moveEvent) {
-        this.send({widgetMoved: true, oldPosition: oldPosition, newPosition: newPosition, moveEvent: moveEvent});
+        this.send({widgetDropped: true, oldPosition: oldPosition, newPosition: newPosition, moveEvent: moveEvent});
     };
 
     function notSamePosition(newPosition, oldPosition){
@@ -33,7 +33,7 @@ app.registerService(function (container) {
 
     WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {
         this.listen(function (event) {
-            if (event.widgetMoved && (undefined !== event.oldPosition) && notSamePosition(event.newPosition,event.oldPosition) && (undefined !== event.newPosition)) {
+            if (event.widgetDropped && (undefined !== event.oldPosition) && notSamePosition(event.newPosition,event.oldPosition) && (undefined !== event.newPosition)) {
                 console.log("event received");
                 callback(event.oldPosition, event.newPosition, event.moveEvent);
             }

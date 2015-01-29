@@ -15,9 +15,17 @@
 <ng-include src="'/templates/analytics/analyticsFilter.html'"></ng-include>
 <!-- end filters-->
 
+<div class="row fixedarea" as-sortable
+     widget-hover="fn.dropWidgetToFullSizeArea($ui, $widget)"
+     widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
+</div>
 <div class="row">
     <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
-    <div class="widgets-container" as-sortable>
+    <div class="widgets-container"
+         as-sortable
+         widget-drag-start="fn.highlightDroppableZones()"
+         widget-dropped="fn.removeHighlightDroppableZones()"
+         widget-sorted="event.onWidgetDropped($ui, $widget)">
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">

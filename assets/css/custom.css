@@ -46,3 +46,10 @@ html, body {
 label.block {
     display: block;
 }
+
+.dropzone {
+    height: 50px !important;
+    border: dashed 1px #CDCDCD;
+    margin-bottom: 20px;
+    clear: both;
+}

@@ -30,6 +30,59 @@ describe("WidgetDecoratedPageView", function () {
         });
     });
 
+
+    describe("unDecorateWidgetData", function () {
+        it("Should return list of widgets without template data", function () {
+            var view = exerciseCreateView({}, {});
+            view.widgets = [{
+                type: "line",
+                template: "line-template"
+            }, {
+                type: "bar",
+                template: "bar-template"
+            }, {
+                type: "table",
+                template: "table-template"
+            }];
+            var expected = [{
+                type: "line"
+            }, {
+                type: "bar"
+            }, {
+                type: "table"
+            }];
+            var actual = view.unDecorateWidgetData();
+            expect(actual).toEqual(expected);
+        });
+
+        it("should not change the widgets list of view", function () {
+            var view = exerciseCreateView({}, {});
+            view.widgets = [{
+                type: "line",
+                template: "line-template"
+            }, {
+                type: "bar",
+                template: "bar-template"
+            }, {
+                type: "table",
+                template: "table-template"
+            }];
+            var expected = [{
+                type: "line",
+                template: "line-template"
+            }, {
+                type: "bar",
+                template: "bar-template"
+            }, {
+                type: "table",
+                template: "table-template"
+            }];
+            view.unDecorateWidgetData();
+            expect(view.widgets).toEqual(expected);
+        })
+    });
+
+
     describe("onWidgetsLoaded", function () {
         var view, widgetsData;
 

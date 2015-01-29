@@ -6,7 +6,6 @@ app.registerView(function (container) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
-        $scope.widgets = null;
     }
 
     WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {
@@ -31,16 +30,14 @@ app.registerView(function (container) {
         this.widgets = widgetsData.body;
     };
 
-    WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {
-        console.log(error);
+    WidgetDecoratePageView.prototype.unDecorateWidgetData = function () {
+        return this.widgets.map(function (widget) {
+            return _.omit(widget, 'template');
+        });
     };
 
-    /**
-     * Re-Arrange widgets
-     * @param widgetsData
-     * @abstract
-     */
-    WidgetDecoratePageView.prototype._rearrangeWidgetsList = function (widgetsData) {
+    WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {
+        console.log(error);
     };
 
     return WidgetDecoratePageView;

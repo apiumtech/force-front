@@ -20,6 +20,20 @@ app.registerView(function (container) {
         this.event.onLoaded();
     };
 
+    ConversionView.prototype.updateWidgetSize = function (movingElement, widget) {
+        var element = $(movingElement.item);
+
+        if (element.is(":last-child")) {
+            element.addClass("col-md-12").removeClass("col-md-6");
+            widget.position.size = 12;
+        }
+
+        else if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
+            element.addClass("col-md-6").removeClass("col-md-12");
+            widget.position.size = 6;
+        }
+    };
+
     ConversionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || ConversionModel.newInstance().getOrElse(throwInstantiateException(ConversionModel));
         var presenter = $presenter || ConversionPresenter.newInstance().getOrElse(throwInstantiateException(ConversionPresenter));

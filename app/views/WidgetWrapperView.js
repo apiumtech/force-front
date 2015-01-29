@@ -52,18 +52,6 @@ app.registerView(function (container) {
                 self.$scope.errorMessage = (reloadError) ? errorMessage : null;
             });
         };
-
-        this.fn.onDragStart = function (event, ui) {
-            console.log("Widget is moving", self, event, ui);
-        };
-
-        this.fn.onDragStop = function (event, ui) {
-            console.log("Widget is moved", self, event, ui);
-        };
-
-        this.fn.sendMoveSignal = function (oldPosition, newPosition, event) {
-            self.widgetEventChannel.sendMoveSignal(oldPosition, newPosition, event);
-        };
     };
 
     WidgetWrapperView.prototype._getWidgetChannelInstance = function (widgetName) {

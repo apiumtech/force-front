@@ -14,6 +14,10 @@ app.registerPresenter(function (container) {
             model.getWidgets()
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
         };
+
+        view.event.onWidgetDropped = function (element, widget) {
+            view.updateWidgetSize(element, widget);
+        };
     };
 
     DistributionPresenter.newInstance = function () {
