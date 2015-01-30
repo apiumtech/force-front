@@ -23,6 +23,18 @@ app.registerService(function (container) {
         return this.ajaxService.ajax(params);
     };
 
+    WidgetService.prototype.updatePageWidgets = function (data) {
+
+        var params = {
+            url: '/api/widgets',
+            type: 'PUT',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: data
+        };
+        return this.ajaxService.ajax(params);
+    };
+
     WidgetService.prototype.getWidget = function (widgetId) {
         assertNotNull("Widget Id", widgetId);
 
@@ -45,7 +57,7 @@ app.registerService(function (container) {
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json',
-            data: { oldIndex: oldIndex, newIndex: newIndex }
+            data: {oldIndex: oldIndex, newIndex: newIndex}
         };
         return this.ajaxService.ajax(params);
     };

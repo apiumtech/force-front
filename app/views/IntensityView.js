@@ -20,6 +20,20 @@ app.registerView(function (container) {
         this.event.onLoaded();
     };
 
+    IntensityView.prototype.updateWidgetIndex = function (movingElement, widget) {
+        var self = this;
+
+        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
+    };
+
+    IntensityView.prototype.onWidgetsUpdated = function (data) {
+
+    };
+
+    IntensityView.prototype.onWidgetsUpdatedFail = function (error) {
+        this.showError(error);
+    };
+
     IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || IntensityModel.newInstance().getOrElse(throwInstantiateException(IntensityModel));
         var presenter = $presenter || IntensityPresenter.newInstance().getOrElse(throwInstantiateException(IntensityPresenter));

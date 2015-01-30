@@ -10,6 +10,7 @@ app.registerView(function (container) {
 
     function ConversionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+        this.configureEvents();
     }
 
     ConversionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
@@ -20,18 +21,48 @@ app.registerView(function (container) {
         this.event.onLoaded();
     };
 
+    ConversionView.prototype.configureEvents = function () {
+        var self = this;
+
+        self.fn.makeFullSize = function (movingElement, widget) {
+            widget.position.size = 12;
+        };
+
+        self.fn.highlightDroppableZones = function () {
+            $(self.fixedAreaSelector).addClass(self.dropZoneClassName);
+        };
+
+        self.fn.removeHighlightDroppableZones = function () {
+            $(self.fixedAreaSelector).removeClass(self.dropZoneClassName);
+        };
+
+        self.fn.moveWidgetToContainer = function (movingElement, widget) {
+            self._moveElementToContainer(movingElement);
+            self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
+        };
+    };
+
+    ConversionView.prototype._moveElementToContainer = function (movingElement) {
+        $(movingElement.item).detach().prependTo(self.widgetContainerSelector);
+    };
+
     ConversionView.prototype.updateWidgetSize = function (movingElement, widget) {
+        var self = this;
         var element = $(movingElement.item);
 
-        if (element.is(":last-child")) {
-            element.addClass("col-md-12").removeClass("col-md-6");
-            widget.position.size = 12;
-        }
-
-        else if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
-            element.addClass("col-md-6").removeClass("col-md-12");
+        if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
             widget.position.size = 6;
         }
+
+        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
+    };
+
+    ConversionView.prototype.onWidgetsUpdated = function (data) {
+
+    };
+
+    ConversionView.prototype.onWidgetsUpdatedFail = function (error) {
+        this.showError(error);
     };
 
     ConversionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

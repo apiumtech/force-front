@@ -19,11 +19,17 @@
     <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
     <div class="widgets-container"
          as-sortable
-         widget-dropped="event.onWidgetDropped($ui, $widget)">
+         widget-drag-start="fn.highlightDroppableZones()"
+         widget-dropped="fn.removeHighlightDroppableZones()"
+         widget-sorted="event.onWidgetDropped($ui, $widget)">
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">
             <ng-include src="'/templates/widgets/widgetWrapper.html'"></ng-include>
         </div>
     </div>
+</div>
+<div class="row fixedarea" as-sortable
+     widget-hover="fn.makeFullSize($ui, $widget)"
+     widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
 </div>

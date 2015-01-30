@@ -28,6 +28,17 @@ describe("WidgetService", function () {
         });
     });
 
+    describe("updatePageWidgets", function () {
+        it("should call ajax from its ajaxService with correct params", function () {
+            var updateData = {};
+            sut.updatePageWidgets(updateData);
+            expect(ajaxService.ajax).toHaveBeenCalled();
+            expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual('/api/widgets');
+            expect(ajaxService.ajax.calls.mostRecent().args[0].type.toLowerCase()).toEqual('put');
+            expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual(updateData);
+        });
+    });
+
     describe("getWidget", function () {
         it("should throw exception if widget identifier is not defined", function () {
             expect(function () {
@@ -91,7 +102,7 @@ describe("WidgetService", function () {
             expect(ajaxService.ajax).toHaveBeenCalled();
             expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual('/api/widget/' + widgetId + '/move');
             expect(ajaxService.ajax.calls.mostRecent().args[0].type).toEqual("post");
-            expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual({ oldIndex: oldIndex, newIndex: newIndex });
+            expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual({oldIndex: oldIndex, newIndex: newIndex});
         });
     });
 });

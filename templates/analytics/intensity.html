@@ -17,7 +17,10 @@
 
 <div class="row">
     <ng-include src="'/templates/analytics/noWidgetAlert.html'"></ng-include>
-    <div class="widgets-container" as-sortable widget-moved="event.onWidgetMoved($widget, $newIndex)">
+    <div class="widgets-container"
+         as-sortable
+         widget-dropped="event.onWidgetDropped($ui, $widget)"
+            >
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">

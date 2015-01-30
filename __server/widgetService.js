@@ -138,7 +138,34 @@ var widgetList = [
         order: 3,
         size: 6,
         data: {
-            filters: ["Toda Va Actividad", "Solo Visita"],
+            filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
+            params: [{
+                label: "Chrome",
+                data: 35
+            }, {
+                label: "Firefox",
+                data: 30
+            }, {
+                label: "Safari",
+                data: 15
+            }, {
+                label: "Opera",
+                data: 10
+            }, {
+                label: "IE",
+                data: 5
+            }]
+        }
+    },
+    {
+        page: "distribution",
+        widgetType: "pie",
+        widgetName: "DISTRIBUCION HORARIA",
+        widgetId: 5,
+        order: 3,
+        size: 6,
+        data: {
+            filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
             params: [{
                 label: "Chrome",
                 data: 35
@@ -160,16 +187,7 @@ var widgetList = [
     {
         page: "distribution",
         widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-5.jpg',
-        widgetId: 5,
-        order: 3,
-        size: 6
-    },
-    {
-        page: "distribution",
-        widgetType: "table",
-        widgetName: "Widget D",
+        widgetName: "DISTRIBUCION POR TIPO DE CLIENTE",
         imgUrl: 'chart-4.jpg',
         widgetId: 2002,
         order: 4,

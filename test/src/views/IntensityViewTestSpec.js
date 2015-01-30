@@ -32,4 +32,30 @@ describe("IntensityView", function () {
         });
     });
 
+    describe("updateWidgetIndex", function () {
+        var view, model;
+
+        function exerciseExecShowMethod() {
+            model = {};
+            view = exerciseCreateView(model, {show: jasmine.createSpy()});
+            view.event.onWidgetMoved = jasmine.createSpy();
+        }
+
+        it("should pickup index by calling getElementIndex()", function () {
+            exerciseExecShowMethod();
+            var element = {item: {}}, widget = {widgetId: 10};
+            spyOn(view, 'getElementIndex');
+            view.updateWidgetIndex(element, widget);
+            expect(view.getElementIndex).toHaveBeenCalledWith({});
+        });
+
+        it("should fire event onWidgetMoved", function () {
+            exerciseExecShowMethod();
+            var element = {item: {}}, widget = {widgetId: 10};
+            spyOn(view, 'getElementIndex').and.returnValue(1003);
+            view.updateWidgetIndex(element, widget);
+            expect(view.event.onWidgetMoved).toHaveBeenCalledWith(widget, 1003);
+        });
+
+    });
 });

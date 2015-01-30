@@ -24,21 +24,42 @@ app.registerView(function (container) {
     DistributionView.prototype.configureEvents = function () {
         var self = this;
 
-        self.fn.dropWidgetToFullSizeArea = function (movingElement, widget) {
+        self.fn.makeFullSize = function (movingElement, widget) {
             widget.position.size = 12;
         };
 
         self.fn.highlightDroppableZones = function () {
-            $('.fixedarea[as-sortable]').addClass("dropzone");
+            $(self.fixedAreaSelector).addClass(self.dropZoneClassName);
         };
 
         self.fn.removeHighlightDroppableZones = function () {
-            $('.fixedarea[as-sortable]').removeClass("dropzone");
+            $(self.fixedAreaSelector).removeClass(self.dropZoneClassName);
         };
 
         self.fn.moveWidgetToContainer = function (movingElement, widget) {
-            $(movingElement.item).detach().prependTo('.widgets-container[as-sortable]');
+            self._moveElementToContainer(movingElement);
+            self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
         };
+    };
+
+    DistributionView.prototype._moveElementToContainer = function (movingElement) {
+        $(movingElement.item).detach().prependTo(self.widgetContainerSelector);
+    };
+
+    DistributionView.prototype.onWidgetsUpdated = function (data) {
+
+    };
+
+    DistributionView.prototype.onWidgetsUpdatedFail = function (error) {
+        this.showError(error);
+    };
+
+    DistributionView.prototype.onWidgetsUpdated = function (data) {
+
+    };
+
+    DistributionView.prototype.onWidgetsUpdatedFail = function (error) {
+        this.showError(error);
     };
 
     DistributionView.prototype.updateWidgetSize = function (movingElement, widget) {
@@ -49,7 +70,7 @@ app.registerView(function (container) {
             widget.position.size = 6;
         }
 
-        self.fn.removeHighlightDroppableZones();
+        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };
 
     DistributionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

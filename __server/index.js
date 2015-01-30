@@ -27,17 +27,35 @@ app.get('/api/translations/:language', function (request, response) {
     });
 });
 
+var widgetPageLists = {};
+
 app.get('/api/widgets/:page', function (request, response) {
     setTimeout(function () {
         var page = request.params.page;
-        var widgets = WidgetService.getWidgetFromPage(page);
-        response.json({
-            success: true,
-            data: {
+        if (widgetPageLists[page] == null) {
+            var widgets = WidgetService.getWidgetFromPage(page);
+            widgetPageLists[page] = {
                 id: page,
                 layout: "linear",
                 body: widgets
-            }
+            };
+        }
+        response.json({
+            success: true,
+            data: widgetPageLists[page]
+        });
+
+    }, delay);
+});
+
+app.put('/api/widgets', function (request, response) {
+    setTimeout(function () {
+        var pageId = request.body.id;
+        widgetPageLists[pageId] = request.body;
+
+        response.json({
+            success: true,
+            data: widgetPageLists[pageId]
         });
     }, delay);
 });
@@ -64,19 +82,6 @@ app.get('/api/widget/:id', function (request, response) {
             }
         });
     }, delay);
-});
-
-app.post('/api/widget/:id/move', function (request, response) {
-    var oldIndex = request.body.oldIndex;
-    var newIndex = request.body.newIndex;
-    var result = WidgetService.moveWidget(parseInt(request.params.id), oldIndex, newIndex, request, response);
-
-    if (result) {
-        response.json({
-            success: true
-        });
-        return;
-    }
 });
 
 function getDomain() {

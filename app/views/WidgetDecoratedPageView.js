@@ -6,6 +6,9 @@ app.registerView(function (container) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.dropZoneClassName = "dropzone";
+        this.widgetContainerSelector = '.widgets-container[as-sortable]';
+        this.fixedAreaSelector = '.fixedarea[as-sortable]';
     }
 
     WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {
@@ -30,10 +33,8 @@ app.registerView(function (container) {
         this.widgets = widgetsData.body;
     };
 
-    WidgetDecoratePageView.prototype.unDecorateWidgetData = function () {
-        return this.widgets.map(function (widget) {
-            return _.omit(widget, 'template');
-        });
+    WidgetDecoratePageView.prototype.getElementIndex = function (element) {
+        return $(element).index();
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {

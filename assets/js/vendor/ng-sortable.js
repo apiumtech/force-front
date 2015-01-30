@@ -77,13 +77,12 @@
 
                         $(scope.element).sortable({
                             connectWith: '*[as-sortable]',
-                            items: "[as-sortable-item]",
                             handle: '[as-sortable-item-handle]',
                             start: scope.fireDragStart,
                             over: scope.fireOver,
                             stop: scope.fireDragStop,
                             update: scope.fireSorted
-                        });
+                        }).disableSelection();
                     }
                 };
             }

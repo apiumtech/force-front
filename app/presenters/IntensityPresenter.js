@@ -15,8 +15,14 @@ app.registerPresenter(function (container) {
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
         };
 
+        view.event.onWidgetDropped = function (element, widget) {
+            view.updateWidgetIndex(element, widget);
+        };
+
         view.event.onWidgetMoved = function (widget, newIndex) {
-            console.log("Widget moved: ", widget, " to new index: ", newIndex);
+            model.moveWidget(widget, newIndex);
+            model.updateWidgets()
+                .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
         };
     };
 
