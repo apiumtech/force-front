@@ -85,6 +85,35 @@ app.registerView(function (container) {
     BarChartWidgetView.prototype.paintChart = function (element) {
         var plot = BarChart.basic(this.data, this.tickLabels).getOrElse(throwException("invalid plot!"));
         plot.paint($(element));
+        plot.onHover(this.onPlotHover.bind(this));
+    };
+
+    var previousXValue = null;
+    var previousYValue = null;
+
+    BarChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
+        function showTooltip2(x, y, contents) {
+            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
+                top: y,
+                left: x + 35
+            }).appendTo("body").fadeIn(200);
+        }
+
+        if (chartItem) {
+            var y = chartItem.datapoint[1] - chartItem.datapoint[2];
+
+            if (previousXValue != chartItem.series.label || y != previousYValue) {
+                previousXValue = chartItem.series.label;
+                previousYValue = y;
+                $("#tooltip").remove();
+
+                showTooltip2(chartItem.pageX, chartItem.pageY, y + " " + chartItem.series.label);
+            }
+        } else {
+            $("#tooltip").remove();
+            previousXValue = null;
+            previousYValue = null;
+        }
     };
 
     BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {

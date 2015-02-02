@@ -53,3 +53,7 @@ label.block {
     margin-bottom: 20px;
     clear: both;
 }
+
+.flot-tooltip.animation {
+    display: initial !important;
+}

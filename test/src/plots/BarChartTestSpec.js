@@ -56,4 +56,26 @@ describe("BarChart", function () {
             expect(paintPlotImpl.calls.mostRecent().args[2]).toEqual(config);
         });
     });
+
+    describe("onHover", function () {
+        var paintPlotImpl, element;
+        beforeEach(function () {
+            paintPlotImpl = jasmine.createSpy();
+            element = {};
+            config = {
+                xaxis: {}
+            };
+            sut = BarChart.newInstance([], [], config, paintPlotImpl).getOrElse(throwInstantiateException(BarChart));
+        });
+
+        it("should bind plothover event", function () {
+            sut.renderedElement = {
+                bind: jasmine.createSpy()
+            };
+            var abc = function () {
+            };
+            sut.onHover(abc);
+            expect(sut.renderedElement.bind).toHaveBeenCalledWith('plothover', abc);
+        });
+    });
 });

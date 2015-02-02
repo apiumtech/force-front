@@ -7,6 +7,7 @@ app.registerService(function () {
         this.tickLabels = tickLabels;
         this.configuration = configuration;
         this.paintPlot = plotImpl;
+        this.renderedElement = null;
     }
 
     BarChart._isNotEmpty = function (e) {
@@ -27,7 +28,12 @@ app.registerService(function () {
         if (!this.configuration.xaxis.ticks)
             this.configuration.xaxis.ticks = this.getTickLabels();
 
-        this.paintPlot(element, this.plotData.filter(BarChart._isNotEmpty), this.configuration);
+        this.renderedElement = element;
+        this.paintPlot(this.renderedElement, this.plotData.filter(BarChart._isNotEmpty), this.configuration);
+    };
+
+    BarChart.prototype.onHover = function (callback) {
+        this.renderedElement.bind("plothover", callback);
     };
 
     BarChart.basic = function (plotData, tickLabels) {
