@@ -1,13 +1,13 @@
 /**
- * Created by justin on 1/26/15.
+ * Created by justin on 2/2/15.
  */
 
-describe("BarChartWidgetPresenter", function () {
-    var BarChartWidgetPresenter = app.getPresenter('presenters/BarChartWidgetPresenter');
+describe("SingleLineChartWidgetPresenter", function () {
+    var SingleLineChartWidgetPresenter = app.getPresenter('presenters/SingleLineChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {
-        sut = BarChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate BarChartWidgetPresenter"));
+        sut = SingleLineChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate SingleLineChartWidgetPresenter"));
     });
 
     describe("Connect view to model", function () {
@@ -21,7 +21,7 @@ describe("BarChartWidgetPresenter", function () {
                 viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
             },
             {
-                viewEvent: "onTabChanged", test: onTabChangedTest
+                viewEvent: "onFilterChanged", test: onFilterChangedTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -80,12 +80,12 @@ describe("BarChartWidgetPresenter", function () {
             });
         }
 
-        function onTabChangedTest() {
+        function onFilterChangedTest() {
             function prepareTabChanged() {
                 ___view.selectedFilter = "tab1";
                 ___model.changeFilterTab = jasmine.createSpy();
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onTabChanged();
+                ___view.event.onFilterChanged();
             }
 
             it("should call addQuery with new value", function () {

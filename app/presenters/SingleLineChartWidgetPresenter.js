@@ -1,16 +1,16 @@
 /**
- * Created by justin on 1/26/15.
+ * Created by justin on 2/2/15.
  */
 
 app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var widgetName = "intensityWidgetA";
+    var widgetName = "LineChart";
 
-    function BarChartWidgetPresenter(widgetEventChannel) {
+    function SingleLineChartWidgetPresenter(widgetEventChannel) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
-    BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    SingleLineChartWidgetPresenter.prototype = Object.create(Object.prototype, {
         widgetEventChannel: {
             get: function () {
                 return this._widgetEventChannel;
@@ -22,14 +22,14 @@ app.registerPresenter(function (container) {
         }
     });
 
-    BarChartWidgetPresenter.prototype.rebindChannelListener = function () {
+    SingleLineChartWidgetPresenter.prototype.rebindChannelListener = function () {
         var self = this;
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
         });
     };
 
-    BarChartWidgetPresenter.prototype._executeLoadWidget = function () {
+    SingleLineChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
             $model = self.$model;
@@ -38,11 +38,11 @@ app.registerPresenter(function (container) {
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
-    BarChartWidgetPresenter.prototype.showError = function (error) {
+    SingleLineChartWidgetPresenter.prototype.showError = function (error) {
 
     };
 
-    BarChartWidgetPresenter.prototype.show = function (view, model) {
+    SingleLineChartWidgetPresenter.prototype.show = function (view, model) {
         var self = this;
         self.$view = view;
         self.$model = model;
@@ -55,7 +55,7 @@ app.registerPresenter(function (container) {
             self._executeLoadWidget();
         };
 
-        view.event.onTabChanged = function () {
+        view.event.onFilterChanged = function () {
             model.changeFilterTab(view.selectedFilter);
             self.widgetEventChannel.sendReloadSignal();
         };
@@ -65,10 +65,10 @@ app.registerPresenter(function (container) {
         };
     };
 
-    BarChartWidgetPresenter.newInstance = function (widgetEventChannel) {
+    SingleLineChartWidgetPresenter.newInstance = function (widgetEventChannel) {
         var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new BarChartWidgetPresenter(_widgetEventChannel));
+        return Some(new SingleLineChartWidgetPresenter(_widgetEventChannel));
     };
 
-    return BarChartWidgetPresenter;
+    return SingleLineChartWidgetPresenter;
 });

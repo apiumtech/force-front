@@ -25,12 +25,12 @@ app.registerView(function (container) {
                 this.$scope.tabs = value;
             }
         },
-        selectedTab: {
+        selectedFilter: {
             get: function () {
-                return this.$scope.selectedTab;
+                return this.$scope.selectedFilter;
             },
             set: function (value) {
-                this.$scope.selectedTab = value;
+                this.$scope.selectedFilter = value;
             }
         }
     });
@@ -45,7 +45,7 @@ app.registerView(function (container) {
         };
 
         self.fn.changeTab = function (newTab) {
-            self.selectedTab = newTab;
+            self.selectedFilter = newTab;
             self.event.onTabChanged();
         };
 
@@ -58,7 +58,7 @@ app.registerView(function (container) {
         var self = this;
         self.data = responseData.data.params.params;
         self.tabs = responseData.data.params.filters;
-        self.selectedTab = self.selectedTab || responseData.data.params.filters[0];
+        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0];
 
         self.refreshChart();
         self.event.onReloadWidgetDone();

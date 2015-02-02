@@ -1,13 +1,13 @@
 /**
- * Created by justin on 1/26/15.
+ * Created by justin on 2/2/15.
  */
 
-describe("BarChartWidgetView", function () {
-    var BarChartWidgetView = app.getView('views/BarChartWidgetView');
+describe("SingleLineChartWidgetView", function () {
+    var SingleLineChartWidgetView = app.getView('views/SingleLineChartWidgetView');
     var sut;
 
     function initSut() {
-        sut = BarChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(BarChartWidgetView));
+        sut = SingleLineChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(SingleLineChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -15,7 +15,7 @@ describe("BarChartWidgetView", function () {
 
         [
             {method: 'assignWidget', exercise: assignWidgetTestExercise},
-            {method: 'changeTab', exercise: changeTabTestExercise},
+            {method: 'changeFilter', exercise: changeFilterTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
         ].forEach(function (testCase) {
                 var method = testCase.method,
@@ -60,15 +60,15 @@ describe("BarChartWidgetView", function () {
 
         }
 
-        function changeTabTestExercise() {
+        function changeFilterTestExercise() {
             beforeEach(function () {
                 sut.event = sut.event || {};
-                sut.event.onTabChanged = jasmine.createSpy();
+                sut.event.onFilterChanged = jasmine.createSpy();
             });
             var newValue = "tab2";
 
             function exerciseChangeTab() {
-                sut.fn.changeTab(newValue);
+                sut.fn.changeFilter(newValue);
             }
 
             it("should assign selected tab with new value", function () {
@@ -78,7 +78,7 @@ describe("BarChartWidgetView", function () {
 
             it("should fire onTabChanged event", function () {
                 exerciseChangeTab();
-                expect(sut.event.onTabChanged).toHaveBeenCalled();
+                expect(sut.event.onFilterChanged).toHaveBeenCalled();
             });
         }
 
@@ -117,51 +117,26 @@ describe("BarChartWidgetView", function () {
         };
 
         function instantiateSut() {
-            sut = new BarChartWidgetView({}, {});
+            sut = new SingleLineChartWidgetView({}, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
 
             spyOn(sut, 'refreshChart');
-            sut.$scope.apply = function () {
-            };
+            spyOn(sut, 'extractFilters');
         }
-
-        it("Should assign filters to scope", function () {
-            instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.tabs).toEqual(fakeResponseData.data.params.filters);
-        });
-
-        it("Should assign selectedFiler to scope with value is first element of filters", function () {
-            instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
-        });
-
-        it("Should not assign selectedFiler if it has value", function () {
-            instantiateSut();
-            sut.selectedFilter = "tab2";
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedFilter).not.toEqual(fakeResponseData.data.params.filters[0]);
-            expect(sut.selectedFilter).toEqual("tab2");
-        });
 
         it("Should assign data to scope", function () {
             instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.data).toEqual(fakeResponseData.data.params.bars);
+            expect(sut.data).toEqual(fakeResponseData.data.params);
         });
 
-        it("Should assign tickLabels to scope", function () {
+        it("should call extractFilters method", function () {
             instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.tickLabels).toEqual(fakeResponseData.data.params.axis.x);
+            expect(sut.extractFilters).toHaveBeenCalled();
         });
 
         it("should call refreshChart method", function () {
@@ -175,6 +150,44 @@ describe("BarChartWidgetView", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+        });
+    });
+
+    describe("extractFilters", function () {
+        beforeEach(initSut);
+
+        it("should assign filters from data", function () {
+            sut.data.filters = ['filter1', 'filter2'];
+            sut.extractFilters();
+            expect(sut.filters).toEqual(sut.data.filters);
+        });
+
+        describe("assign new value to selectedFilter", function () {
+            describe("current value is empty", function () {
+                it("should assign selectedFilter to the first element in array", function () {
+                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.extractFilters();
+                    expect(sut.$scope.selectedFilter).toEqual('filter1');
+                });
+            });
+
+            describe("current value is not in filters list", function () {
+                it("should assign selectedFilter to the first element in array", function () {
+                    sut.selectedFilter = 'filterNotInList';
+                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.extractFilters();
+                    expect(sut.selectedFilter).toEqual('filter1');
+                });
+            });
+
+            describe("current value is in filters list", function () {
+                it("should not assign selectedFilter if it has value", function () {
+                    sut.selectedFilter = 'filter2';
+                    sut.data.filters = ['filter1', 'filter2'];
+                    sut.extractFilters();
+                    expect(sut.selectedFilter).toEqual('filter2');
+                });
+            });
         });
     });
 
@@ -193,8 +206,6 @@ describe("BarChartWidgetView", function () {
                 testCase: "data is not defined", widgetData: undefined
             }, {
                 testCase: "data is null", widgetData: null
-            }, {
-                testCase: "data is not array", widgetData: {fields: {blah: 123456}}
             }].forEach(function (test) {
                     describe(test.testCase, function () {
                         it("Should not call paintChart", function () {
@@ -211,12 +222,16 @@ describe("BarChartWidgetView", function () {
             var fakeElement = {"element returned": "element"};
             beforeEach(function () {
                 spyOn(sut, 'paintChart');
-                sut.data = [
-                    {label: "pie1", data: 30},
-                    {label: "pie4", data: 15},
-                    {label: "pie3", data: 15},
-                    {label: "pie2", data: 40}
-                ];
+                sut.data = {
+                    fields: [
+                        {
+                            label: "pie1", data: [
+                            [0, 1],
+                            [1, 2]
+                        ]
+                        }
+                    ]
+                };
                 sut.element = {
                     find: function () {
                         return fakeElement;
@@ -226,7 +241,7 @@ describe("BarChartWidgetView", function () {
 
             it("should call paintChart()", function () {
                 sut.refreshChart();
-                expect(sut.paintChart).toHaveBeenCalledWith(fakeElement);
+                expect(sut.paintChart).toHaveBeenCalled();
             });
         });
     });

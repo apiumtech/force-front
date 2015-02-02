@@ -1,0 +1,12 @@
+<div ng-controller="SingleLineChartWidgetController" ng-init="fn.assignWidget(widget)">
+    <div class="clearfix ">
+        <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20  pull-right">
+            <select class="form-control pull left"
+                    ng-model="selectedFilter"
+                    ng-change="fn.changeFilter(selectedFilter)">
+                <option ng-repeat="filter in filters" value="{{filter}}">{{filter}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="chart-place-holder height-sm"></div>
+</div>

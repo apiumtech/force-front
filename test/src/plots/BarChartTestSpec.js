@@ -7,6 +7,20 @@ describe("BarChart", function () {
 
     var sut, config;
 
+    describe("_isNotEmpty", function () {
+        [
+            { from: None(), expected: false },
+            { from: null, expected: false },
+            { from: undefined, expected: false },
+            { from: "hola", expected: true },
+            { from: Some("hola"), expected: true }
+        ].forEach(function (testCase) {
+                it("should be " + testCase.expected + " for " + JSON.stringify(testCase.from), function () {
+                    expect(BarChart._isNotEmpty(testCase.from)).toEqual(testCase.expected);
+                });
+            });
+    });
+
     describe("getTickLabels", function () {
         it("should return correct array with index", function () {
             var plotData = [],

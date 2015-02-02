@@ -27,10 +27,6 @@ app.registerPresenter(function (container) {
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
         });
-
-        self.widgetEventChannel.onMoveSignalReceived(function (oldPosition, newPosition, moveEvent) {
-            self._executeMoveWidget(oldPosition, newPosition, moveEvent);
-        });
     };
 
     GraphWidgetPresenter.prototype._executeLoadWidget = function () {
@@ -40,16 +36,6 @@ app.registerPresenter(function (container) {
 
         $model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
-    };
-
-    GraphWidgetPresenter.prototype._executeMoveWidget = function (oldPosition, newPosition, moveEvent) {
-        var self = this,
-            $view = self.$view,
-            $model = self.$model,
-            $moveEvent = moveEvent;
-
-        $model.moveWidget(oldPosition, newPosition)
-            .then($view.onMoveWidgetSuccess.bind($view), $view.onMoveWidgetError.bind($view));
     };
 
     GraphWidgetPresenter.prototype.showError = function (error) {

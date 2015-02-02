@@ -4,10 +4,10 @@
 
 var _ = require("underscore");
 
-function generateRandom() {
+function generateRandom(from, to) {
     var d1 = [];
     for (var a = 0; a <= 5; a += 1) {
-        d1.push([a, parseInt(Math.random() * 5 + a)]);
+        d1.push([a, Math.floor((Math.random() * to)) + from]);
     }
     return d1;
 }
@@ -20,62 +20,7 @@ var widgetList = [
         widgetType: "graph",
         widgetName: "Widget A",
         imgUrl: 'chart-1.jpg',
-        data: {
-            axis: {
-                x: [
-                    '', '', 'Mar 14',
-                    '', '', 'Jun 14',
-                    '', '', 'Sep 14',
-                    '', '', 'Dec 14'
-                ],
-                y: "Views"
-            },
-            filters: [
-                "Visitas",
-                "Tiempo al telefono",
-                "Emails",
-                "Gestiones",
-                "Activity score",
-                "Usuarios activos",
-                "Ofertas",
-                "Pedidos"
-            ],
-            fields: [
-                {
-                    name: "Page Views",
-                    data: [
-                        [1, 40],
-                        [2, 50],
-                        [3, 60],
-                        [4, 60],
-                        [5, 60],
-                        [6, 65],
-                        [7, 75],
-                        [8, 90],
-                        [9, 100],
-                        [10, 105],
-                        [11, 110],
-                        [12, 110]]
-                },
-                {
-                    name: "Visitors",
-                    data: [
-                        [1, 10],
-                        [2, 6],
-                        [3, 10],
-                        [4, 12],
-                        [5, 18],
-                        [6, 20],
-                        [7, 25],
-                        [8, 23],
-                        [9, 24],
-                        [10, 25],
-                        [11, 18],
-                        [12, 30]
-                    ]
-                }
-            ]
-        },
+        data: {},
         widgetId: 1,
         order: 0,
         size: 12
@@ -170,9 +115,9 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "table",
-        widgetName: "DISTRIBUCION POR TIPO DE CLIENTE",
-        imgUrl: 'chart-4.jpg',
+        widgetType: "singleline",
+        widgetName: "DISTRIBUCION HORARIA",
+        data: {},
         widgetId: 2002,
         order: 4,
         size: 6
@@ -268,22 +213,80 @@ widgetService.getWidget = function (widgetId) {
                 x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
             },
             bars: [{
-                data: generateRandom(), label: "China"
+                data: generateRandom(150, 175), label: "China"
             }, {
-                data: generateRandom(), label: "Russia"
+                data: generateRandom(120, 150), label: "Russia"
             }, {
-                data: generateRandom(), label: "Canada"
+                data: generateRandom(95, 120), label: "Canada"
             }, {
-                data: generateRandom(), label: "Japan"
+                data: generateRandom(70, 95), label: "Japan"
             }, {
-                data: generateRandom(), label: "USA"
+                data: generateRandom(50, 70), label: "USA"
             }, {
-                data: generateRandom(), label: "Others"
+                data: generateRandom(20, 50), label: "Others"
             }]
+        };
+    }
+    else if (widget.widgetId === 2002) {
+        widget.data = {
+            filters: [
+                "Checkins",
+                "Toda la actividad",
+                "Llamadas",
+                "Emails"
+            ],
+            fields: [
+                {
+                    name: "Page Views",
+                    data: generateRandomData(0, 13)
+                }
+            ]
+        };
+    }
+    else if (widget.widgetId === 1) {
+        widget.data = {
+            axis: {
+                x: [
+                    '', '', 'Mar 14',
+                    '', '', 'Jun 14',
+                    '', '', 'Sep 14',
+                    '', '', 'Dec 14'
+                ],
+                y: "Views"
+            },
+            filters: [
+                "Visitas",
+                "Tiempo al telefono",
+                "Emails",
+                "Gestiones",
+                "Activity score",
+                "Usuarios activos",
+                "Ofertas",
+                "Pedidos"
+            ],
+            fields: [
+                {
+                    name: "Page Views",
+                    data: generateRandomData(1, 12)
+                },
+                {
+                    name: "Visitors",
+                    data: generateRandomData(1, 12)
+                }
+            ]
         };
     }
 
     return widget;
 };
+
+function generateRandomData(start, end) {
+    var data = [];
+    for (var x = start; x <= end; x++) {
+        data.push([x, parseInt(Math.random() * 100) + x]);
+    }
+
+    return data;
+}
 
 module.exports = _.extend(module.exports, widgetService);

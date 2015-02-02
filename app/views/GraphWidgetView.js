@@ -159,14 +159,6 @@ app.registerView(function (container) {
         self.availableFields = fieldsToMerge;
     };
 
-    GraphWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        console.log("Widget moved to new position");
-    };
-
-    GraphWidgetView.prototype.onMoveWidgetError = function (error) {
-        this.showError(error);
-    };
-
     GraphWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || GraphWidgetModel.newInstance().getOrElse(throwInstantiateException(GraphWidgetModel));
         var presenter = $presenter || GraphWidgetPresenter.newInstance().getOrElse(throwInstantiateException(GraphWidgetPresenter));

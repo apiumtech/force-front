@@ -83,7 +83,7 @@ describe("PieChartWidgetPresenter", function () {
 
         function onTabChangedTest() {
             function prepareTabChanged() {
-                ___view.selectedTab = "tab1";
+                ___view.selectedFilter = "tab1";
                 ___model.changeFilterTab = jasmine.createSpy();
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 ___view.event.onTabChanged();
@@ -108,16 +108,6 @@ describe("PieChartWidgetPresenter", function () {
             modelMethod: "reloadWidget",
             onError: "onReloadWidgetError",
             onSuccess: "onReloadWidgetSuccess"
-        }, {
-            method: "_executeLoadWidget",
-            modelMethod: "reloadWidget",
-            onError: "onReloadWidgetError",
-            onSuccess: "onReloadWidgetSuccess"
-        }, {
-            method: "_executeMoveWidget",
-            modelMethod: "moveWidget",
-            onError: "onMoveWidgetError",
-            onSuccess: "onMoveWidgetSuccess"
         }].forEach(function (item) {
                 describe("Calling '" + item.method + "' ", function () {
                     var model = createModel();

@@ -10,7 +10,7 @@ describe("PieChartWidgetModel", function () {
             var sut = PieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(PieChartWidgetModel));
             spyOn(sut, 'addQuery');
             sut.changeFilterTab("tab1");
-            expect(sut.addQuery).toHaveBeenCalledWith("selectedTab", "tab1");
+            expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");
         });
     });
 });

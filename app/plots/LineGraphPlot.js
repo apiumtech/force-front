@@ -62,5 +62,5 @@ app.registerService(function () {
         return Some(new LineGraphPlot(label || None(), data || [], hidden || false, filled || false, color));
     };
 
-    return {newInstance: LineGraphPlot.newInstance};
+    return LineGraphPlot;
 });

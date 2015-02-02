@@ -170,8 +170,6 @@ describe("GraphWidgetView", function () {
             spyOn(sut, 'extractFilters');
             spyOn(sut, 'extractDisplayFields');
             spyOn(sut, 'refreshChart');
-            sut.$scope.apply = function () {
-            };
         }
 
         it("Should assign data to scope", function () {

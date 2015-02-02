@@ -73,7 +73,7 @@ describe("PieChartWidgetView", function () {
 
             it("should assign selected tab with new value", function () {
                 exerciseChangeTab();
-                expect(sut.selectedTab).toEqual(newValue);
+                expect(sut.selectedFilter).toEqual(newValue);
             });
 
             it("should fire onTabChanged event", function () {
@@ -135,16 +135,16 @@ describe("PieChartWidgetView", function () {
             instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedTab).toEqual(fakeResponseData.data.params.filters[0]);
+            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
         });
 
         it("Should not assign selectedFiler if it has value", function () {
             instantiateSut();
-            sut.selectedTab = "tab2";
+            sut.selectedFilter = "tab2";
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedTab).not.toEqual(fakeResponseData.data.params.filters[0]);
-            expect(sut.selectedTab).toEqual("tab2");
+            expect(sut.selectedFilter).not.toEqual(fakeResponseData.data.params.filters[0]);
+            expect(sut.selectedFilter).toEqual("tab2");
         });
 
         it("Should assign data to scope", function () {

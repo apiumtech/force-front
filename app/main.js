@@ -63,6 +63,7 @@ function main() {
             'plots/Plot', 'plots/LineGraphPlot',
             'plots/PieChart',
             'plots/BarChart',
+            'plots/SingleLineChart',
 
             // views
             'views/BaseView',
@@ -100,6 +101,9 @@ function main() {
 
             // Bar chart widget
             'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/BarChartWidgetPresenter', 'models/BarChartWidgetModel',
+
+            // SingleLine chart widget
+            'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/SingleLineChartWidgetPresenter', 'models/SingleLineChartWidgetModel',
 
             // Table widget
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',

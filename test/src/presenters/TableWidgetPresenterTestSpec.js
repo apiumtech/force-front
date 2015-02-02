@@ -85,11 +85,6 @@ describe("TableWidgetPresenter", function () {
             modelMethod: "reloadWidget",
             onError: "onReloadWidgetError",
             onSuccess: "onReloadWidgetSuccess"
-        }, {
-            method: "_executeMoveWidget",
-            modelMethod: "moveWidget",
-            onError: "onMoveWidgetError",
-            onSuccess: "onMoveWidgetSuccess"
         }].forEach(function (item) {
                 describe("Calling '" + item.method + "' ", function () {
                     var model = createModel();
