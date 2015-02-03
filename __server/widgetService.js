@@ -6,8 +6,8 @@ var _ = require("underscore");
 
 function generateRandom(from, to) {
     var d1 = [];
-    for (var a = 0; a <= 5; a += 1) {
-        d1.push([a, Math.floor((Math.random() * to)) + from]);
+    for (var a = 0; a <= 5; a++) {
+        d1.push([a, Math.floor(Math.random() * (to - from)) + from]);
     }
     return d1;
 }
