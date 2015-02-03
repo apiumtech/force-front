@@ -5,6 +5,7 @@ var require = {
         'conduitjs': '/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '/node_modules/angular-route/angular-route.min',
         'angular-draganddrop': '../node_modules/angular-draganddrop/angular-draganddrop.min',
+        'angular-bootstrap': '../node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/node_modules/angular/angular.min',
         'infinite-scroll': '/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '/node_modules/jquery/dist/jquery.min',
@@ -23,7 +24,8 @@ var require = {
         'flot-resize': '/node_modules/flot/jquery.flot.resize',
         'flot-pie': '/node_modules/flot/jquery.flot.pie',
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
-        'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair'
+        'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
+        'moment': '/node_modules/moment/min/moment.min'
     },
 
     'shim': {
@@ -32,6 +34,9 @@ var require = {
         },
         'signals': {
             exports: 'signals'
+        },
+        'moment': {
+            exports: 'moment'
         },
         'i18next': {
             exports: 'i18next'
@@ -50,6 +55,11 @@ var require = {
         'angular-draganddrop': {
             deps: ['angular'],
             exports: 'angular-draganddrop'
+        },
+
+        'angular-bootstrap': {
+            deps: ['angular'],
+            exports: 'angular-bootstrap'
         },
 
         'ng-i18next': {
@@ -101,9 +111,9 @@ var require = {
     },
 
     'deps': [
-        'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop',
+        'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop', 'angular-bootstrap',
         'jquery', 'q', 'postal', 'meld',
-        'framework', 'functional-option',
+        'framework', 'functional-option', 'moment',
         'i18next', 'ng-i18next', 'underscore', 'signals', 'ng-sortable',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie'
     ],

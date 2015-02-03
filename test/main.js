@@ -17,6 +17,7 @@ requirejs.config({
         'conduitjs': '/base/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '/base/node_modules/angular-route/angular-route.min',
         'angular-draganddrop': '/base/node_modules/angular-draganddrop/angular-draganddrop.min',
+        'angular-bootstrap': '/base/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/base/node_modules/angular/angular.min',
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
         'postal': '/base/node_modules/postal/lib/postal.min',
@@ -30,7 +31,8 @@ requirejs.config({
         'ng-i18next': '/base/assets/js/vendor/ng-i18next',
         'signals': '/base/node_modules/signals/dist/signals.min',
         'ng-sortable': '/base/assets/js/vendor/ng-sortable',
-        'underscore': '/base/node_modules/underscore/underscore-min'
+        'underscore': '/base/node_modules/underscore/underscore-min',
+        'moment': '/base/node_modules/moment/min/moment.min'
     },
 
     'shim': {
@@ -40,6 +42,10 @@ requirejs.config({
 
         'signals': {
             exports: 'signals'
+        },
+
+        'moment': {
+            exports: 'moment'
         },
         'i18next': {
             exports: 'i18next'
@@ -53,6 +59,11 @@ requirejs.config({
         'angular-draganddrop': {
             deps: ['angular'],
             exports: 'angular-draganddrop'
+        },
+
+        'angular-bootstrap': {
+            deps: ['angular'],
+            exports: 'angular-bootstrap'
         },
 
         'ng-i18next': {
@@ -90,7 +101,7 @@ requirejs.config({
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'underscore', 'angular-draganddrop',
+        'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment',
         'i18next', 'ng-i18next', 'signals', 'ng-sortable',
         'main'
     ],

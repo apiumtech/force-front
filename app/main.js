@@ -43,6 +43,7 @@ function main() {
     app = ApplicationFactory.newRequireApplication("RequireJS")
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
             'ngRoute',
+            'ui.bootstrap',
             'jm.i18next',
             'forcefront.sortable',
             'infinite-scroll'
@@ -92,6 +93,8 @@ function main() {
             'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
 
             'services/bus/WidgetEventBus',
+
+            'controllers/filters/SalesAnalyticsFilterController', 'views/filters/SalesAnalyticsFilterView',
 
             // Graph widget
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',

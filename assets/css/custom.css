@@ -57,3 +57,9 @@ label.block {
 .flot-tooltip.animation {
     display: initial !important;
 }
+
+ul[datepicker-popup-wrap] {
+    position: fixed;
+    z-index: 65535;
+    float: none;
+}
