@@ -10,10 +10,9 @@ var delay = 1000;
 var app = express();
 app.use(bodyParser());
 app.use(express.static("."));
-app.use(express.static("./__server/assets"));
 
 app.get('/img/*', function (req, res) {
-    app.render(mainPath + req.url);
+    app.render('./assets/' + req.url);
 });
 
 var WidgetService = require(__dirname + "/widgetService");
