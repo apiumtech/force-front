@@ -44,8 +44,7 @@ describe("SalesAnalyticsFilterView", function () {
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
-                    expect(sut.fn[method]).not.toBeNull();
-                    expect(isFunction(sut.fn[method])).toEqual(true);
+                    testDeclareMethod(sut.fn, method);
                 });
 
                 describe("calling fn." + method, test.test);

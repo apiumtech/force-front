@@ -153,6 +153,11 @@ var isFunction = function (obj) {
     return Object.prototype.toString.call(obj) === "[object Function]";
 };
 
+function testDeclareMethod(sut, method) {
+    expect(sut[method]).not.toBeNull();
+    expect(isFunction(sut[method])).toEqual(true);
+}
+
 function exerciseFakePromise() {
     return {
         then: function () {

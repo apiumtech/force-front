@@ -14,35 +14,35 @@ app.registerView(function (container) {
         $scope.isLoading = false;
         $scope.hasError = false;
 
-        self.configureEvents();
+        WidgetWrapperView.configureEvents(self);
     }
 
     WidgetWrapperView.prototype = Object.create(BaseView.prototype, {});
 
-    WidgetWrapperView.prototype.configureEvents = function () {
-        var self = this,
+    WidgetWrapperView.configureEvents = function (instance) {
+        var self = instance,
             $scope = self.$scope;
 
-        this.fn.toggleCollapsePanel = function () {
+        self.fn.toggleCollapsePanel = function () {
             self.element.find('.panel-body').slideToggle();
         };
 
-        this.fn.expandPanel = function () {
+        self.fn.expandPanel = function () {
             $scope.isExpanded = !$scope.isExpanded;
         };
 
-        this.fn.reloadPanel = function () {
+        self.fn.reloadPanel = function () {
             self.widgetEventChannel.sendReloadSignal();
         };
 
-        this.fn.closeWidget = function () {
+        self.fn.closeWidget = function () {
             self.element.remove();
         };
 
-        this.fn.initWidget = function (widget) {
+        self.fn.initWidget = function (widget) {
             var widgetName = widget.widgetType + "||" + widget.widgetId;
             self.widget = widget;
-            self.widgetEventChannel = self._getWidgetChannelInstance(widgetName);
+            self.widgetEventChannel = WidgetWrapperView._getWidgetChannelInstance(widgetName);
             self.widgetEventChannel.onReloadSignalReceived(function () {
                 $scope.isLoading = true;
             });
@@ -54,7 +54,7 @@ app.registerView(function (container) {
         };
     };
 
-    WidgetWrapperView.prototype._getWidgetChannelInstance = function (widgetName) {
+    WidgetWrapperView._getWidgetChannelInstance = function (widgetName) {
         return WidgetEventBus.newInstance(widgetName).getOrElse(throwInstantiateException(WidgetEventBus));
     };
 

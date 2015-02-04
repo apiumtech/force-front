@@ -22,8 +22,7 @@ describe("ConversionPresenter", function () {
         }].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent;
                 it("should define event." + viewEvent + " on View", function () {
-                    expect(view.event[viewEvent]).not.toBeNull();
-                    expect(isFunction(view.event[viewEvent])).toEqual(true);
+                    testDeclareMethod(view.event, viewEvent);
                 });
 
                 describe("when view.event." + viewEvent + " is fired", testCase.test);

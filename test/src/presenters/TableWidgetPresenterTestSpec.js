@@ -37,9 +37,7 @@ describe("TableWidgetPresenter", function () {
                 });
 
                 it("should declared '" + viewEvent + "' event for View", function () {
-
-                    expect(___view.event[viewEvent]).not.toBeNull();
-                    expect(isFunction(___view.event[viewEvent])).toEqual(true);
+                    testDeclareMethod(___view.event, viewEvent);
                 });
 
                 describe("when event '" + viewEvent + "' fired", test);
