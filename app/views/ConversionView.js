@@ -43,7 +43,8 @@ app.registerView(function (container) {
     };
 
     ConversionView.prototype._moveElementToContainer = function (movingElement) {
-        $(movingElement.item).detach().prependTo(self.widgetContainerSelector);
+        var self = this;
+        $(movingElement.item).detach().appendTo(self.widgetContainerSelector);
     };
 
     ConversionView.prototype.updateWidgetSize = function (movingElement, widget) {
