@@ -23,19 +23,18 @@ app.registerService(function (container) {
         });
     };
 
-    WidgetEventBus.prototype.sendMoveSignal = function (oldPosition, newPosition, moveEvent) {
-        this.send({widgetDropped: true, oldPosition: oldPosition, newPosition: newPosition, moveEvent: moveEvent});
+    WidgetEventBus.prototype.sendFilterApply = function (filterName, filterValue) {
+        this.send({
+            filterApplied: true,
+            filterName: filterName,
+            filterValue: filterValue
+        })
     };
 
-    function notSamePosition(newPosition, oldPosition){
-        return !((newPosition.row === oldPosition.row) && (newPosition.order === oldPosition.order) && (newPosition.column === oldPosition.column));
-    }
-
-    WidgetEventBus.prototype.onMoveSignalReceived = function (callback) {
+    WidgetEventBus.prototype.onDateFilterApplied = function (callback) {
         this.listen(function (event) {
-            if (event.widgetDropped && (undefined !== event.oldPosition) && notSamePosition(event.newPosition,event.oldPosition) && (undefined !== event.newPosition)) {
-                console.log("event received");
-                callback(event.oldPosition, event.newPosition, event.moveEvent);
+            if (event.filterApplied) {
+                callback(event.filterName, event.filterValue);
             }
         });
     };

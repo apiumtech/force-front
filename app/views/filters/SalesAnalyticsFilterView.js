@@ -4,9 +4,11 @@
 
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
+    var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
 
     function SalesAnalyticsFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
         var self = this;
         this.$scope.datePickerFormat = 'dd/MM/yyyy';
         this.$scope.dateOptionRange = [7, 15, 30, 90];
@@ -97,6 +99,13 @@ app.registerView(function (container) {
 
         self.fn.getDatePlaceholder = function () {
             return moment(self.dateRangeStart).format("DD/MM/YYYY") + '-' + moment(self.dateRangeEnd).format("DD/MM/YYYY");
+        };
+
+        self.fn.applyDateFilter = function () {
+            self.filterChannel.sendDateFilterApplySignal({
+                dateStart: self.dateRangeStart,
+                dateEnd: self.dateRangeEnd
+            });
         };
     };
 

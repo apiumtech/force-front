@@ -60,6 +60,11 @@ app.registerPresenter(function (container) {
             self.widgetEventChannel.sendReloadSignal();
         };
 
+        view.event.onDateFilterApplied = function (filterValue) {
+            model.addDateFilter(filterValue.dateStart, filterValue.dateEnd);
+            self.widgetEventChannel.sendReloadSignal();
+        };
+
         view.event.onFilterRangeChanged = function () {
             model.addQuery('rangeOption', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadSignal();

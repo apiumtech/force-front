@@ -20,6 +20,9 @@ describe("GraphWidgetPresenter", function () {
                 viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
             },
             {
+                viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
+            },
+            {
                 viewEvent: "onFilterChanged", test: onFilterChangedTest
             },
             {
@@ -63,6 +66,28 @@ describe("GraphWidgetPresenter", function () {
             it("should call '_executeLoadWidget' method", function () {
                 ___view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
+            });
+        }
+
+
+        function onDateFilterAppliedTest() {
+            var filterValue = {
+                dateStart: new Date(),
+                dateEnd: new Date()
+            };
+            beforeEach(function () {
+                ___model.addDateFilter = jasmine.createSpy();
+
+                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                ___view.event.onDateFilterApplied(filterValue);
+            });
+
+            it("should call 'addDateFilter' on the model", function () {
+                expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
+            });
+
+            it("should call 'sendReloadSignal' on the channel", function () {
+                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
             });
         }
 

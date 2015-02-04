@@ -54,14 +54,6 @@ app.registerView(function (container) {
         this.showError(error);
     };
 
-    DistributionView.prototype.onWidgetsUpdated = function (data) {
-
-    };
-
-    DistributionView.prototype.onWidgetsUpdatedFail = function (error) {
-        this.showError(error);
-    };
-
     DistributionView.prototype.updateWidgetSize = function (movingElement, widget) {
         var self = this;
         var element = $(movingElement.item);

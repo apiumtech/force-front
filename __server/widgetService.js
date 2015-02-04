@@ -32,23 +32,7 @@ var widgetList = [
         widgetId: 2,
         order: 1,
         size: 12,
-        data: {
-            columns: [
-                "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
-            ],
-            data: [
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245]
-            ]
-        }
+        data: {}
     },
     {
         page: "distribution",
@@ -66,25 +50,7 @@ var widgetList = [
         widgetId: 1029,
         order: 3,
         size: 6,
-        data: {
-            filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
-            params: [{
-                label: "Chrome",
-                data: 35
-            }, {
-                label: "Firefox",
-                data: 30
-            }, {
-                label: "Safari",
-                data: 15
-            }, {
-                label: "Opera",
-                data: 10
-            }, {
-                label: "IE",
-                data: 5
-            }]
-        }
+        data: {}
     },
     {
         page: "distribution",
@@ -93,25 +59,7 @@ var widgetList = [
         widgetId: 5,
         order: 3,
         size: 6,
-        data: {
-            filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
-            params: [{
-                label: "Chrome",
-                data: 35
-            }, {
-                label: "Firefox",
-                data: 30
-            }, {
-                label: "Safari",
-                data: 15
-            }, {
-                label: "Opera",
-                data: 10
-            }, {
-                label: "IE",
-                data: 5
-            }]
-        }
+        data: {}
     },
     {
         page: "distribution",
@@ -156,23 +104,7 @@ var widgetList = [
         widgetId: 12,
         order: 1,
         size: 12,
-        data: {
-            columns: [
-                "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
-            ],
-            data: [
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
-                ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245]
-            ]
-        }
+        data: {}
     },
 ];
 
@@ -206,75 +138,104 @@ widgetService.getWidget = function (widgetId) {
         return widget.widgetId === widgetId
     }));
 
-    if (widget.widgetId === 2003) {
-        widget.data = {
-            filters: ["Client Type", "Segment"],
-            axis: {
-                x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-            },
-            bars: [{
-                data: generateRandom(150, 175), label: "China"
-            }, {
-                data: generateRandom(120, 150), label: "Russia"
-            }, {
-                data: generateRandom(95, 120), label: "Canada"
-            }, {
-                data: generateRandom(70, 95), label: "Japan"
-            }, {
-                data: generateRandom(50, 70), label: "USA"
-            }, {
-                data: generateRandom(20, 50), label: "Others"
-            }]
-        };
-    }
-    else if (widget.widgetId === 2002) {
-        widget.data = {
-            filters: [
-                "Checkins",
-                "Toda la actividad",
-                "Llamadas",
-                "Emails"
-            ],
-            fields: [
-                {
-                    name: "Page Views",
-                    data: generateRandomData(0, 13)
-                }
-            ]
-        };
-    }
-    else if (widget.widgetId === 1) {
-        widget.data = {
-            axis: {
-                x: [
-                    '', '', 'Mar 14',
-                    '', '', 'Jun 14',
-                    '', '', 'Sep 14',
-                    '', '', 'Dec 14'
-                ],
-                y: "Views"
-            },
-            filters: [
-                "Visitas",
-                "Tiempo al telefono",
-                "Emails",
-                "Gestiones",
-                "Activity score",
-                "Usuarios activos",
-                "Ofertas",
-                "Pedidos"
-            ],
-            fields: [
-                {
-                    name: "Page Views",
-                    data: generateRandomData(1, 12)
+    switch (widget.widgetType) {
+        case "bar":
+            widget.data = {
+                filters: ["Client Type", "Segment"],
+                axis: {
+                    x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
                 },
-                {
-                    name: "Visitors",
-                    data: generateRandomData(1, 12)
-                }
-            ]
-        };
+                bars: [{
+                    data: generateRandom(150, 175), label: "China"
+                }, {
+                    data: generateRandom(120, 150), label: "Russia"
+                }, {
+                    data: generateRandom(95, 120), label: "Canada"
+                }, {
+                    data: generateRandom(70, 95), label: "Japan"
+                }, {
+                    data: generateRandom(50, 70), label: "USA"
+                }, {
+                    data: generateRandom(20, 50), label: "Others"
+                }]
+            };
+            break;
+        case "singleline":
+            widget.data = {
+                filters: [
+                    "Checkins",
+                    "Toda la actividad",
+                    "Llamadas",
+                    "Emails"
+                ],
+                fields: [
+                    {
+                        name: "Page Views",
+                        data: generateRandomData(0, 13)
+                    }
+                ]
+            };
+            break;
+        case 'graph':
+            widget.data = {
+                axis: {
+                    x: [
+                        '', '', 'Mar 14',
+                        '', '', 'Jun 14',
+                        '', '', 'Sep 14',
+                        '', '', 'Dec 14'
+                    ],
+                    y: "Views"
+                },
+                filters: [
+                    "Visitas",
+                    "Tiempo al telefono",
+                    "Emails",
+                    "Gestiones",
+                    "Activity score",
+                    "Usuarios activos",
+                    "Ofertas",
+                    "Pedidos"
+                ],
+                fields: [
+                    {
+                        name: "Page Views",
+                        data: generateRandomData(1, 12)
+                    },
+                    {
+                        name: "Visitors",
+                        data: generateRandomData(1, 12)
+                    }
+                ]
+            };
+            break;
+        case 'pie':
+            widget.data = {
+                filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
+                params: generateRandomPieData(["Chrome", "FireFox", "Safari", "Opera", "IE"], 100)
+            };
+            break;
+        case 'table':
+            widget.data = {
+                columns: [
+                    "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
+                ],
+                data: [
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
+                    ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245]
+                ]
+            };
+            break;
+        default:
+            break;
     }
 
     return widget;
@@ -287,6 +248,22 @@ function generateRandomData(start, end) {
     }
 
     return data;
+}
+
+function generateRandomPieData(fields) {
+    var params = [];
+    var lastSum = 0;
+    var max = 100;
+    for (var i = 0; i < fields.length; i++) {
+        var random = Math.floor(Math.random() * (max - lastSum)) + lastSum;
+        params.push({
+            label: fields[i],
+            data: random
+        });
+        lastSum += random;
+    }
+
+    return params;
 }
 
 module.exports = _.extend(module.exports, widgetService);

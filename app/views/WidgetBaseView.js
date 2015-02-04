@@ -4,10 +4,16 @@
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+    var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
 
     function WidgetBaseView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
         this.element = element || {};
+        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
+
+        this.event.onDateFilterApplied = function (filterValue) {
+            throw new Error("NotImplementedException");
+        };
     }
 
     WidgetBaseView.prototype = Object.create(BaseView.prototype, {
@@ -28,6 +34,11 @@ app.registerView(function (container) {
     WidgetBaseView.prototype.__show = BaseView.prototype.show;
     WidgetBaseView.prototype.show = function () {
         this.__show.call(this);
+
+        var self = this;
+        self.filterChannel.onDateFilterApplySignalReceived(function (filterValue) {
+            self.event.onDateFilterApplied(filterValue);
+        });
     };
 
     WidgetBaseView.prototype._getWidgetChannelInstance = function (widgetName) {

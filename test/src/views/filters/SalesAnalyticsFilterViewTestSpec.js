@@ -39,6 +39,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "getPreviousDate", test: getPreviousDateTest
         }, {
             method: "setPreviousLastDays", test: setPreviousLastDaysTest
+        }, {
+            method: "applyDateFilter", test: applyDateFilterTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -110,6 +112,17 @@ describe("SalesAnalyticsFilterView", function () {
                         });
                     });
                 });
+        }
+
+        function applyDateFilterTest() {
+            it("should call filterChannel.sendDateFilterApplySignal", function () {
+                spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
+                sut.fn.applyDateFilter();
+                expect(sut.filterChannel.sendDateFilterApplySignal).toHaveBeenCalledWith({
+                    dateStart: sut.dateRangeStart,
+                    dateEnd: sut.dateRangeEnd
+                });
+            });
         }
     });
 });

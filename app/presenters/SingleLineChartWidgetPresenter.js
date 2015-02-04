@@ -60,6 +60,11 @@ app.registerPresenter(function (container) {
             self.widgetEventChannel.sendReloadSignal();
         };
 
+        view.event.onDateFilterApplied = function (filterValue) {
+            model.addDateFilter(filterValue.dateStart, filterValue.dateEnd);
+            self.widgetEventChannel.sendReloadSignal();
+        };
+
         view.event.onReloadWidgetDone = function (errMsg) {
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };

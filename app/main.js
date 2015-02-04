@@ -93,6 +93,7 @@ function main() {
             'controllers/WidgetWrapperController', 'views/WidgetWrapperView',
 
             'services/bus/WidgetEventBus',
+            'services/bus/SalesAnalyticsFilterChannel',
 
             'controllers/filters/SalesAnalyticsFilterController', 'views/filters/SalesAnalyticsFilterView',
 

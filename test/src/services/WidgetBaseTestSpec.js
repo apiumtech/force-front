@@ -70,6 +70,25 @@ describe("widgetBase", function () {
         });
     });
 
+    describe("addDateFilter", function () {
+        it("should call 'addQuery' with correct argument", function () {
+            spyOn(sut, 'addQuery');
+            var start = new Date();
+            var end = new Date();
+            var fakeToIsoStart = 1;
+            var fakeToIsoEnd = 2;
+            spyOn(start, 'toISOString').and.returnValue(fakeToIsoStart);
+            spyOn(end, 'toISOString').and.returnValue(fakeToIsoEnd);
+
+            sut.addDateFilter(start, end);
+            expect(start.toISOString).toHaveBeenCalled();
+            expect(end.toISOString).toHaveBeenCalled();
+            expect(sut.addQuery.calls.count()).toEqual(2);
+            expect(sut.addQuery).toHaveBeenCalledWith("dateStart", fakeToIsoStart);
+            expect(sut.addQuery).toHaveBeenCalledWith("dateEnd", fakeToIsoEnd);
+        });
+    });
+
     describe("setFetchEndPoint", function () {
         it("should throw error if input is null", function () {
             expect(function () {

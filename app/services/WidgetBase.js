@@ -43,8 +43,12 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.addQuery = function (key, value) {
-        if (!this.queries) this.queries = {};
         this.queries[key] = value;
+    };
+
+    WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
+        this.addQuery("dateStart", dateStart.toISOString());
+        this.addQuery("dateEnd", dateEnd.toISOString());
     };
 
     WidgetBase.prototype.reloadWidget = function () {
