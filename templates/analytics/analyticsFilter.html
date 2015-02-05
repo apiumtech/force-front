@@ -38,6 +38,8 @@
                             <li class="m-t-10 m-b-10">
                                 <form>
                                     <input type="text" class="form-control ic-user"
+                                           ng-model="searchingUser"
+                                           ng-change="fn.getFilteredUsersList()"
                                            ng-click="$event.stopPropagation()"
                                            ng-i18next="[placeholder]Filters.SearchOwner">
                                 </form>
@@ -55,109 +57,30 @@
                                 </div>
                                 <!-- Start Firts Environmet -->
                                 <ul class="m-t-10">
-                                    <li>
+                                    <li ng-repeat="group in userFiltered">
                                         <div class="clearfix">
                                             <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
 
                                             <div class="pull-left m-t-5">
-                                                <strong>{{'Filters.ForceES' | i18next}}</strong></div>
+                                                <strong>{{group.group}}</strong>
+                                            </div>
                                         </div>
 
                                         <ul class="clearfix">
-                                            <li class="clearfix">
+                                            <li class="clearfix" ng-repeat="user in group.data">
+                                                <input type="checkbox"
+                                                       value="{{user.id}}"
+                                                       class="pull-left m-t-10 m-r-10 ">
 
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Carlos Gomez</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Carlos Gomez</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-5"> Carlos Gomez</div>
+                                                <div class="pull-left m-t-5">
+                                                    {{user.name}}
+                                                </div>
                                             </li>
                                         </ul>
                                         <!-- END Environmet -->
                                     </li>
                                 </ul>
                                 <!-- END Environmet -->
-                                <!-- Start Second Environmet -->
-                                <ul class="m-t-10">
-                                    <li>
-                                        <div class="clearfix">
-                                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                            <div class="pull-left m-t-10">
-                                                <strong>{{'Filters.ForceUK' | i18next}}</strong></div>
-                                        </div>
-
-                                        <ul class="clearfix">
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Carlos Gomez</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Carlos Gomez</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Pedro Lorem Ipsum</div>
-                                            </li>
-                                            <li class="clearfix">
-
-                                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-
-                                                <div class="pull-left m-t-10"> Carlos Gomez</div>
-                                            </li>
-                                        </ul>
-                                        <!-- END Environmet -->
-                                    </li>
-                                </ul>
-                                <!-- END Environmet -->
-
 
                             </li>
                             <!-- END users tree -->

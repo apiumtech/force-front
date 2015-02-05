@@ -43,6 +43,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "applyDateFilter", test: applyDateFilterTest
         }, {
             method: "initializeFilters", test: initializeFiltersTest
+        }, {
+            method: "getFilteredUsersList", test: getFilteredUsersListTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -133,5 +135,123 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.event.onFilterInitializing).toHaveBeenCalled();
             });
         }
+
+        function getFilteredUsersListTest() {
+            var fullList = [{
+                group: "abc",
+                data: []
+            }, {
+                group: "def",
+                data: []
+            }], filteredList = [{
+                group: "abc",
+                data: []
+            }];
+            describe("not filtering", function () {
+                it("should return the full list", function () {
+                    sut.usersList = fullList;
+                    sut.searchingUser = "";
+                    sut.fn.getFilteredUsersList();
+                    expect(sut.userFiltered).toEqual(fullList);
+                });
+            });
+            describe("is filtering", function () {
+                it("should call filtered method", function () {
+                    sut.usersList = fullList;
+                    sut.searchingUser = "abc";
+                    spyOn(sut, '_getFilteredUsers').and.returnValue(filteredList);
+                    sut.fn.getFilteredUsersList();
+                    expect(sut._getFilteredUsers).toHaveBeenCalledWith(fullList, "abc");
+                    expect(sut.userFiltered).toEqual(filteredList);
+                });
+            });
+        }
+    });
+
+    describe("onUsersLoadedSuccess()", function () {
+        var sut;
+
+        beforeEach(function () {
+            sut = new SalesAnalyticsFilterView();
+            sut.fn.getFilteredUsersList = jasmine.createSpy();
+        });
+
+        var data = [{
+            group: "fake group", data: []
+        }, {
+            group: "fake group 2", data: []
+        }];
+
+        it("should assign data", function () {
+            sut.onUsersLoadedSuccess(data);
+            expect(sut.usersList).toEqual(data);
+        });
+
+        it("should call filter user", function () {
+            sut.onUsersLoadedSuccess(data);
+            expect(sut.fn.getFilteredUsersList).toHaveBeenCalled();
+        });
+    });
+
+    describe("_getFilteredUsers()", function () {
+        var sut;
+
+        beforeEach(function () {
+            sut = new SalesAnalyticsFilterView();
+        });
+
+        it("should return correct filtered list", function () {
+            var input = [{
+                group: "group1",
+                data: [{
+                    name: "test string 1",
+                    id: 1
+                }, {
+                    name: "test not-matched",
+                    id: 2
+                }, {
+                    name: "test string matched",
+                    id: 3
+                }, {
+                    name: "test no matched 2",
+                    id: 4
+                }]
+            }, {
+                group: "group2",
+                data: [{
+                    name: "test notmatch 1",
+                    id: 5
+                }, {
+                    name: "test not-matched",
+                    id: 6
+                }, {
+                    name: "test no matched",
+                    id: 7
+                }, {
+                    name: "test string matched 2",
+                    id: 8
+                }]
+            }];
+            var searchString = "string";
+            var expected = [{
+                group: "group1",
+                data: [{
+                    name: "test string 1",
+                    id: 1
+                }, {
+                    name: "test string matched",
+                    id: 3
+                }]
+            }, {
+                group: "group2",
+                data: [{
+                    name: "test string matched 2",
+                    id: 8
+                }]
+            }];
+
+            var actual = sut._getFilteredUsers(input, searchString);
+            expect(actual).toEqual(expected);
+        });
     });
 });

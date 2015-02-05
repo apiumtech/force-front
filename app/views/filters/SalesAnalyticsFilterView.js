@@ -10,6 +10,8 @@ app.registerView(function (container) {
     var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterPresentationModel');
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
 
+    var _ = container.getFunction("underscore");
+
     function SalesAnalyticsFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
@@ -64,6 +66,30 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.dateRangeEnd = value;
             }
+        },
+        usersList: {
+            get: function () {
+                return this.$scope.usersList || (this.$scope.usersList = []);
+            },
+            set: function (value) {
+                this.$scope.usersList = value;
+            }
+        },
+        userFiltered: {
+            get: function () {
+                return this.$scope.userFiltered || (this.$scope.userFiltered = []);
+            },
+            set: function (value) {
+                this.$scope.userFiltered = value;
+            }
+        },
+        searchingUser: {
+            get: function () {
+                return this.$scope.searchingUser || (this.$scope.searchingUser = "");
+            },
+            set: function (value) {
+                this.$scope.searchingUser = value;
+            }
         }
     });
 
@@ -101,6 +127,13 @@ app.registerView(function (container) {
             return moment(self.dateRangeStart).format("DD/MM/YYYY") + '-' + moment(self.dateRangeEnd).format("DD/MM/YYYY");
         };
 
+        self.fn.getFilteredUsersList = function () {
+            if (!self.searchingUser || self.searchingUser === "")
+                self.userFiltered = self.usersList;
+            else
+                self.userFiltered = self._getFilteredUsers(self.usersList, self.searchingUser);
+        };
+
         self.fn.initializeFilters = function () {
             self.event.onFilterInitializing();
         };
@@ -113,8 +146,36 @@ app.registerView(function (container) {
         };
     };
 
+    SalesAnalyticsFilterView.prototype._getFilteredUsers = function (inputList, queryString) {
+        var result = [];
+
+        inputList.forEach(function (dataRecord) {
+            var group = _.find(result, function (item) {
+                return item.group === dataRecord.group;
+            });
+
+            if (group === undefined) {
+                group = {
+                    group: dataRecord.group,
+                    data: []
+                };
+                result.push(group);
+            }
+
+            dataRecord.data.forEach(function (record) {
+                if (record.name.indexOf(queryString) != -1)
+                    group.data.push(record);
+            });
+        });
+
+        console.log(result);
+        return result;
+    };
+
     SalesAnalyticsFilterView.prototype.onUsersLoadedSuccess = function (data) {
-        console.log(data);
+        var self = this;
+        self.usersList = data;
+        self.fn.getFilteredUsersList();
     };
 
     SalesAnalyticsFilterView.prototype.onUsersLoadedFail = function (error) {
