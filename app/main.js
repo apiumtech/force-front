@@ -95,7 +95,11 @@ function main() {
             'services/bus/WidgetEventBus',
             'services/bus/SalesAnalyticsFilterChannel',
 
-            'controllers/filters/SalesAnalyticsFilterController', 'views/filters/SalesAnalyticsFilterView', 'models/filters/SalesAnalyticsFilterModel',
+            'controllers/filters/SalesAnalyticsFilterController',
+            'views/filters/SalesAnalyticsFilterView',
+            'models/filters/SalesAnalyticsFilterModel',
+            'models/filters/SalesAnalyticsFilterPresentationModel',
+            'presenters/filters/SalesAnalyticsFilterPresenter',
 
             // Graph widget
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',

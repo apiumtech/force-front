@@ -1,4 +1,6 @@
-<div ng-controller="SalesAnalyticsFilterController" class="row filters-div sales-filters-div">
+<div ng-controller="SalesAnalyticsFilterController"
+     ng-init="fn.initializeFilters()"
+     class="row filters-div sales-filters-div">
     <!-- begin col-12 -->
     <div class="col-md-12">
         <div class="line-border clearfix"></div>
@@ -44,7 +46,8 @@
                             <!-- Starts users tree -->
                             <li class="users-tree">
                                 <div class="clearfix">
-                                    <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+                                    <input type="checkbox" class="pull-left m-t-10 m-r-10"
+                                           ng-click="$event.stopPropagation()">
 
                                     <div class="m-t-5 pull-left">
                                         <strong>{{'Filters.AllUserSelectsAllEnvironments' | i18next}}</strong>

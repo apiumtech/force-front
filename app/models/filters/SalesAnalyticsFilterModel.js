@@ -23,11 +23,12 @@ app.registerModel(function (container) {
             accept: 'application/json'
         };
 
-        var deferred = SalesAnalyticsFilterModel.defer();
+        var deferred = self.defer();
 
         self.ajaxService.ajax(params)
             .then(function (data) {
-                deferred.resolve(data.data);
+                var formattedData = self.decorateData(data);
+                deferred.resolve(formattedData);
             },
             function (error) {
                 deferred.reject(error);
@@ -40,7 +41,11 @@ app.registerModel(function (container) {
         return Q.fcall(this._getUsers.bind(this));
     };
 
-    SalesAnalyticsFilterModel.defer = function () {
+    SalesAnalyticsFilterModel.prototype.decorateData = function (data) {
+        return data.data;
+    };
+
+    SalesAnalyticsFilterModel.prototype.defer = function () {
         var deferred = Q.defer();
         return deferred;
     };

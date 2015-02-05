@@ -41,6 +41,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "setPreviousLastDays", test: setPreviousLastDaysTest
         }, {
             method: "applyDateFilter", test: applyDateFilterTest
+        }, {
+            method: "initializeFilters", test: initializeFiltersTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -121,6 +123,14 @@ describe("SalesAnalyticsFilterView", function () {
                     dateStart: sut.dateRangeStart,
                     dateEnd: sut.dateRangeEnd
                 });
+            });
+        }
+
+        function initializeFiltersTest() {
+            it("should fire onFilterInitializing event", function () {
+                sut.event.onFilterInitializing = jasmine.createSpy();
+                sut.fn.initializeFilters();
+                expect(sut.event.onFilterInitializing).toHaveBeenCalled();
             });
         }
     });

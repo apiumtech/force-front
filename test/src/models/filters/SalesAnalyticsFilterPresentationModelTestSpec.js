@@ -1,8 +1,8 @@
 /**
  * Created by Justin on 2/5/2015.
  */
-describe("SalesAnalyticsFilterModel", function () {
-    var SalesAnalyticsFilterModel = app.getModel("models/filters/SalesAnalyticsFilterModel"),
+describe("SalesAnalyticsFilterPresentationModel", function () {
+    var SalesAnalyticsFilterPresentationModel = app.getModel("models/filters/SalesAnalyticsFilterPresentationModel"),
         Q = app.getFunction('q'),
         sut;
 
@@ -30,10 +30,11 @@ describe("SalesAnalyticsFilterModel", function () {
     };
 
     beforeEach(function () {
-        sut = SalesAnalyticsFilterModel.newInstance(ajaxService, storageService).getOrElse(throwInstantiateException(SalesAnalyticsFilterModel));
+        sut = SalesAnalyticsFilterPresentationModel.newInstance(ajaxService, storageService).getOrElse(throwInstantiateException(SalesAnalyticsFilterPresentationModel));
         spyOn(sut, 'defer').and.returnValue(deferredObject);
     });
 
+    //region inheritance tests
     describe("_getUsers", function () {
         beforeEach(function () {
         });
@@ -146,4 +147,70 @@ describe("SalesAnalyticsFilterModel", function () {
             expect(sut._getUsers).toHaveBeenCalled();
         });
     });
+    //endregion inheritance tests
+
+    //region decorateData test
+    describe("decorateData()", function () {
+        it("should return correct grouped values", function () {
+            var serverResponse = {
+                "success": true,
+                "data": [
+                    {
+                        "id": 1,
+                        "name": "name1",
+                        "environment": "es"
+                    },
+                    {
+                        "id": 2,
+                        "name": "name2",
+                        "environment": "uk"
+                    },
+                    {
+                        "id": 3,
+                        "name": "name3",
+                        "environment": "uk"
+                    },
+                    {
+                        "id": 4,
+                        "name": "name4",
+                        "environment": "es"
+                    }
+                ]
+            };
+
+            var expected = [{
+                group: "es",
+                data: [
+                    {
+                        "id": 1,
+                        "name": "name1",
+                        "environment": "es"
+                    },
+                    {
+                        "id": 4,
+                        "name": "name4",
+                        "environment": "es"
+                    }
+                ]
+            }, {
+                group: "uk",
+                data: [
+                    {
+                        "id": 2,
+                        "name": "name2",
+                        "environment": "uk"
+                    },
+                    {
+                        "id": 3,
+                        "name": "name3",
+                        "environment": "uk"
+                    }
+                ]
+            }];
+
+            var actual = sut.decorateData(serverResponse);
+            expect(actual).toEqual(expected);
+        });
+    });
+    //endregion decorateData test
 });

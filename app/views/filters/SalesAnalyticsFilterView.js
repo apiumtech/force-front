@@ -5,14 +5,18 @@
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
+    //var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
+
+    var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterPresentationModel');
+    var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
 
     function SalesAnalyticsFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
         var self = this;
-        this.$scope.datePickerFormat = 'dd/MM/yyyy';
-        this.$scope.dateOptionRange = [7, 15, 30, 90];
-        this.datePickerSettings = {
+        self.$scope.datePickerFormat = 'dd/MM/yyyy';
+        self.$scope.dateOptionRange = [7, 15, 30, 90];
+        self.datePickerSettings = {
             showWeeks: false,
             showButtonBar: false
         };
@@ -97,6 +101,10 @@ app.registerView(function (container) {
             return moment(self.dateRangeStart).format("DD/MM/YYYY") + '-' + moment(self.dateRangeEnd).format("DD/MM/YYYY");
         };
 
+        self.fn.initializeFilters = function () {
+            self.event.onFilterInitializing();
+        };
+
         self.fn.applyDateFilter = function () {
             self.filterChannel.sendDateFilterApplySignal({
                 dateStart: self.dateRangeStart,
@@ -105,10 +113,19 @@ app.registerView(function (container) {
         };
     };
 
+    SalesAnalyticsFilterView.prototype.onUsersLoadedSuccess = function (data) {
+        console.log(data);
+    };
+
+    SalesAnalyticsFilterView.prototype.onUsersLoadedFail = function (error) {
+        this.showError(error);
+    };
 
     SalesAnalyticsFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+        var model = $model || SalesAnalyticsFilterModel.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterModel));
+        var presenter = $presenter || SalesAnalyticsFilterPresenter.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterPresenter));
 
-        var view = new SalesAnalyticsFilterView($scope, $model, $presenter);
+        var view = new SalesAnalyticsFilterView($scope, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
