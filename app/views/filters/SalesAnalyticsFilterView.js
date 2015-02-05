@@ -17,10 +17,6 @@ app.registerView(function (container) {
             showButtonBar: false
         };
 
-        this.$scope.dateRangeContent = function () {
-            return self.dateRangeStart + '-' + self.dateRangeEnd;
-        };
-
         SalesAnalyticsFilterView.configureEvents(this);
     }
 
