@@ -200,58 +200,59 @@ describe("SalesAnalyticsFilterView", function () {
             sut = new SalesAnalyticsFilterView();
         });
 
-        it("should return correct filtered list", function () {
-            var input = [{
-                group: "group1",
-                data: [{
-                    name: "test string 1",
-                    id: 1
+        ["STRING", "String", "sTRing", "sTring", "string"].forEach(function(searchString) {
+            it("should return correct filtered list", function () {
+                var input = [{
+                    group: "group1",
+                    data: [{
+                        name: "test STRING 1",
+                        id: 1
+                    }, {
+                        name: "test not-matched",
+                        id: 2
+                    }, {
+                        name: "test string matched",
+                        id: 3
+                    }, {
+                        name: "test no matched 2",
+                        id: 4
+                    }]
                 }, {
-                    name: "test not-matched",
-                    id: 2
+                    group: "group2",
+                    data: [{
+                        name: "test notmatch 1",
+                        id: 5
+                    }, {
+                        name: "test not-matched",
+                        id: 6
+                    }, {
+                        name: "test no matched",
+                        id: 7
+                    }, {
+                        name: "test sTring matched 2",
+                        id: 8
+                    }]
+                }];
+                var expected = [{
+                    group: "group1",
+                    data: [{
+                        name: "test STRING 1",
+                        id: 1
+                    }, {
+                        name: "test string matched",
+                        id: 3
+                    }]
                 }, {
-                    name: "test string matched",
-                    id: 3
-                }, {
-                    name: "test no matched 2",
-                    id: 4
-                }]
-            }, {
-                group: "group2",
-                data: [{
-                    name: "test notmatch 1",
-                    id: 5
-                }, {
-                    name: "test not-matched",
-                    id: 6
-                }, {
-                    name: "test no matched",
-                    id: 7
-                }, {
-                    name: "test string matched 2",
-                    id: 8
-                }]
-            }];
-            var searchString = "string";
-            var expected = [{
-                group: "group1",
-                data: [{
-                    name: "test string 1",
-                    id: 1
-                }, {
-                    name: "test string matched",
-                    id: 3
-                }]
-            }, {
-                group: "group2",
-                data: [{
-                    name: "test string matched 2",
-                    id: 8
-                }]
-            }];
+                    group: "group2",
+                    data: [{
+                        name: "test sTring matched 2",
+                        id: 8
+                    }]
+                }];
 
-            var actual = sut._getFilteredUsers(input, searchString);
-            expect(actual).toEqual(expected);
+                var actual = sut._getFilteredUsers(input, searchString);
+                expect(actual).toEqual(expected);
+            });
         });
     });
 });

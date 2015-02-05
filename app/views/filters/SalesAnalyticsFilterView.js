@@ -163,7 +163,7 @@ app.registerView(function (container) {
             }
 
             dataRecord.data.forEach(function (record) {
-                if (record.name.indexOf(queryString) != -1)
+                if (record.name.toLowerCase().indexOf(queryString.toLowerCase()) != -1)
                     group.data.push(record);
             });
         });
