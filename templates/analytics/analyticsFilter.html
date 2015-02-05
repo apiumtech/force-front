@@ -59,7 +59,9 @@
                                 <ul class="m-t-10">
                                     <li ng-repeat="group in userFiltered">
                                         <div class="clearfix">
-                                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+                                            <input type="checkbox"
+                                                   ng-click="$event.stopPropagation()"
+                                                   class="pull-left m-t-10 m-r-10 ">
 
                                             <div class="pull-left m-t-5">
                                                 <strong>{{group.group}}</strong>
@@ -70,6 +72,7 @@
                                             <li class="clearfix" ng-repeat="user in group.data">
                                                 <input type="checkbox"
                                                        value="{{user.id}}"
+                                                       ng-click="$event.stopPropagation()"
                                                        class="pull-left m-t-10 m-r-10 ">
 
                                                 <div class="pull-left m-t-5">
