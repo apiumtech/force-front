@@ -16,6 +16,7 @@ app.get('/img/*', function (req, res) {
 });
 
 var WidgetService = require(__dirname + "/widgetService");
+var UserService = require(__dirname + "/userService");
 
 app.get('/api/translations/:language', function (request, response) {
     var language = request.params.language;
@@ -83,9 +84,14 @@ app.get('/api/widget/:id', function (request, response) {
     }, delay);
 });
 
-function getDomain() {
-    return (port && port !== 80) ? "localhost:" + port : "localhost";
-}
-
+app.get('/api/users', function(request, response){
+    setTimeout(function () {
+        var users = UserService.getUsers();
+        response.json({
+            success: true,
+            data: users
+        });
+    }, delay);
+});
 //app.listen(port);
 module.exports = app;
