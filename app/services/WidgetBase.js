@@ -47,8 +47,8 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        this.addQuery("dateStart", dateStart.toISOString());
-        this.addQuery("dateEnd", dateEnd.toISOString());
+        this.addQuery("from-date", dateStart.toISOString());
+        this.addQuery("to-date", dateEnd.toISOString());
     };
 
     WidgetBase.prototype.reloadWidget = function () {

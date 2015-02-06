@@ -84,8 +84,8 @@ describe("widgetBase", function () {
             expect(start.toISOString).toHaveBeenCalled();
             expect(end.toISOString).toHaveBeenCalled();
             expect(sut.addQuery.calls.count()).toEqual(2);
-            expect(sut.addQuery).toHaveBeenCalledWith("dateStart", fakeToIsoStart);
-            expect(sut.addQuery).toHaveBeenCalledWith("dateEnd", fakeToIsoEnd);
+            expect(sut.addQuery).toHaveBeenCalledWith("from-date", fakeToIsoStart);
+            expect(sut.addQuery).toHaveBeenCalledWith("to-date", fakeToIsoEnd);
         });
     });
 

@@ -127,25 +127,15 @@
                                                 <p>{{'Filters.Customized' | i18next}}</p></div>
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
-                                                    <input type="text" class="form-control " name="start"
-                                                           ng-click="fn.openDatePickerStart($event)"
-                                                           datepicker-popup="{{datePickerFormat}}"
+                                                    <input type="text" class="form-control" name="start"
                                                            ng-model="dateRangeStart"
-                                                           datepicker-options="datePickerSettings"
-                                                           is-open="datePickerStartOpened"
-                                                           show-weeks="false"
-                                                           show-button-bar="false"
-                                                           placeholder="01/05/2014"><!-- por defecto ultimo mes-->
+                                                           ng-attr-value="{{fn.getFormattedDate(dateRangeStart)}}"
+                                                           ><!-- por defecto ultimo mes-->
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
-                                                    <input type="text" class="form-control " name="end"
-                                                           datepicker-popup="{{datePickerFormat}}"
+                                                    <input type="text" class="form-control" name="end"
                                                            ng-model="dateRangeEnd"
-                                                           is-open="datePickerEndOpened"
-                                                           datepicker-options="datePickerSettings"
-                                                           show-weeks="false"
-                                                           show-button-bar="false"
-                                                           ng-click="fn.openDatePickerEnd($event)"
-                                                           placeholder="01/06/2014">
+                                                           ng-attr-value="{{fn.getFormattedDate(dateRangeEnd)}}"
+                                                           >
                                                 </div>
                                             </div>
                                         </div>

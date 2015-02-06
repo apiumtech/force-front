@@ -160,6 +160,10 @@ app.registerView(function (container) {
             return moment(self.dateRangeStart).format("DD/MM/YYYY") + '-' + moment(self.dateRangeEnd).format("DD/MM/YYYY");
         };
 
+        self.fn.getFormattedDate = function (date) {
+            return moment(self.date).format("DD/MM/YYYY");
+        };
+
         self.fn.getFilteredUsersList = function () {
             if (!self.searchingUser || self.searchingUser === "")
                 self.userFiltered = self.usersList;
@@ -170,11 +174,13 @@ app.registerView(function (container) {
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
             self.currentUserFilterGroup = 'team';
+            self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
             self.currentUserFilterGroup = 'hierarchy';
+            self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.initializeFilters = function () {

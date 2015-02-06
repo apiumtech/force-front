@@ -21,11 +21,11 @@ describe("SalesAnalyticsFilterPresenter", function () {
                 sut.show(___view, ___model);
             });
 
-            [
-                {
-                    viewEvent: "onFilterInitializing", test: onFilterInitializingTest
-                }
-            ].forEach(function (testCase) {
+            [{
+                viewEvent: "onFilterInitializing", test: onFilterInitializingTest
+            }, {
+                viewEvent: "onFilterByGroup", test: onFilterByGroupTest
+            }].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
                         test = testCase.test;
 
@@ -42,6 +42,25 @@ describe("SalesAnalyticsFilterPresenter", function () {
                     onSuccess = "onUsersLoadedSuccess",
                     onError = "onUsersLoadedFail";
                 exerciseAjaxCallMapping(modelMethod, onSuccess, onError, viewEvent);
+            }
+
+            function onFilterByGroupTest() {
+                var groupName = "team";
+                function exerciseTest() {
+                    ___model.addQuery = jasmine.createSpy();
+                    ___view.event.onFilterInitializing = jasmine.createSpy();
+                    ___view.event.onFilterByGroup(groupName);
+                }
+
+                it("should call model's addQuery", function () {
+                    exerciseTest();
+                    expect(___model.addQuery).toHaveBeenCalledWith('group', groupName);
+                });
+
+                it("should fire event onFilterInitializing", function () {
+                    exerciseTest();
+                    expect(___view.event.onFilterInitializing).toHaveBeenCalled();
+                });
             }
         });
     });

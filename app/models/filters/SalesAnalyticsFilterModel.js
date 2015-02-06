@@ -9,15 +9,36 @@ app.registerModel(function (container) {
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
+        this.queries = {};
     }
 
     SalesAnalyticsFilterModel.prototype = Object.create(Object.prototype, {});
 
+    SalesAnalyticsFilterModel.prototype.buildQueryString = function () {
+        var queries = "";
+
+        for (var prop in this.queries) {
+            if (queries !== "") queries += "&";
+            queries += prop + "=" + this.queries[prop];
+        }
+
+        return queries;
+    };
+
+    SalesAnalyticsFilterModel.prototype.addQuery = function (key, value) {
+        this.queries[key] = value;
+    };
+
     SalesAnalyticsFilterModel.prototype._getUsers = function () {
         var self = this;
 
+        var url = '/api/users';
+
+        var queriesString = self.buildQueryString();
+        if (queriesString) url += "?" + queriesString;
+
         var params = {
-            url: '/api/users',
+            url: url,
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
