@@ -53,7 +53,7 @@ app.registerView(function (container) {
         },
         dateRangeStart: {
             get: function () {
-                return this.$scope.dateRangeStart || (this.$scope.dateRangeStart = new Date());
+                return this.$scope.dateRangeStart || (this.$scope.dateRangeStart = this.fn.getPreviousDate(30, this.dateRangeEnd));
             },
             set: function (value) {
                 this.$scope.dateRangeStart = value;
@@ -114,9 +114,9 @@ app.registerView(function (container) {
         };
 
         self.fn.setPreviousLastDays = function (days, event) {
-            event.stopPropagation();
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(days, self.dateRangeEnd);
+            self.fn.applyDateFilter();
         };
 
         self.fn.getPreviousDate = function (days, from) {
@@ -143,6 +143,11 @@ app.registerView(function (container) {
                 dateStart: self.dateRangeStart,
                 dateEnd: self.dateRangeEnd
             });
+        };
+
+        self.fn.cancelFilter = function () {
+            self.dateRangeStart = null;
+            self.dateRangeEnd = null;
         };
     };
 

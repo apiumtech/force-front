@@ -45,6 +45,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "initializeFilters", test: initializeFiltersTest
         }, {
             method: "getFilteredUsersList", test: getFilteredUsersListTest
+        }, {
+            method: "cancelFilter", test: cancelFilterTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -76,16 +78,18 @@ describe("SalesAnalyticsFilterView", function () {
             };
             var previousDays = 6;
 
-            it("should call stopPropagation on event", function () {
-                spyOn(sut.fn, 'getPreviousDate');
-                sut.fn.setPreviousLastDays(previousDays, event);
-                expect(event.stopPropagation).toHaveBeenCalled();
-            });
-
             it("should call getPreviousDate()", function () {
                 spyOn(sut.fn, 'getPreviousDate');
+                spyOn(sut.fn, 'applyDateFilter');
                 sut.fn.setPreviousLastDays(previousDays, event);
                 expect(sut.fn.getPreviousDate).toHaveBeenCalledWith(previousDays, sut.dateRangeEnd);
+            });
+
+            it("should call applyDateFilter()", function () {
+                spyOn(sut.fn, 'getPreviousDate');
+                spyOn(sut.fn, 'applyDateFilter');
+                sut.fn.setPreviousLastDays(previousDays, event);
+                expect(sut.fn.applyDateFilter).toHaveBeenCalled();
             });
         }
 
@@ -166,6 +170,16 @@ describe("SalesAnalyticsFilterView", function () {
                 });
             });
         }
+
+        function cancelFilterTest() {
+            it("should reset dates to null", function () {
+                var expectDateEnd = new Date();
+                sut.fn.cancelFilter();
+                expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
+                expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
+                expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+            });
+        }
     });
 
     describe("onUsersLoadedSuccess()", function () {
@@ -200,7 +214,7 @@ describe("SalesAnalyticsFilterView", function () {
             sut = new SalesAnalyticsFilterView();
         });
 
-        ["STRING", "String", "sTRing", "sTring", "string"].forEach(function(searchString) {
+        ["STRING", "String", "sTRing", "sTring", "string"].forEach(function (searchString) {
             it("should return correct filtered list", function () {
                 var input = [{
                     group: "group1",
