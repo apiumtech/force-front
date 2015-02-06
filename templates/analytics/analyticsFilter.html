@@ -8,19 +8,30 @@
             <div class="col-md-9 ">
                 <h6></h6>
                 <ul class="nav navbar-nav row row m-t-10">
-                    <li class="dropdown">
-                        <a id="drop1" href="#" class="dropdown-toggle m-r-30" data-toggle="dropdown">
+                    <li class="dropdown" dropdown is-ope="userFilterOpened">
+                        <a id="drop1"
+                           href="javascript:"
+                           class="dropdown-toggle m-r-30"
+                           dropdown-toggle>
                             {{'Filters.AllUsers' | i18next}}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu media-list animated fadeInDown">
+                        <ul class="dropdown-menu media-list animated fadeInDown"
+                            ng-click="$event.stopPropagation()">
                             <li class="media">
                                 <div class="btn-group pull-right">
 
-                                    <button class="btn btn-white btn-sm active">{{'Filters.Team' | i18next}}
+                                    <button class="btn btn-white btn-sm"
+                                            ng-class="{'active': currentUserFilterGroup=='team'}"
+                                            ng-click="fn.searchUsersByTeam($event)">
+                                        {{'Filters.Team' | i18next}}
                                     </button>
 
-                                    <button class="btn btn-white btn-sm">{{'Filters.Hierarchy' | i18next}}
+                                    <button class="btn btn-white btn-sm"
+                                            ng-class="{'active': currentUserFilterGroup=='hierarchy'}"
+
+                                            ng-click="fn.searchUsersByHierarchy($event)">
+                                        {{'Filters.Hierarchy' | i18next}}
                                     </button>
                                 </div>
                                 <span class="pull-right m-t-5">{{'commonText.Show' | i18next}}</span></li>
@@ -90,7 +101,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown ">
+                    <li>
                         <span class="pull-left date-range m-r-10">
                             {{'Filters.DateRange' | i18next}}
                         </span>
@@ -100,7 +111,11 @@
                             <input type="text" class="form-control"
                                    ng-attr-placeholder="{{fn.getDatePlaceholder()}}">
 
-                            <div class="input-group-btn">
+                            <div class="input-group-btn"
+                                 dropdown
+                                 is-open="dateRangeFilterOpened"
+                                 on-toggle="fn.dateFilterToggled(open)"
+                                 dropdown-toggle>
                                 <ul class="dropdown-menu media-list pull-right animated fadeInDown"
                                     ng-click="fn.closeDateTimePickers($event)"
                                     style="width:300px; max-width:300px;">
@@ -137,7 +152,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li class="m-t-10 m-b-5 text-link" ng-repeat="range in dateOptionRange">
-                                        <a ng-click="fn.setPreviousLastDays(range, $event)">
+                                        <a ng-click="fn.loadPreviousLastDaysFilter(range, $event)">
                                             {{'Filters.LastxxDays' | i18next:{xx: range} }}
                                         </a>
                                     </li>

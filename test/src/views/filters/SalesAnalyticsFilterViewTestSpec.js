@@ -38,7 +38,7 @@ describe("SalesAnalyticsFilterView", function () {
         }, {
             method: "getPreviousDate", test: getPreviousDateTest
         }, {
-            method: "setPreviousLastDays", test: setPreviousLastDaysTest
+            method: "loadPreviousLastDaysFilter", test: loadPreviousLastDaysFilterTest
         }, {
             method: "applyDateFilter", test: applyDateFilterTest
         }, {
@@ -47,6 +47,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "getFilteredUsersList", test: getFilteredUsersListTest
         }, {
             method: "cancelFilter", test: cancelFilterTest
+        }, {
+            method: "dateFilterToggled", test: dateFilterToggledTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -72,24 +74,32 @@ describe("SalesAnalyticsFilterView", function () {
             });
         }
 
-        function setPreviousLastDaysTest() {
+        function loadPreviousLastDaysFilterTest() {
             var event = {
                 stopPropagation: jasmine.createSpy()
             };
             var previousDays = 6;
 
-            it("should call getPreviousDate()", function () {
+            function performTest() {
                 spyOn(sut.fn, 'getPreviousDate');
                 spyOn(sut.fn, 'applyDateFilter');
-                sut.fn.setPreviousLastDays(previousDays, event);
+                sut.fn.loadPreviousLastDaysFilter(previousDays, event);
+            }
+
+            it("should call getPreviousDate()", function () {
+                performTest();
                 expect(sut.fn.getPreviousDate).toHaveBeenCalledWith(previousDays, sut.dateRangeEnd);
             });
 
             it("should call applyDateFilter()", function () {
-                spyOn(sut.fn, 'getPreviousDate');
-                spyOn(sut.fn, 'applyDateFilter');
-                sut.fn.setPreviousLastDays(previousDays, event);
+                performTest();
                 expect(sut.fn.applyDateFilter).toHaveBeenCalled();
+            });
+
+            it("should close popup", function () {
+                sut.dateRangeFilterOpened = true;
+                performTest();
+                expect(sut.dateRangeFilterOpened).toEqual(false);
             });
         }
 
@@ -129,6 +139,12 @@ describe("SalesAnalyticsFilterView", function () {
                     dateStart: sut.dateRangeStart,
                     dateEnd: sut.dateRangeEnd
                 });
+            });
+            it("should close popup", function () {
+                sut.dateRangeFilterOpened = true;
+                spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
+                sut.fn.applyDateFilter();
+                expect(sut.dateRangeFilterOpened).toEqual(false);
             });
         }
 
@@ -175,6 +191,30 @@ describe("SalesAnalyticsFilterView", function () {
             it("should reset dates to null", function () {
                 var expectDateEnd = new Date();
                 sut.fn.cancelFilter();
+                expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
+                expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
+                expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+            });
+            it("should close popup", function () {
+                sut.dateRangeFilterOpened = true;
+                sut.fn.cancelFilter();
+                expect(sut.dateRangeFilterOpened).toEqual(false);
+            });
+        }
+
+        function dateFilterToggledTest() {
+            it("should not reset dates to default range when close", function () {
+                sut.dateRangeEnd = new Date(2015, 0, 20);
+                var expectDateEnd = new Date(2015, 0, 20);
+                sut.fn.dateFilterToggled(false);
+                expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
+                expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
+                expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+            });
+            it("should reset dates to default range when opened", function () {
+                sut.dateRangeEnd = new Date(2015, 0, 20);
+                var expectDateEnd = new Date();
+                sut.fn.dateFilterToggled(true);
                 expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
                 expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
                 expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());

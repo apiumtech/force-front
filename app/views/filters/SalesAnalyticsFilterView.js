@@ -51,6 +51,30 @@ app.registerView(function (container) {
                 this.$scope.datePickerEndOpened = value;
             }
         },
+        dateRangeFilterOpened: {
+            get: function () {
+                return this.$scope.dateRangeFilterOpened || (this.$scope.dateRangeFilterOpened = false);
+            },
+            set: function (value) {
+                this.$scope.dateRangeFilterOpened = value;
+            }
+        },
+        userFilterOpened: {
+            get: function () {
+                return this.$scope.userFilterOpened || (this.$scope.userFilterOpened = false);
+            },
+            set: function (value) {
+                this.$scope.userFilterOpened = value;
+            }
+        },
+        currentUserFilterGroup: {
+            get: function () {
+                return this.$scope.currentUserFilterGroup || (this.$scope.currentUserFilterGroup = 'team');
+            },
+            set: function (value) {
+                this.$scope.currentUserFilterGroup = value;
+            }
+        },
         dateRangeStart: {
             get: function () {
                 return this.$scope.dateRangeStart || (this.$scope.dateRangeStart = this.fn.getPreviousDate(30, this.dateRangeEnd));
@@ -109,14 +133,23 @@ app.registerView(function (container) {
         };
 
         self.fn.closeDateTimePickers = function (event) {
+            event.stopPropagation();
             self.datePickerEndOpened = false;
             self.datePickerStartOpened = false;
         };
 
-        self.fn.setPreviousLastDays = function (days, event) {
+        self.fn.loadPreviousLastDaysFilter = function (days, event) {
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(days, self.dateRangeEnd);
             self.fn.applyDateFilter();
+            self.dateRangeFilterOpened = false;
+        };
+
+        self.fn.dateFilterToggled = function (isOpened) {
+            if (isOpened) {
+                self.dateRangeStart = null;
+                self.dateRangeEnd = null;
+            }
         };
 
         self.fn.getPreviousDate = function (days, from) {
@@ -134,11 +167,22 @@ app.registerView(function (container) {
                 self.userFiltered = self._getFilteredUsers(self.usersList, self.searchingUser);
         };
 
+        self.fn.searchUsersByTeam = function (event) {
+            event.stopPropagation();
+            self.currentUserFilterGroup = 'team';
+        };
+
+        self.fn.searchUsersByHierarchy = function (event) {
+            event.stopPropagation();
+            self.currentUserFilterGroup = 'hierarchy';
+        };
+
         self.fn.initializeFilters = function () {
             self.event.onFilterInitializing();
         };
 
         self.fn.applyDateFilter = function () {
+            self.dateRangeFilterOpened = false;
             self.filterChannel.sendDateFilterApplySignal({
                 dateStart: self.dateRangeStart,
                 dateEnd: self.dateRangeEnd
@@ -148,6 +192,7 @@ app.registerView(function (container) {
         self.fn.cancelFilter = function () {
             self.dateRangeStart = null;
             self.dateRangeEnd = null;
+            self.dateRangeFilterOpened = false;
         };
     };
 

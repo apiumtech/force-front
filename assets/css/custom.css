@@ -63,3 +63,11 @@ ul[datepicker-popup-wrap] {
     z-index: 65535;
     float: none;
 }
+
+.dropdown-menu > li > a {
+    display: initial !important;
+}
+
+.filters-div .dropdown-menu.media-list li.media:hover {
+    background-color: initial !important;
+}
