@@ -5,10 +5,11 @@ describe("SalesAnalyticsFilterController", function () {
     var SalesAnalyticsFilterController = app.getController('controllers/filters/SalesAnalyticsFilterController');
 
     it("should call SalesAnalyticsFilterController.configureView global method", function () {
-        var scope = {someScope: true};
+        var scope = {someScope: true},
+            filter = {filter : true};
 
         SalesAnalyticsFilterController.configureView = jasmine.createSpy();
-        var ctrl = new SalesAnalyticsFilterController(scope);
-        expect(SalesAnalyticsFilterController.configureView).toHaveBeenCalledWith(scope);
+        var ctrl = new SalesAnalyticsFilterController(scope, filter);
+        expect(SalesAnalyticsFilterController.configureView).toHaveBeenCalledWith(scope, filter);
     });
 });

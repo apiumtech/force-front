@@ -21,10 +21,14 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("configureEvents", function () {
-        var sut;
+        var sut, $scope;
 
         beforeEach(function () {
-            sut = new SalesAnalyticsFilterView();
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
         });
 
         [{
@@ -104,6 +108,17 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function getPreviousDateTest() {
+
+            it("should return null if from is not date", function () {
+                var actual = sut.fn.getPreviousDate(3, []);
+                expect(actual).toBeNull();
+            });
+
+            it("should return null if from is null", function () {
+                var actual = sut.fn.getPreviousDate(3, null);
+                expect(actual).toBeNull();
+            });
+
             [{
                 msg: "2 days before Feb 3 2015 should be Feb 1 2015",
                 today: new Date(2015, 1, 3), daysAgo: 2, dayExpected: 1, monthExpected: 1, yearExpected: 2015
@@ -223,10 +238,14 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("onUsersLoadedSuccess()", function () {
-        var sut;
+        var sut, $scope;
 
         beforeEach(function () {
-            sut = new SalesAnalyticsFilterView();
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
             sut.fn.getFilteredUsersList = jasmine.createSpy();
         });
 
@@ -248,10 +267,14 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("_getFilteredUsers()", function () {
-        var sut;
+        var sut, $scope;
 
         beforeEach(function () {
-            sut = new SalesAnalyticsFilterView();
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
         });
 
         ["STRING", "String", "sTRing", "sTring", "string"].forEach(function (searchString) {

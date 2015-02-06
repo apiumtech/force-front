@@ -109,6 +109,7 @@
                         <div class="input-group " style="width:300px; margin-bottom: 4px; ">
 
                             <input type="text" class="form-control"
+                                   ng-keypress="$event.preventDefault()"
                                    ng-attr-placeholder="{{fn.getDatePlaceholder()}}">
 
                             <div class="input-group-btn"
@@ -128,10 +129,10 @@
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
                                                     <input type="text" class="form-control" name="start"
-                                                           ng-model="dateRangeStart"/>
+                                                           ng-model="displayDateStart"/>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <input type="text" class="form-control" name="end"
-                                                           ng-model="dateRangeEnd"/>
+                                                           ng-model="displayDateEnd"/>
                                                 </div>
                                             </div>
                                         </div>

@@ -12,11 +12,12 @@ app.registerView(function (container) {
 
     var _ = container.getFunction("underscore");
 
-    function SalesAnalyticsFilterView($scope, $model, $presenter) {
+    function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.filter = $filter;
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
         var self = this;
-        self.$scope.datePickerFormat = 'dd/MM/yyyy';
+        self.datePickerFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
         self.datePickerSettings = {
             showWeeks: false,
@@ -91,6 +92,22 @@ app.registerView(function (container) {
                 this.$scope.dateRangeEnd = value;
             }
         },
+        displayDateStart: {
+            get: function () {
+                return this.$scope.displayDateStart || (this.$scope.displayDateStart = this.fn.getFormattedDate(this.dateRangeStart));
+            },
+            set: function (value) {
+                this.$scope.displayDateStart = value;
+            }
+        },
+        displayDateEnd: {
+            get: function () {
+                return this.$scope.displayDateEnd;
+            },
+            set: function (value) {
+                this.$scope.displayDateEnd = value;
+            }
+        },
         usersList: {
             get: function () {
                 return this.$scope.usersList || (this.$scope.usersList = []);
@@ -119,6 +136,18 @@ app.registerView(function (container) {
 
     SalesAnalyticsFilterView.configureEvents = function (instance) {
         var self = instance;
+
+        self.$scope.$watch('displayDateStart', function (value) {
+            var _date = moment(value, self.datePickerFormat);
+            if (!_date.isValid()) return;
+            self.dateRangeStart = _date.toDate();
+        });
+
+        self.$scope.$watch('displayDateEnd', function (value) {
+            var _date = moment(value, self.datePickerFormat);
+            if (!_date.isValid()) return;
+            self.dateRangeEnd = _date.toDate();
+        });
 
         self.fn.openDatePickerStart = function (event) {
             event.stopPropagation();
@@ -149,19 +178,24 @@ app.registerView(function (container) {
             if (isOpened) {
                 self.dateRangeStart = null;
                 self.dateRangeEnd = null;
+                self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+                self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             }
         };
 
         self.fn.getPreviousDate = function (days, from) {
+            if (!from || !(from instanceof Date))
+                return null;
+
             return moment(from).subtract(days, 'days').toDate();
         };
 
         self.fn.getDatePlaceholder = function () {
-            return moment(self.dateRangeStart).format("DD/MM/YYYY") + '-' + moment(self.dateRangeEnd).format("DD/MM/YYYY");
+            return self.fn.getFormattedDate(self.dateRangeStart) + '-' + self.fn.getFormattedDate(self.dateRangeEnd);
         };
 
         self.fn.getFormattedDate = function (date) {
-            return moment(self.date).format("DD/MM/YYYY");
+            return moment(date).format(self.datePickerFormat);
         };
 
         self.fn.getFilteredUsersList = function () {
@@ -184,6 +218,9 @@ app.registerView(function (container) {
         };
 
         self.fn.initializeFilters = function () {
+            self.dateRangeEnd = new Date();
+            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+            self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.event.onFilterInitializing();
         };
 
@@ -197,7 +234,7 @@ app.registerView(function (container) {
 
         self.fn.cancelFilter = function () {
             self.dateRangeStart = null;
-            self.dateRangeEnd = null;
+            self.dateRangeEnd = new Date();
             self.dateRangeFilterOpened = false;
         };
     };
@@ -238,11 +275,11 @@ app.registerView(function (container) {
         this.showError(error);
     };
 
-    SalesAnalyticsFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    SalesAnalyticsFilterView.newInstance = function ($scope, $filter, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || SalesAnalyticsFilterModel.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterModel));
         var presenter = $presenter || SalesAnalyticsFilterPresenter.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterPresenter));
 
-        var view = new SalesAnalyticsFilterView($scope, model, presenter);
+        var view = new SalesAnalyticsFilterView($scope, $filter, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

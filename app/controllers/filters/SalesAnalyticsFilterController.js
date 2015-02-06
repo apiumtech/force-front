@@ -5,12 +5,12 @@
 app.registerController(function (container) {
     var SalesAnalyticsFilterView = container.getView("views/filters/SalesAnalyticsFilterView");
 
-    function SalesAnalyticsFilterController($scope) {
-        SalesAnalyticsFilterController.configureView($scope);
+    function SalesAnalyticsFilterController($scope, $filter) {
+        SalesAnalyticsFilterController.configureView($scope, $filter);
     }
 
-    SalesAnalyticsFilterController.configureView = function ($scope) {
-        this.view = SalesAnalyticsFilterView.newInstance($scope).getOrElse(throwInstantiateException(SalesAnalyticsFilterView));
+    SalesAnalyticsFilterController.configureView = function ($scope, $filter) {
+        this.view = SalesAnalyticsFilterView.newInstance($scope, $filter).getOrElse(throwInstantiateException(SalesAnalyticsFilterView));
         this.view.show();
     };
 
