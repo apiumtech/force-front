@@ -1,10 +1,12 @@
 <div ng-controller="TableWidgetController" ng-init="fn.assignWidget(widget)">
-    <div class="btn-group m-r-5 m-b-5  pull-right">
-        <a data-toggle="dropdown"
-           class="btn btn-default btn-sm dropdown-toggle">
+    <div class="btn-group m-r-5 m-b-5  pull-right" is-open="filterDropdown"
+         dropdown>
+        <a data-toggle="dropdown" href="javascript:"
+           class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
             {{'TableWidget.AddColumns' | i18next}}
-            <span class="caret"></span></a>
-        <ul class="dropdown-menu pull-right ">
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right">
             <li class="text-link">
                 <a ng-click="fn.restoreColumnDisplay()"
                    class="btn-link">

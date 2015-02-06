@@ -218,7 +218,7 @@ widgetService.getWidget = function (widgetId) {
         case 'table':
             widget.data = {
                 columns: [
-                    "Photo", "Vendedor", "I. Act", "Visitas", "Gestiones"
+                    "Foto", "Vendedor", "I. Act", "Visitas", "Gestiones"
                 ],
                 data: [
                     ["/assets/img/user-2.jpg", "Pedro Lorem ipsum", 10.0, 54, 245],
