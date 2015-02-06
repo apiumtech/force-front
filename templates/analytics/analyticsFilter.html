@@ -128,14 +128,12 @@
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
                                                     <input type="text" class="form-control" name="start"
-                                                           ng-model="dateRangeStart"
-                                                           ng-attr-value="{{fn.getFormattedDate(dateRangeStart)}}"
-                                                           ><!-- por defecto ultimo mes-->
+                                                           ng-model="dateRangeStart | date:'dd/MM/yyyy'"
+                                                            ><!-- por defecto ultimo mes-->
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <input type="text" class="form-control" name="end"
-                                                           ng-model="dateRangeEnd"
-                                                           ng-attr-value="{{fn.getFormattedDate(dateRangeEnd)}}"
-                                                           >
+                                                           ng-model="dateRangeEnd | date:'dd/MM/yyyy'"
+                                                            >
                                                 </div>
                                             </div>
                                         </div>
