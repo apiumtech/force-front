@@ -81,21 +81,21 @@ var widgetList = [
     },
     {
         page: "conversion",
-        widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-4.jpg',
+        widgetType: "pie",
+        widgetName: "IAGRAMA ACTIVIDAD / VENTAS",
         widgetId: 9,
         order: 0,
-        size: 6
+        size: 6,
+        data: {}
     },
     {
         page: "conversion",
-        widgetType: "table",
-        widgetName: "Widget D",
-        imgUrl: 'chart-5.jpg',
+        widgetType: "pie",
+        widgetName: "Efectividad visitas/venta",
         widgetId: 10,
         order: 1,
-        size: 6
+        size: 6,
+        data: {}
     },
     {
         page: "conversion",
@@ -105,7 +105,7 @@ var widgetList = [
         order: 1,
         size: 12,
         data: {}
-    },
+    }
 ];
 
 widgetService.getWidgetFromPage = function (page) {

@@ -127,13 +127,11 @@
                                                 <p>{{'Filters.Customized' | i18next}}</p></div>
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
-                                                    <input type="text" class="form-control" name="start"
-                                                           ng-model="dateRangeStart | date:'dd/MM/yyyy'"
-                                                            ><!-- por defecto ultimo mes-->
+                                                    <input type="date" class="form-control" name="start"
+                                                           ng-model="dateRangeStart | date:'dd/MM/yyyy'" />
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
-                                                    <input type="text" class="form-control" name="end"
-                                                           ng-model="dateRangeEnd | date:'dd/MM/yyyy'"
-                                                            >
+                                                    <input type="date" class="form-control" name="end"
+                                                           ng-model="dateRangeEnd | date:'dd/MM/yyyy'" />
                                                 </div>
                                             </div>
                                         </div>

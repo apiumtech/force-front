@@ -71,3 +71,7 @@ ul[datepicker-popup-wrap] {
 .filters-div .dropdown-menu.media-list li.media:hover {
     background-color: initial !important;
 }
+
+td.photo {
+    width: 50px;
+}

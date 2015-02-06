@@ -44,16 +44,8 @@
             <tbody>
             <tr class="gradeX" ng-repeat="row in dataSource">
                 <td><p class="m-t-10 ">{{$index+1}}</td>
-                <!--<td>-->
-                <!--<div class="pull-left img-user m-b-10">-->
-                <!--<img src="assets/img/user-2.jpg" class="media-object" alt="">-->
-                <!--</div>-->
-                <!--<div class="pull-left  m-t-10 m-l-10">-->
-                <!--<a href="">Pedro Lorem ipsum</a>-->
-                <!--</div>-->
-                <!--</td>-->
-                <td ng-repeat="column in row">
-                    <div ng-if="fn.isImage(column)">
+                <td ng-repeat="column in row" ng-class="{'photo': fn.isImage(column)}">
+                    <div ng-if="fn.isImage(column)" class="img-user">
                         <img src="{{column}}" class="media-object" alt=""/>
                     </div>
                     <p class="m-t-10" ng-if="!fn.isImage(column)">{{column}}</p>
