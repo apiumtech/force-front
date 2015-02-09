@@ -18,6 +18,7 @@ app.registerView(function (container) {
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
         var self = this;
         self.resetDate = true;
+        self.defaultPreviousDay = 30;
         self.datePickerFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
 
@@ -59,7 +60,7 @@ app.registerView(function (container) {
         },
         dateRangeStart: {
             get: function () {
-                return this.$scope.dateRangeStart || (this.$scope.dateRangeStart = this.fn.getPreviousDate(30, this.dateRangeEnd));
+                return this.$scope.dateRangeStart;
             },
             set: function (value) {
                 this.$scope.dateRangeStart = value;
@@ -67,10 +68,18 @@ app.registerView(function (container) {
         },
         dateRangeEnd: {
             get: function () {
-                return this.$scope.dateRangeEnd || (this.$scope.dateRangeEnd = new Date());
+                return this.$scope.dateRangeEnd;
             },
             set: function (value) {
                 this.$scope.dateRangeEnd = value;
+            }
+        },
+        dateRangePlaceholder: {
+            get: function () {
+                return this.$scope.dateRangePlaceholder;
+            },
+            set: function (value) {
+                this.$scope.dateRangePlaceholder = value;
             }
         },
         displayDateStart: {
@@ -120,13 +129,21 @@ app.registerView(function (container) {
 
         self.$scope.$watch('displayDateStart', function (value) {
             var _date = moment(value, self.datePickerFormat);
-            if (!_date.isValid()) return;
+            if (!_date.isValid()) {
+                console.error("Input date is not valid");
+                return;
+            }
+
             self.dateRangeStart = _date.toDate();
         });
 
         self.$scope.$watch('displayDateEnd', function (value) {
             var _date = moment(value, self.datePickerFormat);
-            if (!_date.isValid()) return;
+            if (!_date.isValid()) {
+                console.error("Input date is not valid");
+                return;
+            }
+
             self.dateRangeEnd = _date.toDate();
         });
 
@@ -151,8 +168,9 @@ app.registerView(function (container) {
         self.fn.loadPreviousLastDaysFilter = function (days, event) {
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(days, self.dateRangeEnd);
+            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+            self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.fn.applyDateFilter();
-            self.dateRangeFilterOpened = false;
         };
 
         self.fn.dateFilterToggled = function (isOpened) {
@@ -161,10 +179,23 @@ app.registerView(function (container) {
                     self.resetDate = true;
                     return;
                 }
-                self.dateRangeStart = null;
-                self.dateRangeEnd = null;
-                self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
-                self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
+                self.fn.resetDate();
+            }
+        };
+
+        self.fn.validateDateInput = function (event) {
+            if ([46, 8, 9, 27, 13, 191, 111].indexOf(event.keyCode) !== -1 ||
+                    // Allow: Ctrl+A
+                (event.keyCode == 65 && event.ctrlKey === true) ||
+                    // Allow: home, end, left, right, down, up
+                (event.keyCode >= 35 && event.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+
+            // Ensure that it is a number and stop the keypress
+            if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
+                event.preventDefault();
             }
         };
 
@@ -176,7 +207,7 @@ app.registerView(function (container) {
         };
 
         self.fn.getDatePlaceholder = function () {
-            return self.fn.getFormattedDate(self.dateRangeStart) + '-' + self.fn.getFormattedDate(self.dateRangeEnd);
+            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + '-' + self.fn.getFormattedDate(self.dateRangeEnd);
         };
 
         self.fn.getFormattedDate = function (date) {
@@ -203,15 +234,14 @@ app.registerView(function (container) {
         };
 
         self.fn.initializeFilters = function () {
-            self.dateRangeEnd = new Date();
-            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
-            self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
+            self.fn.resetDate();
             self.event.onFilterInitializing();
         };
 
         self.fn.applyDateFilter = function () {
             self.resetDate = false;
             self.dateRangeFilterOpened = false;
+            self.fn.getDatePlaceholder();
             self.filterChannel.sendDateFilterApplySignal({
                 dateStart: self.dateRangeStart,
                 dateEnd: self.dateRangeEnd
@@ -219,9 +249,16 @@ app.registerView(function (container) {
         };
 
         self.fn.cancelFilter = function () {
-            self.dateRangeStart = null;
-            self.dateRangeEnd = new Date();
+            self.resetDate = true;
             self.dateRangeFilterOpened = false;
+        };
+
+        self.fn.resetDate = function () {
+            self.dateRangeEnd = new Date();
+            self.dateRangeStart = self.fn.getPreviousDate(self.defaultPreviousDay, self.dateRangeEnd);
+            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+            self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
+            self.fn.getDatePlaceholder();
         };
     };
 
@@ -258,6 +295,10 @@ app.registerView(function (container) {
 
     SalesAnalyticsFilterView.prototype.onUsersLoadedFail = function (error) {
         this.showError(error);
+    };
+
+    SalesAnalyticsFilterView.prototype.showError = function (error) {
+        console.error(error);
     };
 
     SalesAnalyticsFilterView.newInstance = function ($scope, $filter, $model, $presenter, $viewRepAspect, $logErrorAspect) {

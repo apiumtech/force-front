@@ -53,6 +53,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "cancelFilter", test: cancelFilterTest
         }, {
             method: "dateFilterToggled", test: dateFilterToggledTest
+        }, {
+            method: "resetDate", test: resetDateTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -98,12 +100,6 @@ describe("SalesAnalyticsFilterView", function () {
             it("should call applyDateFilter()", function () {
                 performTest();
                 expect(sut.fn.applyDateFilter).toHaveBeenCalled();
-            });
-
-            it("should close popup", function () {
-                sut.dateRangeFilterOpened = true;
-                performTest();
-                expect(sut.dateRangeFilterOpened).toEqual(false);
             });
         }
 
@@ -154,6 +150,13 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.resetDate).toEqual(false);
             });
 
+            it("should reset the display range place holder", function () {
+                spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
+                spyOn(sut.fn, 'getDatePlaceholder');
+                sut.fn.applyDateFilter();
+                expect(sut.fn.getDatePlaceholder).toHaveBeenCalled();
+            });
+
             it("should call filterChannel.sendDateFilterApplySignal", function () {
                 spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
                 sut.fn.applyDateFilter();
@@ -162,6 +165,7 @@ describe("SalesAnalyticsFilterView", function () {
                     dateEnd: sut.dateRangeEnd
                 });
             });
+
             it("should close popup", function () {
                 sut.dateRangeFilterOpened = true;
                 spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
@@ -171,8 +175,17 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function initializeFiltersTest() {
-            it("should fire onFilterInitializing event", function () {
+            beforeEach(function () {
                 sut.event.onFilterInitializing = jasmine.createSpy();
+                spyOn(sut.fn, 'resetDate');
+            });
+
+            it("should reset dates to default range", function () {
+                sut.fn.initializeFilters();
+                expect(sut.fn.resetDate).toHaveBeenCalled();
+            });
+
+            it("should fire onFilterInitializing event", function () {
                 sut.fn.initializeFilters();
                 expect(sut.event.onFilterInitializing).toHaveBeenCalled();
             });
@@ -210,12 +223,10 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function cancelFilterTest() {
-            it("should reset dates to null", function () {
-                var expectDateEnd = new Date();
+            it("should flag resetDate to true", function () {
+                sut.resetDate = false;
                 sut.fn.cancelFilter();
-                expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
-                expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
-                expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+                expect(sut.resetDate).toEqual(true);
             });
             it("should close popup", function () {
                 sut.dateRangeFilterOpened = true;
@@ -225,20 +236,47 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function dateFilterToggledTest() {
+            beforeEach(function () {
+                spyOn(sut.fn, 'resetDate');
+            });
             it("should switch reset dates to true", function () {
                 sut.resetDate = false;
                 sut.fn.dateFilterToggled(false);
                 expect(sut.resetDate).toEqual(true);
+                expect(sut.fn.resetDate).not.toHaveBeenCalled();
             });
 
             it("should reset dates to default range when closed and reset dates is true", function () {
-                sut.dateRangeEnd = new Date(2015, 0, 20);
-                var expectDateEnd = new Date();
                 sut.resetDate = true;
                 sut.fn.dateFilterToggled(false);
+                expect(sut.fn.resetDate).toHaveBeenCalled();
+            });
+        }
+
+        function resetDateTest() {
+            it("should reset end date to currentDate", function () {
+                spyOn(sut.fn, 'getPreviousDate');
+                sut.dateRangeEnd = new Date(2016, 1, 2);
+                var expectDateEnd = new Date();
+                sut.fn.resetDate();
+
                 expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
                 expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
                 expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+            });
+
+            it("should reset startDate to previous days", function () {
+                spyOn(sut.fn, 'getPreviousDate');
+                sut.dateRangeEnd = new Date(2016, 1, 2);
+                sut.fn.resetDate();
+                expect(sut.fn.getPreviousDate).toHaveBeenCalledWith(sut.defaultPreviousDay, sut.dateRangeEnd);
+            });
+
+            it("should reset the display range place holder", function () {
+                spyOn(sut.fn, 'getPreviousDate');
+                spyOn(sut.fn, 'getDatePlaceholder');
+                sut.fn.resetDate();
+                expect(sut.fn.getDatePlaceholder).toHaveBeenCalled();
             });
         }
     });

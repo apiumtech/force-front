@@ -110,7 +110,7 @@
 
                             <input type="text" class="form-control"
                                    ng-keypress="$event.preventDefault()"
-                                   ng-attr-placeholder="{{fn.getDatePlaceholder()}}">
+                                   ng-attr-placeholder="{{dateRangePlaceholder}}">
 
                             <div class="input-group-btn"
                                  dropdown
@@ -118,7 +118,7 @@
                                  on-toggle="fn.dateFilterToggled(open)"
                                  dropdown-toggle>
                                 <ul class="dropdown-menu media-list pull-right animated fadeInDown"
-                                    ng-click="fn.closeDateTimePickers($event)"
+                                    ng-click="$event.stopPropagation()"
                                     style="width:300px; max-width:300px;">
                                     <li><h6 class="m-t-20">{{'Filters.SelectDateRange' | i18next}}</h6></li>
                                     <li class="divider"></li>
@@ -129,10 +129,12 @@
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
                                                     <input type="text" class="form-control" name="start"
-                                                           ng-model="displayDateStart"/>
+                                                           ng-model="displayDateStart"
+                                                           ng-keydown="fn.validateDateInput($event)"/>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <input type="text" class="form-control" name="end"
-                                                           ng-model="displayDateEnd"/>
+                                                           ng-model="displayDateEnd"
+                                                           ng-keydown="fn.validateDateInput($event)"/>
                                                 </div>
                                             </div>
                                         </div>
