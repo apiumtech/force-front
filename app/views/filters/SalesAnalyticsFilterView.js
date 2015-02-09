@@ -17,12 +17,9 @@ app.registerView(function (container) {
         this.filter = $filter;
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
         var self = this;
+        self.resetDate = true;
         self.datePickerFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
-        self.datePickerSettings = {
-            showWeeks: false,
-            showButtonBar: false
-        };
 
         SalesAnalyticsFilterView.configureEvents(this);
     }
@@ -34,22 +31,6 @@ app.registerView(function (container) {
             },
             set: function (value) {
                 this.$scope.datePickerSettings = value;
-            }
-        },
-        datePickerStartOpened: {
-            get: function () {
-                return this.$scope.datePickerStartOpened || (this.$scope.datePickerStartOpened = false);
-            },
-            set: function (value) {
-                this.$scope.datePickerStartOpened = value;
-            }
-        },
-        datePickerEndOpened: {
-            get: function () {
-                return this.$scope.datePickerEndOpened || (this.$scope.datePickerEndOpened = false);
-            },
-            set: function (value) {
-                this.$scope.datePickerEndOpened = value;
             }
         },
         dateRangeFilterOpened: {
@@ -175,7 +156,11 @@ app.registerView(function (container) {
         };
 
         self.fn.dateFilterToggled = function (isOpened) {
-            if (isOpened) {
+            if (!isOpened) {
+                if (!self.resetDate) {
+                    self.resetDate = true;
+                    return;
+                }
                 self.dateRangeStart = null;
                 self.dateRangeEnd = null;
                 self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
@@ -225,6 +210,7 @@ app.registerView(function (container) {
         };
 
         self.fn.applyDateFilter = function () {
+            self.resetDate = false;
             self.dateRangeFilterOpened = false;
             self.filterChannel.sendDateFilterApplySignal({
                 dateStart: self.dateRangeStart,
@@ -261,7 +247,6 @@ app.registerView(function (container) {
             });
         });
 
-        console.log(result);
         return result;
     };
 

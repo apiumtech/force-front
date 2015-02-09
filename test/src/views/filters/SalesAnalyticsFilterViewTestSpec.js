@@ -147,6 +147,13 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function applyDateFilterTest() {
+
+            it("should not change the date", function () {
+                spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
+                sut.fn.applyDateFilter();
+                expect(sut.resetDate).toEqual(false);
+            });
+
             it("should call filterChannel.sendDateFilterApplySignal", function () {
                 spyOn(sut.filterChannel, 'sendDateFilterApplySignal');
                 sut.fn.applyDateFilter();
@@ -218,18 +225,17 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function dateFilterToggledTest() {
-            it("should not reset dates to default range when close", function () {
-                sut.dateRangeEnd = new Date(2015, 0, 20);
-                var expectDateEnd = new Date(2015, 0, 20);
+            it("should switch reset dates to true", function () {
+                sut.resetDate = false;
                 sut.fn.dateFilterToggled(false);
-                expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
-                expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
-                expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
+                expect(sut.resetDate).toEqual(true);
             });
-            it("should reset dates to default range when opened", function () {
+
+            it("should reset dates to default range when closed and reset dates is true", function () {
                 sut.dateRangeEnd = new Date(2015, 0, 20);
                 var expectDateEnd = new Date();
-                sut.fn.dateFilterToggled(true);
+                sut.resetDate = true;
+                sut.fn.dateFilterToggled(false);
                 expect(sut.dateRangeEnd.getDate()).toEqual(expectDateEnd.getDate());
                 expect(sut.dateRangeEnd.getMonth()).toEqual(expectDateEnd.getMonth());
                 expect(sut.dateRangeEnd.getFullYear()).toEqual(expectDateEnd.getFullYear());
