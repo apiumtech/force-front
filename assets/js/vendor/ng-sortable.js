@@ -76,7 +76,8 @@
                         scope.element = element;
 
                         $(scope.element).sortable({
-                            connectWith: '*[as-sortable]',
+                            connectWith: '[as-sortable]',
+                            item: '[as-sortable-item]',
                             handle: '[as-sortable-item-handle]',
                             start: scope.fireDragStart,
                             over: scope.fireOver,

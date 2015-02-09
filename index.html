@@ -11,15 +11,17 @@
 
 </head>
 <body>
-    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
-        <ng-include src="'templates/topMenu.html'"></ng-include>
-        <ng-include src="'templates/leftMenu.html'"></ng-include>
-        <div class="sidebar-bg"></div>
-        <!-- end #sidebar -->
-        <div id="content" class="content" ng-view></div>
-    </div>
+<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <ng-include src="'templates/topMenu.html'"></ng-include>
+    <ng-include src="'templates/leftMenu.html'"></ng-include>
+    <div class="sidebar-bg"></div>
+    <!-- end #sidebar -->
+    <div id="content" class="content" ng-view></div>
+</div>
 <!-- ================== BEGIN BASE JS ================== -->
-<script src="assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+<!--<script src="assets/plugins/jquery-1.8.2/jquery-1.8.2.min.js"></script>-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="assets/js/vendor/jquery-migrate-1.2.1.min.js"></script>
 <script src="assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
 <!--<script src="assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>-->
 <!--[if lt IE 9]>
@@ -28,7 +30,6 @@
 <script src="assets/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
 <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-</body>
 <!--<script src="force-de"assets/plugins/jquery-cookie/jquery.cookie.js"></script>-->
 <!-- ================== END BASE JS ================== -->
 
@@ -36,8 +37,9 @@
 <script src="assets/js/apps.js"></script>
 <!--&lt;!&ndash; ================== END PAGE LEVEL JS ================== &ndash;&gt;-->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         App.init();
     });
 </script>
+</body>
 </html>

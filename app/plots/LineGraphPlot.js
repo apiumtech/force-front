@@ -52,7 +52,7 @@ app.registerService(function () {
             result.color = this.color;
         }
 
-        result.lines = {show: !this.hidden, fill: this.filled, lineWidth: 2};
+        result.lines = {show: !this.hidden, fill: this.filled, lineWidth: 2, zero: !this.filled};
         result.points = {show: !this.hidden, radius: 3, fillColor: '#fff'};
         result.shadowSize = 0;
         return result;
