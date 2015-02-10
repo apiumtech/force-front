@@ -35,33 +35,6 @@ app.registerService(function (container) {
         return this.ajaxService.ajax(params);
     };
 
-    WidgetService.prototype.getWidget = function (widgetId) {
-        assertNotNull("Widget Id", widgetId);
-
-        var params = {
-            url: '/api/widget/' + widgetId,
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-        return this.ajaxService.ajax(params);
-    };
-
-    WidgetService.prototype.moveWidget = function (widgetId, oldIndex, newIndex) {
-        assertNotNull("WidgetId", widgetId);
-        assertNotNull("OldIndex", oldIndex);
-        assertNotNull("NewIndex", newIndex);
-
-        var params = {
-            url: '/api/widget/' + widgetId + '/move',
-            type: 'post',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: {oldIndex: oldIndex, newIndex: newIndex}
-        };
-        return this.ajaxService.ajax(params);
-    };
-
     WidgetService.newInstance = function (ajaxService) {
         var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         var widgetService = new WidgetService(_ajaxService);
