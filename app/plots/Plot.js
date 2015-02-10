@@ -51,10 +51,13 @@ app.registerService(function () {
         this.renderedElement.bind("plothover", callback);
     };
 
-    Plot.basic = function (labels, plots) {
+    Plot.basic = function (labels, plots, isStacked) {
         return Plot.newInstance(labels || [], plots, {
             xaxis: {tickColor: '#ddd', tickSize: 10},
             yaxis: {tickColor: '#ddd', tickSize: 10},
+            series: {
+                stack: isStacked
+            },
             grid: {
                 backgroundColor: "#fff",
                 hoverable: true,

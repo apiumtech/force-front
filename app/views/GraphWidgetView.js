@@ -107,7 +107,7 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
-        var plot = Plot.basic(axisData.x, chartFields).getOrElse(throwException("invalid plot!"));
+        var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED).getOrElse(throwException("invalid plot!"));
         plot.paint($(element));
         plot.onHover(this.onChartHover.bind(this));
     };

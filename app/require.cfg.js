@@ -22,6 +22,7 @@ var require = {
         'underscore': '/node_modules/underscore/underscore-min',
         'flot': '/node_modules/flot/jquery.flot',
         'flot-resize': '/node_modules/flot/jquery.flot.resize',
+        'flot-stack': '/node_modules/flot/jquery.flot.stack',
         'flot-pie': '/node_modules/flot/jquery.flot.pie',
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
@@ -85,6 +86,11 @@ var require = {
             exports: 'flot-resize'
         },
 
+        'flot-stack': {
+            deps: ['jquery', 'flot'],
+            exports: 'flot-stack'
+        },
+
         'flot-pie': {
             deps: ['jquery', 'flot'],
             exports: 'flot-pie'
@@ -115,7 +121,7 @@ var require = {
         'jquery', 'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',
         'i18next', 'ng-i18next', 'underscore', 'signals', 'ng-sortable',
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie'
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack'
     ],
 
     callback: main
