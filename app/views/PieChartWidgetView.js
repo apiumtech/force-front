@@ -78,14 +78,6 @@ app.registerView(function (container) {
         plot.paint($(element));
     };
 
-    PieChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        console.log("Widget moved to new position");
-    };
-
-    PieChartWidgetView.prototype.onMoveWidgetError = function (error) {
-        this.showError(error);
-    };
-
     PieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || PieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(PieChartWidgetModel));
         var presenter = $presenter || PieChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(PieChartWidgetPresenter));

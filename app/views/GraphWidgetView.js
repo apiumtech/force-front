@@ -109,6 +109,32 @@ app.registerView(function (container) {
     GraphWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
         var plot = Plot.basic(axisData.x, chartFields).getOrElse(throwException("invalid plot!"));
         plot.paint($(element));
+        plot.onHover(this.onChartHover.bind(this));
+    };
+
+    var previousPoint = null;
+    GraphWidgetView.prototype.onChartHover = function (event, pos, chartItem) {
+        function showTooltip(x, y, contents) {
+            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
+                top: y - 45,
+                left: x - 55
+            }).appendTo("body").fadeIn(200);
+        }
+
+        if (chartItem) {
+            if (previousPoint !== chartItem.dataIndex) {
+                previousPoint = chartItem.dataIndex;
+                $("#tooltip").remove();
+                var y = chartItem.datapoint[1].toFixed(2);
+
+                var content = chartItem.series.label + " " + y;
+                showTooltip(chartItem.pageX, chartItem.pageY, content);
+            }
+        } else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+        event.preventDefault();
     };
 
     GraphWidgetView.prototype.getLineGraph = function (fieldData, availableFields, chartType) {

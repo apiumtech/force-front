@@ -44,6 +44,11 @@ app.registerService(function () {
         this.paintPlot(element, this.plots.map(function (e) {
             return e.digest(element);
         }).filter(Plot._isNotEmpty), this.configuration);
+        this.renderedElement = element;
+    };
+
+    Plot.prototype.onHover = function (callback) {
+        this.renderedElement.bind("plothover", callback);
     };
 
     Plot.basic = function (labels, plots) {
