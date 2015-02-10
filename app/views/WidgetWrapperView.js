@@ -43,15 +43,27 @@ app.registerView(function (container) {
             var widgetName = widget.widgetType + "||" + widget.widgetId;
             self.widget = widget;
             self.widgetEventChannel = WidgetWrapperView._getWidgetChannelInstance(widgetName);
-            self.widgetEventChannel.onReloadSignalReceived(function () {
-                $scope.isLoading = true;
-            });
-            self.widgetEventChannel.onReloadCompleteSignalReceived(function (reloadError, errorMessage) {
-                self.$scope.isLoading = false;
-                self.$scope.hasError = reloadError;
-                self.$scope.errorMessage = (reloadError) ? errorMessage : null;
-            });
+            self.widgetEventChannel.onReloadSignalReceived(self.showLoading.bind(self));
+            self.widgetEventChannel.onReloadCompleteSignalReceived(self.onReloadCompleteSignalReceived.bind(self));
         };
+
+        $scope.$on("$destroy", function () {
+            self.widgetEventChannel = null;
+        });
+    };
+
+    WidgetWrapperView.prototype.showLoading = function () {
+        var self = this;
+
+        self.$scope.isLoading = true;
+    };
+
+    WidgetWrapperView.prototype.onReloadCompleteSignalReceived = function (reloadError, errorMessage) {
+        var self = this;
+
+        self.$scope.isLoading = false;
+        self.$scope.hasError = reloadError;
+        self.$scope.errorMessage = (reloadError) ? errorMessage : null;
     };
 
     WidgetWrapperView._getWidgetChannelInstance = function (widgetName) {
