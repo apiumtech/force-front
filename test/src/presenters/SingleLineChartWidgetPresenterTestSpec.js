@@ -24,6 +24,9 @@ describe("SingleLineChartWidgetPresenter", function () {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
             },
             {
+                viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
+            },
+            {
                 viewEvent: "onFilterChanged", test: onFilterChangedTest
             }
         ].forEach(function (testCase) {
@@ -61,6 +64,24 @@ describe("SingleLineChartWidgetPresenter", function () {
             it("should call '_executeLoadWidget' method", function () {
                 ___view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
+            });
+        }
+
+        function onUsersFilterAppliedTest() {
+            var filterValue = [1, 2, 3, 4, 5];
+            beforeEach(function () {
+                ___model.addUserFilter = jasmine.createSpy();
+
+                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                ___view.event.onUsersFilterApplied(filterValue);
+            });
+
+            it("should call 'addUserFilter' on the model", function () {
+                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+            });
+
+            it("should call 'sendReloadSignal' on the channel", function () {
+                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
             });
         }
 

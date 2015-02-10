@@ -26,12 +26,12 @@ app.registerView(function (container) {
     }
 
     SalesAnalyticsFilterView.prototype = Object.create(BaseView.prototype, {
-        datePickerSettings: {
+        allUsersSelected: {
             get: function () {
-                return this.$scope.datePickerSettings;
+                return this.$scope.allUsersSelected;
             },
             set: function (value) {
-                this.$scope.datePickerSettings = value;
+                this.$scope.allUsersSelected = value;
             }
         },
         dateRangeFilterOpened: {
@@ -52,7 +52,7 @@ app.registerView(function (container) {
         },
         currentUserFilterGroup: {
             get: function () {
-                return this.$scope.currentUserFilterGroup || (this.$scope.currentUserFilterGroup = 'team');
+                return this.$scope.currentUserFilterGroup;
             },
             set: function (value) {
                 this.$scope.currentUserFilterGroup = value;
@@ -234,6 +234,7 @@ app.registerView(function (container) {
         };
 
         self.fn.initializeFilters = function () {
+            self.currentUserFilterGroup = 'team';
             self.fn.resetDate();
             self.event.onFilterInitializing();
         };
@@ -259,6 +260,15 @@ app.registerView(function (container) {
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
             self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.fn.getDatePlaceholder();
+        };
+
+        self.fn.allUserSelectionChanged = function (event) {
+            event.stopPropagation();
+            console.log(self.allUsersSelected);
+        };
+
+        self.fn.userSelectionChanged = function(event){
+            event.stopPropagation();
         };
     };
 

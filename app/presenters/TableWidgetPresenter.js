@@ -60,6 +60,11 @@ app.registerPresenter(function (container) {
             self.widgetEventChannel.sendReloadSignal();
         };
 
+        view.event.onUsersFilterApplied = function (filterValue) {
+            model.addUserFilter(filterValue);
+            self.widgetEventChannel.sendReloadSignal();
+        };
+
         view.event.onReloadWidgetDone = function (errMsg) {
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };

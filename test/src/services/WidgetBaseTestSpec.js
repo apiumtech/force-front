@@ -89,6 +89,14 @@ describe("widgetBase", function () {
         });
     });
 
+    describe("addUserFilter", function () {
+        it("should call 'addQuery' with 'users' arguments", function () {
+            spyOn(sut, 'addQuery');
+            sut.addUserFilter([1, 2, 3, 4, 5]);
+            expect(sut.addQuery).toHaveBeenCalledWith('users', [1, 2, 3, 4, 5]);
+        });
+    });
+
     describe("setFetchEndPoint", function () {
         it("should throw error if input is null", function () {
             expect(function () {

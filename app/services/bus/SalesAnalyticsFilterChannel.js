@@ -34,6 +34,10 @@ app.registerService(function (container) {
         });
     };
 
+    SalesAnalyticsFilterChannel.prototype.sendUserFilterApplySignal = function (filterValue) {
+        this.sendFilterApplySignal(SalesAnalyticsFilterChannel.UserFilter, filterValue);
+    };
+
     SalesAnalyticsFilterChannel.prototype.onUserFilterApplySignalReceived = function (callback) {
         this.listen(function (event) {
             if (event.filterApplied && event.filterName === SalesAnalyticsFilterChannel.UserFilter) {

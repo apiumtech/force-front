@@ -60,7 +60,8 @@
                             <li class="users-tree">
                                 <div class="clearfix">
                                     <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                                           ng-click="$event.stopPropagation()">
+                                           ng-model="allUsersSelected"
+                                           ng-click="fn.allUserSelectionChanged($event)">
 
                                     <div class="m-t-5 pull-left">
                                         <strong>{{'Filters.AllUserSelectsAllEnvironments' | i18next}}</strong>
@@ -83,6 +84,7 @@
                                             <li class="clearfix" ng-repeat="user in group.data">
                                                 <input type="checkbox"
                                                        value="{{user.id}}"
+                                                       ng-checked="user.checked"
                                                        ng-click="$event.stopPropagation()"
                                                        class="pull-left m-t-10 m-r-10 ">
 

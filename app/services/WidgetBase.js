@@ -51,6 +51,10 @@ app.registerService(function (container) {
         this.addQuery("to-date", dateEnd.toISOString());
     };
 
+    WidgetBase.prototype.addUserFilter = function (userIdsList) {
+        this.addQuery("users", userIdsList);
+    };
+
     WidgetBase.prototype.reloadWidget = function () {
         if (!this.widgetId) {
             throw new Error("Widget Id is not defined");

@@ -28,7 +28,7 @@ app.registerModel(function (container) {
                 };
                 result.push(group);
             }
-    
+            dataRecord.checked = false;
             group.data.push(dataRecord);
         });
 

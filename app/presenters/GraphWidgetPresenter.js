@@ -65,6 +65,11 @@ app.registerPresenter(function (container) {
             self.widgetEventChannel.sendReloadSignal();
         };
 
+        view.event.onUsersFilterApplied = function (filterValue) {
+            model.addUserFilter(filterValue);
+            self.widgetEventChannel.sendReloadSignal();
+        };
+
         view.event.onFilterRangeChanged = function () {
             model.addQuery('rangeOption', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadSignal();

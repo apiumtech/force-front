@@ -24,6 +24,9 @@ describe("BarChartWidgetPresenter", function () {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
             },
             {
+                viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
+            },
+            {
                 viewEvent: "onTabChanged", test: onTabChangedTest
             }
         ].forEach(function (testCase) {
@@ -99,6 +102,24 @@ describe("BarChartWidgetPresenter", function () {
 
             it("should call 'sendReloadCompleteSignal' on the channel", function () {
                 expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
+            });
+        }
+
+        function onUsersFilterAppliedTest() {
+            var filterValue = [1, 2, 3, 4, 5];
+            beforeEach(function () {
+                ___model.addUserFilter = jasmine.createSpy();
+
+                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                ___view.event.onUsersFilterApplied(filterValue);
+            });
+
+            it("should call 'addUserFilter' on the model", function () {
+                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+            });
+
+            it("should call 'sendReloadSignal' on the channel", function () {
+                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
             });
         }
 

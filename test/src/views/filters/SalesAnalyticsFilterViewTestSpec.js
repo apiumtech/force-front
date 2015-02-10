@@ -55,6 +55,8 @@ describe("SalesAnalyticsFilterView", function () {
             method: "dateFilterToggled", test: dateFilterToggledTest
         }, {
             method: "resetDate", test: resetDateTest
+        }, {
+            method: "allUserSelectionChanged", test: allUserSelectionChangedTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -185,6 +187,12 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.fn.resetDate).toHaveBeenCalled();
             });
 
+            it("should set the current filter group to 'team'", function () {
+                sut.$scope.currentUserFilterGroup = null;
+                sut.fn.initializeFilters();
+                expect(sut.$scope.currentUserFilterGroup).toEqual('team');
+            });
+
             it("should fire onFilterInitializing event", function () {
                 sut.fn.initializeFilters();
                 expect(sut.event.onFilterInitializing).toHaveBeenCalled();
@@ -277,6 +285,17 @@ describe("SalesAnalyticsFilterView", function () {
                 spyOn(sut.fn, 'getDatePlaceholder');
                 sut.fn.resetDate();
                 expect(sut.fn.getDatePlaceholder).toHaveBeenCalled();
+            });
+        }
+
+        function allUserSelectionChangedTest() {
+            var event = {
+                stopPropagation: jasmine.createSpy()
+            };
+
+            it("should call stopPropagation on event", function () {
+                sut.fn.allUserSelectionChanged(event);
+                expect(event.stopPropagation).toHaveBeenCalled();
             });
         }
     });

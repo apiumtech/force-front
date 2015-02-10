@@ -184,12 +184,14 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
                     {
                         "id": 1,
                         "name": "name1",
-                        "environment": "es"
+                        "environment": "es",
+                        "checked": false
                     },
                     {
                         "id": 4,
                         "name": "name4",
-                        "environment": "es"
+                        "environment": "es",
+                        "checked": false
                     }
                 ]
             }, {
@@ -198,12 +200,14 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
                     {
                         "id": 2,
                         "name": "name2",
-                        "environment": "uk"
+                        "environment": "uk",
+                        "checked": false
                     },
                     {
                         "id": 3,
                         "name": "name3",
-                        "environment": "uk"
+                        "environment": "uk",
+                        "checked": false
                     }
                 ]
             }];
