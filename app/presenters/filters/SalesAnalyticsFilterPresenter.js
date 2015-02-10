@@ -3,7 +3,6 @@
  */
 
 app.registerPresenter(function (container) {
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
 
     function SalesAnalyticsFilterPresenter() {
     }

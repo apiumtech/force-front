@@ -264,12 +264,71 @@ app.registerView(function (container) {
 
         self.fn.allUserSelectionChanged = function (event) {
             event.stopPropagation();
-            console.log(self.allUsersSelected);
+            self.toggleSelectAllUsers(self.allUsersSelected);
+            self.fn.applyUserFilter();
         };
 
-        self.fn.userSelectionChanged = function(event){
-            event.stopPropagation();
+        self.fn.userSelectionChanged = function () {
+            self.checkSelectAllState();
+            self.fn.applyUserFilter();
         };
+
+        self.fn.groupSelectAllChanged = function (group) {
+            group.data.forEach(function (user) {
+                user.checked = group.checked;
+            });
+
+            self.checkSelectAllState();
+            self.fn.applyUserFilter();
+        };
+
+        self.fn.applyUserFilter = function () {
+            var filteredIds = self.getFilteredUserIdsList();
+            self.filterChannel.sendUserFilterApplySignal(filteredIds);
+        };
+    };
+
+    SalesAnalyticsFilterView.prototype.checkSelectAllState = function () {
+        var self = this;
+        var allSelected = true;
+
+        self.userFiltered.forEach(function (group) {
+            var containUnselectedData = _.filter(group.data, function (user) {
+                    return user.checked === false;
+                }).length > 0;
+
+            group.checked = !(containUnselectedData);
+
+            if (!group.checked) {
+                allSelected = false;
+                return;
+            }
+        });
+        self.allUsersSelected = allSelected;
+    };
+
+    SalesAnalyticsFilterView.prototype.toggleSelectAllUsers = function (selectAll) {
+        var self = this;
+
+        self.userFiltered.forEach(function (group) {
+            group.checked = selectAll;
+            group.data.forEach(function (user) {
+                user.checked = selectAll;
+            });
+        });
+    };
+
+    SalesAnalyticsFilterView.prototype.getFilteredUserIdsList = function () {
+        var result = [], self = this;
+
+        self.userFiltered.forEach(function (group) {
+            group.data.forEach(function (user) {
+                if (user.checked)
+                    result.push(user.id);
+            });
+        });
+
+        return result;
     };
 
     SalesAnalyticsFilterView.prototype._getFilteredUsers = function (inputList, queryString) {

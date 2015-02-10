@@ -72,6 +72,8 @@
                                     <li ng-repeat="group in userFiltered">
                                         <div class="clearfix">
                                             <input type="checkbox"
+                                                   ng-model="group.checked"
+                                                   ng-change="fn.groupSelectAllChanged(group)"
                                                    ng-click="$event.stopPropagation()"
                                                    class="pull-left m-t-10 m-r-10 ">
 
@@ -84,7 +86,8 @@
                                             <li class="clearfix" ng-repeat="user in group.data">
                                                 <input type="checkbox"
                                                        value="{{user.id}}"
-                                                       ng-checked="user.checked"
+                                                       ng-model="user.checked"
+                                                       ng-change="fn.userSelectionChanged()"
                                                        ng-click="$event.stopPropagation()"
                                                        class="pull-left m-t-10 m-r-10 ">
 

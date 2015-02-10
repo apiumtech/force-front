@@ -57,6 +57,12 @@ describe("SalesAnalyticsFilterView", function () {
             method: "resetDate", test: resetDateTest
         }, {
             method: "allUserSelectionChanged", test: allUserSelectionChangedTest
+        }, {
+            method: "userSelectionChanged", test: userSelectionChangedTest
+        }, {
+            method: "applyUserFilter", test: applyUserFilterTest
+        }, {
+            method: "groupSelectAllChanged", test: groupSelectAllChangedTest
         }].forEach(function (test) {
                 var method = test.method;
                 it("should declare method fn." + method, function () {
@@ -293,9 +299,121 @@ describe("SalesAnalyticsFilterView", function () {
                 stopPropagation: jasmine.createSpy()
             };
 
+            beforeEach(function () {
+                spyOn(sut, 'toggleSelectAllUsers');
+                spyOn(sut.fn, 'applyUserFilter');
+            });
+
             it("should call stopPropagation on event", function () {
                 sut.fn.allUserSelectionChanged(event);
                 expect(event.stopPropagation).toHaveBeenCalled();
+            });
+
+            it("should call toggleSelectAllUsers to check/uncheck all boxes", function () {
+                sut.fn.allUserSelectionChanged(event);
+                expect(sut.toggleSelectAllUsers).toHaveBeenCalledWith(sut.allUsersSelected);
+            });
+
+            it("should fire applyUserFilter event", function () {
+                sut.fn.allUserSelectionChanged(event);
+                expect(sut.fn.applyUserFilter).toHaveBeenCalled();
+            });
+        }
+
+        function userSelectionChangedTest() {
+            beforeEach(function () {
+                spyOn(sut.fn, 'applyUserFilter');
+                spyOn(sut, 'checkSelectAllState');
+            });
+
+            it("should call 'checkSelectAllState'", function () {
+                sut.fn.userSelectionChanged();
+                expect(sut.checkSelectAllState).toHaveBeenCalled();
+            });
+
+            it("should fire applyUserFilter event", function () {
+                sut.fn.userSelectionChanged();
+                expect(sut.fn.applyUserFilter).toHaveBeenCalled();
+            });
+        }
+
+        function groupSelectAllChangedTest() {
+            var group;
+            beforeEach(function () {
+                group = {
+                    checked: false,
+                    group: 'group1',
+                    data: [{
+                        name: "group1",
+                        checked: false
+                    }, {
+                        name: "group2",
+                        checked: true
+                    }, {
+                        name: "group3",
+                        checked: false
+                    }]
+                };
+                spyOn(sut.fn, 'applyUserFilter');
+                spyOn(sut, 'checkSelectAllState');
+            });
+
+            it("should change state of all users in group to its state", function () {
+                group.checked = true;
+                sut.fn.groupSelectAllChanged(group);
+                expect(group.data).toEqual([{
+                    name: "group1",
+                    checked: true
+                }, {
+                    name: "group2",
+                    checked: true
+                }, {
+                    name: "group3",
+                    checked: true
+                }]);
+            });
+
+            it("should call 'checkSelectAllState'", function () {
+                group.checked = false;
+                sut.fn.groupSelectAllChanged(group);
+                expect(sut.checkSelectAllState).toHaveBeenCalled();
+            });
+
+            it("should change state of all users in group to its state", function () {
+                group.checked = false;
+                sut.fn.groupSelectAllChanged(group);
+                expect(group.data).toEqual([{
+                    name: "group1",
+                    checked: false
+                }, {
+                    name: "group2",
+                    checked: false
+                }, {
+                    name: "group3",
+                    checked: false
+                }]);
+            });
+
+            it("should fire applyUserFilter event", function () {
+                sut.fn.groupSelectAllChanged(group);
+                expect(sut.fn.applyUserFilter).toHaveBeenCalled();
+            });
+        }
+
+        function applyUserFilterTest() {
+            var filtered = [1, 4, 5];
+            beforeEach(function () {
+                spyOn(sut, 'getFilteredUserIdsList').and.returnValue(filtered);
+                spyOn(sut.filterChannel, 'sendUserFilterApplySignal');
+                sut.fn.applyUserFilter();
+            });
+
+            it("should call getFilteredUserIdsList to have filtered list", function () {
+                expect(sut.getFilteredUserIdsList).toHaveBeenCalled();
+            });
+
+            it("should broadcast event bus with filtered list", function () {
+                expect(sut.filterChannel.sendUserFilterApplySignal).toHaveBeenCalled();
             });
         }
     });
@@ -393,6 +511,348 @@ describe("SalesAnalyticsFilterView", function () {
                 var actual = sut._getFilteredUsers(input, searchString);
                 expect(actual).toEqual(expected);
             });
+        });
+    });
+
+    describe("checkSelectAllState", function () {
+        var sut, $scope;
+
+        beforeEach(function () {
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
+        });
+
+        [{
+            input: [{
+                group: "groupA",
+                checked: false,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }],
+            output: [{
+                group: "groupA",
+                checked: false,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }]
+        }, {
+            input: [{
+                group: "groupA",
+                checked: true,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }],
+
+            output: [{
+                group: "groupA",
+                checked: false,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }]
+        }, {
+            input: [{
+                group: "groupA",
+                checked: true,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: false,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }],
+
+            output: [{
+                group: "groupA",
+                checked: false,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }]
+        }].forEach(function (test) {
+                beforeEach(function() {
+                    sut.userFiltered = test.input;
+                    sut.checkSelectAllState();
+                });
+
+                it("should be false if any user is unselected", function () {
+                    expect(sut.allUsersSelected).toEqual(false);
+                });
+
+                it("should decorate filtered users to correct states", function () {
+                    expect(sut.userFiltered).toEqual(test.output);
+                });
+            });
+
+        it("should be true if all users is selected", function () {
+            sut.userFiltered = [{
+                group: "groupA",
+                checked: true,
+                data: [{
+                    name: "groupa-1",
+                    checked: true
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }];
+            sut.checkSelectAllState();
+            expect(sut.allUsersSelected).toEqual(true);
+        });
+    });
+
+    describe("toggleSelectAllUsers", function () {
+        var sut, $scope;
+
+        beforeEach(function () {
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
+
+            sut.userFiltered = [{
+                group: "groupA",
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                data: [{
+                    name: "groupb-1",
+                    checked: false
+                }, {
+                    name: "groupb-2",
+                    checked: false
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }];
+        });
+
+        it("should select all data", function () {
+            sut.toggleSelectAllUsers(true);
+            expect(sut.userFiltered).toEqual([{
+                group: "groupA",
+                checked: true,
+                data: [{
+                    name: "groupa-1",
+                    checked: true
+                }, {
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                checked: true,
+                data: [{
+                    name: "groupb-1",
+                    checked: true
+                }, {
+                    name: "groupb-2",
+                    checked: true
+                }, {
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }]);
+        });
+
+        it("should select none", function () {
+            sut.toggleSelectAllUsers(false);
+            expect(sut.userFiltered).toEqual([{
+                group: "groupA",
+                checked: false,
+                data: [{
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    name: "groupa-2",
+                    checked: false
+                }]
+            }, {
+                group: "groupB",
+                checked: false,
+                data: [{
+                    name: "groupb-1",
+                    checked: false
+                }, {
+                    name: "groupb-2",
+                    checked: false
+                }, {
+                    name: "groupb-3",
+                    checked: false
+                }]
+            }]);
+        });
+    });
+
+    describe("getFilteredUserIdsList", function () {
+        var sut, $scope;
+
+        beforeEach(function () {
+            $scope = {
+                $watch: function () {
+                }
+            };
+            sut = new SalesAnalyticsFilterView($scope);
+
+            sut.userFiltered = [{
+                group: "groupA",
+                data: [{
+                    id: 1,
+                    name: "groupa-1",
+                    checked: false
+                }, {
+                    id: 2,
+                    name: "groupa-2",
+                    checked: true
+                }]
+            }, {
+                group: "groupB",
+                data: [{
+                    id: 3,
+                    name: "groupb-1",
+                    checked: false
+                }, {
+                    id: 4,
+                    name: "groupb-2",
+                    checked: false
+                }, {
+                    id: 5,
+                    name: "groupb-3",
+                    checked: true
+                }]
+            }];
+        });
+
+        it("should return correct ids list", function () {
+            var expected = [2, 5];
+            var actual = sut.getFilteredUserIdsList();
+            expect(actual).toEqual(expected);
         });
     });
 });

@@ -14,6 +14,9 @@ app.registerView(function (container) {
         this.event.onDateFilterApplied = function (filterValue) {
             throw new Error("NotImplementedException");
         };
+        this.event.onUsersFilterApplied = function (filterValue) {
+            throw new Error("NotImplementedException");
+        };
     }
 
     WidgetBaseView.prototype = Object.create(BaseView.prototype, {
@@ -38,6 +41,10 @@ app.registerView(function (container) {
         var self = this;
         self.filterChannel.onDateFilterApplySignalReceived(function (filterValue) {
             self.event.onDateFilterApplied(filterValue);
+        });
+
+        self.filterChannel.onUserFilterApplySignalReceived(function (filterValue) {
+            self.event.onUsersFilterApplied(filterValue);
         });
     };
 
