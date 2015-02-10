@@ -52,7 +52,7 @@ app.registerService(function () {
                 borderColor: 'rgba(0,0,0,0.2)'
             },
             series: {
-                stack: true,
+                stack: false,
                 lines: {
                     show: false,
                     fill: false,
