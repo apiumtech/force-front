@@ -26,7 +26,9 @@ var require = {
         'flot-pie': '/node_modules/flot/jquery.flot.pie',
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
-        'moment': '/node_modules/moment/min/moment.min'
+        'moment': '/node_modules/moment/min/moment.min',
+        'jvectormap': '/assets/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min',
+        'jvectormap-millmap': '/assets/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en'
     },
 
     'shim': {
@@ -81,6 +83,16 @@ var require = {
             exports: 'flot'
         },
 
+        'jvectormap': {
+            deps: ['jquery'],
+            exports: 'jvectormap'
+        },
+
+        'jvectormap-millmap': {
+            deps: ['jquery', 'jvectormap'],
+            exports: 'jvectormap-millmap'
+        },
+
         'flot-resize': {
             deps: ['jquery', 'flot'],
             exports: 'flot-resize'
@@ -121,7 +133,7 @@ var require = {
         'jquery', 'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',
         'i18next', 'ng-i18next', 'underscore', 'signals', 'ng-sortable',
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack'
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'jvectormap', 'jvectormap-millmap'
     ],
 
     callback: main
