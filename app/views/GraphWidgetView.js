@@ -143,6 +143,7 @@ app.registerView(function (container) {
         });
 
         var hidden = !fieldStatus.isDisplaying;
+        if (hidden) return null;
 
         var filled = chartType === 'filled';
 

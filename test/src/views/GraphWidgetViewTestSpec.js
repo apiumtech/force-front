@@ -414,11 +414,21 @@ describe("GraphWidgetView", function () {
                     filledStatus = testCase.filledStatus,
                     filled = testCase.filled;
 
-                it("should call getLineGraphInstance with correct arguments", function () {
-                    GraphWidgetView.getLineGraphInstance = jasmine.createSpy();
-                    sut.getLineGraph(field, displayFields, filledStatus);
-                    expect(GraphWidgetView.getLineGraphInstance).toHaveBeenCalledWith(field, hidden, filled);
-                });
+                if (hidden) {
+                    it("should return null and not call getLineGraphInstance", function () {
+                        GraphWidgetView.getLineGraphInstance = jasmine.createSpy();
+                        var actual = sut.getLineGraph(field, displayFields, filledStatus);
+                        expect(GraphWidgetView.getLineGraphInstance).not.toHaveBeenCalled();
+                        expect(actual).toBeNull();
+                    });
+                }
+                else {
+                    it("should call getLineGraphInstance with correct arguments", function () {
+                        GraphWidgetView.getLineGraphInstance = jasmine.createSpy();
+                        sut.getLineGraph(field, displayFields, filledStatus);
+                        expect(GraphWidgetView.getLineGraphInstance).toHaveBeenCalledWith(field, hidden, filled);
+                    });
+                }
             });
     });
 })
