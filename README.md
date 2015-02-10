@@ -5,6 +5,10 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+--- Feb 10 2015
+* Latest LESS file is built when run the fake server
+* If font is missing, please copy 'fonts' folder in /assets/css folder to /build folder
+
 --- Feb 09 2015
 * jQuery version 1.8.x getting issue with drag and drop. The error can be fixed by the installed jquery using npm install (already in package.json)
 * added jQuery Migrate to have backward compatibility.

@@ -3,75 +3,44 @@
     <!-- begin sidebar scrollbar -->
     <div data-scrollbar="true" data-height="100%">
         <!-- begin sidebar user -->
-        <ul class="nav">
+        <ul class="nav minify_btn">
             <!-- begin sidebar minify button -->
-            <li>
-                <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify">
-                    <i class="fa fa-angle-double-left"></i>
-                </a>
-            </li>
+            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i
+                    class="fa  ic-expand-left"></i></a></li>
             <!-- end sidebar minify button -->
         </ul>
         <!-- end sidebar user -->
         <!-- begin sidebar nav -->
         <ul class="nav">
             <!--<li class="nav-header">Navigation</li>-->
-            <li>
-                <a href="dashboard.html">
-                    <i class="fa icon-gauge"></i> <span>{{'LeftMenu.Dashboard' | i18next}}</span>
-                </a>
+            <li><a href="dashboard.html" class="orange_bg"><i class="fa  ic-dashboard"></i> <span>{{'LeftMenu.Dashboard' | i18next}}</span></a>
             </li>
-            <li class="active">
-                <a href="#/">
-                    <i class="fa icon-accounts"></i> <span>{{'LeftMenu.Account' | i18next}}</span>
-                </a>
+            <div class="line-border clearfix "></div>
+            <li><a href="accounts.html" class="orange_bg"><i class="fa  ic-accounts"></i> <span>{{'LeftMenu.Accounts' | i18next}}</span></a>
             </li>
-            <li>
-                <a href="contacts.html">
-                    <i class="fa icon-contacts"></i> <span>{{'LeftMenu.Contacts' | i18next}}</span>
-                </a>
+            <li><a href="contacts.html" class="orange_bg"><i class="fa  ic-contacts"></i> <span>{{'LeftMenu.Contacts' | i18next}}</span></a>
             </li>
-            <li>
-                <a href="opportunities.html">
-                    <i class="fa icon-opportunity"></i> <span>{{'LeftMenu.Opportunities' | i18next}}</span>
-                </a>
-            </li>
-            <li>
-                <a href="quotes.html">
-                    <i class="fa icon-quotes"></i> <span>{{'LeftMenu.Quotes' | i18next}}</span>
-                </a>
-            </li>
-            <li>
-                <a href="agenda.html">
-                    <i class="fa icon-agenda"></i> <span>{{'LeftMenu.Agenda' | i18next}}</span>
-                </a>
-            </li>
-            <li>
-                <a href="products.html">
-                    <i class="fa icon-product"></i> <span>{{'LeftMenu.Products' | i18next}}</span>
-                </a>
+            <div class="line-border clearfix "></div>
+            <li><a href="opportunities.html" class="aqua_bg"><i class="fa  ic-opportunities"></i>
+                <span>Opportunities</span></a></li>
+            <li><a href="quotes.html" class="aqua_bg"><i class="fa  ic-offers"></i> <span>{{'LeftMenu.Quotes' | i18next}}</span></a>
             </li>
 
-
-            <li>
-                <a href="documents.html">
-                    <i class="fa icon-doc"></i> <span>{{'LeftMenu.Documents' | i18next}}</span>
-                </a>
+            <div class="line-border clearfix "></div>
+            <li><a href="agenda.html" class="blue_bg"><i class="fa  ic-agenda"></i> <span>{{'LeftMenu.Agenda' | i18next}}</span></a>
             </li>
-            <li>
-                <a href="activity.html">
-                    <i class="fa icon-activity"></i> <span>{{'LeftMenu.Activity' | i18next}}</span>
-                </a>
+            <div class="line-border clearfix "></div>
+            <li><a href="products.html" class="purple_bg"><i class="fa  ic-products"></i> <span>{{'LeftMenu.Products' | i18next}}</span></a>
             </li>
-
-            <li class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
-                    <i class="fa icon-chart-bar"></i>
-                    <span>{{'LeftMenu.SaleAnalytics' | i18next}}</span>
-                </a>
+            <li><a href="documents.html" class="purple_bg"><i class="fa  ic-documents"></i> <span>{{'LeftMenu.Documents' | i18next}}</span></a>
+            </li>
+            <div class="line-border clearfix "></div>
+            <li><a href="activity.html" class="green_bg"><i class="fa ic-activity"></i> <span>{{'LeftMenu.Activity' | i18next}}</span></a>
+            </li>
+            <li class="has-sub active"><a href="javascript:;" class="green_bg active"> <i
+                    class="fa ic-saleanalytics"></i> <span> {{'LeftMenu.SaleAnalytics' | i18next}} <b
+                    class="caret pull-right"></b></span> </a>
                 <ul class="sub-menu">
-                    <li><a href="sales_overview.html">{{'LeftMenu.Overview' | i18next}} </i></a></li>
                     <li><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}} </i></a></li>
                     <li><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</i></a></li>
                     <li><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</i></a></li>
