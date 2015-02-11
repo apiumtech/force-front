@@ -36,7 +36,7 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "termicmap",
+        widgetType: "map",
         widgetName: "GEOGRAPHICAL DISTRIBUTION",
         widgetId: 3,
         order: 1,
@@ -132,11 +132,12 @@ widgetService.getWidgetFromPage = function (page) {
     return list;
 };
 
-widgetService.getWidget = function (widgetId) {
+widgetService.getWidget = function (widgetId, request) {
     var widget = _.first(_.filter(widgetList, function (widget) {
         return widget.widgetId === widgetId
     }));
 
+    widget.data = {};
     switch (widget.widgetType) {
         case "bar":
             widget.data = {
@@ -233,86 +234,324 @@ widgetService.getWidget = function (widgetId) {
                 ]
             };
             break;
-        case 'termicmap':
-            widget.data = [{
-                latLng: [41.9, 12.45],
-                name: "Vatican City"
-            }, {
-                latLng: [43.73, 7.41],
-                name: "Monaco"
-            }, {
-                latLng: [-.52, 166.93],
-                name: "Nauru"
-            }, {
-                latLng: [-8.51, 179.21],
-                name: "Tuvalu"
-            }, {
-                latLng: [43.93, 12.46],
-                name: "San Marino"
-            }, {
-                latLng: [47.14, 9.52],
-                name: "Liechtenstein"
-            }, {
-                latLng: [7.11, 171.06],
-                name: "Marshall Islands"
-            }, {
-                latLng: [17.3, -62.73],
-                name: "Saint Kitts and Nevis"
-            }, {
-                latLng: [3.2, 73.22],
-                name: "Maldives"
-            }, {
-                latLng: [35.88, 14.5],
-                name: "Malta"
-            }, {
-                latLng: [12.05, -61.75],
-                name: "Grenada"
-            }, {
-                latLng: [13.16, -61.23],
-                name: "Saint Vincent and the Grenadines"
-            }, {
-                latLng: [13.16, -59.55],
-                name: "Barbados"
-            }, {
-                latLng: [17.11, -61.85],
-                name: "Antigua and Barbuda"
-            }, {
-                latLng: [-4.61, 55.45],
-                name: "Seychelles"
-            }, {
-                latLng: [7.35, 134.46],
-                name: "Palau"
-            }, {
-                latLng: [42.5, 1.51],
-                name: "Andorra"
-            }, {
-                latLng: [14.01, -60.98],
-                name: "Saint Lucia"
-            }, {
-                latLng: [6.91, 158.18],
-                name: "Federated States of Micronesia"
-            }, {
-                latLng: [1.3, 103.8],
-                name: "Singapore"
-            }, {
-                latLng: [1.46, 173.03],
-                name: "Kiribati"
-            }, {
-                latLng: [-21.13, -175.2],
-                name: "Tonga"
-            }, {
-                latLng: [15.3, -61.38],
-                name: "Dominica"
-            }, {
-                latLng: [-20.2, 57.5],
-                name: "Mauritius"
-            }, {
-                latLng: [26.02, 50.55],
-                name: "Bahrain"
-            }, {
-                latLng: [.33, 6.73],
-                name: "São Tomé and Príncipe"
-            }];
+        case 'map':
+            switch (request.query.selectedFilter) {
+                case 'checkins':
+                    //region checkins data
+                    widget.data = [{
+                        "Activity": "109,0831182",
+                        "CompanyName": "Électricité Solaire SLU",
+                        "IdCompany": "595",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "43.5949952",
+                        "Longitude": "1.4331071"
+                    }, {
+                        "Activity": "101,39225643",
+                        "CompanyName": "Investment 73 SL",
+                        "IdCompany": "600",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.39561606",
+                        "Longitude": "2.17638772"
+                    }, {
+                        "Activity": "100,45394005",
+                        "CompanyName": "Éditions Monaco",
+                        "IdCompany": "598",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.456643640995",
+                        "Longitude": "1.17831604555249"
+                    }, {
+                        "Activity": "100,31730033",
+                        "CompanyName": "IT Supplies SLU",
+                        "IdCompany": "601",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.3930483",
+                        "Longitude": "2.1779193"
+                    }, {
+                        "Activity": "99,53147414",
+                        "CompanyName": "Crédit Industriale SRUL",
+                        "IdCompany": "594",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "42.699131",
+                        "Longitude": "2.89951580000002"
+                    }, {
+                        "Activity": "97,60396385",
+                        "CompanyName": "Mail Industries LTD",
+                        "IdCompany": "603",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.7459108",
+                        "Longitude": "1.805693"
+                    }, {
+                        "Activity": "86,17149598",
+                        "CompanyName": "Jorge Risk Capitals SL",
+                        "IdCompany": "599",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.3028274",
+                        "Longitude": "2.0019345"
+                    }, {
+                        "Activity": "83,6190197899999",
+                        "CompanyName": "Tritium software",
+                        "IdCompany": "602",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.3908386230469",
+                        "Longitude": "2.12610983848572"
+                    }, {
+                        "Activity": "64,23986184",
+                        "CompanyName": "Société Saint-Germain",
+                        "IdCompany": "596",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "45.7659404",
+                        "Longitude": "4.85426860000007"
+                    }, {
+                        "Activity": "62,5416297",
+                        "CompanyName": "Thermodynamics Industries Inc",
+                        "IdCompany": "590",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "40.0150745",
+                        "Longitude": "-105.2937502"
+                    }, {
+                        "Activity": "61,17411117",
+                        "CompanyName": "Montajes e instalaciones TCC",
+                        "IdCompany": "319",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.398594",
+                        "Longitude": "2.119631"
+                    }, {
+                        "Activity": "57,70655904",
+                        "CompanyName": "Parfums chat",
+                        "IdCompany": "597",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "48.8462774",
+                        "Longitude": "2.3285394"
+                    }, {
+                        "Activity": "56,71410981",
+                        "CompanyName": "Prodina SL",
+                        "IdCompany": "334",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "43.366186",
+                        "Longitude": "-8.4113454"
+                    }, {
+                        "Activity": "56,63577759",
+                        "CompanyName": "Torrance Software Inc",
+                        "IdCompany": "579",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "42.3720634",
+                        "Longitude": "-71.1183225"
+                    }, {
+                        "Activity": "56,49912147",
+                        "CompanyName": "Knoxville CPA",
+                        "IdCompany": "589",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "34.052296",
+                        "Longitude": "-118.300407"
+                    }, {
+                        "Activity": "55,55496018",
+                        "CompanyName": "Peer to Peer Thomson",
+                        "IdCompany": "593",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "51.4880867",
+                        "Longitude": "-0.0893934"
+                    }, {
+                        "Activity": "55,26162562",
+                        "CompanyName": "MicroGames",
+                        "IdCompany": "350",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "45.592905",
+                        "Longitude": "12.1739429"
+                    }, {
+                        "Activity": "54,99914387",
+                        "CompanyName": "Symphony Systems SL",
+                        "IdCompany": "580",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.2356113",
+                        "Longitude": "1.8080863"
+                    }, {
+                        "Activity": "51,97327344",
+                        "CompanyName": "Terranova Construcciones SA",
+                        "IdCompany": "585",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "42.8178724",
+                        "Longitude": "-1.642439"
+                    }, {
+                        "Activity": "50,35077673",
+                        "CompanyName": "GestionTransfer SL",
+                        "IdCompany": "581",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "40.4123827887379",
+                        "Longitude": "-3.71362935751677"
+                    }, {
+                        "Activity": "50,16409041",
+                        "CompanyName": "United Bridge Inc",
+                        "IdCompany": "558",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "48.589172",
+                        "Longitude": "2.246237"
+                    }, {
+                        "Activity": "49,65743937",
+                        "CompanyName": "Rainbow Slashes Furniture Inc",
+                        "IdCompany": "584",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "40.7641226746516",
+                        "Longitude": "-73.9730809510651"
+                    }, {
+                        "Activity": "48,32411297",
+                        "CompanyName": "Renewal Hospitallity LLC",
+                        "IdCompany": "592",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "53.3457883",
+                        "Longitude": "-6.2599019"
+                    }, {
+                        "Activity": "47,02328724",
+                        "CompanyName": "Starsystems Inc",
+                        "IdCompany": "591",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "57.2086622",
+                        "Longitude": "-2.1791929"
+                    }, {
+                        "Activity": "44,76496014",
+                        "CompanyName": "Atecnic Sales Force Consulting",
+                        "IdCompany": "320",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.400228",
+                        "Longitude": "2.130643"
+                    }, {
+                        "Activity": "43,95911803",
+                        "CompanyName": "Chocolat Usin",
+                        "IdCompany": "582",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "48.8618667",
+                        "Longitude": "2.33831"
+                    }, {
+                        "Activity": "43,39078577",
+                        "CompanyName": "Supermercados Elgorriaga SA",
+                        "IdCompany": "587",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.2371851",
+                        "Longitude": "1.805886"
+                    }, {
+                        "Activity": "41,91995272",
+                        "CompanyName": "Transistores electrón SLU",
+                        "IdCompany": "586",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.3901264",
+                        "Longitude": "2.1687876"
+                    }, {
+                        "Activity": "39",
+                        "CompanyName": "Anasac",
+                        "IdCompany": "607",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "-33.4263236",
+                        "Longitude": "-70.6214833"
+                    }, {
+                        "Activity": "33",
+                        "CompanyName": "PhoneCash",
+                        "IdCompany": "605",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "-33.3914916",
+                        "Longitude": "-70.4940231"
+                    }, {
+                        "Activity": "31,73997024",
+                        "CompanyName": "Peble Technology LLC",
+                        "IdCompany": "583",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "51.5109926",
+                        "Longitude": "-0.138541700000019"
+                    }, {
+                        "Activity": "31",
+                        "CompanyName": "Mandriladora Alpesa, S.L.",
+                        "IdCompany": "604",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "39.07105",
+                        "Longitude": "-0.23572"
+                    }, {
+                        "Activity": "30",
+                        "CompanyName": "Diagonal Partners",
+                        "IdCompany": "609",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.5710626",
+                        "Longitude": "2.0048631"
+                    }, {
+                        "Activity": "28",
+                        "CompanyName": "GRUP SOMNIS",
+                        "IdCompany": "608",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.4092530518424",
+                        "Longitude": "2.19949387013912"
+                    }, {
+                        "Activity": "27,79412149",
+                        "CompanyName": "Servicios Don Juan",
+                        "IdCompany": "588",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.3958764",
+                        "Longitude": "2.1603104"
+                    }, {
+                        "Activity": "27",
+                        "CompanyName": "Mobitech S.L.",
+                        "IdCompany": "610",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "39.587467",
+                        "Longitude": "2.642519"
+                    }, {
+                        "Activity": "27",
+                        "CompanyName": "AMS Tecno",
+                        "IdCompany": "606",
+                        "IdTipoCheckIn": null,
+                        "Latitude": "41.391338",
+                        "Longitude": "2.129273"
+                    }];
+//endregion
+                    break;
+                case 'users':
+                    //region users data
+                    widget.data = [{
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 1",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        "Latitude": "28.4795056",
+                        "Longitude": "-16.3090457"
+                    }, {
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 2",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        Latitude: "41.408419",
+                        Longitude: "2.129993"
+                    }, {
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 3",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        Latitude: "45.733566",
+                        Longitude: "9.262387"
+                    }, {
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 4",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        Latitude: "38.736327",
+                        Longitude: "-9.12907"
+                    }, {
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 5",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        Latitude: "33.4711029",
+                        Longitude: "-7.6079128"
+                    }, {
+                        "Email": "demouser_es@forcemanager.net",
+                        "FullName": "Carlos Gomez ES 6",
+                        "ImageB64": "",
+                        "LastPositionElapsedTime": "59",
+                        Latitude: "42.77504461",
+                        Longitude: "-0.3604515"
+                    }];
+                    //endregion
+                    break;
+                case 'activity':
+                    break;
+                default:
+                    break;
+            }
             break;
         default:
             break;

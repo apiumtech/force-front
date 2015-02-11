@@ -63,6 +63,8 @@ function main() {
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
             'plots/PieChart',
+            'plots/MapChart',
+            'services/GoogleMapService',
             'plots/BarChart',
             'plots/SingleLineChart',
 
@@ -103,6 +105,9 @@ function main() {
 
             // Graph widget
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+
+            // Map chart widget
+            'controllers/MapChartWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
 
             // Pie chart widget
             'controllers/PieChartWidgetController', 'views/PieChartWidgetView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',

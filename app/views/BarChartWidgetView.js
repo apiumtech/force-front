@@ -52,7 +52,7 @@ app.registerView(function (container) {
             self.event.onReloadWidgetStart();
         };
 
-        self.fn.changeTab = function (newTab) {
+        self.fn.changeFilter = function (newTab) {
             self.selectedFilter = newTab;
             self.event.onTabChanged();
         };

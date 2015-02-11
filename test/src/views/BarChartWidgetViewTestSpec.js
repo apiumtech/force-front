@@ -15,7 +15,7 @@ describe("BarChartWidgetView", function () {
 
         [
             {method: 'assignWidget', exercise: assignWidgetTestExercise},
-            {method: 'changeTab', exercise: changeTabTestExercise},
+            {method: 'changeFilter', exercise: changeTabTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
         ].forEach(function (testCase) {
                 var method = testCase.method,
@@ -68,7 +68,7 @@ describe("BarChartWidgetView", function () {
             var newValue = "tab2";
 
             function exerciseChangeTab() {
-                sut.fn.changeTab(newValue);
+                sut.fn.changeFilter(newValue);
             }
 
             it("should assign selected tab with new value", function () {

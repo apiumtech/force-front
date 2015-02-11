@@ -38,6 +38,11 @@
     "AddColumns": "Add Columns",
     "RestoreDefault": "Restore default"
   },
+  "MapChart": {
+    "CheckIns": "CheckIns",
+    "Users": "Users",
+    "Activity": "Activity"
+  },
   "LeftMenu": {
     "Dashboard": "Dashboard",
     "Accounts": "Accounts",

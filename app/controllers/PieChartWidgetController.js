@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     PieChartWidgetController.configureView = function ($scope, $element) {
-        this.view = PieChartWidgetView.newInstance($scope, $element).getOrElse(throwException("Cannot instantiate PieChartWidgetView"));
+        this.view = PieChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(PieChartWidgetView));
         this.view.show();
     };
 
