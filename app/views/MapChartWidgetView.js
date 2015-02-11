@@ -9,27 +9,16 @@ app.registerView(function (container) {
     var MapChartWidgetPresenter = container.getPresenter('presenters/MapChartWidgetPresenter');
 
     var MapChart = container.getService("plots/MapChart");
-    var defaultImageUrl = "https://fmassets.s3-eu-west-1.amazonaws.com/pro/2122/img/default.png";
 
     function MapChartWidgetView(scope, element, mapChart, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         var self = this;
         self.mapChart = mapChart;
-        self.filters = ['checkins', 'users', 'activity'];
         self.selectedFilter = 'checkins';
-        self.map = null;
         self.configureEvents();
     }
 
     MapChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
-        filters: {
-            get: function () {
-                return this.$scope.filters;
-            },
-            set: function (value) {
-                this.$scope.filters = value;
-            }
-        },
         selectedFilter: {
             get: function () {
                 return this.$scope.selectedFilter;
@@ -50,7 +39,6 @@ app.registerView(function (container) {
         };
 
         self.fn.changeFilter = function () {
-            console.log(self.selectedFilter);
             self.event.onFilterChanged();
         };
 
@@ -61,21 +49,33 @@ app.registerView(function (container) {
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
-        self.data = responseData.data.params.params;
 
-        self.refreshChart();
+        self.refreshChart(responseData.data.params);
         self.event.onReloadWidgetDone();
     };
 
-    MapChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
-
+    MapChartWidgetView.prototype.refreshChart = function (data) {
+        var self = this;
         self.paintChart(self.element.find('.chart-place-holder'));
+        self.mapChart.clearHeatMap();
+        self.mapChart.clearPointMap();
+        switch (self.selectedFilter) {
+            case 'checkins':
+                self.mapChart.applyHeatLayer(data);
+                break;
+            case 'users':
+                self.mapChart.createUserMap(data);
+                break;
+            case 'activity':
+                self.mapChart.createPointMap(data);
+                break;
+            default:
+                break;
+        }
     };
 
     MapChartWidgetView.prototype.paintChart = function (element) {
-        this.map = this.mapChart.createMap($(element)[0]);
+        this.mapChart.createMap($(element)[0]);
     };
 
     MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $model, $presenter, $viewRepAspect, $logErrorAspect) {

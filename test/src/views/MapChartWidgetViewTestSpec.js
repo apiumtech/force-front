@@ -96,12 +96,6 @@ describe("MapChartWidgetView", function () {
             data: {
                 widgetType: "map",
                 params: {
-                    params: [
-                        {label: "pie1", data: 30},
-                        {label: "pie4", data: 15},
-                        {label: "pie3", data: 15},
-                        {label: "pie2", data: 40}
-                    ]
                 }
             }
         };
@@ -113,16 +107,7 @@ describe("MapChartWidgetView", function () {
             };
 
             spyOn(sut, 'refreshChart');
-            sut.$scope.apply = function () {
-            };
         }
-
-        it("Should assign data to scope", function () {
-            instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.data).toEqual(fakeResponseData.data.params.params);
-        });
 
         it("should call refreshChart method", function () {
             instantiateSut();

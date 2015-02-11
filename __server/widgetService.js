@@ -237,6 +237,7 @@ widgetService.getWidget = function (widgetId, request) {
         case 'map':
             switch (request.query.selectedFilter) {
                 case 'checkins':
+                case 'activity':
                     //region checkins data
                     widget.data = [{
                         "Activity": "109,0831182",
@@ -546,8 +547,6 @@ widgetService.getWidget = function (widgetId, request) {
                         Longitude: "-0.3604515"
                     }];
                     //endregion
-                    break;
-                case 'activity':
                     break;
                 default:
                     break;

@@ -33,6 +33,24 @@ app.registerService(function (container) {
             }
         },
         MVCArray: function () {
+        },
+        OverlayView: function () {
+            return {
+                setMap: function () {
+                }
+            }
+        },
+        Marker: function () {
+            return {
+                setMap: function () {
+                }
+            }
+        },
+        Point: function () {
+        },
+        Size: function () {
+        },
+        MarkerImage: function () {
         }
     };
 
