@@ -22,7 +22,10 @@ function main() {
     /** AngularJS App Configuration **/
     function AngularConfig($routeProvider, $i18nextProvider) {
         $routeProvider
-            .when('/analytics/conversion', {
+            .when('/accounts', {
+                templateUrl: '/templates/account.html',
+                controller: 'AccountController'
+            }).when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
                 controller: 'ConversionController'
             })

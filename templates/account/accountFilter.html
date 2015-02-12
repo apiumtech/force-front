@@ -1,0 +1,64 @@
+<div ng-controller="FilterController" class="row">
+    <div class="col-md-12 ui-sortable ">
+        <div class="double-border filters-div">
+            <h6>{{'commonText.FilterBy' | i18next}}</h6>
+            <span class="dropdown">
+                <span data-toggle="dropdown" ng-click="event.onShowAvailableOwners(data.ownerFilter)">
+                    {{'commonText.Owner' | i18next}} <i class="fa fa-caret-down"></i>
+                </span>
+                <ul class="dropdown-menu ownersDropdown">
+                    <li>
+                        <h6>
+                            {{'Account.Filters.AvailableOwners' | i18next}}
+                        </h6>
+                    </li>
+                    <li class="dataTables_filter">
+                        <input type="text"
+                               ng-model="data.ownerFilter"
+                               ng-click="$event.stopPropagation();"
+                               ng-change="event.onShowAvailableOwners(data.ownerFilter);" /></li>
+                    <li ng-repeat="owner in data.availableOwners">
+                        <input type="checkbox" ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();" ng-checked="owner.selected" />
+                        <span>{{ owner.name }} &nbsp; </span>
+                    </li>
+                </ul>
+            </span>
+            <span>
+                {{'Account.Filters.Views' | i18next}} <i class="fa fa-caret-down"></i>
+            </span>
+            <span>
+                {{'Account.Filters.Environment' | i18next}} <i class="fa fa-caret-down"></i>
+            </span>
+            <span>
+                {{'Account.Filters.AccountType' | i18next}}
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <span class="dropdown">
+                <button ng-click="event.onShowAvailableFilters()"
+                        data-toggle="dropdown" type="button" class="btn btn-white m-r-5 m-b-5">
+                    {{'Account.Filters.AddFilters' | i18next}}
+                </button>
+                <ul class="dropdown-menu ownersDropdown">
+                    <li><h6>
+                        {{'Account.Filters.AvailableFilters' | i18next}}</h6></li>
+                    <li ng-repeat="filter in data.availableFilters">
+                        <span ng-click="event.onAddFilter(filter)">{{ filter.name }}</span>
+                    </li>
+                </ul>
+            </span>
+        </div>
+        <div class="filters-div">
+            <table class="filterTable">
+                <tr ng-repeat="filter in data.customFilters" ng-if="filter.columnKey != 'responsible.id'">
+                    <td><span>{{ filter.name }}:</span></td>
+                    <td>
+                        <form ng-submit="event.onFilterKeyUp(filter, filter.value)" class="dataTables_filter">
+                            <input type="text" ng-model="filter.value" />
+                        </form>
+                    </td>
+                    <td><span ng-click="event.onRemoveFilter(filter)">X</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
