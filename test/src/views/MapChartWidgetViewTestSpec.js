@@ -95,8 +95,7 @@ describe("MapChartWidgetView", function () {
         var fakeResponseData = {
             data: {
                 widgetType: "map",
-                params: {
-                }
+                params: {}
             }
         };
 
@@ -124,12 +123,24 @@ describe("MapChartWidgetView", function () {
     });
 
     describe("refreshChart", function () {
-        beforeEach(initSut);
-
+        var scope, element, mapChart;
         beforeEach(function () {
-            sut.element = {
-                find: function(){}
+            scope = {};
+            element = {};
+            mapChart = {
+                clearHeatMap: jasmine.createSpy(),
+                clearPointMap: jasmine.createSpy(),
+                applyHeatLayer: jasmine.createSpy(),
+                createUserMap: jasmine.createSpy(),
+                createPointMap: jasmine.createSpy()
             };
+            sut = MapChartWidgetView.newInstance(scope, element, mapChart, {}, {}, false, false).getOrElse(throwInstantiateException(MapChartWidgetView));
+
+            sut.element = {
+                find: function () {
+                }
+            };
+
         });
 
         it("should call paintChart()", function () {
@@ -139,5 +150,29 @@ describe("MapChartWidgetView", function () {
             sut.refreshChart();
             expect(sut.paintChart).toHaveBeenCalledWith(fakeElement);
         });
+
+        it("should call clearHeatMap and clearPointMap from mapchart()", function () {
+            spyOn(sut, 'paintChart');
+            var fakeElement = {};
+            sut.refreshChart();
+            expect(mapChart.clearHeatMap).toHaveBeenCalled();
+            expect(mapChart.clearPointMap).toHaveBeenCalled();
+        });
+
+        [{selectedFilter: "checkins", method: "applyHeatLayer"},
+            {selectedFilter: "users", method: "createUserMap"},
+            {selectedFilter: "activity", method: "createPointMap"}
+        ].forEach(function (test) {
+                var filter = test.selectedFilter;
+                var method = test.method;
+
+                it("should call '" + method + "' method from mapchart when selectedFilter is '" + filter + "'", function () {
+                    spyOn(sut, 'paintChart');
+                    var data = {};
+                    sut.selectedFilter = filter;
+                    sut.refreshChart(data);
+                    expect(mapChart[method]).toHaveBeenCalledWith(data);
+                });
+            });
     });
 });

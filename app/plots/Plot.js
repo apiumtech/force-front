@@ -78,9 +78,6 @@ app.registerService(function () {
     Plot.newInstance = function (labels, plots, cfg, plotImpl) {
         var labelArray = labels.map(Plot._asLabel);
         var plotArray = plots.filter(Plot._isNotEmpty).map(Plot._asPlot);
-        if (plotArray.length == 0) {
-            return None();
-        }
 
         return Some(new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {
         }));
