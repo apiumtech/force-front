@@ -249,9 +249,21 @@ app.registerModel(function () {
             ];
 
         var co = $currentOwners || [
-                {id: 2, name: "Andrea Perazzi"},
-                {id: 1, name: "Antonio Sanchez"},
-                {id: 0, name: "Carlos Zamorano"}
+                {
+                    id: 2,
+                    name: "Andrea Perazzi",
+                    avatar: "user-13.jpg"
+                },
+                {
+                    id: 1,
+                    name: "Antonio Sanchez",
+                    avatar: "user-11.jpg"
+                },
+                {
+                    id: 0,
+                    name: "Carlos Zamorano",
+                    avatar: "user-14.jpg"
+                }
             ];
 
         return Some(new FakeDatabase(cf, ca, co));
