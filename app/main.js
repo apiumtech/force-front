@@ -83,7 +83,12 @@ function main() {
 
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',
-            'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
+
+            // Account Page
+            'controllers/Account/AccountController', 'views/Account/AccountView', 'presenters/Account/AccountPresenter', 'models/Account/AccountModel',
+            // Account Filter
+            'controllers/Account/AccountFilterController', 'views/Account/AccountFilterView',
+            'presenters/Account/AccountFilterPresenter', 'models/Account/AccountFilterModel',
 
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',

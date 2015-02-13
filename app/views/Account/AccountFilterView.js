@@ -1,12 +1,12 @@
 /**
- * Created by kevin on 11/5/14.
+ * Created by trung.dang on 02/12/2015
  */
 app.registerView(function (container) {
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
-    var FilterPresenter = container.getPresenter('presenters/filters/FilterPresenter');
-    var FilterModel = container.getModel('models/filters/FilterModel');
+    var AccountFilterPresenter = container.getPresenter('presenters/Account/AccountFilterPresenter');
+    var FilterModel = container.getModel('models/Account/AccountFilterModel');
 
     function FilterView($scope, $model, $presenter) {
         this.data = {};
@@ -54,8 +54,8 @@ app.registerView(function (container) {
 
     FilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || FilterModel.newInstance().getOrElse(throwException("FilterModel could not be instantiated!!"));
-        var presenter = $presenter || FilterPresenter.newInstance().getOrElse(throwException("FilterPresenter could not be instantiated!!"));
+        var model = $model || FilterModel.newInstance().getOrElse(throwException("AccountFilterModel could not be instantiated!!"));
+        var presenter = $presenter || AccountFilterPresenter.newInstance().getOrElse(throwException("AccountFilterPresenter could not be instantiated!!"));
 
         var view = new FilterView(scope, model, presenter);
 

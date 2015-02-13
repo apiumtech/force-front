@@ -1,14 +1,14 @@
 /**
- * Created by kevin on 11/5/14.
+ * Created by trung.dang on 02/12/2015
  */
 app.registerPresenter(function (container) {
     var FilterChannel = container.getService('services/bus/FilterChannel');
 
-    function FilterPresenter(filterEventChannel) {
+    function AccountFilterPresenter(filterEventChannel) {
         this.filterChannel = filterEventChannel;
     }
 
-    FilterPresenter.prototype.show = function (view, model) {
+    AccountFilterPresenter.prototype.show = function (view, model) {
         var channel = this.filterChannel;
 
         channel.listen(function (event) {
@@ -50,11 +50,11 @@ app.registerPresenter(function (container) {
         };
     };
 
-    FilterPresenter.newInstance = function ($filterChannel) {
+    AccountFilterPresenter.newInstance = function ($filterChannel) {
         var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
 
-        return Some(new FilterPresenter(filterChannel));
+        return Some(new AccountFilterPresenter(filterChannel));
     };
 
-    return FilterPresenter;
+    return AccountFilterPresenter;
 });

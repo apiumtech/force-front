@@ -2,7 +2,7 @@
  * Created by kevin on 11/6/14.
  */
 describe("AccountPresenter", function () {
-    var AccountPresenter = app.getPresenter('presenters/AccountPresenter');
+    var AccountPresenter = app.getPresenter('presenters/Account/AccountPresenter');
 
     function exerciseCreatePresenter() {
         return AccountPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create AccountPresenter");

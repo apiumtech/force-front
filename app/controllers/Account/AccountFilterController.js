@@ -1,17 +1,17 @@
 /**
- * Created by kevin on 10/22/14.
+ * Created by trung.dang on 02/12/2015
  */
 app.registerController(function (container) {
-    var AccountView = container.getView("views/AccountView");
+    var AccountFilterView = container.getView("views/Account/AccountFilterView");
 
-    function AccountController($scope) {
-        AccountController.configureView($scope);
+    function AccountFilterController($scope) {
+        AccountFilterController.configureView($scope);
     }
 
-    AccountController.configureView = function ($scope) {
-        this.view = AccountView.newInstance($scope).getOrElse(throwException("Could not create AccountView!"));
+    AccountFilterController.configureView = function ($scope) {
+        this.view = AccountFilterView.newInstance($scope).getOrElse(throwException("Could not create AccountFilterView!"));
         this.view.show();
     };
 
-    return AccountController;
+    return AccountFilterController;
 });
