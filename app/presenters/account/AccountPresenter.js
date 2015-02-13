@@ -23,7 +23,7 @@ app.registerPresenter(function (container) {
             }
         });
 
-        /** region table **/
+        /* region table */
         view.event.onNameFilterChanged = function (value) {
             model.setNameFilter(value)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
@@ -32,6 +32,11 @@ app.registerPresenter(function (container) {
         view.event.onSort = function (field) {
             model.sortByField(field)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onFollowToggle = function (field) {
+            model.onFollowToggle(field);
+                //.then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleColumn = function (column) {
@@ -50,7 +55,7 @@ app.registerPresenter(function (container) {
             model.nextPage()
                 .then(view.addTableData.bind(view), view.showError.bind(view));
         };
-        /** end region **/
+        /* endregion */
     };
 
     AccountPresenter.newInstance = function ($filterChannel) {

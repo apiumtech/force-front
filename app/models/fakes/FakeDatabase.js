@@ -161,6 +161,25 @@ app.registerModel(function () {
         };
     };
 
+    FakeDatabase.prototype.putAccountFollowStatus = function(field){
+        //var data = this.currentAccounts;
+        //for (var i in data){
+        //    if (data[i] == field)
+        //    {
+        //        field.isFollowSelected = field.isFollowSelected || false;
+        //        field.isFollowSelected = ! field.isFollowSelected;
+        //        data[i] = field;
+        //        break;
+        //    }
+        //}
+        // donothing at this time
+        alert("Updated Following Checkbox")
+        return {
+            success: true,
+            data: field
+        };
+    };
+
     FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners) {
         var cf = $currentFields || [
                 {

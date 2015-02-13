@@ -134,7 +134,7 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.getAccounts = function () {
-        if (this.columns === null) {
+        if (this.columns === null || this.columns.length ==0) {
             return this.getCurrentFields()
                 .then(this._queryData.bind(this));
         } else {
@@ -200,6 +200,15 @@ app.registerModel(function (container) {
         } else { // save
             this.data = response.data;
         }
+    };
+
+    AccountModel.prototype.onFollowToggle = function(field){
+      if (field){
+          if (this.gateway.putAccountFollowStatus(field).status){
+              return this.getAccounts();
+          }
+      }
+        return Q.fcall(function(){});
     };
 
     AccountModel.newInstance = function (db, qb) {
