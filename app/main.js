@@ -85,10 +85,10 @@ function main() {
             'models/WidgetDecoratedPageModel',
 
             // Account Page
-            'controllers/Account/AccountController', 'views/Account/AccountView', 'presenters/Account/AccountPresenter', 'models/Account/AccountModel',
+            'controllers/account/AccountController', 'views/account/AccountView', 'presenters/account/AccountPresenter', 'models/account/AccountModel',
             // Account Filter
-            'controllers/Account/AccountFilterController', 'views/Account/AccountFilterView',
-            'presenters/Account/AccountFilterPresenter', 'models/Account/AccountFilterModel',
+            'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
+            'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',
 
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',

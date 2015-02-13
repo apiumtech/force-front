@@ -5,10 +5,10 @@ app.registerView(function (container) {
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
-    var AccountFilterPresenter = container.getPresenter('presenters/Account/AccountFilterPresenter');
-    var FilterModel = container.getModel('models/Account/AccountFilterModel');
+    var AccountFilterPresenter = container.getPresenter('presenters/account/AccountFilterPresenter');
+    var FilterModel = container.getModel('models/account/AccountFilterModel');
 
-    function FilterView($scope, $model, $presenter) {
+    function AccountFilterView($scope, $model, $presenter) {
         this.data = {};
         this.event = {};
 
@@ -24,40 +24,40 @@ app.registerView(function (container) {
         this.presenter = $presenter;
     }
 
-    FilterView.prototype.show = function () {
+    AccountFilterView.prototype.show = function () {
         this.presenter.show(this, this.model);
     };
 
-    FilterView.prototype.showAvailableFilters = function (filters) {
+    AccountFilterView.prototype.showAvailableFilters = function (filters) {
         this.data.showAvailableFilters = true;
         this.data.availableFilters = filters;
     };
 
-    FilterView.prototype.showFilters = function (filters) {
+    AccountFilterView.prototype.showFilters = function (filters) {
         this.data.customFilters = filters;
         this.data.showAvailableFilters = true;
         this.data.availableFilters = [];
     };
 
-    FilterView.prototype.showAvailableOwners = function (owners) {
+    AccountFilterView.prototype.showAvailableOwners = function (owners) {
         this.data.showAvailableOwners = true;
         this.data.availableOwners = owners;
     };
 
-    FilterView.prototype.showCustomFilters = function (filters) {
+    AccountFilterView.prototype.showCustomFilters = function (filters) {
         this.data.customFilters = filters;
     };
 
-    FilterView.prototype.showError = function (error) {
+    AccountFilterView.prototype.showError = function (error) {
         this.data.currentError = error;
     };
 
-    FilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || FilterModel.newInstance().getOrElse(throwException("AccountFilterModel could not be instantiated!!"));
         var presenter = $presenter || AccountFilterPresenter.newInstance().getOrElse(throwException("AccountFilterPresenter could not be instantiated!!"));
 
-        var view = new FilterView(scope, model, presenter);
+        var view = new AccountFilterView(scope, model, presenter);
 
         if ($viewRepAspect !== false) {
             ($viewRepAspect || ViewRepaintAspect).weave(view);
@@ -70,5 +70,5 @@ app.registerView(function (container) {
         return Some(view);
     };
 
-    return FilterView;
+    return AccountFilterView;
 });

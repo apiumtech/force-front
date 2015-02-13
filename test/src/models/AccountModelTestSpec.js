@@ -3,7 +3,7 @@
  */
 
 describe("AccountModel", function () {
-    var AccountModel = app.getModel('models/Account/AccountModel');
+    var AccountModel = app.getModel('models/account/AccountModel');
     var QueryBuilder = app.getService('services/QueryBuilder');
     var FakeDatabase = app.getModel('models/fakes/FakeDatabase');
 

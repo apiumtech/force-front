@@ -72,13 +72,20 @@
           "MenuOwner":{
               "Title": "Owner",
               "SearchOwner": "Search owner",
-              "OwnerListEmpty": "No owner available"
+              "OwnerListEmpty": "No owner available",
+              "AvailableOwners": "Available Owners"
+          },
+          "MenuViews":{
+              "Title": "Views"
+          },
+          "MenuEnvironment":{
+              "Title": "Environment"
+          },
+          "MenuAccountType":{
+            "Title": "Account Type"
           }
       },
-      "AvailableOwners": "Available Owners",
-      "AccountType": "Account type",
-      "Views": "Views",
-      "Environment": "Environment",
+
       "AddFilters": "Add Filters",
       "AvailableFilters": "Available Filters"
     }

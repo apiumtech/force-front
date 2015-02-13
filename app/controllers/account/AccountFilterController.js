@@ -2,7 +2,7 @@
  * Created by trung.dang on 02/12/2015
  */
 app.registerController(function (container) {
-    var AccountFilterView = container.getView("views/Account/AccountFilterView");
+    var AccountFilterView = container.getView("views/account/AccountFilterView");
 
     function AccountFilterController($scope) {
         AccountFilterController.configureView($scope);

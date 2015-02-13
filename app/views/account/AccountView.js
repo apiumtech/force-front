@@ -3,8 +3,8 @@
  */
 
 app.registerView(function (container) {
-    var AccountPresenter = container.getPresenter('presenters/Account/AccountPresenter');
-    var AccountModel = container.getModel('models/Account/AccountModel');
+    var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
+    var AccountModel = container.getModel('models/account/AccountModel');
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
