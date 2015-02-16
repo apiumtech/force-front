@@ -53,6 +53,16 @@ app.registerPresenter(function (container) {
             }
         };
 
+        view.event.onFieldsRestoreDefault = function () {
+            //model.getAllFields()
+            //    .then(view.showColumnList.bind(view), view.showError.bind(view));
+            view.resetFieldColumns();
+            var cols = model.restoreDefaultColumns();
+            view.showColumnList(cols);
+                //.then(view.showColumnList.bind(view), view.showError.bind(view));
+            model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
+        };
+
         view.event.onShowAvailableColumns = function () {
             model.getAllFields()
                 .then(view.showColumnList.bind(view), view.showError.bind(view));

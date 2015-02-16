@@ -64,7 +64,7 @@
     "AccountTitle": "Account",
     "CreateAccount": "Create Account",
     "Table": {
-      "Header": "Table in Panel",
+      "Header": "Accounts Management",
       "FIELDS": "FIELDS"
     },
     "Filters": {

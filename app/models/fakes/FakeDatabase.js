@@ -70,6 +70,11 @@ app.registerModel(function () {
         return {success: true, data: this.currentFields};
     };
 
+    FakeDatabase.prototype.setRestoreFieldsDefault = function(){
+        this.currentFields = this.allFields;
+        return this.getAllAccountFields();
+    }
+
     FakeDatabase.prototype.getAllAccountFields = function () {
         return {success: true, data: this.allFields};
     };

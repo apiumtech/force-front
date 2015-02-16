@@ -70,6 +70,11 @@ app.registerModel(function (container) {
         }
     };
 
+    AccountModel.prototype.resetField = function(){
+        this.queryBuilder.allFields();
+        this.queryBuilder.setPage(0);
+    }
+
     AccountModel.prototype.addField = function (column) {
         this.queryBuilder.addField(column);
         this.queryBuilder.setPage(0);
@@ -150,6 +155,25 @@ app.registerModel(function (container) {
             return Q.fcall(this._queryData.bind(this));
         }
     };
+
+    AccountModel.prototype.restoreDefaultColumns = function(){
+
+            var ref = this.gateway.setRestoreFieldsDefault().data;
+            this.allColumns = ref;
+            this._setColumnList(ref);
+            var ret= this.resetField();
+
+            return ref.map(function (k) {
+                return {column: k, enabled: true};
+            });
+            //ret.hidden_columns = hidden_columns;
+            //return ret;
+        //}.bind(this));
+    }
+
+    AccountModel.prototype.getPromiseTest = function(data){
+        return data;
+    }
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();

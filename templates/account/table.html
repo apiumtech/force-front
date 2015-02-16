@@ -11,30 +11,29 @@
                 {{'Account.Table.Header' | i18next}}
             </h4>
         </div>
-        <div class="row columnFields">
+        <div class="row columnFields searchInput dataTables_filter">
             <div class="btn-group m-r-5 m-b-5  pull-right">
-                <button class="btn btn-success">
+                <label class="pull-none">{{'commonText.Search' | i18next}}:
+                    <input type="text" ng-change="event.onNameFilterChanged(data.currentSearchQuery)"
+                           ng-model="data.currentSearchQuery" />
+                </label>
+
+                <button class="btn btn-success pull-none">
                     {{'Account.Table.FIELDS' | i18next}}
                 </button>
-                <a ng-click="event.onShowAvailableColumns()" data-toggle="dropdown" class="btn btn-success dropdown-toggle">
+                <a ng-click="event.onShowAvailableColumns()" data-toggle="dropdown"
+                   class="btn btn-success dropdown-toggle pull-none" style="margin-left: -5px;">
                     <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu pull-right">
+                <ul class="dropdown-menu">
                     <li ng-repeat="element in data.currentHiddenColumns" ng-click="event.onToggleColumn(element.column)">
                         <a ng-if="!fn.isImageHeader(element.column)">{{ element.column.name }} <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
                         <a ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"> <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="" class="btn-link">{{'commonText.RestoreDefault' | i18next}}</a></li>
+                    <li><a ng-click="event.onFieldsRestoreDefault()" class="btn-link">{{'commonText.RestoreDefault' |
+                        i18next}}</a></li>
                 </ul>
-            </div>
-        </div>
-        <div class="row searchInput dataTables_filter">
-            <div class="pull-right">
-                <label>{{'commonText.Search' | i18next}}:
-                    <input type="text" ng-change="event.onNameFilterChanged(data.currentSearchQuery)"
-                           ng-model="data.currentSearchQuery" />
-                </label>
             </div>
         </div>
         <div class="table-responsive">

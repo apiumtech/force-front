@@ -36,6 +36,12 @@ app.registerView(function (container) {
         this.data.accounts = data.elements;
     };
 
+    AccountView.prototype.resetFieldColumns = function(data){
+        this.data.headers = [];
+        this.data.accounts=[];
+        this.data.currentHiddenColumns = [];
+    }
+
     AccountView.prototype.addTableData = function (data) {
         this.data.accounts = (this.data.accounts || []).concat(data.elements);
     };
