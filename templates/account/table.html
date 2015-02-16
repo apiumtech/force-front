@@ -65,8 +65,21 @@
                                         ng-click="event.onFollowToggle(field)"
                                         />
                             </span>
+                            <span ng-switch-when="name">
+                               <a href="detail-accounts.html" class="main">{{field.value}}</a>
+                               <div class="edit-delete-div">
+                                   <a href=""><i class="fa ic-edit"></i>Edit</a> | <a ng-click="event.onDelete(field)"
+                                                                                      ng-confirm-click =
+                                                                                              "Are you sure to delete this Account?"
+                                                                                      class="brand-red-text"><i
+                                       class="fa ic-trash"></i>Delete</a>
+                               </div>
+                            </span>
                             <span ng-switch-when="imgUrl" class="glyphicon glyphicon-map-marker"></span>
-                            <span ng-switch-when="contactInfo.validAddress" ng-class="{'glyphicon glyphicon-ok': field.value==true}"></span>
+                            <span ng-switch-when="contactInfo.validAddress"
+                                  ng-class="{'glyphicon glyphicon-ok': field.value==true}"
+                                  ng-click=""
+                                  style="cursor: pointer" ></span>
                             <span ng-switch-default>{{field.value}}</span>
                         </div>
                     </td>

@@ -43,6 +43,10 @@ app.registerModel(function () {
 
     function createObject(data, template) {
         var x = {};
+
+        // id is a must field
+        writeToPath(x, "id", accessToPath(data, "id"))
+
         for (var i = 0; i < template.length; i++) {
             var field = template[i];
 
@@ -142,6 +146,18 @@ app.registerModel(function () {
         return {success: true, data: data, merge: usingQueryFields};
     };
 
+    FakeDatabase.prototype.deleteAccount = function(account_id){
+        var ret=false;
+        for (var i =0;i< this.currentAccounts.length ; i++){
+            if (this.currentAccounts[i].id == account_id){
+                this.currentAccounts.splice(i,1);
+                ret=true;
+                break;
+            }
+        }
+        return ret;
+    }
+
     FakeDatabase.prototype.getAvailableFilters = function () {
         return {
             success: true, data: [
@@ -182,6 +198,10 @@ app.registerModel(function () {
 
     FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners) {
         var cf = $currentFields || [
+                //{
+                //    columnKey: "id",
+                //    name: "Id"
+                //},
                 {
                     columnKey: "following",
                     name: "Seguir"

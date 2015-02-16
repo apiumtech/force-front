@@ -81,6 +81,7 @@ describe("FakeDatabase", function () {
         {
             offset: 0, limit: 1, filters : [], expected: {
             success: true, data: [{
+                "id": undefined,
                 "following": true,
                 "name": "Apple",
                 "class": "C",
@@ -101,6 +102,7 @@ describe("FakeDatabase", function () {
         {
             offset: 1, limit: 1, filters : [], expected: {
             success: true, data: [{
+                "id": undefined,
                 "following": false,
                 "name": "Microsoft",
                 "class": "C",
@@ -121,6 +123,7 @@ describe("FakeDatabase", function () {
         {
             offset: 0, limit: 200, filters : [{ "columnKey": "name", "value": "osoft" }], expected: {
             success: true, data: [{
+                "id": undefined,
                 "following": false,
                 "name": "Microsoft",
                 "class": "C",
@@ -143,7 +146,9 @@ describe("FakeDatabase", function () {
     dataProvider.forEach(function(test){
         it("should get a basic response of a element", function () {
             var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
-            var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit}, filters: test.filters});
+            var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit},
+                                        filters: test.filters}
+                                       );
             expect(result).toEqual(test.expected);
         });
     });

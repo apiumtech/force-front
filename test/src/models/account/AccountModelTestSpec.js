@@ -196,8 +196,10 @@ describe("AccountModel", function () {
     describe("private methods", function () {
         it("should flat an object as an array", function () {
             var model = exerciseCreateModel();
-            var obj = {a: 1, b: {c: 2, d: 3}};
-            var expected = [{name: "a", value: 1}, {name: "b.c", value: 2}, {name: "b.d", value: 3}];
+            var obj = {id: 0, a: 1, b: {c: 2, d: 3}};
+            var expected = [{name: "a", value: 1,id: 0},
+                            {name: "b.c", value: 2,id: 0},
+                            {name: "b.d", value: 3,id: 0}];
 
             var result = model._flatObject(obj);
             expect(result).toEqual(expected);

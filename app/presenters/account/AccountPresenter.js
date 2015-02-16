@@ -46,6 +46,13 @@ app.registerPresenter(function (container) {
                 .then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
+        view.event.onDelete = function (account) {
+            if (confirm("Do you want to delete "+account.value)) {
+                model.deleteAccount(account.id)
+                    .then(view.showTableData.bind(view), view.showError.bind(view));
+            }
+        };
+
         view.event.onShowAvailableColumns = function () {
             model.getAllFields()
                 .then(view.showColumnList.bind(view), view.showError.bind(view));

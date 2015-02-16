@@ -61,6 +61,15 @@ app.registerModel(function (container) {
         }
     };
 
+    AccountModel.prototype.deleteAccount = function (account_id) {
+        if (this.gateway.deleteAccount(account_id)) {
+            return this.getAccounts();
+        }
+        else{
+            throwException("Exception when removing the Account");
+        }
+    };
+
     AccountModel.prototype.addField = function (column) {
         this.queryBuilder.addField(column);
         this.queryBuilder.setPage(0);
@@ -164,17 +173,20 @@ app.registerModel(function (container) {
     };
 
     // converts {a: 1, b: 2} / [{name: 'a', value: 1}, {name: 'b', value: 2}]
-    AccountModel.prototype._flatObject = function (acc, base) {
+    AccountModel.prototype._flatObject = function (acc, base, parent_object_id) {
         var prefix = (base ? base + "." : "");
 
         var result = [];
+        if (parent_object_id == undefined){
+            parent_object_id = acc.id;
+        }
         for (var i in acc) {
-            if (acc.hasOwnProperty(i)) {
+            if (acc.hasOwnProperty(i) && i != "id") {
                 var el = acc[i];
                 if (typeof el === "object") {
-                    result = result.concat(this._flatObject(el, i));
+                    result = result.concat(this._flatObject(el, i, parent_object_id));
                 } else {
-                    result.push({name: prefix + i, value: el});
+                    result.push({name: prefix + i, value: el, id: parent_object_id});
                 }
             }
         }
