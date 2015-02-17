@@ -23,6 +23,19 @@ app.registerPresenter(function (container) {
                 .then(channel.send, view.showError.bind(view));
         };
 
+        view.event.onShowAvailableEnvironment = function (filter) {
+            model.getAvailableEnvironment(filter)
+                .then(view.showAvailableEnvironment.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onToggleEnvironmentFilter = function (item) {
+            model.toggleEnvironmentFilter(item)
+                .then(function(){
+                    channel.send;
+                    alert("Environment updated");
+                }, view.showError.bind(view));
+        };
+
         view.event.onShowAvailableAccountType = function (filter) {
             model.getAvailableAccountType(filter)
                 .then(view.showAvailableAccountType.bind(view), view.showError.bind(view));

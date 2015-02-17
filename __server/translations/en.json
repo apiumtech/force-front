@@ -79,7 +79,9 @@
               "Title": "Views"
           },
           "MenuEnvironment":{
-              "Title": "Environment"
+              "Title": "Environment",
+            "FilterEnvironment":"Filter Environment",
+            "AvailableFilterEnvironment":"Available Environment Settings"
           },
           "MenuFilter":{
             "Title": "Custom Filter"

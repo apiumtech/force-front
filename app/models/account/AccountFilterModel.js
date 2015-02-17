@@ -12,6 +12,7 @@ app.registerModel(function (container) {
         this.selectedOwners = [];
         this.selectedAccountType = [];
         this.selectedFilters = [];
+        this.selectedEnvironments = [];
     }
 
     AccountFilterModel.prototype.addFilter = function (filter) {
@@ -35,6 +36,24 @@ app.registerModel(function (container) {
     AccountFilterModel.prototype.getAvailableFilters = function (name) {
         return Q.fcall(function () {
             return this.fakeDatabase.getAvailableFilters(name || "").data;
+        }.bind(this));
+    };
+
+    AccountFilterModel.prototype.getAvailableEnvironment = function (filter) {
+        return Q.fcall(function(){
+            return this.fakeDatabase.getAvailableEnvironment(filter || "").data.map(function (k) {
+                //k.selected = this.selectedAccountType.filter(function (v) {
+                //    return v.id === k.id;
+                //}).length > 0;
+                k.selected = k.selected || false;
+                return k;
+            }.bind(this));
+        }.bind(this));
+    };
+
+    AccountFilterModel.prototype.toggleEnvironmentFilter = function (env_filter) {
+        return Q.fcall(function(){
+            this.fakeDatabase.toggleEnvironment(env_filter);
         }.bind(this));
     };
 

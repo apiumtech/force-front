@@ -56,7 +56,7 @@ app.registerModel(function () {
         return x;
     }
 
-    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType) {
+    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
         this.allFields = $currentFields.slice(0);
 
         this.currentFields = $currentFields.slice(0).filter(function (k) {
@@ -66,6 +66,8 @@ app.registerModel(function () {
         this.currentOwners = $currentOwners.slice(0);
 
         this.currentAccountType = $currentAccountType;
+
+        this.currentEnvironment = $currentEnvironment;
     }
 
     FakeDatabase.prototype.getAccountFields = function () {
@@ -197,6 +199,26 @@ app.registerModel(function () {
         };
     };
 
+    FakeDatabase.prototype.toggleEnvironment = function (env) {
+        this.currentEnvironment = this.currentEnvironment.filter(function(k){
+            k.selected = k.selected || false;
+
+            if (k.id == env.id){
+                k.selected = !k.selected;
+            }
+            return k
+        });
+    };
+
+    FakeDatabase.prototype.getAvailableEnvironment= function (nameFilter) {
+        var data = this.currentEnvironment;
+        return {
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
+        };
+    };
+
     FakeDatabase.prototype.putAccountFollowStatus = function(field){
         //var data = this.currentAccounts;
         //for (var i in data){
@@ -216,12 +238,8 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners, $currentAccountType) {
+    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
         var cf = $currentFields || [
-                //{
-                //    columnKey: "id",
-                //    name: "Id"
-                //},
                 {
                     columnKey: "following",
                     name: "Seguir"
@@ -325,6 +343,7 @@ app.registerModel(function () {
                 }
             ];
 
+        // current account type
         var cat = $currentAccountType || [
                 {
                     id: 1,
@@ -343,7 +362,21 @@ app.registerModel(function () {
                 }
             ];
 
-        return Some(new FakeDatabase(cf, ca, co, cat));
+        // current environment
+        var cev = $currentEnvironment || [
+                {
+                    id: 1,
+                    name: "Display",
+                    value: "display"
+                },
+                {
+                    id: 2,
+                    name: "Public PATH",
+                    value: "path"
+                },
+            ];
+
+        return Some(new FakeDatabase(cf, ca, co, cat, cev));
     };
 
     return {newInstance: FakeDatabase.newInstance};

@@ -20,6 +20,7 @@ app.registerView(function (container) {
         this.data.showAvailableFilters = false;
         this.data.showAvailableOwners = false;
         this.data.showAvailableAccountType = false;
+        this.data.showAvailableEnvironment = false;
 
         this.model = $model;
         this.presenter = $presenter;
@@ -48,6 +49,11 @@ app.registerView(function (container) {
     AccountFilterView.prototype.showAvailableAccountType = function (accounttype) {
         this.data.showAvailableAccountType = true;
         this.data.availableAccountType= accounttype;
+    };
+
+    AccountFilterView.prototype.showAvailableEnvironment = function (envs) {
+        this.data.showAvailableEnvironment = true;
+        this.data.availableEnvironment= envs;
     };
 
     AccountFilterView.prototype.showCustomFilters = function (filters) {
