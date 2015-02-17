@@ -64,14 +64,28 @@
     "AccountTitle": "Account",
     "CreateAccount": "Create Account",
     "Table": {
-      "Header": "Table in Panel",
+      "Header": "Accounts Management",
       "FIELDS": "FIELDS"
     },
     "Filters": {
-      "AvailableOwners": "Available Owners",
-      "AccountType": "Account type",
-      "Views": "Views",
-      "Environment": "Environment",
+      "FilterBy":{
+          "MenuOwner":{
+              "Title": "Owner",
+              "SearchOwner": "Search owner",
+              "OwnerListEmpty": "No owner available",
+              "AvailableOwners": "Available Owners"
+          },
+          "MenuViews":{
+              "Title": "Views"
+          },
+          "MenuEnvironment":{
+              "Title": "Environment"
+          },
+          "MenuAccountType":{
+            "Title": "Account Type"
+          }
+      },
+
       "AddFilters": "Add Filters",
       "AvailableFilters": "Available Filters"
     }

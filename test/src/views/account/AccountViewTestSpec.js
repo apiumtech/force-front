@@ -2,7 +2,7 @@
  * Created by kevin on 11/6/14.
  */
 describe("AccountView", function () {
-    var AccountView = app.getView('views/AccountView');
+    var AccountView = app.getView('views/account/AccountView');
 
     function exerciseCreateView(model, presenter) {
         return AccountView.newInstance({}, model || {}, presenter || {

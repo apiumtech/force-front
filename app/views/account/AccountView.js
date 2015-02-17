@@ -3,8 +3,8 @@
  */
 
 app.registerView(function (container) {
-    var AccountPresenter = container.getPresenter('presenters/AccountPresenter');
-    var AccountModel = container.getModel('models/AccountModel');
+    var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
+    var AccountModel = container.getModel('models/account/AccountModel');
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
@@ -35,6 +35,12 @@ app.registerView(function (container) {
         this.data.headers = data.headers;
         this.data.accounts = data.elements;
     };
+
+    AccountView.prototype.resetFieldColumns = function(data){
+        this.data.headers = [];
+        this.data.accounts=[];
+        this.data.currentHiddenColumns = [];
+    }
 
     AccountView.prototype.addTableData = function (data) {
         this.data.accounts = (this.data.accounts || []).concat(data.elements);

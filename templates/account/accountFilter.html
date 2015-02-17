@@ -1,0 +1,147 @@
+<div ng-controller="AccountFilterController" class="row">
+    <div class="col-md-12 ui-sortable ">
+        <div class="double-border filters-div">
+            <h6>{{'Filters.FilterBy' | i18next}}</h6>
+            <!-- begin of the template filter -->
+            <ul class="nav navbar-nav row row m-t-10">
+                <!-- Owner -->
+                <li class="dropdown">
+                    <a id="drop1" href="#" class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       ng-click="event.onShowAvailableOwners(data.ownerFilter)">
+                        {{'Account.Filters.FilterBy.MenuOwner.Title' | i18next}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <li class="m-t-10 m-b-10">
+                            <h6>
+                                {{'Account.Filters.FilterBy.MenuOwner.AvailableOwners' | i18next}}
+                            </h6>
+                            <input type="text" class="form-control ic-user" placeholder="Search owner"
+                                   ng-model="data.ownerFilter"
+                                   ng-click="$event.stopPropagation();"
+                                   ng-change="event.onShowAvailableOwners(data.ownerFilter);"/>
+                        </li>
+                        <li class="media" ng-repeat="owner in data.availableOwners">
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                   ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();"
+                                   ng-checked="owner.selected"
+                                    >
+
+                            <div class="pull-left media-object "><img src="assets/img/{{owner.avatar}}"></div>
+                            <div class="media-body">
+                                <p>{{ owner.name }} &nbsp;</p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Views -->
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{'Account.Filters.FilterBy.MenuViews.Title' | i18next}}
+                        <span class="caret"></span>
+
+                    </a>
+                    <!--<ul class="dropdown-menu  animated-slow fadeInDown">-->
+                    <!--<li class="m-t-10 m-b-10">-->
+                    <!--<select  name="data-table_length" aria-controls="data-table" class="form-control">-->
+                    <!--<option value="10" selected="selected">Select view</option><option value="25">View 1</option>-->
+                    <!--<option value="50">View 2</option><option value="100">View 3</option></select>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li class="m-t-10  text-link clearfix">-->
+                    <!--<a class="pull-left  ic-trash brand-red-text"> Delete view</a>-->
+                    <!--<a class="pull-right">Save current view</a>-->
+
+
+                    <!--</li>-->
+                    <!--</ul>-->
+                </li>
+                <!-- Enviroment -->
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{'Account.Filters.FilterBy.MenuEnvironment.Title' | i18next}}
+                        <span class="caret"></span>
+                    </a>
+                    <!--<ul class="dropdown-menu media-list  animated-slow fadeInDown">-->
+                    <!--<li class="m-t-10 m-b-10"><form>-->
+                    <!--<input type="text" class="form-control ic-user" placeholder="Search owner" />-->
+                    <!--</form></li>-->
+                    <!--<li class="media">-->
+                    <!--<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">-->
+                    <!--<div class="media-body">-->
+                    <!--<p>Force uk</p>-->
+                    <!--</div>-->
+                    <!---->
+                    <!--</li>-->
+                    <!--<li class="media">-->
+                    <!--<input  type="checkbox" class="pull-left m-t-10 m-r-10 ">-->
+                    <!--<div class="media-body">-->
+                    <!--<p>Force ES</p>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                </li>
+                <!-- Account Type -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       ng-click="event.onShowAvailableFilters()">
+                        {{'Account.Filters.FilterBy.MenuAccountType.Title' | i18next}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <li class="m-t-10 m-b-10">
+                            <form>
+                                <input type="text"
+                                       class="form-control ic-user"
+                                       placeholder="Search account type"
+                                       ng-model="data.accounttypeFilter"
+                                       ng-click="$event.stopPropagation();"
+                                       ng-change="event.onShowAvailableFilters(data.accounttypeFilter);"
+                                        />
+
+                            </form>
+                        </li>
+                        <button
+                                data-toggle="dropdown" type="button" class="btn btn-white m-r-5 m-b-5">
+                            {{'Account.Filters.AddFilters' | i18next}}
+                        </button>
+                        <li class="media" ng-repeat="filter in data.availableFilters">
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                   ng-click="event.onToggleOwnerFilter(filter);$event.stopPropagation();"
+                                   ng-checked="filter.selected"
+                                    >
+                            <div class="media-body" ng-click="event.onAddFilter(filter)">
+                                <p>{{ filter.name }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown ">
+                    <a id="drop2"
+                       href="#"
+                       class="dropdown-toggle btn btn-default btn-sm m-r-5 m-b-5"
+                       data-toggle="dropdown">
+                        Apply Filter
+                    </a>
+
+                </li>
+            </ul>
+            <!-- end of template filter -->
+        </div>
+        <div class="filters-div col-lg-12">
+            <table class="filterTable">
+                <tr ng-repeat="filter in data.customFilters" ng-if="filter.columnKey != 'responsible.id'">
+                    <td><span>{{ filter.name }}:</span></td>
+                    <td>
+                        <form ng-submit="event.onFilterKeyUp(filter, filter.value)" class="dataTables_filter">
+                            <input type="text" ng-model="filter.value"/>
+                        </form>
+                    </td>
+                    <td><span ng-click="event.onRemoveFilter(filter)">X</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

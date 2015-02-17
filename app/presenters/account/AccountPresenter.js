@@ -23,7 +23,7 @@ app.registerPresenter(function (container) {
             }
         });
 
-        /** region table **/
+        /* region table */
         view.event.onNameFilterChanged = function (value) {
             model.setNameFilter(value)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
@@ -34,11 +34,33 @@ app.registerPresenter(function (container) {
                 .then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
+        view.event.onFollowToggle = function (field) {
+            model.onFollowToggle(field);
+                //.then(view.showTableData.bind(view), view.showError.bind(view));
+        };
+
         view.event.onToggleColumn = function (column) {
             channel.send({remove: column});
 
             model.toggleField(column)
                 .then(view.showTableData.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onDelete = function (account) {
+            if (confirm("Do you want to delete "+account.value)) {
+                model.deleteAccount(account.id)
+                    .then(view.showTableData.bind(view), view.showError.bind(view));
+            }
+        };
+
+        view.event.onFieldsRestoreDefault = function () {
+            //model.getAllFields()
+            //    .then(view.showColumnList.bind(view), view.showError.bind(view));
+            view.resetFieldColumns();
+            var cols = model.restoreDefaultColumns();
+            view.showColumnList(cols);
+                //.then(view.showColumnList.bind(view), view.showError.bind(view));
+            model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onShowAvailableColumns = function () {
@@ -50,7 +72,7 @@ app.registerPresenter(function (container) {
             model.nextPage()
                 .then(view.addTableData.bind(view), view.showError.bind(view));
         };
-        /** end region **/
+        /* endregion */
     };
 
     AccountPresenter.newInstance = function ($filterChannel) {

@@ -22,7 +22,10 @@ function main() {
     /** AngularJS App Configuration **/
     function AngularConfig($routeProvider, $i18nextProvider) {
         $routeProvider
-            .when('/analytics/conversion', {
+            .when('/accounts', {
+                templateUrl: '/templates/account.html',
+                controller: 'AccountController'
+            }).when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
                 controller: 'ConversionController'
             })
@@ -80,7 +83,12 @@ function main() {
 
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',
-            'controllers/AccountController', 'views/AccountView', 'presenters/AccountPresenter', 'models/AccountModel',
+
+            // Account Page
+            'controllers/account/AccountController', 'views/account/AccountView', 'presenters/account/AccountPresenter', 'models/account/AccountModel',
+            // Account Filter
+            'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
+            'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',
 
             // Intensity Page
             'controllers/IntensityController', 'views/IntensityView', 'presenters/IntensityPresenter', 'models/IntensityModel',
@@ -123,6 +131,7 @@ function main() {
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'
+
         ]
     };
 

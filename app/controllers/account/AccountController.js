@@ -1,8 +1,9 @@
 /**
  * Created by kevin on 10/22/14.
+ * Updated by trung.dang on 02/12/2015
  */
 app.registerController(function (container) {
-    var AccountView = container.getView("views/AccountView");
+    var AccountView = container.getView("views/account/AccountView");
 
     function AccountController($scope) {
         AccountController.configureView($scope);

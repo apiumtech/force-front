@@ -5,6 +5,9 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+-- Feb 17 2015
+* To run on server, use: grunt dev-server express-keepalive &
+
 --- Feb 10 2015
 * Latest LESS file is built when run the fake server
 * If font is missing, please copy 'fonts' folder in /assets/css folder to /build folder

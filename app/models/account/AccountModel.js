@@ -61,6 +61,20 @@ app.registerModel(function (container) {
         }
     };
 
+    AccountModel.prototype.deleteAccount = function (account_id) {
+        if (this.gateway.deleteAccount(account_id)) {
+            return this.getAccounts();
+        }
+        else{
+            throwException("Exception when removing the Account");
+        }
+    };
+
+    AccountModel.prototype.resetField = function(){
+        this.queryBuilder.allFields();
+        this.queryBuilder.setPage(0);
+    }
+
     AccountModel.prototype.addField = function (column) {
         this.queryBuilder.addField(column);
         this.queryBuilder.setPage(0);
@@ -134,13 +148,32 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.getAccounts = function () {
-        if (this.columns === null) {
+        if (this.columns === null || this.columns.length ==0) {
             return this.getCurrentFields()
                 .then(this._queryData.bind(this));
         } else {
             return Q.fcall(this._queryData.bind(this));
         }
     };
+
+    AccountModel.prototype.restoreDefaultColumns = function(){
+
+            var ref = this.gateway.setRestoreFieldsDefault().data;
+            this.allColumns = ref;
+            this._setColumnList(ref);
+            var ret= this.resetField();
+
+            return ref.map(function (k) {
+                return {column: k, enabled: true};
+            });
+            //ret.hidden_columns = hidden_columns;
+            //return ret;
+        //}.bind(this));
+    }
+
+    AccountModel.prototype.getPromiseTest = function(data){
+        return data;
+    }
 
     AccountModel.prototype._queryData = function () {
         var query = this.queryBuilder.build();
@@ -164,17 +197,20 @@ app.registerModel(function (container) {
     };
 
     // converts {a: 1, b: 2} / [{name: 'a', value: 1}, {name: 'b', value: 2}]
-    AccountModel.prototype._flatObject = function (acc, base) {
+    AccountModel.prototype._flatObject = function (acc, base, parent_object_id) {
         var prefix = (base ? base + "." : "");
 
         var result = [];
+        if (parent_object_id == undefined){
+            parent_object_id = acc.id;
+        }
         for (var i in acc) {
-            if (acc.hasOwnProperty(i)) {
+            if (acc.hasOwnProperty(i) && i != "id") {
                 var el = acc[i];
                 if (typeof el === "object") {
-                    result = result.concat(this._flatObject(el, i));
+                    result = result.concat(this._flatObject(el, i, parent_object_id));
                 } else {
-                    result.push({name: prefix + i, value: el});
+                    result.push({name: prefix + i, value: el, id: parent_object_id});
                 }
             }
         }
@@ -200,6 +236,15 @@ app.registerModel(function (container) {
         } else { // save
             this.data = response.data;
         }
+    };
+
+    AccountModel.prototype.onFollowToggle = function(field){
+      if (field){
+          if (this.gateway.putAccountFollowStatus(field).status){
+              return this.getAccounts();
+          }
+      }
+        return Q.fcall(function(){});
     };
 
     AccountModel.newInstance = function (db, qb) {

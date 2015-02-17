@@ -43,6 +43,10 @@ app.registerModel(function () {
 
     function createObject(data, template) {
         var x = {};
+
+        // id is a must field
+        writeToPath(x, "id", accessToPath(data, "id"))
+
         for (var i = 0; i < template.length; i++) {
             var field = template[i];
 
@@ -65,6 +69,11 @@ app.registerModel(function () {
     FakeDatabase.prototype.getAccountFields = function () {
         return {success: true, data: this.currentFields};
     };
+
+    FakeDatabase.prototype.setRestoreFieldsDefault = function(){
+        this.currentFields = this.allFields;
+        return this.getAllAccountFields();
+    }
 
     FakeDatabase.prototype.getAllAccountFields = function () {
         return {success: true, data: this.allFields};
@@ -142,13 +151,29 @@ app.registerModel(function () {
         return {success: true, data: data, merge: usingQueryFields};
     };
 
-    FakeDatabase.prototype.getAvailableFilters = function () {
+    FakeDatabase.prototype.deleteAccount = function(account_id){
+        var ret=false;
+        for (var i =0;i< this.currentAccounts.length ; i++){
+            if (this.currentAccounts[i].id == account_id){
+                this.currentAccounts.splice(i,1);
+                ret=true;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    FakeDatabase.prototype.getAvailableFilters = function (nameFilter) {
+        var data = [
+            {columnKey: 'contactInfo.address', name: "Dirección"},
+            {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
+            {columnKey: 'contactInfo.city', name: "Ciudad"}
+        ];
+
         return {
-            success: true, data: [
-                {columnKey: 'contactInfo.address', name: "Dirección"},
-                {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
-                {columnKey: 'contactInfo.city', name: "Ciudad"}
-            ]
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
         };
     };
 
@@ -161,8 +186,31 @@ app.registerModel(function () {
         };
     };
 
+    FakeDatabase.prototype.putAccountFollowStatus = function(field){
+        //var data = this.currentAccounts;
+        //for (var i in data){
+        //    if (data[i] == field)
+        //    {
+        //        field.isFollowSelected = field.isFollowSelected || false;
+        //        field.isFollowSelected = ! field.isFollowSelected;
+        //        data[i] = field;
+        //        break;
+        //    }
+        //}
+        // donothing at this time
+        alert("Updated Following Checkbox")
+        return {
+            success: true,
+            data: field
+        };
+    };
+
     FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners) {
         var cf = $currentFields || [
+                //{
+                //    columnKey: "id",
+                //    name: "Id"
+                //},
                 {
                     columnKey: "following",
                     name: "Seguir"
@@ -249,9 +297,21 @@ app.registerModel(function () {
             ];
 
         var co = $currentOwners || [
-                {id: 2, name: "Andrea Perazzi"},
-                {id: 1, name: "Antonio Sanchez"},
-                {id: 0, name: "Carlos Zamorano"}
+                {
+                    id: 2,
+                    name: "Andrea Perazzi",
+                    avatar: "user-13.jpg"
+                },
+                {
+                    id: 1,
+                    name: "Antonio Sanchez",
+                    avatar: "user-11.jpg"
+                },
+                {
+                    id: 0,
+                    name: "Carlos Zamorano",
+                    avatar: "user-14.jpg"
+                }
             ];
 
         return Some(new FakeDatabase(cf, ca, co));

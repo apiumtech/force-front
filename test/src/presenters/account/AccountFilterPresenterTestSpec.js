@@ -1,20 +1,20 @@
 /**
- * Created by kevin on 11/6/14.
+ * Created by trung.dang on 02/13/20105
  */
-describe("AccountPresenter", function () {
-    var AccountPresenter = app.getPresenter('presenters/AccountPresenter');
+describe("AccountFilterPresenter", function () {
+    var FilterPresenter = app.getPresenter('presenters/account/AccountFilterPresenter');
 
     function exerciseCreatePresenter() {
-        return AccountPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create AccountPresenter");
+        return FilterPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create FilterPresenter");
     }
 
     [
-        { viewEvent: 'onInit', modelMethod: 'getAccounts', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onNameFilterChanged', modelMethod: 'setNameFilter', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onSort', modelMethod: 'sortByField', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onToggleColumn', modelMethod: 'toggleField', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onShowAvailableColumns', modelMethod: 'getAllFields', onSuccess: 'showColumnList', onError: 'showError' },
-        { viewEvent: 'onAccountsNextPage', modelMethod: 'nextPage', onSuccess: 'addTableData', onError: 'showError' }
+        { viewEvent: 'onFilterKeyUp', modelMethod: 'addFilter', onSuccess: '*', onError: 'showError' },
+        { viewEvent: 'onShowAvailableFilters', modelMethod: 'getAvailableFilters', onSuccess: 'showAvailableFilters', onError: 'showError' },
+        { viewEvent: 'onAddFilter', modelMethod: 'addFilter', onSuccess: 'showFilters', onError: 'showError' },
+        { viewEvent: 'onRemoveFilter', modelMethod: 'removeFilter', onSuccess: 'showFilters', onError: 'showError' },
+        { viewEvent: 'onToggleOwnerFilter', modelMethod: 'toggleOwnerFilter', onSuccess: '*', onError: 'showError' },
+        { viewEvent: 'onShowAvailableOwners', modelMethod: 'getAvailableOwners', onSuccess: 'showAvailableOwners', onError: 'showError' }
     ].forEach(function (e) {
             it('should call the model method ' + e.modelMethod + ' on ' + e.viewEvent, function () {
                 var presenter = exerciseCreatePresenter();
@@ -23,12 +23,17 @@ describe("AccountPresenter", function () {
 
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakePromise());
 
-                emitEvent(presenter, view, model);
+                presenter.show(view, model);
+                view.event[e.viewEvent]();
 
                 expect(model[e.modelMethod]).toHaveBeenCalled();
             });
 
             it('should call ' + e.onSuccess + ' when ' + e.modelMethod + ' finished OK', function () {
+                if (e.onSuccess == "*") {
+                    return;
+                }
+
                 var presenter = exerciseCreatePresenter();
                 var view = exerciseCreateView();
                 var model = exerciseCreateModel();
@@ -36,12 +41,17 @@ describe("AccountPresenter", function () {
                 view[e.onSuccess] = jasmine.createSpy();
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakeOkPromise());
 
-                emitEvent(presenter, view, model);
+                presenter.show(view, model);
+                view.event[e.viewEvent]();
 
                 expect(view[e.onSuccess]).toHaveBeenCalled();
             });
 
             it('should call ' + e.onError + ' when ' + e.modelMethod + ' failed', function () {
+                if (e.onError == "*") {
+                    return;
+                }
+
                 var presenter = exerciseCreatePresenter();
                 var view = exerciseCreateView();
                 var model = exerciseCreateModel();
@@ -49,7 +59,8 @@ describe("AccountPresenter", function () {
                 view[e.onError] = jasmine.createSpy();
                 spyOn(model, e.modelMethod).and.returnValue(exerciseFakeKoPromise());
 
-                emitEvent(presenter, view, model);
+                presenter.show(view, model);
+                view.event[e.viewEvent]();
 
                 expect(view[e.onError]).toHaveBeenCalled();
             });
@@ -68,11 +79,6 @@ describe("AccountPresenter", function () {
                 model[e.modelMethod] = function () {};
 
                 return model;
-            }
-
-            function emitEvent(presenter, view, model) {
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
             }
         });
 });

@@ -27,15 +27,20 @@ html, body {
 }
 
 .filterNone {
-    background: url('../plugins/DataTables-1.9.4/img/sort_both.png') no-repeat right;
+    background: url('plugins/DataTables-1.9.4/img/sort_both.png') no-repeat right;
 }
 
 .filterAsc {
-    background: url('../plugins/DataTables-1.9.4/img/sort_asc.png') no-repeat right;
+    background: url('plugins/DataTables-1.9.4/img/sort_asc.png') no-repeat right;
+}
+
+.table > thead > tr > th.filterAsc, .table > thead > tr > th.filterDesc {
+    background-color: #ed8b00;
+    color: #ffffff;
 }
 
 .filterDesc {
-    background: url('../plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
+    background: url('plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
 }
 
 .noHover, .noHover:hover {
