@@ -188,10 +188,12 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.prototype.getAvailableAccountType = function () {
+    FakeDatabase.prototype.getAvailableAccountType = function (nameFilter) {
         var data = this.currentAccountType;
         return {
-            success: true, data: data
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
         };
     };
 

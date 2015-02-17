@@ -23,8 +23,8 @@ app.registerPresenter(function (container) {
                 .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableAccountType = function () {
-            model.getAvailableAccountType()
+        view.event.onShowAvailableAccountType = function (filter) {
+            model.getAvailableAccountType(filter)
                 .then(view.showAvailableAccountType.bind(view), view.showError.bind(view));
         };
 

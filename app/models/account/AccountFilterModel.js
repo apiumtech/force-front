@@ -38,9 +38,9 @@ app.registerModel(function (container) {
         }.bind(this));
     };
 
-    AccountFilterModel.prototype.getAvailableAccountType = function () {
+    AccountFilterModel.prototype.getAvailableAccountType = function (filter) {
         return Q.fcall(function(){
-            return this.fakeDatabase.getAvailableAccountType().data.map(function (k) {
+            return this.fakeDatabase.getAvailableAccountType(filter || "").data.map(function (k) {
                 k.selected = this.selectedAccountType.filter(function (v) {
                     return v.id === k.id;
                 }).length > 0;

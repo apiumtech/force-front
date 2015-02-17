@@ -85,7 +85,9 @@
             "Title": "Custom Filter"
           },
           "MenuAccountType":{
-            "Title": "Account Type"
+            "Title": "Account Type",
+            "FilterAccountType":"Filter Account Type",
+            "AvailableFilterAccountType":"Available Account Type"
           }
       },
 
