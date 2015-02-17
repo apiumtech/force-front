@@ -163,13 +163,17 @@ app.registerModel(function () {
         return ret;
     }
 
-    FakeDatabase.prototype.getAvailableFilters = function () {
+    FakeDatabase.prototype.getAvailableFilters = function (nameFilter) {
+        var data = [
+            {columnKey: 'contactInfo.address', name: "Dirección"},
+            {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
+            {columnKey: 'contactInfo.city', name: "Ciudad"}
+        ];
+
         return {
-            success: true, data: [
-                {columnKey: 'contactInfo.address', name: "Dirección"},
-                {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
-                {columnKey: 'contactInfo.city', name: "Ciudad"}
-            ]
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
         };
     };
 

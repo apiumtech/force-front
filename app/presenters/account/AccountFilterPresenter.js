@@ -23,8 +23,8 @@ app.registerPresenter(function (container) {
                 .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableFilters = function () {
-            model.getAvailableFilters()
+        view.event.onShowAvailableFilters = function (nameFilter) {
+            model.getAvailableFilters(nameFilter)
                 .then(view.showAvailableFilters.bind(view), view.showError.bind(view));
         };
 
