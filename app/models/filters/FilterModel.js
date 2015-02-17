@@ -30,9 +30,9 @@ app.registerModel(function (container) {
         }.bind(this));
     };
 
-    FilterModel.prototype.getAvailableFilters = function () {
+    FilterModel.prototype.getAvailableFilters = function (name) {
         return Q.fcall(function () {
-            return this.fakeDatabase.getAvailableFilters().data;
+            return this.fakeDatabase.getAvailableFilters(name || "").data;
         }.bind(this));
     };
 

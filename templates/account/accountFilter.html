@@ -92,7 +92,13 @@
                     <ul class="dropdown-menu media-list  animated-slow fadeInDown">
                         <li class="m-t-10 m-b-10">
                             <form>
-                                <input type="text" class="form-control ic-user" placeholder="Search account type"/>
+                                <input type="text"
+                                       class="form-control ic-user"
+                                       placeholder="Search account type"
+                                       ng-model="data.accounttypeFilter"
+                                       ng-click="$event.stopPropagation();"
+                                       ng-change="event.onShowAvailableFilters(data.accounttypeFilter);"
+                                        />
 
                             </form>
                         </li>
