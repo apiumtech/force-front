@@ -82,11 +82,30 @@
                     <!--</li>-->
                     <!--</ul>-->
                 </li>
-                <!-- Account Type -->
+                <!-- Account Type  -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       ng-click="event.onShowAvailableAccountType()">
+                        {{'Account.Filters.FilterBy.MenuAccountType.Title' | i18next}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <li class="media" ng-repeat="atype in data.availableAccountType">
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                   ng-click="event.onToggleAccountTypeFilter(atype);$event.stopPropagation();"
+                                   ng-checked="atype.selected"
+                                    >
+                            <div class="media-body">
+                                <p>{{ atype.name }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Custom Filter  -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                        ng-click="event.onShowAvailableFilters()">
-                        {{'Account.Filters.FilterBy.MenuAccountType.Title' | i18next}}
+                        {{'Account.Filters.FilterBy.MenuFilter.Title' | i18next}}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu media-list  animated-slow fadeInDown">
@@ -94,10 +113,10 @@
                             <form>
                                 <input type="text"
                                        class="form-control ic-user"
-                                       placeholder="Search account type"
-                                       ng-model="data.accounttypeFilter"
+                                       placeholder="Enter your search"
+                                       ng-model="data.currentFilter"
                                        ng-click="$event.stopPropagation();"
-                                       ng-change="event.onShowAvailableFilters(data.accounttypeFilter);"
+                                       ng-change="event.onShowAvailableFilters(data.currentFilter);"
                                         />
 
                             </form>
@@ -108,7 +127,7 @@
                         </button>
                         <li class="media" ng-repeat="filter in data.availableFilters">
                             <input type="checkbox" class="pull-left m-t-10 m-r-10 "
-                                   ng-click="event.onToggleOwnerFilter(filter);$event.stopPropagation();"
+                                   ng-click="event.onToggleFilter(filter);$event.stopPropagation();"
                                    ng-checked="filter.selected"
                                     >
                             <div class="media-body" ng-click="event.onAddFilter(filter)">

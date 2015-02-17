@@ -56,7 +56,7 @@ app.registerModel(function () {
         return x;
     }
 
-    function FakeDatabase($currentFields, $currentAccounts, $currentOwners) {
+    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType) {
         this.allFields = $currentFields.slice(0);
 
         this.currentFields = $currentFields.slice(0).filter(function (k) {
@@ -64,6 +64,8 @@ app.registerModel(function () {
         });
         this.currentAccounts = $currentAccounts.slice(0);
         this.currentOwners = $currentOwners.slice(0);
+
+        this.currentAccountType = $currentAccountType;
     }
 
     FakeDatabase.prototype.getAccountFields = function () {
@@ -186,6 +188,13 @@ app.registerModel(function () {
         };
     };
 
+    FakeDatabase.prototype.getAvailableAccountType = function () {
+        var data = this.currentAccountType;
+        return {
+            success: true, data: data
+        };
+    };
+
     FakeDatabase.prototype.putAccountFollowStatus = function(field){
         //var data = this.currentAccounts;
         //for (var i in data){
@@ -205,7 +214,7 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners) {
+    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners, $currentAccountType) {
         var cf = $currentFields || [
                 //{
                 //    columnKey: "id",
@@ -314,7 +323,25 @@ app.registerModel(function () {
                 }
             ];
 
-        return Some(new FakeDatabase(cf, ca, co));
+        var cat = $currentAccountType || [
+                {
+                    id: 1,
+                    name: "Class A",
+                    value: "A"
+                },
+                {
+                    id: 2,
+                    name: "Class B",
+                    value: "B"
+                },
+                {
+                    id: 3,
+                    name: "Class C",
+                    value: "C"
+                }
+            ];
+
+        return Some(new FakeDatabase(cf, ca, co, cat));
     };
 
     return {newInstance: FakeDatabase.newInstance};

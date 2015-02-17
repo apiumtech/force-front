@@ -10,6 +10,8 @@ app.registerModel(function (container) {
         this.fakeDatabase = $fakeDatabase;
         this.filters = [];
         this.selectedOwners = [];
+        this.selectedAccountType = [];
+        this.selectedFilters = [];
     }
 
     AccountFilterModel.prototype.addFilter = function (filter) {
@@ -36,6 +38,42 @@ app.registerModel(function (container) {
         }.bind(this));
     };
 
+    AccountFilterModel.prototype.getAvailableAccountType = function () {
+        return Q.fcall(function(){
+            return this.fakeDatabase.getAvailableAccountType().data.map(function (k) {
+                k.selected = this.selectedAccountType.filter(function (v) {
+                    return v.id === k.id;
+                }).length > 0;
+                return k;
+            }.bind(this));
+        }.bind(this));
+    };
+
+    AccountFilterModel.prototype.toggleAccountTypeFilter = function (account_type_filter) {
+        var objA = this.selectedAccountType.filter(function (k) {
+            return k.id === account_type_filter.id;
+        });
+
+        if (objA.length > 0) { // remove account type filter
+            var acctype_afterremove = this.selectedAccountType.filter(function(k){
+                return k.id  != account_type_filter.id;
+            });
+            this.selectedAccountType = acctype_afterremove;
+        } else { // add new account type filter
+            account_type_filter.selected = true;
+            this.selectedAccountType.push(account_type_filter);
+        }
+
+        //this.selectedOwners = this.selectedOwners.filter(function (value, index, self) {
+        //    return self.indexOf(value) === index && value.selected;
+        //});
+
+        var filterValue = this.selectedAccountType.map(function (k) {
+            return k.value;
+        });
+        return this.addFilter({columnKey: "class", value: filterValue});
+    };
+
     AccountFilterModel.prototype.getAvailableOwners = function (name) {
         return Q.fcall(function () {
             return this.fakeDatabase.getAvailableOwners(name || "").data.map(function (k) {
@@ -53,25 +91,52 @@ app.registerModel(function (container) {
         });
 
         if (objA.length > 0) {
-            var obj = objA[0];
-            obj.selected = !obj.selected;
+            //var obj = objA[0];
+            //obj.selected = !obj.selected;
+            //
+            //if (obj.selected) {
+            //    this.selectedOwners.push(owner);
+            //}
 
-            if (obj.selected) {
-                this.selectedOwners.push(owner);
-            }
+            var remain_filters = this.selectedOwners.filter(function(k){
+                return k.id  != owner.id;
+            });
+            this.selectedOwners = remain_filters;
         } else {
             owner.selected = true;
             this.selectedOwners.push(owner);
         }
 
-        this.selectedOwners = this.selectedOwners.filter(function (value, index, self) {
-            return self.indexOf(value) === index && value.selected;
-        });
+        //this.selectedOwners = this.selectedOwners.filter(function (value, index, self) {
+        //    return self.indexOf(value) === index && value.selected;
+        //});
 
         var filterValue = this.selectedOwners.map(function (k) {
             return k.id;
         });
         return this.addFilter({columnKey: "responsible.id", value: filterValue});
+    };
+
+    AccountFilterModel.prototype.toggleFilter = function (owner) {
+        var objA = this.selectedFilters.filter(function (k) {
+            return k.id === owner.id;
+        });
+
+        if (objA.length > 0) { // remove account type filter
+            var remain_filters = this.selectedFilters.filter(function(k){
+                return k.id  != owner.id;
+            });
+            this.selectedFilters = remain_filters;
+        } else { // add new account type filter
+            owner.selected = true;
+            this.selectedFilters.push(owner);
+        }
+
+        var filterValue = this.selectedFilters.map(function (k) {
+           return {columnKey: k.columnKey, value: k.name};
+        });
+        //return this.addFilter({columnKey: "class", value: filterValue});
+        return this.addFilter(filterValue);
     };
 
     AccountFilterModel.newInstance = function (db) {

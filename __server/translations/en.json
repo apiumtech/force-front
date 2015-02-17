@@ -81,6 +81,9 @@
           "MenuEnvironment":{
               "Title": "Environment"
           },
+          "MenuFilter":{
+            "Title": "Custom Filter"
+          },
           "MenuAccountType":{
             "Title": "Account Type"
           }
