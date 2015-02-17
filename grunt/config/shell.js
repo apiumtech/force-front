@@ -9,7 +9,9 @@ module.exports = function (grunt) {
             command: 'if cd force-design; then git pull; else git clone https://github.com/apiumtech/force-design.git --branch develop --single-branch force-design; fi'
         },
         'migrate-design': {
-            command: 'cp -R force-design/assets/ ./assets && cp -Rf force-design/assets/plugins ./build/'
+            command: 'cp -R force-design/assets/ ./assets && ' +
+            'cp -Rf force-design/assets/plugins ./build/ && ' +
+            'cp -Rf force-design/assets/css/fonts ./build/fonts'
         }
     };
 };
