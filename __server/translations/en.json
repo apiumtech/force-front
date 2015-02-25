@@ -19,7 +19,8 @@
     "MinuteAgo_plural": "__minute__ minutes ago",
     "HourAgo": "__hour__ hour ago",
     "HourAgo_plural": "__hour__ hours ago",
-    "NewEmailFrom": "New email from __from__"
+    "NewEmailFrom": "New email from __from__",
+    "NoResultFound": "No result found"
   },
   "LineWidget": {
     "DataDisplay": "Data display",

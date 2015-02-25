@@ -2,10 +2,14 @@
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title=""><i class="fa fa-expand"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload" data-original-title="" title=""><i class="fa fa-repeat"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
-                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove" data-original-title="" title=""><i class="fa fa-times"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"
+                   data-original-title="" title=""><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"
+                   data-original-title="" title=""><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"
+                   data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"
+                   data-original-title="" title=""><i class="fa fa-times"></i></a>
             </div>
             <h4 class="panel-title">
                 {{'Account.Table.Header' | i18next}}
@@ -15,7 +19,7 @@
             <div class="btn-group m-r-5 m-b-5  pull-right">
                 <label class="pull-none">{{'commonText.Search' | i18next}}:
                     <input type="text" ng-change="event.onNameFilterChanged(data.currentSearchQuery)"
-                           ng-model="data.currentSearchQuery" />
+                           ng-model="data.currentSearchQuery"/>
                 </label>
 
                 <button class="btn btn-success pull-none">
@@ -26,9 +30,12 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li ng-repeat="element in data.currentHiddenColumns" ng-click="event.onToggleColumn(element.column)">
-                        <a ng-if="!fn.isImageHeader(element.column)">{{ element.column.name }} <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
-                        <a ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"> <span ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
+                    <li ng-repeat="element in data.currentHiddenColumns"
+                        ng-click="event.onToggleColumn(element.column)">
+                        <a ng-if="!fn.isImageHeader(element.column)">{{ element.column.name }} <span
+                                ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
+                        <a ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"> <span
+                                ng-class="{'glyphicon glyphicon-ok': element.enabled}"></span></a>
                     </li>
                     <li class="divider"></li>
                     <li><a ng-click="event.onFieldsRestoreDefault()" class="btn-link">{{'commonText.RestoreDefault' |
@@ -52,6 +59,11 @@
                 </tr>
                 </thead>
                 <tbody infinite-scroll="event.onAccountsNextPage()" infinite-scroll-distance="0">
+                <tr ng-show="data.accounts.length==0">
+                    <td colspan="{{data.headers.length}}" style="text-align: center;">
+                        {{'commonText.NoResultFound' | i18next}}
+                    </td>
+                </tr>
                 <tr ng-repeat="account in data.accounts" class="gradeX">
                     <td ng-repeat="field in account">
                         <div ng-switch on="field.name">
@@ -60,15 +72,15 @@
                             </span>
                             <span ng-switch-when="following">
                                 <input type="checkbox" readonly="readonly"
-                                        ng-model="field.isFollowSelected"
-                                        ng-click="event.onFollowToggle(field)"
+                                       ng-model="field.isFollowSelected"
+                                       ng-click="event.onFollowToggle(field)"
                                         />
                             </span>
                             <span ng-switch-when="name">
                                <a href="detail-accounts.html" class="main">{{field.value}}</a>
                                <div class="edit-delete-div">
                                    <a href=""><i class="fa ic-edit"></i>Edit</a> | <a ng-click="event.onDelete(field)"
-                                                                                      ng-confirm-click =
+                                                                                      ng-confirm-click=
                                                                                               "Are you sure to delete this Account?"
                                                                                       class="brand-red-text"><i
                                        class="fa ic-trash"></i>Delete</a>
@@ -78,7 +90,7 @@
                             <span ng-switch-when="contactInfo.validAddress"
                                   ng-class="{'glyphicon glyphicon-ok': field.value==true}"
                                   ng-click=""
-                                  style="cursor: pointer" ></span>
+                                  style="cursor: pointer"></span>
                             <span ng-switch-default>{{field.value}}</span>
                         </div>
                     </td>
