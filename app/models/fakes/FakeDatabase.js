@@ -56,7 +56,7 @@ app.registerModel(function () {
         return x;
     }
 
-    function FakeDatabase($currentFields, $currentAccounts, $currentOwners) {
+    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
         this.allFields = $currentFields.slice(0);
 
         this.currentFields = $currentFields.slice(0).filter(function (k) {
@@ -64,6 +64,10 @@ app.registerModel(function () {
         });
         this.currentAccounts = $currentAccounts.slice(0);
         this.currentOwners = $currentOwners.slice(0);
+
+        this.currentAccountType = $currentAccountType;
+
+        this.currentEnvironment = $currentEnvironment;
     }
 
     FakeDatabase.prototype.getAccountFields = function () {
@@ -163,18 +167,51 @@ app.registerModel(function () {
         return ret;
     }
 
-    FakeDatabase.prototype.getAvailableFilters = function () {
+    FakeDatabase.prototype.getAvailableFilters = function (nameFilter) {
+        var data = [
+            {columnKey: 'contactInfo.address', name: "Dirección"},
+            {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
+            {columnKey: 'contactInfo.city', name: "Ciudad"}
+        ];
+
         return {
-            success: true, data: [
-                {columnKey: 'contactInfo.address', name: "Dirección"},
-                {columnKey: 'contactInfo.phoneNumber', name: "Numero tel."},
-                {columnKey: 'contactInfo.city', name: "Ciudad"}
-            ]
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
         };
     };
 
     FakeDatabase.prototype.getAvailableOwners = function (nameFilter) {
         var data = this.currentOwners;
+        return {
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
+        };
+    };
+
+    FakeDatabase.prototype.getAvailableAccountType = function (nameFilter) {
+        var data = this.currentAccountType;
+        return {
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
+        };
+    };
+
+    FakeDatabase.prototype.toggleEnvironment = function (env) {
+        this.currentEnvironment = this.currentEnvironment.filter(function(k){
+            k.selected = k.selected || false;
+
+            if (k.id == env.id){
+                k.selected = !k.selected;
+            }
+            return k
+        });
+    };
+
+    FakeDatabase.prototype.getAvailableEnvironment= function (nameFilter) {
+        var data = this.currentEnvironment;
         return {
             success: true, data: data.filter(function (k) {
                 return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
@@ -201,12 +238,8 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners) {
+    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
         var cf = $currentFields || [
-                //{
-                //    columnKey: "id",
-                //    name: "Id"
-                //},
                 {
                     columnKey: "following",
                     name: "Seguir"
@@ -310,7 +343,40 @@ app.registerModel(function () {
                 }
             ];
 
-        return Some(new FakeDatabase(cf, ca, co));
+        // current account type
+        var cat = $currentAccountType || [
+                {
+                    id: 1,
+                    name: "Class A",
+                    value: "A"
+                },
+                {
+                    id: 2,
+                    name: "Class B",
+                    value: "B"
+                },
+                {
+                    id: 3,
+                    name: "Class C",
+                    value: "C"
+                }
+            ];
+
+        // current environment
+        var cev = $currentEnvironment || [
+                {
+                    id: 1,
+                    name: "Display",
+                    value: "display"
+                },
+                {
+                    id: 2,
+                    name: "Public PATH",
+                    value: "path"
+                },
+            ];
+
+        return Some(new FakeDatabase(cf, ca, co, cat, cev));
     };
 
     return {newInstance: FakeDatabase.newInstance};

@@ -19,7 +19,8 @@
     "MinuteAgo_plural": "__minute__ minutes ago",
     "HourAgo": "__hour__ hour ago",
     "HourAgo_plural": "__hour__ hours ago",
-    "NewEmailFrom": "New email from __from__"
+    "NewEmailFrom": "New email from __from__",
+    "NoResultFound": "No result found"
   },
   "LineWidget": {
     "DataDisplay": "Data display",
@@ -79,10 +80,17 @@
               "Title": "Views"
           },
           "MenuEnvironment":{
-              "Title": "Environment"
+              "Title": "Environment",
+            "FilterEnvironment":"Filter Environment",
+            "AvailableFilterEnvironment":"Available Environment Settings"
+          },
+          "MenuFilter":{
+            "Title": "Custom Filter"
           },
           "MenuAccountType":{
-            "Title": "Account Type"
+            "Title": "Account Type",
+            "FilterAccountType":"Filter Account Type",
+            "AvailableFilterAccountType":"Available Account Type"
           }
       },
 

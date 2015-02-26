@@ -159,7 +159,8 @@ describe("MapChartWidgetView", function () {
             expect(mapChart.clearPointMap).toHaveBeenCalled();
         });
 
-        [{selectedFilter: "checkins", method: "applyHeatLayer"},
+        [
+            {selectedFilter: "checkins", method: "applyHeatLayer"},
             {selectedFilter: "users", method: "createUserMap"},
             {selectedFilter: "activity", method: "createPointMap"}
         ].forEach(function (test) {

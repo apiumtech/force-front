@@ -23,9 +23,37 @@ app.registerPresenter(function (container) {
                 .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableFilters = function () {
-            model.getAvailableFilters()
+        view.event.onShowAvailableEnvironment = function (filter) {
+            model.getAvailableEnvironment(filter)
+                .then(view.showAvailableEnvironment.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onToggleEnvironmentFilter = function (item) {
+            model.toggleEnvironmentFilter(item)
+                .then(function(){
+                    channel.send;
+                    alert("Environment updated");
+                }, view.showError.bind(view));
+        };
+
+        view.event.onShowAvailableAccountType = function (filter) {
+            model.getAvailableAccountType(filter)
+                .then(view.showAvailableAccountType.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onToggleAccountTypeFilter = function (item) {
+            model.toggleAccountTypeFilter(item)
+                .then(channel.send, view.showError.bind(view));
+        };
+
+        view.event.onShowAvailableFilters = function (nameFilter) {
+            model.getAvailableFilters(nameFilter)
                 .then(view.showAvailableFilters.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onToggleFilter = function (owner) {
+            model.toggleFilter(owner)
+                .then(channel.send, view.showError.bind(view));
         };
 
         view.event.onAddFilter = function (column) {
