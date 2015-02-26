@@ -56,7 +56,7 @@ app.registerModel(function () {
         return x;
     }
 
-    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
+    function FakeDatabase($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment, $currentViews) {
         this.allFields = $currentFields.slice(0);
 
         this.currentFields = $currentFields.slice(0).filter(function (k) {
@@ -68,6 +68,8 @@ app.registerModel(function () {
         this.currentAccountType = $currentAccountType;
 
         this.currentEnvironment = $currentEnvironment;
+
+        this.currentViews = $currentViews;
     }
 
     FakeDatabase.prototype.getAccountFields = function () {
@@ -219,6 +221,26 @@ app.registerModel(function () {
         };
     };
 
+    FakeDatabase.prototype.getAvailableViews= function (nameFilter) {
+        var data = this.currentViews;
+        return {
+            success: true, data: data.filter(function (k) {
+                return k.name.toLowerCase().indexOf(nameFilter.toLowerCase()) != -1;
+            })
+        };
+    };
+
+    FakeDatabase.prototype.toggleViews = function (env) {
+        this.currentViews = this.currentViews.filter(function(k){
+            k.selected = k.selected || false;
+
+            if (k.id == env.id){
+                k.selected = !k.selected;
+            }
+            return k
+        });
+    };
+
     FakeDatabase.prototype.putAccountFollowStatus = function(field){
         //var data = this.currentAccounts;
         //for (var i in data){
@@ -238,7 +260,9 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.newInstance = function ($currentFields, $currentAccounts, $currentOwners, $currentAccountType, $currentEnvironment) {
+    FakeDatabase.newInstance = function ($currentFields, $currentAccounts,
+                                         $currentOwners, $currentAccountType,
+                                         $currentEnvironment, $currentViews) {
         var cf = $currentFields || [
                 {
                     columnKey: "following",
@@ -376,7 +400,21 @@ app.registerModel(function () {
                 },
             ];
 
-        return Some(new FakeDatabase(cf, ca, co, cat, cev));
+        // current views
+        var cv = $currentViews || [
+                {
+                    id: 1,
+                    name: "View 1",
+                    fields: []
+                },
+                {
+                    id: 2,
+                    name: "View 2",
+                    fields: []
+                },
+            ];
+
+        return Some(new FakeDatabase(cf, ca, co, cat, cev, cv));
     };
 
     return {newInstance: FakeDatabase.newInstance};

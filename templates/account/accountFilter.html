@@ -37,25 +37,33 @@
                 </li>
                 <!-- Views -->
                 <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       ng-click="event.onShowAvailableViews()"
+                            >
                         {{'Account.Filters.FilterBy.MenuViews.Title' | i18next}}
                         <span class="caret"></span>
-
                     </a>
-                    <!--<ul class="dropdown-menu  animated-slow fadeInDown">-->
-                    <!--<li class="m-t-10 m-b-10">-->
-                    <!--<select  name="data-table_length" aria-controls="data-table" class="form-control">-->
-                    <!--<option value="10" selected="selected">Select view</option><option value="25">View 1</option>-->
-                    <!--<option value="50">View 2</option><option value="100">View 3</option></select>-->
-                    <!--</li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li class="m-t-10  text-link clearfix">-->
-                    <!--<a class="pull-left  ic-trash brand-red-text"> Delete view</a>-->
-                    <!--<a class="pull-right">Save current view</a>-->
-
-
-                    <!--</li>-->
-                    <!--</ul>-->
+                    <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <li class="m-t-10 m-b-10">
+                            <h6>
+                                {{'Account.Filters.FilterBy.MenuViews.AvailableFilter' | i18next}}
+                            </h6>
+                            <input type="text" class="form-control ic-user"
+                                   placeholder="{{'Account.Filters.FilterBy.MenuViews.Filter' | i18next}}"
+                                   ng-model="data.ViewFilter"
+                                   ng-click="$event.stopPropagation();"
+                                   ng-change="event.onShowAvailableViews(data.ViewFilter);"/>
+                        </li>
+                        <li class="media" ng-repeat="env in data.availableViews">
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                   ng-click="event.onToggleViewsFilter(env);$event.stopPropagation();"
+                                   ng-checked="env.selected"
+                                    >
+                            <div class="media-body">
+                                <p>{{ env.name }}</p>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
                 <!-- Enviroment -->
                 <li class="dropdown ">

@@ -77,7 +77,9 @@
               "AvailableOwners": "Available Owners"
           },
           "MenuViews":{
-              "Title": "Views"
+              "Title": "Views",
+              "AvailableFilter":"Available Views Filter",
+              "Filter":"Enter your filter"
           },
           "MenuEnvironment":{
               "Title": "Environment",

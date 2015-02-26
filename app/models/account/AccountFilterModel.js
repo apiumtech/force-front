@@ -39,6 +39,21 @@ app.registerModel(function (container) {
         }.bind(this));
     };
 
+    AccountFilterModel.prototype.getAvailableViews= function (filter) {
+        return Q.fcall(function(){
+            return this.fakeDatabase.getAvailableViews(filter || "").data.map(function (k) {
+                k.selected = k.selected || false;
+                return k;
+            }.bind(this));
+        }.bind(this));
+    };
+
+    AccountFilterModel.prototype.toggleViewsFilter = function (env_filter) {
+        return Q.fcall(function(){
+            this.fakeDatabase.toggleViews(env_filter);
+        }.bind(this));
+    };
+
     AccountFilterModel.prototype.getAvailableEnvironment = function (filter) {
         return Q.fcall(function(){
             return this.fakeDatabase.getAvailableEnvironment(filter || "").data.map(function (k) {
