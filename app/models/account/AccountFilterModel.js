@@ -39,8 +39,8 @@ app.registerModel(function (container) {
         }.bind(this));
     };
 
-    AccountFilterModel.prototype.getAvailableViews= function (filter) {
-        return Q.fcall(function(){
+    AccountFilterModel.prototype.getAvailableViews = function (filter) {
+        return Q.fcall(function () {
             return this.fakeDatabase.getAvailableViews(filter || "").data.map(function (k) {
                 k.selected = k.selected || false;
                 return k;
@@ -49,13 +49,13 @@ app.registerModel(function (container) {
     };
 
     AccountFilterModel.prototype.toggleViewsFilter = function (env_filter) {
-        return Q.fcall(function(){
+        return Q.fcall(function () {
             this.fakeDatabase.toggleViews(env_filter);
         }.bind(this));
     };
 
     AccountFilterModel.prototype.getAvailableEnvironment = function (filter) {
-        return Q.fcall(function(){
+        return Q.fcall(function () {
             return this.fakeDatabase.getAvailableEnvironment(filter || "").data.map(function (k) {
                 //k.selected = this.selectedAccountType.filter(function (v) {
                 //    return v.id === k.id;
@@ -67,13 +67,13 @@ app.registerModel(function (container) {
     };
 
     AccountFilterModel.prototype.toggleEnvironmentFilter = function (env_filter) {
-        return Q.fcall(function(){
+        return Q.fcall(function () {
             this.fakeDatabase.toggleEnvironment(env_filter);
         }.bind(this));
     };
 
     AccountFilterModel.prototype.getAvailableAccountType = function (filter) {
-        return Q.fcall(function(){
+        return Q.fcall(function () {
             return this.fakeDatabase.getAvailableAccountType(filter || "").data.map(function (k) {
                 k.selected = this.selectedAccountType.filter(function (v) {
                     return v.id === k.id;
@@ -89,8 +89,8 @@ app.registerModel(function (container) {
         });
 
         if (objA.length > 0) { // remove account type filter
-            var acctype_afterremove = this.selectedAccountType.filter(function(k){
-                return k.id  != account_type_filter.id;
+            var acctype_afterremove = this.selectedAccountType.filter(function (k) {
+                return k.id != account_type_filter.id;
             });
             this.selectedAccountType = acctype_afterremove;
         } else { // add new account type filter
@@ -120,20 +120,14 @@ app.registerModel(function (container) {
     };
 
     AccountFilterModel.prototype.toggleOwnerFilter = function (owner) {
-        var objA = this.selectedOwners.filter(function (k) {
+        var existedSelectedOwner = this.selectedOwners.filter(function (k) {
             return k.id === owner.id;
         });
 
-        if (objA.length > 0) {
-            //var obj = objA[0];
-            //obj.selected = !obj.selected;
-            //
-            //if (obj.selected) {
-            //    this.selectedOwners.push(owner);
-            //}
-
-            var remain_filters = this.selectedOwners.filter(function(k){
-                return k.id  != owner.id;
+        if (existedSelectedOwner.length > 0) {
+            owner.selected = false;
+            var remain_filters = this.selectedOwners.filter(function (k) {
+                return k.id != owner.id;
             });
             this.selectedOwners = remain_filters;
         } else {
@@ -141,9 +135,6 @@ app.registerModel(function (container) {
             this.selectedOwners.push(owner);
         }
 
-        //this.selectedOwners = this.selectedOwners.filter(function (value, index, self) {
-        //    return self.indexOf(value) === index && value.selected;
-        //});
 
         var filterValue = this.selectedOwners.map(function (k) {
             return k.id;
@@ -157,8 +148,8 @@ app.registerModel(function (container) {
         });
 
         if (objA.length > 0) { // remove account type filter
-            var remain_filters = this.selectedFilters.filter(function(k){
-                return k.id  != owner.id;
+            var remain_filters = this.selectedFilters.filter(function (k) {
+                return k.id != owner.id;
             });
             this.selectedFilters = remain_filters;
         } else { // add new account type filter
@@ -167,7 +158,7 @@ app.registerModel(function (container) {
         }
 
         var filterValue = this.selectedFilters.map(function (k) {
-           return {columnKey: k.columnKey, value: k.name};
+            return {columnKey: k.columnKey, value: k.name};
         });
         //return this.addFilter({columnKey: "class", value: filterValue});
         return this.addFilter(filterValue);

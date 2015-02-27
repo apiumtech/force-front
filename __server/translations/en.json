@@ -72,7 +72,7 @@
       "FilterBy":{
           "MenuOwner":{
               "Title": "Owner",
-              "SearchOwner": "Search owner",
+              "SelectOwner": "Select owner",
               "OwnerListEmpty": "No owner available",
               "AvailableOwners": "Available Owners"
           },
