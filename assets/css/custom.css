@@ -80,3 +80,10 @@ ul[datepicker-popup-wrap] {
 td.photo {
     width: 50px;
 }
+
+span.removeTextBoxBtn{
+    position: absolute;
+    float: right;
+    right: 25px;
+    top: 35px;
+}

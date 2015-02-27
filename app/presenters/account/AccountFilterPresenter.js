@@ -10,6 +10,9 @@ app.registerPresenter(function (container) {
 
     AccountFilterPresenter.prototype.show = function (view, model) {
         var channel = this.filterChannel;
+        this.view = view;
+        this.model = model;
+        var self = this;
 
         channel.listen(function (event) {
             if (event.remove) {

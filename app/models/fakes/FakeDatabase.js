@@ -202,13 +202,17 @@ app.registerModel(function () {
     };
 
     FakeDatabase.prototype.toggleEnvironment = function (env) {
-        this.currentEnvironment = this.currentEnvironment.forEach(function (k) {
+        this.currentEnvironment.forEach(function (k) {
             if (undefined == k.selected) k.selected = false;
 
             if (k.id == env.id) {
                 k.selected = !k.selected;
+                env.selected = k.selected;
             }
         });
+
+        console.log(this.currentEnvironment);
+        console.log(env);
     };
 
     FakeDatabase.prototype.getAvailableEnvironment = function (nameFilter) {

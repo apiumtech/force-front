@@ -79,7 +79,7 @@ describe("FakeDatabase", function () {
 
     var dataProvider = [
         {
-            offset: 0, limit: 1, filters : [], expected: {
+            offset: 0, limit: 1, filters: [], expected: {
             success: true, data: [{
                 "id": undefined,
                 "following": true,
@@ -97,10 +97,10 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-            }
+        }
         },
         {
-            offset: 1, limit: 1, filters : [], expected: {
+            offset: 1, limit: 1, filters: [], expected: {
             success: true, data: [{
                 "id": undefined,
                 "following": false,
@@ -118,10 +118,10 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-            }
+        }
         },
         {
-            offset: 0, limit: 200, filters : [{ "columnKey": "name", "value": "osoft" }], expected: {
+            offset: 0, limit: 200, filters: [{"columnKey": "name", "value": "osoft"}], expected: {
             success: true, data: [{
                 "id": undefined,
                 "following": false,
@@ -139,17 +139,80 @@ describe("FakeDatabase", function () {
                     "name": "Carlos Zamorano"
                 }
             }], merge: false
-            }
+        }
         }
     ];
 
-    dataProvider.forEach(function(test){
+    dataProvider.forEach(function (test) {
         it("should get a basic response of a element", function () {
             var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
-            var result = db.getAccounts({order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit},
-                                        filters: test.filters}
-                                       );
+            var result = db.getAccounts({
+                    order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit},
+                    filters: test.filters
+                }
+            );
             expect(result).toEqual(test.expected);
+        });
+    });
+
+    describe("toggleEnvironment", function () {
+        describe("toggling an environment", function () {
+            var sut;
+            beforeEach(function () {
+                sut = FakeDatabase.newInstance([],[],[],[],[],[]).getOrElse(throwInstantiateException(FakeDatabase));
+            });
+
+            it("should turn 'selected' to false if it's selected", function () {
+                var toToggle = {id: 1, selected: true};
+                sut.currentEnvironment = [{
+                    id: 1,
+                    selected: true
+                }, {
+                    id: 2,
+                    selected: true
+                }, {
+                    id: 3,
+                    selected: false
+                }];
+                sut.toggleEnvironment(toToggle);
+                expect(sut.currentEnvironment).toEqual([{
+                    id: 1,
+                    selected: false
+                }, {
+                    id: 2,
+                    selected: true
+                }, {
+                    id: 3,
+                    selected: false
+                }]);
+                expect(toToggle.selected).toBe(false);
+            });
+
+            it("should turn 'selected' to true if it's not selected", function () {
+                var toToggle = {id: 3};
+                sut.currentEnvironment = [{
+                    id: 1,
+                    selected: true
+                }, {
+                    id: 2,
+                    selected: true
+                }, {
+                    id: 3,
+                    selected: false
+                }];
+                sut.toggleEnvironment(toToggle);
+                expect(sut.currentEnvironment).toEqual([{
+                    id: 1,
+                    selected: true
+                }, {
+                    id: 2,
+                    selected: true
+                }, {
+                    id: 3,
+                    selected: true
+                }]);
+                expect(toToggle.selected).toBe(true);
+            });
         });
     });
 });

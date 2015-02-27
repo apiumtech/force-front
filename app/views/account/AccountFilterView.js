@@ -7,7 +7,7 @@ app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
 
     var AccountFilterPresenter = container.getPresenter('presenters/account/AccountFilterPresenter');
-    var FilterModel = container.getModel('models/account/AccountFilterModel');
+    var AccountFilterModel = container.getModel('models/account/AccountFilterModel');
 
     function AccountFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -87,20 +87,12 @@ app.registerView(function (container) {
 
     AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || FilterModel.newInstance().getOrElse(throwException("AccountFilterModel could not be instantiated!!"));
-        var presenter = $presenter || AccountFilterPresenter.newInstance().getOrElse(throwException("AccountFilterPresenter could not be instantiated!!"));
+        var model = $model || AccountFilterModel.newInstance().getOrElse(throwInstantiateException(AccountFilterModel));
+        var presenter = $presenter || AccountFilterPresenter.newInstance().getOrElse(throwInstantiateException(AccountFilterPresenter));
 
         var view = new AccountFilterView(scope, model, presenter);
 
-        if ($viewRepAspect !== false) {
-            ($viewRepAspect || ViewRepaintAspect).weave(view);
-        }
-
-        if ($logErrorAspect !== false) {
-            ($logErrorAspect || LogErrorAspect).weave(view);
-        }
-
-        return Some(view);
+        return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
     return AccountFilterView;
