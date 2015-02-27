@@ -23,16 +23,15 @@ app.registerPresenter(function (container) {
                 .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableViews= function (filter) {
+        view.event.onShowAvailableViews = function (filter) {
             model.getAvailableViews(filter)
                 .then(view.showAvailableViews.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleViewsFilter = function (item) {
             model.toggleViewsFilter(item)
-                .then(function(){
-                    channel.send;
-                    alert("Environment updated");
+                .then(function () {
+                    channel.send();
                 }, view.showError.bind(view));
         };
 
@@ -43,9 +42,8 @@ app.registerPresenter(function (container) {
 
         view.event.onToggleEnvironmentFilter = function (item) {
             model.toggleEnvironmentFilter(item)
-                .then(function(){
-                    channel.send;
-                    alert("Environment updated");
+                .then(function () {
+                    channel.send();
                 }, view.showError.bind(view));
         };
 

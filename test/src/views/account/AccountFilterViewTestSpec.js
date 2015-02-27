@@ -2,13 +2,13 @@
  * Created by trung.dang on 02/13/2015
  */
 describe("AccountFilterView", function () {
-    var FilterView = app.getView('views/account/AccountFilterView');
+    var AccountFilterView = app.getView('views/account/AccountFilterView');
 
     function exerciseCreateView(model, presenter) {
-        return FilterView.newInstance({}, model || {}, presenter || {
+        return AccountFilterView.newInstance({}, model || {}, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create AccountView!"));
+        }, false, false).getOrElse(throwInstantiateException(AccountFilterView));
     }
 
     it("should call presenter's show method on show()", function () {
@@ -16,6 +16,69 @@ describe("AccountFilterView", function () {
         view.show();
 
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
+    });
+
+    describe("configureEvents", function () {
+        var view;
+        beforeEach(function () {
+            view = exerciseCreateView();
+            view.configureEvents();
+        });
+
+        [{
+            method: "onLoaded", exercise: onLoadedTest
+        }, {
+            method: "onSelectedViewChanged", exercise: onSelectedViewChangedTest
+        }].forEach(function (test) {
+                var method = test.method;
+                var testExercise = test.exercise;
+
+                it("should define method '" + method + "'", function () {
+                    expect(view.fn[method]).not.toBeNull();
+                    expect(isFunction(view.fn[method]));
+                });
+
+                describe("calling '" + method + "' ", function () {
+                    testExercise();
+                });
+            });
+
+        function onLoadedTest() {
+            [
+                "onShowAvailableEnvironment",
+                "onShowAvailableViews",
+                "onShowAvailableOwners"
+            ].forEach(function (event) {
+                    beforeEach(function () {
+                        view.event[event] = jasmine.createSpy();
+                    });
+                    it("should fire event '" + event + "'", function () {
+                        view.fn.onLoaded();
+                        expect(view.event[event]).toHaveBeenCalled();
+                    });
+                });
+        }
+
+        function onSelectedViewChangedTest() {
+            it("should fire event 'onToggleViewsFilter' with correct selected view", function () {
+                view.data.selectedView = "view1";
+                view.data.availableViews = [{
+                    name: 'view1'
+                }, {
+                    name: 'view2'
+                }, {
+                    name: 'view3'
+                }, {
+                    name: 'view4'
+                }];
+                view.event.onToggleViewsFilter = jasmine.createSpy();
+
+                view.fn.onSelectedViewChanged();
+                expect(view.event.onToggleViewsFilter).toHaveBeenCalledWith({
+                    name: 'view1'
+                });
+            });
+        }
     });
 
     describe("showAvailableFilters behaviour", function () {

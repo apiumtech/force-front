@@ -62,7 +62,7 @@
     "Reports": "Reports"
   },
   "Account": {
-    "AccountTitle": "Account",
+    "AccountTitle": "Accounts",
     "CreateAccount": "Create Account",
     "Table": {
       "Header": "Accounts Management",
@@ -79,7 +79,10 @@
           "MenuViews":{
               "Title": "Views",
               "AvailableFilter":"Available Views Filter",
-              "Filter":"Enter your filter"
+              "Filter":"Enter your filter",
+              "SelectView": "Select view",
+              "SaveCurrentView": "Save current view",
+              "DeleteView": "Delete view"
           },
           "MenuEnvironment":{
               "Title": "Environment",
@@ -91,7 +94,7 @@
           },
           "MenuAccountType":{
             "Title": "Account Type",
-            "FilterAccountType":"Filter Account Type",
+            "FilterAccountType":"Search Account Type",
             "AvailableFilterAccountType":"Available Account Type"
           }
       },

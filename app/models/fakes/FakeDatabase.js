@@ -45,7 +45,7 @@ app.registerModel(function () {
         var x = {};
 
         // id is a must field
-        writeToPath(x, "id", accessToPath(data, "id"))
+        writeToPath(x, "id", accessToPath(data, "id"));
 
         for (var i = 0; i < template.length; i++) {
             var field = template[i];
@@ -76,10 +76,10 @@ app.registerModel(function () {
         return {success: true, data: this.currentFields};
     };
 
-    FakeDatabase.prototype.setRestoreFieldsDefault = function(){
+    FakeDatabase.prototype.setRestoreFieldsDefault = function () {
         this.currentFields = this.allFields;
         return this.getAllAccountFields();
-    }
+    };
 
     FakeDatabase.prototype.getAllAccountFields = function () {
         return {success: true, data: this.allFields};
@@ -157,17 +157,17 @@ app.registerModel(function () {
         return {success: true, data: data, merge: usingQueryFields};
     };
 
-    FakeDatabase.prototype.deleteAccount = function(account_id){
-        var ret=false;
-        for (var i =0;i< this.currentAccounts.length ; i++){
-            if (this.currentAccounts[i].id == account_id){
-                this.currentAccounts.splice(i,1);
-                ret=true;
+    FakeDatabase.prototype.deleteAccount = function (account_id) {
+        var ret = false;
+        for (var i = 0; i < this.currentAccounts.length; i++) {
+            if (this.currentAccounts[i].id == account_id) {
+                this.currentAccounts.splice(i, 1);
+                ret = true;
                 break;
             }
         }
         return ret;
-    }
+    };
 
     FakeDatabase.prototype.getAvailableFilters = function (nameFilter) {
         var data = [
@@ -202,17 +202,16 @@ app.registerModel(function () {
     };
 
     FakeDatabase.prototype.toggleEnvironment = function (env) {
-        this.currentEnvironment = this.currentEnvironment.filter(function(k){
-            k.selected = k.selected || false;
+        this.currentEnvironment = this.currentEnvironment.forEach(function (k) {
+            if (undefined == k.selected) k.selected = false;
 
-            if (k.id == env.id){
+            if (k.id == env.id) {
                 k.selected = !k.selected;
             }
-            return k
         });
     };
 
-    FakeDatabase.prototype.getAvailableEnvironment= function (nameFilter) {
+    FakeDatabase.prototype.getAvailableEnvironment = function (nameFilter) {
         var data = this.currentEnvironment;
         return {
             success: true, data: data.filter(function (k) {
@@ -221,7 +220,7 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.prototype.getAvailableViews= function (nameFilter) {
+    FakeDatabase.prototype.getAvailableViews = function (nameFilter) {
         var data = this.currentViews;
         return {
             success: true, data: data.filter(function (k) {
@@ -231,17 +230,17 @@ app.registerModel(function () {
     };
 
     FakeDatabase.prototype.toggleViews = function (env) {
-        this.currentViews = this.currentViews.filter(function(k){
+        this.currentViews = this.currentViews.filter(function (k) {
             k.selected = k.selected || false;
 
-            if (k.id == env.id){
+            if (k.id == env.id) {
                 k.selected = !k.selected;
             }
             return k
         });
     };
 
-    FakeDatabase.prototype.putAccountFollowStatus = function(field){
+    FakeDatabase.prototype.putAccountFollowStatus = function (field) {
         //var data = this.currentAccounts;
         //for (var i in data){
         //    if (data[i] == field)
@@ -253,7 +252,7 @@ app.registerModel(function () {
         //    }
         //}
         // donothing at this time
-        alert("Updated Following Checkbox")
+        alert("Updated Following Checkbox");
         return {
             success: true,
             data: field
@@ -397,7 +396,7 @@ app.registerModel(function () {
                     id: 2,
                     name: "Public PATH",
                     value: "path"
-                },
+                }
             ];
 
         // current views
@@ -411,7 +410,7 @@ app.registerModel(function () {
                     id: 2,
                     name: "View 2",
                     fields: []
-                },
+                }
             ];
 
         return Some(new FakeDatabase(cf, ca, co, cat, cev, cv));
