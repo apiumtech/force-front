@@ -23,12 +23,13 @@ app.registerView(function (container) {
         var self = this;
         self.data.map = null;
 
-        self.fn.mapInitialize = function () {
+        self.fn.initializeChart = function () {
             var mapOptions = {
                 zoom: 8,
                 center: new self.mapService.LatLng(-34.397, 150.644)
             };
             self.data.map = new self.mapService.Map($('#map-canvas')[0], mapOptions);
+            self.event.onShowAvailableColumns();
         };
 
         self.fn.isImageHeader = function (header) {
@@ -38,7 +39,6 @@ app.registerView(function (container) {
 
     AccountView.prototype.show = function () {
         this.presenter.show(this, this.model);
-        this.event.onShowAvailableColumns();
     };
 
     AccountView.prototype.showTableData = function (data) {

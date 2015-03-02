@@ -1,4 +1,4 @@
-<div class="col-md-12 ui-sortable" ng-init="fn.mapInitialize()">
+<div class="col-md-12 ui-sortable" ng-init="fn.initializeChart()">
     <div class="panel panel-inverse">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -23,7 +23,7 @@
                             {{'Account.Table.FIELDS' | i18next}} <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-scrollable pull-right">
                             <li class="text-link">
-                                <a href="javascript:;" class="btn-link">
+                                <a ng-click="event.onFieldsRestoreDefault();$event.preventDefault()" class="btn-link">
                                     {{'commonText.RestoreDefault' | i18next}}
                                 </a>
                             </li>
@@ -31,13 +31,13 @@
                             <li ng-repeat="element in data.currentHiddenColumns">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
                                        ng-checked="element.enabled"
-                                       ng-click="event.onToggleColumn(element.column)">
-
+                                       ng-click="event.onToggleColumn(element.column);$event.preventDefault()">
                                 <div class="media-body">
                                     <p ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"></p>
 
-                                    <p ng-if="!fn.isImageHeader(element.column)">{{element.column.name}}</p>
+                                    <p ng-if="!fn.isImageHeader(element.column)">{{element.column.name || '&nbsp;'}}</p>
                                 </div>
+                                <div class="clear-fix"></div>
                             </li>
                         </ul>
                     </div>

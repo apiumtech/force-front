@@ -47,8 +47,7 @@ describe("AccountFilterView", function () {
             [
                 "onShowAvailableEnvironment",
                 "onShowAvailableViews",
-                "onShowAvailableOwners",
-                "onShowAvailableColumns"
+                "onShowAvailableOwners"
             ].forEach(function (event) {
                     beforeEach(function () {
                         view.event[event] = jasmine.createSpy();
