@@ -5,6 +5,12 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+-- March 2 2015
+* Added Jquery Datatables JS library (https://datatables.net) for client side
+* Added Node-datatable (https://github.com/jpravetz/node-datatable) library for server side processing of Datatables
+* Please run npm install to ensure having all dependencies installed.
+
+
 -- Feb 17 2015
 * To run on server, use: grunt dev-server express-keepalive &
 
