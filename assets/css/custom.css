@@ -81,9 +81,13 @@ td.photo {
     width: 50px;
 }
 
-span.removeTextBoxBtn{
+span.removeTextBoxBtn {
     position: absolute;
     float: right;
     right: 25px;
     top: 35px;
+}
+
+#map-canvas.map-account {
+    height: 400px;
 }

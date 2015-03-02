@@ -3,32 +3,42 @@
  */
 
 app.registerView(function (container) {
+    var BaseView = container.getView("views/BaseView");
     var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
     var AccountModel = container.getModel('models/account/AccountModel');
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
+    var GoogleMapService = container.getService("services/GoogleMapService");
 
     function AccountView($scope, $model, $presenter) {
-        this.data = {};
-        this.event = {};
-        this.fn = {};
+        BaseView.call(this, $scope, $model, $presenter);
+        this.mapService = GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
 
-        this.$scope = $scope;
+        this.configureEvents();
+    }
 
-        $scope.data = this.data;
-        $scope.event = this.event;
-        $scope.fn = this.fn;
+    AccountView.prototype = Object.create(BaseView.prototype, {});
 
-        this.model = $model;
-        this.presenter = $presenter;
+    AccountView.prototype.configureEvents = function () {
+        var self = this;
+        self.data.map = null;
 
-        this.fn.isImageHeader = function (header) {
+        self.fn.mapInitialize = function () {
+            var mapOptions = {
+                zoom: 8,
+                center: new self.mapService.LatLng(-34.397, 150.644)
+            };
+            self.data.map = new self.mapService.Map($('#map-canvas')[0], mapOptions);
+        };
+
+        self.fn.isImageHeader = function (header) {
             return header.name.charAt(0) === '/';
         };
-    }
+    };
 
     AccountView.prototype.show = function () {
         this.presenter.show(this, this.model);
+        this.event.onShowAvailableColumns();
     };
 
     AccountView.prototype.showTableData = function (data) {
@@ -36,11 +46,11 @@ app.registerView(function (container) {
         this.data.accounts = data.elements;
     };
 
-    AccountView.prototype.resetFieldColumns = function(data){
+    AccountView.prototype.resetFieldColumns = function (data) {
         this.data.headers = [];
-        this.data.accounts=[];
+        this.data.accounts = [];
         this.data.currentHiddenColumns = [];
-    }
+    };
 
     AccountView.prototype.addTableData = function (data) {
         this.data.accounts = (this.data.accounts || []).concat(data.elements);

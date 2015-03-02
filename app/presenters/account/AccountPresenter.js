@@ -18,8 +18,14 @@ app.registerPresenter(function (container) {
 
         channel.listen(function (event) {
             if (!event.remove) {
-                model.setFilters(event)
-                    .then(view.showTableData.bind(view), view.showError.bind(view));
+                if (event.searchQuery) {
+                    model.setNameFilter(event.queryString)
+                        .then(view.showTableData.bind(view), view.showError.bind(view));
+                }
+                else {
+                    model.setFilters(event)
+                        .then(view.showTableData.bind(view), view.showError.bind(view));
+                }
             }
         });
 
@@ -36,7 +42,7 @@ app.registerPresenter(function (container) {
 
         view.event.onFollowToggle = function (field) {
             model.onFollowToggle(field);
-                //.then(view.showTableData.bind(view), view.showError.bind(view));
+            //.then(view.showTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleColumn = function (column) {
@@ -47,7 +53,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onDelete = function (account) {
-            if (confirm("Do you want to delete "+account.value)) {
+            if (confirm("Do you want to delete " + account.value)) {
                 model.deleteAccount(account.id)
                     .then(view.showTableData.bind(view), view.showError.bind(view));
             }
@@ -59,7 +65,7 @@ app.registerPresenter(function (container) {
             view.resetFieldColumns();
             var cols = model.restoreDefaultColumns();
             view.showColumnList(cols);
-                //.then(view.showColumnList.bind(view), view.showError.bind(view));
+            //.then(view.showColumnList.bind(view), view.showError.bind(view));
             model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
         };
 

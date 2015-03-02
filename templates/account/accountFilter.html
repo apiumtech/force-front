@@ -106,7 +106,6 @@
                                 </div>
                             </li>
                         </ul>
-
                     </li>
 
                     <!-- Menu Account Type -->
@@ -156,7 +155,10 @@
             <div class="col-md-3">
                 <form>
                     <div class="input-group  m-t-40">
-                        <input type="text" class="form-control" placeholder="Buscar">
+                        <input type="text" class="form-control"
+                               ng-model="data.searchQuery"
+                               ng-change="event.onSearchQueryChanged(data.searchQuery)"
+                                />
                   <span class="input-group-btn">
                     <button class="btn btn-sm btn-default" type="button"><i class="fa ic-search"></i></button>
                   </span>

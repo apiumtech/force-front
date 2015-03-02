@@ -233,14 +233,14 @@ app.registerModel(function () {
         };
     };
 
-    FakeDatabase.prototype.toggleViews = function (env) {
-        this.currentViews = this.currentViews.filter(function (k) {
-            k.selected = k.selected || false;
+    FakeDatabase.prototype.toggleViews = function (view) {
+        this.currentViews.forEach(function (v) {
+            v.selected = v.selected || false;
 
-            if (k.id == env.id) {
-                k.selected = !k.selected;
+            if (v.id == view.id) {
+                v.selected = !v.selected;
+                view.selected = v.selected;
             }
-            return k
         });
     };
 

@@ -31,6 +31,13 @@ app.registerPresenter(function (container) {
                 .then(view.showAvailableViews.bind(view), view.showError.bind(view));
         };
 
+        view.event.onSearchQueryChanged = function (searchQuery) {
+            channel.send({
+                searchQuery: true,
+                queryString: searchQuery
+            });
+        };
+
         view.event.onToggleViewsFilter = function (item) {
             model.toggleViewsFilter(item)
                 .then(function () {
