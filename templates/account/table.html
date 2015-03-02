@@ -23,7 +23,7 @@
                             {{'Account.Table.FIELDS' | i18next}} <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-scrollable pull-right">
                             <li class="text-link">
-                                <a ng-click="event.onFieldsRestoreDefault();$event.preventDefault()" class="btn-link">
+                                <a ng-click="event.onFieldsRestoreDefault();$event.stopPropagation()" class="btn-link">
                                     {{'commonText.RestoreDefault' | i18next}}
                                 </a>
                             </li>
@@ -31,7 +31,7 @@
                             <li ng-repeat="element in data.currentHiddenColumns">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
                                        ng-checked="element.enabled"
-                                       ng-click="event.onToggleColumn(element.column);$event.preventDefault()">
+                                       ng-click="event.onToggleColumn(element.column);$event.stopPropagation()">
                                 <div class="media-body">
                                     <p ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"></p>
 
