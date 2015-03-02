@@ -1,7 +1,36 @@
 /**
- * Created by kevin on 10/29/14.
+ * Created by Justin on 3/2/2015.
  */
-app.registerService(function (container) {
+
+var _ = require('underscore');
+var queryBuilder = require('datatable');
+var loki = require('lokijs');
+
+var AccountService = function () {
+    this.db = new loki(__dirname + '/fakeDb.json');
+    var collections = this.db.listCollections();
+    var self = this;
+    if (!collections.length) {
+        self.prepareData();
+    }
+};
+
+AccountService.prototype.getFilterData = function (request) {
+    var accounts = this.db.getCollection('Accounts');
+    console.log(request);
+    return accounts.data;
+};
+
+AccountService.prototype.getAccount = function(id){
+    var accounts = this.db.getCollection('Accounts');
+    return accounts.get(id);
+};
+
+AccountService.prototype.prepareData = function () {
+    var accounts = this.db.addCollection('Accounts', {
+        indices: 'id'
+    });
+
     var fakeAccountData = [
         {
             "following": false,
@@ -1157,26 +1186,15 @@ app.registerService(function (container) {
         }
     ];
 
-    function putIdForFakeAccountData() {
-        var data = [];
+    fakeAccountData.forEach(function(account){
+        accounts.insert(account);
+    });
 
-        var i = 0;
-        for (var fakeAccount in fakeAccountData) {
-            i++;
-            data.push(angular.extend({"id": i}, fakeAccountData[fakeAccount]));
-        }
+    this.db.saveDatabase();
+};
 
-        return data;
-    }
+var forceManager = {
+    accountService: new AccountService()
+};
 
-    var api = {
-        dataTableRequest: '/api/accounts/dataTables'
-    };
-
-    return {
-        defaultQuery: {order: {field: 'name', direction: 'asc', offset: 0, limit: 10}},
-        defaultPageLimit: 15,
-        fakeAccountData: putIdForFakeAccountData(),
-        api: api
-    };
-});
+module.exports = forceManager.accountService;

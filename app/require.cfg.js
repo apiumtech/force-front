@@ -26,7 +26,8 @@ var require = {
         'flot-pie': '/node_modules/flot/jquery.flot.pie',
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
-        'moment': '/node_modules/moment/min/moment.min'
+        'moment': '/node_modules/moment/min/moment.min',
+        'datatables': '/node_modules/datatables/media/js/jquery.dataTables.min'
     },
 
     'shim': {
@@ -86,6 +87,11 @@ var require = {
             exports: 'flot-resize'
         },
 
+        'datatables': {
+            deps: ['jquery'],
+            exports: 'datatables'
+        },
+
         'flot-stack': {
             deps: ['jquery', 'flot'],
             exports: 'flot-stack'
@@ -117,10 +123,13 @@ var require = {
     },
 
     'deps': [
-        'angular', 'infinite-scroll', 'angular-route', 'angular-draganddrop', 'angular-bootstrap',
-        'jquery', 'q', 'postal', 'meld',
+        'jquery', 'angular', 'infinite-scroll', 'angular-route',
+        'angular-draganddrop', 'angular-bootstrap',
+        'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',
-        'i18next', 'ng-i18next', 'underscore', 'signals', 'ng-sortable',
+        'i18next', 'ng-i18next',
+        'underscore', 'signals', 'ng-sortable',
+        'datatables',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack'
     ],
 

@@ -17,6 +17,7 @@ app.get('/img/*', function (req, res) {
 
 var WidgetService = require(__dirname + "/widgetService");
 var UserService = require(__dirname + "/userService");
+var AccountService = require(__dirname + "/accountService");
 
 app.get('/api/translations/:language', function (request, response) {
     var language = request.params.language;
@@ -93,5 +94,21 @@ app.get('/api/users', function(request, response){
         });
     }, delay);
 });
+
+app.post('/api/accounts/dataTables', function(request, response){
+    setTimeout(function () {
+        var data = AccountService.getFilterData(request);
+        response.json(data);
+    }, delay);
+});
+
+app.get('/api/accounts/:id', function(request, response){
+    var id = request.params.id;
+    setTimeout(function () {
+        var data = AccountService.getAccount(id);
+        response.json(data);
+    }, delay);
+});
+
 //app.listen(port);
 module.exports = app;
