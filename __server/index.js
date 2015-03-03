@@ -85,7 +85,7 @@ app.get('/api/widget/:id', function (request, response) {
     }, delay);
 });
 
-app.get('/api/users', function(request, response){
+app.get('/api/users', function (request, response) {
     setTimeout(function () {
         var users = UserService.getUsers();
         response.json({
@@ -95,14 +95,14 @@ app.get('/api/users', function(request, response){
     }, delay);
 });
 
-app.post('/api/accounts/dataTables', function(request, response){
+app.post('/api/accounts/dataTables', function (request, response) {
     setTimeout(function () {
         var data = AccountService.getFilterData(request);
-        response.json(data);
+        response.json({data: data});
     }, delay);
 });
 
-app.get('/api/accounts/:id', function(request, response){
+app.get('/api/accounts/:id', function (request, response) {
     var id = request.params.id;
     setTimeout(function () {
         var data = AccountService.getAccount(id);

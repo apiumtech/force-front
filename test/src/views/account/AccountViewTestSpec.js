@@ -4,11 +4,11 @@
 describe("AccountView", function () {
     var AccountView = app.getView('views/account/AccountView');
 
-    function exerciseCreateView(model, presenter) {
+    function exerciseCreateView(model, presenter, googleMapService, datatableService) {
         return AccountView.newInstance({}, model || {}, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create AccountView!"));
+        }, googleMapService || {}, datatableService || {}, false, false).getOrElse(throwException("Could not create AccountView!"));
     }
 
     it("should call presenter's show method on show()", function () {
@@ -20,7 +20,7 @@ describe("AccountView", function () {
 
     describe("showTableData behaviour", function () {
         var view = exerciseCreateView();
-        var data = { headers: 1, elements: 2};
+        var data = {headers: 1, elements: 2};
 
         beforeEach(function () {
             view.showTableData(data);
@@ -37,7 +37,7 @@ describe("AccountView", function () {
 
     it("showTableData behaviour should add to the elements field", function () {
         var view = exerciseCreateView();
-        var data = { headers: 1, elements: [1, 2]};
+        var data = {headers: 1, elements: [1, 2]};
         view.data.accounts = [5, 6];
         view.addTableData(data);
 

@@ -3,7 +3,7 @@
  */
 
 var _ = require('underscore');
-var queryBuilder = require('datatable');
+var QueryBuilder = require('datatable');
 var loki = require('lokijs');
 
 var AccountService = function () {
@@ -17,11 +17,11 @@ var AccountService = function () {
 
 AccountService.prototype.getFilterData = function (request) {
     var accounts = this.db.getCollection('Accounts');
-    console.log(request);
+    console.log(request.body);
     return accounts.data;
 };
 
-AccountService.prototype.getAccount = function(id){
+AccountService.prototype.getAccount = function (id) {
     var accounts = this.db.getCollection('Accounts');
     return accounts.get(id);
 };
@@ -1186,7 +1186,7 @@ AccountService.prototype.prepareData = function () {
         }
     ];
 
-    fakeAccountData.forEach(function(account){
+    fakeAccountData.forEach(function (account) {
         accounts.insert(account);
     });
 

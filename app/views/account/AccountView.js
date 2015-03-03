@@ -9,11 +9,36 @@ app.registerView(function (container) {
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
     var GoogleMapService = container.getService("services/GoogleMapService");
+    var DataTableService = container.getService("services/DataTableService");
+    var Configuration = container.getService('Configuration');
 
-    function AccountView($scope, $model, $presenter) {
+    function AccountView($scope, $model, $presenter, mapService, dataTableService) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.mapService = GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
+        this.mapService = mapService;
+        this.dataTableService = dataTableService;
 
+        this.dataTableConfig = {
+            bServerSide: true,
+            processing: true,
+            bSort: true,
+            ajax: {
+                url: Configuration.api.dataTableRequest,
+                type: 'POST'
+            },
+            "sDom": "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>t<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
+            "bPaginate": false,
+            "columns": [
+                {"data": "following", searchable: false, title: "Following", sortable: false},
+                {"data": "name", searchable: false, title: "Account Name"},
+                {"data": "class", searchable: false, title: "Class."},
+                {"data": "contactInfo.country", searchable: false, title: "Country"},
+                {"data": "contactInfo.city", searchable: false, title: "City"},
+                {"data": "contactInfo.address", searchable: false, title: "Address"},
+                {"data": "contactInfo.phoneNumber", searchable: false, title: "Tel. Number"},
+                {"data": "modified", searchable: false, title: "Modification Date"},
+                {"data": "responsible.name", searchable: false, title: "Owner"}
+            ]
+        };
         this.configureEvents();
     }
 
@@ -30,6 +55,10 @@ app.registerView(function (container) {
             };
             self.data.map = new self.mapService.Map($('#map-canvas')[0], mapOptions);
             self.event.onShowAvailableColumns();
+        };
+
+        self.fn.initTable = function () {
+            self.data.table = self.dataTableService.createDatatable("#data-table", self.dataTableConfig);
         };
 
         self.fn.isImageHeader = function (header) {
@@ -64,22 +93,16 @@ app.registerView(function (container) {
         this.data.currentHiddenColumns = list;
     };
 
-    AccountView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || AccountModel.newInstance().getOrElse(throwException("AccountModel could not be instantiated!!"));
-        var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwException("AccountPresenter could not be instantiated!!"));
+        var model = $model || AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
+        var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
+        var mapService = $mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
+        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
 
-        var view = new AccountView(scope, model, presenter);
+        var view = new AccountView(scope, model, presenter, mapService, dataTableService);
 
-        if ($viewRepAspect !== false) {
-            ($viewRepAspect || ViewRepaintAspect).weave(view);
-        }
-
-        if ($logErrorAspect !== false) {
-            ($logErrorAspect || LogErrorAspect).weave(view);
-        }
-
-        return Some(view);
+        return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
     return {newInstance: AccountView.newInstance};

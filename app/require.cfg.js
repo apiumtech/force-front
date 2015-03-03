@@ -27,7 +27,7 @@ var require = {
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
         'moment': '/node_modules/moment/min/moment.min',
-        'datatables': '/node_modules/datatables/media/js/jquery.dataTables.min'
+        'datatables': '/node_modules/datatables/media/js/jquery.dataTables'
     },
 
     'shim': {

@@ -81,6 +81,9 @@ function main() {
             'services/b64StringEncoder',
             'services/StorageService',
 
+            'services/DataTableService',
+            'services/SignalService',
+
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',
 
