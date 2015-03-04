@@ -12,66 +12,37 @@ app.registerPresenter(function (container) {
     AccountPresenter.prototype.show = function (view, model) {
         var channel = this.filterChannel;
 
-        view.event.onInit = function () {
-            model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
+        view.event.onOwnerToggled = function (owner) {
+            view.updateOwnerFilter(owner);
+            view.reloadTableData();
         };
+        channel.onOwnerToggleReceived(view.event.onOwnerToggled);
 
-        channel.listen(function (event) {
-            if (!event.remove) {
-                if (event.searchQuery) {
-                    model.setNameFilter(event.queryString)
-                        .then(view.showTableData.bind(view), view.showError.bind(view));
-                }
-                else {
-                    model.setFilters(event)
-                        .then(view.showTableData.bind(view), view.showError.bind(view));
-                }
-            }
-        });
+        view.event.onSearchQueryChanged = function (queryString) {
+            view.updateQueryingString(queryString);
+            view.reloadTableData();
+        };
+        channel.onQueryingData(view.event.onSearchQueryChanged);
 
         /* region table */
-        view.event.onNameFilterChanged = function (value) {
-            model.setNameFilter(value)
-                .then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onSort = function (field) {
-            model.sortByField(field)
-                .then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onFollowToggle = function (field) {
-            model.onFollowToggle(field);
-            //.then(view.showTableData.bind(view), view.showError.bind(view));
+        view.event.onFollowToggled = function (field) {
+            model.toggleFollow(field).then(view.reloadTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleColumn = function (column) {
-            channel.send({remove: column});
+            column.visible = !column.visible;
+            view.reloadTableColumns();
+        };
 
-            model.toggleField(column)
-                .then(view.showTableData.bind(view), view.showError.bind(view));
+        view.event.onFieldsRestoreDefault = function () {
+            view.resetTableColumns();
         };
 
         view.event.onDelete = function (account) {
             if (confirm("Do you want to delete " + account.value)) {
                 model.deleteAccount(account.id)
-                    .then(view.showTableData.bind(view), view.showError.bind(view));
+                    .then(view.reloadTableData.bind(view), view.showError.bind(view));
             }
-        };
-
-        view.event.onFieldsRestoreDefault = function () {
-            //model.getAllFields()
-            //    .then(view.showColumnList.bind(view), view.showError.bind(view));
-            view.resetFieldColumns();
-            var cols = model.restoreDefaultColumns();
-            view.showColumnList(cols);
-            //.then(view.showColumnList.bind(view), view.showError.bind(view));
-            model.getAccounts().then(view.showTableData.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onShowAvailableColumns = function () {
-            model.getAllFields()
-                .then(view.showColumnList.bind(view), view.showError.bind(view));
         };
 
         view.event.onAccountsNextPage = function () {

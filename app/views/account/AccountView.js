@@ -16,8 +16,47 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, $model, $presenter);
         this.mapService = mapService;
         this.dataTableService = dataTableService;
+        this.data.map = null;
+        this.data.table = null;
 
-        this.dataTableConfig = {
+        this.data.availableColumns = [
+            {data: "following", title: "Following", sortable: false, visible: true},
+            {data: "name", title: "Account Name", visible: true},
+            {data: "class", title: "Class.", visible: true},
+            {data: "$loki", title: '<i class="fa ic-checkin-filled brand-green-text"></i>', visible: true},
+            {data: "contactInfo.country", title: "Country", visible: true},
+            {data: "contactInfo.city", title: "City", visible: true},
+            {data: "contactInfo.address", title: "Address", visible: true},
+            {data: "contactInfo.phoneNumber", title: "Tel. Number", visible: true},
+            {data: "modified", title: "Modification Date", visible: true},
+            {data: "responsible.name", title: "Owner", visible: true}
+        ];
+
+        this.data.filters = {
+            owner: {
+                filtering: false,
+                values: []
+            },
+            view: {
+                filtering: false,
+                value: ""
+            },
+            environments: {
+                filtering: false,
+                values: []
+            },
+            accountType: {
+                filtering: false,
+                values: []
+            },
+            query: {
+                filtering: false,
+                value: ""
+            }
+        };
+
+        var self = this;
+        this.data.dataTableConfig = {
             bServerSide: true,
             processing: true,
             bSort: true,
@@ -25,19 +64,28 @@ app.registerView(function (container) {
                 url: Configuration.api.dataTableRequest,
                 type: 'POST'
             },
-            "sDom": "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>t<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
-            "bPaginate": false,
-            "columns": [
-                {"data": "following", searchable: false, title: "Following", sortable: false},
-                {"data": "name", searchable: false, title: "Account Name"},
-                {"data": "class", searchable: false, title: "Class."},
-                {"data": "contactInfo.country", searchable: false, title: "Country"},
-                {"data": "contactInfo.city", searchable: false, title: "City"},
-                {"data": "contactInfo.address", searchable: false, title: "Address"},
-                {"data": "contactInfo.phoneNumber", searchable: false, title: "Tel. Number"},
-                {"data": "modified", searchable: false, title: "Modification Date"},
-                {"data": "responsible.name", searchable: false, title: "Owner"}
-            ]
+            sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>t<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
+            bPaginate: false,
+            columns: this.data.availableColumns,
+            fnServerParams: this.onServerRequesting.bind(this),
+            columnDefs: [
+                {
+                    targets: 0,
+                    render: function (data, type, row) {
+                        var activeClass = data ? 'active' : '';
+                        return '<button type="button" function-togglefollow ng-click="event.onFollowToggled(row)" class="btn btn-default btn-sm btn-follow btn-squared btn-squared ' + activeClass + '">' +
+                            '<i class="fa ic-flag"></i>' +
+                            '</button>';
+                    }
+                },
+                {
+                    targets: 3,
+                    render: function (data, type, row) {
+                        return '<a ng-click=""><i class="fa ic-checkin-filled brand-green-text"></i></a>';
+                    }
+                }
+            ],
+            fnRowCallback: self.onRowRenderedCallback.bind(self)
         };
         this.configureEvents();
     }
@@ -54,43 +102,88 @@ app.registerView(function (container) {
                 center: new self.mapService.LatLng(-34.397, 150.644)
             };
             self.data.map = new self.mapService.Map($('#map-canvas')[0], mapOptions);
-            self.event.onShowAvailableColumns();
         };
 
         self.fn.initTable = function () {
-            self.data.table = self.dataTableService.createDatatable("#data-table", self.dataTableConfig);
+            self.data.table = self.dataTableService.createDatatable("#data-table", self.data.dataTableConfig);
         };
 
         self.fn.isImageHeader = function (header) {
-            return header.name.charAt(0) === '/';
+            return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };
     };
 
-    AccountView.prototype.show = function () {
-        this.presenter.show(this, this.model);
+    AccountView.prototype.onRowRenderedCallback = function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        var self = this;
+        $(nRow).on("click", "[function-togglefollow]", function (e) {
+            e.preventDefault();
+            self.event.onFollowToggled(aData);
+        });
     };
 
-    AccountView.prototype.showTableData = function (data) {
-        this.data.headers = data.headers;
-        this.data.accounts = data.elements;
+    AccountView.prototype.onServerRequesting = function (aoData) {
+        if (!aoData.customFilter) aoData.customFilter = {};
+
+        var filters = this.data.filters;
+        if (filters.owner.filtering) {
+            aoData.customFilter['owners'] = filters.owner.values;
+        }
+        if (filters.query.filtering) {
+            aoData.customFilter['searchQuery'] = filters.query.value;
+        }
     };
 
-    AccountView.prototype.resetFieldColumns = function (data) {
-        this.data.headers = [];
-        this.data.accounts = [];
-        this.data.currentHiddenColumns = [];
+    AccountView.prototype.updateOwnerFilter = function (owner) {
+        var self = this;
+        var ownerFilter = self.data.filters.owner;
+        if (owner.selected) {
+            ownerFilter.filtering = true;
+            if (ownerFilter.values.indexOf(owner.name) == -1)
+                ownerFilter.values.push(owner.name);
+        } else {
+            ownerFilter.values = ownerFilter.values.filter(function (value) {
+                return value != owner.name;
+            });
+            ownerFilter.filtering = !!ownerFilter.values.length;
+        }
     };
 
-    AccountView.prototype.addTableData = function (data) {
-        this.data.accounts = (this.data.accounts || []).concat(data.elements);
+    AccountView.prototype.updateQueryingString = function (queryString) {
+        var self = this;
+        if (queryString) {
+            self.data.filters.query.filtering = true;
+            self.data.filters.query.value = queryString;
+        } else {
+            self.data.filters.query.filtering = false;
+            self.data.filters.query.value = "";
+        }
+    };
+
+    AccountView.prototype.reloadTableColumns = function () {
+        var self = this;
+        for (var i = 0; i < self.data.availableColumns.length; i++) {
+            var column = self.data.table.column(i);
+
+            column.visible(self.data.availableColumns[i].visible);
+        }
+    };
+
+    AccountView.prototype.reloadTableData = function () {
+        this.data.table.draw();
+    };
+
+    AccountView.prototype.resetTableColumns = function () {
+        var self = this;
+        for (var i = 0; i < self.data.availableColumns.length; i++) {
+            self.data.availableColumns[i].visible = true;
+
+            var column = self.data.table.column(i);
+            column.visible(self.data.availableColumns[i].visible);
+        }
     };
 
     AccountView.prototype.showError = function (error) {
         this.data.currentError = error;
-    };
-
-    AccountView.prototype.showColumnList = function (list) {
-        this.data.currentHiddenColumns = list;
     };
 
     AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $viewRepAspect, $logErrorAspect) {

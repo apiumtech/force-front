@@ -1,78 +1,69 @@
 /**
- * Created by kevin on 11/6/14.
+ * Created by justin on 3/4/15
  */
 describe("AccountPresenter", function () {
     var AccountPresenter = app.getPresenter('presenters/account/AccountPresenter');
+    var sut, view, model;
 
-    function exerciseCreatePresenter() {
-        return AccountPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create AccountPresenter");
-    }
+    beforeEach(function () {
+        view = {
+            event: {},
+            fn: {}
+        };
+        model = {};
+        sut = AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
+    });
 
-    [
-        { viewEvent: 'onInit', modelMethod: 'getAccounts', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onNameFilterChanged', modelMethod: 'setNameFilter', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onSort', modelMethod: 'sortByField', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onToggleColumn', modelMethod: 'toggleField', onSuccess: 'showTableData', onError: 'showError' },
-        { viewEvent: 'onShowAvailableColumns', modelMethod: 'getAllFields', onSuccess: 'showColumnList', onError: 'showError' },
-        { viewEvent: 'onAccountsNextPage', modelMethod: 'nextPage', onSuccess: 'addTableData', onError: 'showError' }
-    ].forEach(function (e) {
-            it('should call the model method ' + e.modelMethod + ' on ' + e.viewEvent, function () {
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
+    describe("show", function () {
 
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakePromise());
+        [{
+            viewEvent: "onFieldsRestoreDefault", exercise: onFieldsRestoreDefaultTest
+        }, {
+            viewEvent: "onToggleColumn", exercise: onToggleColumnTest
+        }, {
+            viewEvent: "onOwnerToggled", exercise: onOwnerToggledTest
+        }, {
+            viewEvent: "onSearchQueryChanged", exercise: onSearchQueryChangedTest
+        }].forEach(function (test) {
+                var viewEvent = test.viewEvent;
 
-                emitEvent(presenter, view, model);
+                it("should declared '" + viewEvent + "' event for View", function () {
+                    sut.show(view, model);
+                    testDeclareMethod(view.event, viewEvent);
+                });
 
-                expect(model[e.modelMethod]).toHaveBeenCalled();
+                describe("when event '" + viewEvent + "' fired", function () {
+                    beforeEach(function () {
+                        sut.show(view, model);
+                    });
+                    test.exercise();
+                });
             });
 
-            it('should call ' + e.onSuccess + ' when ' + e.modelMethod + ' finished OK', function () {
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
+        function onFieldsRestoreDefaultTest() {
 
-                view[e.onSuccess] = jasmine.createSpy();
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakeOkPromise());
+        }
 
-                emitEvent(presenter, view, model);
+        function onToggleColumnTest() {
 
-                expect(view[e.onSuccess]).toHaveBeenCalled();
+        }
+
+        function onOwnerToggledTest() {
+            it("should bind onOwnerToggled event to channel", function () {
+                spyOn(sut.filterChannel, 'onOwnerToggleReceived');
+                sut.show(view, model);
+                expect(sut.filterChannel.onOwnerToggleReceived).toHaveBeenCalledWith(view.event.onOwnerToggled);
+            });
+        }
+
+        function onSearchQueryChangedTest(){
+            it("should bind onSearchQueryChanged event to channel", function () {
+                spyOn(sut.filterChannel, 'onQueryingData');
+                sut.show(view, model);
+                expect(sut.filterChannel.onQueryingData).toHaveBeenCalledWith(view.event.onSearchQueryChanged);
             });
 
-            it('should call ' + e.onError + ' when ' + e.modelMethod + ' failed', function () {
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
+        }
+    });
 
-                view[e.onError] = jasmine.createSpy();
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakeKoPromise());
-
-                emitEvent(presenter, view, model);
-
-                expect(view[e.onError]).toHaveBeenCalled();
-            });
-
-            function exerciseCreateView() {
-                var view = { data: {}, event: {} };
-                view.event[e.viewEvent] = function () {};
-                view[e.onSuccess] = function () {};
-                view[e.onError] = function () {};
-
-                return view;
-            }
-
-            function exerciseCreateModel() {
-                var model = {};
-                model[e.modelMethod] = function () {};
-
-                return model;
-            }
-
-            function emitEvent(presenter, view, model) {
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
-            }
-        });
 });

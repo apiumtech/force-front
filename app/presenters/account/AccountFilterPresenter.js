@@ -14,83 +14,35 @@ app.registerPresenter(function (container) {
         this.model = model;
         var self = this;
 
-        channel.listen(function (event) {
-            if (event.remove) {
-                model.removeFilter(event.remove)
-                    .then(view.showFilters.bind(view), view.showError.bind(view));
-            }
-        });
-
         view.event.onFilterKeyUp = function (name, currentValue) {
-            model.addFilter(name, currentValue)
-                .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableViews = function (filter) {
-            model.getAvailableViews(filter)
-                .then(view.showAvailableViews.bind(view), view.showError.bind(view));
+        view.event.onShowAvailableViews = function () {
+
         };
 
         view.event.onSearchQueryChanged = function (searchQuery) {
-            channel.send({
-                searchQuery: true,
-                queryString: searchQuery
-            });
+            channel.sendQueryingData(searchQuery);
         };
 
         view.event.onToggleViewsFilter = function (item) {
-            model.toggleViewsFilter(item)
-                .then(function () {
-                    channel.send();
-                }, view.showError.bind(view));
         };
 
         view.event.onShowAvailableEnvironment = function (filter) {
-            model.getAvailableEnvironment(filter)
-                .then(view.showAvailableEnvironment.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleEnvironmentFilter = function (item) {
-            model.toggleEnvironmentFilter(item)
-                .then(function () {
-                    channel.send();
-                }, view.showError.bind(view));
         };
 
         view.event.onShowAvailableAccountType = function (filter) {
-            model.getAvailableAccountType(filter)
-                .then(view.showAvailableAccountType.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleAccountTypeFilter = function (item) {
-            model.toggleAccountTypeFilter(item)
-                .then(channel.send, view.showError.bind(view));
         };
 
-        view.event.onShowAvailableFilters = function (nameFilter) {
-            model.getAvailableFilters(nameFilter)
-                .then(view.showAvailableFilters.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onToggleFilter = function (owner) {
-            model.toggleFilter(owner)
-                .then(channel.send, view.showError.bind(view));
-        };
-
-        view.event.onAddFilter = function (column) {
-            model.addFilter(column, undefined)
-                .then(view.showFilters.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onRemoveFilter = function (filter) {
-            model.removeFilter(filter)
-                .then(channel.send, view.showError.bind(view))
-                .then(view.showFilters.bind(view), view.showError.bind(view));
-        };
 
         view.event.onToggleOwnerFilter = function (owner) {
-            model.toggleOwnerFilter(owner)
-                .then(channel.send, view.showError.bind(view));
+            channel.sendOwnerToggleSignal(owner);
         };
 
         view.event.onShowAvailableOwners = function (nameFilter) {
@@ -100,7 +52,7 @@ app.registerPresenter(function (container) {
     };
 
     AccountFilterPresenter.newInstance = function ($filterChannel) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwInstantiateException(FilterChannel));
 
         return Some(new AccountFilterPresenter(filterChannel));
     };

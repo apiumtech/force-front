@@ -11,10 +11,6 @@ var app = express();
 app.use(bodyParser());
 app.use(express.static("."));
 
-app.get('/img/*', function (req, res) {
-    app.render('./assets/' + req.url);
-});
-
 var WidgetService = require(__dirname + "/widgetService");
 var UserService = require(__dirname + "/userService");
 var AccountService = require(__dirname + "/accountService");
@@ -102,11 +98,36 @@ app.post('/api/accounts/dataTables', function (request, response) {
     }, delay);
 });
 
+app.get('/api/accounts/availableOwners', function (request, response) {
+    setTimeout(function () {
+        var data = AccountService.getAvailableOwners(request.query);
+        response.json(data);
+    }, delay);
+});
+
 app.get('/api/accounts/:id', function (request, response) {
     var id = request.params.id;
     setTimeout(function () {
         var data = AccountService.getAccount(id);
         response.json(data);
+    }, delay);
+});
+
+app.post('/api/accounts/toggleFollow/:id', function (request, response) {
+    var id = request.params.id;
+    setTimeout(function () {
+        try {
+            var account = AccountService.toggleFollow(id);
+            response.json(account);
+        }
+        catch (error) {
+            if (error.message == "Requested User cannot be found")
+                response.status(404).json({
+                    error: "Requested user not found"
+                });
+            console.log(error);
+            response.status(500).send(error);
+        }
     }, delay);
 });
 

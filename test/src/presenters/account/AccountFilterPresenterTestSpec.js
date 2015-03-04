@@ -1,84 +1,85 @@
 /**
- * Created by trung.dang on 02/13/20105
+ * Created by justin on 3/4/15
  */
 describe("AccountFilterPresenter", function () {
-    var FilterPresenter = app.getPresenter('presenters/account/AccountFilterPresenter');
+    var AccountFilterPresenter = app.getPresenter('presenters/account/AccountFilterPresenter');
 
-    function exerciseCreatePresenter() {
-        return FilterPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create FilterPresenter");
-    }
+    var sut;
+    var ___view, ___model;
+    beforeEach(function () {
+        ___view = {
+            event: {}
+        };
+        ___model = {};
+    });
 
-    [
-        { viewEvent: 'onFilterKeyUp', modelMethod: 'addFilter', onSuccess: '*', onError: 'showError' },
-        { viewEvent: 'onShowAvailableFilters', modelMethod: 'getAvailableFilters', onSuccess: 'showAvailableFilters', onError: 'showError' },
-        { viewEvent: 'onAddFilter', modelMethod: 'addFilter', onSuccess: 'showFilters', onError: 'showError' },
-        { viewEvent: 'onRemoveFilter', modelMethod: 'removeFilter', onSuccess: 'showFilters', onError: 'showError' },
-        { viewEvent: 'onToggleOwnerFilter', modelMethod: 'toggleOwnerFilter', onSuccess: '*', onError: 'showError' },
-        { viewEvent: 'onShowAvailableOwners', modelMethod: 'getAvailableOwners', onSuccess: 'showAvailableOwners', onError: 'showError' }
-    ].forEach(function (e) {
-            it('should call the model method ' + e.modelMethod + ' on ' + e.viewEvent, function () {
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
 
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakePromise());
+    beforeEach(function () {
+        sut = AccountFilterPresenter.newInstance().getOrElse(throwInstantiateException(AccountFilterPresenter));
+    });
 
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
+    describe("show", function () {
+        [{
+            viewEvent: "onShowAvailableOwners", exercise: onShowAvailableOwnersTest
+        }, {
+            viewEvent: "onToggleOwnerFilter", exercise: onToggleOwnerFilterTest
+        }].forEach(function (test) {
+                var viewEvent = test.viewEvent;
 
-                expect(model[e.modelMethod]).toHaveBeenCalled();
+                it("should declared '" + viewEvent + "' event for View", function () {
+                    sut.show(___view, ___model);
+                    testDeclareMethod(___view.event, viewEvent);
+                });
+
+                describe("when event '" + viewEvent + "' fired", function () {
+                    beforeEach(function () {
+                        sut.show(___view, ___model);
+                    });
+                    test.exercise();
+                });
             });
 
-            it('should call ' + e.onSuccess + ' when ' + e.modelMethod + ' finished OK', function () {
-                if (e.onSuccess == "*") {
-                    return;
-                }
+        function onShowAvailableOwnersTest() {
+            var modelMethod = "getAvailableOwners";
+            var onSuccess = "showAvailableOwners";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onShowAvailableOwners", modelMethod, onSuccess, onError);
+        }
 
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
-
-                view[e.onSuccess] = jasmine.createSpy();
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakeOkPromise());
-
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
-
-                expect(view[e.onSuccess]).toHaveBeenCalled();
+        function onToggleOwnerFilterTest() {
+            it("should send owner toggle signal using channel", function () {
+                spyOn(sut.filterChannel, 'sendOwnerToggleSignal');
+                ___view.event.onToggleOwnerFilter({id: 1});
+                expect(sut.filterChannel.sendOwnerToggleSignal).toHaveBeenCalledWith({id: 1});
             });
 
-            it('should call ' + e.onError + ' when ' + e.modelMethod + ' failed', function () {
-                if (e.onError == "*") {
-                    return;
-                }
+        }
+    });
 
-                var presenter = exerciseCreatePresenter();
-                var view = exerciseCreateView();
-                var model = exerciseCreateModel();
 
-                view[e.onError] = jasmine.createSpy();
-                spyOn(model, e.modelMethod).and.returnValue(exerciseFakeKoPromise());
-
-                presenter.show(view, model);
-                view.event[e.viewEvent]();
-
-                expect(view[e.onError]).toHaveBeenCalled();
-            });
-
-            function exerciseCreateView() {
-                var view = { data: {}, event: {} };
-                view.event[e.viewEvent] = function () {};
-                view[e.onSuccess] = function () {};
-                view[e.onError] = function () {};
-
-                return view;
-            }
-
-            function exerciseCreateModel() {
-                var model = {};
-                model[e.modelMethod] = function () {};
-
-                return model;
-            }
+    function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {
+        beforeEach(function () {
+            ___model[modelMethod] = function () {
+            };
+            ___view[onSuccess] = jasmine.createSpy();
+            ___view[onError] = jasmine.createSpy();
         });
+        it("presenter should connect event to '" + modelMethod + "' method on $model", function () {
+            spyOn(___model, modelMethod).and.returnValue(exerciseFakePromise());
+            ___view.event[viewEvent]();
+            expect(___model[modelMethod]).toHaveBeenCalled();
+        });
+
+        it("should call method '" + onSuccess + "' on $view if $model '" + modelMethod + "' return success", function () {
+            spyOn(___model, modelMethod).and.returnValue(exerciseFakeOkPromise());
+            ___view.event[viewEvent]();
+            expect(___view[onSuccess]).toHaveBeenCalled();
+        });
+
+        it("should call method '" + onError + "' on $view if $model '" + modelMethod + "' return error", function () {
+            spyOn(___model, modelMethod).and.returnValue(exerciseFakeKoPromise());
+            ___view.event[viewEvent]();
+            expect(___view[onError]).toHaveBeenCalled();
+        });
+    }
 });

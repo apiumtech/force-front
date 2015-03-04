@@ -1,5 +1,5 @@
 /**
- * Created by kevin on 11/6/14.
+ * Created by justin on 3/4/15.
  */
 describe("AccountView", function () {
     var AccountView = app.getView('views/account/AccountView');
@@ -8,7 +8,7 @@ describe("AccountView", function () {
         return AccountView.newInstance({}, model || {}, presenter || {
             show: function () {
             }
-        }, googleMapService || {}, datatableService || {}, false, false).getOrElse(throwException("Could not create AccountView!"));
+        }, googleMapService || {}, datatableService || {}, false, false).getOrElse(throwInstantiateException(AccountView));
     }
 
     it("should call presenter's show method on show()", function () {
@@ -16,32 +16,6 @@ describe("AccountView", function () {
         view.show();
 
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
-    });
-
-    describe("showTableData behaviour", function () {
-        var view = exerciseCreateView();
-        var data = {headers: 1, elements: 2};
-
-        beforeEach(function () {
-            view.showTableData(data);
-        });
-
-        it("should assign the headers field", function () {
-            expect(view.data.headers).toEqual(data.headers);
-        });
-
-        it("should assign the elements field", function () {
-            expect(view.data.accounts).toEqual(data.elements);
-        });
-    });
-
-    it("showTableData behaviour should add to the elements field", function () {
-        var view = exerciseCreateView();
-        var data = {headers: 1, elements: [1, 2]};
-        view.data.accounts = [5, 6];
-        view.addTableData(data);
-
-        expect(view.data.accounts).toEqual([5, 6, 1, 2]);
     });
 
     it("showError should set the correct message", function () {
@@ -52,11 +26,80 @@ describe("AccountView", function () {
         expect(view.data.currentError).toEqual(msg);
     });
 
-    it("showColumnList should set a list of columns", function () {
-        var view = exerciseCreateView();
-        var data = [1, 2, 3, 4];
+    var __view;
+    beforeEach(function () {
+        __view = exerciseCreateView();
+    });
 
-        view.showColumnList(data);
-        expect(view.data.currentHiddenColumns).toEqual(data);
+    describe("updateOwnerFilter", function () {
+        describe("owner is selected", function () {
+            var owner = {
+                name: "user1",
+                id: 1,
+                selected: true
+            };
+
+            it("should turn filtering to true", function () {
+                __view.data.filters.owner.filtering = false;
+                __view.updateOwnerFilter(owner);
+                expect(__view.data.filters.owner.filtering).toBeTruthy();
+            });
+
+            it("should add owner to filtering values", function () {
+                __view.data.filters.owner.values = ["user2"];
+                __view.updateOwnerFilter(owner);
+                expect(__view.data.filters.owner.values).toEqual(["user2", "user1"]);
+            });
+
+            it("should not add owner to filtering values if it's already in the list", function () {
+                __view.data.filters.owner.values = ["user1", "user2"];
+                __view.updateOwnerFilter(owner);
+                expect(__view.data.filters.owner.values).toEqual(["user1", "user2"]);
+            });
+        });
+
+        describe("owner is deselected", function () {
+            var owner = {
+                name: "user1",
+                id: 1,
+                selected: false
+            };
+            it("should remove owner from filter values", function () {
+                __view.data.filters.owner.values = ["user1", "user2"];
+                __view.updateOwnerFilter(owner);
+                expect(__view.data.filters.owner.values).toEqual(["user2"]);
+            });
+
+            it("should switch filtering to false if no filter available", function () {
+                __view.data.filters.owner.values = ["user1"];
+                __view.updateOwnerFilter(owner);
+                expect(__view.data.filters.owner.filtering).toEqual(false);
+            });
+        });
+    });
+
+    describe("onServerRequesting", function () {
+        var aoData;
+        beforeEach(function () {
+            aoData = {};
+        });
+
+        it("should add ownerFilter to aoData ", function () {
+            __view.data.filters.owner = {
+                filtering: true,
+                values: ["user1", "user2"]
+            };
+            __view.onServerRequesting(aoData);
+            expect(aoData).toEqual({customFilter: {owners: ["user1", "user2"]}});
+        });
+
+        it("should add ownerFilter to aoData ", function () {
+            __view.data.filters.query = {
+                filtering: true,
+                value: "Daikin"
+            };
+            __view.onServerRequesting(aoData);
+            expect(aoData).toEqual({customFilter: {searchQuery: "Daikin"}});
+        });
     });
 });

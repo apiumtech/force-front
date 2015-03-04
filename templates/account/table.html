@@ -28,14 +28,15 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li ng-repeat="element in data.currentHiddenColumns">
+                            <li ng-repeat="column in data.availableColumns">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                                       ng-checked="element.enabled"
-                                       ng-click="event.onToggleColumn(element.column);$event.stopPropagation()">
-                                <div class="media-body">
-                                    <p ng-if="fn.isImageHeader(element.column)" class="glyphicon glyphicon-map-marker"></p>
+                                       ng-checked="column.bVisible"
+                                       ng-click="event.onToggleColumn(column);$event.stopPropagation()">
+                                <div class="media-body"
+                                     ng-click="event.onToggleColumn(column);$event.stopPropagation()">
+                                    <p ng-if="fn.isImageHeader(column.title)" class="glyphicon glyphicon-map-marker"></p>
 
-                                    <p ng-if="!fn.isImageHeader(element.column)">{{element.column.name || '&nbsp;'}}</p>
+                                    <p ng-if="!fn.isImageHeader(column.title)">{{column.title || '&nbsp;'}}</p>
                                 </div>
                                 <div class="clear-fix"></div>
                             </li>

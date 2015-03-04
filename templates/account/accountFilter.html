@@ -31,13 +31,13 @@
                             </li>
                             <li class="media" ng-repeat="owner in data.availableOwners">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10 "
-                                       ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();"
+                                       ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);"
                                        ng-checked="owner.selected"
                                         />
 
                                 <div class="pull-left media-object "><img src="assets/img/{{owner.avatar}}"></div>
                                 <div class="media-body"
-                                     ng-click="event.onToggleOwnerFilter(owner);$event.stopPropagation();">
+                                     ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);">
                                     <p>{{ owner.name }} &nbsp;</p>
                                 </div>
                             </li>

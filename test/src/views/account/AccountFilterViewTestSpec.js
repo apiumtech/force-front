@@ -127,10 +127,6 @@ describe("AccountFilterView", function () {
             view.showAvailableOwners(data);
         });
 
-        it("should assign the showAvailableOwners field to true", function () {
-            expect(view.data.showAvailableOwners).toBeTruthy();
-        });
-
         it("should assign the availableOwners field", function () {
             expect(view.data.availableOwners).toEqual(data);
         });

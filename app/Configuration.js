@@ -1170,7 +1170,9 @@ app.registerService(function (container) {
     }
 
     var api = {
-        dataTableRequest: '/api/accounts/dataTables'
+        dataTableRequest: '/api/accounts/dataTables',
+        getAvailableOwners: '/api/accounts/availableOwners',
+        toggleFollow: '/api/accounts/toggleFollow'
     };
 
     return {

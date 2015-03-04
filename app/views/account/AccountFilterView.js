@@ -32,9 +32,10 @@ app.registerView(function (container) {
         var self = this;
 
         self.fn.onLoaded = function () {
+            self.event.onShowAvailableOwners();
+
             self.event.onShowAvailableEnvironment();
             self.event.onShowAvailableViews();
-            self.event.onShowAvailableOwners();
         };
 
         self.fn.onSelectedViewChanged = function () {
@@ -59,22 +60,18 @@ app.registerView(function (container) {
     };
 
     AccountFilterView.prototype.showAvailableOwners = function (owners) {
-        this.data.showAvailableOwners = true;
         this.data.availableOwners = owners;
     };
 
     AccountFilterView.prototype.showAvailableViews = function (views) {
-        this.data.showAvailableViews = true;
         this.data.availableViews = views;
     };
 
     AccountFilterView.prototype.showAvailableAccountType = function (accounttype) {
-        this.data.showAvailableAccountType = true;
         this.data.availableAccountType = accounttype;
     };
 
     AccountFilterView.prototype.showAvailableEnvironment = function (envs) {
-        this.data.showAvailableEnvironment = true;
         this.data.availableEnvironment = envs;
     };
 

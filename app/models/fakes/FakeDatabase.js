@@ -239,7 +239,6 @@ app.registerModel(function () {
 
             if (v.id == view.id) {
                 v.selected = !v.selected;
-                view.selected = v.selected;
             }
         });
     };
