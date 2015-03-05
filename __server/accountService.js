@@ -83,7 +83,7 @@ AccountService.prototype.getFilterData = function (request) {
         request.body.order.forEach(function (order) {
             var $index = 0;
             request.body.columns.forEach(function (column) {
-                if ($index.toString() === order.column) {
+                if ($index.toString() === order.column && column.orderable) {
                     sortCondition.push({name: column.data, dir: order.dir});
                 }
                 $index++;
@@ -106,14 +106,20 @@ AccountService.prototype.getDb = function () {
         });
 
         function loadHandler() {
-            var accounts = db.getCollection('Accounts');
-            if (!accounts) {
-                console.log("collections: ", accounts);
-                console.log("calling prepare data");
-                self.prepareData(db);
-            } else {
-                console.log("collections available, data count: ", accounts.data.length);
-            }
+            [
+                'Accounts',
+                'AccountTypes',
+                'Environments',
+                'Views'
+            ].forEach(function (table) {
+                    var dataTable = db.getCollection(table);
+                    if (dataTable) {
+                        console.log("collections '" + table + "' available, data count: ", dataTable.data.length);
+                    } else {
+                        console.log("creating table '" + table + "'");
+                        self['prepare' + table + 'DataSet'](db);
+                    }
+                });
         }
 
         this.db = db;
@@ -142,6 +148,45 @@ AccountService.prototype.toggleFollow = function (id) {
     return account;
 };
 
+AccountService.prototype.getEnvironments = function (filter) {
+    var db = this.getDb();
+    var environments = db.getCollection('Environments').chain();
+
+    if (filter && filter.query) {
+        environments = environments.where(function (record) {
+            return record.name.toLowerCase().indexOf(filter.query.toLowerCase()) > -1;
+        });
+    }
+
+    return environments.data();
+};
+
+AccountService.prototype.getViews = function (filter) {
+    var db = this.getDb();
+    var views = db.getCollection('Views').chain();
+
+    if (filter && filter.query) {
+        views = views.where(function (record) {
+            return record.name.toLowerCase().indexOf(filter.query.toLowerCase()) > -1;
+        });
+    }
+
+    return views.data();
+};
+
+AccountService.prototype.getAccountTypes = function (filter) {
+    var db = this.getDb();
+    var accountTypes = db.getCollection('AccountTypes').chain();
+
+    if (filter && filter.query) {
+        accountTypes = accountTypes.where(function (record) {
+            return record.name.toLowerCase().indexOf(filter.query.toLowerCase()) > -1;
+        });
+    }
+
+    return accountTypes.data();
+};
+
 AccountService.prototype.getAvailableOwners = function (filter) {
     var db = this.getDb();
     var accounts = db.getCollection('Accounts');
@@ -167,7 +212,59 @@ AccountService.prototype.getAvailableOwners = function (filter) {
     return resultList;
 };
 
-AccountService.prototype.prepareData = function (db) {
+//region preparing data sets
+AccountService.prototype.prepareEnvironmentsDataSet = function (db) {
+    var environments = db.addCollection('Environments', {});
+    [{
+        id: 1,
+        name: "Force UK"
+    }, {
+        id: 2,
+        name: "Force Asia"
+    }, {
+        id: 3,
+        name: "Force ES"
+    }].forEach(function (environment) {
+            environments.insert(environment);
+        });
+    db.save();
+};
+
+AccountService.prototype.prepareViewsDataSet = function (db) {
+    var views = db.addCollection('Views', {});
+    [{
+        id: 1,
+        name: "View 1"
+    }, {
+        id: 2,
+        name: "View 2"
+    }, {
+        id: 3,
+        name: "View 3"
+    }].forEach(function (view) {
+            views.insert(view);
+        });
+    db.save();
+};
+
+AccountService.prototype.prepareAccountTypesDataSet = function (db) {
+    var accountTypes = db.addCollection('AccountTypes', {});
+    [{
+        id: 1,
+        name: "AccountTypes 1"
+    }, {
+        id: 2,
+        name: "AccountTypes 2"
+    }, {
+        id: 3,
+        name: "AccountTypes 3"
+    }].forEach(function (view) {
+            accountTypes.insert(view);
+        });
+    db.save();
+};
+
+AccountService.prototype.prepareAccountsDataSet = function (db) {
     var accounts = db.addCollection('Accounts', {
         indices: 'id'
     });
@@ -1157,6 +1254,8 @@ AccountService.prototype.prepareData = function (db) {
 
     db.saveDatabase();
 };
+
+//endregion preparing data sets
 
 var forceManager = {
     accountService: new AccountService()

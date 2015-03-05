@@ -1,5 +1,5 @@
 /**
- * Created by kevin on 10/22/14.
+ * Created by justin on 3/5/15
  */
 
 app.registerPresenter(function (container) {
@@ -24,9 +24,27 @@ app.registerPresenter(function (container) {
         };
         channel.onQueryingData(view.event.onSearchQueryChanged);
 
-        /* region table */
+        view.event.onEnvironmentToggled = function (environment) {
+            view.updateEnvironmentFilter(environment);
+            view.reloadTableData();
+        };
+        channel.onEnvironmentToggleReceived(view.event.onEnvironmentToggled);
+
+        view.event.onAccountTypesToggled = function (accountType) {
+            view.updateAccountTypesFilter(accountType);
+            view.reloadTableData();
+        };
+        channel.onAccountTypeToggledReceived(view.event.onAccountTypesToggled);
+
+        view.event.onViewChanged = function (viewFilter) {
+            view.updateViewFilter(viewFilter);
+            view.reloadTableData();
+        };
+        channel.onViewChangedReceived(view.event.onViewChanged);
+
         view.event.onFollowToggled = function (field) {
-            model.toggleFollow(field).then(view.reloadTableData.bind(view), view.showError.bind(view));
+            model.toggleFollow(field)
+                .then(view.reloadTableData.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleColumn = function (column) {
@@ -46,8 +64,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onAccountsNextPage = function () {
-            model.nextPage()
-                .then(view.addTableData.bind(view), view.showError.bind(view));
+
         };
         /* endregion */
     };

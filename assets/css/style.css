@@ -7114,6 +7114,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
 body {
   background: #edf0f5 url(../img/bg-linen.png) 0 0 repeat !important;
   font-weight: 300;
+  background-color: #fff8ed;
 }
 ul.no-bullet {
   list-style: outside none none;
@@ -7421,56 +7422,10 @@ span.container-popover:hover div.popover {
 .sold-title {
   font-size: 20px;
 }
-.arrow_box {
-  /*position: relative;
-  background: #88b7d5;
-  border: 4px solid #;*/
+a.map-snapshoot {
+  color: #ed8b00;
+  text-decoration: none!important;
 }
-/*
-.arrow_box:after, .arrow_box:before {
-  left: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-
-.arrow_box:after {
-border-color: rgba(136, 183, 213, 0);
-
-border-width: 71px;
-margin-top: -71px;
-}
-.arrow_box:before {
-  border-color: rgba(0, 0, 0, 0);
-  border-left-color: #;
-  border-width: 36px;
-  margin-top: -36px;
-}
-
-.bg-green.arrow_box:after{
-  border-left-color: lighten(@green, 15%);
-
-} 
-
-.bg-blue.arrow_box:after{
-  border-left-color: lighten(@blue, 15%);
-
-} 
-
-
-.aqua_bg.arrow_box:after{
-  border-left-color: @light_aqua;
-
-} 
-
-.widget{
-  overflow: visible;
-}
-*/
 .sidebar .line-border {
   height: 1px;
   width: 190px;
@@ -8170,17 +8125,76 @@ td.total-price {
   border-radius: 200px;
   width: 80px;
 }
-#editcontact .form-group img {
+.form-img img {
   width: 160px;
   height: 160px;
   border-radius: 200px;
   margin-left: -70px;
 }
-#editcontact .btn-picture {
+.btn-picture {
   margin-top: -40px !important;
 }
 .panel-opportunity-detail {
   border-color: #00a7bd;
+}
+.map-callout {
+  position: relative;
+  background: white;
+  padding: 20px 10px 10px;
+  border-bottom: 4px solid #ed8b00;
+  max-width: 400px;
+  min-width: 350px;
+}
+.map-callout table.infos {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.map-callout table.infos .thumb-wrapper {
+  width: 65px;
+  text-align: left;
+}
+.map-callout table.infos .thumb {
+  padding-right: 10px;
+  width: 56px;
+  height: 56px;
+  text-align: center;
+  position: relative;
+}
+.map-callout table.infos .thumb .user-score {
+  position: absolute;
+  bottom: -5px;
+  left: 5px;
+  width: 45px;
+  padding: 2px 0;
+  font-weight: normal;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+}
+.map-callout .btn-sm {
+  padding: 4px 8px 0;
+}
+.map-callout .btn-sm i {
+  font-size: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.map-callout .related-links {
+  text-align: center;
+}
+.map-callout .arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #ed8b00;
+  position: relative;
+  bottom: -10px;
+  margin: 0 auto -10px auto;
+  width: 10px;
+}
+.master.accounts .map-canvas {
+  display: none;
 }
 /* Reset and overrides */
 body {

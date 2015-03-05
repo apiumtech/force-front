@@ -11,6 +11,7 @@ app.registerView(function (container) {
     var GoogleMapService = container.getService("services/GoogleMapService");
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
+    var moment = container.getFunction("moment");
 
     function AccountView($scope, $model, $presenter, mapService, dataTableService) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -71,18 +72,15 @@ app.registerView(function (container) {
             columnDefs: [
                 {
                     targets: 0,
-                    render: function (data, type, row) {
-                        var activeClass = data ? 'active' : '';
-                        return '<button type="button" function-togglefollow ng-click="event.onFollowToggled(row)" class="btn btn-default btn-sm btn-follow btn-squared btn-squared ' + activeClass + '">' +
-                            '<i class="fa ic-flag"></i>' +
-                            '</button>';
-                    }
+                    render: self.renderFollowColumn.bind(self)
                 },
                 {
                     targets: 3,
-                    render: function (data, type, row) {
-                        return '<a ng-click=""><i class="fa ic-checkin-filled brand-green-text"></i></a>';
-                    }
+                    render: self.renderLocationColumn.bind(self)
+                },
+                {
+                    targets: 8,
+                    render: self.renderModifiedColumn.bind(self)
                 }
             ],
             fnRowCallback: self.onRowRenderedCallback.bind(self)
@@ -113,7 +111,7 @@ app.registerView(function (container) {
         };
     };
 
-    AccountView.prototype.onRowRenderedCallback = function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+    AccountView.prototype.onRowRenderedCallback = function (nRow, aData) {
         var self = this;
         $(nRow).on("click", "[function-togglefollow]", function (e) {
             e.preventDefault();
@@ -128,9 +126,33 @@ app.registerView(function (container) {
         if (filters.owner.filtering) {
             aoData.customFilter['owners'] = filters.owner.values;
         }
+        if (filters.environments.filtering) {
+            aoData.customFilter['environments'] = filters.environments.values;
+        }
+        if (filters.accountType.filtering) {
+            aoData.customFilter['accountTypes'] = filters.accountType.values;
+        }
+        if (filters.view.filtering) {
+            aoData.customFilter['view'] = filters.view.value;
+        }
         if (filters.query.filtering) {
             aoData.customFilter['searchQuery'] = filters.query.value;
         }
+    };
+
+    AccountView.prototype.renderFollowColumn = function (data) {
+        var activeClass = data ? 'active' : '';
+        return '<button type="button" function-togglefollow class="btn btn-default btn-sm btn-follow btn-squared btn-squared ' + activeClass + '">' +
+            '<i class="fa ic-flag"></i>' +
+            '</button>';
+    };
+
+    AccountView.prototype.renderModifiedColumn = function (data) {
+        return moment(data).format("DD/MM/YYYY");
+    };
+
+    AccountView.prototype.renderLocationColumn = function (data) {
+        return '<a function-getlocation><i class="fa ic-checkin-filled brand-green-text"></i></a>';
     };
 
     AccountView.prototype.updateOwnerFilter = function (owner) {
@@ -148,15 +170,53 @@ app.registerView(function (container) {
         }
     };
 
+    AccountView.prototype.updateEnvironmentFilter = function (environment) {
+        var self = this;
+        var environmentFilter = self.data.filters.environments;
+        if (environment.selected) {
+            environmentFilter.filtering = true;
+            if (environmentFilter.values.indexOf(environment.name) == -1)
+                environmentFilter.values.push(environment.name);
+        } else {
+            environmentFilter.values = environmentFilter.values.filter(function (value) {
+                return value != environment.name;
+            });
+            environmentFilter.filtering = !!environmentFilter.values.length;
+        }
+    };
+
+    AccountView.prototype.updateAccountTypesFilter = function (accountType) {
+        var self = this;
+        var accountTypeFilter = self.data.filters.accountType;
+        if (accountType.selected) {
+            accountTypeFilter.filtering = true;
+            if (accountTypeFilter.values.indexOf(accountType.name) == -1)
+                accountTypeFilter.values.push(accountType.name);
+        } else {
+            accountTypeFilter.values = accountTypeFilter.values.filter(function (value) {
+                return value != accountType.name;
+            });
+            accountTypeFilter.filtering = !!accountTypeFilter.values.length;
+        }
+    };
+
+    AccountView.prototype.updateViewFilter = function (view) {
+        var self = this;
+        var viewFilter = self.data.filters.view;
+        if (view && view.selected) {
+            viewFilter.filtering = true;
+            // TODO: update $loki to the identifier of the view object
+            viewFilter.value = view.$loki;
+        } else {
+            viewFilter.value = null;
+            viewFilter.filtering = false;
+        }
+    };
+
     AccountView.prototype.updateQueryingString = function (queryString) {
         var self = this;
-        if (queryString) {
-            self.data.filters.query.filtering = true;
-            self.data.filters.query.value = queryString;
-        } else {
-            self.data.filters.query.filtering = false;
-            self.data.filters.query.value = "";
-        }
+        self.data.filters.query.filtering = !!queryString;
+        self.data.filters.query.value = queryString || "";
     };
 
     AccountView.prototype.reloadTableColumns = function () {

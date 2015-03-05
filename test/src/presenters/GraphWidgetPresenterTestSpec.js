@@ -36,17 +36,17 @@ describe("GraphWidgetPresenter", function () {
                     test = testCase.test;
 
                 beforeEach(function () {
-                    ___view = {
+                    view = {
                         event: {}
                     };
                     ___model = {
                         setFetchEndPoint: jasmine.createSpy()
                     };
-                    sut.show(___view, ___model);
+                    sut.show(view, ___model);
                 });
 
                 it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(___view.event, viewEvent);
+                    testDeclareMethod(view.event, viewEvent);
                 });
 
                 describe("when event '" + viewEvent + "' fired", test);
@@ -54,18 +54,18 @@ describe("GraphWidgetPresenter", function () {
 
         function onReloadWidgetStartTest() {
             beforeEach(function () {
-                ___view.widget = {
+                view.widget = {
                     dataEndpoint: "/test/end/point"
                 };
                 spyOn(sut, '_executeLoadWidget');
             });
             it("should add endpoint to model", function () {
-                ___view.event.onReloadWidgetStart();
+                view.event.onReloadWidgetStart();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
 
             it("should call '_executeLoadWidget' method", function () {
-                ___view.event.onReloadWidgetStart();
+                view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }
@@ -80,7 +80,7 @@ describe("GraphWidgetPresenter", function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onDateFilterApplied(filterValue);
+                view.event.onDateFilterApplied(filterValue);
             });
 
             it("should call 'addDateFilter' on the model", function () {
@@ -98,7 +98,7 @@ describe("GraphWidgetPresenter", function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onUsersFilterApplied(filterValue);
+                view.event.onUsersFilterApplied(filterValue);
             });
 
             it("should call 'addUserFilter' on the model", function () {
@@ -114,12 +114,12 @@ describe("GraphWidgetPresenter", function () {
             var errMsg = {msg: "test message"};
             beforeEach(function () {
                 ___model.addQuery = jasmine.createSpy();
-                ___view.$scope = {
+                view.$scope = {
                     selectedFilter: 'selectedFilter',
                     selectedRangeOption: 'selectedRangeOption'
                 };
                 spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                ___view.event.onReloadWidgetDone(errMsg);
+                view.event.onReloadWidgetDone(errMsg);
             });
 
             it("should call 'addQuery' on model for initialing selectedFilter", function () {
@@ -140,9 +140,9 @@ describe("GraphWidgetPresenter", function () {
             });
 
             function exercisePrepareFilterChangeCall() {
-                ___view.$scope = {selectedFilter: "abcdef"};
+                view.$scope = {selectedFilter: "abcdef"};
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onFilterChanged();
+                view.event.onFilterChanged();
             }
 
             it("should call addQuery on model", function () {
@@ -162,9 +162,9 @@ describe("GraphWidgetPresenter", function () {
             });
 
             function exercisePrepareFilterChangeCall() {
-                ___view.$scope = {selectedRangeOption: "date"};
+                view.$scope = {selectedRangeOption: "date"};
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onFilterRangeChanged();
+                view.event.onFilterRangeChanged();
             }
 
             it("should call addQuery on model", function () {

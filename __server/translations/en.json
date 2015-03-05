@@ -86,7 +86,8 @@
               "DeleteView": "Delete view"
           },
           "MenuEnvironment":{
-              "Title": "Environment",
+            "Title": "Environment",
+            "EnvironmentListEmpty": "No environment available",
             "FilterEnvironment":"Filter Environment",
             "AvailableFilterEnvironment":"Available Environment Settings"
           },

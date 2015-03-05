@@ -14,11 +14,11 @@ describe("SalesAnalyticsFilterPresenter", function () {
         describe("should connect view's events to model", function () {
 
             beforeEach(function () {
-                ___view = {
+                view = {
                     event: {}
                 };
                 ___model = {};
-                sut.show(___view, ___model);
+                sut.show(view, ___model);
             });
 
             [{
@@ -30,7 +30,7 @@ describe("SalesAnalyticsFilterPresenter", function () {
                         test = testCase.test;
 
                     it("should declared '" + viewEvent + "' event for View", function () {
-                        testDeclareMethod(___view.event, viewEvent);
+                        testDeclareMethod(view.event, viewEvent);
                     });
 
                     describe("when event '" + viewEvent + "' fired", test);
@@ -48,8 +48,8 @@ describe("SalesAnalyticsFilterPresenter", function () {
                 var groupName = "team";
                 function exerciseTest() {
                     ___model.addQuery = jasmine.createSpy();
-                    ___view.event.onFilterInitializing = jasmine.createSpy();
-                    ___view.event.onFilterByGroup(groupName);
+                    view.event.onFilterInitializing = jasmine.createSpy();
+                    view.event.onFilterByGroup(groupName);
                 }
 
                 it("should call model's addQuery", function () {
@@ -59,7 +59,7 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
                 it("should fire event onFilterInitializing", function () {
                     exerciseTest();
-                    expect(___view.event.onFilterInitializing).toHaveBeenCalled();
+                    expect(view.event.onFilterInitializing).toHaveBeenCalled();
                 });
             }
         });
@@ -70,26 +70,26 @@ describe("SalesAnalyticsFilterPresenter", function () {
         beforeEach(function () {
             ___model[modelMethod] = function () {
             };
-            ___view[onSuccess] = jasmine.createSpy();
-            ___view[onError] = jasmine.createSpy();
+            view[onSuccess] = jasmine.createSpy();
+            view[onError] = jasmine.createSpy();
         });
 
         it("presenter should connect event to '" + modelMethod + "' method on model", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakePromise());
-            ___view.event[viewEvent]();
+            view.event[viewEvent]();
             expect(___model[modelMethod]).toHaveBeenCalled();
         });
 
         it("should call method '" + onSuccess + "' on view if model '" + modelMethod + "' return success", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeOkPromise());
-            ___view.event[viewEvent]();
-            expect(___view[onSuccess]).toHaveBeenCalled();
+            view.event[viewEvent]();
+            expect(view[onSuccess]).toHaveBeenCalled();
         });
 
         it("should call method '" + onError + "' on view if model '" + modelMethod + "' return error", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeKoPromise());
-            ___view.event[viewEvent]();
-            expect(___view[onError]).toHaveBeenCalled();
+            view.event[viewEvent]();
+            expect(view[onError]).toHaveBeenCalled();
         });
     }
 });

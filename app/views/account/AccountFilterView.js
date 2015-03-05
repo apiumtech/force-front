@@ -12,11 +12,6 @@ app.registerView(function (container) {
     function AccountFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
 
-        this.data.showAvailableFilters = false;
-        this.data.showAvailableOwners = false;
-        this.data.showAvailableAccountType = false;
-        this.data.showAvailableEnvironment = false;
-        this.data.showAvailableViews = false;
         this.data.selectedView = null;
         this.data.searchQuery = "";
     }
@@ -33,30 +28,25 @@ app.registerView(function (container) {
 
         self.fn.onLoaded = function () {
             self.event.onShowAvailableOwners();
-
-            self.event.onShowAvailableEnvironment();
+            self.event.onShowAvailableEnvironments();
+            self.event.onShowAvailableAccountTypes();
             self.event.onShowAvailableViews();
         };
 
         self.fn.onSelectedViewChanged = function () {
             self.data.availableViews.forEach(function (view) {
                 if (view.name !== self.data.selectedView) {
+                    view.selected = false;
                     return;
                 }
-                self.event.onToggleViewsFilter(view);
+                view.selected = true;
+                self.event.onToggleViewFilter(view);
             });
+
+            if (self.data.selectedView == 'null') {
+                self.event.onToggleViewFilter(null);
+            }
         };
-    };
-
-    AccountFilterView.prototype.showAvailableFilters = function (filters) {
-        this.data.showAvailableFilters = true;
-        this.data.availableFilters = filters;
-    };
-
-    AccountFilterView.prototype.showFilters = function (filters) {
-        this.data.customFilters = filters;
-        this.data.showAvailableFilters = true;
-        this.data.availableFilters = [];
     };
 
     AccountFilterView.prototype.showAvailableOwners = function (owners) {
@@ -67,12 +57,12 @@ app.registerView(function (container) {
         this.data.availableViews = views;
     };
 
-    AccountFilterView.prototype.showAvailableAccountType = function (accounttype) {
+    AccountFilterView.prototype.showAvailableAccountTypes = function (accounttype) {
         this.data.availableAccountType = accounttype;
     };
 
-    AccountFilterView.prototype.showAvailableEnvironment = function (envs) {
-        this.data.availableEnvironment = envs;
+    AccountFilterView.prototype.showAvailableEnvironments = function (environments) {
+        this.data.availableEnvironment = environments;
     };
 
     AccountFilterView.prototype.showCustomFilters = function (filters) {

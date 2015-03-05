@@ -4,7 +4,6 @@
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
-    var Q = container.getFunction('q');
 
     function AccountModel(ajaxService) {
         this.ajaxService = ajaxService;

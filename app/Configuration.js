@@ -1172,6 +1172,9 @@ app.registerService(function (container) {
     var api = {
         dataTableRequest: '/api/accounts/dataTables',
         getAvailableOwners: '/api/accounts/availableOwners',
+        getAvailableEnvironments: '/api/accounts/environments',
+        getAvailableViews: '/api/accounts/views',
+        getAvailableAccountTypes: '/api/accounts/accountTypes',
         toggleFollow: '/api/accounts/toggleFollow'
     };
 

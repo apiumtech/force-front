@@ -7,7 +7,7 @@ describe("AccountFilterPresenter", function () {
     var sut;
     var ___view, ___model;
     beforeEach(function () {
-        ___view = {
+        view = {
             event: {}
         };
         ___model = {};
@@ -22,18 +22,32 @@ describe("AccountFilterPresenter", function () {
         [{
             viewEvent: "onShowAvailableOwners", exercise: onShowAvailableOwnersTest
         }, {
+            viewEvent: "onShowAvailableViews", exercise: onShowAvailableViewsTest
+        }, {
+            viewEvent: "onShowAvailableEnvironments", exercise: onShowAvailableEnvironmentsTest
+        }, {
+            viewEvent: "onShowAvailableAccountTypes", exercise: onShowAvailableAccountTypesTest
+        }, {
             viewEvent: "onToggleOwnerFilter", exercise: onToggleOwnerFilterTest
+        }, {
+            viewEvent: "onToggleEnvironmentFilter", exercise: onToggleEnvironmentFilterTest
+        }, {
+            viewEvent: "onToggleAccountTypeFilter", exercise: onToggleAccountTypeFilterTest
+        }, {
+            viewEvent: "onToggleViewFilter", exercise: onToggleViewFilterTest
+        }, {
+            viewEvent: "onSearchQueryChanged", exercise: onSearchQueryChangedTest
         }].forEach(function (test) {
                 var viewEvent = test.viewEvent;
 
                 it("should declared '" + viewEvent + "' event for View", function () {
-                    sut.show(___view, ___model);
-                    testDeclareMethod(___view.event, viewEvent);
+                    sut.show(view, ___model);
+                    testDeclareMethod(view.event, viewEvent);
                 });
 
                 describe("when event '" + viewEvent + "' fired", function () {
                     beforeEach(function () {
-                        sut.show(___view, ___model);
+                        sut.show(view, ___model);
                     });
                     test.exercise();
                 });
@@ -46,13 +60,65 @@ describe("AccountFilterPresenter", function () {
             exerciseAjaxCallBinding("onShowAvailableOwners", modelMethod, onSuccess, onError);
         }
 
+        function onShowAvailableViewsTest() {
+            var modelMethod = "getAvailableViews";
+            var onSuccess = "showAvailableViews";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onShowAvailableViews", modelMethod, onSuccess, onError);
+        }
+
+        function onShowAvailableEnvironmentsTest() {
+            var modelMethod = "getAvailableEnvironments";
+            var onSuccess = "showAvailableEnvironments";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onShowAvailableEnvironments", modelMethod, onSuccess, onError);
+        }
+
+        function onShowAvailableAccountTypesTest() {
+            var modelMethod = "getAvailableAccountTypes";
+            var onSuccess = "showAvailableAccountTypes";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onShowAvailableAccountTypes", modelMethod, onSuccess, onError);
+        }
+
         function onToggleOwnerFilterTest() {
             it("should send owner toggle signal using channel", function () {
                 spyOn(sut.filterChannel, 'sendOwnerToggleSignal');
-                ___view.event.onToggleOwnerFilter({id: 1});
+                view.event.onToggleOwnerFilter({id: 1});
                 expect(sut.filterChannel.sendOwnerToggleSignal).toHaveBeenCalledWith({id: 1});
             });
+        }
 
+        function onToggleEnvironmentFilterTest() {
+            it("should send environment toggle signal using channel", function () {
+                spyOn(sut.filterChannel, 'sendEnvironmentToggleSignal');
+                view.event.onToggleEnvironmentFilter({id: 1});
+                expect(sut.filterChannel.sendEnvironmentToggleSignal).toHaveBeenCalledWith({id: 1});
+            });
+        }
+
+        function onToggleAccountTypeFilterTest() {
+            it("should send account type toggle signal using channel", function () {
+                spyOn(sut.filterChannel, 'sendAccountTypeToggledSignal');
+                view.event.onToggleAccountTypeFilter({id: 1});
+                expect(sut.filterChannel.sendAccountTypeToggledSignal).toHaveBeenCalledWith({id: 1});
+            });
+        }
+
+        function onToggleViewFilterTest() {
+            it("should send view toggle signal using channel", function () {
+                spyOn(sut.filterChannel, 'sendViewChangedSignal');
+                view.event.onToggleViewFilter({id: 1});
+                expect(sut.filterChannel.sendViewChangedSignal).toHaveBeenCalledWith({id: 1});
+            });
+        }
+
+        function onSearchQueryChangedTest() {
+            it("should send query changed signal using channel", function () {
+                spyOn(sut.filterChannel, 'sendQueryingData');
+                view.event.onSearchQueryChanged("queryString_apiumtech");
+                expect(sut.filterChannel.sendQueryingData).toHaveBeenCalledWith("queryString_apiumtech");
+            });
         }
     });
 
@@ -61,25 +127,25 @@ describe("AccountFilterPresenter", function () {
         beforeEach(function () {
             ___model[modelMethod] = function () {
             };
-            ___view[onSuccess] = jasmine.createSpy();
-            ___view[onError] = jasmine.createSpy();
+            view[onSuccess] = jasmine.createSpy();
+            view[onError] = jasmine.createSpy();
         });
         it("presenter should connect event to '" + modelMethod + "' method on $model", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakePromise());
-            ___view.event[viewEvent]();
+            view.event[viewEvent]();
             expect(___model[modelMethod]).toHaveBeenCalled();
         });
 
         it("should call method '" + onSuccess + "' on $view if $model '" + modelMethod + "' return success", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeOkPromise());
-            ___view.event[viewEvent]();
-            expect(___view[onSuccess]).toHaveBeenCalled();
+            view.event[viewEvent]();
+            expect(view[onSuccess]).toHaveBeenCalled();
         });
 
         it("should call method '" + onError + "' on $view if $model '" + modelMethod + "' return error", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeKoPromise());
-            ___view.event[viewEvent]();
-            expect(___view[onError]).toHaveBeenCalled();
+            view.event[viewEvent]();
+            expect(view[onError]).toHaveBeenCalled();
         });
     }
 });

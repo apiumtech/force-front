@@ -34,17 +34,17 @@ describe("SingleLineChartWidgetPresenter", function () {
                     test = testCase.test;
 
                 beforeEach(function () {
-                    ___view = {
+                    view = {
                         event: {}
                     };
                     ___model = {
                         setFetchEndPoint: jasmine.createSpy()
                     };
-                    sut.show(___view, ___model);
+                    sut.show(view, ___model);
                 });
 
                 it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(___view.event, viewEvent);
+                    testDeclareMethod(view.event, viewEvent);
                 });
 
                 describe("when event '" + viewEvent + "' fired", test);
@@ -52,17 +52,17 @@ describe("SingleLineChartWidgetPresenter", function () {
 
         function onReloadWidgetStartTest() {
             beforeEach(function () {
-                ___view.widget = {
+                view.widget = {
                     dataEndpoint: "/test/end/point"
                 };
                 spyOn(sut, '_executeLoadWidget');
             });
             it("should add endpoint to model", function () {
-                ___view.event.onReloadWidgetStart();
+                view.event.onReloadWidgetStart();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
             it("should call '_executeLoadWidget' method", function () {
-                ___view.event.onReloadWidgetStart();
+                view.event.onReloadWidgetStart();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }
@@ -73,7 +73,7 @@ describe("SingleLineChartWidgetPresenter", function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onUsersFilterApplied(filterValue);
+                view.event.onUsersFilterApplied(filterValue);
             });
 
             it("should call 'addUserFilter' on the model", function () {
@@ -94,7 +94,7 @@ describe("SingleLineChartWidgetPresenter", function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onDateFilterApplied(filterValue);
+                view.event.onDateFilterApplied(filterValue);
             });
 
             it("should call 'addDateFilter' on the model", function () {
@@ -110,12 +110,12 @@ describe("SingleLineChartWidgetPresenter", function () {
             var errMsg = {msg: "test message"};
             beforeEach(function () {
                 ___model.addQuery = jasmine.createSpy();
-                ___view.$scope = {
+                view.$scope = {
                     selectedFilter: 'selectedFilter',
                     selectedRangeOption: 'selectedRangeOption'
                 };
                 spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                ___view.event.onReloadWidgetDone(errMsg);
+                view.event.onReloadWidgetDone(errMsg);
             });
 
             it("should call 'sendReloadCompleteSignal' on the channel", function () {
@@ -125,10 +125,10 @@ describe("SingleLineChartWidgetPresenter", function () {
 
         function onFilterChangedTest() {
             function prepareTabChanged() {
-                ___view.selectedFilter = "tab1";
+                view.selectedFilter = "tab1";
                 ___model.changeFilterTab = jasmine.createSpy();
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                ___view.event.onFilterChanged();
+                view.event.onFilterChanged();
             }
 
             it("should call addQuery with new value", function () {

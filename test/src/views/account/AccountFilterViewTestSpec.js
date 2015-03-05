@@ -45,7 +45,8 @@ describe("AccountFilterView", function () {
 
         function onLoadedTest() {
             [
-                "onShowAvailableEnvironment",
+                "onShowAvailableEnvironments",
+                "onShowAvailableAccountTypes",
                 "onShowAvailableViews",
                 "onShowAvailableOwners"
             ].forEach(function (event) {
@@ -71,52 +72,15 @@ describe("AccountFilterView", function () {
                 }, {
                     name: 'view4'
                 }];
-                view.event.onToggleViewsFilter = jasmine.createSpy();
+                view.event.onToggleViewFilter = jasmine.createSpy();
 
                 view.fn.onSelectedViewChanged();
-                expect(view.event.onToggleViewsFilter).toHaveBeenCalledWith({
-                    name: 'view1'
+                expect(view.event.onToggleViewFilter).toHaveBeenCalledWith({
+                    name: 'view1',
+                    selected: true
                 });
             });
         }
-    });
-
-    describe("showAvailableFilters behaviour", function () {
-        var view = exerciseCreateView();
-        var data = 1;
-
-        beforeEach(function () {
-            view.showAvailableFilters(data);
-        });
-
-        it("should assign the showAvailableFilters field to true", function () {
-            expect(view.data.showAvailableFilters).toBeTruthy();
-        });
-
-        it("should assign the availableFilters field", function () {
-            expect(view.data.availableFilters).toEqual(data);
-        });
-    });
-
-    describe("showFilters behaviour", function () {
-        var view = exerciseCreateView();
-        var data = 1;
-
-        beforeEach(function () {
-            view.showFilters(data);
-        });
-
-        it("should assign the showAvailableFilters field to true", function () {
-            expect(view.data.showAvailableFilters).toBeTruthy();
-        });
-
-        it("should assign the availableFilters field to an empty array", function () {
-            expect(view.data.availableFilters).toEqual([]);
-        });
-
-        it("should assign the customFilters field", function () {
-            expect(view.data.customFilters).toEqual(data);
-        });
     });
 
     describe("showAvailableOwners behaviour", function () {
