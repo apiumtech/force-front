@@ -294,7 +294,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Apple",
-            "imgUrl": "/img/microsoft.png",
+            "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "B",
             "contactInfo": {
                 "validAddress": true,
@@ -311,7 +311,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Microsoft",
-            "imgUrl": "/img/microsoft.png",
+            "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
             "contactInfo": {
                 "validAddress": false,
@@ -328,7 +328,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Yahoo",
-            "imgUrl": "/img/microsoft.png",
+            "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
             "contactInfo": {
                 "validAddress": false,
@@ -345,7 +345,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "IBM",
-            "imgUrl": "/img/microsoft.png",
+            "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
             "contactInfo": {
                 "validAddress": false,

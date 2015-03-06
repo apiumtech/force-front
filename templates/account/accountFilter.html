@@ -20,7 +20,7 @@
                                            ng-model="data.ownerFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableOwners(data.ownerFilter);"/>
-                                    <span class="fa fa-remove removeTextBoxBtn"
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.ownerFilter!=''"
                                           ng-click="data.ownerFilter='';event.onShowAvailableOwners(data.ownerFilter);$event.stopPropagation()"></span>
                                 </form>
                             </li>
@@ -91,7 +91,7 @@
                                            ng-model="data.EnvFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableEnvironments(data.EnvFilter);"/>
-                                    <span class="fa fa-remove removeTextBoxBtn"
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.EnvFilter!=''"
                                           ng-click="data.EnvFilter='';event.onShowAvailableEnvironments(data.EnvFilter);$event.stopPropagation()"></span>
                                 </form>
                             </li>
@@ -131,7 +131,7 @@
                                            ng-model="data.AccountTypeFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableAccountTypes(data.AccountTypeFilter);"/>
-                                    <span class="fa fa-remove removeTextBoxBtn"
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.AccountTypeFilter!=''"
                                           ng-click="data.AccountTypeFilter='';event.onShowAvailableAccountTypes(data.AccountTypeFilter);$event.stopPropagation()"></span>
                                 </form>
                             </li>

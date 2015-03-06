@@ -14,6 +14,9 @@ app.registerView(function (container) {
 
         this.data.selectedView = null;
         this.data.searchQuery = "";
+        this.data.AccountTypeFilter = '';
+        this.data.EnvFilter = '';
+        this.data.ownerFilter = '';
     }
 
     AccountFilterView.prototype = Object.create(BaseView.prototype, {});
