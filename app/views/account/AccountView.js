@@ -25,8 +25,8 @@ app.registerView(function (container) {
         this.data.accountDetailPage = "#/accounts/{id}";
 
         this.data.availableColumns = [
-            {data: "following", title: "Following", sortable: false, visible: true},
-            {data: "name", title: "Account Name", visible: true},
+            {data: "following", title: "Following", sortable: false, width: 70,visible: true},
+            {data: "name", title: "Account Name", width: 250, visible: true},
             {data: "class", title: "Class.", visible: true},
             {data: "$loki", title: '<i class="fa ic-checkin-filled brand-green-text"></i>', visible: true},
             {data: "contactInfo.country", title: "Country", visible: true},
@@ -70,7 +70,8 @@ app.registerView(function (container) {
                 type: 'POST'
             },
             sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>t<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
-            bPaginate: false,
+            //pagingType: "full_numbers",
+            paginate: false,
             columns: this.data.availableColumns,
             fnServerParams: this.onServerRequesting.bind(this),
             columnDefs: [
