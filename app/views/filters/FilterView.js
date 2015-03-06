@@ -18,7 +18,7 @@ app.registerView(function (container) {
         $scope.event = this.event;
 
         this.data.showAvailableFilters = false;
-        this.data.showAvailableOwners = false;
+        this.data.setAvailableOwners = false;
 
         this.model = $model;
         this.presenter = $presenter;
@@ -39,8 +39,8 @@ app.registerView(function (container) {
         this.data.availableFilters = [];
     };
 
-    FilterView.prototype.showAvailableOwners = function (owners) {
-        this.data.showAvailableOwners = true;
+    FilterView.prototype.setAvailableOwners = function (owners) {
+        this.data.setAvailableOwners = true;
         this.data.availableOwners = owners;
     };
 

@@ -2,10 +2,15 @@
  * Created by Justin on 2/11/2015.
  */
 app.registerService(function (container) {
-
     var google = window.google || {};
     google.maps = google.maps || {
         MapTypeId: {ROADMAP: ""},
+        event: {
+            addListener: function () {
+            },
+            addDomListener: function () {
+            },
+        },
         Map: function () {
             return {
                 setCenter: function () {
@@ -48,15 +53,58 @@ app.registerService(function (container) {
         },
         Point: function () {
         },
+        InfoWindow: function () {
+        },
         Size: function () {
         },
         MarkerImage: function () {
         }
     };
 
-    return {
-        newInstance: function () {
-            return Some(google.maps);
-        }
+    function GoogleMapService(googleMap) {
+        this.googleMap = googleMap;
     }
+
+    GoogleMapService.prototype.createMap = function (element, options) {
+        return new this.googleMap.Map(element, options);
+    };
+
+    GoogleMapService.prototype.getLatLng = function (latitude, longitude) {
+        return new this.googleMap.LatLng(latitude, longitude);
+    };
+
+    GoogleMapService.prototype.createHeatMap = function (option) {
+        return new this.googleMap.visualization.HeatmapLayer(option);
+    };
+
+    GoogleMapService.prototype.getLatLngBounds = function () {
+        return new this.googleMap.LatLngBounds();
+    };
+
+    GoogleMapService.prototype.createMarker = function (options) {
+        return new this.googleMap.Marker(options);
+    };
+
+    GoogleMapService.prototype.createInfoWindow = function (contentString) {
+        return new this.googleMap.InfoWindow({
+            content: contentString
+        });
+    };
+
+    GoogleMapService.prototype.bindClickEvent = function (target, callback) {
+        this.googleMap.event.addListener(target, 'click', callback);
+    };
+
+    GoogleMapService.prototype.getMarkerIcon = function (imgUrl, imgWidth, imgHeight) {
+        return {
+            scaledSize: new this.googleMap.Size(imgWidth || 32, imgHeight || 32),
+            url: imgUrl
+        }
+    };
+
+    GoogleMapService.newInstance = function (googleMapService) {
+        return Some(new GoogleMapService(googleMapService || google.maps));
+    };
+
+    return GoogleMapService;
 });

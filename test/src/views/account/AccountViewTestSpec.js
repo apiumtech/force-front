@@ -31,6 +31,12 @@ describe("AccountView", function () {
         __view = exerciseCreateView();
     });
 
+    describe("declare account detail page url", function () {
+        it("should declare the account detail page url", function () {
+            expect(__view.data.accountDetailPage).toEqual('#/accounts/{id}');
+        });
+    });
+
     describe("updateEnvironmentFilter", function () {
         describe("environment is selected", function () {
             var environment = {

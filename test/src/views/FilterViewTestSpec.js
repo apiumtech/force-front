@@ -56,16 +56,16 @@ describe("FilterView", function () {
         });
     });
 
-    describe("showAvailableOwners behaviour", function () {
+    describe("setAvailableOwners behaviour", function () {
         var view = exerciseCreateView();
         var data = 1;
 
         beforeEach(function () {
-            view.showAvailableOwners(data);
+            view.setAvailableOwners(data);
         });
 
-        it("should assign the showAvailableOwners field to true", function () {
-            expect(view.data.showAvailableOwners).toBeTruthy();
+        it("should assign the setAvailableOwners field to true", function () {
+            expect(view.data.setAvailableOwners).toBeTruthy();
         });
 
         it("should assign the availableOwners field", function () {

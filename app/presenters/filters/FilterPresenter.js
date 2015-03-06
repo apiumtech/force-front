@@ -46,7 +46,7 @@ app.registerPresenter(function (container) {
 
         view.event.onShowAvailableOwners = function (nameFilter) {
             model.getAvailableOwners(nameFilter)
-                .then(view.showAvailableOwners.bind(view), view.showError.bind(view));
+                .then(view.setAvailableOwners.bind(view), view.showError.bind(view));
         };
     };
 

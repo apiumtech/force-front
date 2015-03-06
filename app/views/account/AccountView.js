@@ -11,14 +11,18 @@ app.registerView(function (container) {
     var GoogleMapService = container.getService("services/GoogleMapService");
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
+    var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
+    var _ = container.getFunction("underscore");
     var moment = container.getFunction("moment");
 
-    function AccountView($scope, $model, $presenter, mapService, dataTableService) {
+    function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
         this.mapService = mapService;
         this.dataTableService = dataTableService;
+        this.templateParser = templateParser;
         this.data.map = null;
         this.data.table = null;
+        this.data.accountDetailPage = "#/accounts/{id}";
 
         this.data.availableColumns = [
             {data: "following", title: "Following", sortable: false, visible: true},
@@ -83,7 +87,11 @@ app.registerView(function (container) {
                     render: self.renderModifiedColumn.bind(self)
                 }
             ],
-            fnRowCallback: self.onRowRenderedCallback.bind(self)
+            rowCallback: self.onRowRenderedCallback.bind(self),
+            drawCallback: function () {
+                var api = this.api();
+                self.onDataRenderedCallback.call(self, api.data());
+            }
         };
         this.configureEvents();
     }
@@ -97,9 +105,11 @@ app.registerView(function (container) {
         self.fn.initializeChart = function () {
             var mapOptions = {
                 zoom: 8,
-                center: new self.mapService.LatLng(-34.397, 150.644)
+                center: self.mapService.getLatLng(-34.397, 150.644)
             };
-            self.data.map = new self.mapService.Map($('#map-canvas')[0], mapOptions);
+            self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
+            self.data.latlngbounds = self.mapService.getLatLngBounds();
+            self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
         };
 
         self.fn.initTable = function () {
@@ -109,6 +119,29 @@ app.registerView(function (container) {
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };
+    };
+
+    AccountView.prototype.closeInfoWindowInMap = function () {
+        var self = this;
+
+        if (self.data.infoWindow)
+            self.data.infoWindow.close();
+    };
+
+    AccountView.prototype.onDataRenderedCallback = function (data) {
+        var self = this;
+
+        self.markers = [];
+        _.each(data, function (record) {
+            self.createMapMarker(record);
+        });
+
+        self.markerClusterer = new MarkerClusterer(self.data.map, self.markers, {
+            maxZoom: 15,
+            gridSize: 50
+        });
+        self.data.map.setCenter(self.data.latlngbounds.getCenter());
+        self.data.map.fitBounds(self.data.latlngbounds);
     };
 
     AccountView.prototype.onRowRenderedCallback = function (nRow, aData) {
@@ -138,6 +171,31 @@ app.registerView(function (container) {
         if (filters.query.filtering) {
             aoData.customFilter['searchQuery'] = filters.query.value;
         }
+    };
+
+    AccountView.prototype.createMapMarker = function (accountData) {
+        var self = this;
+
+        var latLng = self.mapService.getLatLng(parseFloat(accountData.contactInfo.latitude), parseFloat(accountData.contactInfo.longitude));
+
+        var marker = self.mapService.createMarker({
+            position: latLng,
+            title: ''
+        });
+        self.mapService.bindClickEvent(marker, function () {
+            self.closeInfoWindowInMap();
+            // TODO: remove this when integrate with real server
+            accountData.id = accountData.$loki;
+            var parsedContent = self.templateParser.parseTemplate(self.getInfoWindowTemplate(), accountData);
+            self.data.infoWindow = self.mapService.createInfoWindow(parsedContent);
+            self.data.infoWindow.open(self.data.map, marker);
+        });
+        self.data.latlngbounds.extend(latLng);
+        self.markers.push(marker);
+    };
+
+    AccountView.prototype.getLatLng = function (lat, lng) {
+        return new this.mapService.LatLng(lat, lng);
     };
 
     AccountView.prototype.renderFollowColumn = function (data) {
@@ -246,17 +304,22 @@ app.registerView(function (container) {
         this.data.currentError = error;
     };
 
-    AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $viewRepAspect, $logErrorAspect) {
+    AccountView.prototype.getInfoWindowTemplate = function () {
+        return $(".googleMapPopupContentTemplate").first().html();
+    };
+
+    AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
         var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
         var mapService = $mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
         var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
+        var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
 
-        var view = new AccountView(scope, model, presenter, mapService, dataTableService);
+        var view = new AccountView(scope, model, presenter, mapService, dataTableService, templateParser);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    return {newInstance: AccountView.newInstance};
+    return AccountView;
 });

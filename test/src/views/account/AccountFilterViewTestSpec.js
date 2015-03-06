@@ -83,12 +83,12 @@ describe("AccountFilterView", function () {
         }
     });
 
-    describe("showAvailableOwners behaviour", function () {
+    describe("setAvailableOwners behaviour", function () {
         var view = exerciseCreateView();
         var data = 1;
 
         beforeEach(function () {
-            view.showAvailableOwners(data);
+            view.setAvailableOwners(data);
         });
 
         it("should assign the availableOwners field", function () {

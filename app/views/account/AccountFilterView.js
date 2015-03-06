@@ -49,19 +49,19 @@ app.registerView(function (container) {
         };
     };
 
-    AccountFilterView.prototype.showAvailableOwners = function (owners) {
+    AccountFilterView.prototype.setAvailableOwners = function (owners) {
         this.data.availableOwners = owners;
     };
 
-    AccountFilterView.prototype.showAvailableViews = function (views) {
+    AccountFilterView.prototype.setAvailableViews = function (views) {
         this.data.availableViews = views;
     };
 
-    AccountFilterView.prototype.showAvailableAccountTypes = function (accounttype) {
+    AccountFilterView.prototype.setAvailableAccountTypes = function (accounttype) {
         this.data.availableAccountType = accounttype;
     };
 
-    AccountFilterView.prototype.showAvailableEnvironments = function (environments) {
+    AccountFilterView.prototype.setAvailableEnvironments = function (environments) {
         this.data.availableEnvironment = environments;
     };
 

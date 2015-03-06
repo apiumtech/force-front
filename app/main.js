@@ -83,6 +83,7 @@ function main() {
 
             'services/DataTableService',
             'services/SignalService',
+            'services/SimpleTemplateParser',
 
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',

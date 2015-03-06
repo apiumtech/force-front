@@ -14,7 +14,7 @@ describe("FilterPresenter", function () {
         { viewEvent: 'onAddFilter', modelMethod: 'addFilter', onSuccess: 'showFilters', onError: 'showError' },
         { viewEvent: 'onRemoveFilter', modelMethod: 'removeFilter', onSuccess: 'showFilters', onError: 'showError' },
         { viewEvent: 'onToggleOwnerFilter', modelMethod: 'toggleOwnerFilter', onSuccess: '*', onError: 'showError' },
-        { viewEvent: 'onShowAvailableOwners', modelMethod: 'getAvailableOwners', onSuccess: 'showAvailableOwners', onError: 'showError' }
+        { viewEvent: 'onShowAvailableOwners', modelMethod: 'getAvailableOwners', onSuccess: 'setAvailableOwners', onError: 'showError' }
     ].forEach(function (e) {
             it('should call the model method ' + e.modelMethod + ' on ' + e.viewEvent, function () {
                 var presenter = exerciseCreatePresenter();

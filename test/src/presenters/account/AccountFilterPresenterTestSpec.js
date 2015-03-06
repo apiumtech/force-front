@@ -55,28 +55,28 @@ describe("AccountFilterPresenter", function () {
 
         function onShowAvailableOwnersTest() {
             var modelMethod = "getAvailableOwners";
-            var onSuccess = "showAvailableOwners";
+            var onSuccess = "setAvailableOwners";
             var onError = "showError";
             exerciseAjaxCallBinding("onShowAvailableOwners", modelMethod, onSuccess, onError);
         }
 
         function onShowAvailableViewsTest() {
             var modelMethod = "getAvailableViews";
-            var onSuccess = "showAvailableViews";
+            var onSuccess = "setAvailableViews";
             var onError = "showError";
             exerciseAjaxCallBinding("onShowAvailableViews", modelMethod, onSuccess, onError);
         }
 
         function onShowAvailableEnvironmentsTest() {
             var modelMethod = "getAvailableEnvironments";
-            var onSuccess = "showAvailableEnvironments";
+            var onSuccess = "setAvailableEnvironments";
             var onError = "showError";
             exerciseAjaxCallBinding("onShowAvailableEnvironments", modelMethod, onSuccess, onError);
         }
 
         function onShowAvailableAccountTypesTest() {
             var modelMethod = "getAvailableAccountTypes";
-            var onSuccess = "showAvailableAccountTypes";
+            var onSuccess = "setAvailableAccountTypes";
             var onError = "showError";
             exerciseAjaxCallBinding("onShowAvailableAccountTypes", modelMethod, onSuccess, onError);
         }

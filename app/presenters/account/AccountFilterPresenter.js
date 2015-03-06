@@ -16,7 +16,7 @@ app.registerPresenter(function (container) {
 
         view.event.onShowAvailableViews = function () {
             model.getAvailableViews()
-                .then(view.showAvailableViews.bind(view), view.showError.bind(view));
+                .then(view.setAvailableViews.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleViewFilter = function (item) {
@@ -29,7 +29,7 @@ app.registerPresenter(function (container) {
 
         view.event.onShowAvailableEnvironments = function (filter) {
             model.getAvailableEnvironments(filter)
-                .then(view.showAvailableEnvironments.bind(view), view.showError.bind(view));
+                .then(view.setAvailableEnvironments.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleEnvironmentFilter = function (item) {
@@ -38,7 +38,7 @@ app.registerPresenter(function (container) {
 
         view.event.onShowAvailableAccountTypes = function (filter) {
             model.getAvailableAccountTypes(filter)
-                .then(view.showAvailableAccountTypes.bind(view), view.showError.bind(view));
+                .then(view.setAvailableAccountTypes.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleAccountTypeFilter = function (item) {
@@ -47,7 +47,7 @@ app.registerPresenter(function (container) {
 
         view.event.onShowAvailableOwners = function (nameFilter) {
             model.getAvailableOwners(nameFilter)
-                .then(view.showAvailableOwners.bind(view), view.showError.bind(view));
+                .then(view.setAvailableOwners.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleOwnerFilter = function (owner) {
