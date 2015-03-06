@@ -39,6 +39,13 @@ html, body {
     color: #ffffff;
 }
 
+
+table.dataTable {
+    margin-top:10px !important;
+    margin-bottom:20px !important;
+    float: left;
+}
+
 .filterDesc {
     background: url('plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
 }

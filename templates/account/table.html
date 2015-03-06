@@ -44,12 +44,16 @@
                             </li>
                         </ul>
                     </div>
-                    <button type="button" class="btn btn-default btn-sm  dropdown-toggle pull-right m-r-10">
+                    <button type="button" class="btn btn-default btn-sm  dropdown-toggle pull-right m-r-10"
+                            ng-click="data.mapCanvasCollapsed=!data.mapCanvasCollapsed">
                         {{'Account.Table.ShowMap' | i18next}}
                     </button>
                 </div>
             </div>
-            <div id="map-canvas" class="map-canvas map-account"></div>
+
+            <div collapse="data.mapCanvasCollapsed">
+                <div id="map-canvas" class="map-canvas map-account"></div>
+            </div>
             <div class="hide googleMapPopupContentTemplate">
                 <div class="infoWindow">
                     <h4><a href="{{data.accountDetailPage}}">{name}</a></h4>
@@ -72,6 +76,7 @@
                 <a href="{{data.accountDetailPage}}" class="pull-right">
                     <img src="{imgUrl}">
                 </a>
+
                 <div class="edit-delete-div">
                     <a href=""><i class="fa ic-edit"></i>Edit</a> |
                     <a href="" class="brand-red-text"><i class="fa ic-trash"></i>Delete</a>

@@ -21,11 +21,12 @@ app.registerView(function (container) {
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
         this.data.map = null;
+        this.data.mapCanvasCollapsed = false;
         this.data.table = null;
         this.data.accountDetailPage = "#/accounts/{id}";
 
         this.data.availableColumns = [
-            {data: "following", title: "Following", sortable: false, width: 70,visible: true},
+            {data: "following", title: "Following", sortable: false, width: 70, visible: true},
             {data: "name", title: "Account Name", width: 250, visible: true},
             {data: "class", title: "Class.", visible: true},
             {data: "$loki", title: '<i class="fa ic-checkin-filled brand-green-text"></i>', visible: true},
