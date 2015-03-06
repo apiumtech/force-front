@@ -30,7 +30,7 @@
                             <li class="divider"></li>
                             <li ng-repeat="column in data.availableColumns">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                                       ng-checked="column.bVisible"
+                                       ng-checked="column.visible"
                                        ng-click="event.onToggleColumn(column);$event.stopPropagation()">
 
                                 <div class="media-body"
