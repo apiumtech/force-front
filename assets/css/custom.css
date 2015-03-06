@@ -95,3 +95,7 @@ span.removeTextBoxBtn {
 #map-canvas.map-account {
     height: 400px;
 }
+
+.dataTables_info, #data-table_filter {
+    display: none;
+}
