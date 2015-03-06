@@ -79,6 +79,10 @@ app.registerView(function (container) {
                     render: self.renderFollowColumn.bind(self)
                 },
                 {
+                    targets: 1,
+                    render: self.renderAccountNameColumn.bind(self)
+                },
+                {
                     targets: 3,
                     render: self.renderLocationColumn.bind(self)
                 },
@@ -203,6 +207,15 @@ app.registerView(function (container) {
         return '<button type="button" function-togglefollow class="btn btn-default btn-sm btn-follow btn-squared btn-squared ' + activeClass + '">' +
             '<i class="fa ic-flag"></i>' +
             '</button>';
+    };
+
+    AccountView.prototype.renderAccountNameColumn = function (data, type, row) {
+        console.log(row);
+        var self = this
+        var accountNameColTemplate = $(".accountNameColumnTemplate").html();
+        // TODO: Remove $loki when integrate to real server
+        row.id = row.$loki;
+        return self.templateParser.parseTemplate(accountNameColTemplate, row);
     };
 
     AccountView.prototype.renderModifiedColumn = function (data) {
