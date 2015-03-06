@@ -5,6 +5,10 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+-- March 6 2015
+* Please remove the content of /__server/fakeDb.json before doing functional test.
+* If running grunt dev-server gets any issue because fakeDb.json doesn't exist please just run grunt dev-server again.
+
 -- March 2 2015
 * Added Jquery Datatables JS library (https://datatables.net) for client side
 * Added Node-datatable (https://github.com/jpravetz/node-datatable) library for server side processing of Datatables

@@ -264,6 +264,10 @@ AccountService.prototype.prepareAccountTypesDataSet = function (db) {
     db.save();
 };
 
+function generateRandom(from, to) {
+    return Math.floor(Math.random() * (to - from)) + from;
+}
+
 AccountService.prototype.prepareAccountsDataSet = function (db) {
     var accounts = db.addCollection('Accounts', {
         indices: 'id'
@@ -360,6 +364,26 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "responsible": owner4
         }
     ];
+
+    for (var i = 0; i < 50; i++) {
+        fakeAccountData.push({
+            "following": false,
+            "name": "fake-account-" + i,
+            "imgUrl": "/assets/img/logos/ikea.jpg",
+            "class": ["A", "B", "C"][Math.floor(i % 3)],
+            "contactInfo": {
+                "validAddress": true,
+                "country": "fake-country",
+                "city": "fake-city",
+                "address": i + " fake address",
+                "phoneNumber": i + "(000) 000 001",
+                "latitude": 37.331793 + (generateRandom(10, i * 20) / 100),
+                "longitude": -122.029584 + (generateRandom(10, i * 20) / 100)
+            },
+            "modified": new Date(2014, 04, 25),
+            "responsible": [owner1, owner2, owner3, owner4][Math.floor(i % 4)]
+        });
+    }
 
     fakeAccountData.forEach(function (account) {
         accounts.insert(account);
