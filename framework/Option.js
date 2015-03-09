@@ -70,7 +70,7 @@
         return Object.prototype.toString.call(obj) === "[object Function]";
     };
 
-    jsScope.Option = function (x) {
+    jsScope.ApiumOption = function (x) {
         return (x ? jsScope.Some(x) : jsScope.None());
     };
 

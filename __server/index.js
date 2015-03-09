@@ -98,7 +98,7 @@ app.get('/api/users', function (request, response) {
 app.post('/api/accounts/dataTables', function (request, response) {
     await(function () {
         var data = AccountService.getFilterData(request);
-        response.json({data: data});
+        response.json(data);
     });
 });
 

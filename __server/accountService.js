@@ -5,6 +5,7 @@
 var _ = require('underscore');
 var QueryBuilder = require('datatable');
 var loki = require('lokijs');
+var Enumerable = require('linq');
 
 function sortByMultiple(sequence, keys) {
     var copy = copySequence(sequence);
@@ -75,7 +76,7 @@ AccountService.prototype.getFilterData = function (request) {
             });
         }
     }
-    var resultData = results.data();
+    var filteredData = results.data();
 
     if (request.body.order.length) {
         var sortCondition = [];
@@ -90,10 +91,18 @@ AccountService.prototype.getFilterData = function (request) {
             });
         });
 
-        resultData = sortByMultiple(resultData, sortCondition);
+        filteredData = sortByMultiple(filteredData, sortCondition);
     }
+    var start = request.body.start,
+        length = request.body.length;
 
-    return resultData;
+    var finalResult = Enumerable.from(filteredData).skip(start).take(length).toArray();
+
+    return {
+        recordsTotal: accounts.data.length,
+        recordsFiltered: filteredData.length,
+        data: finalResult
+    };
 };
 
 AccountService.prototype.getDb = function () {
