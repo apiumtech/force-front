@@ -1,0 +1,587 @@
+<!-- begin #content -->
+<div class="m-b-5 clearfix m-t-15">
+    <!-- begin edit / delete -->
+    <div class="btn-group pull-right prev-buttons">
+        <button class="btn btn-white btn-xs"><span class="ic-arr-left"> </span>Previous Account</button>
+        <button class="btn btn-white btn-xs"> Next Account <span class="ic-arr-right"></span></button>
+    </div>
+
+
+    <ng-include src="'/templates/accountDetails/header.html'"></ng-include>
+</div>
+<div class="line-border clearfix m-b-20"></div>
+<!-- begin row -->
+<div class="row m-t-10">
+
+    <!-- begin col-4 -->
+    <div class="col-md-4">
+        <ng-include src="'/templates/accountDetails/accountInfo.html'"></ng-include>
+    </div>
+
+    <!-- end col-4 -->
+    <!-- begin all right content-->
+    <div class="col-md-8">
+        <div class="row">
+            <!-- begin col-12 -->
+            <div class="col-md-12">
+                <ng-include src="'/templates/accountDetails/statisticsButtons.html'"></ng-include>
+            </div>
+            <!-- end col-8 -->
+
+            <!-- begin activity panel -->
+            <div class="col-md-12 drag-and-drop">
+                <div class="panel panel-inverse ">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn"><a href="javascript:;"
+                                                          class="btn btn-xs btn-icon btn-circle btn-default"
+                                                          data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                               data-click="panel-reload"><i class="fa fa-repeat"></i></a> <a href="javascript:;"
+                                                                                             class="btn btn-xs btn-icon btn-circle btn-warning"
+                                                                                             data-click="panel-collapse"><i
+                                    class="fa fa-minus"></i></a> <a href="javascript:;"
+                                                                    class="btn btn-xs btn-icon btn-circle btn-danger"
+                                                                    data-click="panel-remove"><i
+                                    class="fa fa-times"></i></a></div>
+                        <h4 class="panel-title">Activity</h4>
+                    </div>
+                    <div class="panel-body timeline-div">
+
+                        <ul class="timeline ">
+
+                            <li>
+
+                                <div class="timeline-time">
+
+                                    <span class="label-activity">Today</span>
+
+                                </div>
+                            </li>
+                            <li>
+                                <!-- begin timeline-time -->
+                                <div class="timeline-time">
+
+
+                                    <span class="date">today</span>
+                                    <span class="time">04:20</span>
+                                </div>
+                                <!-- end timeline-time -->
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript:;"><i class="fa-lg ic-edit"></i></a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    <div class="timeline-header clearfix">
+
+                                        <div class="userimage"><img src="assets/img/user-1.jpg"></div>
+                                        <div class="pull-left"><a href="javascript:;" class="main">John Smith</a>
+                                            <span> -  llamada efectuada a <a href="">Ikea Iberica SL</a></span>
+                                                <span class="clearfix">Contacto: <a href="">Daisy
+                                                    Carlson </a>, CEO</span></div>
+                                        <button type="button" data-toggle="tooltip" title=""
+                                                data-original-title="Follow activity"
+                                                class="btn btn-default btn-sm btn-squared btn-follow pull-right"><i
+                                                class="fa-lg ic-flag"></i></button>
+
+                                    </div>
+
+                                    <div class="timeline-content">
+                                        <p>
+                                            Hablo con el DGENERAL SR GALLEGO para intentar cerrar visita para
+                                            JCARLOS: me dice que está fuera de SP. y que le llame el viernes 22
+                                            entre las 9 y 9.30
+                                        </p>
+                                    </div>
+                                    <div class="timeline-footer">
+
+                                        <a href="javascript:;" class="m-r-15 "><i class="fa ic-edit"></i> Edit
+                                            activity</a>
+
+                                    </div>
+                                </div>
+                                <!-- end timeline-body -->
+                            </li>
+                            <!-- begin time divider li -->
+                            <li>
+
+                                <div class="timeline-time">
+
+                                    <span class="label-activity">Yesterday</span>
+
+                                </div>
+                            </li>
+                            <!-- begin time divider li -->
+                            <li>
+                                <!-- begin timeline-time -->
+                                <div class="timeline-time">
+
+
+                                    <span class="date">yesterday</span>
+                                    <span class="time">04:20</span>
+                                </div>
+                                <!-- end timeline-time -->
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript:;" class="followed"><i class="fa-lg ic-email-in"></i></a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    <div class="timeline-header clearfix">
+
+                                        <div class="userimage"><img src="assets/img/user-7.jpg"></div>
+                                        <div class="pull-left"><a href="javascript:;" class="main">Pedro Garcia
+                                            Sanchez</a> <span> -  Email recibido desde <a href="">Leroy
+                                            Merlin</a></span>
+                                                <span class="clearfix">Contacto: <a href="">Daisy
+                                                    Carlson </a>, CEO</span></div>
+                                        <button type="button" data-toggle="tooltip" title=""
+                                                data-original-title="Follow activity"
+                                                class="btn btn-default btn-sm btn-squared btn-follow pull-right"><i
+                                                class="fa-lg ic-flag"></i></button>
+
+
+                                    </div>
+
+                                    <div class="timeline-content">
+                                        <p>
+                                            Objeto: Formació Force Manager Vedesma <a href="">Show content </a>
+                                        </p>
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a href="javascript:;" class="m-r-15"><i class="fa ic-edit"></i> Edit
+                                            activity</a>
+
+                                    </div>
+                                </div>
+                                <!-- end timeline-body -->
+                            </li>
+                            <li>
+
+                                <div class="timeline-time">
+
+                                    <span class="label-activity">Last week</span>
+
+                                </div>
+                            </li>
+
+
+                            <li>
+                                <!-- begin timeline-time -->
+                                <div class="timeline-time">
+
+                                    <span class="date">10 January 2014</span>
+                                    <span class="time">20:43</span>
+                                </div>
+                                <!-- end timeline-time -->
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript:;"><i class="fa-lg ic-checkin"></i></a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    <div class="timeline-header clearfix">
+
+                                        <div class="userimage"><img src="assets/img/user-1.jpg"></div>
+                                        <div class="pull-left"><a href="javascript:;" class="main">John Smith</a>
+                                            <span> -  CheckIn efectuado en <a href="">Ikea Iberica SL</a></span>
+                                        </div>
+                                        <button type="button" data-toggle="tooltip" title=""
+                                                data-original-title="Follow activity"
+                                                class="btn btn-default btn-sm btn-squared btn-follow pull-right"><i
+                                                class="fa-lg ic-flag"></i></button>
+
+
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h4 class="template-title">
+                                            <i class="fa fa-map-marker text-danger fa-fw"></i>
+                                            795 Folsom Ave, Suite 600 San Francisco, CA 94107
+                                        </h4>
+
+                                        <p>In hac habitasse platea dictumst. Pellentesque bibendum id sem nec
+                                            faucibus. Maecenas molestie, augue vel accumsan rutrum, massa mi rutrum
+                                            odio, id luctus mauris nibh ut leo.</p>
+
+                                        <p class="m-t-20">
+                                            <img src="assets/img/gallery/gallery-4.jpg">
+                                        </p>
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a href="javascript:;" class="m-r-15"><i class="fa ic-edit"></i> Edit
+                                            activity</a>
+
+                                    </div>
+                                </div>
+                                <!-- end timeline-body -->
+                            </li>
+
+
+                            <li>
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript:;"><i class="fa-lg fa-spinner"></i></a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    Loading...
+                                </div>
+                                <!-- begin timeline-body -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end activity panel -->
+
+
+            <!-- begin col-4 -->
+            <div class="col-md-6 drag-and-drop">
+                <!-- begin calendar-->
+
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn"><a href="javascript:;"
+                                                          class="btn btn-xs btn-icon btn-circle btn-default"
+                                                          data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                               data-click="panel-reload"><i class="fa fa-repeat"></i></a> <a href="javascript:;"
+                                                                                             class="btn btn-xs btn-icon btn-circle btn-warning"
+                                                                                             data-click="panel-collapse"><i
+                                    class="fa fa-minus"></i></a> <a href="javascript:;"
+                                                                    class="btn btn-xs btn-icon btn-circle btn-danger"
+                                                                    data-click="panel-remove"><i
+                                    class="fa fa-times"></i></a></div>
+                        <h4 class="panel-title">Agenda</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group m-b-10">
+                            <button class="btn btn-white btn-sm ">Day</button>
+                            <button class="btn btn-white btn-sm ">Week</button>
+                            <button class="btn btn-white btn-sm active">Month</button>
+
+                        </div>
+                        <div class="line-border clearfix"></div>
+                        <div id="datepicker-inline" class="datepicker-full-width">
+                            <div></div>
+                        </div>
+                        <!-- legend -->
+
+                        <table class="m-t-10 m-b-10">
+                            <tbody>
+                            <tr>
+                                <td class="legendColorBox">
+                                    <div style="border:1px solid #ddd;padding:1px">
+                                        <div style="width:4px;height:0;border:5px solid #348fe2;overflow:hidden"></div>
+                                    </div>
+                                </td>
+                                <td class="legendLabel p-r-10">Eventos</td>
+                                <td class="legendColorBox ">
+                                    <div style="border:1px solid #ddd;padding:1px">
+                                        <div style="width:4px;height:0;border:5px solid #85ac1f;overflow:hidden"></div>
+                                    </div>
+                                </td>
+                                <td class="legendLabel p-r-10">Tareas</td>
+                                <td class="legendColorBox ">
+                                    <div style="border:1px solid #ddd;padding:1px">
+                                        <div style="width:4px;height:0;border:5px solid #85ac1f;overflow:hidden"></div>
+                                    </div>
+                                </td>
+                                <td class="legendLabel p-r-10">Oportunidades en cierre</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- legend -->
+                        <div class="line-border clearfix"></div>
+                        <div class="dropdown pull-left">
+                            <button type="button" class="btn btn-default btn-sm  m-t-10 m-b-5 dropdown-toggle"
+                                    id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"><span
+                                    class="ic-plus"></span> Create
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Task</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Event</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="m-t-15  text-link clearfix pull-right">
+                            <a class="pull-right">Go to agenda <span class="ic-arr-right"></span></a>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- end calendar-->
+            </div>
+
+
+            <!-- begin col-4 -->
+            <div class="col-md-6 drag-and-drop">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn"><a href="javascript:;"
+                                                          class="btn btn-xs btn-icon btn-circle btn-default"
+                                                          data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                               data-click="panel-reload"><i class="fa fa-repeat"></i></a> <a href="javascript:;"
+                                                                                             class="btn btn-xs btn-icon btn-circle btn-warning"
+                                                                                             data-click="panel-collapse"><i
+                                    class="fa fa-minus"></i></a> <a href="javascript:;"
+                                                                    class="btn btn-xs btn-icon btn-circle btn-danger"
+                                                                    data-click="panel-remove"><i
+                                    class="fa fa-times"></i></a></div>
+                        <h4 class="panel-title">Opportunities</h4>
+                    </div>
+                    <div class="panel-body panel-opportunity">
+                        <ul class="no-bullet clearfix">
+                            <!-- list item - single opportunity-->
+                            <li class="clearfix">
+                                <div class="clearfix">
+
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <a href="detail-accounts.html" class="main pull-left">Opportunity
+                                                name </a>
+                                        </div>
+                                        <div class="pull-right">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="pull-left"><p class="m-b-0 pull-left">2. Pendiente de
+                                            aprobación</p>
+                                        </div>
+                                        <div class="pull-right"><a>Cristian Oyarzo</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix m-t-5">
+                                        <div class="pull-left">
+
+                                            <h6 class="pull-left m-t-5">Value</h6>
+
+                                            <p class="pull-left m-t-0 m-l-10 m-b-0">15.000,67 €</p>
+                                        </div>
+                                        <div class="pull-right">
+
+                                            <p class="pull-right m-t-0 m-l-10 m-b-0">50%</p>
+                                            <h6 class="pull-right m-t-5">SALE PROBABILITY</h6>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <hr></hr>
+
+                            </li>
+                            <!-- end list item - single opportunity -->
+                            <!-- list item - single opportunity-->
+                            <li class="clearfix">
+                                <div class="clearfix">
+
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <a href="detail-accounts.html" class="main pull-left">Opportunity
+                                                name </a>
+                                        </div>
+                                        <div class="pull-right">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="pull-left"><p class="m-b-0 pull-left">2. Pendiente de
+                                            aprobación</p>
+                                        </div>
+                                        <div class="pull-right"><a>Cristian Oyarzo</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix m-t-5">
+                                        <div class="pull-left">
+
+                                            <h6 class="pull-left m-t-5">Value</h6>
+
+                                            <p class="pull-left m-t-0 m-l-10 m-b-0">15.000,67 €</p>
+                                        </div>
+                                        <div class="pull-right">
+
+                                            <p class="pull-right m-t-0 m-l-10 m-b-0">50%</p>
+                                            <h6 class="pull-right m-t-5">SALE PROBABILITY</h6>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <hr></hr>
+
+                            </li>
+                            <!-- end list item - single opportunity -->
+                            <!-- list item - single opportunity-->
+                            <li class="clearfix">
+                                <div class="clearfix">
+
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <a href="detail-accounts.html" class="main pull-left">Opportunity
+                                                name </a>
+                                        </div>
+                                        <div class="pull-right">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="pull-left"><p class="m-b-0 pull-left">2. Pendiente de
+                                            aprobación</p>
+                                        </div>
+                                        <div class="pull-right"><a>Cristian Oyarzo</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix m-t-5">
+                                        <div class="pull-left">
+
+                                            <h6 class="pull-left m-t-5">Value</h6>
+
+                                            <p class="pull-left m-t-0 m-l-10 m-b-0">15.000,67 €</p>
+                                        </div>
+                                        <div class="pull-right">
+
+                                            <p class="pull-right m-t-0 m-l-10 m-b-0">50%</p>
+                                            <h6 class="pull-right m-t-5">SALE PROBABILITY</h6>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <hr></hr>
+
+                            </li>
+                            <!-- end list item - single opportunity -->
+                        </ul>
+
+
+                        <button type="button" class="btn btn-default btn-sm  m-t-10 m-b-5"><span
+                                class="ic-plus"></span> Create
+                        </button>
+
+
+                        <div class="m-t-15  text-link clearfix pull-right">
+                            <a class="pull-right">Go to opportunities <span class="ic-arr-right"></span></a>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- end col-4 -->
+
+            <!-- begin documents -->
+            <!-- begin documents panel -->
+            <div class="col-md-12 drag-and-drop">
+                <div class="panel panel-inverse ">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn"><a href="javascript:;"
+                                                          class="btn btn-xs btn-icon btn-circle btn-default"
+                                                          data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
+                               data-click="panel-reload"><i class="fa fa-repeat"></i></a> <a href="javascript:;"
+                                                                                             class="btn btn-xs btn-icon btn-circle btn-warning"
+                                                                                             data-click="panel-collapse"><i
+                                    class="fa fa-minus"></i></a> <a href="javascript:;"
+                                                                    class="btn btn-xs btn-icon btn-circle btn-danger"
+                                                                    data-click="panel-remove"><i
+                                    class="fa fa-times"></i></a></div>
+                        <h4 class="panel-title">Documents</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th><strong>Title</strong></th>
+                                    <th><strong>Date</strong></th>
+                                    <th><strong></strong></th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="odd gradeX">
+                                    <td><a href="detail_quotes.html">Nombre documento</a></td>
+                                    <td>23/11/2015</td>
+                                    <td>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Edit document"><i class="fa ic-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Delete document"><i class="fa ic-trash"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <tr class="even gradeX">
+                                    <td><a href="detail_quotes.html">Nombre documento</a></td>
+                                    <td>23/11/2015</td>
+                                    <td>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Edit document"><i class="fa ic-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Delete document"><i class="fa ic-trash"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <tr class="odd gradeX">
+                                    <td><a href="detail_quotes.html">Nombre documento</a></td>
+                                    <td>23/11/2015</td>
+                                    <td>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Edit document"><i class="fa ic-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Delete document"><i class="fa ic-trash"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <tr class="even gradeX">
+                                    <td><a href="detail_quotes.html">Nombre documento</a></td>
+                                    <td>23/11/2015</td>
+                                    <td>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Edit document"><i class="fa ic-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                                                data-original-title="Delete document"><i class="fa ic-trash"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- end documents panel -->
+            <!-- end documents -->
+        </div>
+        <!-- end row -->
+    </div>
+</div>
+<!-- end #content -->

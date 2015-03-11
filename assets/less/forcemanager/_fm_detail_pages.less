@@ -276,7 +276,6 @@ p .ic-info{
 }
 
 .panel-detail {
-
 	border-top: 4px solid #edeeee;
 
 	p{
@@ -288,6 +287,23 @@ p .ic-info{
 	&.panel-account-detail{
 		border-top-color: @brand-primary;
 	}
+	.edit-email {
+		margin-top: 4px;
+		.form-control {
+			width: auto;
+			float: left;
+			font-size: 14px;
+			height: 30px;
+		}
+		.form-control.disabled {
+			padding: 0;
+			background: transparent;
+			color:@brand-gray;
+			opacity: 1;
+			border: 0;
+			cursor: pointer; 
+		}
+	}	
 }
 
 .boolean-no{

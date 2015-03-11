@@ -25,7 +25,15 @@ function main() {
             .when('/accounts', {
                 templateUrl: '/templates/account.html',
                 controller: 'AccountController'
-            }).when('/analytics/conversion', {
+            })
+
+
+            .when('/accounts/:account_id', {
+                templateUrl: '/templates/accountDetails/account_details.html',
+                controller: 'AccountDetailsController'
+            })
+
+            .when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
                 controller: 'ConversionController'
             })
@@ -90,6 +98,14 @@ function main() {
 
             // Account Page
             'controllers/account/AccountController', 'views/account/AccountView', 'presenters/account/AccountPresenter', 'models/account/AccountModel',
+
+            // Account Details Page
+            'controllers/accountDetails/AccountDetailsController',
+            'views/accountDetails/AccountDetailsView',
+            'presenters/accountDetails/AccountDetailsPresenter',
+            'models/accountDetails/AccountDetailsModel',
+            'services/AccountService',
+
             // Account Filter
             'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
             'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',

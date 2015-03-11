@@ -7219,11 +7219,6 @@ a.main,
   border-color: #ed8b00 !important;
   color: #ed8b00 !important;
 }
-/*.btn-follow.active, .btn-follow:active{
-border-color: @brand-primary;
-background-color: @brand-primary;
-color: @white;	
-}*/
 .btn:active,
 .btn.active {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -8020,6 +8015,23 @@ p .ic-info {
 .panel-detail.panel-account-detail {
   border-top-color: #ed8b00;
 }
+.panel-detail .edit-email {
+  margin-top: 4px;
+}
+.panel-detail .edit-email .form-control {
+  width: auto;
+  float: left;
+  font-size: 14px;
+  height: 30px;
+}
+.panel-detail .edit-email .form-control.disabled {
+  padding: 0;
+  background: transparent;
+  color: #54585a;
+  opacity: 1;
+  border: 0;
+  cursor: pointer;
+}
 .boolean-no {
   text-decoration: line-through;
 }
@@ -8192,6 +8204,23 @@ td.total-price {
   bottom: -10px;
   margin: 0 auto -10px auto;
   width: 10px;
+}
+div.popover-contact-info {
+  width: 500px;
+}
+div.popover-contact-info .close {
+  padding: 10px;
+}
+div.popover-contact-info table th {
+  width: 60px;
+  color: #989d9f;
+  text-transform: uppercase;
+  font-weight: normal;
+  padding: 2px  0;
+}
+a.popover-contact-info:hover {
+  text-decoration: none;
+  color: #ed8b00;
 }
 .master.accounts .map-canvas {
   display: none;
