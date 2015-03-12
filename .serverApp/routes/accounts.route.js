@@ -17,7 +17,12 @@ module.exports = function (app) {
 
     app.get('/api/accounts/views', AccountController.getViews);
 
-    app.get('/api/accounts/:id', AccountController.getAccount);
+    app.route('/api/accounts/:id')
+        .get(AccountController.getAccount)
+        .put(AccountController.updateAccount);
+
+    app.route('/api/accounts/:id/summary')
+        .get(AccountController.getSummaryAccount);
 
     app.post('/api/accounts/toggleFollow/:id', AccountController.toggleFollow);
 };

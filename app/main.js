@@ -79,6 +79,8 @@ function main() {
             'plots/BarChart',
             'plots/SingleLineChart',
 
+            'services/PopoverAdapter',
+
             // views
             'views/BaseView',
             'views/WidgetDecoratedPageView',

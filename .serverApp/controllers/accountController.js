@@ -29,7 +29,29 @@ var accountController = {
     },
     getAccount: function (request, response) {
         var id = request.params.id;
-        var data = AccountService.getAccount(id);
+        try {
+            var data = AccountService.getAccount(id);
+
+            response.json(data);
+        } catch (e) {
+            if (e.message == "AccountNotFound") {
+                response.status(404).json({
+                    error: "Requested User not found"
+                });
+            }
+            else {
+                response.status(500).send(e);
+            }
+        }
+    },
+    getSummaryAccount: function (request, response) {
+        var id = request.params.id;
+        var data = AccountService.getSummaryAccount(id);
+        response.json(data);
+    },
+    updateAccount: function (request, response) {
+        var id = request.params.id;
+        var data = AccountService.updateAccount(id, request.body);
         response.json(data);
     },
     toggleFollow: function (request, response) {

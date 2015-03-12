@@ -15,6 +15,12 @@ describe("AccountDetailsPresenter", function () {
         [
             {
                 viewEvent: "onLoadAccount", test: onLoadAccountTest
+            },
+            {
+                viewEvent: "onToggleFollow", test: onToggleFollowTest
+            },
+            {
+                viewEvent: "onUpdateEmail", test: onUpdateEmailTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -41,6 +47,20 @@ describe("AccountDetailsPresenter", function () {
             var onSuccess = "onAccountLoaded";
             var onError = "showError";
             exerciseAjaxCallBinding("onLoadAccount", modelMethod, onSuccess, onError);
+        }
+
+        function onToggleFollowTest() {
+            var modelMethod = "toggleFollow";
+            var onSuccess = "onFollowToggled";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onToggleFollow", modelMethod, onSuccess, onError);
+        }
+
+        function onUpdateEmailTest() {
+            var modelMethod = "updateAccountData";
+            var onSuccess = "onAccountUpdated";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onUpdateEmail", modelMethod, onSuccess, onError);
         }
 
 

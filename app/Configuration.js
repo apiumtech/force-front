@@ -10,7 +10,8 @@ app.registerService(function (container) {
         getAvailableViews: '/api/accounts/views',
         getAvailableAccountTypes: '/api/accounts/accountTypes',
         getAccount: '/api/accounts',
-        toggleFollow: '/api/accounts/toggleFollow'
+        toggleFollow: '/api/accounts/toggleFollow',
+        updateAccount: '/api/accounts'
     };
 
     return {

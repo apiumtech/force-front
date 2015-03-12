@@ -15,10 +15,13 @@
     <img src="{{accountData.imgUrl}}" height="45" width="90">
 </div>
 <div class="pull-left">
-    <button type="button" class="btn btn-default btn-sm btn-squared btn-follow  "><i class="fa ic-flag"></i>
+    <button type="button" class="btn btn-default btn-sm btn-squared btn-follow"
+            ng-click="fn.toggleFollow()"
+            ng-class="{'active': accountData.following}">
+        <i class="fa ic-flag"></i>
     </button>
     <h1 class="page-header m-b-0 ">{{accountData.name}},
-        <small>Muebles y decoracion</small>
+        <small>{{accountData.subtitle}}</small>
     </h1>
     <!-- end page-header -->
 </div>

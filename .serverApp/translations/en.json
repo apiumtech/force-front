@@ -1,7 +1,9 @@
 {
   "hello": "Hello",
   "commonText": {
+    "more": "more",
     "Email": "Email",
+    "Skype": "Skype",
     "Export": "Export",
     "Description": "Description",
     "ViewMore": "View more",
@@ -34,9 +36,14 @@
     "Mobile": "Mobile",
     "LaneLine": "Lane Line",
     "Web": "Web",
-    "RelatedContact": "Related Contacts",
+    "RelatedContacts": "Related Contacts",
     "AddContact": "Add Contacts",
-    "RelatedCompany": "Related Company"
+    "RelatedCompany": "Related Company",
+    "ExtraFields": "Extra Fields",
+    "RelatedContact": {
+      "Mobile": "Mobile",
+      "FixedLine": "Fixed Line"
+    }
   },
   "LineWidget": {
     "DataDisplay": "Data display",

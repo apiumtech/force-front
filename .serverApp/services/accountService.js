@@ -108,7 +108,55 @@ AccountService.prototype.getFilterData = function (request) {
 AccountService.prototype.getAccount = function (id) {
     var db = this.getDb();
     var accounts = db.getCollection('Accounts');
-    return accounts.get(id);
+    var data = accounts.get(id);
+
+    if (data == null)
+        throw new Error("AccountNotFound");
+
+    data.accountType = {
+        id: 1,
+        name: "Lead"
+    };
+
+    data.relatedContacts = [{
+        id: 1001,
+        name: "Related contact 1"
+    }, {
+        id: 1002,
+        name: "Related contact 2"
+    }, {
+        id: 1003,
+        name: "Related contact 3"
+    }];
+
+    data.extraFields = [{
+        fieldName: "extra field text",
+        fieldType: "text",
+        fieldValue: "extraFieldValue in text"
+    }, {
+        fieldName: "extra field true",
+        fieldType: "boolean",
+        fieldValue: true
+    }, {
+        fieldName: "extra field false",
+        fieldType: "boolean",
+        fieldValue: false
+    }];
+
+    return data;
+};
+
+AccountService.prototype.getSummaryAccount = function (id) {
+    return {
+        id: id,
+        name: "Carlos Lopez (Fake)",
+        position: "Sale Manager (Fake)",
+        mobile: "+1 234 567 890",
+        phoneNumber: "+1 98 765 43 21",
+        email: "carlos@support.com",
+        skype: "carlos.lopez",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit..."
+    };
 };
 
 AccountService.prototype.toggleFollow = function (id) {
@@ -118,6 +166,24 @@ AccountService.prototype.toggleFollow = function (id) {
     if (account == null) throw new Error("Requested User cannot be found");
 
     account.following = !account.following;
+    account.modified = new Date();
+    accounts.update(account);
+    db.save();
+    return account;
+};
+
+AccountService.prototype.updateAccount = function (id, body) {
+    var db = this.getDb();
+    var accounts = db.getCollection('Accounts');
+    var account = accounts.get(id);
+    if (account == null) throw new Error("Requested User cannot be found");
+
+    Object.keys(account).forEach(function (key) {
+        if (key == '$loki' || key == "id") return;
+
+        account[key] = body[key];
+    });
+
     account.modified = new Date();
     accounts.update(account);
     db.save();
@@ -308,16 +374,21 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Apple",
+            "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "B",
+            "emails": ["support@apple.com", "support2@apple.com"],
+            "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": true,
                 "country": "USA",
                 "city": "California",
                 "address": "1 Infinite Loop Cupertino, CA 95014",
                 "phoneNumber": "(000) 000 001",
+                "mobile": "090909090",
                 "latitude": 37.331793,
-                "longitude": -122.029584
+                "longitude": -122.029584,
+                "website": "www.apple.com"
             },
             "modified": new Date(2014, 04, 25),
             "responsible": owner1
@@ -325,16 +396,21 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Microsoft",
+            "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
+            "emails": ["support@microsoft.com", "support2@microsoft.com"],
+            "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
                 "country": "USA",
                 "city": "Redmond, Washington",
                 "address": "1 Microsoft Way Redmond, WA 98052",
                 "phoneNumber": "+1 425-882-8080",
+                "mobile": "090909090",
                 "latitude": 47.6397343,
-                "longitude": -122.1284005
+                "longitude": -122.1284005,
+                "website": "www.microsoft.com"
             },
             "modified": new Date(2014, 4, 25),
             "responsible": owner2
@@ -342,16 +418,21 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "Yahoo",
+            "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
+            "emails": ["support@yahoo.com", "support2@yahoo.com"],
+            "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
                 "country": "USA",
                 "city": "New York",
                 "address": "229 W 43rd St NY 10036‎",
                 "phoneNumber": "(000) 000 002",
+                "mobile": "090909090",
                 "latitude": 40.757471,
-                "longitude": -73.987732
+                "longitude": -73.987732,
+                "website": "www.yahoo.com"
             },
             "modified": new Date(2014, 4, 25),
             "responsible": owner3
@@ -359,16 +440,21 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         {
             "following": false,
             "name": "IBM",
+            "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
+            "emails": ["support@ibm.com", "support2@ibm.com"],
+            "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
                 "country": "USA",
                 "city": "New York",
                 "address": "1 New Orchard Road, Armonk",
                 "phoneNumber": "914-499-1900",
+                "mobile": "090909090",
                 "latitude": 41.108304,
-                "longitude": -73.720468
+                "longitude": -73.720468,
+                "website": "www.IBM.com"
             },
             "modified": new Date(2014, 4, 25),
             "responsible": owner4
@@ -379,16 +465,21 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         fakeAccountData.push({
             "following": false,
             "name": "fake-account-" + i,
+            "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": ["A", "B", "C"][Math.floor(i % 3)],
+            "emails": ["support@google.com", "support2@google.com"],
+            "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": true,
                 "country": "fake-country",
                 "city": "fake-city",
                 "address": i + " fake address",
                 "phoneNumber": i + "(000) 000 001",
+                "mobile": "090909090",
                 "latitude": 37.331793 + (generateRandom(10, i * 20) / 100),
-                "longitude": -122.029584 + (generateRandom(10, i * 20) / 100)
+                "longitude": -122.029584 + (generateRandom(10, i * 20) / 100),
+                "website": "www.google.com"
             },
             "modified": new Date(2014, 04, 25),
             "responsible": [owner1, owner2, owner3, owner4][Math.floor(i % 4)]
