@@ -105,39 +105,6 @@ AccountService.prototype.getFilterData = function (request) {
     };
 };
 
-AccountService.prototype.getDb = function () {
-    var self = this;
-
-    if (!this.db) {
-        var db = new loki(__dirname + '/../fakeDb.json', {
-            autoload: true,
-            autoloadCallback: loadHandler
-        });
-
-        function loadHandler() {
-            [
-                'Accounts',
-                'AccountTypes',
-                'Environments',
-                'Views'
-            ].forEach(function (table) {
-                    var dataTable = db.getCollection(table);
-                    if (dataTable) {
-                        console.log("collections '" + table + "' available, data count: ", dataTable.data.length);
-                    } else {
-                        console.log("creating table '" + table + "'");
-                        self['prepare' + table + 'DataSet'](db);
-                    }
-                });
-        }
-
-        this.db = db;
-    }
-
-    this.db.loadDatabase();
-    return this.db;
-};
-
 AccountService.prototype.getAccount = function (id) {
     var db = this.getDb();
     var accounts = db.getCollection('Accounts');
@@ -222,6 +189,40 @@ AccountService.prototype.getAvailableOwners = function (filter) {
 };
 
 //region preparing data sets
+
+AccountService.prototype.getDb = function () {
+    var self = this;
+
+    if (!this.db) {
+        var db = new loki(__dirname + '/../fakeDb.json', {
+            autoload: true,
+            autoloadCallback: loadHandler
+        });
+
+        function loadHandler() {
+            [
+                'Accounts',
+                'AccountTypes',
+                'Environments',
+                'Views'
+            ].forEach(function (table) {
+                    var dataTable = db.getCollection(table);
+                    if (dataTable) {
+                        console.log("collections '" + table + "' available, data count: ", dataTable.data.length);
+                    } else {
+                        console.log("creating table '" + table + "'");
+                        self['prepare' + table + 'DataSet'](db);
+                    }
+                });
+        }
+
+        this.db = db;
+    }
+
+    this.db.loadDatabase();
+    return this.db;
+};
+
 AccountService.prototype.prepareEnvironmentsDataSet = function (db) {
     var environments = db.addCollection('Environments', {});
     [{

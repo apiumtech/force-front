@@ -7,8 +7,10 @@ describe("AccountDetailViews", function () {
     it("should call presenter's show method on show()", function () {
         var model = {};
         var view = new AccountDetailsView({}, model, {show: jasmine.createSpy()});
+        view.fn.loadAccountData = jasmine.createSpy();
         view.show();
         expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+        expect(view.fn.loadAccountData).toHaveBeenCalled();
     });
 
     it("should call presenter's showError method on showError()", function () {

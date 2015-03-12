@@ -7,11 +7,12 @@ app.registerController(function (container) {
     function AccountDetailsController($scope, $routeParams) {
         var account_id = $routeParams.account_id;
         $scope.accountId = account_id;
-        this.view = AccountDetailsController.configureView($scope, account_id);
+        AccountDetailsController.configureView($scope);
     }
 
-    AccountDetailsController.configureView = function (scope, accountId) {
-        return AccountDetailsView.newInstance(scope, accountId);
+    AccountDetailsController.configureView = function (scope) {
+        this.view = AccountDetailsView.newInstance(scope).getOrElse(throwInstantiateException(AccountDetailsView));
+        this.view.show();
     };
 
     return AccountDetailsController;

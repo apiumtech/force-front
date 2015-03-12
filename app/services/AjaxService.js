@@ -39,5 +39,5 @@ app.registerService(function (container) {
         return Some(new AjaxService(ajaxImpl || $));
     };
 
-    return {newInstance: AjaxService.newInstance};
+    return AjaxService;
 });

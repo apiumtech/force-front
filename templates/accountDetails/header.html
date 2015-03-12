@@ -2,21 +2,22 @@
     <li>
         <div class="edit-delete-div">
             <a href="">
-                <i class="fa ic-edit"></i>Edit
+                <i class="fa ic-edit"></i>{{'commonText.Edit' | i18next}}
             </a>
             <a href="" class="brand-red-text">
-                <i class="fa ic-trash"></i>Delete</a>
+                <i class="fa ic-trash"></i>{{'commonText.Delete' | i18next}}</a>
         </div>
     </li>
 </ul>
 <!-- end edit / delete -->
 <!-- begin page-header -->
-<div class="pull-left account-logo-div m-r-15"><img src="assets/img/logos/ikea_big.jpg" height="45" width="90">
+<div class="pull-left account-logo-div m-r-15">
+    <img src="{{accountData.imgUrl}}" height="45" width="90">
 </div>
 <div class="pull-left">
     <button type="button" class="btn btn-default btn-sm btn-squared btn-follow  "><i class="fa ic-flag"></i>
     </button>
-    <h1 class="page-header m-b-0 ">IKea SL,
+    <h1 class="page-header m-b-0 ">{{accountData.name}},
         <small>Muebles y decoracion</small>
     </h1>
     <!-- end page-header -->

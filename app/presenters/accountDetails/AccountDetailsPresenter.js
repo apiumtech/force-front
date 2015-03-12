@@ -10,7 +10,10 @@ app.registerPresenter(function () {
         this.view = view;
         this.model = model;
 
-
+        view.event.onLoadAccount = function () {
+            model.getAccountDetail(view.accountId)
+                .then(view.onAccountLoaded.bind(view), view.showError.bind(view));
+        }
     };
 
     AccountDetailsPresenter.newInstance = function () {

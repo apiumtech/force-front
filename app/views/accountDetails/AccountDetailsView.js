@@ -8,7 +8,7 @@ app.registerView(function (container) {
 
     function AccountDetailsView(scope, model, presenter) {
         BaseView.call(this, scope, model, presenter);
-        console.log(this.accountId);
+        AccountDetailsView.configureEvents(this);
     }
 
     AccountDetailsView.prototype = Object.create(BaseView.prototype, {
@@ -19,8 +19,37 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.accountId = value;
             }
+        },
+        accountData: {
+            get: function () {
+                return this.$scope.accountData;
+            },
+            set: function (value) {
+                this.$scope.accountData = value;
+            }
         }
     });
+
+    AccountDetailsView.configureEvents = function (instance) {
+        var self = instance;
+
+        self.fn.loadAccountData = function () {
+            self.event.onLoadAccount();
+        };
+    };
+
+    AccountDetailsView.prototype._show = BaseView.prototype.show;
+    AccountDetailsView.prototype.show = function () {
+        var self = this;
+        BaseView.prototype.show.call(this);
+        self.fn.loadAccountData();
+    };
+
+    AccountDetailsView.prototype.onAccountLoaded = function (data) {
+        var self = this;
+        self.accountData = data;
+        console.log(self.accountData);
+    };
 
     AccountDetailsView.newInstance = function (scope, model, presenter, $viewRepAspect, $logErrorAspect) {
         model = model || AccountDetailsModel.newInstance().getOrElse(AccountDetailsModel);

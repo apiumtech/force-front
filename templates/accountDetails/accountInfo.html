@@ -1,21 +1,22 @@
 <div class="panel panel-inverse panel-card panel-detail panel-account-detail">
     <div class="panel-body">
-        <h4>Account type: Lead</h4>
+        <h4>{{'AccountDetail.AccountType' | i18next}}: Lead</h4>
 
-        <p>Clasification: C </p>
+        <p>{{'AccountDetail.Classification' | i18next}}: {{accountData.class}} </p>
 
-        <p>Owner: <a href="">Lorem ipsum</a></p>
+        <p>{{'AccountDetail.Owner' | i18next}}:
+            <a href="#/accounts/{{accountData.responsible.id}}">{{accountData.responsible.name}}</a>
+        </p>
 
         <div class="line-border clearfix m-b-10 m-t-5"></div>
         <div id="map-canvas"></div>
         <div class="line-border clearfix m-t-10"></div>
 
-        <h6>DIRECCION</h6>
+        <h6>{{'AccountDetail.Address' | i18next}}</h6>
 
-        <p>Paseo de la Castellana nº 95,
-            Torre España 15 planta - MADRID Spain</p>
+        <p>{{accountData.contactInfo.address}} {{accountData.contactInfo.city}} {{accountData.contactInfo.country}}</p>
         <!-- email-->
-        <h6>EMAIL</h6>
+        <h6>{{'commonText.Email' | i18next}}</h6>
 
         <p>daisycarlson@ikea.es
             <button type="button" class="btn btn-default btn-xs  m-l-10"><i class="fa ic-email"></i>
@@ -28,40 +29,40 @@
         <!-- email-->
         <!-- telephones-->
         <div class="clearfix">
-            <h6 class="pull-left">Mobile</h6>
+            <h6 class="pull-left">{{'AccountDetail.Mobile' | i18next}}</h6>
 
             <p class="pull-left m-t-15 m-l-10">(699) 991 824</p></div>
         <div class="clearfix">
-            <h6 class="pull-left m-t-5">Landline</h6>
+            <h6 class="pull-left m-t-5">{{'AccountDetail.LaneLine' | i18next}}</h6>
 
             <p class="pull-left m-t-0 m-l-10">+34 689 56 97</p></div>
         <!-- telephones-->
 
-        <h6>WEb</h6>
+        <h6>{{'AccountDetail.Web' | i18next}}</h6>
 
         <p>www.emporium.com</p>
         <!-- related contacts-->
-        <h6>RELATED CONTACTS</h6>
+        <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
         <p><a href="">Daisy Carlsom</a> <span class="ic-info"></span></p>
 
         <p><a href="">Carlos Garcia Lopez</a> <span class="ic-info"></span></p>
 
         <p><a href="">Mario Rossi</a> <span class="ic-info"></span></p>
-        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span> Add
-            contact
+        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span>
+            {{'AccountDetail.AddContact' | i18next}}
         </button>
         <!-- related contacts-->
         <!-- related company-->
-        <h6>RELATED company</h6>
+        <h6>{{'AccountDetail.RelatedCompany' | i18next}}</h6>
 
         <p>Leroy Merlin España</p>
-        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span> Add
-            contact
+        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span>
+            {{'AccountDetail.AddContact' | i18next}}
         </button>
         <!-- related company-->
         <!-- related company-->
-        <h6>DESCRIPTION</h6>
+        <h6>{{'commonText.Description' | i18next}}</h6>
 
         <p>Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística,
             Contact Center... <a>more</a></p>

@@ -12,7 +12,7 @@ describe("AccountDetailsController", function () {
         AccountDetailsController.configureView = jasmine.createSpy();
 
         sut = new AccountDetailsController(scope, routeParams);
-        expect(AccountDetailsController.configureView).toHaveBeenCalledWith(scope, routeParams.account_id);
+        expect(AccountDetailsController.configureView).toHaveBeenCalledWith(scope);
     });
 
     it("should assign accountId to scope for later use in View", function () {
