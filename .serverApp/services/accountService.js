@@ -143,6 +143,8 @@ AccountService.prototype.getAccount = function (id) {
         fieldValue: false
     }];
 
+    data.id = data.$loki;
+
     return data;
 };
 

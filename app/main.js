@@ -108,6 +108,16 @@ function main() {
             'models/accountDetails/AccountDetailsModel',
             'services/AccountService',
 
+
+            'views/accountDetails/AccountDetailWidgetWrapperView',
+            'controllers/accountDetails/AccountDetailWidgetWrapperController',
+            'directives/WidgetWrapperDirective',
+
+            // Activity widget
+            'directives/AccountDetailActivityDirective',
+            'controllers/accountDetails/ActivityWidgetController',
+            'views/accountDetails/ActivityWidgetView',
+
             // Account Filter
             'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
             'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',

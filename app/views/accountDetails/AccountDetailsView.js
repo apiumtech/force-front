@@ -141,6 +141,7 @@ app.registerView(function (container) {
 
         var self = this;
         self.accountData = data;
+        window.accountData = data;
         self.fn.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
     };
 
