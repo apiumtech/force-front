@@ -7,11 +7,14 @@ app.registerView(function (container) {
     function AccountDetailWidgetWrapperView($scope, $element) {
         $scope = $scope || {
             $on: function () {
+            },
+            $watch: function () {
             }
         };
 
         BaseView.call(this, $scope);
         this.element = $element || {};
+        this.boundChannelEvent = false;
 
         this.configureEvents.call(this);
     }
@@ -60,7 +63,8 @@ app.registerView(function (container) {
     });
 
     AccountDetailWidgetWrapperView.prototype.configureEvents = function () {
-        var self = this;
+        var self = this,
+            scope = this.$scope;
 
         self.fn.toggleCollapsePanel = function () {
             self.element.find('.panel-body').slideToggle();
@@ -71,14 +75,44 @@ app.registerView(function (container) {
         };
 
         self.fn.reloadPanel = function () {
-            self.isLoading = true;
-            self.$scope.eventBusChannel.onReloadCompleteSignalReceived(self.onReloadCompleteSignalReceived.bind(self));
-            self.$scope.eventBusChannel.sendReloadSignal();
+            self.reloadPanel();
         };
 
         self.fn.closeWidget = function () {
             self.element.remove();
         };
+
+        $('.panel-body', self.element).on('scroll', self.handleScroll.bind(self));
+        scope.$watch('eventBusChannel', self.bindEventsToChannel.bind(self));
+    };
+
+    AccountDetailWidgetWrapperView.prototype.bindEventsToChannel = function () {
+        var self = this;
+        if (self.$scope.eventBusChannel && !self.boundChannelEvent) {
+            self.$scope.eventBusChannel.onReloadSignalReceived(self.onReloadCommandReceived.bind(self));
+            self.$scope.eventBusChannel.onReloadCompleteSignalReceived(self.onReloadCompleteSignalReceived.bind(self));
+            self.boundChannelEvent = true;
+        }
+    };
+
+    AccountDetailWidgetWrapperView.prototype.reloadPanel = function () {
+        var self = this;
+        self.$scope.eventBusChannel.sendReloadSignal();
+    };
+
+    AccountDetailWidgetWrapperView.prototype.handleScroll = function (event) {
+        var offsetHeight = event.target.offsetHeight;
+        var scrollTop = event.target.scrollTop;
+        var scrollHeight = event.target.scrollHeight;
+
+        if (scrollTop + offsetHeight >= scrollHeight) {
+            this.$scope.foreverScroll();
+        }
+    };
+
+    AccountDetailWidgetWrapperView.prototype.onReloadCommandReceived = function () {
+        var self = this;
+        self.isLoading = true;
     };
 
     AccountDetailWidgetWrapperView.prototype.onReloadCompleteSignalReceived = function () {

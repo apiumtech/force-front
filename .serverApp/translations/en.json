@@ -28,6 +28,17 @@
     "NewEmailFrom": "New email from __from__",
     "NoResultFound": "No result found"
   },
+  "DateTime": {
+    "Today": "Today",
+    "Yesterday": "Yesterday",
+    "DaysAgo": "__xx__ days ago",
+    "LastWeek": "Last week",
+    "WeeksAgo": "__xx__ weeks ago",
+    "LastMonth": "Last month",
+    "MonthsAgo": "__xx__ months ago",
+    "LastYear": "LastYear",
+    "YearsAgo": "__xx__ years ago"
+  },
   "AccountDetail": {
     "Address": "Address",
     "Classification": "Classification",

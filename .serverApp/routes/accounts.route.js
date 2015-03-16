@@ -2,20 +2,23 @@
  * Created by justin on 3/9/15.
  */
 
-var AccountService = require('../services/accountService');
-
 module.exports = function (app) {
     var AccountController = require('../controllers/accountController');
 
-    app.post('/api/accounts/dataTables', AccountController.getFilteredData);
+    app.route('/api/accounts/dataTables')
+        .post(AccountController.getFilteredData);
 
-    app.get('/api/accounts/availableOwners', AccountController.getAvailableOwners);
+    app.route('/api/accounts/availableOwners')
+        .get(AccountController.getAvailableOwners);
 
-    app.get('/api/accounts/environments', AccountController.getAvailableEnvironments);
+    app.route('/api/accounts/environments')
+        .get(AccountController.getAvailableEnvironments);
 
-    app.get('/api/accounts/accountTypes', AccountController.getAvailableAccountTypes);
+    app.route('/api/accounts/accountTypes')
+        .get(AccountController.getAvailableAccountTypes);
 
-    app.get('/api/accounts/views', AccountController.getViews);
+    app.route('/api/accounts/views')
+        .get(AccountController.getViews);
 
     app.route('/api/accounts/:id')
         .get(AccountController.getAccount)
@@ -24,5 +27,6 @@ module.exports = function (app) {
     app.route('/api/accounts/:id/summary')
         .get(AccountController.getSummaryAccount);
 
-    app.post('/api/accounts/toggleFollow/:id', AccountController.toggleFollow);
+    app.route('/api/accounts/toggleFollow/:id')
+        .post(AccountController.toggleFollow);
 };

@@ -8,7 +8,7 @@ app.registerService(function (container) {
         weave: function (view) {
             meld.after(view, /^[a-z].+/, function () {
                 if (view.$scope.$apply) {
-                    if (!view.$scope.$$phase) {
+                    if (!view.$scope.$$phase && (view.$scope.$root && !view.$scope.$root.$$phase)) {
                         view.$scope.$apply();
                     }
                 } else {

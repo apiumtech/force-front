@@ -5,6 +5,9 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+-- March 9 2015
+* Added LinQ JS for NodeJS (https://github.com/mihaifm/linq)
+
 -- March 6 2015
 * Please remove the content of /__server/fakeDb.json before doing functional test.
 * If running grunt dev-server gets any issue because fakeDb.json doesn't exist please just run grunt dev-server again.

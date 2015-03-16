@@ -211,7 +211,6 @@ app.registerView(function (container) {
     };
 
     AccountView.prototype.renderAccountNameColumn = function (data, type, row) {
-        console.log(row);
         var self = this
         var accountNameColTemplate = $(".accountNameColumnTemplate").html();
         // TODO: Remove $loki when integrate to real server

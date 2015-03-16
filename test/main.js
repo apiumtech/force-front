@@ -32,7 +32,8 @@ requirejs.config({
         'signals': '/base/node_modules/signals/dist/signals.min',
         'ng-sortable': '/base/assets/js/vendor/ng-sortable',
         'underscore': '/base/node_modules/underscore/underscore-min',
-        'moment': '/base/node_modules/moment/min/moment.min'
+        'moment': '/base/node_modules/moment/min/moment.min',
+        'angular-moment': '/base/node_modules/angular-moment/angular-moment.min'
     },
 
     'shim': {
@@ -46,6 +47,11 @@ requirejs.config({
 
         'moment': {
             exports: 'moment'
+        },
+
+        'angular-moment': {
+            deps: ['angular', 'moment'],
+            exports: 'angular-moment'
         },
         'i18next': {
             exports: 'i18next'
@@ -101,7 +107,7 @@ requirejs.config({
 
     'deps': [
         'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment',
+        'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
         'i18next', 'ng-i18next', 'signals', 'ng-sortable',
         'main'
     ],

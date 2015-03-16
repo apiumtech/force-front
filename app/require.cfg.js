@@ -27,7 +27,8 @@ var require = {
         'flot-categories': '/node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
         'moment': '/node_modules/moment/min/moment.min',
-        'datatables': '/node_modules/datatables/media/js/jquery.dataTables'
+        'datatables': '/node_modules/datatables/media/js/jquery.dataTables',
+        'angular-moment': '/node_modules/angular-moment/angular-moment.min'
     },
 
     'shim': {
@@ -57,6 +58,11 @@ var require = {
         'angular-draganddrop': {
             deps: ['angular'],
             exports: 'angular-draganddrop'
+        },
+
+        'angular-moment': {
+            deps: ['angular', 'moment'],
+            exports: 'angular-moment'
         },
 
         'angular-bootstrap': {
@@ -128,7 +134,7 @@ var require = {
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',
         'i18next', 'ng-i18next',
-        'underscore', 'signals', 'ng-sortable',
+        'underscore', 'signals', 'ng-sortable', 'angular-moment',
         'datatables',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack'
     ],

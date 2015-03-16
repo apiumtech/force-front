@@ -106,6 +106,14 @@ span.removeTextBoxBtn {
     display: none;
 }
 
-.panel.panel-expand > .panel-body.timeline-div {
+.panel.panel-expand > .panel-body .timeline-div {
     height: initial;
+}
+
+.panel.panel-loading .panel-body {
+    position: initial !important;
+}
+
+.panel.panel-loading .panel-loader {
+    margin: 40px 10px 20px !important;
 }

@@ -11,7 +11,8 @@ app.registerDirective(function (container) {
             scope: {
                 title: "@",
                 bodyClass: "@",
-                eventBusChannel: "="
+                eventBusChannel: "=",
+                foreverScroll: "&"
             },
             transclude: true,
             templateUrl: "templates/accountDetails/directives/widgetWrapper.html"

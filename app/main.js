@@ -57,6 +57,7 @@ function main() {
             'ui.bootstrap',
             'jm.i18next',
             'forcefront.sortable',
+            'angularMoment',
             'infinite-scroll'
         ], AngularConfig));
 
@@ -90,6 +91,7 @@ function main() {
             'services/WidgetService',
             'services/b64StringEncoder',
             'services/StorageService',
+            'services/DateTimeDecoratorService',
 
             'services/DataTableService',
             'services/SignalService',
@@ -117,6 +119,8 @@ function main() {
             'directives/AccountDetailActivityDirective',
             'controllers/accountDetails/ActivityWidgetController',
             'views/accountDetails/ActivityWidgetView',
+            'presenters/accountDetails/ActivityWidgetPresenter',
+            'models/accountDetails/ActivityWidgetModel',
 
             // Account Filter
             'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
