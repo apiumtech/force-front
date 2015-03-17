@@ -165,12 +165,10 @@ ActivityService.prototype.getAccountActivities = function (accountId, pageIndex,
 };
 
 ActivityService.prototype.toggleFollow = function (activityId) {
-    console.log(activityId);
     var activity = _.find(this.fakeData, function (record) {
-        console.log("record id: ", record.id);
         return record.id == activityId;
     });
-    console.log(activity);
+
     if (!activity) throw new Error("CannotFindActivity");
 
     activity.isFollowed = !activity.isFollowed;

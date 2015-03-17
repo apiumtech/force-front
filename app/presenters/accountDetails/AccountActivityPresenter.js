@@ -16,7 +16,7 @@ app.registerPresenter(function (container) {
 
         view.event.onLoadActivity = function (accountId, page) {
             model.getActivityForAccount(accountId, page).
-                then(view.onActivityLoaded.bind(view), view.showError.bind(view));
+                then(view.onOpportunitiesLoaded.bind(view), view.showError.bind(view));
         };
     };
 

@@ -1,12 +1,12 @@
 /**
  * Created by justin on 3/9/15.
  */
-describe("ActivityWidgetPresenter", function () {
-    var ActivityWidgetPresenter = app.getPresenter('presenters/accountDetails/ActivityWidgetPresenter');
+describe("OpportunityWidgetPresenter", function () {
+    var OpportunityWidgetPresenter = app.getPresenter('presenters/accountDetails/OpportunityWidgetPresenter');
     var sut, view, model;
 
     beforeEach(function () {
-        sut = ActivityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(ActivityWidgetPresenter));
+        sut = OpportunityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(OpportunityWidgetPresenter));
         view = {event: {}};
         model = {};
     });
@@ -14,10 +14,7 @@ describe("ActivityWidgetPresenter", function () {
     describe("show()", function () {
         [
             {
-                viewEvent: "onLoadActivity", test: onLoadActivityTest
-            },
-            {
-                viewEvent: "onActivityFollowToggled", test: onActivityFollowToggledTest
+                viewEvent: "onLoadOpportunities", test: onLoadOpportunitiesTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -39,18 +36,11 @@ describe("ActivityWidgetPresenter", function () {
                 });
             });
 
-        function onLoadActivityTest() {
-            var modelMethod = "loadActivity";
-            var onSuccess = "onActivityLoaded";
+        function onLoadOpportunitiesTest() {
+            var modelMethod = "loadOpportunities";
+            var onSuccess = "onOpportunitiesLoaded";
             var onError = "showError";
-            exerciseAjaxCallBinding("onLoadActivity", modelMethod, onSuccess, onError);
-        }
-
-        function onActivityFollowToggledTest() {
-            var modelMethod = "toggleFollow";
-            var onSuccess = "followToggled";
-            var onError = "showError";
-            exerciseAjaxCallBinding("onActivityFollowToggled", modelMethod, onSuccess, onError);
+            exerciseAjaxCallBinding("onLoadOpportunities", modelMethod, onSuccess, onError);
         }
 
         function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {

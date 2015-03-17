@@ -113,7 +113,7 @@ app.registerView(function (container) {
         var scrollTop = event.target.scrollTop;
         var scrollHeight = event.target.scrollHeight;
 
-        if (scrollTop + offsetHeight >= scrollHeight) {
+        if (this.$scope.foreverScroll && scrollTop + offsetHeight >= scrollHeight) {
             this.$scope.foreverScroll();
         }
     };

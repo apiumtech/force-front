@@ -124,6 +124,13 @@ function main() {
             'presenters/accountDetails/ActivityWidgetPresenter',
             'models/accountDetails/ActivityWidgetModel',
 
+            // Opportunity Widget
+            'directives/AccountDetailOpportunityDirective',
+            'controllers/accountDetails/OpportunityWidgetController',
+            'views/accountDetails/OpportunityWidgetView',
+            'presenters/accountDetails/OpportunityWidgetPresenter',
+            'models/accountDetails/OpportunityWidgetModel',
+
             // Account Filter
             'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
             'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',

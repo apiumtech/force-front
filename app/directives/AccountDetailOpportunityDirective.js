@@ -2,18 +2,17 @@
  * Created by justin on 3/13/15.
  */
 app.registerDirective(function (container) {
-    var ActivityWidgetController = container.getController('controllers/accountDetails/ActivityWidgetController');
+    var OpportunityWidgetController = container.getController('controllers/accountDetails/OpportunityWidgetController');
 
     function AccountDetailActivityDirective() {
         return {
             restrict: "EA",
-            controller: ActivityWidgetController,
+            controller: OpportunityWidgetController,
             scope: {
                 accountId: "="
             },
-            templateUrl: "templates/accountDetails/directives/activityWidget.html"
+            templateUrl: "templates/accountDetails/directives/opportunityWidget.html"
         };
-
     }
 
     return AccountDetailActivityDirective;
