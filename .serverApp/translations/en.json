@@ -54,6 +54,9 @@
     "RelatedContact": {
       "Mobile": "Mobile",
       "FixedLine": "Fixed Line"
+    },
+    "ActivityWidget": {
+      "EditActivity": "Edit activity"
     }
   },
   "LineWidget": {

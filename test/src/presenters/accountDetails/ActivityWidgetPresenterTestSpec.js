@@ -1,12 +1,12 @@
 /**
  * Created by justin on 3/9/15.
  */
-describe("ActivityWidgetPresenter", function () {
-    var ActivityWidgetPresenter = app.getPresenter('presenters/accountDetails/ActivityWidgetPresenter');
+describe("AccountDetailsPresenter", function () {
+    var AccountDetailsPresenter = app.getPresenter('presenters/accountDetails/AccountDetailsPresenter');
     var sut, view, model;
 
     beforeEach(function () {
-        sut = ActivityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(ActivityWidgetPresenter));
+        sut = AccountDetailsPresenter.newInstance().getOrElse(throwInstantiateException(AccountDetailsPresenter));
         view = {event: {}};
         model = {};
     });
@@ -14,10 +14,13 @@ describe("ActivityWidgetPresenter", function () {
     describe("show()", function () {
         [
             {
-                viewEvent: "onLoadActivity", test: onLoadActivityTest
+                viewEvent: "onLoadAccount", test: onLoadAccountTest
             },
             {
-                viewEvent: "onActivityFollowToggled", test: onActivityFollowToggledTest
+                viewEvent: "onToggleFollow", test: onToggleFollowTest
+            },
+            {
+                viewEvent: "onUpdateEmail", test: onUpdateEmailTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -39,19 +42,27 @@ describe("ActivityWidgetPresenter", function () {
                 });
             });
 
-        function onLoadActivityTest() {
-            var modelMethod = "loadActivity";
-            var onSuccess = "onActivityLoaded";
+        function onLoadAccountTest() {
+            var modelMethod = "getAccountDetail";
+            var onSuccess = "onAccountLoaded";
             var onError = "showError";
-            exerciseAjaxCallBinding("onLoadActivity", modelMethod, onSuccess, onError);
+            exerciseAjaxCallBinding("onLoadAccount", modelMethod, onSuccess, onError);
         }
 
-        function onActivityFollowToggledTest() {
+        function onToggleFollowTest() {
             var modelMethod = "toggleFollow";
-            var onSuccess = "followToggled";
+            var onSuccess = "onFollowToggled";
             var onError = "showError";
-            exerciseAjaxCallBinding("onActivityFollowToggled", modelMethod, onSuccess, onError);
+            exerciseAjaxCallBinding("onToggleFollow", modelMethod, onSuccess, onError);
         }
+
+        function onUpdateEmailTest() {
+            var modelMethod = "updateAccountData";
+            var onSuccess = "onAccountUpdated";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onUpdateEmail", modelMethod, onSuccess, onError);
+        }
+
 
         function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {
             beforeEach(function () {

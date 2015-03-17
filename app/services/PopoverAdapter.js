@@ -15,7 +15,7 @@ app.registerService(function () {
         this.impl(target, {
             html: true,
             placement: placement || 'right',
-            trigger: 'click',
+            trigger: 'manual',
             template: template,
             content: content
         });
@@ -23,6 +23,10 @@ app.registerService(function () {
 
     PopoverAdapter.prototype.closePopover = function (target) {
         this.impl(target, 'hide');
+    };
+
+    PopoverAdapter.prototype.openPopover = function (target) {
+        this.impl(target, 'show');
     };
 
     PopoverAdapter.newInstance = function (popoverImp) {

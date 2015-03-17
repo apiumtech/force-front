@@ -9,6 +9,7 @@ app.registerService(function (container) {
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
+        this.unsubscribe = this.channel.unsubscribe;
     }
 
     WidgetEventBus.prototype.sendReloadSignal = function () {

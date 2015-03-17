@@ -33,40 +33,40 @@ describe("ActivityWidgetView", function () {
     describe("onAccountIdChanged", function () {
         it("should call loadActivityData if accountId is assigned", function () {
             sut.accountId = 1;
-            spyOn(sut.eventChannel, 'sendReloadSignal');
+            spyOn(sut.eventChannel, 'sendReloadCommand');
             sut.onAccountIdChanged();
-            expect(sut.eventChannel.sendReloadSignal).toHaveBeenCalled();
+            expect(sut.eventChannel.sendReloadCommand).toHaveBeenCalled();
         });
         it("should assign nextPage if accountId is assigned", function () {
             sut.accountId = 1;
-            spyOn(sut.eventChannel, 'sendReloadSignal');
+            spyOn(sut.eventChannel, 'sendReloadCommand');
             sut.onAccountIdChanged();
             expect(sut.nextPage).toEqual(true);
         });
         it("should not call loadActivityData if accountId is undefined or null", function () {
-            spyOn(sut.eventChannel, 'sendReloadSignal');
+            spyOn(sut.eventChannel, 'sendReloadCommand');
             sut.onAccountIdChanged();
-            expect(sut.eventChannel.sendReloadSignal).not.toHaveBeenCalled();
+            expect(sut.eventChannel.sendReloadCommand).not.toHaveBeenCalled();
         });
     });
 
     describe("onActivityLoaded", function () {
-        it("should send sendReloadCompleteSignal to event", function () {
-            spyOn(sut.eventChannel, 'sendReloadCompleteSignal');
+        it("should send sendReloadCompleteCommand to event", function () {
+            spyOn(sut.eventChannel, 'sendReloadCompleteCommand');
             sut.onActivityLoaded([]);
-            expect(sut.eventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith();
+            expect(sut.eventChannel.sendReloadCompleteCommand).toHaveBeenCalledWith();
         });
 
         it("should assign isLastPage if data is empty list", function () {
             sut.isLastPage = false;
-            spyOn(sut.eventChannel, 'sendReloadCompleteSignal');
+            spyOn(sut.eventChannel, 'sendReloadCompleteCommand');
             sut.onActivityLoaded([]);
             expect(sut.isLastPage).toBeTruthy();
         });
 
         it("should keep isLastPage false if data is not empty", function () {
             sut.isLastPage = false;
-            spyOn(sut.eventChannel, 'sendReloadCompleteSignal');
+            spyOn(sut.eventChannel, 'sendReloadCompleteCommand');
             sut.onActivityLoaded([{}, {}]);
             expect(sut.isLastPage).toBeFalsy();
         });
@@ -111,7 +111,28 @@ describe("ActivityWidgetView", function () {
             sut.onReloadCommandReceived();
             expect(sut.loadActivityData).toHaveBeenCalledWith();
         });
+
+        describe("reload the whole widget request", function () {
+            beforeEach(function () {
+                sut.activitiesList = [{}, {}, {}];
+                sut.currentPage = 2;
+                spyOn(sut, 'loadActivityData');
+                sut.onReloadCommandReceived(true);
+            });
+
+            it("should empty the activitiesList", function () {
+                expect(sut.activitiesList).toEqual([]);
+            });
+
+
+            it("should reset the current page to 0", function () {
+                expect(sut.currentPage).toEqual(0);
+            });
+            it("should reset reloadAllWidget to false", function () {
+                expect(sut.reloadAllWidget).toEqual(false);
+            });
+
+
+        });
     });
-
-
 });

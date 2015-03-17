@@ -3,10 +3,11 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus'),
+    var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
         ActivityWidgetModel = container.getModel('models/accountDetails/ActivityWidgetModel'),
         ActivityWidgetPresenter = container.getPresenter('presenters/accountDetails/ActivityWidgetPresenter'),
-        DateTimeDecoratorService = container.getService('services/DateTimeDecoratorService');
+        DateTimeDecoratorService = container.getService('services/DateTimeDecoratorService'),
+        _ = container.getFunction("underscore");
 
     function ActivityWidgetView($scope, $element, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -14,6 +15,7 @@ app.registerView(function (container) {
         this.currentPage = -1;
         this.isLastPage = false;
         this.nextPage = false;
+        this.dateTimeDecoratorService = DateTimeDecoratorService.newInstance().getOrElse(throwInstantiateException(DateTimeDecoratorService));
     }
 
     ActivityWidgetView.prototype = Object.create(BaseView.prototype, {
@@ -25,9 +27,17 @@ app.registerView(function (container) {
                 this.$scope.accountId = value;
             }
         },
+        activitiesList: {
+            get: function () {
+                return this.$scope.activitiesList || (this.$scope.activitiesList = []);
+            },
+            set: function (value) {
+                this.$scope.activitiesList = value;
+            }
+        },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || ( this.$scope.eventChannel = WidgetEventBus.newInstance("activityWidget").getOrElse(throwInstantiateException(WidgetEventBus)));
+                return this.$scope.eventChannel || ( this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance().getOrElse(throwInstantiateException(AccountDetailWidgetEventBus)));
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -45,23 +55,28 @@ app.registerView(function (container) {
         var self = this;
         var scope = self.$scope;
 
-        self.eventChannel.onReloadSignalReceived(self.onReloadCommandReceived.bind(self));
+        self.eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.requestNextPage = function () {
             if (self.isLastPage) return;
 
             self.nextPage = true;
-            self.eventChannel.sendReloadSignal();
+            self.eventChannel.sendReloadCommand();
+        };
+
+        self.fn.toggleFollow = function (activityId) {
+            self.event.onActivityFollowToggled(activityId);
         };
 
         scope.$watch('accountId', self.onAccountIdChanged.bind(self));
+        scope.$on("$destroy", self.onDisposing.bind(self));
     };
 
     ActivityWidgetView.prototype.onAccountIdChanged = function () {
         var self = this;
         if (self.accountId) {
             self.nextPage = true;
-            self.eventChannel.sendReloadSignal();
+            self.eventChannel.sendReloadCommand();
         }
     };
 
@@ -76,18 +91,65 @@ app.registerView(function (container) {
         self.event.onLoadActivity(self.accountId, self.currentPage);
     };
 
-    ActivityWidgetView.prototype.onReloadCommandReceived = function () {
+    ActivityWidgetView.prototype.onReloadCommandReceived = function (isReload) {
         var self = this;
+        self.reloadAllWidget = isReload || false;
+
+        if (self.reloadAllWidget) {
+            self.activitiesList = [];
+            self.currentPage = 0;
+            self.reloadAllWidget = false;
+        }
+
         self.loadActivityData();
     };
 
     ActivityWidgetView.prototype.onActivityLoaded = function (data) {
         var self = this;
-        self.eventChannel.sendReloadCompleteSignal();
-        self.data = data;
+        self.eventChannel.sendReloadCompleteCommand();
+        self.decorateActivityData(data);
         if (!data.length) {
             self.isLastPage = true;
         }
+    };
+
+    ActivityWidgetView.prototype.decorateActivityData = function (data) {
+        var self = this;
+        var decorated = _.sortBy(data, function (record) {
+            return record.date;
+        }).reverse().map(function (record) {
+            record.timeLabel = self.dateTimeDecoratorService.getFormattedPastDate(record.date, new Date());
+            return record;
+        });
+
+        var grouped = _.groupBy(decorated, function (record) {
+            return record.timeLabel;
+        });
+
+        var flatten = self.activitiesList;
+        _.each(grouped, function (groupRecords, groupName) {
+            flatten.push({timeLabel: groupName, isDelimiter: true});
+
+            _.each(groupRecords, function (activityRecord) {
+                flatten.push(activityRecord);
+            });
+        });
+    };
+
+    ActivityWidgetView.prototype.followToggled = function (follow) {
+        var self = this;
+        var toggled = _.find(self.activitiesList, function (record) {
+            return record.id === follow.id;
+        });
+
+        toggled.isFollowed = follow.isFollowed;
+    };
+
+    ActivityWidgetView.prototype.onDisposing = function () {
+        var self = this;
+        self.eventChannel.unsubscribeReloadCommand();
+        self.eventChannel.unsubscribeReloadCompleteCommand();
+        self.eventChannel = null;
     };
 
     ActivityWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {

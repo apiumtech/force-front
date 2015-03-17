@@ -10,6 +10,10 @@ app.registerService(function (container) {
             meld.before(view, "showError", function (error) {
                 this._log(error.stack);
             }.bind(this));
+
+            meld.afterThrowing(view, /^[a-z].+/, function (error) {
+                console.warn(error.stack);
+            }.bind(this));
         }
     };
 });

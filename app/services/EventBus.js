@@ -29,6 +29,10 @@ app.register(function (container) {
 
             listen: function (callback) {
                 instance.subscribe({channel: channel, topic: topic, callback: callback});
+            },
+
+            unsubscribe: function (callback) {
+                instance.subscribe({channel: channel, topic: topic, callback: callback}).unsubscribe();
             }
         };
     };

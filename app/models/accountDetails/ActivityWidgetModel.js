@@ -27,9 +27,9 @@ app.registerModel(function (container) {
         return this.ajaxService.rawAjaxRequest(params).then(self.decorateActivityData.bind(self));
     };
 
-    ActivityWidgetModel.prototype.toggleFollow = function (accountId) {
+    ActivityWidgetModel.prototype.toggleFollow = function (activityId) {
         var params = {
-            url: Configuration.api.toggleFollow + "/" + accountId,
+            url: Configuration.api.toggleFollowActivity + "/" + activityId,
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'

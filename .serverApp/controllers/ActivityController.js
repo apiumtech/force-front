@@ -17,6 +17,14 @@ ActivityController.prototype.getActivityFromAccount = function (request, respons
     }, 1000);
 };
 
+ActivityController.prototype.toggleFollow = function (request, response) {
+    var activityId = request.params.activityId;
+    var data = ActivityService.toggleFollow(activityId);
+    setTimeout(function () {
+        response.json(data);
+    }, 1000);
+};
+
 var instance = new ActivityController(ActivityService);
 
 module.exports = instance;

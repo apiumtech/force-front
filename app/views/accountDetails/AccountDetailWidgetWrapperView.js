@@ -59,6 +59,14 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.widgetTitle = value;
             }
+        },
+        eventBusChannel: {
+            get: function () {
+                return this.$scope.eventBusChannel;
+            },
+            set: function (value) {
+                this.$scope.eventBusChannel = value;
+            }
         }
     });
 
@@ -88,16 +96,16 @@ app.registerView(function (container) {
 
     AccountDetailWidgetWrapperView.prototype.bindEventsToChannel = function () {
         var self = this;
-        if (self.$scope.eventBusChannel && !self.boundChannelEvent) {
-            self.$scope.eventBusChannel.onReloadSignalReceived(self.onReloadCommandReceived.bind(self));
-            self.$scope.eventBusChannel.onReloadCompleteSignalReceived(self.onReloadCompleteSignalReceived.bind(self));
+        if (self.eventBusChannel && !self.boundChannelEvent) {
+            self.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+            self.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
             self.boundChannelEvent = true;
         }
     };
 
     AccountDetailWidgetWrapperView.prototype.reloadPanel = function () {
         var self = this;
-        self.$scope.eventBusChannel.sendReloadSignal();
+        self.eventBusChannel.sendReloadCommand(true);
     };
 
     AccountDetailWidgetWrapperView.prototype.handleScroll = function (event) {
@@ -115,7 +123,7 @@ app.registerView(function (container) {
         self.isLoading = true;
     };
 
-    AccountDetailWidgetWrapperView.prototype.onReloadCompleteSignalReceived = function () {
+    AccountDetailWidgetWrapperView.prototype.onReloadCompleteCommandReceived = function () {
         var self = this;
         self.isLoading = false;
     };

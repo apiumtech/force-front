@@ -28,12 +28,12 @@ describe("DateTimeDecoratorService", function () {
             dateFar: new Date(2015, 2, 14),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.DaysAgo",
-            params: 2
+            params: {xx: 2}
         }, {
             dateFar: new Date(2015, 2, 10),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.DaysAgo",
-            params: 6
+            params: {xx: 6}
         }, {
             dateFar: new Date(2015, 2, 8),
             dateClose: new Date(2015, 2, 16),
@@ -48,7 +48,7 @@ describe("DateTimeDecoratorService", function () {
             dateFar: new Date(2015, 2, 1),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.WeeksAgo",
-            params: 2
+            params: {xx: 2}
         }, {
             dateFar: new Date(2015, 1, 1),
             dateClose: new Date(2015, 2, 16),
@@ -58,12 +58,12 @@ describe("DateTimeDecoratorService", function () {
             dateFar: new Date(2015, 0, 1),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.MonthsAgo",
-            params: 2
+            params: {xx: 2}
         }, {
             dateFar: new Date(2014, 11, 1),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.MonthsAgo",
-            params: 3
+            params: {xx: 3}
         }, {
             dateFar: new Date(2014, 2, 1),
             dateClose: new Date(2015, 2, 16),
@@ -73,7 +73,7 @@ describe("DateTimeDecoratorService", function () {
             dateFar: new Date(2013, 2, 1),
             dateClose: new Date(2015, 2, 16),
             expected: "DateTime.YearsAgo",
-            params: 2
+            params: {xx: 2}
         }].forEach(function (testCase) {
                 var momentEarlier = testCase.dateFar;
                 var dateClose = testCase.dateClose;

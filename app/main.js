@@ -92,6 +92,8 @@ function main() {
             'services/b64StringEncoder',
             'services/StorageService',
             'services/DateTimeDecoratorService',
+            'services/bus/AccountDetailWidgetEventBus',
+            'services/TranslatorService',
 
             'services/DataTableService',
             'services/SignalService',

@@ -40,7 +40,7 @@ describe("AccountDetailViews", function () {
 
     describe("onAccountLoaded()", function () {
         beforeEach(function () {
-            spyOn(sut.fn, 'updateMap');
+            spyOn(sut, 'updateMap');
         });
 
         it("should throw exception if the data from server is null", function () {
@@ -64,7 +64,7 @@ describe("AccountDetailViews", function () {
 
         it("should update the map with new location", function () {
             sut.onAccountLoaded(data);
-            expect(sut.fn.updateMap).toHaveBeenCalledWith(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
+            expect(sut.updateMap).toHaveBeenCalledWith(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
         });
     });
 
@@ -78,7 +78,7 @@ describe("AccountDetailViews", function () {
         });
     });
 
-    describe("fn.updateMap", function () {
+    describe("updateMap", function () {
         var latLon = {lat: 0, long: 0};
         var marker = {
             setMap: function () {
@@ -95,7 +95,7 @@ describe("AccountDetailViews", function () {
         });
 
         it("should createMarker with mapService", function () {
-            sut.fn.updateMap(10, 10, name);
+            sut.updateMap(10, 10, name);
             expect(sut.mapService.createMarker).toHaveBeenCalledWith({
                 position: latLon,
                 title: name
@@ -103,12 +103,12 @@ describe("AccountDetailViews", function () {
         });
 
         it("should set the marker to the map", function () {
-            sut.fn.updateMap(10, 10, name);
+            sut.updateMap(10, 10, name);
             expect(marker.setMap).toHaveBeenCalledWith(sut.data.map);
         });
 
         it("should set the map to center", function () {
-            sut.fn.updateMap(10, 10, name);
+            sut.updateMap(10, 10, name);
             expect(sut.data.map.setCenter).toHaveBeenCalledWith(latLon);
         });
     });

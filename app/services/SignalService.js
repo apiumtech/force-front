@@ -1,7 +1,9 @@
 /**
  * Created by Justin on 3/2/2015.
  */
-app.registerService(function () {
+app.registerService(function (container) {
+    var signals = container.getFunction("signals");
+
     function SignalsService(signal) {
         this.Signal = signal;
     }

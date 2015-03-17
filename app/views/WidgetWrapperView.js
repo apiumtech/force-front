@@ -44,7 +44,7 @@ app.registerView(function (container) {
             self.widget = widget;
             self.widgetEventChannel = WidgetWrapperView._getWidgetChannelInstance(widgetName);
             self.widgetEventChannel.onReloadSignalReceived(self.showLoading.bind(self));
-            self.widgetEventChannel.onReloadCompleteSignalReceived(self.onReloadCompleteSignalReceived.bind(self));
+            self.widgetEventChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
         };
 
         $scope.$on("$destroy", function () {

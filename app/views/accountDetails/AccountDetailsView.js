@@ -66,17 +66,6 @@ app.registerView(function (container) {
             self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
         };
 
-        self.fn.updateMap = function (lat, long, accountName) {
-            var latLng = self.mapService.getLatLng(lat, long);
-
-            var marker = self.mapService.createMarker({
-                position: latLng,
-                title: accountName
-            });
-            marker.setMap(self.data.map);
-            self.data.map.setCenter(latLng);
-        };
-
         self.fn.isEditingEmail = function ($index) {
             return !!self.fn.editingEmails["" + $index];
         };
@@ -108,10 +97,21 @@ app.registerView(function (container) {
             });
         };
 
+        self.fn.showPopover = function ($event) {
+            if ($("div.popover").length) {
+                self.popoverAdapter.closePopover('div.popover');
+            }
+
+            var target = $event.target.closest('.popover-contact-info');
+            self.popoverAdapter.openPopover(target);
+            $event.stopPropagation();
+        };
+
         self.fn.bindDocumentDomEvents = function () {
             $(document).on("click", function (e) {
-                if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length)
+                if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
                     self.popoverAdapter.closePopover('div.popover');
+                }
             });
 
             $(document).on('click', '.close-pop-over', function (e) {
@@ -141,8 +141,19 @@ app.registerView(function (container) {
 
         var self = this;
         self.accountData = data;
-        window.accountData = data;
-        self.fn.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
+        self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
+    };
+
+    AccountDetailsView.prototype.updateMap = function (lat, long, accountName) {
+        var self = this;
+        var latLng = self.mapService.getLatLng(lat, long);
+
+        var marker = self.mapService.createMarker({
+            position: latLng,
+            title: accountName
+        });
+        marker.setMap(self.data.map);
+        self.data.map.setCenter(latLng);
     };
 
     AccountDetailsView.prototype.onFollowToggled = function () {
