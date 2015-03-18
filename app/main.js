@@ -131,6 +131,13 @@ function main() {
             'presenters/accountDetails/OpportunityWidgetPresenter',
             'models/accountDetails/OpportunityWidgetModel',
 
+            // Agenda Widget
+            'directives/AccountDetailAgendaDirective',
+            'controllers/accountDetails/AgendaWidgetController',
+            'views/accountDetails/AgendaWidgetView',
+            'presenters/accountDetails/AgendaWidgetPresenter',
+            'models/accountDetails/AgendaWidgetModel',
+
             // Account Filter
             'controllers/account/AccountFilterController', 'views/account/AccountFilterView',
             'presenters/account/AccountFilterPresenter', 'models/account/AccountFilterModel',

@@ -14,7 +14,8 @@ app.registerService(function (container) {
         toggleFollow: '/api/accounts/toggleFollow',
         toggleFollowActivity: '/api/activity/toggleFollow',
         updateAccount: '/api/accounts',
-        getOpportunities: '/api/opportunities'
+        getOpportunities: '/api/opportunities',
+        getAgenda: '/api/agenda'
     };
 
     return {

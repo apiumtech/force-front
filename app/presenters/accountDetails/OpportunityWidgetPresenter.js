@@ -15,11 +15,6 @@ app.registerPresenter(function () {
             model.loadOpportunities(accountId)
                 .then(view.onOpportunitiesLoaded.bind(view), view.showError.bind(view));
         };
-
-        view.event.onActivityFollowToggled = function (activityId) {
-            model.toggleFollow(activityId)
-                .then(view.followToggled.bind(view), view.showError.bind(view));
-        };
     };
 
     OpportunityWidgetPresenter.newInstance = function () {

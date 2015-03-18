@@ -2,8 +2,8 @@
  * Created by justin on 3/18/15.
  */
 
-describe("OpportunityWidgetView", function () {
-    var OpportunityWidgetView = app.getView("views/accountDetails/OpportunityWidgetView");
+describe("AgendaWidgetView", function () {
+    var AgendaWidgetView = app.getView("views/accountDetails/AgendaWidgetView");
     var sut, presenter, model, $scope, element;
 
     beforeEach(function () {
@@ -13,20 +13,20 @@ describe("OpportunityWidgetView", function () {
 
     describe("baseview inheritance", function () {
         it("should call presenter's show method on show()", function () {
-            var view = new OpportunityWidgetView($scope, element, model, {show: jasmine.createSpy()});
+            var view = new AgendaWidgetView($scope, element, model, {show: jasmine.createSpy()});
             view.show();
             expect(view.presenter.show).toHaveBeenCalledWith(view, model);
         });
 
         it("should call presenter's showError method on showError()", function () {
-            var view = new OpportunityWidgetView($scope, element, model, {showError: jasmine.createSpy()});
+            var view = new AgendaWidgetView($scope, element, model, {showError: jasmine.createSpy()});
             view.showError("some error");
             expect(view.presenter.showError).toHaveBeenCalledWith("some error");
         });
     });
 
     beforeEach(function () {
-        sut = OpportunityWidgetView.newInstance($scope, element, model, presenter, false).getOrElse(throwInstantiateException(OpportunityWidgetView));
+        sut = AgendaWidgetView.newInstance($scope, element, model, presenter, false).getOrElse(throwInstantiateException(AgendaWidgetView));
         sut.configureEvents();
     });
 
@@ -45,33 +45,33 @@ describe("OpportunityWidgetView", function () {
         });
     });
 
-    describe("onOpportunitiesLoaded", function () {
+    describe("onAgendaLoaded", function () {
         it("should send sendReloadCompleteCommand to event", function () {
             spyOn(sut.eventChannel, 'sendReloadCompleteCommand');
-            sut.onOpportunitiesLoaded([]);
+            sut.onAgendaLoaded([]);
             expect(sut.eventChannel.sendReloadCompleteCommand).toHaveBeenCalledWith();
         });
     });
 
-    describe("loadOpportunitiesData", function () {
+    describe("loadAgendaData", function () {
         beforeEach(function () {
-            sut.event.onLoadOpportunities = jasmine.createSpy();
+            sut.event.onLoadAgenda = jasmine.createSpy();
 
             sut.nextPage = false;
         });
 
         it("should fire event onLoadActivity", function () {
             sut.accountId = 1;
-            sut.loadOpportunitiesData();
-            expect(sut.event.onLoadOpportunities).toHaveBeenCalledWith(sut.accountId);
+            sut.loadAgendaData();
+            expect(sut.event.onLoadAgenda).toHaveBeenCalledWith(sut.accountId);
         });
     });
 
     describe("onReloadCommandReceived", function () {
-        it("should call loadOpportunitiesData method", function () {
-            spyOn(sut, 'loadOpportunitiesData');
+        it("should call loadAgendaData method", function () {
+            spyOn(sut, 'loadAgendaData');
             sut.onReloadCommandReceived();
-            expect(sut.loadOpportunitiesData).toHaveBeenCalledWith();
+            expect(sut.loadAgendaData).toHaveBeenCalledWith();
         });
     });
 });
