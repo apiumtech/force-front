@@ -124,15 +124,12 @@ describe("ActivityWidgetView", function () {
                 expect(sut.activitiesList).toEqual([]);
             });
 
-
             it("should reset the current page to 0", function () {
                 expect(sut.currentPage).toEqual(0);
             });
-            it("should reset reloadAllWidget to false", function () {
-                expect(sut.reloadAllWidget).toEqual(false);
+            it("should reset isLastPage to false", function () {
+                expect(sut.isLastPage).toEqual(false);
             });
-
-
         });
     });
 });

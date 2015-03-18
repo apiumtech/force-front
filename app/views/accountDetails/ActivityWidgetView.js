@@ -93,12 +93,11 @@ app.registerView(function (container) {
 
     ActivityWidgetView.prototype.onReloadCommandReceived = function (isReload) {
         var self = this;
-        self.reloadAllWidget = isReload || false;
 
-        if (self.reloadAllWidget) {
+        if (isReload) {
             self.activitiesList = [];
             self.currentPage = 0;
-            self.reloadAllWidget = false;
+            self.isLastPage = false;
         }
 
         self.loadActivityData();
