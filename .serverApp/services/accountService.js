@@ -379,7 +379,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "B",
-            "emails": ["support@apple.com", "support2@apple.com"],
+            "emails": [{id: 1, email: "support@apple.com"}, {id: 2, email: "support2@apple.com"}],
             "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": true,
@@ -401,7 +401,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
-            "emails": ["support@microsoft.com", "support2@microsoft.com"],
+            "emails": [{id: 3, email: "support@microsoft.com"}, {id: 4, email: "support2@microsoft.com"}],
             "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
@@ -423,7 +423,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
-            "emails": ["support@yahoo.com", "support2@yahoo.com"],
+            "emails": [{id: 5, email: "support@yahoo.com"}, {id: 6, email: "support2@yahoo.com"}],
             "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
@@ -445,7 +445,7 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": "A",
-            "emails": ["support@ibm.com", "support2@ibm.com"],
+            "emails": [{id: 7, email: "support@ibm.com"}, {id: 8, email: "support2@ibm.com"}],
             "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": false,
@@ -470,7 +470,10 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
             "subtitle": "Subtitle - small description",
             "imgUrl": "/assets/img/logos/ikea.jpg",
             "class": ["A", "B", "C"][Math.floor(i % 3)],
-            "emails": ["support@google.com", "support2@google.com"],
+            "emails": [{id: (i * 1) + 9, email: "support@google.com"}, {
+                id: (i * 1) + 10,
+                email: "support2@google.com"
+            }],
             "description": "Some test text Lorem pisum Proporcionamos herramientas de marketing relacional: CRM, Fidelización, Buzoneo, Logística, Contact Center",
             "contactInfo": {
                 "validAddress": true,

@@ -22,7 +22,7 @@
             <input class="form-control"
                    ng-disabled="!fn.isEditingEmail($index)"
                    ng-class="{'disabled': !fn.isEditingEmail($index)}" type="text"
-                   ng-model="email.address">
+                   ng-model="email.email">
             <a href="javascript:;"
                ng-show="!fn.isEditingEmail($index)"
                ng-click="fn.startEditEmail($index, email)"
