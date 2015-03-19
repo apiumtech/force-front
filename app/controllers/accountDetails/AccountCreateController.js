@@ -2,7 +2,7 @@
  * Created by Justin on 3/19/2015.
  */
 app.registerController(function (container) {
-    var AccountEditView = container.getView("views/accountDetails/AccountEditView");
+    var AccountCreateView = container.getView("views/accountDetails/AccountCreateView");
 
     function AccountCreateController($scope, $modalInstance, $modal) {
         $scope.$modal = $modal;
@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     AccountCreateController.configureView = function ($scope, $modalInstance) {
-        this.view = AccountEditView.newInstance($scope, $modalInstance).getOrElse(throwInstantiateException(AccountEditView));
+        this.view = AccountCreateView.newInstance($scope, $modalInstance).getOrElse(throwInstantiateException(AccountCreateView));
         this.view.show();
     };
 

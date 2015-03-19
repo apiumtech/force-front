@@ -6,17 +6,17 @@ app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
     var AccountModel = container.getModel('models/account/AccountModel');
-    var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
-    var LogErrorAspect = container.getService('aspects/LogErrorAspect');
     var GoogleMapService = container.getService("services/GoogleMapService");
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
+    var ModalDialogAdapter = container.getService("services/ModalDialogAdapter");
     var _ = container.getFunction("underscore");
     var moment = container.getFunction("moment");
 
-    function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
+    function AccountView($scope, modalService, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
         this.mapService = mapService;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
@@ -121,9 +121,28 @@ app.registerView(function (container) {
             self.data.table = self.dataTableService.createDatatable("#data-table", self.data.dataTableConfig);
         };
 
+        self.fn.createAccountClicked = function () {
+            self.openCreateAccountDialog();
+        };
+
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };
+    };
+
+    AccountView.prototype.openCreateAccountDialog = function () {
+        var self = this;
+        var self = this;
+
+        self.modalDialogAdapter.createDialog(
+            '/templates/accountDetails/accountCreate.html',
+            'AccountCreateController',
+            'lg',
+            {},
+            function () {
+            },
+            function () {
+            });
     };
 
     AccountView.prototype.closeInfoWindowInMap = function () {
@@ -321,7 +340,9 @@ app.registerView(function (container) {
         return $(".googleMapPopupContentTemplate").first().html();
     };
 
-    AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
+    AccountView.newInstance = function ($scope, modalService, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
+        assertNotNull('modalService', modalService);
+
         var scope = $scope || {};
         var model = $model || AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
         var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
@@ -329,7 +350,7 @@ app.registerView(function (container) {
         var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
         var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
 
-        var view = new AccountView(scope, model, presenter, mapService, dataTableService, templateParser);
+        var view = new AccountView(scope, modalService, model, presenter, mapService, dataTableService, templateParser);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

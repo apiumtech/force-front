@@ -114,6 +114,7 @@ function main() {
 
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
+            'views/accountDetails/AccountCreateView',
 
             // Account Edit Page
             'controllers/accountDetails/AccountEditController',

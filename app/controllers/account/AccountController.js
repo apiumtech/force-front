@@ -5,12 +5,12 @@
 app.registerController(function (container) {
     var AccountView = container.getView("views/account/AccountView");
 
-    function AccountController($scope) {
-        AccountController.configureView($scope);
+    function AccountController($scope, $modal) {
+        AccountController.configureView($scope, $modal);
     }
 
-    AccountController.configureView = function ($scope) {
-        this.view = AccountView.newInstance($scope).getOrElse(throwException("Could not create AccountView!"));
+    AccountController.configureView = function ($scope, $modal) {
+        this.view = AccountView.newInstance($scope, $modal).getOrElse(throwException("Could not create AccountView!"));
         this.view.show();
     };
 
