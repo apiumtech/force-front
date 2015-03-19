@@ -28,8 +28,8 @@ app.registerView(function (container) {
         };
     };
 
-    ConfirmationDialogView.newInstance = function (scope, modalInstance, model, presenter, viewRepaintAspect, logErrorAspect) {
-        var view = new ConfirmationDialogView(scope, modalInstance, model, presenter);
+    ConfirmationDialogView.newInstance = function (scope, modalInstance, viewRepaintAspect, logErrorAspect) {
+        var view = new ConfirmationDialogView(scope, modalInstance);
         return view._injectAspects(viewRepaintAspect, logErrorAspect);
     };
 
