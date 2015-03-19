@@ -210,11 +210,6 @@ describe("AccountDetailViews", function () {
             sut.event.onUpdateEmail = jasmine.createSpy();
         });
 
-        it("should assign correct email list before updating to server", function () {
-            sut.fn.finishEditingEmail(3, "newValue");
-            expect(sut.accountData.emails[3]).toEqual("newValue");
-        });
-
         it("should turn the email editing to false by remove it from the editingEmails object", function () {
             sut.fn.finishEditingEmail(3, "newValue");
             expect(sut.fn.editingEmails).toEqual({

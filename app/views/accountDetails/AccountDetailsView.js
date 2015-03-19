@@ -76,13 +76,12 @@ app.registerView(function (container) {
             self.fn.editingEmails["" + $index] = email;
         };
 
-        self.fn.finishEditingEmail = function ($index, email) {
-            self.accountData.emails[$index] = email;
+        self.fn.finishEditingEmail = function ($index) {
             self.event.onUpdateEmail(self.accountData);
             delete self.fn.editingEmails["" + $index];
         };
 
-        self.fn.cancelEditingEmail = function ($index, email) {
+        self.fn.cancelEditingEmail = function ($index) {
             delete self.fn.editingEmails["" + $index];
             self.fn.loadAccountData();
         };
