@@ -4,8 +4,8 @@
 app.registerController(function (container) {
     var AccountEditView = container.getView("views/accountDetails/AccountEditView");
 
-    function AccountCreateController($scope, $modalInstance, accountId) {
-        $scope.accountId = accountId;
+    function AccountCreateController($scope, $modalInstance, $modal) {
+        $scope.$modal = $modal;
         AccountCreateController.configureView($scope, $modalInstance);
     }
 

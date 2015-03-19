@@ -28,4 +28,16 @@ describe("AccountEditController", function () {
         expect(scope.accountId).not.toBeNull();
         expect(scope.accountId).toEqual(10);
     });
+
+    it("should assign $modal to scope for later use in View", function () {
+        var scope = {thisIsFakeScope: true},
+            $modalInstance = {},
+            $modal = {},
+            accountId = 10;
+        AccountEditController.configureView = jasmine.createSpy();
+
+        sut = new AccountEditController(scope, $modalInstance, $modal, accountId);
+        expect(scope.$modal).not.toBeNull();
+        expect(scope.$modal).toEqual($modal);
+    });
 });

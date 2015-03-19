@@ -99,11 +99,13 @@ app.registerView(function (container) {
         };
 
         self.fn.showPopover = function ($event) {
+            var target = $event.target.closest('.popover-contact-info');
+            if ($(target).siblings('div.popover').length) return;
+
             if ($("div.popover").length) {
-                self.popoverAdapter.closePopover('div.popover');
+                self.popoverAdapter.closePopover($('div.popover'));
             }
 
-            var target = $event.target.closest('.popover-contact-info');
             self.popoverAdapter.openPopover(target);
             $event.stopPropagation();
         };
@@ -115,7 +117,7 @@ app.registerView(function (container) {
         self.fn.bindDocumentDomEvents = function () {
             $(document).on("click", function (e) {
                 if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
-                    self.popoverAdapter.closePopover('div.popover');
+                    self.popoverAdapter.closePopover($('div.popover'));
                 }
             });
 
