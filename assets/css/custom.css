@@ -98,6 +98,7 @@ span.removeTextBoxBtn {
     top: 35px;
 }
 
+
 #map-canvas.map-account {
     height: 400px;
 }
@@ -106,7 +107,7 @@ span.removeTextBoxBtn {
     display: none;
 }
 
-.panel.panel-expand > .panel-body .timeline-div {
+.panel.panel-expand > .panel-body.timeline-div {
     height: initial;
 }
 
@@ -116,4 +117,8 @@ span.removeTextBoxBtn {
 
 .panel.panel-loading .panel-loader {
     margin: 40px 10px 20px !important;
+}
+
+.timeline-time > .date {
+    text-transform: lowercase;
 }

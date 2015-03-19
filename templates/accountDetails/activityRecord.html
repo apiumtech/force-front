@@ -13,10 +13,10 @@
             <img src="{{activityEntry.from.imageUrl}}"/>
         </div>
         <div class="pull-left">
-            <a href="#/accounts/{{activityEntry.from.id}}" class="main">{{activityEntry.from.name}}</a>
-            <span> -  {{activityEntry.activity}} <a href="">{{activityEntry.activityTo.name}}</a></span>
+            <a href="#/contacts/{{activityEntry.from.id}}" class="main">{{activityEntry.from.name}}</a>
+            <span> -  {{activityEntry.activity}} <a href="#/accounts/{{activityEntry.activityTo.id}}">{{activityEntry.activityTo.name}}</a></span>
             <span ng-if="activityEntry.contactTo!=null" class="clearfix">Contacto: <a
-                    href="#/accounts/{{activityEntry.contactTo.id}}">{{activityEntry.contactTo.name}} </a>, {{activityEntry.contactTo.position}}</span>
+                    href="#/contacts/{{activityEntry.contactTo.id}}">{{activityEntry.contactTo.name}} </a>, {{activityEntry.contactTo.position}}</span>
         </div>
         <button type="button" data-toggle="tooltip" title=""
                 data-original-title="Follow activity"
