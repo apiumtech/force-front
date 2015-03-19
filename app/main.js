@@ -108,6 +108,10 @@ function main() {
             'views/account/AccountView',
             'presenters/account/AccountPresenter',
 
+            // confirmation dialog
+            'controllers/ConfirmationDialogController',
+            'views/ConfirmationDialogView',
+
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
 
