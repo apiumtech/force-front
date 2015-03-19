@@ -4,15 +4,16 @@
 describe("AccountDetailViews", function () {
     var AccountDetailsView = app.getView('views/accountDetails/AccountDetailsView');
 
-    var sut, model, presenter;
+    var sut, model, presenter, modalService;
 
     beforeEach(function () {
         model = {};
+        modalService = {};
         presenter = {
             show: jasmine.createSpy(),
             showError: jasmine.createSpy()
         };
-        sut = AccountDetailsView.newInstance({}, model, presenter, null, null, false, false).getOrElse(throwInstantiateException(AccountDetailsView));
+        sut = AccountDetailsView.newInstance({}, modalService, model, presenter, null, null, false, false).getOrElse(throwInstantiateException(AccountDetailsView));
     });
 
     it("should call presenter's show method on show()", function () {

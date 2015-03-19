@@ -20,13 +20,12 @@ function main() {
     }]);
 
     /** AngularJS App Configuration **/
-    function AngularConfig($routeProvider, $i18nextProvider) {
+    function AngularConfig($routeProvider) {
         $routeProvider
             .when('/accounts', {
                 templateUrl: '/templates/account.html',
                 controller: 'AccountController'
             })
-
 
             .when('/accounts/:account_id', {
                 templateUrl: '/templates/accountDetails/account_details.html',
@@ -87,6 +86,7 @@ function main() {
             'views/WidgetDecoratedPageView',
             'views/WidgetBaseView',
 
+            'services/ModalDialogAdapter',
             'services/WidgetBase',
             'services/WidgetService',
             'services/b64StringEncoder',
@@ -104,6 +104,10 @@ function main() {
 
             // Account Page
             'controllers/account/AccountController', 'views/account/AccountView', 'presenters/account/AccountPresenter', 'models/account/AccountModel',
+
+            // Account Edit Page
+            'controllers/accountDetails/AccountEditController',
+            'views/accountDetails/AccountEditView',
 
             // Account Details Page
             'controllers/accountDetails/AccountDetailsController',

@@ -7,9 +7,11 @@ app.registerView(function (container) {
     var AccountDetailsPresenter = container.getPresenter("presenters/accountDetails/AccountDetailsPresenter");
     var GoogleMapService = container.getService("services/GoogleMapService");
     var PopoverAdapter = container.getService("services/PopoverAdapter");
+    var ModalDialogAdapter = container.getService('services/ModalDialogAdapter');
 
-    function AccountDetailsView(scope, model, presenter, mapService, popoverAdapter) {
+    function AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter) {
         BaseView.call(this, scope, model, presenter);
+        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
         this.mapService = mapService;
         this.popoverAdapter = popoverAdapter;
         this.configureEvents(this);
@@ -107,6 +109,10 @@ app.registerView(function (container) {
             $event.stopPropagation();
         };
 
+        self.fn.openEditDialog = function () {
+            self.openEditDialog();
+        };
+
         self.fn.bindDocumentDomEvents = function () {
             $(document).on("click", function (e) {
                 if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
@@ -125,6 +131,30 @@ app.registerView(function (container) {
         var self = this;
         BaseView.prototype.show.call(this);
         self.fn.loadAccountData();
+    };
+
+    AccountDetailsView.prototype.openEditDialog = function () {
+        var self = this;
+
+        self.modalDialogAdapter.createDialog(
+            '/templates/accountDetails/accountEdit.html',
+            'AccountEditController',
+            null,
+            {
+                accountId: function () {
+                    return self.accountId;
+                }
+            },
+            self.onEditAccountSubmit.bind(self),
+            self.onEditAccountDismissed.bind(self));
+    };
+
+    AccountDetailsView.prototype.onEditAccountSubmit = function (accountId) {
+        alert("Edit dialog closed with account Id: " + accountId);
+    };
+
+    AccountDetailsView.prototype.onEditAccountDismissed = function () {
+
     };
 
     AccountDetailsView.prototype.getPopoverTemplate = function () {
@@ -166,13 +196,15 @@ app.registerView(function (container) {
         self.fn.loadAccountData();
     };
 
-    AccountDetailsView.newInstance = function (scope, model, presenter, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
+    AccountDetailsView.newInstance = function (scope, modalService, model, presenter, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
+        assertNotNull('modalService', modalService);
+
         model = model || AccountDetailsModel.newInstance().getOrElse(AccountDetailsModel);
         presenter = presenter || AccountDetailsPresenter.newInstance().getOrElse(AccountDetailsPresenter);
         mapService = mapService || GoogleMapService.newInstance().getOrElse(GoogleMapService);
         popoverAdapter = popoverAdapter || PopoverAdapter.newInstance().getOrElse(GoogleMapService);
 
-        var view = new AccountDetailsView(scope, model, presenter, mapService, popoverAdapter);
+        var view = new AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
