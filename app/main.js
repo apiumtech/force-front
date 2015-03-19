@@ -103,7 +103,13 @@ function main() {
             'models/WidgetDecoratedPageModel',
 
             // Account Page
-            'controllers/account/AccountController', 'views/account/AccountView', 'presenters/account/AccountPresenter', 'models/account/AccountModel',
+            'controllers/account/AccountController',
+            'models/account/AccountModel',
+            'views/account/AccountView',
+            'presenters/account/AccountPresenter',
+
+            // Account Create Page
+            'controllers/accountDetails/AccountCreateController',
 
             // Account Edit Page
             'controllers/accountDetails/AccountEditController',
@@ -111,11 +117,10 @@ function main() {
 
             // Account Details Page
             'controllers/accountDetails/AccountDetailsController',
+            'models/accountDetails/AccountDetailsModel',
             'views/accountDetails/AccountDetailsView',
             'presenters/accountDetails/AccountDetailsPresenter',
-            'models/accountDetails/AccountDetailsModel',
             'services/AccountService',
-
 
             'views/accountDetails/AccountDetailWidgetWrapperView',
             'controllers/accountDetails/AccountDetailWidgetWrapperController',
