@@ -4,8 +4,9 @@
 app.registerController(function (container) {
     var AccountCreateView = container.getView("views/accountDetails/AccountCreateView");
 
-    function AccountCreateController($scope, $modalInstance, $modal) {
+    function AccountCreateController($scope, $modalInstance, $modal, $upload) {
         $scope.$modal = $modal;
+        $scope.$upload = $upload;
         AccountCreateController.configureView($scope, $modalInstance);
     }
 

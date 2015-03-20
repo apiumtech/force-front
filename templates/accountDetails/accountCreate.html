@@ -12,22 +12,28 @@
             <label class="col-md-3 control-label ui-sortable"></label>
 
             <div class="col-md-9 ui-sortable form-img ">
-                <img src="assets/img/placeholder.png"><br>
-                <button type="button" class="btn btn-default btn-sm btn-picture m-t-10"> Upload account's logo</button>
+                <img src="{{accountData.imgUrl || 'assets/img/placeholder.png'}}"
+                        />
+                <br>
+                <button class="btn btn-default btn-sm btn-picture m-t-10"
+                        ng-file-select="fn.selectFile($files)">
+                    Upload account's logo
+                </button>
+                <span class="spinner-small" ng-show="data.isUploading"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Account name *</label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" class="form-control" placeholder="" ng-model="accountData.name">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Account type*</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control">
+                <select class="form-control" ng-value="accountData.accountType">
                     <option>select one</option>
                     <option>Client</option>
                     <option>Provider</option>
@@ -308,7 +314,7 @@
         <button class="btn btn-sm" ng-click="fn.closeDialog()">
             {{'commonText.Cancel' | i18next}}
         </button>
-        <button class="btn btn-sm btn-primary" ng-click="fn.closeDialog()">
+        <button class="btn btn-sm btn-primary" ng-click="fn.saveAccount()">
             {{'commonText.Save' | i18next}}
         </button>
     </div>

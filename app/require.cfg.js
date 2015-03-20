@@ -28,7 +28,8 @@ var require = {
         'flot-crosshair': '/node_modules/flot/jquery.flot.crosshair',
         'moment': '/node_modules/moment/min/moment.min',
         'datatables': '/node_modules/datatables/media/js/jquery.dataTables',
-        'angular-moment': '/node_modules/angular-moment/angular-moment.min'
+        'angular-moment': '/node_modules/angular-moment/angular-moment.min',
+        'ngFileUpload': '/node_modules/angular-file-upload/dist/angular-file-upload.min'
     },
 
     'shim': {
@@ -53,6 +54,11 @@ var require = {
         'angular-route': {
             deps: ['angular'],
             exports: 'angular-route'
+        },
+
+        'ngFileUpload': {
+            deps: ['angular'],
+            exports: 'ngFileUpload'
         },
 
         'angular-draganddrop': {
@@ -129,7 +135,7 @@ var require = {
     },
 
     'deps': [
-        'jquery', 'angular', 'infinite-scroll', 'angular-route',
+        'jquery', 'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route',
         'angular-draganddrop', 'angular-bootstrap',
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',

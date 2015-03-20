@@ -5,6 +5,7 @@
 var _ = require('underscore');
 var QueryBuilder = require('datatable');
 var loki = require('lokijs');
+var utils = require('../utils');
 var Enumerable = require('linq');
 
 function sortByMultiple(sequence, keys) {
@@ -172,6 +173,12 @@ AccountService.prototype.toggleFollow = function (id) {
     accounts.update(account);
     db.save();
     return account;
+};
+
+AccountService.prototype.createAccount = function(body){
+    var db = this.getDb();
+    var accounts = db.getCollection('Accounts');
+
 };
 
 AccountService.prototype.updateAccount = function (id, body) {
@@ -342,10 +349,6 @@ AccountService.prototype.prepareAccountTypesDataSet = function (db) {
     db.save();
 };
 
-function generateRandom(from, to) {
-    return Math.floor(Math.random() * (to - from)) + from;
-}
-
 AccountService.prototype.prepareAccountsDataSet = function (db) {
     var accounts = db.addCollection('Accounts', {
         indices: 'id'
@@ -482,8 +485,8 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
                 "address": i + " fake address",
                 "phoneNumber": i + "(000) 000 001",
                 "mobile": "090909090",
-                "latitude": 37.331793 + (generateRandom(10, i * 20) / 100),
-                "longitude": -122.029584 + (generateRandom(10, i * 20) / 100),
+                "latitude": 37.331793 + (utils.generateRandom(10, i * 20) / 100),
+                "longitude": -122.029584 + (utils.generateRandom(10, i * 20) / 100),
                 "website": "www.google.com"
             },
             "modified": new Date(2014, 04, 25),

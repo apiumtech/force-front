@@ -57,6 +57,7 @@ function main() {
             'jm.i18next',
             'forcefront.sortable',
             'angularMoment',
+            'angularFileUpload',
             'infinite-scroll'
         ], AngularConfig));
 
@@ -114,7 +115,9 @@ function main() {
 
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
+            'models/accountDetails/AccountCreateModel',
             'views/accountDetails/AccountCreateView',
+            'presenters/accountDetails/AccountCreatePresenter',
 
             // Account Edit Page
             'controllers/accountDetails/AccountEditController',

@@ -1,34 +1,13 @@
-/**
- * Created by trung.dang on 02/12/2015
- */
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
-    var Q = container.getFunction('q');
+    var AccountService = container.getService("services/AccountService");
 
     function AccountFilterModel(ajaxService) {
-        this.ajaxService = ajaxService;
-        this.availableOwners = null;
-        this.availableEnvironments = null;
-        this.availableViews = null;
-        this.availableAccountTypes = null;
+        AccountService.call(this, ajaxService);
     }
 
-    AccountFilterModel.prototype.getAvailableOwners = function (filter) {
-        var query = "";
-        if (filter) {
-            query += "?query=" + filter;
-        }
-
-        var params = {
-            url: Configuration.api.getAvailableOwners + query,
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableOwners.bind(this));
-    };
+    AccountFilterModel.prototype = Object.create(AccountService.prototype, {});
 
     AccountFilterModel.prototype.decorateAvailableOwners = function (result) {
         var self = this;
@@ -47,22 +26,6 @@ app.registerModel(function (container) {
 
         this.availableOwners = result;
         return this.availableOwners;
-    };
-
-    AccountFilterModel.prototype.getAvailableEnvironments = function (filter) {
-        var query = "";
-        if (filter) {
-            query += "?query=" + filter;
-        }
-
-        var params = {
-            url: Configuration.api.getAvailableEnvironments + query,
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableEnvironments.bind(this));
     };
 
     AccountFilterModel.prototype.decorateAvailableEnvironments = function (result) {
@@ -84,22 +47,6 @@ app.registerModel(function (container) {
         return this.availableEnvironments;
     };
 
-    AccountFilterModel.prototype.getAvailableAccountTypes = function (filter) {
-        var query = "";
-        if (filter) {
-            query += "?query=" + filter;
-        }
-
-        var params = {
-            url: Configuration.api.getAvailableAccountTypes + query,
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableAccountTypes.bind(this));
-    };
-
     AccountFilterModel.prototype.decorateAvailableAccountTypes = function (result) {
         var self = this;
 
@@ -117,22 +64,6 @@ app.registerModel(function (container) {
 
         this.availableAccountTypes = result;
         return this.availableAccountTypes;
-    };
-
-    AccountFilterModel.prototype.getAvailableViews = function (filter) {
-        var query = "";
-        if (filter) {
-            query += "?query=" + filter;
-        }
-
-        var params = {
-            url: Configuration.api.getAvailableViews + query,
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableViews.bind(this));
     };
 
     AccountFilterModel.prototype.decorateAvailableViews = function (result) {

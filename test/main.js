@@ -33,7 +33,8 @@ requirejs.config({
         'ng-sortable': '/base/assets/js/vendor/ng-sortable',
         'underscore': '/base/node_modules/underscore/underscore-min',
         'moment': '/base/node_modules/moment/min/moment.min',
-        'angular-moment': '/base/node_modules/angular-moment/angular-moment.min'
+        'angular-moment': '/base/node_modules/angular-moment/angular-moment.min',
+        'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min'
     },
 
     'shim': {
@@ -43,6 +44,11 @@ requirejs.config({
 
         'signals': {
             exports: 'signals'
+        },
+
+        'ngFileUpload': {
+            deps: ['angular'],
+            exports: 'ngFileUpload'
         },
 
         'moment': {
@@ -106,7 +112,7 @@ requirejs.config({
     },
 
     'deps': [
-        'angular', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
+        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
         'i18next', 'ng-i18next', 'signals', 'ng-sortable',
         'main'

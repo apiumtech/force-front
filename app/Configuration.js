@@ -15,7 +15,9 @@ app.registerService(function (container) {
         toggleFollowActivity: '/api/activity/toggleFollow',
         updateAccount: '/api/accounts',
         getOpportunities: '/api/opportunities',
-        getAgenda: '/api/agenda'
+        getAgenda: '/api/agenda',
+        uploadFile: '/upload',
+        createAccount: '/api/createAccount'
     };
 
     return {

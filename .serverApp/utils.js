@@ -37,6 +37,11 @@ var getGlobbedFiles = function (globPatterns, removeRoot) {
     return output;
 };
 
+function generateRandom(from, to) {
+    return Math.floor(Math.random() * (to - from)) + from;
+}
+
 exports = module.exports = {
-    getGlobbedFiles: getGlobbedFiles
+    getGlobbedFiles: getGlobbedFiles,
+    generateRandom: generateRandom
 };
