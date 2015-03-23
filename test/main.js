@@ -17,6 +17,8 @@ requirejs.config({
         'conduitjs': '/base/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '/base/node_modules/angular-route/angular-route.min',
         'angular-draganddrop': '/base/node_modules/angular-draganddrop/angular-draganddrop.min',
+        'angular-validation': '/base/node_modules/angular-validation/dist/angular-validation.min',
+        'angular-validation-rule': '/base/node_modules/angular-validation/dist/angular-validation-rule.min',
         'angular-bootstrap': '/base/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/base/node_modules/angular/angular.min',
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
@@ -51,6 +53,16 @@ requirejs.config({
             exports: 'ngFileUpload'
         },
 
+
+        'angular-validation': {
+            deps: ['angular'],
+            exports: 'angular-validation'
+        },
+
+        'angular-validation-rule': {
+            deps: ['angular', 'angular-validation'],
+            exports: 'angular-validation-rule'
+        },
         'moment': {
             exports: 'moment'
         },
@@ -112,7 +124,8 @@ requirejs.config({
     },
 
     'deps': [
-        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
+        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-validation', 'angular-validation-rule',
+        'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
         'i18next', 'ng-i18next', 'signals', 'ng-sortable',
         'main'

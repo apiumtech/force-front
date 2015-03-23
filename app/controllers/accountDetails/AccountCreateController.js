@@ -4,9 +4,10 @@
 app.registerController(function (container) {
     var AccountCreateView = container.getView("views/accountDetails/AccountCreateView");
 
-    function AccountCreateController($scope, $modalInstance, $modal, $upload) {
-        $scope.$modal = $modal;
-        $scope.$upload = $upload;
+    function AccountCreateController($scope, $modalInstance, $injector) {
+        $scope.$modal = $injector.get('$modal');
+        $scope.$upload = $injector.get('$upload');
+        $scope.$validation = $injector.get('$validation');
         AccountCreateController.configureView($scope, $modalInstance);
     }
 

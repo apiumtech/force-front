@@ -127,3 +127,25 @@ span.removeTextBoxBtn {
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.modal-body.create-account.panel.panel-loading {
+    overflow-y: hidden;
+}
+
+.modal-body.create-account.panel.panel-loading .panel-loader {
+    margin: 0 !important;
+}
+
+.modal-content .panel-loader {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: 65535;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.validation-invalid {
+    color: red;
+}

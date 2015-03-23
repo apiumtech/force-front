@@ -17,7 +17,7 @@ app.registerService(function (container) {
         getOpportunities: '/api/opportunities',
         getAgenda: '/api/agenda',
         uploadFile: '/upload',
-        createAccount: '/api/createAccount'
+        createAccount: '/api/accounts'
     };
 
     return {

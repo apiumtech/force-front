@@ -175,10 +175,13 @@ AccountService.prototype.toggleFollow = function (id) {
     return account;
 };
 
-AccountService.prototype.createAccount = function(body){
+AccountService.prototype.createAccount = function (body) {
     var db = this.getDb();
     var accounts = db.getCollection('Accounts');
-
+    body.modified = new Date();
+    var account = accounts.insert(body);
+    db.save();
+    return account;
 };
 
 AccountService.prototype.updateAccount = function (id, body) {

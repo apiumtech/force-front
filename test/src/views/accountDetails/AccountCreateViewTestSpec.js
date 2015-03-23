@@ -10,10 +10,16 @@ describe("AccountCreateView", function () {
         model = {};
         presenter = {
             show: function () {
+            },
+            showError: function () {
             }
         };
         scope = {
-            $modal: {}
+            $modal: {},
+            $validation: {
+                checkValid: function () {
+                }
+            }
         };
         modalInstance = {
             close: function () {
@@ -24,24 +30,49 @@ describe("AccountCreateView", function () {
         sut = AccountCreateView.newInstance(scope, modalInstance, model, presenter, false, false).getOrElse(throwInstantiateException(AccountCreateView));
     });
 
-    describe("show()", function () {
-        it("should call show from presenter", function () {
-            spyOn(sut.presenter, 'show');
-            sut.show();
-            expect(sut.presenter.show).toHaveBeenCalledWith(sut, model);
-        });
-        it("should call configureEvents from view", function () {
+    describe("BaseView inheritance test", function () {
+        it("should call presenter's show method on show()", function () {
+            spyOn(presenter, 'show');
             spyOn(sut, 'configureEvents');
+            spyOn(sut, 'initAdditionalData');
             sut.show();
-            expect(sut.configureEvents).toHaveBeenCalled();
+            expect(presenter.show).toHaveBeenCalledWith(sut, model);
+        });
+
+        it("should call presenter's showError method on showError()", function () {
+            spyOn(presenter, 'showError');
+            sut.showError("some error");
+            expect(sut.presenter.showError).toHaveBeenCalledWith("some error");
         });
     });
 
-    describe("onAccountSaved", function () {
-        it("should close the modal", function () {
-            spyOn(modalInstance, 'close');
-            sut.onAccountSaved();
-            expect(modalInstance.close).toHaveBeenCalled();
+    describe("show()", function () {
+        beforeEach(function () {
+            spyOn(sut, 'configureEvents');
+            spyOn(sut, 'initAdditionalData');
+            sut.show();
+        });
+        it("should call configureEvents from view", function () {
+            expect(sut.configureEvents).toHaveBeenCalled();
+        });
+        it("should call initAdditionalData from view", function () {
+            expect(sut.initAdditionalData).toHaveBeenCalled();
+        });
+    });
+
+    describe("initAdditionalData()", function () {
+        var events = ["onLoadAccountType", "onLoadEnvironments"];
+        beforeEach(function () {
+            events.forEach(function (event) {
+                sut.event[event] = jasmine.createSpy();
+            });
+        });
+
+        events.forEach(function (test) {
+            it("should fire event '" + test + "' ", function () {
+                sut.initAdditionalData();
+                expect(sut.event[test]).toHaveBeenCalled();
+            });
         });
     });
 
@@ -130,8 +161,30 @@ describe("AccountCreateView", function () {
         it("should confirm before closing", function () {
             sut.configureEvents();
             spyOn(sut.modalDialogAdapter, 'confirm');
-            sut.fn.closeDialog();
+            sut.fn.closeDialog(false);
             expect(sut.modalDialogAdapter.confirm).toHaveBeenCalled();
+        });
+        it("should close if confirmed", function () {
+            sut.configureEvents();
+            spyOn(sut.modalInstance, 'dismiss');
+            sut.fn.closeDialog(true);
+            expect(sut.modalInstance.dismiss).toHaveBeenCalled();
+        });
+    });
+
+    describe("fn.saveAccount", function () {
+        it("should turn loading indicator on", function () {
+            sut.configureEvents();
+            sut.event.onCreateAccount = jasmine.createSpy();
+            sut.fn.saveAccount();
+            expect(sut.data.isPosting).toBeTruthy();
+
+        });
+        it("should fire event onCreateAccount", function () {
+            sut.configureEvents();
+            sut.event.onCreateAccount = jasmine.createSpy();
+            sut.fn.saveAccount();
+            expect(sut.event.onCreateAccount).toHaveBeenCalledWith(sut.accountData);
         });
     });
 
@@ -141,6 +194,51 @@ describe("AccountCreateView", function () {
             spyOn(sut, 'onFilesChanged');
             sut.fn.selectFile();
             expect(sut.onFilesChanged).toHaveBeenCalled();
+        });
+    });
+
+    describe("fn.isValid", function () {
+        it("should call isValid from validationService", function () {
+            sut.configureEvents();
+            spyOn(scope.$validation, 'checkValid');
+            sut.fn.isValid();
+            expect(scope.$validation.checkValid).toHaveBeenCalled();
+        });
+    });
+
+    it("should close any loading indicator on showError()", function () {
+        spyOn(presenter, 'showError');
+        sut.showError("some error");
+        expect(sut.data.isPosting).toBeFalsy();
+    });
+
+    describe("onAccountCreated", function () {
+        it("should turn loading indicator of", function () {
+            spyOn(modalInstance, 'close');
+            sut.onAccountCreated();
+            expect(sut.data.isPosting).toBeFalsy();
+
+        });
+        it("should close the modal", function () {
+            spyOn(modalInstance, 'close');
+            sut.onAccountCreated();
+            expect(modalInstance.close).toHaveBeenCalled();
+        });
+    });
+
+    describe("onAvailableAccountTypeLoaded", function () {
+        it("should assign data to available account types", function () {
+            var data = [];
+            sut.onAvailableAccountTypeLoaded(data);
+            expect(sut.data.availableAccountTypes).toEqual(data);
+        });
+    });
+
+    describe("onEnvironmentsLoaded", function () {
+        it("should assign data to availableEnvironments", function () {
+            var data = [];
+            sut.onEnvironmentsLoaded(data);
+            expect(sut.data.availableEnvironments).toEqual(data);
         });
     });
 });

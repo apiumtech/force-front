@@ -20,7 +20,7 @@ function main() {
     }]);
 
     /** AngularJS App Configuration **/
-    function AngularConfig($routeProvider) {
+    function AngularConfig($routeProvider, $validationProvider) {
         $routeProvider
             .when('/accounts', {
                 templateUrl: '/templates/account.html',
@@ -45,9 +45,27 @@ function main() {
                 controller: 'IntensityController'
             })
             .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'});
+
+        // configure validation system here
+        var defaultMsg = {
+            required: {
+                error: i18n.t('validationMsg.required')
+            },
+            email: {
+                error: i18n.t('validationMsg.email')
+            },
+            number: {
+                error: i18n.t('validationMsg.number')
+            },
+            url: {
+                error: i18n.t('validationMsg.url')
+            }
+        };
+
+        $validationProvider.setDefaultMsg(defaultMsg);
     }
 
-    AngularConfig.$inject = ['$routeProvider', '$i18nextProvider'];
+    AngularConfig.$inject = ['$routeProvider', '$validationProvider'];
 
     /** Application Building **/
     app = ApplicationFactory.newRequireApplication("RequireJS")
@@ -58,7 +76,8 @@ function main() {
             'forcefront.sortable',
             'angularMoment',
             'angularFileUpload',
-            'infinite-scroll'
+            'infinite-scroll',
+            'validation', 'validation.rule'
         ], AngularConfig));
 
     app.manifest = {

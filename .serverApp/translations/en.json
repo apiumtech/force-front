@@ -1,5 +1,11 @@
 {
   "hello": "Hello",
+  "validationMsg": {
+    "required": "This field is required",
+    "email": "Please enter valid email format",
+    "url": "Please enter valid URL format",
+    "number": "Please enter number"
+  },
   "commonText": {
     "more": "more",
     "Email": "Email",

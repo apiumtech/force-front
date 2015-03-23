@@ -1,13 +1,18 @@
+<div class="panel-loader" ng-show="data.isPosting">
+    <span class="spinner-small"></span>
+</div>
 <div class="modal-header">
-    <button type="button" ng-click="fn.closeDialog()"
+    <button type="button"
+            ng-disabled="data.isPosting"
+            ng-click="fn.closeDialog()"
             class="close">
         <span>&times;</span>
     </button>
     <h4 class="modal-title">{{'Account.CreateAccount' | i18next}}
     </h4>
 </div>
-<div class="modal-body form-horizontal create-account">
-    <form class="form-horizontal">
+<div class="modal-body form-horizontal create-account panel">
+    <form name="CreateAccount" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable"></label>
 
@@ -26,19 +31,24 @@
             <label class="col-md-3 control-label ui-sortable">Account name *</label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="" ng-model="accountData.name">
+                <input type="text" class="form-control"
+                       validator="required"
+                       valid-method="blur"
+                       placeholder="" ng-model="accountData.name">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Account type*</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control" ng-value="accountData.accountType">
-                    <option>select one</option>
-                    <option>Client</option>
-                    <option>Provider</option>
-                    <option>User</option>
-                    <option>Lorem ipsum</option>
+                <select class="form-control" ng-model="accountData.accountType"
+                        validator="required"
+                        valid-method="blur">
+                    <option value="-1">Select one</option>
+                    <option ng-repeat="option in data.availableAccountTypes"
+                            value="{{option.id || option.$loki}}">
+                        {{option.name}}
+                    </option>
                 </select>
             </div>
         </div>
@@ -46,12 +56,15 @@
             <label class="col-md-3 control-label ui-sortable">Environment*</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control">
-                    <option>select one</option>
-                    <option>Automotion</option>
-                    <option>Lorem ipsum</option>
-                    <option>Candy crush</option>
-                    <option>Spotify</option>
+                <select class="form-control"
+                        validator="required"
+                        valid-method="blur"
+                        ng-model="accountData.environments">
+                    <option value="">Select one</option>
+                    <option ng-repeat="option in data.availableEnvironments"
+                            value="{{option.id || option.$loki}}">
+                        {{option.name}}
+                    </option>
                 </select>
             </div>
         </div>
@@ -59,11 +72,15 @@
             <label class="col-md-3 control-label ui-sortable">Segment*</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control">
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
+                <select class="form-control"
+                        ng-model="accountData.class"
+                        valid-method="blur"
+                        validator="required">
+                    <option value="">Select one</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
                 </select>
             </div>
         </div>
@@ -77,16 +94,7 @@
                 <button class="btn btn-sm btn-default" type="button"><i class="fa ic-plus"></i>add user</button>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable"></label>
 
-            <div class="col-md-6 ui-sortable">
-                <input type="text" class="form-control" value="Mario Rossi">
-            </div>
-            <div class="col-md-3 ui-sortable">
-                <i class="fa ic-close m-t-10"></i>
-            </div>
-        </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Rate</label>
 
@@ -95,7 +103,6 @@
                     <option>Tarifas euro zone</option>
                     <option>Tarifas Londres</option>
                     <option>Lorem ipsum</option>
-
                 </select>
             </div>
         </div>
@@ -104,46 +111,68 @@
             <h6 class="col-md-3 text-right">Contact details</h6>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Work phone number
+            <label class="col-md-3 control-label ui-sortable">
+                Work phone number
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control"
+                       validator="number"
+                       ng-model="accountData.contactInfo.phoneNumber"
+                       valid-method="blur" value="">
             </div>
 
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Fax
+            <label class="col-md-3 control-label ui-sortable">
+                Fax
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control"
+                       validator="number"
+                       ng-model="accountData.contactInfo.fax"
+                       valid-method="blur" value="">
             </div>
 
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Other phone
+            <label class="col-md-3 control-label ui-sortable">
+                Other phone
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control"
+                       validator="number"
+                       ng-model="accountData.contactInfo.otherPhone"
+                       valid-method="blur" value="">
             </div>
 
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Email
+            <label class="col-md-3 control-label ui-sortable">
+                Email
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" value="">
+                <input type="email"
+                       validator="required,email"
+                       valid-method="blur"
+                       ng-model="accountData.emails"
+                       class="form-control" value="">
             </div>
 
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Web</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Web
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control"
+                       validator="url"
+                       ng-model="accountData.contactInfo.web"
+                       valid-method="blur" value="http://">
             </div>
         </div>
         <hr/>
@@ -151,52 +180,74 @@
             <h6 class="col-md-3 text-right">Address</h6>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Geolocalization</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Geolocalization
+            </label>
 
             <div class="col-md-9 ui-sortable">
                 Account not geolocated
-                <button class="btn btn-sm btn-default m-l-10" type="button"><i class="fa ic-checkin "></i>Localize on
-                    map
+                <button class="btn btn-sm btn-default m-l-10" type="button">
+                    <i class="fa ic-checkin "></i>Localize on map
                 </button>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Address 1 *</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Address 1 *
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="+39 3475632456">
+                <input type="text" class="form-control"
+                       validator="required"
+                       ng-model="accountData.contactInfo.address"
+                       valid-method="blur" placeholder="">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Address 2 *</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Address 2 *
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" class="form-control"
+                       validator="required"
+                       ng-model="accountData.contactInfo.address2"
+                       valid-method="blur" placeholder="">
             </div>
         </div>
 
 
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">City/Town</label>
+            <label class="col-md-3 control-label ui-sortable">
+                City/Town
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="Ikea Iberica SL" disabled="">
+                <input type="text" class="form-control"
+                       validator="required"
+                       ng-model="accountData.contactInfo.city"
+                       valid-method="blur" value="Ikea Iberica SL">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Region/State</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Region/State
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control" placeholder="Ikea Iberica SL" disabled="">
+                <input type="text" class="form-control"
+                       ng-model="accountData.contactInfo.region" value="Ikea Iberica SL">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Country</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Country
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control">
+                <select class="form-control" ng-model="accountData.contactInfo.country">
                     <option>Tarifas euro zone</option>
                     <option>Tarifas Londres</option>
                     <option>Lorem ipsum</option>
@@ -206,115 +257,121 @@
         </div>
         <hr/>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Comments</label>
+            <label class="col-md-3 control-label ui-sortable">
+                Comments
+            </label>
 
             <div class="col-md-9 ui-sortable">
-                <textarea class="form-control" placeholder="Textarea" rows="5"></textarea>
+                <textarea class="form-control"
+                          ng-model="accountData.comment"
+                          placeholder="Textarea" rows="5"></textarea>
             </div>
         </div>
 
         <hr/>
 
-        <div class="form-group">
-            <h6 class="col-md-3 text-right">Extra fields</h6>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Checkbox</label>
+        <!--<div class="form-group">-->
+        <!--<h6 class="col-md-3 text-right">Extra fields</h6>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Checkbox</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Checkbox Label 1
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Checkbox Label 2
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Inline Checkbox</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<div class="checkbox">-->
+        <!--<label>-->
+        <!--<input type="checkbox" value="">-->
+        <!--Checkbox Label 1-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--<div class="checkbox">-->
+        <!--<label>-->
+        <!--<input type="checkbox" value="">-->
+        <!--Checkbox Label 2-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Inline Checkbox</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    Checkbox Label 1
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="">
-                    Checkbox Label 2
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Radio Button</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<label class="checkbox-inline">-->
+        <!--<input type="checkbox" value="">-->
+        <!--Checkbox Label 1-->
+        <!--</label>-->
+        <!--<label class="checkbox-inline">-->
+        <!--<input type="checkbox" value="">-->
+        <!--Checkbox Label 2-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Radio Button</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" value="option1" checked="">
-                        Radio option 1
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" value="option2">
-                        Radio option 2
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Inline Radio Button</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<div class="radio">-->
+        <!--<label>-->
+        <!--<input type="radio" name="optionsRadios" value="option1" checked="">-->
+        <!--Radio option 1-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--<div class="radio">-->
+        <!--<label>-->
+        <!--<input type="radio" name="optionsRadios" value="option2">-->
+        <!--Radio option 2-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Inline Radio Button</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" value="option1" checked="">
-                    Radio option 1
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" value="option2">
-                    Radio option 2
-                </label>
-            </div>
-        </div>
-        <div class="form-group has-success has-feedback">
-            <label class="col-md-3 control-label ui-sortable">Input with Success</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<label class="radio-inline">-->
+        <!--<input type="radio" name="optionsRadios" value="option1" checked="">-->
+        <!--Radio option 1-->
+        <!--</label>-->
+        <!--<label class="radio-inline">-->
+        <!--<input type="radio" name="optionsRadios" value="option2">-->
+        <!--Radio option 2-->
+        <!--</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group has-success has-feedback">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Input with Success</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control">
-                <span class="fa fa-check form-control-feedback"></span>
-            </div>
-        </div>
-        <div class="form-group has-warning has-feedback">
-            <label class="col-md-3 control-label ui-sortable">Input with Warning</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<input type="text" class="form-control">-->
+        <!--<span class="fa fa-check form-control-feedback"></span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group has-warning has-feedback">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Input with Warning</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control">
-                <span class="fa fa-warning form-control-feedback"></span>
-            </div>
-        </div>
-        <div class="form-group has-error has-feedback">
-            <label class="col-md-3 control-label ui-sortable">Input with Error</label>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<input type="text" class="form-control">-->
+        <!--<span class="fa fa-warning form-control-feedback"></span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group has-error has-feedback">-->
+        <!--<label class="col-md-3 control-label ui-sortable">Input with Error</label>-->
 
-            <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control">
-                <span class="fa fa-times form-control-feedback"></span>
-            </div>
-        </div>
+        <!--<div class="col-md-9 ui-sortable">-->
+        <!--<input type="text" class="form-control">-->
+        <!--<span class="fa fa-times form-control-feedback"></span>-->
+        <!--</div>-->
+        <!--</div>-->
     </form>
-
 </div>
 <div class="modal-footer">
     <div class="pull-right">
-        <button class="btn btn-sm" ng-click="fn.closeDialog()">
+        <button class="btn btn-sm"
+                ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
             {{'commonText.Cancel' | i18next}}
         </button>
-        <button class="btn btn-sm btn-primary" ng-click="fn.saveAccount()">
+        <button class="btn btn-sm btn-primary"
+                ng-disabled="!fn.isValid(CreateAccount) || data.isPosting "
+                ng-click="fn.saveAccount()">
             {{'commonText.Save' | i18next}}
         </button>
     </div>

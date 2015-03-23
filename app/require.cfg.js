@@ -5,6 +5,8 @@ var require = {
         'conduitjs': '/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
         'angular-route': '/node_modules/angular-route/angular-route.min',
         'angular-draganddrop': '../node_modules/angular-draganddrop/angular-draganddrop.min',
+        'angular-validation': '../node_modules/angular-validation/dist/angular-validation.min',
+        'angular-validation-rule': '../node_modules/angular-validation/dist/angular-validation-rule.min',
         'angular-bootstrap': '../node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/node_modules/angular/angular.min',
         'infinite-scroll': '/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
@@ -44,6 +46,16 @@ var require = {
         },
         'i18next': {
             exports: 'i18next'
+        },
+
+        'angular-validation': {
+            deps: ['angular'],
+            exports: 'angular-validation'
+        },
+
+        'angular-validation-rule': {
+            deps: ['angular', 'angular-validation'],
+            exports: 'angular-validation-rule'
         },
 
         'infinite-scroll': {
@@ -135,7 +147,7 @@ var require = {
     },
 
     'deps': [
-        'jquery', 'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route',
+        'jquery', 'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
         'angular-draganddrop', 'angular-bootstrap',
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',

@@ -4,6 +4,7 @@
 
 
 var AccountService = require('../services/accountService');
+var utils = require('../utils');
 
 var accountController = {
     getFilteredData: function (request, response) {
@@ -44,6 +45,20 @@ var accountController = {
             }
         }
     },
+    createAccount: function (request, response) {
+        try {
+            var account = AccountService.createAccount(request.body);
+            setTimeout(function () {
+                response.status(201).json(account);
+            }, utils.generateRandom(1000, 3000));
+        } catch (e) {
+            setTimeout(function () {
+                response.status(500).json({
+                    errorMessage: "Error while creating account"
+                });
+            }, utils.generateRandom(1000, 3000));
+        }
+    },
     getSummaryAccount: function (request, response) {
         var id = request.params.id;
         var data = AccountService.getSummaryAccount(id);
@@ -65,7 +80,6 @@ var accountController = {
                 response.status(404).json({
                     error: "Requested user not found"
                 });
-            console.log(error);
             response.status(500).send(error);
         }
     }

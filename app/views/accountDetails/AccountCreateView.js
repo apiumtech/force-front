@@ -23,7 +23,7 @@ app.registerView(function (container) {
             "imgUrl": "",
             "class": "",
             "accountType": -1,
-            "emails": [],
+            "emails": "",
             "description": "",
             "contactInfo": {
                 "validAddress": true,
@@ -36,12 +36,13 @@ app.registerView(function (container) {
                 "mobile": "",
                 "latitude": 0,
                 "longitude": 0,
-                "website": ""
+                "website": "http://"
             },
             "comment": ""
         };
 
         this.data.isUploading = false;
+        this.data.isPosting = false;
     }
 
     AccountCreateView.prototype = Object.create(BaseView.prototype, {
@@ -58,27 +59,49 @@ app.registerView(function (container) {
     AccountCreateView.prototype.show = function () {
         BaseView.prototype.show.call(this);
         this.configureEvents();
+        this.initAdditionalData();
+    };
+
+    AccountCreateView.prototype.initAdditionalData = function () {
+        var self = this;
+        self.event.onLoadAccountType();
+        self.event.onLoadEnvironments();
     };
 
     AccountCreateView.prototype.configureEvents = function () {
         var self = this;
 
-        self.fn.closeDialog = function () {
-            self.modalDialogAdapter.confirm("Close confirmation",
-                "Are you sure want to close this dialog without saving?",
-                self.modalInstance.dismiss,
-                doNothing,
-                "Yes", "No");
+        self.fn.closeDialog = function (confirmed) {
+            if (!confirmed)
+                self.modalDialogAdapter.confirm("Close confirmation",
+                    "Are you sure want to close this dialog without saving?",
+                    self.modalInstance.dismiss,
+                    doNothing,
+                    "Yes", "No");
+            else self.modalInstance.dismiss();
         };
 
         self.fn.saveAccount = function () {
-            // TODO : save the data then close the dialog
-            self.onAccountSaved();
+            self.data.isPosting = true;
+            self.event.onCreateAccount(self.accountData);
+        };
+
+        self.fn.isValid = function (formName) {
+            var isValid = self.$scope.$validation.checkValid(formName);
+            return isValid;
         };
 
         self.fn.selectFile = function (files) {
             self.onFilesChanged(files);
         };
+    };
+
+    AccountCreateView.prototype.onAvailableAccountTypeLoaded = function (data) {
+        this.data.availableAccountTypes = data;
+    };
+
+    AccountCreateView.prototype.onEnvironmentsLoaded = function (data) {
+        this.data.availableEnvironments = data;
     };
 
     AccountCreateView.prototype.onFilesChanged = function (files) {
@@ -108,9 +131,16 @@ app.registerView(function (container) {
         }
     };
 
-    AccountCreateView.prototype.onAccountSaved = function () {
+    AccountCreateView.prototype.onAccountCreated = function () {
         var self = this;
+        self.data.isPosting = false;
         self.modalInstance.close();
+    };
+
+    AccountCreateView.prototype.showError = function (error) {
+        var self = this;
+        self.data.isPosting = false;
+        BaseView.prototype.showError.call(this, error);
     };
 
     AccountCreateView.newInstance = function (scope, modalInstance, model, presenter, viewRepaintAspect, logErrorAspect) {

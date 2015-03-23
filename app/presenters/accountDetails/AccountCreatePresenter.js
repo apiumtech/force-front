@@ -18,6 +18,21 @@ app.registerPresenter(function (container) {
             model.uploadFile(file)
                 .then(view.onUploadComplete.bind(view), view.showError.bind(view));
         };
+
+        view.event.onCreateAccount = function (account) {
+            model.createAccount(account)
+                .then(view.onAccountCreated.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onLoadAccountType = function () {
+            model.getAvailableAccountTypes()
+                .then(view.onAvailableAccountTypeLoaded.bind(view), view.showError.bind(view));
+        };
+
+        view.event.onLoadEnvironments = function () {
+            model.getAvailableEnvironments()
+                .then(view.onEnvironmentsLoaded.bind(view), view.showError.bind(view));
+        };
     };
 
     AccountCreatePresenter.newInstance = function () {

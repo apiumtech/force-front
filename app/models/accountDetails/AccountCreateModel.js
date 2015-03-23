@@ -9,7 +9,6 @@ app.registerModel(function (container) {
 
     function AccountCreateModel(ajaxService, uploadService) {
         AccountService.call(this, ajaxService);
-        this.ajaxService = ajaxService;
         this.uploadService = uploadService;
     }
 
