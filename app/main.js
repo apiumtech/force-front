@@ -35,6 +35,10 @@ function main() {
                 templateUrl: '/templates/accountDetails/account_details.html',
                 controller: 'AccountDetailsController'
             })
+            .when('/accounts/:account_id/edit', {
+                templateUrl: '/templates/accountDetails/accountCreate.html',
+                controller: 'DesignProveController'
+            })
 
             .when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
@@ -257,7 +261,10 @@ function main() {
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
-            'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel'
+            'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel',
+
+            //Design Prove Controller
+            'controllers/DesignProveController'
 
         ]
     };
