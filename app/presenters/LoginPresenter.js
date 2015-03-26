@@ -22,14 +22,8 @@ app.registerPresenter(function(container) {
             );
     };
 
-    LoginPresenter.prototype.onLoggingInError = function( jqXHR ) {
-        var msg = '';
-        if(jqXHR.status == 401){
-            msg = 'Incorrect credentials';
-        } else {
-            msg = 'Authentication error';
-        }
-        this.view.onLoggingInError(msg);
+    LoginPresenter.prototype.onLoggingInError = function() {
+        this.view.onLoggingInError('Authentication error');
 	};
 
     LoginPresenter.newInstance = function() {
