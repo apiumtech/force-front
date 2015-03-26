@@ -36,7 +36,9 @@ requirejs.config({
         'underscore': '/base/node_modules/underscore/underscore-min',
         'moment': '/base/node_modules/moment/min/moment.min',
         'angular-moment': '/base/node_modules/angular-moment/angular-moment.min',
-        'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min'
+        'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min',
+        'crypto': "/base/node_modules/cryptojs/lib/Crypto",
+        'crypto.SHA1': "/base/node_modules/cryptojs/lib/SHA1"
     },
 
     'shim': {
@@ -120,14 +122,16 @@ requirejs.config({
         'framework': {
             deps: ['angular', 'functional-option'],
             exports: 'ApplicationFactory'
-        }
+        },
+
+        'crypto.SHA1': ['crypto']
     },
 
     'deps': [
         'angular', 'ngFileUpload', 'infinite-scroll', 'angular-validation', 'angular-validation-rule',
         'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
-        'i18next', 'ng-i18next', 'signals', 'ng-sortable',
+        'i18next', 'ng-i18next', 'signals', 'ng-sortable', 'crypto.SHA1',
         'main'
     ],
 

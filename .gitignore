@@ -7,3 +7,4 @@ lib/
 ------force-design/
 reports/
 build/
+.DS_Store

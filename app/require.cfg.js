@@ -31,7 +31,9 @@ var require = {
         'moment': '../node_modules/moment/min/moment.min',
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
-        'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min'
+        'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
+        'crypto': "/node_modules/cryptojs/lib/Crypto",
+        'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1"
     },
 
     'shim': {
@@ -143,7 +145,9 @@ var require = {
         'framework': {
             deps: ['angular', 'functional-option'],
             exports: 'ApplicationFactory'
-        }
+        },
+
+        'crypto.SHA1': ['crypto']
     },
 
     'deps': [
@@ -154,7 +158,8 @@ var require = {
         'i18next', 'ng-i18next',
         'underscore', 'signals', 'ng-sortable', 'angular-moment',
         'datatables',
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack'
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
+        'crypto.SHA1'
     ],
 
     callback: main

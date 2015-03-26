@@ -22,6 +22,10 @@ function main() {
     /** AngularJS App Configuration **/
     function AngularConfig($routeProvider, $validationProvider) {
         $routeProvider
+            .when('/login', {
+                templateUrl: '/templates/login.html',
+                controller: 'LoginController'
+            })
             .when('/accounts', {
                 templateUrl: '/templates/account.html',
                 controller: 'AccountController'
@@ -44,7 +48,7 @@ function main() {
                 templateUrl: '/templates/analytics/intensity.html',
                 controller: 'IntensityController'
             })
-            .otherwise({templateUrl: '/templates/account.html', controller: 'AccountController'});
+            .otherwise('/login');
 
         // configure validation system here
         var expression = {
@@ -150,6 +154,12 @@ function main() {
 
             'models/fakes/FakeDatabase',
             'models/WidgetDecoratedPageModel',
+
+            //Login Page
+            'controllers/LoginController',
+            'views/LoginView',
+            'presenters/LoginPresenter',
+            'models/LoginModel',
 
             // Account Page
             'controllers/account/AccountController',
