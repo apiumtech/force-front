@@ -5,6 +5,9 @@ for adding the design folder just run
 
 `grunt reload-design`
 
+-- March 26 2015
+* Removed dependencies to force-design
+
 -- March 9 2015
 * Added LinQ JS for NodeJS (https://github.com/mihaifm/linq)
 

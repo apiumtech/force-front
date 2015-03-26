@@ -4,6 +4,6 @@ fakeDb.json
 node_modules/
 lib/
 *.log
-force-design/
+------force-design/
 reports/
 build/
