@@ -1,22 +1,30 @@
 <div class="panel-loader" ng-show="data.isPosting">
     <span class="spinner-small"></span>
 </div>
-<div class="modal-header">
-    <button type="button"
-            ng-disabled="data.isPosting"
-            ng-click="fn.closeDialog()"
-            class="close">
-        <span>&times;</span>
-    </button>
+<div>
+    <div class="padding_box">
+        <div class="pull-right">
+            <button class="btn_cancel"
+                    ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn_save"
+                    ng-disabled="!fn.isValid(CreateAccount) || data.isPosting "
+                    ng-click="fn.saveAccount()">
+                {{'commonText.Save' | i18next}}
+            </button>
+        </div>
+    </div>
     <h4 class="modal-title">{{'Account.CreateAccount' | i18next}}
     </h4>
 </div>
-<div class="modal-body form-horizontal create-account panel form-content">
+</hr>
+<div class="form-horizontal create-account panel form-content">
     <form name="CreateAccount" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable"></label>
 
-            <div class="col-md-9 ui-sortable form-img ">
+            <div class="col-md-6 ui-sortable form-img ">
                 <img src="{{accountData.imgUrl || 'assets/img/placeholder.png'}}"
                         />
                 <br>
@@ -274,6 +282,18 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable">
+                Postcode
+            </label>
+
+            <div class="col-md-9 ui-sortable">
+                <input type="text" class="form-control account_type_box"
+                       validator="required"
+                       ng-model="accountData.contactInfo.address2"
+                       valid-method="blur" placeholder="">
+            </div>
+        </div>
         <hr/>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
@@ -298,12 +318,11 @@
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       validator="required"
                        ng-model="accountData.contactInfo.city"
-                       valid-method="blur" value="Ikea Iberica SL" placeholder="">
+                       valid-method="blur" value="" placeholder="">
             </div>
         </div>
-        </hr>
+
 
         <!--<div class="form-group">-->
         <!--<h6 class="col-md-3 text-right">Extra fields</h6>-->
@@ -398,7 +417,7 @@
         <!--</div>-->
     </form>
 </div>
-<div class="modal-footer">
+<!--<div>
     <div class="pull-right">
         <button class="btn btn-sm"
                 ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
@@ -410,4 +429,4 @@
             {{'commonText.Save' | i18next}}
         </button>
     </div>
-</div>
+</div>-->
