@@ -22,8 +22,8 @@ app.registerPresenter(function(container) {
             );
     };
 
-    LoginPresenter.prototype.onLoggingInError = function() {
-        this.view.onLoggingInError('Authentication error');
+    LoginPresenter.prototype.onLoggingInError = function( jqXHR ) {
+        this.view.onLoggingInError(jqXHR.status);
 	};
 
     LoginPresenter.newInstance = function() {

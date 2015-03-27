@@ -2,6 +2,15 @@
  * Created by joanllenas 03/16/15.
  */
 
+function exerciseFakeKoPromiseWithArg(arg) {
+    return {
+        then: function (a, b) {
+            b(arg);
+            return exerciseFakeKoPromise();
+        }
+    };
+}
+
 describe('LoginPresenter', function(){
 
 	var LoginPresenter = app.getView('presenters/LoginPresenter');
@@ -60,7 +69,10 @@ describe('LoginPresenter', function(){
 		});
 
         it("should call view's onLoggingInError method on fail", function() {
-            spyOn(model, 'login').and.returnValue(exerciseFakeKoPromise());
+            var jqXHR = {
+                status: 200
+            };
+            spyOn(model, 'login').and.returnValue(exerciseFakeKoPromiseWithArg(jqXHR));
             spyOn(presenter, 'onLoggingInError').and.callThrough();
             spyOn(view, 'onLoggingInError');
             presenter.onLogin();
