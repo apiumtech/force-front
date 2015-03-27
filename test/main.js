@@ -213,6 +213,15 @@ function exerciseFakeKoPromise() {
     };
 }
 
+function exerciseFakeKoPromiseWithArg(arg) {
+    return {
+        then: function (a, b) {
+            b(arg);
+            return exerciseFakeKoPromise();
+        }
+    };
+}
+
 function exerciseFakeChannel() {
     return {
         listen: function () {

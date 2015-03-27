@@ -2,15 +2,6 @@
  * Created by joanllenas 03/16/15.
  */
 
-function exerciseFakeKoPromiseWithArg(arg) {
-    return {
-        then: function (a, b) {
-            b(arg);
-            return exerciseFakeKoPromise();
-        }
-    };
-}
-
 describe('LoginPresenter', function(){
 
 	var LoginPresenter = app.getView('presenters/LoginPresenter');
