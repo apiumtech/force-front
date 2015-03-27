@@ -22,6 +22,7 @@ app.registerService(function (container) {
     };
 
     return {
-        api: api
+        api: api,
+        env: "dev"
     };
 });

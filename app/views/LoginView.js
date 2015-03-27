@@ -67,9 +67,14 @@ app.registerView(function(container) {
         this.$location.path("/accounts");
     };
 
-    LoginView.prototype.onLoggingInError = function (msg) {
+    LoginView.prototype.onLoggingInError = function (status) {
     	this.isLoggingIn = false;
-        console.log(msg);
+        var msg;
+        if(status==401){
+            msg = 'Incorrect credentials';
+        } else {
+            msg = 'Authentication error';
+        }
     	this.errorMessage = msg;
     };
 

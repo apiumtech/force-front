@@ -1,151 +1,153 @@
 html, body {
-    height: 100%;
+  height: 100%;
 }
 
 .columnFields {
-    margin: 15px 15px 0 0;
+  margin: 15px 15px 0 0;
 }
 
 .ownersDropdown {
-    padding: 10px;
+  padding: 10px;
 }
 
 .ownersDropdown li {
-    padding: 5px;
+  padding: 5px;
 }
 
 .ownersDropdown li:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .searchInput {
-    margin: 0 15px 15px 0;
+  margin: 0 15px 15px 0;
 }
 
 .filterTable td {
-    padding: 5px;
+  padding: 5px;
 }
 
 .filterNone {
-    background: url('plugins/DataTables-1.9.4/img/sort_both.png') no-repeat right;
+  background: url('/node_modules/datatables/media/images/sort_both.png') no-repeat right;
 }
 
 .filterAsc {
-    background: url('plugins/DataTables-1.9.4/img/sort_asc.png') no-repeat right;
+  background: url('/node_modules/datatables/media/images/sort_asc.png') no-repeat right;
 }
 
 .table > thead > tr > th.filterAsc, .table > thead > tr > th.filterDesc {
-    background-color: #ed8b00;
-    color: #ffffff;
+  background-color: #ed8b00;
+  color: #ffffff;
 }
 
 table.dataTable {
-    margin-top: 10px !important;
-    margin-bottom: 20px !important;
-    float: left;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  float: left;
 }
 
 .filterDesc {
-    background: url('plugins/DataTables-1.9.4/img/sort_desc.png') no-repeat right;
+  background: url('/node_modules/datatables/media/images/sort_desc.png') no-repeat right;
 }
 
 .noHover, .noHover:hover {
-    background: initial !important;
-    cursor: default !important;
+  background: initial !important;
+  cursor: default !important;
 }
 
 label.block {
-    display: block;
+  display: block;
 }
 
 .dropzone {
-    height: 50px !important;
-    border: dashed 1px #CDCDCD;
-    margin-bottom: 20px;
-    clear: both;
+  height: 50px !important;
+  border: dashed 1px #CDCDCD;
+  margin-bottom: 20px;
+  clear: both;
 }
 
 .flot-tooltip.animation {
-    display: initial !important;
+  display: initial !important;
 }
 
 ul[datepicker-popup-wrap] {
-    position: fixed;
-    z-index: 65535;
-    float: none;
+  position: fixed;
+  z-index: 65535;
+  float: none;
 }
 
 .dropdown-menu > li > a {
-    display: initial !important;
+  display: initial !important;
 }
 
 .filters-div .dropdown-menu.media-list li.media {
-    cursor: default;
-}
+  cursor: default;
 
-.filters-div .dropdown-menu.media-list li.media:hover {
+  &:hover {
     background-color: initial !important;
+  }
 }
 
 td.photo {
-    width: 50px;
+  width: 50px;
 }
 
 span.removeTextBoxBtn {
-    position: absolute;
-    float: right;
-    right: 25px;
-    top: 35px;
+  position: absolute;
+  float: right;
+  right: 25px;
+  top: 35px;
 }
 
 #map-canvas.map-account {
-    height: 400px;
+  height: 400px;
 }
 
 .dataTables_info, #data-table_filter {
-    display: none;
+  display: none;
 }
 
 .panel.panel-expand > .panel-body.timeline-div {
-    height: initial;
+  height: initial;
 }
 
-.panel.panel-loading .panel-body {
+.panel.panel-loading {
+  .panel-body {
     position: initial !important;
-}
+  }
 
-.panel.panel-loading .panel-loader {
+  .panel-loader {
     margin: 40px 10px 20px !important;
+  }
 }
 
 .timeline-time > .date {
-    text-transform: lowercase;
+  text-transform: lowercase;
 }
 
 .modal-body.create-account {
-    height: 460px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  height: 460px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .modal-body.create-account.panel.panel-loading {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .modal-body.create-account.panel.panel-loading .panel-loader {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .modal-content .panel-loader {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    z-index: 65535;
-    background: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  z-index: 65535;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .validation-invalid {
-    color: red;
+  color: red;
 }
