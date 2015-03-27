@@ -78,9 +78,9 @@ describe('LoginView', function(){
 		});
 
 		it('should be set to some error string onLoggingInError()', function(){
-			var errorString= 'An error string';
-			view.onLoggingInError(errorString);
-			expect(view.errorMessage).toEqual(errorString);
+            var status = 401;
+			view.onLoggingInError(401);
+			expect(view.errorMessage).not.toBeNull();
 		});
 
 		it('should be set to null on login()', function(){
