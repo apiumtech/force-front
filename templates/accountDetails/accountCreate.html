@@ -20,7 +20,7 @@
                 <img src="{{accountData.imgUrl || 'assets/img/placeholder.png'}}"
                         />
                 <br>
-                <button class="btn btn-default btn-sm btn-picture m-t-10"
+                <button class="btn btn-default btn-sm btn-picture m-t-10 uppercase"
                         ng-file-select="fn.selectFile($files)">
                     Upload account's logo
                 </button>
@@ -28,20 +28,20 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Account name *</label>
+            <label class="col-md-3 control-label ui-sortable">Account name</label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control account_name_box"
                        validator="required"
                        valid-method="blur"
-                       placeholder="" ng-model="accountData.name">
+                       placeholder="Account name *" ng-model="accountData.name">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Account type*</label>
+            <label class="col-md-3 control-label ui-sortable">Account type</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control" ng-model="accountData.accountType"
+                <select class="form-control account_type_box" ng-model="accountData.accountType"
                         validator="required"
                         valid-method="blur">
                     <option value="-1">Select one</option>
@@ -53,14 +53,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Environment*</label>
+            <label class="col-md-3 control-label ui-sortable">Environment</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control"
+                <select class="form-control account_env_box"
                         validator="required"
                         valid-method="blur"
                         ng-model="accountData.environments">
-                    <option value="">Select one</option>
+                    <option class="select_value_style" value="">Select one</option>
                     <option ng-repeat="option in data.availableEnvironments"
                             value="{{option.id || option.$loki}}">
                         {{option.name}}
@@ -69,42 +69,41 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Segment*</label>
+            <label class="col-md-3 control-label ui-sortable">Segment</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control"
+                <select class="form-control account_seg_box"
                         ng-model="accountData.class"
                         valid-method="blur"
                         validator="required">
-                    <option value="">Select one</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
+                    <option class="select_value_style" value="">Select one</option>
+                    <option class="select_value_style" value="A">A</option>
+                    <option class="select_value_style" value="B">B</option>
+                    <option class="select_value_style" value="C">C</option>
+                    <option class="select_value_style" value="D">D</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Account owner*</label>
+            <label class="col-md-3 control-label ui-sortable">Account owner</label>
 
+            <div class="col-md-6 ui-sortable padding_account_owner">
+                <input type="text" class="form-control account_owner_box" placeholder="Mario Rossi">
+            </div>
+            <div class="col-md-3 ui-sortable btn_add_owner">
+                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add owner</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3 control-label ui-sortable"></div>
             <div class="col-md-6 ui-sortable">
-                <input type="text" class="form-control" value="Mario Rossi">
+                <input type="text" class="form-control search_owner_box" placeholder="Search owner">
             </div>
-            <div class="col-md-3 ui-sortable">
-                <button class="btn btn-sm btn-default" type="button"><i class="fa ic-plus"></i>add user</button>
+            <div class="col-md-1 ui-sortable">
+                <i class="fa ic-search search_owner_icon"></i>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-3 control-label ui-sortable">Rate</label>
-
-            <div class="col-md-9 ui-sortable">
-                <select class="form-control">
-                    <option>Tarifas euro zone</option>
-                    <option>Tarifas Londres</option>
-                    <option>Lorem ipsum</option>
-                </select>
-            </div>
+            <i class="fa ic-close ic_close_search_owner"></i>
         </div>
         <hr/>
         <div class="form-group">
@@ -116,10 +115,10 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="nilOrNumber"
                        ng-model="accountData.contactInfo.phoneNumber"
-                       valid-method="blur" value="">
+                       valid-method="blur" placeholder="Work phone number" value="">
             </div>
 
         </div>
@@ -129,10 +128,10 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="nilOrNumber"
                        ng-model="accountData.contactInfo.fax"
-                       valid-method="blur" value="">
+                       valid-method="blur" placeholder="Fax" value="">
             </div>
 
         </div>
@@ -142,10 +141,10 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="nilOrNumber"
                        ng-model="accountData.contactInfo.otherPhone"
-                       valid-method="blur" value="">
+                       valid-method="blur" placeholder="Other phone" value="">
             </div>
 
         </div>
@@ -159,7 +158,7 @@
                        validator="required,email"
                        valid-method="blur"
                        ng-model="accountData.emails"
-                       class="form-control" value="">
+                       class="form-control work_phone_box" placeholder="Email" value="">
             </div>
 
         </div>
@@ -169,10 +168,26 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="nilOrUrl"
                        ng-model="accountData.contactInfo.web"
-                       valid-method="blur" value="http://">
+                       valid-method="blur" placeholder="Web" value="http://">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable">Rate</label>
+
+            <div class="col-md-9 ui-sortable">
+                <select class="form-control account_seg_box"
+                        ng-model="accountData.class"
+                        valid-method="blur"
+                        validator="required">
+                    <option class="select_value_style" value="">Select one</option>
+                    <option class="select_value_style" value="A">Tarifas Euro zone</option>
+                    <option class="select_value_style" value="B">B</option>
+                    <option class="select_value_style" value="C">C</option>
+                    <option class="select_value_style" value="D">D</option>
+                </select>
             </div>
         </div>
         <hr/>
@@ -187,50 +202,53 @@
             <div class="col-md-9 ui-sortable">
                 Account not geolocated
                 <button class="btn btn-sm btn-default m-l-10" type="button">
-                    <i class="fa ic-checkin "></i>Localize on map
+                    <i class="fa ic-checkin-filled padding_checkin_filled"></i>Localize on map
                 </button>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
-                Address 1 *
+                Street
             </label>
 
-            <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+            <div class="col-md-9 ui-sortable padding_account_owner">
+                <input type="text" class="form-control street_box"
                        validator="required"
                        ng-model="accountData.contactInfo.address"
-                       valid-method="blur" placeholder="">
+                       valid-method="blur" placeholder="Street">
             </div>
+            <!--<div class="col-md-3 ui-sortable btn_add_owner">
+                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add street</button>
+            </div>-->
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
-                Address 2 *
+                City / Town
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="required"
                        ng-model="accountData.contactInfo.address2"
-                       valid-method="blur" placeholder="">
+                       valid-method="blur" placeholder="City / Town">
             </div>
         </div>
 
 
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
-                City/Town *
+                Province / State
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control work_phone_box"
                        validator="required"
                        ng-model="accountData.contactInfo.city"
-                       valid-method="blur" value="Ikea Iberica SL">
+                       valid-method="blur" value="Ikea Iberica SL" placeholder="Province / State">
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
                 Region/State
             </label>
@@ -239,19 +257,19 @@
                 <input type="text" class="form-control"
                        ng-model="accountData.contactInfo.region" value="Ikea Iberica SL">
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
-                Country *
+                Country
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control" ng-model="accountData.contactInfo.country">
-                    <option value="US">US</option>
-                    <option value="UK">UK</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Vietnam">Vietnam</option>
+                <select class="form-control work_phone_box" ng-model="accountData.contactInfo.country">
+                    <option class="select_value_style" value="US">US</option>
+                    <option class="select_value_style" value="UK">UK</option>
+                    <option class="select_value_style" value="Spain">Spain</option>
+                    <option class="select_value_style" value="Vietnam">Vietnam</option>
 
                 </select>
             </div>
@@ -263,9 +281,9 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <textarea class="form-control"
+                <textarea class="form-control work_phone_box"
                           ng-model="accountData.comment"
-                          placeholder="Textarea" rows="5"></textarea>
+                          placeholder="" rows="5"></textarea>
             </div>
         </div>
 

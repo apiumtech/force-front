@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "forcemanager";
-  src:url("fonts/forcemanager.eot");
-  src:url("fonts/forcemanager.eot?#iefix") format("embedded-opentype"),
-    url("fonts/forcemanager.woff") format("woff"),
-    url("fonts/forcemanager.ttf") format("truetype"),
-    url("fonts/forcemanager.svg#forcemanager") format("svg");
+  src:url("../fonts/forcemanager.eot");
+  src:url("../fonts/forcemanager.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/forcemanager.woff") format("woff"),
+    url("../fonts/forcemanager.ttf") format("truetype"),
+    url("../fonts/forcemanager.svg#forcemanager") format("svg");
   font-weight: normal;
   font-style: normal;
 
