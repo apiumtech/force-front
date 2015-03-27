@@ -143,6 +143,8 @@ function main() {
             'views/WidgetDecoratedPageView',
             'views/WidgetBaseView',
 
+            'services/DataTableDataProvider',
+            'services/EventBase',
             'services/ModalDialogAdapter',
             'services/WidgetBase',
             'services/WidgetService',
