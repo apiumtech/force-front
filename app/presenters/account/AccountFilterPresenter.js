@@ -3,16 +3,21 @@
  */
 app.registerPresenter(function (container) {
     var FilterChannel = container.getService('services/bus/FilterChannel');
+    var AccountEventBus = container.getService('services/AccountEventBus');
 
-    function AccountFilterPresenter(filterEventChannel) {
+    function AccountFilterPresenter(filterEventChannel, accountEventBus) {
         this.filterChannel = filterEventChannel;
+        this.accountEventBus = accountEventBus;
     }
 
     AccountFilterPresenter.prototype.show = function (view, model) {
-        var channel = this.filterChannel;
         this.view = view;
         this.model = model;
         var self = this;
+        var channel = this.filterChannel;
+        var eventBus = this.accountEventBus;
+
+        eventBus.onTableFieldsLoaded(self.tableFieldsLoaded.bind(self));
 
         view.event.onShowAvailableViews = function () {
             model.getAvailableViews()
@@ -55,10 +60,16 @@ app.registerPresenter(function (container) {
         };
     };
 
-    AccountFilterPresenter.newInstance = function ($filterChannel) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwInstantiateException(FilterChannel));
+    AccountFilterPresenter.prototype.tableFieldsLoaded = function (data) {
+        var self = this;
+        self.view.onTableFieldsLoaded(data);
+    };
 
-        return Some(new AccountFilterPresenter(filterChannel));
+    AccountFilterPresenter.newInstance = function ($filterChannel, accountEventBus) {
+        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        accountEventBus = accountEventBus || AccountEventBus.getInstance();
+
+        return Some(new AccountFilterPresenter(filterChannel, accountEventBus));
     };
 
     return AccountFilterPresenter;

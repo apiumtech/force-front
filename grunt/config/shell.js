@@ -15,7 +15,8 @@ module.exports = function (grunt) {
         },
         'migrate-assets': {
             command: 'cp -R ./assets/fonts ./build && ' +
-            'cp -Rf ./assets/images ./build'
+            'cp -Rf ./assets/images ./build && ' +
+            'cp -Rf ./assets/img ./build'
         }
     };
 };

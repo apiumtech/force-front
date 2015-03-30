@@ -76,6 +76,10 @@ app.registerView(function (container) {
         this.data.currentError = error;
     };
 
+    AccountFilterView.prototype.onTableFieldsLoaded = function (data) {
+        this.data.availableFields = data;
+    };
+
     AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || AccountFilterModel.newInstance().getOrElse(throwInstantiateException(AccountFilterModel));

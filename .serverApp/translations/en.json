@@ -115,6 +115,7 @@
       "ShowMap": "Show Map"
     },
     "Filters": {
+      "AddFilter": "Add Filter",
       "FilterBy": {
         "MenuOwner": {
           "Title": "Owner",

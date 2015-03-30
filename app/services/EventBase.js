@@ -6,6 +6,7 @@ app.registerService(function (container) {
 
     function EventBase(events) {
         this.signalService = SignalService.newInstance().getOrElse(throwInstantiateException(SignalService));
+        this.eventList = events;
         var self = this;
         events.forEach(function (eventName) {
             self[eventName] = self.signalService.newSignal();
@@ -22,6 +23,13 @@ app.registerService(function (container) {
     }
 
     EventBase.prototype = Object.create(Object.prototype, {});
+
+    EventBase.prototype.dispose = function () {
+        var self = this;
+        this.eventList.forEach(function (event) {
+            self['unsubscribe' + event]();
+        });
+    };
 
     return EventBase;
 });

@@ -4,9 +4,11 @@
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
+    var DataTableDataProvider = container.getService("services/DataTableDataProvider");
 
-    function AccountModel(ajaxService) {
+    function AccountModel(ajaxService, dataTableDataProvider) {
         this.ajaxService = ajaxService;
+        this.dataTableDataProvider = dataTableDataProvider;
     }
 
     AccountModel.prototype.toggleFollow = function (record) {
@@ -21,9 +23,15 @@ app.registerModel(function (container) {
         return this.ajaxService.rawAjaxRequest(params);
     };
 
-    AccountModel.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        return Some(new AccountModel(_ajaxService));
+    AccountModel.prototype.loadTableFields = function () {
+        return this.dataTableDataProvider.getTableFields();
+    };
+
+    AccountModel.newInstance = function (ajaxService, dataTableDataProvider) {
+        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance().getOrElse(throwInstantiateException(DataTableDataProvider))
+
+        return Some(new AccountModel(ajaxService, dataTableDataProvider));
     };
 
     return AccountModel;
