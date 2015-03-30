@@ -52,11 +52,36 @@ describe("AccountPresenter", function () {
                 });
             });
 
-        function onTableFieldsRequestedTest(){
+        function onTableFieldsRequestedTest() {
             var modelMethod = "loadTableFields";
             var onSuccess = "onTableFieldsLoaded";
             var onError = "showError";
-            exerciseAjaxCallBinding("onTableFieldsRequested", modelMethod, onSuccess, onError);
+            var viewEvent = "onTableFieldsRequested";
+
+            beforeEach(function () {
+                model[modelMethod] = function () {
+                };
+                view[onSuccess] = jasmine.createSpy();
+                view[onError] = jasmine.createSpy();
+            });
+            it("presenter should connect event to '" + modelMethod + "' method on $model", function () {
+                spyOn(model, modelMethod).and.returnValue(exerciseFakePromise());
+                view.event[viewEvent]();
+                expect(model[modelMethod]).toHaveBeenCalled();
+            });
+
+            it("should call fire 'fireTableFieldsLoaded' on event bus if $model '" + modelMethod + "' return success", function () {
+                spyOn(model, modelMethod).and.returnValue(exerciseFakeOkPromise());
+                spyOn(sut.accountEventBus, 'fireTableFieldsLoaded');
+                view.event[viewEvent]();
+                expect(sut.accountEventBus.fireTableFieldsLoaded).toHaveBeenCalled();
+            });
+
+            it("should call method '" + onError + "' on $view if $model '" + modelMethod + "' return error", function () {
+                spyOn(model, modelMethod).and.returnValue(exerciseFakeKoPromise());
+                view.event[viewEvent]();
+                expect(view[onError]).toHaveBeenCalled();
+            });
         }
 
         function onFieldsRestoreDefaultTest() {

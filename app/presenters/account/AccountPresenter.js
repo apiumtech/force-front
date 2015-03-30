@@ -4,13 +4,21 @@
 
 app.registerPresenter(function (container) {
     var FilterChannel = container.getService('services/bus/FilterChannel');
+    var AccountEventBus = container.getService('services/AccountEventBus');
 
-    function AccountPresenter(filterEventChannel) {
+    function AccountPresenter(filterEventChannel, accountEventBus) {
         this.filterChannel = filterEventChannel;
+        this.accountEventBus = accountEventBus;
     }
 
     AccountPresenter.prototype.show = function (view, model) {
+        this.view = view;
+        this.model = model;
+        var self = this;
         var channel = this.filterChannel;
+        var eventBus = this.accountEventBus;
+
+        eventBus.onTableFieldsLoaded(self.tableFieldsLoaded.bind(self));
 
         view.event.onOwnerToggled = function (owner) {
             view.updateOwnerFilter(owner);
@@ -20,7 +28,7 @@ app.registerPresenter(function (container) {
 
         view.event.onTableFieldsRequested = function () {
             model.loadTableFields()
-                .then(view.onTableFieldsLoaded.bind(view), view.showError.bind(view));
+                .then(eventBus.fireTableFieldsLoaded, view.showError.bind(view));
         };
 
         view.event.onSearchQueryChanged = function (queryString) {
@@ -74,11 +82,17 @@ app.registerPresenter(function (container) {
         /* endregion */
     };
 
-    AccountPresenter.newInstance = function ($filterChannel) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
-
-        return Some(new AccountPresenter(filterChannel));
+    AccountPresenter.prototype.tableFieldsLoaded = function (data) {
+        var self = this;
+        self.view.onTableFieldsLoaded(data);
     };
 
-    return {newInstance: AccountPresenter.newInstance};
+    AccountPresenter.newInstance = function ($filterChannel, accountEventBus) {
+        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        accountEventBus = accountEventBus || AccountEventBus.getInstance();
+
+        return Some(new AccountPresenter(filterChannel, accountEventBus));
+    };
+
+    return AccountPresenter;
 });
