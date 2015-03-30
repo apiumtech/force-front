@@ -1,22 +1,30 @@
 <div class="panel-loader" ng-show="data.isPosting">
     <span class="spinner-small"></span>
 </div>
-<div class="modal-header">
-    <button type="button"
-            ng-disabled="data.isPosting"
-            ng-click="fn.closeDialog()"
-            class="close">
-        <span>&times;</span>
-    </button>
+<div>
+    <div class="padding_box">
+        <div class="pull-right">
+            <button class="btn_cancel"
+                    ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn_save"
+                    ng-disabled="!fn.isValid(CreateAccount) || data.isPosting "
+                    ng-click="fn.saveAccount()">
+                {{'commonText.Save' | i18next}}
+            </button>
+        </div>
+    </div>
     <h4 class="modal-title">{{'Account.CreateAccount' | i18next}}
     </h4>
 </div>
-<div class="modal-body form-horizontal create-account panel">
+</hr>
+<div class="form-horizontal create-account panel form-content">
     <form name="CreateAccount" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable"></label>
 
-            <div class="col-md-9 ui-sortable form-img ">
+            <div class="col-md-6 ui-sortable form-img ">
                 <img src="{{accountData.imgUrl || 'assets/img/placeholder.png'}}"
                         />
                 <br>
@@ -44,7 +52,7 @@
                 <select class="form-control account_type_box" ng-model="accountData.accountType"
                         validator="required"
                         valid-method="blur">
-                    <option value="-1">Select one</option>
+                    <option value="-1">Select one *</option>
                     <option ng-repeat="option in data.availableAccountTypes"
                             value="{{option.id || option.$loki}}">
                         {{option.name}}
@@ -60,7 +68,7 @@
                         validator="required"
                         valid-method="blur"
                         ng-model="accountData.environments">
-                    <option class="select_value_style" value="">Select one</option>
+                    <option class="select_value_style" value="">Select one *</option>
                     <option ng-repeat="option in data.availableEnvironments"
                             value="{{option.id || option.$loki}}">
                         {{option.name}}
@@ -76,7 +84,7 @@
                         ng-model="accountData.class"
                         valid-method="blur"
                         validator="required">
-                    <option class="select_value_style" value="">Select one</option>
+                    <option class="select_value_style" value="">Select one *</option>
                     <option class="select_value_style" value="A">A</option>
                     <option class="select_value_style" value="B">B</option>
                     <option class="select_value_style" value="C">C</option>
@@ -212,15 +220,15 @@
                 Street
             </label>
 
-            <div class="col-md-9 ui-sortable padding_account_owner">
-                <input type="text" class="form-control street_box"
+            <div class="col-md-6 ui-sortable padding_account_owner">
+                <input type="text" class="form-control account_owner_box"
                        validator="required"
                        ng-model="accountData.contactInfo.address"
                        valid-method="blur" placeholder="Street">
             </div>
-            <!--<div class="col-md-3 ui-sortable btn_add_owner">
+            <div class="col-md-3 ui-sortable btn_add_owner">
                 <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add street</button>
-            </div>-->
+            </div>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
@@ -274,6 +282,18 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable">
+                Postcode
+            </label>
+
+            <div class="col-md-9 ui-sortable">
+                <input type="text" class="form-control account_type_box"
+                       validator="required"
+                       ng-model="accountData.contactInfo.address2"
+                       valid-method="blur" placeholder="">
+            </div>
+        </div>
         <hr/>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
@@ -288,6 +308,21 @@
         </div>
 
         <hr/>
+        <div class="form-group">
+            <div class="form-group">
+                <h6 class="col-md-3 text-right">Extra fields</h6>
+            </div>
+            <label class="col-md-3 control-label ui-sortable">
+                Text
+            </label>
+
+            <div class="col-md-9 ui-sortable">
+                <input type="text" class="form-control work_phone_box"
+                       ng-model="accountData.contactInfo.city"
+                       valid-method="blur" value="" placeholder="">
+            </div>
+        </div>
+
 
         <!--<div class="form-group">-->
         <!--<h6 class="col-md-3 text-right">Extra fields</h6>-->
@@ -382,7 +417,7 @@
         <!--</div>-->
     </form>
 </div>
-<div class="modal-footer">
+<!--<div>
     <div class="pull-right">
         <button class="btn btn-sm"
                 ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
@@ -394,4 +429,4 @@
             {{'commonText.Save' | i18next}}
         </button>
     </div>
-</div>
+</div>-->
