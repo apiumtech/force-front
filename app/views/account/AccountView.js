@@ -25,19 +25,6 @@ app.registerView(function (container) {
         this.data.table = null;
         this.data.accountDetailPage = "#/accounts/{id}";
 
-        this.data.availableColumns = [
-            {data: "following", title: "Following", sortable: false, width: 70, visible: true},
-            {data: "name", title: "Account Name", width: 250, visible: true},
-            {data: "class", title: "Class.", visible: true},
-            {data: "$loki", title: '<i class="fa ic-checkin-filled brand-green-text"></i>', visible: true},
-            {data: "contactInfo.country", title: "Country", visible: true},
-            {data: "contactInfo.city", title: "City", visible: true},
-            {data: "contactInfo.address", title: "Address", visible: true},
-            {data: "contactInfo.phoneNumber", title: "Tel. Number", visible: true},
-            {data: "modified", title: "Modification Date", visible: true},
-            {data: "responsible.name", title: "Owner", visible: true}
-        ];
-
         this.data.filters = {
             owner: {
                 filtering: false,
@@ -60,6 +47,41 @@ app.registerView(function (container) {
                 value: ""
             }
         };
+
+        this.configureEvents();
+    }
+
+    AccountView.prototype = Object.create(BaseView.prototype, {});
+
+    AccountView.prototype.configureEvents = function () {
+        var self = this;
+        self.data.map = null;
+
+        self.fn.initializeChart = function () {
+            var mapOptions = {
+                zoom: 8,
+                center: self.mapService.getLatLng(-34.397, 150.644)
+            };
+            self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
+            self.data.latlngbounds = self.mapService.getLatLngBounds();
+            self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
+        };
+
+        self.fn.initTable = function () {
+            self.event.onTableFieldsRequested();
+        };
+
+        self.fn.createAccountClicked = function () {
+            self.openCreateAccountDialog();
+        };
+
+        self.fn.isImageHeader = function (header) {
+            return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
+        };
+    };
+
+    AccountView.prototype.onTableFieldsLoaded = function (data) {
+        this.data.availableColumns = data;
 
         var self = this;
         this.data.dataTableConfig = {
@@ -98,40 +120,10 @@ app.registerView(function (container) {
                 self.onDataRenderedCallback.call(self, api.data());
             }
         };
-        this.configureEvents();
-    }
-
-    AccountView.prototype = Object.create(BaseView.prototype, {});
-
-    AccountView.prototype.configureEvents = function () {
-        var self = this;
-        self.data.map = null;
-
-        self.fn.initializeChart = function () {
-            var mapOptions = {
-                zoom: 8,
-                center: self.mapService.getLatLng(-34.397, 150.644)
-            };
-            self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
-            self.data.latlngbounds = self.mapService.getLatLngBounds();
-            self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
-        };
-
-        self.fn.initTable = function () {
-            self.data.table = self.dataTableService.createDatatable("#data-table", self.data.dataTableConfig);
-        };
-
-        self.fn.createAccountClicked = function () {
-            self.openCreateAccountDialog();
-        };
-
-        self.fn.isImageHeader = function (header) {
-            return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
-        };
+        self.data.table = self.dataTableService.createDatatable("#data-table", self.data.dataTableConfig);
     };
 
     AccountView.prototype.openCreateAccountDialog = function () {
-        var self = this;
         var self = this;
 
         self.modalDialogAdapter.createDialog(

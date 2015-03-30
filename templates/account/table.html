@@ -38,7 +38,9 @@
                                     <p ng-if="fn.isImageHeader(column.title)"
                                        class="glyphicon glyphicon-map-marker"></p>
 
-                                    <p ng-if="!fn.isImageHeader(column.title)">{{column.title || '&nbsp;'}}</p>
+                                    <p ng-if="!fn.isImageHeader(column.title)">
+                                        {{column.title || '&nbsp;'}}
+                                    </p>
                                 </div>
                                 <div class="clear-fix"></div>
                             </li>

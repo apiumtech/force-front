@@ -17,6 +17,8 @@ describe("AccountPresenter", function () {
     describe("show", function () {
 
         [{
+            viewEvent: "onTableFieldsRequested", exercise: onTableFieldsRequestedTest
+        }, {
             viewEvent: "onFieldsRestoreDefault", exercise: onFieldsRestoreDefaultTest
         }, {
             viewEvent: "onFollowToggled", exercise: onFollowToggledTest
@@ -49,6 +51,13 @@ describe("AccountPresenter", function () {
                     test.exercise();
                 });
             });
+
+        function onTableFieldsRequestedTest(){
+            var modelMethod = "loadTableFields";
+            var onSuccess = "onTableFieldsLoaded";
+            var onError = "showError";
+            exerciseAjaxCallBinding("onTableFieldsRequested", modelMethod, onSuccess, onError);
+        }
 
         function onFieldsRestoreDefaultTest() {
             beforeEach(function () {
