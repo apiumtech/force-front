@@ -18,6 +18,11 @@ app.registerPresenter(function (container) {
         };
         channel.onOwnerToggleReceived(view.event.onOwnerToggled);
 
+        view.event.onTableFieldsRequested = function () {
+            model.loadTableFields()
+                .then(view.onTableFieldsLoaded.bind(view), view.showError.bind(view));
+        };
+
         view.event.onSearchQueryChanged = function (queryString) {
             view.updateQueryingString(queryString);
             view.reloadTableData();

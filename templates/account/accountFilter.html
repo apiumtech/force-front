@@ -35,7 +35,9 @@
                                        ng-checked="owner.selected"
                                         />
 
-                                <div class="pull-left media-object "><img src="assets/img/{{owner.avatar}}"></div>
+                                <div class="pull-left media-object ">
+                                    <img ng-src="assets/img/{{owner.avatar}}">
+                                </div>
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);">
                                     <p>{{ owner.name }} &nbsp;</p>

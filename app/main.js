@@ -145,6 +145,8 @@ function main() {
 
             'services/DataTableDataProvider',
             'services/EventBase',
+            // TODO: to be removed in production
+            'services/FakeAjaxService',
             'services/ModalDialogAdapter',
             'services/WidgetBase',
             'services/WidgetService',
