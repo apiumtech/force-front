@@ -17,7 +17,7 @@ app.registerService(function (container) {
                 {data: "class", title: "Class.", dataType: "String", visible: true},
                 {
                     data: "$loki",
-                    title: '<i class="fa ic-checkin-filled brand-green-text"></i>',
+                    title: 'Geolocalization',
                     dataType: "String",
                     visible: true
                 },
