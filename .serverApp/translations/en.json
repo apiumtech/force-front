@@ -178,5 +178,36 @@
     "LastxxDays": "Last __xx__ days"
   },
   "Intensity": {
+  },
+  "Contact": {
+    "ContactTitle": "Contacts",
+    "CreateContact": "Create Contact",
+    "Table": {
+      "Header": "Contacts Management",
+      "FIELDS": "FIELDS",
+      "ShowMap": "Show Map"
+    },
+    "Filters": {
+      "FilterBy": {
+        "MenuAccount": {
+          "Title": "Account",
+          "SearchPrompt": "Search account",
+          "ListEmpty": "No accounts available"
+        },
+        "MenuRole": {
+          "Title": "Role",
+          "SearchPrompt": "Search role",
+          "ListEmpty": "No roles available"
+        },
+        "MenuPhoneNumber": {
+          "Title": "Tel. number",
+          "SearchPrompt": "Type in phone number"
+        },
+        "MenuAddFilter": {
+          "Title": "Add Filter",
+          "SearchPrompt": "Search Filter"
+        }
+      }
+    }
   }
 }

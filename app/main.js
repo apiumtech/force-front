@@ -52,6 +52,10 @@ function main() {
                 templateUrl: '/templates/analytics/intensity.html',
                 controller: 'IntensityController'
             })
+            .when('/contacts', {
+                templateUrl: '/templates/contact.html',
+                controller: 'ContactController'
+            })
             .otherwise('/login');
 
         // configure validation system here
@@ -269,7 +273,19 @@ function main() {
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel',
 
             //Design Prove Controller
-            'controllers/DesignProveController'
+            'controllers/DesignProveController',
+
+            // Contacts Page
+            'controllers/contact/ContactController',
+            'models/contact/ContactModel',
+            'views/contact/ContactView',
+            'presenters/contact/ContactPresenter',
+
+            // Contacts filter
+            'controllers/contact/ContactFilterController',
+            'models/contact/ContactFilterModel',
+            'views/contact/ContactFilterView',
+            'presenters/contact/ContactFilterPresenter'
 
         ]
     };
