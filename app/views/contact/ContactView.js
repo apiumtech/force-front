@@ -14,9 +14,9 @@ app.registerView(function (container) {
 
     function ContactView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
-        this._mapService = mapService;
-        this._dataTableService = dataTableService;
-        this._templateParser = templateParser;
+        this.mapService = mapService;
+        this.dataTableService = dataTableService;
+        this.templateParser = templateParser;
 
         this.data.availableColumns = [];
 
@@ -27,6 +27,38 @@ app.registerView(function (container) {
 
     ContactView.prototype.configureEvents = function () {
         var self = this;
+        self.data.map = null;
+
+        self.fn.createContactClicked = function () {
+            self.openCreateContactPage();
+        };
+
+        self.fn.initializeChart = function () {
+            self.initializeChart();
+        };
+    };
+
+    ContactView.prototype.initializeChart = function () {
+        var self = this;
+        var mapOptions = {
+            zoom: 8,
+            center: self.mapService.getLatLng(-34.397, 150.644)
+        };
+        self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
+        self.data.latlngbounds = self.mapService.getLatLngBounds();
+        self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
+    };
+
+    ContactView.prototype.closeInfoWindowInMap = function () {
+        var self = this;
+
+        if (self.data.infoWindow) {
+            self.data.infoWindow.close();
+        }
+    };
+
+    ContactView.prototype.openCreateContactPage = function () {
+        // TODO: open create contact page
     };
 
     ContactView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
