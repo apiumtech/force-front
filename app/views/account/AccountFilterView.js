@@ -2,6 +2,7 @@
  * Created by trung.dang on 02/12/2015
  */
 app.registerView(function (container) {
+    var _ = container.getFunction("underscore");
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
     var BaseView = container.getView("views/BaseView");
@@ -17,6 +18,7 @@ app.registerView(function (container) {
         this.data.AccountTypeFilter = '';
         this.data.EnvFilter = '';
         this.data.ownerFilter = '';
+        this.data.availableFields = [];
     }
 
     AccountFilterView.prototype = Object.create(BaseView.prototype, {});
@@ -50,6 +52,7 @@ app.registerView(function (container) {
                 self.event.onToggleViewFilter(null);
             }
         };
+        self.$scope.$watch('$destroy', self.dispose.bind(self));
     };
 
     AccountFilterView.prototype.setAvailableOwners = function (owners) {
@@ -77,7 +80,19 @@ app.registerView(function (container) {
     };
 
     AccountFilterView.prototype.onTableFieldsLoaded = function (data) {
-        this.data.availableFields = data;
+        var self = this;
+        self.data.availableFields = [];
+
+        data.forEach(function (record) {
+            var copied = _.extend({
+                selected: false
+            }, record);
+            self.data.availableFields.push(copied);
+        });
+    };
+
+    AccountFilterView.prototype.dispose = function () {
+
     };
 
     AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

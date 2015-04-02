@@ -162,7 +162,7 @@
                                 <form>
                                     <input type="text"
                                            class="form-control ic-user"
-                                           placeholder="{{'Account.Filters.FilterBy.MenuAccountType.FilterAccountType' | i18next}}"
+                                           placeholder="{{'Account.Filters.SearchFilters' | i18next}}"
                                            ng-click="$event.stopPropagation();"/>
                                     <span class="fa fa-remove removeTextBoxBtn"
                                           ng-click="$event.stopPropagation()"></span>
@@ -170,11 +170,11 @@
                             </li>
                             <li class="media" ng-repeat="atype in data.availableFields">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                                       ng-click="$event.stopPropagation();"
+                                       ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.updateAvailableFilters(atype);"
                                        ng-checked="atype.selected"/>
 
                                 <div class="media-body"
-                                     ng-click="$event.stopPropagation();atype.selected=!atype.selected;">
+                                     ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.updateAvailableFilters(atype);">
                                     <p>{{ atype.title }}</p>
                                 </div>
                             </li>

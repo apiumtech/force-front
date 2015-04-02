@@ -24,6 +24,10 @@ app.registerPresenter(function (container) {
                 .then(view.setAvailableViews.bind(view), view.showError.bind(view));
         };
 
+        view.event.updateAvailableFilters = function (filter) {
+            console.log(filter);
+        };
+
         view.event.onToggleViewFilter = function (item) {
             channel.sendViewChangedSignal(item);
         };
