@@ -184,6 +184,11 @@ function main() {
             'controllers/ConfirmationDialogController',
             'views/ConfirmationDialogView',
 
+            // string type filter
+            'controllers/filters/StringTypeFilterController',
+            'directives/filters/StringTypeFilterDirective',
+            'views/filters/StringTypeFilterView',
+
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
             'models/accountDetails/AccountCreateModel',

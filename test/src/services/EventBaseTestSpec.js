@@ -5,13 +5,18 @@
 describe("EventBase", function () {
     var EventBase = app.getService('services/EventBase');
 
-    var events = ["eventA", "eventB", "eventC"];
-
     function InheritedEventBase() {
-        EventBase.call(this, events);
+        EventBase.call(this);
     }
 
     InheritedEventBase.prototype = Object.create(EventBase.prototype);
+    InheritedEventBase.prototype.onEventA = function () {
+    };
+    InheritedEventBase.prototype.fireEventA = function () {
+    };
+    InheritedEventBase.prototype.unsubscribeEventA = function () {
+    };
+
     var sut;
     beforeEach(function () {
         sut = new InheritedEventBase();
@@ -19,43 +24,34 @@ describe("EventBase", function () {
 
     describe("construct", function () {
         describe("when creating new instance", function () {
-            it("should assign signal", function () {
-                events.forEach(function (eventName) {
-                    expect(sut[eventName]).not.toBeUndefined();
-                    expect(sut["on" + eventName]).not.toBeUndefined();
-                    expect(sut["fire" + eventName]).not.toBeUndefined();
-                    expect(sut["unsubscribe" + eventName]).not.toBeUndefined();
-                });
+            it("should define the signal", function () {
+                expect(sut.EventA).not.toBeUndefined();
+                expect(sut.EventA).not.toBeNull();
             });
 
             it("should assign callback to on event", function () {
-                spyOn(sut.eventA, 'add');
+                spyOn(sut.EventA, 'add');
                 var callback = function () {
                 };
-                sut.oneventA(callback);
-                expect(sut.eventA.add).toHaveBeenCalledWith(callback);
+                sut.onEventA(callback);
+                expect(sut.EventA.add).toHaveBeenCalledWith(callback);
             });
 
             it("should call removeAll on unsubscribe", function () {
-                spyOn(sut.eventC, 'removeAll');
-                sut.unsubscribeeventC();
-                expect(sut.eventC.removeAll).toHaveBeenCalled();
+                spyOn(sut.EventA, 'removeAll');
+                sut.unsubscribeEventA();
+                expect(sut.EventA.removeAll).toHaveBeenCalled();
             });
         });
     });
 
     describe("dispose", function () {
         beforeEach(function () {
-            events.forEach(function (event) {
-                spyOn(sut, 'unsubscribe' + event);
-            });
+            spyOn(sut, 'unsubscribeEventA');
         });
-
-        events.forEach(function (event) {
-            it("should unsubscribe '" + event + "' event", function () {
-                sut.dispose();
-                expect(sut['unsubscribe' + event]).toHaveBeenCalled();
-            });
+        it("should unsubscribe event", function () {
+            sut.dispose();
+            expect(sut.unsubscribeEventA).toHaveBeenCalled();
         });
     });
 });

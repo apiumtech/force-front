@@ -5,7 +5,12 @@ describe("AccountFilterView", function () {
     var AccountFilterView = app.getView('views/account/AccountFilterView');
 
     function exerciseCreateView(model, presenter) {
-        return AccountFilterView.newInstance({}, model || {}, presenter || {
+        return AccountFilterView.newInstance({
+            $watch: function () {
+            },
+            $on: function () {
+            }
+        }, model || {}, presenter || {
             show: function () {
             }
         }, false, false).getOrElse(throwInstantiateException(AccountFilterView));
