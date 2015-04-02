@@ -4,21 +4,36 @@
 app.registerService(function (container) {
     var SignalService = container.getService('services/SignalService');
 
-    function EventBase(events) {
+    function EventBase() {
         this.signalService = SignalService.newInstance().getOrElse(throwInstantiateException(SignalService));
-        this.eventList = events;
         var self = this;
-        events.forEach(function (eventName) {
-            self[eventName] = self.signalService.newSignal();
-            self["on" + eventName] = function (callback) {
-                self[eventName].add(callback);
-            };
 
-            self["fire" + eventName] = self[eventName].dispatch;
+        var methods = Object.keys(Object.getPrototypeOf(self));
 
-            self["unsubscribe" + eventName] = function () {
-                self[eventName].removeAll();
-            };
+        methods.forEach(function (methodName) {
+            if (!isFunction(self[methodName]))
+                return;
+
+            if (methodName.match(/^(on)|^(fire)|^(unsubscribe)+/) === null)
+                return;
+
+            var eventName = methodName.replace(/^on|^fire|^unsubscribe+/, '');
+
+            if (self[eventName] === undefined) {
+                self[eventName] = self.signalService.newSignal();
+            }
+
+            if (methodName.match(/^on+/)) {
+                self[methodName] = function (callback) {
+                    self[eventName].add(callback);
+                };
+            } else if (methodName.match(/^fire+/)) {
+                self[methodName] = self[eventName].dispatch;
+            } else if (methodName.match(/^unsubscribe+/)) {
+                self[methodName] = function () {
+                    self[eventName].removeAll();
+                };
+            }
         });
     }
 
@@ -26,8 +41,17 @@ app.registerService(function (container) {
 
     EventBase.prototype.dispose = function () {
         var self = this;
-        this.eventList.forEach(function (event) {
-            self['unsubscribe' + event]();
+
+        var methods = Object.keys(Object.getPrototypeOf(self));
+
+        methods.forEach(function (methodName) {
+            if (!isFunction(self[methodName]))
+                return;
+
+            if (methodName.match(/^(unsubscribe)+/) === null)
+                return;
+
+            self[methodName]();
         });
     };
 
