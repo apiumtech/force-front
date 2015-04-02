@@ -5,16 +5,16 @@ app.registerDirective(function (container) {
     var StringTypeFilterController = container.getController("controllers/filters/StringTypeFilterController");
     var BaseFilterDirective = container.getService("directives/filters/BaseFilterDirective");
 
-    function StringTypeFilterDirective() {
+    function BooleanTypeFilterDirective() {
         BaseFilterDirective.call(this);
 
         this.controller = StringTypeFilterController;
-        this.templateUrl = '/templates/filters/stringTypeFilter.html';
+        this.templateUrl = '/templates/filters/booleanTypeFilter.html';
 
         return this;
     }
 
-    StringTypeFilterDirective.prototype = Object.create(BaseFilterDirective.prototype);
+    BooleanTypeFilterDirective.prototype = Object.create(BaseFilterDirective.prototype);
 
-    return StringTypeFilterDirective;
+    return BooleanTypeFilterDirective;
 });

@@ -4,12 +4,12 @@
 app.registerController(function (container) {
     var StringTypeFilterView = container.getView("views/filters/StringTypeFilterView");
 
-    function StringTypeFilterController($scope, $element, $attr) {
-        StringTypeFilterController.configureView($scope, $element, $attr);
+    function StringTypeFilterController($scope, $element) {
+        StringTypeFilterController.configureView($scope, $element);
     }
 
-    StringTypeFilterController.configureView = function ($scope, $element, $attr) {
-        this.view = StringTypeFilterView.newInstance($scope, $element, $attr).getOrElse(throwInstantiateException(StringTypeFilterView));
+    StringTypeFilterController.configureView = function ($scope, $element) {
+        this.view = StringTypeFilterView.newInstance($scope, $element).getOrElse(throwInstantiateException(StringTypeFilterView));
         this.view.show();
     };
 

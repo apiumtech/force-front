@@ -7,6 +7,7 @@ describe("AccountEventBus", function () {
     describe("construct", function () {
         var events = [
             "TableFieldsLoaded",
+            "FilterValueChanged",
             "EnvironmentToggled",
             "ViewChanged",
             "AccountTypeToggled",

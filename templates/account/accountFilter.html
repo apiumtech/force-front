@@ -181,6 +181,26 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="clearfix"></div>
+                <div class="dropdown dynamic-filter btn-group clearfix"
+                     ng-repeat="field in data.availableFields | filter:{selected:true}">
+                    <string-type-filter ng-if="field.dataType=='String'"
+                                        filter-for="field"
+                                        on-close="event.updateAvailableFilters(field);">
+                    </string-type-filter>
+                    <boolean-type-filter ng-if="field.dataType=='Boolean'"
+                                         filter-for="field"
+                                         on-close="event.updateAvailableFilters(field);">
+                    </boolean-type-filter>
+                    <datetime-type-filter ng-if="field.dataType=='Datetime'"
+                                          filter-for="field"
+                                          on-close="event.updateAvailableFilters(field);">
+                    </datetime-type-filter>
+                        <span class="fa fa-remove"
+                              ng-click="field.selected=false;event.updateAvailableFilters(field);$event.stopPropagation()"></span>
+
+                    <div class="clearfix"></div>
+                </div>
             </div>
             <div class="col-md-3">
                 <form>

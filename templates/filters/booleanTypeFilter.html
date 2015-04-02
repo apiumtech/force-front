@@ -19,14 +19,22 @@
             </span>
         </form>
     </li>
-    <li class="media" ng-repeat="atype in valueList">
+    <li class="media">
         <input type="checkbox" class="pull-left m-t-10 m-r-10"
-               ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);"
-               ng-checked="atype.selected"/>
+               ng-click="$event.stopPropagation();"/>
 
         <div class="media-body"
-             ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);">
-            <p>{{ atype.name }}</p>
+             ng-click="$event.stopPropagation();">
+            <p>Yes</p>
+        </div>
+    </li>
+    <li class="media">
+        <input type="checkbox" class="pull-left m-t-10 m-r-10"
+               ng-click="$event.stopPropagation();"/>
+
+        <div class="media-body"
+             ng-click="$event.stopPropagation();">
+            <p>No</p>
         </div>
     </li>
 </ul>

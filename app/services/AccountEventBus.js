@@ -17,6 +17,10 @@ app.registerService(function (container) {
     AccountEventBus.prototype.unsubscribeTableFieldsLoaded = function () {
     };
 
+    AccountEventBus.prototype.onFilterValueChanged = function(){};
+    AccountEventBus.prototype.fireFilterValueChanged = function(){};
+    AccountEventBus.prototype.unsubscribeFilterValueChanged = function(){};
+
     AccountEventBus.prototype.onEnvironmentToggled = function () {
     };
     AccountEventBus.prototype.fireEnvironmentToggled = function () {

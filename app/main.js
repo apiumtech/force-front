@@ -180,10 +180,15 @@ function main() {
             'controllers/ConfirmationDialogController',
             'views/ConfirmationDialogView',
 
+            'directives/filters/BaseFilterDirective',
             // string type filter
-            'controllers/filters/StringTypeFilterController',
             'directives/filters/StringTypeFilterDirective',
+            'controllers/filters/StringTypeFilterController',
             'views/filters/StringTypeFilterView',
+
+            'directives/filters/DatetimeTypeFilterDirective',
+
+            'directives/filters/BooleanTypeFilterDirective',
 
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
