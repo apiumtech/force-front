@@ -151,6 +151,47 @@ span.removeTextBoxBtn {
 .validation-invalid {
   color: red;
 }
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+.well-force-manager {
+  padding: 10px;
+}
+.well-force-manager .row {
+  min-height: 80px;
+}
+.well-force-manager > .row > [class^="col-"],
+.well-force-manager > .row > [class*=" col-"] {
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 11px;
+  }
+  @media screen and (min-width: 1200px) {
+    font-size: 14px;
+  }
+}
+.well-force-manager > .row > [class^="col-"] > b,
+.well-force-manager > .row > [class*=" col-"] > b {
+  font-size: 20px;
+}
+.btn-cancel {
+  font-family: "Roboto", serif;
+  padding: 10px 30px;
+  background-color: #fff;
+  border: solid 1px #BABEBF;
+  border-radius: 3px;
+}
+.btn-save {
+  font-family: "Roboto", serif;
+  padding: 10px 30px;
+  background-color: #ed8b00;
+  color:#fff;
+  border: solid 1px #472c07;
+  border-radius: 3px;
+}
 
 .filters-div .dynamic-filter a {
   padding: 5px 9px 5px !important;
