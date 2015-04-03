@@ -51,7 +51,7 @@
     "karma-requirejs": "^0.2.2",
     "linq": "^3.0.4-beta",
     "load-grunt-tasks": "^1.0.0",
-    "lokijs": "^1.2.0",
+    "lokijs": "=1.2.0",
     "underscore": "^1.7.0"
   }
 }

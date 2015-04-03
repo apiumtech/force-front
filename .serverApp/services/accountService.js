@@ -56,7 +56,7 @@ function getValueFromKey(obj, keyString) {
 
 function AccountService() {
     this.getDb();
-};
+}
 
 AccountService.prototype.getFilterData = function (request) {
     var db = this.getDb();
