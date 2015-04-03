@@ -4,5 +4,5 @@
 module.exports = function (grunt) {
     'use strict';
 
-    grunt.registerTask('build', ['less:dev', 'requirejs:compile', 'shell:migrate-assets']);
+    grunt.registerTask('build', ['less:dev', 'requirejs:compile', 'copy:assets']);
 };

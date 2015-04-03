@@ -32,6 +32,7 @@
     "flot": "^0.8.0-alpha",
     "glob": "=4.0.2",
     "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-less": "^0.12.0",
     "grunt-contrib-requirejs": "^0.4.4",
