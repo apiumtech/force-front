@@ -18,7 +18,8 @@ app.registerService(function (container) {
         getAgenda: '/api/agenda',
         uploadFile: '/upload',
         createAccount: '/api/accounts',
-        authentication: '/api/authentication'
+        authentication: '/api/authentication',
+        getFilterValues: '/api/getFilterValues'
     };
 
     return {

@@ -138,6 +138,9 @@ function main() {
 
             'services/PopoverAdapter',
 
+            // TODO: to be removed in production
+            'services/FakeAjaxService',
+
             // views
             'views/BaseView',
             'views/WidgetDecoratedPageView',
@@ -146,8 +149,6 @@ function main() {
             'services/DataTableDataProvider',
             'services/EventBase',
             'services/AccountEventBus',
-            // TODO: to be removed in production
-            'services/FakeAjaxService',
             'services/ModalDialogAdapter',
             'services/WidgetBase',
             'services/WidgetService',
@@ -181,14 +182,22 @@ function main() {
             'views/ConfirmationDialogView',
 
             'directives/filters/BaseFilterDirective',
+            'models/filters/BaseAccountFilterModel',
+
             // string type filter
             'directives/filters/StringTypeFilterDirective',
             'controllers/filters/StringTypeFilterController',
             'views/filters/StringTypeFilterView',
+            'models/filters/StringFilterModel',
 
             'directives/filters/DatetimeTypeFilterDirective',
+            'controllers/filters/DatetimeTypeFilterController',
+            'views/filters/DatetimeTypeFilterView',
 
             'directives/filters/BooleanTypeFilterDirective',
+            'controllers/filters/BooleanTypeFilterController',
+            'views/filters/BooleanTypeFilterView',
+
 
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
