@@ -9,6 +9,7 @@ app.registerView(function (container) {
 
     var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterPresentationModel');
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
+    var moment = container.getFunction('moment');
 
     var _ = container.getFunction("underscore");
 

@@ -181,14 +181,14 @@ function main() {
             'controllers/ConfirmationDialogController',
             'views/ConfirmationDialogView',
 
-            'directives/filters/BaseFilterDirective',
             'models/filters/BaseAccountFilterModel',
 
             // string type filter
             'directives/filters/StringTypeFilterDirective',
             'controllers/filters/StringTypeFilterController',
             'views/filters/StringTypeFilterView',
-            'models/filters/StringFilterModel',
+            'models/filters/StringTypeFilterModel',
+            'presenters/filters/StringTypeFilterPresenter',
 
             'directives/filters/DatetimeTypeFilterDirective',
             'controllers/filters/DatetimeTypeFilterController',

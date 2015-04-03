@@ -14,9 +14,9 @@ app.registerPresenter(function (container) {
         var self = this;
         var eventBus = self.accountEventBus;
 
-        eventBus.onFilterValueChanged();
-        view.event.searchValueChanged = function (filterValue) {
-
+        view.event.searchValueChanged = function (fieldName, queryValue) {
+            model.getFilterValues(fieldName, queryValue)
+                .then(view.onFieldValuesLoaded.bind(view), view.showError.bind(view));
         };
         view.event.filterSelectionToggled = function (value) {
 

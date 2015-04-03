@@ -192,7 +192,7 @@
                                          filter-for="field"
                                          on-close="event.updateAvailableFilters(field);">
                     </boolean-type-filter>
-                    <datetime-type-filter ng-if="field.dataType=='Datetime'"
+                    <datetime-type-filter ng-if="field.dataType.toLowerCase()=='datetime'"
                                           filter-for="field"
                                           on-close="event.updateAvailableFilters(field);">
                     </datetime-type-filter>

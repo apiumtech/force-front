@@ -12,14 +12,14 @@
                    placeholder="Search {{filterFor.title}}"
                    ng-model="data.filterValue"
                    ng-click="$event.stopPropagation();"
-                   ng-change="event.searchValueChanged(data.filterValue);"/>
+                   ng-change="fn.loadStringFilters(data.filterValue);"/>
             <span class="fa fa-remove removeTextBoxBtn"
                   ng-show="data.filterValue!=''"
-                  ng-click="data.filterValue='';event.searchValueChanged(data.filterValue);$event.stopPropagation();">
+                  ng-click="data.filterValue='';fn.loadStringFilters(data.filterValue);$event.stopPropagation();">
             </span>
         </form>
     </li>
-    <li class="media" ng-repeat="atype in valueList">
+    <li class="media" ng-repeat="atype in data.valueList">
         <input type="checkbox" class="pull-left m-t-10 m-r-10"
                ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);"
                ng-checked="atype.selected"/>

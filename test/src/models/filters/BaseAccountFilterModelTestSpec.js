@@ -23,7 +23,7 @@ describe("BaseAccountFilterModel", function () {
                 spyOn(ajaxService, 'rawAjaxRequest');
                 sut.getFilterValues(filterName, queryFilter);
                 expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-                expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getFilterValues + "?filterName=accountName&queryString=");
+                expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getFilterValues + "?fieldName=accountName&queryString=");
             });
         });
     });

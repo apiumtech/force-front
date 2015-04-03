@@ -175,6 +175,25 @@ AccountService.prototype.toggleFollow = function (id) {
     return account;
 };
 
+AccountService.prototype.getFilterValues = function (fieldName, queryString) {
+    var db = this.getDb();
+    var accounts = db.getCollection('Accounts');
+
+    var dataSet = accounts.chain().data();
+    var results = Enumerable.from(dataSet).select(function (record) {
+        return getValueFromKey(record, fieldName);
+    }).distinct();
+
+    if (queryString !== undefined && queryString !== null) {
+        results = results.where(function (fieldValue) {
+            return fieldValue.toLowerCase().indexOf(queryString.toLowerCase()) != -1;
+        });
+    }
+    results = results.toArray();
+
+    return results;
+};
+
 AccountService.prototype.createAccount = function (body) {
     var db = this.getDb();
     var accounts = db.getCollection('Accounts');

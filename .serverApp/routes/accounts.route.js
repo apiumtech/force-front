@@ -30,6 +30,9 @@ module.exports = function (app) {
     app.route('/api/accounts/toggleFollow/:id')
         .post(AccountController.toggleFollow);
 
+    app.route('/api/getFilterValues')
+        .get(AccountController.getFilterValues);
+
     app.route('/api/accounts')
         .post(AccountController.createAccount);
 };

@@ -3,7 +3,7 @@
  */
 app.registerModel(function (container) {
     var BaseAccountFilterModel = container.getService("models/filters/BaseAccountFilterModel");
-    var AjaxService = container.getService("services/FakeAjaxService");
+    var AjaxService = container.getService("services/AjaxService");
     var Configuration = container.getService("Configuration");
 
     function StringFilterModel(ajaxService) {
@@ -12,9 +12,15 @@ app.registerModel(function (container) {
 
     StringFilterModel.prototype = Object.create(BaseAccountFilterModel.prototype, {});
 
-    StringFilterModel.prototype.getFilterValues = function (filterName, queryString) {
-        return this.ajaxService.rawAjaxRequest({
-            result: []
+    StringFilterModel.prototype._getFilterValues = BaseAccountFilterModel.prototype.getFilterValues;
+    StringFilterModel.prototype.getFilterValues = function (fieldName, queryString) {
+        return this._getFilterValues(fieldName, queryString)
+            .then(this.decorateResponseData.bind(this));
+    };
+
+    StringFilterModel.prototype.decorateResponseData = function (data) {
+        return data.map(function (string) {
+            return {name: string, selected: false};
         });
     };
 
