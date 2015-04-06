@@ -20,6 +20,8 @@ app.registerPresenter(function (container) {
 
         eventBus.onTableFieldsLoaded(self.tableFieldsLoaded.bind(self));
 
+        eventBus.onFilterValueChanged(self.filterChanged.bind(self));
+
         view.event.onOwnerToggled = function (owner) {
             view.updateOwnerFilter(owner);
             view.reloadTableData();
@@ -85,6 +87,12 @@ app.registerPresenter(function (container) {
     AccountPresenter.prototype.tableFieldsLoaded = function (data) {
         var self = this;
         self.view.onTableFieldsLoaded(data);
+    };
+
+    AccountPresenter.prototype.filterChanged = function (filterKey, filterValue) {
+        var self = this;
+        self.view.mapCustomFilter(filterKey, filterValue);
+        self.view.reloadTableData();
     };
 
     AccountPresenter.newInstance = function ($filterChannel, accountEventBus) {

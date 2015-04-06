@@ -19,14 +19,17 @@
             </span>
         </form>
     </li>
-    <li class="media" ng-repeat="atype in data.valueList">
+    <li class="string-filter loading" ng-show="data.requestingFilterList">
+        <span class="spinner"></span>
+    </li>
+    <li class="media" ng-repeat="filterValue in data.valueList">
         <input type="checkbox" class="pull-left m-t-10 m-r-10"
-               ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);"
-               ng-checked="atype.selected"/>
+               ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;fn.prePostFilterChanged();"
+               ng-checked="filterValue.selected"/>
 
         <div class="media-body"
-             ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);">
-            <p>{{ atype.name }}</p>
+             ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;fn.prePostFilterChanged();">
+            <p>{{ filterValue.name }}</p>
         </div>
     </li>
 </ul>

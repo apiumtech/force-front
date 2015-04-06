@@ -183,6 +183,8 @@ function main() {
 
             'models/filters/BaseAccountFilterModel',
 
+            'services/AwaitHelper',
+
             // string type filter
             'directives/filters/StringTypeFilterDirective',
             'controllers/filters/StringTypeFilterController',
