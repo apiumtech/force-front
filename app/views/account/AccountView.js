@@ -45,6 +45,9 @@ app.registerView(function (container) {
             query: {
                 filtering: false,
                 value: ""
+            },
+            customFilters: {
+                values: []
             }
         };
 
@@ -186,6 +189,30 @@ app.registerView(function (container) {
         }
         if (filters.query.filtering) {
             aoData.customFilter['searchQuery'] = filters.query.value;
+        }
+
+        if (filters.customFilters.values.length) {
+            filters.customFilters.values.forEach(function (filter) {
+                aoData.customFilter[filter.key] = filter.value;
+            });
+        }
+    };
+
+    AccountView.prototype.mapCustomFilter = function (key, values) {
+        var self = this;
+        var filters = self.data.filters.customFilters.values;
+
+        var filterByKey = _.find(filters, function (filter) {
+            return filter.key == key;
+        });
+
+        if (!filterByKey) {
+            filters.push({
+                key: key,
+                value: values
+            });
+        } else {
+            filterByKey.value = values;
         }
     };
 

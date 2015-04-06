@@ -33,6 +33,16 @@ app.registerView(function (container) {
             self.data.requestingFilterList = false;
         };
 
+        self.fn.prePostFilterChanged = function () {
+            var selected = self.data.valueList.filter(function (record) {
+                return record.selected;
+            }).map(function (r) {
+                return r.name;
+            });
+
+            self.event.filterSelectionToggled(scope.filterFor.data, selected);
+        };
+
         scope.$watch('filterFor', self.onFieldChanged.bind(self));
     };
 

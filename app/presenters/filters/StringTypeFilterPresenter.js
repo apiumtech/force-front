@@ -18,8 +18,9 @@ app.registerPresenter(function (container) {
             model.getFilterValues(fieldName, queryValue)
                 .then(view.onFieldValuesLoaded.bind(view), view.showError.bind(view));
         };
-        view.event.filterSelectionToggled = function (value) {
 
+        view.event.filterSelectionToggled = function (key, values) {
+            eventBus.fireFilterValueChanged(key, values);
         };
     };
 
