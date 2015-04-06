@@ -3,6 +3,7 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
+    var BooleanTypeFilterPresenter = container.getModel('presenters/filters/BooleanTypeFilterPresenter');
 
     function BooleanFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
@@ -23,22 +24,11 @@ app.registerView(function (container) {
         var self = this;
         var scope = self.$scope;
 
-        self.data.requestingFilterList = false;
-        self.fn.loadStringFilters = function () {
-            self.data.requestingFilterList = true;
-            self.awaitHelper.await(self.fn.fireSearchEvent, 200);
-        };
-
-        self.fn.fireSearchEvent = function () {
-            self.event.searchValueChanged(scope.filterFor.data, self.data.filterValue);
-            self.data.requestingFilterList = false;
-        };
-
         self.fn.prePostFilterChanged = function () {
             var selected = self.data.valueList.filter(function (record) {
                 return record.selected;
             }).map(function (r) {
-                return r.name;
+                return r.name === 'true';
             });
 
             self.event.filterSelectionToggled(scope.filterFor.data, selected);
@@ -48,6 +38,7 @@ app.registerView(function (container) {
     BooleanFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
         $scope = $scope || {};
         $element = $element || {};
+        $presenter = $presenter || BooleanTypeFilterPresenter.newInstance().getOrElse(throwInstantiateException(BooleanTypeFilterPresenter));
 
         var view = new BooleanFilterView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);

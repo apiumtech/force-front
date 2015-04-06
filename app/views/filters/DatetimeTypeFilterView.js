@@ -4,6 +4,7 @@
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var moment = container.getFunction('moment');
+    var DatetimeTypeFilterPresenter = container.getModel('presenters/filters/DatetimeTypeFilterPresenter');
 
     function DatetimeTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
@@ -16,7 +17,6 @@ app.registerView(function (container) {
     }
 
     DatetimeTypeFilterView.prototype = Object.create(BaseView.prototype, {
-
         dateRangeStart: {
             get: function () {
                 return this.$scope.dateRangeStart;
@@ -89,7 +89,10 @@ app.registerView(function (container) {
 
         self.fn.applyDateFilter = function () {
             self.data.dateRangeFilterOpened = false;
-            // TODO Send signal
+            self.event.filterSelectionToggled(scope.filterFor.data, [{
+                from: self.dateRangeStart,
+                to: self.dateRangeEnd
+            }]);
         };
 
         self.fn.getPreviousDate = function (days, from) {
@@ -123,6 +126,8 @@ app.registerView(function (container) {
     DatetimeTypeFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
         $scope = $scope || {};
         $element = $element || {};
+
+        $presenter = $presenter || DatetimeTypeFilterPresenter.newInstance().getOrElse(throwInstantiateException(DatetimeTypeFilterPresenter));
 
         var view = new DatetimeTypeFilterView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);

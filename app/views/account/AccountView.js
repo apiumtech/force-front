@@ -81,6 +81,8 @@ app.registerView(function (container) {
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };
+
+        self.$scope.$on("$destroy", self.onDisposing.bind(self));
     };
 
     AccountView.prototype.onTableFieldsLoaded = function (data) {
@@ -349,6 +351,11 @@ app.registerView(function (container) {
             var column = self.data.table.column(i);
             column.visible(self.data.availableColumns[i].visible);
         }
+    };
+
+    AccountView.prototype.onDisposing = function () {
+        var self = this;
+        self.event.onDisposing();
     };
 
     AccountView.prototype.showError = function (error) {

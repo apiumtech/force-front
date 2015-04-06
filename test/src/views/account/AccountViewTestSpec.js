@@ -3,9 +3,15 @@
  */
 describe("AccountView", function () {
     var AccountView = app.getView('views/account/AccountView');
+    var scope = {
+        $on: function () {
+        },
+        $watch: function () {
+        }
+    };
 
     function exerciseCreateView(model, presenter, googleMapService, datatableService) {
-        return AccountView.newInstance({}, {}, model || {}, presenter || {
+        return AccountView.newInstance(scope, {}, model || {}, presenter || {
             show: function () {
             }
         }, googleMapService || {}, datatableService || {}, false, false).getOrElse(throwInstantiateException(AccountView));

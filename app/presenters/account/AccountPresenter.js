@@ -81,6 +81,10 @@ app.registerPresenter(function (container) {
         view.event.onAccountsNextPage = function () {
 
         };
+
+        view.event.onDisposing = function(){
+            eventBus.dispose();
+        };
         /* endregion */
     };
 

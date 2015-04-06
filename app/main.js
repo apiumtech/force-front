@@ -195,9 +195,11 @@ function main() {
             'directives/filters/DatetimeTypeFilterDirective',
             'controllers/filters/DatetimeTypeFilterController',
             'views/filters/DatetimeTypeFilterView',
+            'presenters/filters/DatetimeTypeFilterPresenter',
 
             'directives/filters/BooleanTypeFilterDirective',
             'controllers/filters/BooleanTypeFilterController',
+            'presenters/filters/BooleanTypeFilterPresenter',
             'views/filters/BooleanTypeFilterView',
 
 
