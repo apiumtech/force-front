@@ -19,6 +19,9 @@
             </span>
         </form>
     </li>
+    <li class="string-filter loading" ng-show="data.requestingFilterList">
+        <span class="spinner"></span>
+    </li>
     <li class="media" ng-repeat="atype in data.valueList">
         <input type="checkbox" class="pull-left m-t-10 m-r-10"
                ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.filterSelectionToggled(atype);"

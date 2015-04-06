@@ -5,10 +5,12 @@ app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var StringTypeFilterModel = container.getModel('models/filters/StringTypeFilterModel');
     var StringTypeFilterPresenter = container.getModel('presenters/filters/StringTypeFilterPresenter');
+    var AwaitHelper = container.getService('services/AwaitHelper');
 
     function StringTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
+        this.awaitHelper = AwaitHelper.newInstance().getOrElse(throwInstantiateException(AwaitHelper));
         this.data.valueList = [];
         this.data.filterValue = '';
         this.configureEvents();
@@ -20,8 +22,15 @@ app.registerView(function (container) {
         var self = this;
         var scope = self.$scope;
 
-        self.fn.loadStringFilters = function (filterValue) {
-            self.event.searchValueChanged(scope.filterFor.data, filterValue);
+        self.data.requestingFilterList = false;
+        self.fn.loadStringFilters = function () {
+            self.data.requestingFilterList = true;
+            self.awaitHelper.await(self.fn.fireSearchEvent, 200);
+        };
+
+        self.fn.fireSearchEvent = function () {
+            self.event.searchValueChanged(scope.filterFor.data, self.data.filterValue);
+            self.data.requestingFilterList = false;
         };
 
         scope.$watch('filterFor', self.onFieldChanged.bind(self));
@@ -37,7 +46,6 @@ app.registerView(function (container) {
 
     StringTypeFilterView.prototype.onFieldValuesLoaded = function (data) {
         this.data.valueList = data;
-        console.log(data);
     };
 
     StringTypeFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
