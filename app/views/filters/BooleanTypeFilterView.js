@@ -7,7 +7,13 @@ app.registerView(function (container) {
     function BooleanFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
-        this.data.valueList = [];
+        this.data.valueList = [{
+            name: 'true',
+            selected: false
+        }, {
+            name: 'false',
+            selected: false
+        }];
         this.configureEvents();
     }
 
@@ -17,8 +23,25 @@ app.registerView(function (container) {
         var self = this;
         var scope = self.$scope;
 
-        self.fn.loadStringFilters = function (data) {
+        self.data.requestingFilterList = false;
+        self.fn.loadStringFilters = function () {
+            self.data.requestingFilterList = true;
+            self.awaitHelper.await(self.fn.fireSearchEvent, 200);
+        };
 
+        self.fn.fireSearchEvent = function () {
+            self.event.searchValueChanged(scope.filterFor.data, self.data.filterValue);
+            self.data.requestingFilterList = false;
+        };
+
+        self.fn.prePostFilterChanged = function () {
+            var selected = self.data.valueList.filter(function (record) {
+                return record.selected;
+            }).map(function (r) {
+                return r.name;
+            });
+
+            self.event.filterSelectionToggled(scope.filterFor.data, selected);
         };
     };
 

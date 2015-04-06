@@ -30,7 +30,6 @@ app.registerView(function (container) {
 
         self.fn.fireSearchEvent = function () {
             self.event.searchValueChanged(scope.filterFor.data, self.data.filterValue);
-            self.data.requestingFilterList = false;
         };
 
         self.fn.prePostFilterChanged = function () {
@@ -56,6 +55,7 @@ app.registerView(function (container) {
 
     StringTypeFilterView.prototype.onFieldValuesLoaded = function (data) {
         this.data.valueList = data;
+        this.data.requestingFilterList = false;
     };
 
     StringTypeFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {

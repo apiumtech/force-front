@@ -76,6 +76,13 @@ AccountService.prototype.getFilterData = function (request) {
                 return record.name.toLowerCase().indexOf(filter.searchQuery.toLowerCase()) > -1;
             });
         }
+        _.each(filter, function (v, k) {
+            if (k !== 'owners' && k !== 'searchQuery') {
+                results = results.where(function (record) {
+                    return v.indexOf(getValueFromKey(record, k)) > -1;
+                });
+            }
+        });
     }
     var filteredData = results.data();
 
