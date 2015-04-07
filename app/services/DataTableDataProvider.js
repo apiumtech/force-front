@@ -12,8 +12,8 @@ app.registerService(function (container) {
     DataTableDataProvider.prototype.getTableFields = function () {
         return this.ajaxService.rawAjaxRequest({
             result: [
-                {data: "following", title: "Following", dataType: "Boolean", sortable: false, width: 70, visible: true},
-                {data: "name", title: "Account Name", dataType: "String", width: 250, visible: true},
+                {data: "following", title: "Following", dataType: "Boolean", sortable: false, width: 70, visible: true, isFilterable: true},
+                {data: "name", title: "Account Name", dataType: "String", width: 250, visible: true, isFilterable: true},
                 {data: "class", title: "Class.", dataType: "String", visible: true},
                 {
                     data: "$loki",
@@ -21,12 +21,12 @@ app.registerService(function (container) {
                     dataType: "String",
                     visible: true
                 },
-                {data: "contactInfo.country", title: "Country", dataType: "String", visible: true},
-                {data: "contactInfo.city", title: "City", dataType: "String", visible: true},
-                {data: "contactInfo.address", title: "Address", dataType: "String", visible: true},
-                {data: "contactInfo.phoneNumber", title: "Tel. Number", dataType: "String", visible: true},
-                {data: "modified", title: "Modification Date", dataType: "DateTime", visible: true},
-                {data: "responsible.name", title: "Owner", dataType: "String", visible: true}
+                {data: "contactInfo.country", title: "Country", dataType: "String", visible: true, isFilterable: true},
+                {data: "contactInfo.city", title: "City", dataType: "String", visible: true, isFilterable: true},
+                {data: "contactInfo.address", title: "Address", dataType: "String", visible: true, isFilterable: true},
+                {data: "contactInfo.phoneNumber", title: "Tel. Number", dataType: "String", visible: true, isFilterable: true},
+                {data: "modified", title: "Modification Date", dataType: "DateTime", visible: true, isFilterable: true},
+                {data: "responsible.name", title: "Owner", dataType: "String", visible: true, isFilterable: true}
             ]
         }).then(this.decorateTableFields.bind(this));
     };

@@ -12,7 +12,8 @@ describe("AccountEventBus", function () {
             "ViewChanged",
             "AccountTypeToggled",
             "OwnerToggled",
-            "QueryChanged"
+            "QueryChanged",
+            "TableFieldsToggled"
         ];
 
         var sut;

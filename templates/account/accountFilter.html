@@ -197,7 +197,7 @@
                                           on-close="event.updateAvailableFilters(field);">
                     </datetime-type-filter>
                         <span class="fa fa-remove"
-                              ng-click="field.selected=false;event.updateAvailableFilters(field);$event.stopPropagation()"></span>
+                              ng-click="field.selected=false;fn.updateAvailableFilters();$event.stopPropagation()"></span>
 
                     <div class="clearfix"></div>
                 </div>

@@ -42,6 +42,13 @@ app.registerService(function (container) {
     AccountEventBus.prototype.unsubscribeAccountTypeToggled = function () {
     };
 
+    AccountEventBus.prototype.onTableFieldsToggled = function () {
+    };
+    AccountEventBus.prototype.fireTableFieldsToggled = function () {
+    };
+    AccountEventBus.prototype.unsubscribeTableFieldsToggled = function () {
+    };
+
     AccountEventBus.prototype.onOwnerToggled = function () {
     };
     AccountEventBus.prototype.fireOwnerToggled = function () {

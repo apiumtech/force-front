@@ -68,6 +68,7 @@ app.registerView(function (container) {
             self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
             self.data.latlngbounds = self.mapService.getLatLngBounds();
             self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
+            setTimeout(self.collapseMap.bind(self), 0);
         };
 
         self.fn.initTable = function () {
@@ -83,6 +84,11 @@ app.registerView(function (container) {
         };
 
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    AccountView.prototype.collapseMap = function () {
+        var self = this;
+        self.data.mapCanvasCollapsed = true;
     };
 
     AccountView.prototype.onTableFieldsLoaded = function (data) {
@@ -256,6 +262,17 @@ app.registerView(function (container) {
         // TODO: Remove $loki when integrate to real server
         row.id = row.$loki;
         return self.templateParser.parseTemplate(accountNameColTemplate, row);
+    };
+
+    AccountView.prototype.updateCustomFilters = function (deselectedFields) {
+        var self = this;
+        var filters = self.data.filters;
+
+        if (filters.customFilters.values.length) {
+            filters.customFilters.values = filters.customFilters.values.filter(function (filter) {
+                return deselectedFields.indexOf(filter.key) === -1;
+            });
+        }
     };
 
     AccountView.prototype.renderModifiedColumn = function (data) {

@@ -22,6 +22,8 @@ app.registerPresenter(function (container) {
 
         eventBus.onFilterValueChanged(self.filterChanged.bind(self));
 
+        eventBus.onTableFieldsToggled(self.onTableFieldsToggled.bind(self));
+
         view.event.onOwnerToggled = function (owner) {
             view.updateOwnerFilter(owner);
             view.reloadTableData();
@@ -82,7 +84,7 @@ app.registerPresenter(function (container) {
 
         };
 
-        view.event.onDisposing = function(){
+        view.event.onDisposing = function () {
             eventBus.dispose();
         };
         /* endregion */
@@ -91,6 +93,12 @@ app.registerPresenter(function (container) {
     AccountPresenter.prototype.tableFieldsLoaded = function (data) {
         var self = this;
         self.view.onTableFieldsLoaded(data);
+    };
+
+    AccountPresenter.prototype.onTableFieldsToggled = function (fields) {
+        var self = this;
+        self.view.updateCustomFilters(fields);
+        self.view.reloadTableData();
     };
 
     AccountPresenter.prototype.filterChanged = function (filterKey, filterValue) {
