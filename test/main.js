@@ -176,7 +176,13 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
-
+var jasmineMock = function (constr, name) {
+    var keys = [];
+    for (var key in constr.prototype) {
+        keys.push(key);
+    }
+    return keys.length > 0 ? jasmine.createSpyObj(name || "mock", keys) : {};
+};
 
 var isFunction = function (obj) {
     return Object.prototype.toString.call(obj) === "[object Function]";

@@ -2,15 +2,19 @@
                 event-bus-channel="eventChannel"
                 body-class="panel-opportunity">
     <div class="btn-group m-b-10">
-        <button class="btn btn-white btn-sm ">Day</button>
-        <button class="btn btn-white btn-sm ">Week</button>
-        <button class="btn btn-white btn-sm active">Month</button>
-
+        <button class="btn btn-white btn-sm" id="prevDay" ng-click="onPrevDay()"><i class="ic-arr-left2"></i></button>
+        <button class="btn btn-white btn-sm" id="switchDay">Day</button>
+        <button class="btn btn-white btn-sm" id="switchWeek">Week</button>
+        <button class="btn btn-white btn-sm" id="switchMonth">Month</button>
+        <button class="btn btn-white btn-sm" id="nextDay"><i class="ic-arr-right2"></i></button>
     </div>
     <div class="line-border clearfix"></div>
+    <!--
     <div id="datepicker-inline" class="datepicker-full-width">
         <div></div>
     </div>
+    -->
+    <div id="calendar"></div>
     <!-- legend -->
 
     <table class="m-t-10 m-b-10">
@@ -55,3 +59,72 @@
         <a class="pull-right">Go to agenda <span class="ic-arr-right"></span></a>
     </div>
 </widget-wrapper>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        $('#calendar').fullCalendar({
+            defaultView: 'agendaDay',
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end, allDay) {
+                var title = prompt('Event Title:');
+                if (title) {
+                    calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true
+                    );
+                }
+                calendar.fullCalendar('unselect');
+            },
+            events: [
+                {
+                    title: 'Jason',
+                    start: new Date(y, m, 1)
+                },
+                {
+                    title: 'InMall',
+                    start: new Date(y, m, d-2),
+                    end: new Date(y, m, d)
+                },
+                {
+                    id: 999,
+                    title: 'Lunch Time',
+                    start: new Date(y, m, d+5, 16, 0),
+                    allDay: false
+                },
+                {
+                    title: 'ApiumTech',
+                    start: new Date(y, m, 28),
+                    end: new Date(y, m, 29),
+                    url: 'http://apiumtech.com/'
+                }
+            ]
+        });
+        $('#switchDay').click(function(){
+            $('#calendar').fullCalendar('changeView', 'agendaDay');
+        });
+        $('#switchWeek').click(function(){
+            $('#calendar').fullCalendar('changeView', 'agendaWeek');
+        });
+        $('#switchMonth').click(function(){
+            $('#calendar').fullCalendar('changeView', 'month');
+        });
+        $('#prevDay').click(function(){
+            $('#calendar').fullCalendar('prev');
+        });
+        $('#nextDay').click(function(){
+            $('#calendar').fullCalendar('next');
+        });
+        $(".fc-toolbar").hide();
+    });
+</script>

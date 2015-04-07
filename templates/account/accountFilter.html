@@ -137,14 +137,14 @@
                                           ng-click="data.AccountTypeFilter='';event.onShowAvailableAccountTypes(data.AccountTypeFilter);$event.stopPropagation()"></span>
                                 </form>
                             </li>
-                            <li class="media" ng-repeat="atype in data.availableAccountType">
+                            <li class="media" ng-repeat="filterValue in data.availableAccountType">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                                       ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.onToggleAccountTypeFilter(atype);"
-                                       ng-checked="atype.selected"/>
+                                       ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;event.onToggleAccountTypeFilter(filterValue);"
+                                       ng-checked="filterValue.selected"/>
 
                                 <div class="media-body"
-                                     ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.onToggleAccountTypeFilter(atype);">
-                                    <p>{{ atype.name }}</p>
+                                     ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;event.onToggleAccountTypeFilter(filterValue);">
+                                    <p>{{ filterValue.name }}</p>
                                 </div>
                             </li>
                         </ul>
@@ -181,6 +181,26 @@
                         </ul>
                     </li>
                 </ul>
+                <div class="clearfix"></div>
+                <div class="dropdown dynamic-filter btn-group clearfix"
+                     ng-repeat="field in data.availableFields | filter:{selected:true}">
+                    <string-type-filter ng-if="field.dataType=='String'"
+                                        filter-for="field"
+                                        on-close="event.updateAvailableFilters(field);">
+                    </string-type-filter>
+                    <boolean-type-filter ng-if="field.dataType=='Boolean'"
+                                         filter-for="field"
+                                         on-close="event.updateAvailableFilters(field);">
+                    </boolean-type-filter>
+                    <datetime-type-filter ng-if="field.dataType.toLowerCase()=='datetime'"
+                                          filter-for="field"
+                                          on-close="event.updateAvailableFilters(field);">
+                    </datetime-type-filter>
+                        <span class="fa fa-remove"
+                              ng-click="field.selected=false;fn.updateAvailableFilters();$event.stopPropagation()"></span>
+
+                    <div class="clearfix"></div>
+                </div>
             </div>
             <div class="col-md-3">
                 <form>

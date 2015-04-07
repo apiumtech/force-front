@@ -20,6 +20,10 @@ app.registerPresenter(function (container) {
 
         eventBus.onTableFieldsLoaded(self.tableFieldsLoaded.bind(self));
 
+        eventBus.onFilterValueChanged(self.filterChanged.bind(self));
+
+        eventBus.onTableFieldsToggled(self.onTableFieldsToggled.bind(self));
+
         view.event.onOwnerToggled = function (owner) {
             view.updateOwnerFilter(owner);
             view.reloadTableData();
@@ -60,6 +64,11 @@ app.registerPresenter(function (container) {
                 .then(view.reloadTableData.bind(view), view.showError.bind(view));
         };
 
+        view.event.getLatLongData = function (data, callback) {
+            model.getLatLongData(data)
+                .then(callback.bind(view), view.showError.bind(view));
+        };
+
         view.event.onToggleColumn = function (column) {
             column.visible = !column.visible;
             view.reloadTableColumns();
@@ -79,12 +88,28 @@ app.registerPresenter(function (container) {
         view.event.onAccountsNextPage = function () {
 
         };
+
+        view.event.onDisposing = function () {
+            eventBus.dispose();
+        };
         /* endregion */
     };
 
     AccountPresenter.prototype.tableFieldsLoaded = function (data) {
         var self = this;
         self.view.onTableFieldsLoaded(data);
+    };
+
+    AccountPresenter.prototype.onTableFieldsToggled = function (fields) {
+        var self = this;
+        self.view.updateCustomFilters(fields);
+        self.view.reloadTableData();
+    };
+
+    AccountPresenter.prototype.filterChanged = function (filterKey, filterValue) {
+        var self = this;
+        self.view.mapCustomFilter(filterKey, filterValue);
+        self.view.reloadTableData();
     };
 
     AccountPresenter.newInstance = function ($filterChannel, accountEventBus) {

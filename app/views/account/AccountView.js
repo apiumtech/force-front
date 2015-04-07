@@ -7,6 +7,7 @@ app.registerView(function (container) {
     var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
     var AccountModel = container.getModel('models/account/AccountModel');
     var GoogleMapService = container.getService("services/GoogleMapService");
+    var PopoverAdapter = container.getService("services/PopoverAdapter");
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
@@ -17,6 +18,7 @@ app.registerView(function (container) {
     function AccountView($scope, modalService, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
         this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
+        this.popupAdapter = PopoverAdapter.newInstance().getOrElse(throwInstantiateException(PopoverAdapter));
         this.mapService = mapService;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
@@ -45,6 +47,9 @@ app.registerView(function (container) {
             query: {
                 filtering: false,
                 value: ""
+            },
+            customFilters: {
+                values: []
             }
         };
 
@@ -65,10 +70,12 @@ app.registerView(function (container) {
             self.data.map = self.mapService.createMap($('#map-canvas')[0], mapOptions);
             self.data.latlngbounds = self.mapService.getLatLngBounds();
             self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
+            setTimeout(self.collapseMap.bind(self), 0);
         };
 
         self.fn.initTable = function () {
             self.event.onTableFieldsRequested();
+            self.fn.bindDocumentDomEvents();
         };
 
         self.fn.createAccountClicked = function () {
@@ -78,6 +85,25 @@ app.registerView(function (container) {
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };
+
+        self.fn.bindDocumentDomEvents = function () {
+            $(document).on("click", function (e) {
+                if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
+                    self.popupAdapter.closePopover($('div.popover'));
+                }
+            });
+
+            $(document).on('click', '.close-pop-over', function (e) {
+                self.popupAdapter.closePopover('div.popover');
+            });
+        };
+
+        self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    AccountView.prototype.collapseMap = function () {
+        var self = this;
+        self.data.mapCanvasCollapsed = true;
     };
 
     AccountView.prototype.onTableFieldsLoaded = function (data) {
@@ -152,6 +178,9 @@ app.registerView(function (container) {
             self.createMapMarker(record);
         });
 
+        if(self.markerClusterer){
+            self.markerClusterer.clearMarkers();
+        }
         self.markerClusterer = new MarkerClusterer(self.data.map, self.markers, {
             maxZoom: 15,
             gridSize: 50
@@ -166,6 +195,21 @@ app.registerView(function (container) {
             e.preventDefault();
             self.event.onFollowToggled(aData);
         });
+        //
+        //self.event.getLatLongData(aData, function (data) {
+        //    var popoverTemplate = self.getPopoverTemplate();
+        //    var popoverContentTemplate = self.getPopoverContentTemplate();
+        //    console.log("lat long data", data);
+        //    self.popupAdapter.createPopover($("a[function-getlocation]", nRow), popoverTemplate, popoverContentTemplate);
+        //
+        //    $("#popover_map_canvas").attr("src", 'https://maps.googleapis.com/maps/api/staticmap?center='
+        //    + data.latitude + ',' + data.longitude +
+        //    '&zoom=5&size=400x300');
+        //});
+        //
+        //$(nRow).on('click', "[function-getlocation]", function () {
+        //    self.popupAdapter.openPopover($("a[function-getlocation]", nRow));
+        //});
     };
 
     AccountView.prototype.onServerRequesting = function (aoData) {
@@ -186,6 +230,38 @@ app.registerView(function (container) {
         }
         if (filters.query.filtering) {
             aoData.customFilter['searchQuery'] = filters.query.value;
+        }
+
+        if (filters.customFilters.values.length) {
+            filters.customFilters.values.forEach(function (filter) {
+                aoData.customFilter[filter.key] = filter.value;
+            });
+        }
+    };
+
+    AccountView.prototype.getPopoverTemplate = function () {
+        return $('#popover_template').html();
+    };
+
+    AccountView.prototype.getPopoverContentTemplate = function () {
+        return $('#popover_content_template').html();
+    };
+
+    AccountView.prototype.mapCustomFilter = function (key, values) {
+        var self = this;
+        var filters = self.data.filters.customFilters.values;
+
+        var filterByKey = _.find(filters, function (filter) {
+            return filter.key == key;
+        });
+
+        if (!filterByKey) {
+            filters.push({
+                key: key,
+                value: values
+            });
+        } else {
+            filterByKey.value = values;
         }
     };
 
@@ -227,6 +303,17 @@ app.registerView(function (container) {
         // TODO: Remove $loki when integrate to real server
         row.id = row.$loki;
         return self.templateParser.parseTemplate(accountNameColTemplate, row);
+    };
+
+    AccountView.prototype.updateCustomFilters = function (deselectedFields) {
+        var self = this;
+        var filters = self.data.filters;
+
+        if (filters.customFilters.values.length) {
+            filters.customFilters.values = filters.customFilters.values.filter(function (filter) {
+                return deselectedFields.indexOf(filter.key) === -1;
+            });
+        }
     };
 
     AccountView.prototype.renderModifiedColumn = function (data) {
@@ -322,6 +409,11 @@ app.registerView(function (container) {
             var column = self.data.table.column(i);
             column.visible(self.data.availableColumns[i].visible);
         }
+    };
+
+    AccountView.prototype.onDisposing = function () {
+        var self = this;
+        self.event.onDisposing();
     };
 
     AccountView.prototype.showError = function (error) {

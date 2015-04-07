@@ -1,8 +1,8 @@
-<ul class=" pull-right no-bullet m-t-40">
+<!--
+<ul class="pull-right no-bullet m-t-40">
     <li>
         <div class="edit-delete-div">
             <a ng-href="#/accounts/{{accountData.id}}/edit">
-            <!--<a href="" ng-click="fn.openEditDialog()">-->
                 <i class="fa ic-edit"></i>{{'commonText.Edit' | i18next}}
             </a>
             <a href="" class="brand-red-text">
@@ -10,19 +10,35 @@
         </div>
     </li>
 </ul>
+-->
 <!-- end edit / delete -->
 <!-- begin page-header -->
-<!--<div class="pull-left account-logo-div m-r-15">
-    <img src="{{accountData.imgUrl}}" height="45" width="90">
-</div>-->
-<div class="pull-left row header_title">
-    <button type="button" class="btn btn-default btn-sm btn-squared btn-follow col-md-1 flag_button"
-            ng-click="fn.toggleFollow()"
-            ng-class="{'active': accountData.following}">
-        <i class="fa ic-flag"></i>
-    </button>
-    <h1 class="page-header m-b-0 col-md-11">{{accountData.name}},
-        <small>{{accountData.subtitle}}</small>
-    </h1>
-    <!-- end page-header -->
+<div class="row header_title">
+    <div class="col-xs-2 col-md-1 account-logo-div">
+        <img class="img-responsive" src="{{accountData.imgUrl}}">
+    </div>
+    <div class="col-xs-10 col-md-11">
+        <button type="button" class="btn btn-default btn-sm btn-squared btn-follow flag_button"
+                ng-click="fn.toggleFollow()"
+                ng-class="{'active': accountData.following}">
+            <i class="fa ic-flag"></i>
+        </button>
+        <br/>
+        <h1 class="page-header">{{accountData.name}},
+            <small>{{accountData.subtitle}}</small>
+        </h1>
+        <ul class="no-bullet pull-right">
+            <li>
+                <div class="edit-delete-div">
+                    <a ng-href="#/accounts/{{accountData.id}}/edit">
+                        <!--<a href="" ng-click="fn.openEditDialog()">-->
+                        <i class="fa ic-edit"></i>{{'commonText.Edit' | i18next}}
+                    </a>
+                    <a href="" class="brand-red-text">
+                        <i class="fa ic-trash"></i>{{'commonText.Delete' | i18next}}</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
+<!-- end page-header -->

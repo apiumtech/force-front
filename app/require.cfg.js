@@ -33,7 +33,9 @@ var require = {
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
         'crypto': "/node_modules/cryptojs/lib/Crypto",
-        'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1"
+        'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1",
+        //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
+        'fullcalendar': "/node_modules/fullcalendar/dist/fullcalendar.min"
     },
 
     'shim': {
@@ -147,6 +149,11 @@ var require = {
             exports: 'ApplicationFactory'
         },
 
+        'fullcalendar': {
+            deps: ['moment'],
+            exports: 'fullcalendar'
+        },
+
         'crypto.SHA1': ['crypto']
     },
 
@@ -159,7 +166,7 @@ var require = {
         'underscore', 'signals', 'ng-sortable', 'angular-moment',
         'datatables',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
-        'crypto.SHA1'
+        'crypto.SHA1', 'fullcalendar'
     ],
 
     callback: main

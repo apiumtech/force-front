@@ -7,12 +7,12 @@ app.registerDirective(function (container) {
     function StringTypeFilterDirective() {
         return {
             restrict: "EA",
-            controller: StringTypeFilterController,
-            templateUrl: '/templates/filters/stringTypeFilter.html',
             scope: {
-                filterKey: "@",
-                eventBus: "="
-            }
+                filterFor: "=",
+                onClose: "&"
+            },
+            controller: StringTypeFilterController,
+            templateUrl: '/templates/filters/stringTypeFilter.html'
         };
     }
 

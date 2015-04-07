@@ -56,7 +56,7 @@ function getValueFromKey(obj, keyString) {
 
 function AccountService() {
     this.getDb();
-};
+}
 
 AccountService.prototype.getFilterData = function (request) {
     var db = this.getDb();
@@ -76,6 +76,13 @@ AccountService.prototype.getFilterData = function (request) {
                 return record.name.toLowerCase().indexOf(filter.searchQuery.toLowerCase()) > -1;
             });
         }
+        _.each(filter, function (v, k) {
+            if (k !== 'owners' && k !== 'searchQuery') {
+                results = results.where(function (record) {
+                    return v.indexOf(getValueFromKey(record, k)) > -1;
+                });
+            }
+        });
     }
     var filteredData = results.data();
 
@@ -173,6 +180,25 @@ AccountService.prototype.toggleFollow = function (id) {
     accounts.update(account);
     db.save();
     return account;
+};
+
+AccountService.prototype.getFilterValues = function (fieldName, queryString) {
+    var db = this.getDb();
+    var accounts = db.getCollection('Accounts');
+
+    var dataSet = accounts.chain().data();
+    var results = Enumerable.from(dataSet).select(function (record) {
+        return getValueFromKey(record, fieldName);
+    }).distinct();
+
+    if (queryString !== undefined && queryString !== null) {
+        results = results.where(function (fieldValue) {
+            return fieldValue.toLowerCase().indexOf(queryString.toLowerCase()) != -1;
+        });
+    }
+    results = results.toArray();
+
+    return results;
 };
 
 AccountService.prototype.createAccount = function (body) {

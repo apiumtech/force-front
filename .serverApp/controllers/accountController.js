@@ -82,6 +82,17 @@ var accountController = {
                 });
             response.status(500).send(error);
         }
+    },
+    getFilterValues: function (request, response) {
+        try {
+            var fieldName = request.query.fieldName;
+            var queryString = request.query.queryString;
+            var result = AccountService.getFilterValues(fieldName, queryString);
+            response.json(result);
+        }
+        catch (error) {
+            response.status(500).send(error);
+        }
     }
 };
 

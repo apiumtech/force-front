@@ -40,6 +40,7 @@ app.registerService(function (container) {
     EventBase.prototype = Object.create(Object.prototype, {});
 
     EventBase.prototype.dispose = function () {
+        console.log("disposing event bus");
         var self = this;
 
         var methods = Object.keys(Object.getPrototypeOf(self));

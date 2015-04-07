@@ -52,6 +52,15 @@ app.registerView(function (container) {
                 self.event.onToggleViewFilter(null);
             }
         };
+
+        self.fn.updateAvailableFilters = function () {
+            var deselectedFields = self.data.availableFields.filter(function (r) {
+                return !r.selected;
+            }).map(function (r) {
+                return r.data;
+            });
+            self.event.onFieldsDeselected(deselectedFields);
+        };
         self.$scope.$watch('$destroy', self.dispose.bind(self));
     };
 
@@ -81,13 +90,14 @@ app.registerView(function (container) {
 
     AccountFilterView.prototype.onTableFieldsLoaded = function (data) {
         var self = this;
-        self.data.availableFields = [];
 
-        data.forEach(function (record) {
+        self.data.availableFields = data.map(function (record) {
             var copied = _.extend({
                 selected: false
             }, record);
-            self.data.availableFields.push(copied);
+            return copied;
+        }).filter(function (record) {
+            return record.isFilterable;
         });
     };
 

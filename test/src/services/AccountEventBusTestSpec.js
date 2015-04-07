@@ -7,11 +7,13 @@ describe("AccountEventBus", function () {
     describe("construct", function () {
         var events = [
             "TableFieldsLoaded",
+            "FilterValueChanged",
             "EnvironmentToggled",
             "ViewChanged",
             "AccountTypeToggled",
             "OwnerToggled",
-            "QueryChanged"
+            "QueryChanged",
+            "TableFieldsToggled"
         ];
 
         var sut;

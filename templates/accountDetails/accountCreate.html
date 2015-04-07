@@ -4,11 +4,11 @@
 <div>
     <div class="padding_box">
         <div class="pull-right">
-            <button class="btn_cancel"
+            <button class="btn btn-default p-r-30 p-l-30 p-t-15 p-b-15"
                     ng-disabled="data.isPosting" ng-click="fn.closeDialog(true)">
                 {{'commonText.Cancel' | i18next}}
             </button>
-            <button class="btn_save"
+            <button class="btn btn-primary p-r-30 p-l-30 p-t-15 p-b-15"
                     ng-disabled="!fn.isValid(CreateAccount) || data.isPosting "
                     ng-click="fn.saveAccount()">
                 {{'commonText.Save' | i18next}}

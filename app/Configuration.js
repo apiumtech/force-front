@@ -19,7 +19,7 @@ app.registerService(function (container) {
         uploadFile: '/upload',
         createAccount: '/api/accounts',
         authentication: '/api/authentication',
-
+        getFilterValues: '/api/getFilterValues',
         getContacts: '/api/contacts',/*https://backenddev.forcemanager.net/api/queries/crm/contacts*/
         getContactFields: '/api/contacts/meta/fields'
     };

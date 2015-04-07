@@ -203,7 +203,7 @@ app.registerView(function (container) {
         model = model || AccountDetailsModel.newInstance().getOrElse(AccountDetailsModel);
         presenter = presenter || AccountDetailsPresenter.newInstance().getOrElse(AccountDetailsPresenter);
         mapService = mapService || GoogleMapService.newInstance().getOrElse(GoogleMapService);
-        popoverAdapter = popoverAdapter || PopoverAdapter.newInstance().getOrElse(GoogleMapService);
+        popoverAdapter = popoverAdapter || PopoverAdapter.newInstance().getOrElse(PopoverAdapter);
 
         var view = new AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter);
 

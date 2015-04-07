@@ -12,11 +12,6 @@ module.exports = function (grunt) {
             command: 'cp -R force-design/assets/ ./assets && ' +
             'cp -Rf force-design/assets/plugins ./build/ && ' +
             'cp -Rf force-design/assets/css/fonts ./build/fonts'
-        },
-        'migrate-assets': {
-            command: 'cp -R ./assets/fonts ./build && ' +
-            'cp -Rf ./assets/images ./build && ' +
-            'cp -Rf ./assets/img ./build'
         }
     };
 };
