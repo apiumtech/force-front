@@ -11,11 +11,11 @@ app.registerService(function () {
         this.impl = popOverImplementation;
     }
 
-    PopoverAdapter.prototype.createPopover = function (target, template, content, placement) {
+    PopoverAdapter.prototype.createPopover = function (target, template, content, placement, trigger) {
         this.impl(target, {
             html: true,
             placement: placement || 'right',
-            trigger: 'manual',
+            trigger: trigger || 'manual',
             template: template,
             content: content
         });

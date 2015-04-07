@@ -128,14 +128,13 @@ span.removeTextBoxBtn {
   height: 460px;
   overflow-y: scroll;
   overflow-x: hidden;
-}
 
-.modal-body.create-account.panel.panel-loading {
-  overflow-y: hidden;
-}
-
-.modal-body.create-account.panel.panel-loading .panel-loader {
-  margin: 0 !important;
+  &.panel.panel-loading {
+    overflow-y: hidden;
+    .panel-loader {
+      margin: 0 !important;
+    }
+  }
 }
 
 .modal-content .panel-loader {
@@ -151,36 +150,41 @@ span.removeTextBoxBtn {
 .validation-invalid {
   color: red;
 }
+
 .vertical-align {
   display: flex;
   align-items: center;
 }
+
 .well-force-manager {
   padding: 10px;
-}
-.well-force-manager .row {
-  min-height: 70px;
-}
-.well-force-manager > .row > [class^="col-"],
-.well-force-manager > .row > [class*=" col-"] {
-  @media screen and (min-width: 768px) {
-    font-size: 14px;
-  }
-  @media screen and (min-width: 992px) {
-    font-size: 11px;
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 11px;
+  .row {
+    min-height: 70px;
   }
 }
-.well-force-manager > .row > [class^="col-"] > b,
-.well-force-manager > .row > [class*=" col-"] > b {
-  font-size: 16px;
+
+.well-force-manager > .row {
+  > [class^="col-"], > [class*=" col-"] {
+    @media screen and (min-width: 768px) {
+      font-size: 14px;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 11px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 11px;
+    }
+    > b {
+      font-size: 16px;
+    }
+  }
 }
+
 .btn-padding {
   padding: 10px 30px;
   border-radius: 3px;
 }
+
 .filters-div .dynamic-filter a {
   padding: 5px 9px 5px !important;
   &.dropdown-toggle {
@@ -190,15 +194,20 @@ span.removeTextBoxBtn {
     margin-right: 5px;
   }
 }
+
 .datepicker-full-width .datepicker-inline {
   width: 100%;
 }
 
 li.string-filter.loading {
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.5);
   position: absolute;
   top: 70px;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+a[function-getlocation] {
+  color: #ed8b00;
 }

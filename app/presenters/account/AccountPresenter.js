@@ -64,6 +64,11 @@ app.registerPresenter(function (container) {
                 .then(view.reloadTableData.bind(view), view.showError.bind(view));
         };
 
+        view.event.getLatLongData = function (data, callback) {
+            model.getLatLongData(data)
+                .then(callback.bind(view), view.showError.bind(view));
+        };
+
         view.event.onToggleColumn = function (column) {
             column.visible = !column.visible;
             view.reloadTableColumns();

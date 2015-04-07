@@ -4,7 +4,7 @@
     </ul>
     <h1 class="page-header">{{'Account.AccountTitle' | i18next}}
         <a href="javascript:;" class="btn btn-primary m-r-5"
-                ng-click="fn.createAccountClicked()">
+           ng-click="fn.createAccountClicked()">
             <span class="ic-plus m-r-5"></span>
             {{'Account.CreateAccount' | i18next}}
         </a>
@@ -15,5 +15,19 @@
 
     <div style="text-align: center; border-top: 1px solid gray; position: fixed; width: 100%; left: 0; bottom: 0;">
         {{data.currentError}}
+    </div>
+    <div class="hide">
+        <div id="popover_template">
+            <div class="popover popover-contact-info" role="tooltip">
+                <div class="arrow"></div>
+                <a class="close close-pop-over">&times;</a>
+
+                <div class="popover-content"></div>
+            </div>
+        </div>
+
+        <div id="popover_content_template">
+            <img id="popover_map_canvas" />
+        </div>
     </div>
 </div>

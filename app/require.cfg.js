@@ -35,7 +35,7 @@ var require = {
         'crypto': "/node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1",
         //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
-        //'fullcalendar': "/node_modules/fullcalendar/dist/fullcalendar.min"
+        'fullcalendar': "/node_modules/fullcalendar/dist/fullcalendar.min"
     },
 
     'shim': {
@@ -56,11 +56,6 @@ var require = {
             deps: ['angular'],
             exports: 'angular-validation'
         },
-
-        //'bootstrap-datepicker': {
-        //    deps: ['jquery'],
-        //    exports: 'bootstrap-datepicker'
-        //},
 
         'angular-validation-rule': {
             deps: ['angular', 'angular-validation'],
@@ -154,10 +149,10 @@ var require = {
             exports: 'ApplicationFactory'
         },
 
-        //'fullcalendar': {
-        //    deps: ['moment'],
-        //    exports: 'fullcalendar'
-        //},
+        'fullcalendar': {
+            deps: ['moment'],
+            exports: 'fullcalendar'
+        },
 
         'crypto.SHA1': ['crypto']
     },
@@ -171,7 +166,7 @@ var require = {
         'underscore', 'signals', 'ng-sortable', 'angular-moment',
         'datatables',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
-        'crypto.SHA1' //, 'bootstrap-datepicker', 'fullcalendar'
+        'crypto.SHA1', 'fullcalendar'
     ],
 
     callback: main

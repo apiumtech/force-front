@@ -7,6 +7,7 @@ app.registerView(function (container) {
     var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
     var AccountModel = container.getModel('models/account/AccountModel');
     var GoogleMapService = container.getService("services/GoogleMapService");
+    var PopoverAdapter = container.getService("services/PopoverAdapter");
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
@@ -17,6 +18,7 @@ app.registerView(function (container) {
     function AccountView($scope, modalService, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
         this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
+        this.popupAdapter = PopoverAdapter.newInstance().getOrElse(throwInstantiateException(PopoverAdapter));
         this.mapService = mapService;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
@@ -73,6 +75,7 @@ app.registerView(function (container) {
 
         self.fn.initTable = function () {
             self.event.onTableFieldsRequested();
+            self.fn.bindDocumentDomEvents();
         };
 
         self.fn.createAccountClicked = function () {
@@ -81,6 +84,18 @@ app.registerView(function (container) {
 
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
+        };
+
+        self.fn.bindDocumentDomEvents = function () {
+            $(document).on("click", function (e) {
+                if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
+                    self.popupAdapter.closePopover($('div.popover'));
+                }
+            });
+
+            $(document).on('click', '.close-pop-over', function (e) {
+                self.popupAdapter.closePopover('div.popover');
+            });
         };
 
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
@@ -177,6 +192,21 @@ app.registerView(function (container) {
             e.preventDefault();
             self.event.onFollowToggled(aData);
         });
+        //
+        //self.event.getLatLongData(aData, function (data) {
+        //    var popoverTemplate = self.getPopoverTemplate();
+        //    var popoverContentTemplate = self.getPopoverContentTemplate();
+        //    console.log("lat long data", data);
+        //    self.popupAdapter.createPopover($("a[function-getlocation]", nRow), popoverTemplate, popoverContentTemplate);
+        //
+        //    $("#popover_map_canvas").attr("src", 'https://maps.googleapis.com/maps/api/staticmap?center='
+        //    + data.latitude + ',' + data.longitude +
+        //    '&zoom=5&size=400x300');
+        //});
+        //
+        //$(nRow).on('click', "[function-getlocation]", function () {
+        //    self.popupAdapter.openPopover($("a[function-getlocation]", nRow));
+        //});
     };
 
     AccountView.prototype.onServerRequesting = function (aoData) {
@@ -204,6 +234,14 @@ app.registerView(function (container) {
                 aoData.customFilter[filter.key] = filter.value;
             });
         }
+    };
+
+    AccountView.prototype.getPopoverTemplate = function () {
+        return $('#popover_template').html();
+    };
+
+    AccountView.prototype.getPopoverContentTemplate = function () {
+        return $('#popover_content_template').html();
     };
 
     AccountView.prototype.mapCustomFilter = function (key, values) {

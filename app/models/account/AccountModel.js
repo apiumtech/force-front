@@ -4,10 +4,12 @@
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
+    var FakeAjaxService = container.getService("services/FakeAjaxService");
     var DataTableDataProvider = container.getService("services/DataTableDataProvider");
 
     function AccountModel(ajaxService, dataTableDataProvider) {
         this.ajaxService = ajaxService;
+        this.fakeAjaxService = FakeAjaxService.newInstance().getOrElse(throwInstantiateException(FakeAjaxService));
         this.dataTableDataProvider = dataTableDataProvider;
     }
 
@@ -21,6 +23,15 @@ app.registerModel(function (container) {
         };
 
         return this.ajaxService.rawAjaxRequest(params);
+    };
+
+    AccountModel.prototype.getLatLongData = function (record) {
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: {
+                latitude: 41.3970997,
+                longitude: 2.1509145
+            }
+        });
     };
 
     AccountModel.prototype.loadTableFields = function () {
