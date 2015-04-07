@@ -178,6 +178,9 @@ app.registerView(function (container) {
             self.createMapMarker(record);
         });
 
+        if(self.markerClusterer){
+            self.markerClusterer.clearMarkers();
+        }
         self.markerClusterer = new MarkerClusterer(self.data.map, self.markers, {
             maxZoom: 15,
             gridSize: 50
