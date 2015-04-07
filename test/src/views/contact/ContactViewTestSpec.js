@@ -18,14 +18,12 @@ describe("ContactView", function () {
         return { show: function(){} };
     }
 
-    function exerciseCreateView(scope, model, presenter, mapService, dataTableService, templateParser) {
+    function exerciseCreateView(scope, model, presenter, mapService) {
         scope = scope || {};
         model = model || {};
         presenter = presenter || stubPresenter();
         mapService = mapService || stubMapService();
-        dataTableService = dataTableService || {};
-        templateParser = templateParser || {};
-        return ContactView.newInstance(scope, model, presenter, mapService, dataTableService, templateParser, false, false).getOrElse(throwInstantiateException(ContactView));
+        return ContactView.newInstance(scope, model, presenter, mapService, false, false).getOrElse(throwInstantiateException(ContactView));
     }
 
 
@@ -42,11 +40,11 @@ describe("ContactView", function () {
         expect(view.configureEvents).toHaveBeenCalled();
     });
 
-    it('should initializeChart on fn.initializeChart()', function () {
+    it('should initializeMap on fn.initializeMap()', function () {
         var view = exerciseCreateView();
-        spyOn(view, 'initializeChart');
-        view.fn.initializeChart();
-        expect(view.initializeChart).toHaveBeenCalled();
+        spyOn(view, 'initializeMap');
+        view.fn.initializeMap();
+        expect(view.initializeMap).toHaveBeenCalled();
     });
 
     it('should openCreateContactPage on createContactClicked', function () {

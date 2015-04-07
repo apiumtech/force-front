@@ -4,22 +4,44 @@
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
-    var DataTableDataProvider = container.getService("services/DataTableDataProvider");
 
-    function ContactModel(ajaxService, dataTableDataProvider) {
+
+    function ContactModel(ajaxService, configuration) {
         this.ajaxService = ajaxService;
-        this.dataTableDataProvider = dataTableDataProvider;
+        this.configuration = configuration;
     }
 
-    ContactModel.prototype.loadTableFields = function () {
-        return this.dataTableDataProvider.getTableFields();
+    ContactModel.prototype.loadContactFields = function () {
+        var params = {
+            url: this.configuration.api.getContactFields,
+            type: 'GET',
+            contentType: 'application/json',
+            accept: 'application/json',
+            headers: {
+                token: 'atoken'
+            }
+        };
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
-    ContactModel.newInstance = function (ajaxService, dataTableDataProvider) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance().getOrElse(throwInstantiateException(DataTableDataProvider))
+    ContactModel.prototype.loadContacts = function () {
+        var params = {
+            url: this.configuration.api.getContacts,
+            type: 'GET',
+            contentType: 'application/json',
+            accept: 'application/json',
+            headers: {
+                token: 'atoken'
+            }
+        };
+        return this.ajaxService.rawAjaxRequest(params);
+    };
 
-        return Some(new ContactModel(ajaxService, dataTableDataProvider));
+    ContactModel.newInstance = function (ajaxService, configuration) {
+        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        configuration = configuration || Configuration;
+
+        return Some(new ContactModel(ajaxService, configuration));
     };
 
     return ContactModel;

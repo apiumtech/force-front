@@ -18,7 +18,10 @@ app.registerService(function (container) {
         getAgenda: '/api/agenda',
         uploadFile: '/upload',
         createAccount: '/api/accounts',
-        authentication: '/api/authentication'
+        authentication: '/api/authentication',
+
+        getContacts: '/api/contacts',/*https://backenddev.forcemanager.net/api/queries/crm/contacts*/
+        getContactFields: '/api/contacts/meta/fields'
     };
 
     return {

@@ -6,19 +6,19 @@ app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var ContactPresenter = container.getPresenter('presenters/contact/ContactPresenter');
     var ContactModel = container.getModel('models/contact/ContactModel');
-
     var GoogleMapService = container.getService("services/GoogleMapService");
-    var DataTableService = container.getService("services/DataTableService");
-    var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
 
 
-    function ContactView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
+    function ContactView($scope, $model, $presenter, mapService) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.mapService = mapService;
-        this.dataTableService = dataTableService;
-        this.templateParser = templateParser;
 
-        this.data.availableColumns = [];
+        this.mapService = mapService;
+        this.data.map = null;
+
+        this.data.contactFields = [];
+        this.data.contacts = [];
+
+        this.data.infoWindow = null;
 
         this.configureEvents();
     }
@@ -27,18 +27,29 @@ app.registerView(function (container) {
 
     ContactView.prototype.configureEvents = function () {
         var self = this;
-        self.data.map = null;
+
+        // contactTable.html > ng-init
+        self.fn.initializeMap = function () {
+            self.initializeMap();
+        };
+
+        // contactTable.html > ng-init
+        self.fn.initTable = function () {
+        };
+
 
         self.fn.createContactClicked = function () {
             self.openCreateContactPage();
         };
 
-        self.fn.initializeChart = function () {
-            self.initializeChart();
+        self.fn.isImageHeader = function () {
         };
+
+        self.event.onFieldsRestoreDefault = function () {/*implemented in presenter*/};
+        self.event.onToggleColumn = function () {/*implemented in presenter*/};
     };
 
-    ContactView.prototype.initializeChart = function () {
+    ContactView.prototype.initializeMap = function () {
         var self = this;
         var mapOptions = {
             zoom: 8,
@@ -61,17 +72,18 @@ app.registerView(function (container) {
         // TODO: open create contact page
     };
 
-    ContactView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
+    ContactView.prototype.onFieldsRestoreDefault = function () {
+        console.log("onFieldsRestoreDefault");
+    };
+
+    ContactView.newInstance = function ($scope, $model, $presenter, $mapService, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
         var model = $model || ContactModel.newInstance().getOrElse(throwInstantiateException(ContactModel));
         var presenter = $presenter || ContactPresenter.newInstance().getOrElse(throwInstantiateException(ContactPresenter));
 
         var mapService = $mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
-        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
-        var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
-
-        var view = new ContactView(scope, model, presenter, mapService, dataTableService, templateParser);
+        var view = new ContactView(scope, model, presenter, mapService);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
