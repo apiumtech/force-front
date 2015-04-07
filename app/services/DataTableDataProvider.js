@@ -12,7 +12,7 @@ app.registerService(function (container) {
     DataTableDataProvider.prototype.getTableFields = function () {
         return this.ajaxService.rawAjaxRequest({
             result: [
-                {data: "following", title: "Following", dataType: "Boolean", sortable: false, width: 70, visible: true, isFilterable: true},
+                {data: "following", title: "Following", dataType: "Boolean", sortable: true, width: 70, visible: true, isFilterable: true},
                 {data: "name", title: "Account Name", dataType: "String", width: 250, visible: true, isFilterable: true},
                 {data: "class", title: "Class.", dataType: "String", visible: true},
                 {
