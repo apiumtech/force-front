@@ -36,8 +36,8 @@ function main() {
                 controller: 'AccountDetailsController'
             })
             .when('/accounts/:account_id/edit', {
-                templateUrl: '/templates/accountDetails/accountCreate.html',
-                controller: 'DesignProveController'
+                templateUrl: '/templates/accountDetails/accountEdit.html',
+                controller: 'AccountEditController'
             })
             .when('/account/create', {
                 templateUrl: '/templates/accountDetails/accountCreate.html',

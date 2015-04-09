@@ -109,6 +109,7 @@
   "Account": {
     "AccountTitle": "Accounts",
     "CreateAccount": "Create Account",
+    "EditAccount": "Edit Account",
     "Table": {
       "Header": "Accounts Management",
       "FIELDS": "FIELDS",
