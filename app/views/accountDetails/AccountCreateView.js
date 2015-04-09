@@ -10,12 +10,10 @@ app.registerView(function (container) {
     function doNothing() {
     }
 
-    function AccountCreateView($scope, $modalInstance, model, presenter) {
+    function AccountCreateView($scope, model, presenter) {
         BaseView.call(this, $scope, model, presenter);
-
-        this.modalInstance = $modalInstance;
+        $scope.$modal = $scope.$injector.get("$modal");
         this.modalDialogAdapter = ModalDialogAdapter.newInstance($scope.$modal).getOrElse(throwInstantiateException(ModalDialogAdapter));
-
         this.accountData = {
             "following": false,
             "name": "",
@@ -75,10 +73,10 @@ app.registerView(function (container) {
             if (!confirmed)
                 self.modalDialogAdapter.confirm("Close confirmation",
                     "Are you sure want to close this dialog without saving?",
-                    self.modalInstance.dismiss,
+                    self.goBackToPreviousPage,
                     doNothing,
                     "Yes", "No");
-            else self.modalInstance.dismiss();
+            else self.goBackToPreviousPage();
         };
 
         self.fn.saveAccount = function () {
@@ -94,6 +92,10 @@ app.registerView(function (container) {
         self.fn.selectFile = function (files) {
             self.onFilesChanged(files);
         };
+    };
+
+    AccountCreateView.prototype.goBackToPreviousPage = function () {
+        window.history.go(-1);
     };
 
     AccountCreateView.prototype.onAvailableAccountTypeLoaded = function (data) {
@@ -134,7 +136,7 @@ app.registerView(function (container) {
     AccountCreateView.prototype.onAccountCreated = function () {
         var self = this;
         self.data.isPosting = false;
-        self.modalInstance.close();
+        self.goBackToPreviousPage();
     };
 
     AccountCreateView.prototype.showError = function (error) {
@@ -143,12 +145,12 @@ app.registerView(function (container) {
         BaseView.prototype.showError.call(this, error);
     };
 
-    AccountCreateView.newInstance = function (scope, modalInstance, model, presenter, viewRepaintAspect, logErrorAspect) {
+    AccountCreateView.newInstance = function (scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var uploadService = scope.$upload;
         model = model || AccountCreateModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountCreateModel));
         presenter = presenter || AccountCreatePresenter.newInstance().getOrElse(throwInstantiateException(AccountCreatePresenter));
 
-        var view = new AccountCreateView(scope, modalInstance, model, presenter);
+        var view = new AccountCreateView(scope, model, presenter);
         return view._injectAspects(viewRepaintAspect, logErrorAspect);
     };
 

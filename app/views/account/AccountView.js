@@ -78,10 +78,6 @@ app.registerView(function (container) {
             self.fn.bindDocumentDomEvents();
         };
 
-        self.fn.createAccountClicked = function () {
-            self.openCreateAccountDialog();
-        };
-
         self.fn.isImageHeader = function (header) {
             return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
         };

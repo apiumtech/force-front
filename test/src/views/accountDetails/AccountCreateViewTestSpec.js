@@ -4,8 +4,7 @@
 describe("AccountCreateView", function () {
     var AccountCreateView = app.getView('views/accountDetails/AccountCreateView');
 
-    var sut, model, presenter, scope, modalInstance;
-
+    var sut, model, presenter, scope;
     beforeEach(function () {
         model = {};
         presenter = {
@@ -16,18 +15,17 @@ describe("AccountCreateView", function () {
         };
         scope = {
             $modal: {},
+            $injector: {
+                get: function () {
+                    return {};
+                }
+            },
             $validation: {
                 checkValid: function () {
                 }
             }
         };
-        modalInstance = {
-            close: function () {
-            },
-            dismiss: function () {
-            }
-        };
-        sut = AccountCreateView.newInstance(scope, modalInstance, model, presenter, false, false).getOrElse(throwInstantiateException(AccountCreateView));
+        sut = AccountCreateView.newInstance(scope, model, presenter, false, false).getOrElse(throwInstantiateException(AccountCreateView));
     });
 
     describe("BaseView inheritance test", function () {
@@ -164,11 +162,11 @@ describe("AccountCreateView", function () {
             sut.fn.closeDialog(false);
             expect(sut.modalDialogAdapter.confirm).toHaveBeenCalled();
         });
-        it("should close if confirmed", function () {
+        it("should go back to previous page", function () {
             sut.configureEvents();
-            spyOn(sut.modalInstance, 'dismiss');
+            spyOn(sut, 'goBackToPreviousPage');
             sut.fn.closeDialog(true);
-            expect(sut.modalInstance.dismiss).toHaveBeenCalled();
+            expect(sut.goBackToPreviousPage).toHaveBeenCalled();
         });
     });
 
@@ -214,15 +212,15 @@ describe("AccountCreateView", function () {
 
     describe("onAccountCreated", function () {
         it("should turn loading indicator of", function () {
-            spyOn(modalInstance, 'close');
+            spyOn(sut, 'goBackToPreviousPage');
             sut.onAccountCreated();
             expect(sut.data.isPosting).toBeFalsy();
 
         });
-        it("should close the modal", function () {
-            spyOn(modalInstance, 'close');
+        it("should go back to previous page", function () {
+            spyOn(sut, 'goBackToPreviousPage');
             sut.onAccountCreated();
-            expect(modalInstance.close).toHaveBeenCalled();
+            expect(sut.goBackToPreviousPage).toHaveBeenCalled();
         });
     });
 

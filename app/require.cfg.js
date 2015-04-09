@@ -13,10 +13,10 @@ var require = {
         'jquery': '../node_modules/jquery/dist/jquery.min',
         'postal': '../node_modules/postal/lib/postal.min',
         'q': '../node_modules/q/q',
-        'functional-option': '/framework/Option',
-        'framework': '/framework/ApplicationFactory',
+        'functional-option': '../framework/Option',
+        'framework': '../framework/ApplicationFactory',
         'meld': '../node_modules/meld/meld',
-        'AppsAdapter': '/assets/js/AppsAdapter',
+        'AppsAdapter': '../assets/js/AppsAdapter',
         'i18next': '../node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '../assets/js/vendor/ng-i18next',
         'ng-sortable': '../assets/js/vendor/ng-sortable',
@@ -32,10 +32,10 @@ var require = {
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
-        'crypto': "/node_modules/cryptojs/lib/Crypto",
-        'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1",
+        'crypto': "../node_modules/cryptojs/lib/Crypto",
+        'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
-        'fullcalendar': "/node_modules/fullcalendar/dist/fullcalendar.min"
+        'fullcalendar': "../node_modules/fullcalendar/dist/fullcalendar.min"
     },
 
     'shim': {

@@ -39,6 +39,10 @@ function main() {
                 templateUrl: '/templates/accountDetails/accountCreate.html',
                 controller: 'DesignProveController'
             })
+            .when('/account/create', {
+                templateUrl: '/templates/accountDetails/accountCreate.html',
+                controller: 'AccountCreateController'
+            })
 
             .when('/analytics/conversion', {
                 templateUrl: '/templates/analytics/conversion.html',
