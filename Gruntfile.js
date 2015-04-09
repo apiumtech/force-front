@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             grunt.loadNpmTasks(dependency);
         }
     }
+    grunt.loadNpmTasks('grunt-keepalive');
 
     // Load tasks from the `grunt-tasks/` folder
     grunt.loadTasks('grunt/tasks');
