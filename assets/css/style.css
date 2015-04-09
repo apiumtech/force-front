@@ -7565,8 +7565,8 @@ a.map-snapshoot {
 }
 tr .edit-delete-div {
     display: none;
-    width: 120px;
-    position: absolute;
+    /*width: 120px;*/
+    /*position: absolute;*/
 }
 tr .edit-delete-div a {
     cursor: pointer;
