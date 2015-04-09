@@ -1,3 +1,3 @@
 #! /bin/sh
 
-grunt express:api & disown
+nohup $(grunt express:api &)

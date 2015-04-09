@@ -34,7 +34,6 @@ body {
 table.dataTable {
   margin-top: 10px !important;
   margin-bottom: 20px !important;
-  float: left;
 }
 .filterDesc {
   background: url('/node_modules/datatables/media/images/sort_desc.png') no-repeat right;
@@ -157,6 +156,11 @@ span.removeTextBoxBtn {
   padding: 10px 30px;
   border-radius: 3px;
 }
+.filters-div .dynamic-filter {
+  line-height: 36px;
+  padding-right: 10px;
+  margin: 10px 0;
+}
 .filters-div .dynamic-filter a {
   padding: 5px 9px 5px !important;
 }
@@ -164,7 +168,6 @@ span.removeTextBoxBtn {
   border: 1px solid transparent;
   border-radius: 3px;
   color: #54585a;
-  margin-right: 5px;
 }
 .datepicker-full-width .datepicker-inline {
   width: 100%;
@@ -179,4 +182,7 @@ li.string-filter.loading {
 }
 a[function-getlocation] {
   color: #ed8b00;
+}
+.form-control {
+  height: 36px;
 }
