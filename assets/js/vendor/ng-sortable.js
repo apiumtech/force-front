@@ -3,10 +3,8 @@
  */
 
 
-(function (angular, $, require) {
+(function (angular, $) {
     'use strict';
-
-    var Signal = require('signals');
 
     var movingWidgetKey = "movingWidget";
 
