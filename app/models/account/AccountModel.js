@@ -16,7 +16,7 @@ app.registerModel(function (container) {
     AccountModel.prototype.toggleFollow = function (record) {
         // TODO: replace $loki with the record identifer
         var params = {
-            url: Configuration.api.toggleFollow + "/" + record.$loki,
+            url: Configuration.api.toggleFollow.format(record.$loki),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'
