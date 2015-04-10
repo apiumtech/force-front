@@ -22,24 +22,13 @@ app.registerModel(function (container) {
             url: '/upload',
             method: 'POST',
             file: file
-        }).then(self.decorateResponseData.bind(self));
+        }).then(self.decorateResponseData.bind(self), function (error) {
+            return error;
+        });
     };
 
     AccountCreateModel.prototype.decorateResponseData = function (response) {
         return response.data;
-    };
-
-    AccountCreateModel.prototype.createAccount = function (model) {
-        var self = this;
-        var params = {
-            url: Configuration.api.createAccount,
-            type: 'post',
-            contentType: 'application/json',
-            accept: 'application/json',
-            data: model
-        };
-
-        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountCreateModel.newInstance = function (uploadService, ajaxService) {

@@ -4,15 +4,15 @@
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var ModalDialogAdapter = container.getService('services/ModalDialogAdapter');
-    var AccountCreateModel = container.getModel("models/accountDetails/AccountCreateModel");
-    var AccountCreatePresenter = container.getPresenter("presenters/accountDetails/AccountCreatePresenter");
+    var AccountEditingModel = container.getModel("models/accountDetails/AccountEditingModel");
+    var AccountEditPresenter = container.getPresenter("presenters/accountDetails/AccountEditPresenter");
 
     function doNothing() {
     }
 
     function AccountEditView($scope, model, presenter) {
         BaseView.call(this, $scope, model, presenter);
-        console.log($scope.accountId);
+        this.accountId = $scope.accountId;
         $scope.$modal = $scope.$injector.get("$modal");
         this.modalDialogAdapter = ModalDialogAdapter.newInstance($scope.$modal).getOrElse(throwInstantiateException(ModalDialogAdapter));
         this.accountData = {
@@ -63,8 +63,13 @@ app.registerView(function (container) {
 
     AccountEditView.prototype.initAdditionalData = function () {
         var self = this;
+        self.event.onLoadAccount(self.accountId);
         self.event.onLoadAccountType();
         self.event.onLoadEnvironments();
+    };
+
+    AccountEditView.prototype.onAccountLoaded = function (data) {
+        this.accountData = data;
     };
 
     AccountEditView.prototype.configureEvents = function () {
@@ -73,7 +78,7 @@ app.registerView(function (container) {
         self.fn.closeDialog = function (confirmed) {
             if (!confirmed)
                 self.modalDialogAdapter.confirm("Close confirmation",
-                    "Are you sure want to close this dialog without saving?",
+                    "Are you sure want to close this form without saving?",
                     self.goBackToPreviousPage,
                     doNothing,
                     "Yes", "No");
@@ -82,7 +87,7 @@ app.registerView(function (container) {
 
         self.fn.saveAccount = function () {
             self.data.isPosting = true;
-            self.event.onCreateAccount(self.accountData);
+            self.event.onSubmitEditAccount(self.accountId, self.accountData);
         };
 
         self.fn.isValid = function (formName) {
@@ -134,7 +139,7 @@ app.registerView(function (container) {
         }
     };
 
-    AccountEditView.prototype.onAccountCreated = function () {
+    AccountEditView.prototype.onAccountUpdated = function () {
         var self = this;
         self.data.isPosting = false;
         self.goBackToPreviousPage();
@@ -148,8 +153,8 @@ app.registerView(function (container) {
 
     AccountEditView.newInstance = function (scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var uploadService = scope.$upload;
-        model = model || AccountCreateModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountCreateModel));
-        presenter = presenter || AccountCreatePresenter.newInstance().getOrElse(throwInstantiateException(AccountCreatePresenter));
+        model = model || AccountEditingModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountEditingModel));
+        presenter = presenter || AccountEditPresenter.newInstance().getOrElse(throwInstantiateException(AccountEditPresenter));
 
         var view = new AccountEditView(scope, model, presenter);
         return view._injectAspects(viewRepaintAspect, logErrorAspect);

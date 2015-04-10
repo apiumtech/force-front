@@ -4,7 +4,7 @@
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var ModalDialogAdapter = container.getService('services/ModalDialogAdapter');
-    var AccountCreateModel = container.getModel("models/accountDetails/AccountCreateModel");
+    var AccountEditingModel = container.getModel("models/accountDetails/AccountEditingModel");
     var AccountCreatePresenter = container.getPresenter("presenters/accountDetails/AccountCreatePresenter");
 
     function doNothing() {
@@ -72,7 +72,7 @@ app.registerView(function (container) {
         self.fn.closeDialog = function (confirmed) {
             if (!confirmed)
                 self.modalDialogAdapter.confirm("Close confirmation",
-                    "Are you sure want to close this dialog without saving?",
+                    "Are you sure want to close this form without saving?",
                     self.goBackToPreviousPage,
                     doNothing,
                     "Yes", "No");
@@ -147,7 +147,7 @@ app.registerView(function (container) {
 
     AccountCreateView.newInstance = function (scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var uploadService = scope.$upload;
-        model = model || AccountCreateModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountCreateModel));
+        model = model || AccountEditingModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountEditingModel));
         presenter = presenter || AccountCreatePresenter.newInstance().getOrElse(throwInstantiateException(AccountCreatePresenter));
 
         var view = new AccountCreateView(scope, model, presenter);

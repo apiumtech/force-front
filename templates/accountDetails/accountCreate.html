@@ -52,7 +52,7 @@
                 <select class="form-control account_type_box" ng-model="accountData.accountType"
                         validator="required"
                         valid-method="blur">
-                    <option value="-1">Select one *</option>
+                    <option value="">Select one *</option>
                     <option ng-repeat="option in data.availableAccountTypes"
                             value="{{option.id || option.$loki}}">
                         {{option.name}}
@@ -99,7 +99,9 @@
                 <input type="text" class="form-control account_owner_box" placeholder="Mario Rossi">
             </div>
             <div class="col-md-3 ui-sortable btn_add_owner">
-                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add owner</button>
+                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add
+                    owner
+                </button>
             </div>
         </div>
 
@@ -227,7 +229,9 @@
                        valid-method="blur" placeholder="Street">
             </div>
             <div class="col-md-3 ui-sortable btn_add_owner">
-                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add street</button>
+                <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add
+                    street
+                </button>
             </div>
         </div>
         <div class="form-group">
@@ -238,7 +242,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.address2"
+                       ng-model="accountData.contactInfo.city"
                        valid-method="blur" placeholder="City / Town">
             </div>
         </div>
@@ -252,7 +256,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.city"
+                       ng-model="accountData.contactInfo.state"
                        valid-method="blur" value="Ikea Iberica SL" placeholder="Province / State">
             </div>
         </div>
@@ -290,7 +294,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control account_type_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.address2"
+                       ng-model="accountData.contactInfo.postcode"
                        valid-method="blur" placeholder="">
             </div>
         </div>
@@ -318,7 +322,6 @@
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       ng-model="accountData.contactInfo.city"
                        valid-method="blur" value="" placeholder="">
             </div>
         </div>

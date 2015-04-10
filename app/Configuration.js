@@ -9,15 +9,18 @@ app.registerService(function (container) {
         getAvailableEnvironments: '/api/accounts/environments',
         getAvailableViews: '/api/accounts/views',
         getAvailableAccountTypes: '/api/accounts/accountTypes',
-        getAccount: '/api/accounts',
+
+        getAccount: '/api/accounts/{0}',
+        getAccountSummary: '/api/accounts/{0}/summary',
+        updateAccount: '/api/accounts/{0}',
+        createAccount: '/api/accounts',
+
         getActivity: "api/activity",
-        toggleFollow: '/api/accounts/toggleFollow',
+        toggleFollow: '/api/accounts/toggleFollow/{0}',
         toggleFollowActivity: '/api/activity/toggleFollow',
-        updateAccount: '/api/accounts',
         getOpportunities: '/api/opportunities',
         getAgenda: '/api/agenda',
         uploadFile: '/upload',
-        createAccount: '/api/accounts',
         authentication: '/api/authentication',
         getFilterValues: '/api/getFilterValues'
     };

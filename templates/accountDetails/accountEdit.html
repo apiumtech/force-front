@@ -52,7 +52,7 @@
                 <select class="form-control account_type_box" ng-model="accountData.accountType"
                         validator="required"
                         valid-method="blur">
-                    <option value="-1">Select one *</option>
+                    <option value="">Select one *</option>
                     <option ng-repeat="option in data.availableAccountTypes"
                             value="{{option.id || option.$loki}}">
                         {{option.name}}
@@ -243,7 +243,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.address2"
+                       ng-model="accountData.contactInfo.city"
                        valid-method="blur" placeholder="City / Town">
             </div>
         </div>
@@ -257,7 +257,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.city"
+                       ng-model="accountData.contactInfo.state"
                        valid-method="blur" value="Ikea Iberica SL" placeholder="Province / State">
             </div>
         </div>
@@ -295,7 +295,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control account_type_box"
                        validator="required"
-                       ng-model="accountData.contactInfo.address2"
+                       ng-model="accountData.contactInfo.postcode"
                        valid-method="blur" placeholder="">
             </div>
         </div>
@@ -323,7 +323,6 @@
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       ng-model="accountData.contactInfo.city"
                        valid-method="blur" value="" placeholder="">
             </div>
         </div>

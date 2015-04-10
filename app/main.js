@@ -207,15 +207,18 @@ function main() {
             'views/filters/BooleanTypeFilterView',
 
 
+            'presenters/accountDetails/AccountEditingSharedPresenter',
+            'models/accountDetails/AccountEditingModel',
+
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
-            'models/accountDetails/AccountCreateModel',
             'views/accountDetails/AccountCreateView',
             'presenters/accountDetails/AccountCreatePresenter',
 
             // Account Edit Page
             'controllers/accountDetails/AccountEditController',
             'views/accountDetails/AccountEditView',
+            'presenters/accountDetails/AccountEditPresenter',
 
             // Account Details Page
             'controllers/accountDetails/AccountDetailsController',
