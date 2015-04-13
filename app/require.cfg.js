@@ -11,6 +11,10 @@ var require = {
         'angular': '../node_modules/angular/angular.min',
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '../node_modules/jquery/dist/jquery.min',
+        'jquery_migrate': '../assets/js/vendor/jquery-migrate-1.2.1.min',
+        'jquery_ui': '../node_modules/jquery-ui/jquery-ui',
+        'bootstrap': '../assets/js/bootstrap.min',
+        'slimscroll': '../assets/js/jquery.slimscroll.min',
         'postal': '../node_modules/postal/lib/postal.min',
         'q': '../node_modules/q/q',
         'functional-option': '../framework/Option',
@@ -106,18 +110,35 @@ var require = {
             exports: '$'
         },
 
+        'jquery_migrate': {
+            deps: ['jquery']
+        },
+
+        'jquery_ui': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'slimscroll': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'bootstrap': {
+            deps: ['jquery', 'jquery_migrate', 'jquery_ui']
+        },
+
+        'datatables': {
+            deps: ['jquery'],
+            exports: 'datatables'
+        },
+
         'flot': {
+            deps: ['jquery'],
             exports: 'flot'
         },
 
         'flot-resize': {
             deps: ['jquery', 'flot'],
             exports: 'flot-resize'
-        },
-
-        'datatables': {
-            deps: ['jquery'],
-            exports: 'datatables'
         },
 
         'flot-stack': {
@@ -158,7 +179,8 @@ var require = {
     },
 
     'deps': [
-        'jquery', 'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll',
+        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
         'angular-draganddrop', 'angular-bootstrap',
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',

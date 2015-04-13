@@ -7,14 +7,14 @@ app.registerModel(function (container) {
     var Configuration = app.getService('Configuration');
 
 
-    function AccountCreateModel(ajaxService, uploadService) {
+    function AccountEditingModel(ajaxService, uploadService) {
         AccountService.call(this, ajaxService);
         this.uploadService = uploadService;
     }
 
-    AccountCreateModel.prototype = Object.create(AccountService.prototype, {});
+    AccountEditingModel.prototype = Object.create(AccountService.prototype, {});
 
-    AccountCreateModel.prototype.uploadFile = function (file) {
+    AccountEditingModel.prototype.uploadFile = function (file) {
         var $upload = this.uploadService;
         var self = this;
 
@@ -27,16 +27,16 @@ app.registerModel(function (container) {
         });
     };
 
-    AccountCreateModel.prototype.decorateResponseData = function (response) {
+    AccountEditingModel.prototype.decorateResponseData = function (response) {
         return response.data;
     };
 
-    AccountCreateModel.newInstance = function (uploadService, ajaxService) {
+    AccountEditingModel.newInstance = function (uploadService, ajaxService) {
         assertNotNull('uploadService', uploadService);
         ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
 
-        return Some(new AccountCreateModel(ajaxService, uploadService));
+        return Some(new AccountEditingModel(ajaxService, uploadService));
     };
 
-    return AccountCreateModel;
+    return AccountEditingModel;
 });

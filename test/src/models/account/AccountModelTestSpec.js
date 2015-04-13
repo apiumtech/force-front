@@ -39,4 +39,3 @@ describe("AccountModel", function () {
         });
     });
 });
-
