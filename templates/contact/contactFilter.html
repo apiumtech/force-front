@@ -1,0 +1,171 @@
+<div ng-controller="ContactFilterController" class="row filters-div"
+     ng-init="fn.onLoaded()">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <div class="line-border clearfix"></div>
+        <div class="row m-b-5">
+            <div class="col-md-9">
+                <h6>Filter by</h6>
+                <ul class="nav navbar-nav row row m-t-10">
+
+                    <!-- Account Menu -->
+                    <li class="dropdown">
+                        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            {{'Contact.Filters.FilterBy.MenuAccount.Title' | i18next}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+                                    <input type="text" class="form-control ic-user"
+                                           placeholder="{{'Contact.Filters.FilterBy.MenuAccount.SearchPrompt' | i18next}}"
+                                           ng-model="data.ownerFilter"
+                                           ng-click="$event.stopPropagation();"
+                                           ng-change="event.onShowAvailableOwners(data.ownerFilter);"/>
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.ownerFilter!=''"
+                                          ng-click="data.ownerFilter='';event.onShowAvailableOwners(data.ownerFilter);$event.stopPropagation()"></span>
+                                </form>
+                            </li>
+                            <li class="media" ng-if="!data.availableOwners || data.availableOwners.length==0">
+                                <div class="media-body">
+                                    <p>{{'Contact.Filters.FilterBy.MenuAccount.ListEmpty' | i18next}}</p>
+                                </div>
+                            </li>
+                            <li class="media" ng-repeat="owner in data.availableOwners">
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                       ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);"
+                                       ng-checked="owner.selected"
+                                        />
+
+                                <div class="pull-left media-object ">
+                                    <img ng-src="assets/img/{{owner.avatar}}">
+                                </div>
+                                <div class="media-body"
+                                     ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);">
+                                    <p>{{ owner.name }} &nbsp;</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Account Menu -->
+
+                    <!-- Role Menu -->
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            {{'Contact.Filters.FilterBy.MenuRole.Title' | i18next}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+                                    <input type="text" class="form-control ic-user"
+                                           placeholder="{{'Contact.Filters.FilterBy.MenuRole.SearchPrompt' | i18next}}"
+                                           ng-model="data.EnvFilter"
+                                           ng-click="$event.stopPropagation();"
+                                           ng-change="event.onShowAvailableEnvironments(data.EnvFilter);"/>
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.EnvFilter!=''"
+                                          ng-click="data.EnvFilter='';event.onShowAvailableEnvironments(data.EnvFilter);$event.stopPropagation()"></span>
+                                </form>
+                            </li>
+                            <li class="media" ng-if="!data.availableEnvironment || data.availableEnvironment.length==0">
+                                <div class="media-body"
+                                     ng-click="$event.stopPropagation();">
+                                    <p>{{'Contact.Filters.FilterBy.MenuRole.ListEmpty' | i18next}}</p>
+                                </div>
+                            </li>
+                            <li class="media" ng-repeat="env in data.availableEnvironment">
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 "
+                                       ng-click="$event.stopPropagation();env.selected=!env.selected;event.onToggleEnvironmentFilter(env);"
+                                       ng-checked="env.selected"/>
+
+                                <div class="media-body"
+                                     ng-click="$event.stopPropagation();env.selected=!env.selected;event.onToggleEnvironmentFilter(env);">
+                                    <p>{{ env.name }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Role Menu -->
+
+                    <!-- Tel. Number Menu -->
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            {{'Contact.Filters.FilterBy.MenuPhoneNumber.Title' | i18next}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+                                    <input type="text" class="form-control ic-user"
+                                           placeholder="{{'Contact.Filters.FilterBy.MenuPhoneNumber.SearchPrompt' | i18next}}"
+                                           ng-model="data.EnvFilter"
+                                           ng-click="$event.stopPropagation();"
+                                           ng-change="event.onShowAvailableEnvironments(data.EnvFilter);"/>
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.EnvFilter!=''"
+                                          ng-click="data.EnvFilter='';event.onShowAvailableEnvironments(data.EnvFilter);$event.stopPropagation()"></span>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Tel. Number Menu -->
+
+                    <!-- Add Filter -->
+                    <li class="dropdown">
+                        <a href="#"
+                           class="dropdown-toggle btn btn-default"
+                           data-toggle="dropdown">
+                            {{'Contact.Filters.FilterBy.MenuAddFilter.Title' | i18next}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+                                    <input type="text"
+                                           class="form-control ic-user"
+                                           placeholder="{{'Contact.Filters.FilterBy.MenuAddFilter.SearchPrompt' | i18next}}"
+                                           ng-click="$event.stopPropagation();"/>
+                                    <span class="fa fa-remove removeTextBoxBtn"
+                                          ng-click="$event.stopPropagation()"></span>
+                                </form>
+                            </li>
+                            <li class="media" ng-repeat="atype in data.availableFields">
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10"
+                                       ng-click="$event.stopPropagation();"
+                                       ng-checked="atype.selected"/>
+
+                                <div class="media-body"
+                                     ng-click="$event.stopPropagation();atype.selected=!atype.selected;">
+                                    <p>{{ atype.title }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Add Filter -->
+
+                </ul>
+            </div>
+
+            <!-- Search Field -->
+            <div class="col-md-3">
+                <form>
+                    <div class="input-group  m-t-40">
+                        <input type="text" class="form-control"
+                               ng-model="data.searchQuery"
+                               ng-change="event.onSearchQueryChanged(data.searchQuery)"
+                                />
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-default" type="button"><i class="fa ic-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <!-- End Search Field -->
+
+        </div>
+        <div class="line-border clearfix m-b-30 "></div>
+    </div>
+</div>

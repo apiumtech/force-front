@@ -3,6 +3,8 @@
  */
 app.registerService(function (container) {
 
+    var baseUrl = "https://backenddev.forcemanager.net/api";
+
     var api = {
         dataTableRequest: '/api/accounts/dataTables',
         getAvailableOwners: '/api/accounts/availableOwners',
@@ -21,8 +23,10 @@ app.registerService(function (container) {
         getOpportunities: '/api/opportunities',
         getAgenda: '/api/agenda',
         uploadFile: '/upload',
-        authentication: '/api/authentication',
-        getFilterValues: '/api/getFilterValues'
+        getFilterValues: '/api/getFilterValues',
+
+        authentication: baseUrl + '/commands/security/login',
+        getContacts: baseUrl + '/queries/crm/contacts'
     };
 
     return {

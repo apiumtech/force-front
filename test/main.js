@@ -210,10 +210,28 @@ function exerciseFakeOkPromise() {
     };
 }
 
+function exerciseFakeOkPromiseWithArg(arg) {
+    return {
+        then: function (a, b) {
+            a(arg);
+            return exerciseFakeOkPromise();
+        }
+    };
+}
+
 function exerciseFakeKoPromise() {
     return {
         then: function (a, b) {
             b();
+            return exerciseFakeKoPromise();
+        }
+    };
+}
+
+function exerciseFakeKoPromiseWithArg(arg) {
+    return {
+        then: function (a, b) {
+            b(arg);
             return exerciseFakeKoPromise();
         }
     };
