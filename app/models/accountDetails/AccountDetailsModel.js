@@ -14,7 +14,7 @@ app.registerModel(function (container) {
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
         var self = this;
         var params = {
-            url: Configuration.api.getAccount + '/' + id,
+            url: Configuration.api.getAccount.format(id),
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
@@ -26,7 +26,7 @@ app.registerModel(function (container) {
     AccountDetailsModel.prototype.getAccountSummary = function (id) {
         var self = this;
         var params = {
-            url: Configuration.api.getAccount + '/' + id + '/summary',
+            url: Configuration.api.getAccountSummary.format(id),
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
@@ -37,7 +37,7 @@ app.registerModel(function (container) {
 
     AccountDetailsModel.prototype.toggleFollow = function (accountId) {
         var params = {
-            url: Configuration.api.toggleFollow + "/" + accountId,
+            url: Configuration.api.toggleFollow.format(accountId),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'
@@ -48,7 +48,7 @@ app.registerModel(function (container) {
 
     AccountDetailsModel.prototype.updateAccountData = function (accountId, accountData) {
         var params = {
-            url: Configuration.api.updateAccount + "/" + accountId,
+            url: Configuration.api.updateAccount.format(accountId),
             type: 'put',
             contentType: 'application/json',
             accept: 'application/json',

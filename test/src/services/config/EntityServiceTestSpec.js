@@ -16,38 +16,38 @@ describe("EntityService", function () {
         window.localStorage.clear();
     });
 
-    function storeFakeConfig(){
-        var config = {
-            entities: {
-                account: {
-                    fields:[
-                        {
-                            name: "Id",
-                            crud: { label: "Id" }
-                        },{
-                            name: "Id",
-                            crud: { label: "Id" }
-                        }
-                    ]
-                }
-            }
-        };
-        storage.store(EntityService.CONFIG_KEY, config );
-    }
 
-    describe('getEntityByName()', function(){
-        it("should call storage's retrieve()", function(){
-            storeFakeConfig();
-            var entity = "contact";
-            spyOn(storage, "retrieve");
-            sut.getEntityByName(entity);
-            expect(storage.retrieve).toHaveBeenCalled();
+    describe('storeEntities()', function(){
+        it('should throw when no entities defined', function(){
+            var no_entities_configObject = {};
+            expect( sut.storeEntities.bind(sut, no_entities_configObject) ).toThrow();
         });
 
-        it('should return the correct entity', function(){
-            storeFakeConfig();
-            var entity = sut.getEntityByName(EntityService.CONFIG_KEY);
-            expect(entity.fields.length).toBe(2);
+        it('should store entities when defined', function(){
+            var config_with_entities = {
+                entities: "ok!"
+            };
+            sut.storeEntities(config_with_entities);
+            expect(storage.retrieve(EntityService.STORAGE_KEY)).toBe("ok!")
+        });
+    });
+
+
+    describe('getEntityByName()', function(){
+        it("shoud throw when no entityName is specified", function(){
+            expect(sut.getEntityByName).toThrow();
+        });
+
+        it('should retrieve the correct entity', function(){
+            var accountEntity = "ok entity";
+            var config_stub = {
+                entities: {
+                    account: accountEntity
+                }
+            };
+            sut.storeEntities(config_stub);
+            var entity = sut.getEntityByName("account");
+            expect(entity).toBe(accountEntity);
         });
     });
 });

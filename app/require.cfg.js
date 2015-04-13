@@ -11,12 +11,16 @@ var require = {
         'angular': '../node_modules/angular/angular.min',
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '../node_modules/jquery/dist/jquery.min',
+        'jquery_migrate': '../assets/js/vendor/jquery-migrate-1.2.1.min',
+        'jquery_ui': '../node_modules/jquery-ui/jquery-ui',
+        'bootstrap': '../assets/js/bootstrap.min',
+        'slimscroll': '../assets/js/jquery.slimscroll.min',
         'postal': '../node_modules/postal/lib/postal.min',
         'q': '../node_modules/q/q',
-        'functional-option': '/framework/Option',
-        'framework': '/framework/ApplicationFactory',
+        'functional-option': '../framework/Option',
+        'framework': '../framework/ApplicationFactory',
         'meld': '../node_modules/meld/meld',
-        'AppsAdapter': '/assets/js/AppsAdapter',
+        'AppsAdapter': '../assets/js/AppsAdapter',
         'i18next': '../node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '../assets/js/vendor/ng-i18next',
         'ng-sortable': '../assets/js/vendor/ng-sortable',
@@ -32,10 +36,10 @@ var require = {
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
-        'crypto': "/node_modules/cryptojs/lib/Crypto",
-        'crypto.SHA1': "/node_modules/cryptojs/lib/SHA1",
+        'crypto': "../node_modules/cryptojs/lib/Crypto",
+        'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
-        'fullcalendar': "/node_modules/fullcalendar/dist/fullcalendar.min"
+        'fullcalendar': "../node_modules/fullcalendar/dist/fullcalendar.min"
     },
 
     'shim': {
@@ -106,18 +110,35 @@ var require = {
             exports: '$'
         },
 
+        'jquery_migrate': {
+            deps: ['jquery']
+        },
+
+        'jquery_ui': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'slimscroll': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'bootstrap': {
+            deps: ['jquery', 'jquery_migrate', 'jquery_ui']
+        },
+
+        'datatables': {
+            deps: ['jquery'],
+            exports: 'datatables'
+        },
+
         'flot': {
+            deps: ['jquery'],
             exports: 'flot'
         },
 
         'flot-resize': {
             deps: ['jquery', 'flot'],
             exports: 'flot-resize'
-        },
-
-        'datatables': {
-            deps: ['jquery'],
-            exports: 'datatables'
         },
 
         'flot-stack': {
@@ -158,7 +179,8 @@ var require = {
     },
 
     'deps': [
-        'jquery', 'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll',
+        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
         'angular-draganddrop', 'angular-bootstrap',
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',

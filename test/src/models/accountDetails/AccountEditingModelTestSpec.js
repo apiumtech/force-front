@@ -2,8 +2,8 @@
  * Created by justin on 3/20/15
  */
 
-describe("AccountCreateModel", function () {
-    var AccountCreateModel = app.getModel('models/accountDetails/AccountCreateModel');
+describe("AccountEditingModel", function () {
+    var AccountEditingModel = app.getModel('models/accountDetails/AccountEditingModel');
     var Configuration = app.getService('Configuration');
     var sut, ajaxService, uploadService;
 
@@ -14,7 +14,7 @@ describe("AccountCreateModel", function () {
             }
         };
         expect(function () {
-            sut = AccountCreateModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountCreateModel));
+            sut = AccountEditingModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountEditingModel));
         }).toThrow(new Error("uploadService cannot be null"));
     });
 
@@ -28,7 +28,7 @@ describe("AccountCreateModel", function () {
             upload: function () {
             }
         };
-        sut = AccountCreateModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountCreateModel));
+        sut = AccountEditingModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountEditingModel));
     });
 
     function exerciseAjaxOk() {

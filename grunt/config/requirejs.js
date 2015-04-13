@@ -8,8 +8,6 @@ module.exports = function (grunt) {
         compile: {
             options: {
                 mainConfigFile: 'require.build-cfg.js',
-                name: 'main',
-                out: 'build/force-manager.min.js',
                 optimize: 'none'
             }
         }

@@ -36,8 +36,12 @@ function main() {
                 controller: 'AccountDetailsController'
             })
             .when('/accounts/:account_id/edit', {
+                templateUrl: '/templates/accountDetails/accountEdit.html',
+                controller: 'AccountEditController'
+            })
+            .when('/account/create', {
                 templateUrl: '/templates/accountDetails/accountCreate.html',
-                controller: 'DesignProveController'
+                controller: 'AccountCreateController'
             })
 
             .when('/analytics/conversion', {
@@ -207,15 +211,18 @@ function main() {
             'views/filters/BooleanTypeFilterView',
 
 
+            'presenters/accountDetails/AccountEditingSharedPresenter',
+            'models/accountDetails/AccountEditingModel',
+
             // Account Create Page
             'controllers/accountDetails/AccountCreateController',
-            'models/accountDetails/AccountCreateModel',
             'views/accountDetails/AccountCreateView',
             'presenters/accountDetails/AccountCreatePresenter',
 
             // Account Edit Page
             'controllers/accountDetails/AccountEditController',
             'views/accountDetails/AccountEditView',
+            'presenters/accountDetails/AccountEditPresenter',
 
             // Account Details Page
             'controllers/accountDetails/AccountDetailsController',

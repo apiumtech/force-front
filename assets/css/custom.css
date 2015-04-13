@@ -34,7 +34,6 @@ body {
 table.dataTable {
   margin-top: 10px !important;
   margin-bottom: 20px !important;
-  float: left;
 }
 .filterDesc {
   background: url('/node_modules/datatables/media/images/sort_desc.png') no-repeat right;
@@ -120,4 +119,70 @@ span.removeTextBoxBtn {
 }
 .validation-invalid {
   color: red;
+}
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+.well-force-manager {
+  padding: 10px;
+}
+.well-force-manager .row {
+  min-height: 70px;
+}
+@media screen and (min-width: 768px) {
+  .well-force-manager > .row > [class^="col-"],
+  .well-force-manager > .row > [class*=" col-"] {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .well-force-manager > .row > [class^="col-"],
+  .well-force-manager > .row > [class*=" col-"] {
+    font-size: 11px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .well-force-manager > .row > [class^="col-"],
+  .well-force-manager > .row > [class*=" col-"] {
+    font-size: 11px;
+  }
+}
+.well-force-manager > .row > [class^="col-"] > b,
+.well-force-manager > .row > [class*=" col-"] > b {
+  font-size: 16px;
+}
+.btn-padding {
+  padding: 10px 30px;
+  border-radius: 3px;
+}
+.filters-div .dynamic-filter {
+  line-height: 36px;
+  padding-right: 10px;
+  margin: 10px 0;
+}
+.filters-div .dynamic-filter a {
+  padding: 5px 9px 5px !important;
+}
+.filters-div .dynamic-filter a.dropdown-toggle {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #54585a;
+}
+.datepicker-full-width .datepicker-inline {
+  width: 100%;
+}
+li.string-filter.loading {
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+a[function-getlocation] {
+  color: #ed8b00;
+}
+.form-control {
+  height: 36px;
 }

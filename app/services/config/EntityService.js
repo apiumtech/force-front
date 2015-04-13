@@ -10,11 +10,21 @@ app.registerService(function () {
     }
 
     EntityService.prototype = Object.create(Object.prototype, {});
-    EntityService.CONFIG_KEY = "fmConfig";
+    EntityService.STORAGE_KEY = "fmConfigEntities";
+
+    EntityService.prototype.storeEntities = function(configObj){
+        if( !configObj.entities ){
+            throw new Error('This Config Object does not have entities');
+        }
+        this.storage.store(EntityService.STORAGE_KEY, configObj.entities );
+    };
 
     EntityService.prototype.getEntityByName = function(entityName){
-        var config = this.storage.retrieve(EntityService.CONFIG_KEY);
-        return config.entities[entityName];
+        if(!entityName){
+            throw new Error("No entity name was specified");
+        }
+        var entitiesObj = this.storage.retrieve(EntityService.STORAGE_KEY);
+        return entitiesObj[entityName];
     };
 
     EntityService.newInstance = function (storage) {

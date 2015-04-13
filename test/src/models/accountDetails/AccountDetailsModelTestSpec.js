@@ -22,7 +22,7 @@ describe("AccountDetailsModel", function () {
             var id = 100;
             sut.getAccountDetail(id);
             expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getAccount + '/' + id);
+            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getAccount.format(id));
             expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('get');
         });
 
@@ -41,7 +41,7 @@ describe("AccountDetailsModel", function () {
             var id = 100;
             sut.getAccountSummary(id);
             expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getAccount + '/' + id + '/summary');
+            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getAccountSummary.format(id));
             expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('get');
         });
     });
@@ -53,7 +53,7 @@ describe("AccountDetailsModel", function () {
             var data = {name: "updatedname"};
             sut.updateAccountData(id, data);
             expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.updateAccount + '/' + id);
+            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.updateAccount.format(id));
             expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('put');
             expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].data).toEqual(data);
         });
@@ -66,7 +66,7 @@ describe("AccountDetailsModel", function () {
             spyOn(ajaxService, 'rawAjaxRequest');
             sut.toggleFollow(toFollow);
             expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow + "/" + 10);
+            expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow.format(10));
             expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('post');
 
         });

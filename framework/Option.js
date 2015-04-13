@@ -92,4 +92,37 @@
         }
     };
 
+    /**
+     * Extending String native javascript object
+     */
+    if (!('format' in String.prototype))
+        String.prototype.format = function () {
+            var args = arguments;
+            return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (m, n) {
+                if (m == "{{") {
+                    return "{";
+                }
+                if (m == "}}") {
+                    return "}";
+                }
+                return args[n];
+            });
+        };
+
+    if (!('endsWith' in String.prototype))
+        String.prototype.endsWith = function (suffix) {
+            return (this.substr(this.length - suffix.length) === suffix);
+        };
+
+    if (!('startsWith' in String.prototype))
+        String.prototype.startsWith = function (prefix) {
+            return (this.substr(0, prefix.length) === prefix);
+        };
+
+    if (!('contains' in String.prototype)) {
+        String.prototype.contains = function (str, startIndex) {
+            return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+        };
+    }
+
 })(window);

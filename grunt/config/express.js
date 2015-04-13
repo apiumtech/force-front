@@ -11,7 +11,6 @@ module.exports = function (grunt) {
             'options': {
                 'port': 8081,
                 'hostname': '*',
-                'serverreload': true,
                 'server': path.resolve('./.serverApp/index.js'),
                 'bases': [path.resolve('./')]
             }

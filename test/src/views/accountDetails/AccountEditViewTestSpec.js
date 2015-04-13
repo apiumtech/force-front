@@ -1,8 +1,8 @@
 /**
  * Created by justin on 3/20/15.
  */
-describe("AccountCreateView", function () {
-    var AccountCreateView = app.getView('views/accountDetails/AccountCreateView');
+describe("AccountEditView", function () {
+    var AccountEditView = app.getView('views/accountDetails/AccountEditView');
 
     var sut, model, presenter, scope;
     beforeEach(function () {
@@ -25,7 +25,7 @@ describe("AccountCreateView", function () {
                 }
             }
         };
-        sut = AccountCreateView.newInstance(scope, model, presenter, false, false).getOrElse(throwInstantiateException(AccountCreateView));
+        sut = AccountEditView.newInstance(scope, model, presenter, false, false).getOrElse(throwInstantiateException(AccountEditView));
     });
 
     describe("BaseView inheritance test", function () {
@@ -59,7 +59,7 @@ describe("AccountCreateView", function () {
     });
 
     describe("initAdditionalData()", function () {
-        var events = ["onLoadAccountType", "onLoadEnvironments"];
+        var events = ["onLoadAccountType", "onLoadEnvironments", "onLoadAccount"];
         beforeEach(function () {
             events.forEach(function (event) {
                 sut.event[event] = jasmine.createSpy();
@@ -171,18 +171,20 @@ describe("AccountCreateView", function () {
     });
 
     describe("fn.saveAccount", function () {
+        beforeEach(function () {
+            sut.event.onSubmitEditAccount = jasmine.createSpy();
+        });
+
         it("should turn loading indicator on", function () {
             sut.configureEvents();
-            sut.event.onCreateAccount = jasmine.createSpy();
             sut.fn.saveAccount();
             expect(sut.data.isPosting).toBeTruthy();
 
         });
-        it("should fire event onCreateAccount", function () {
+        it("should fire event onSubmitEditAccount", function () {
             sut.configureEvents();
-            sut.event.onCreateAccount = jasmine.createSpy();
             sut.fn.saveAccount();
-            expect(sut.event.onCreateAccount).toHaveBeenCalledWith(sut.accountData);
+            expect(sut.event.onSubmitEditAccount).toHaveBeenCalledWith(sut.accountId, sut.accountData);
         });
     });
 
@@ -210,16 +212,16 @@ describe("AccountCreateView", function () {
         expect(sut.data.isPosting).toBeFalsy();
     });
 
-    describe("onAccountCreated", function () {
+    describe("onAccountUpdated", function () {
         it("should turn loading indicator of", function () {
             spyOn(sut, 'goBackToPreviousPage');
-            sut.onAccountCreated();
+            sut.onAccountUpdated();
             expect(sut.data.isPosting).toBeFalsy();
 
         });
         it("should go back to previous page", function () {
             spyOn(sut, 'goBackToPreviousPage');
-            sut.onAccountCreated();
+            sut.onAccountUpdated();
             expect(sut.goBackToPreviousPage).toHaveBeenCalled();
         });
     });
@@ -237,6 +239,14 @@ describe("AccountCreateView", function () {
             var data = [];
             sut.onEnvironmentsLoaded(data);
             expect(sut.data.availableEnvironments).toEqual(data);
+        });
+    });
+
+    describe("onAccountLoaded", function () {
+        it("should assign data to accountData", function () {
+            var data = [];
+            sut.onAccountLoaded(data);
+            expect(sut.accountData).toEqual(data);
         });
     });
 });

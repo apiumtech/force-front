@@ -8,36 +8,14 @@ describe("AccountEditController", function () {
 
     it("should call configureView with correct params", function () {
         var scope = {thisIsFakeScope: true},
-            $modalInstance = {},
-            $modal = {},
-            accountId = 10;
+            $routeParams = {account_id: 10},
+            $injector = {
+                get: function () {
+                }
+            };
         AccountEditController.configureView = jasmine.createSpy();
 
-        sut = new AccountEditController(scope, $modalInstance, $modal, accountId);
-        expect(AccountEditController.configureView).toHaveBeenCalledWith(scope, $modalInstance);
-    });
-
-    it("should assign accountId to scope for later use in View", function () {
-        var scope = {thisIsFakeScope: true},
-            $modalInstance = {},
-            $modal = {},
-            accountId = 10;
-        AccountEditController.configureView = jasmine.createSpy();
-
-        sut = new AccountEditController(scope, $modalInstance, $modal, accountId);
-        expect(scope.accountId).not.toBeNull();
-        expect(scope.accountId).toEqual(10);
-    });
-
-    it("should assign $modal to scope for later use in View", function () {
-        var scope = {thisIsFakeScope: true},
-            $modalInstance = {},
-            $modal = {},
-            accountId = 10;
-        AccountEditController.configureView = jasmine.createSpy();
-
-        sut = new AccountEditController(scope, $modalInstance, $modal, accountId);
-        expect(scope.$modal).not.toBeNull();
-        expect(scope.$modal).toEqual($modal);
+        sut = new AccountEditController(scope, $routeParams, $injector);
+        expect(AccountEditController.configureView).toHaveBeenCalledWith(scope);
     });
 });

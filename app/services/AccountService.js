@@ -15,6 +15,41 @@ app.registerService(function (container) {
         this.availableAccountTypes = null;
     }
 
+    AccountService.prototype.getAccount = function (id) {
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.getAccount.format(id),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        });
+    };
+
+    AccountService.prototype.updateAccount = function (id, model) {
+        var self = this;
+        var params = {
+            url: Configuration.api.updateAccount.format(id),
+            type: 'put',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: model
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
+    AccountService.prototype.createAccount = function (model) {
+        var self = this;
+        var params = {
+            url: Configuration.api.createAccount,
+            type: 'post',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: model
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
     AccountService.prototype.getAvailableOwners = function (filter) {
         var query = "";
         if (filter) {

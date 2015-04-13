@@ -24,6 +24,41 @@ describe("AccountService", function () {
         }
     }
 
+    describe("getAccount", function () {
+        beforeEach(function () {
+
+        });
+
+        describe("calling getAccount", function () {
+            it("should call ajaxService rawAjaxRequest", function () {
+                spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
+                sut.getAccount(10);
+                expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
+                    url: Configuration.api.getAccount.format(10),
+                    type: "get"
+                }));
+            });
+        });
+    });
+
+    describe("updateAccount", function () {
+        beforeEach(function () {
+
+        });
+
+        describe("calling getAccount", function () {
+            it("should call ajaxService rawAjaxRequest", function () {
+                spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
+                sut.updateAccount(10, {});
+                expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
+                    url: Configuration.api.updateAccount.format(10),
+                    type: "put",
+                    data: {}
+                }));
+            });
+        });
+    });
+
     describe("getAvailableOwners", function () {
         function exerciseTest(query) {
             spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());

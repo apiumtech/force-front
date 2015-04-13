@@ -18,7 +18,7 @@ describe("AccountModel", function () {
             spyOn(sut.ajaxService, 'rawAjaxRequest');
             sut.toggleFollow(toFollow);
             expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow + "/" + 10);
+            expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow.format(10));
             expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('post');
 
         });
@@ -39,4 +39,3 @@ describe("AccountModel", function () {
         });
     });
 });
-
