@@ -26,6 +26,10 @@ describe("StorageService", function () {
                     expect(actual).toEqual(test.expected);
                 });
             });
+        it("Should return null when there's no value to retrieve", function(){
+            var value = sut.retrieve("nothing_stored_with_this_long_name");
+            expect(value).toBe(null);
+        });
     });
 
     describe("store", function () {
@@ -51,4 +55,25 @@ describe("StorageService", function () {
             expect(window.localStorage.getItem("TestStorage")).toBeNull();
         });
     });
+
+    describe("store/retrieve/remove round trip", function () {
+        [{
+            storeValue: "Test a String Value"
+        }, {
+            storeValue: {
+                data: "content",
+                data2: "content2"
+            }
+        }].forEach(function (test) {
+                it("Should work", function () {
+                    var storeName = "TestStorage";
+                    sut.store(storeName, test.storeValue);
+                    expect(sut.retrieve(storeName)).toEqual(test.storeValue);
+                    sut.remove(storeName);
+                    expect(sut.retrieve(storeName)).toBe(null);
+                });
+            });
+    });
+
+
 });

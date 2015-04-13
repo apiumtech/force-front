@@ -11,10 +11,11 @@ app.registerService(function () {
 
     StorageService.prototype.retrieve = function (storageName) {
         var value = this.storage.getItem(storageName);
+        console.log("retrieve "+value);
         try {
             value = JSON.parse(value);
+console.log(value);
         } catch (e) {
-
         }
         return value;
     };

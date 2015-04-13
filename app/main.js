@@ -308,7 +308,10 @@ function main() {
             'controllers/contact/ContactFilterController',
             'models/contact/ContactFilterModel',
             'views/contact/ContactFilterView',
-            'presenters/contact/ContactFilterPresenter'
+            'presenters/contact/ContactFilterPresenter',
+
+            //config
+            'services/config/EntityService'
 
         ]
     };
