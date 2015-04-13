@@ -4,12 +4,15 @@
 
 app.registerModel(function (container) {
     var AjaxService = container.getService("services/AjaxService");
+    var EntityService = container.getService("services/config/EntityService");
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
     var sha1 = container.getFunction('crypto.SHA1');
+    var Q = container.getFunction('q');
 
-    function LoginModel(ajaxService, storage, configuration) {
+    function LoginModel(ajaxService, entityService, storage, configuration) {
         this.ajaxService = ajaxService;
+        this.entityService = entityService;
         this.storage = storage;
         this.configuration =  configuration;
     }
@@ -30,15 +33,30 @@ app.registerModel(function (container) {
                 userKey: this.calculateUserKey(loginUser, loginPassword)
             }
         };
-        return this.ajaxService.rawAjaxRequest(params);
+
+        var self = this;
+        var deferred = Q.defer();
+        this.ajaxService.rawAjaxRequest(params).then(
+            function(jqXHR) {
+                self.storeConfig(jqXHR.data);
+                deferred.resolve(jqXHR)
+            },
+            function(jqXHR) {deferred.reject(jqXHR)}
+        );
+        return deferred.promise;
+    };
+
+    LoginModel.prototype.storeConfig = function(configObject) {
+        this.entityService.storeEntities(configObject);
     };
 
 
-    LoginModel.newInstance = function (ajaxService, storage, configuration) {
+    LoginModel.newInstance = function (ajaxService, entityService, storage, configuration) {
         var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        var _entityService = entityService || EntityService.newInstance().getOrElse(throwInstantiateException(EntityService));
         var _storage = storage || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         var _configuration = configuration || Configuration;
-        return Some(new LoginModel(_ajaxService, _storage, _configuration));
+        return Some(new LoginModel(_ajaxService, _entityService, _storage, _configuration));
     };
 
 
