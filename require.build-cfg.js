@@ -348,7 +348,7 @@ requirejs.config({
         'controllers/DesignProveController',
 
         // main application
-        
+
         'main',
 
     ]

@@ -83,13 +83,11 @@ app.registerView(function (container) {
         };
 
         self.fn.bindDocumentDomEvents = function () {
-            $(document).on("click", function (e) {
-                if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
-                    self.popupAdapter.closePopover($('div.popover'));
-                }
+            $(document).on('click', '.close-pop-over', function (e) {
+                self.popupAdapter.closePopover('div.popover');
             });
 
-            $(document).on('click', '.close-pop-over', function (e) {
+            $(document).on('click', function (e) {
                 self.popupAdapter.closePopover('div.popover');
             });
         };
@@ -145,20 +143,6 @@ app.registerView(function (container) {
         self.data.table = self.dataTableService.createDatatable("#data-table", self.data.dataTableConfig);
     };
 
-    AccountView.prototype.openCreateAccountDialog = function () {
-        var self = this;
-
-        self.modalDialogAdapter.createDialog(
-            '/templates/accountDetails/accountCreate.html',
-            'AccountCreateController',
-            'lg',
-            {},
-            function () {
-            },
-            function () {
-            });
-    };
-
     AccountView.prototype.closeInfoWindowInMap = function () {
         var self = this;
 
@@ -174,7 +158,7 @@ app.registerView(function (container) {
             self.createMapMarker(record);
         });
 
-        if(self.markerClusterer){
+        if (self.markerClusterer) {
             self.markerClusterer.clearMarkers();
         }
         self.markerClusterer = new MarkerClusterer(self.data.map, self.markers, {
@@ -191,21 +175,19 @@ app.registerView(function (container) {
             e.preventDefault();
             self.event.onFollowToggled(aData);
         });
-        //
-        //self.event.getLatLongData(aData, function (data) {
-        //    var popoverTemplate = self.getPopoverTemplate();
-        //    var popoverContentTemplate = self.getPopoverContentTemplate();
-        //    console.log("lat long data", data);
-        //    self.popupAdapter.createPopover($("a[function-getlocation]", nRow), popoverTemplate, popoverContentTemplate);
-        //
-        //    $("#popover_map_canvas").attr("src", 'https://maps.googleapis.com/maps/api/staticmap?center='
-        //    + data.latitude + ',' + data.longitude +
-        //    '&zoom=5&size=400x300');
-        //});
-        //
-        //$(nRow).on('click', "[function-getlocation]", function () {
-        //    self.popupAdapter.openPopover($("a[function-getlocation]", nRow));
-        //});
+
+        self.event.getLatLongData(aData, function (data) {
+            var popoverTemplate = self.getPopoverTemplate();
+            var popoverContentTemplate = self.getPopoverContentTemplate().format('https://maps.googleapis.com/maps/api/staticmap?center='
+            + data.latitude + ',' + data.longitude +
+            '&zoom=5&size=250x200&markers=' + data.latitude + ',' + data.longitude + '');
+            self.popupAdapter.createPopover($("a[function-getlocation]", nRow), popoverTemplate, popoverContentTemplate, 'top');
+        });
+
+        $(nRow).on('click', "[function-getlocation]", function (e) {
+            e.stopPropagation();
+            self.popupAdapter.openPopover($("a[function-getlocation]", nRow));
+        });
     };
 
     AccountView.prototype.onServerRequesting = function (aoData) {
