@@ -37,11 +37,13 @@ app.registerModel(function (container) {
         var self = this;
         var deferred = Q.defer();
         this.ajaxService.rawAjaxRequest(params).then(
-            function(jqXHR) {
-                self.storeConfig(jqXHR.data);
-                deferred.resolve(jqXHR)
+            function(data) {
+                data = JSON.parse(data);
+                //self.storeToken(data.token);
+                self.storeConfig(data.config);
+                deferred.resolve(data)
             },
-            function(jqXHR) {deferred.reject(jqXHR)}
+            function(error) {deferred.reject(error)}
         );
         return deferred.promise;
     };

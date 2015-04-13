@@ -39,11 +39,16 @@ describe('LoginModel', function(){
     });
 
     it("should call storeConfig() on login success", function(){
-        var dummy = {data:"hello"};
+        var dummy = {
+            token: "hello token",
+            config: "hello token"
+        };
+        var dummyJSON = JSON.stringify(dummy);
+
         spyOn(model, 'storeConfig');
-        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummy));
+        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummyJSON));
         model.login(loginUser, loginPass);
-        expect(model.storeConfig).toHaveBeenCalledWith(dummy.data);
+        expect(model.storeConfig).toHaveBeenCalledWith(dummy.config);
     });
 
     it("should store config's entity object on storeConfig()", function(){
