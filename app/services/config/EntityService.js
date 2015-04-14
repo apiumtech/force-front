@@ -27,6 +27,14 @@ app.registerService(function () {
         return entitiesObj[entityName];
     };
 
+    EntityService.prototype.getEntityColumns = function(entity){
+        if(!entity){
+            throw new Error("No entity was specified");
+        }
+        var fields = [];
+        return fields;
+    };
+
     EntityService.newInstance = function (storage) {
         storage = storage || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         return Some(new EntityService(storage));

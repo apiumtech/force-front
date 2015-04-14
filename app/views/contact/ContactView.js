@@ -7,48 +7,66 @@ app.registerView(function (container) {
     var ContactPresenter = container.getPresenter('presenters/contact/ContactPresenter');
     var ContactModel = container.getModel('models/contact/ContactModel');
     var GoogleMapService = container.getService("services/GoogleMapService");
+    var DataTableService = container.getService("services/DataTableService");
 
 
-    function ContactView($scope, $model, $presenter, mapService) {
+    /**
+     * ContactView
+     *
+     * @constructor
+     */
+    function ContactView($scope, $model, $presenter, mapService, dataTableService) {
         BaseView.call(this, $scope, $model, $presenter);
+
+        this.dataTableService = dataTableService;
 
         this.mapService = mapService;
         this.data.map = null;
+        this.data.latlngbounds = null;
+        this.data.mapInfoWindow = null;
+        this.data.mapCanvasCollapsed = true;
 
-        this.data.contactFields = [];
-        this.data.contacts = [];
-
-        this.data.infoWindow = null;
+        this.data.tableColumns = null;
+        this.data.contacts = null;
+        this.data.table = null;
 
         this.configureEvents();
     }
 
+
+    /**
+     * Extend BaseView
+     */
     ContactView.prototype = Object.create(BaseView.prototype, {});
 
+
+    /**
+     * Configure Events
+     *
+     * @method configureEvents()
+     */
     ContactView.prototype.configureEvents = function () {
-        var self = this;
 
-        // contactTable.html > ng-init
-        self.fn.initializeMap = function () {
-            self.initializeMap();
-        };
-
-        // contactTable.html > ng-init
-        self.fn.initTable = function () {
-        };
+        this.fn.initializeMap = this.initializeMap.bind(this); // contactTable.html > ng-init
+        this.fn.initializeTable = this.initializeTable.bind(this); // contactTable.html > ng-init
+        this.fn.createContactClicked = this.openCreateContactPage.bind(this);
+        this.fn.isColumnVisible = this.isColumnVisible.bind(this);
+        this.fn.toggleShowMap = this.toggleShowMap.bind(this);
 
 
-        self.fn.createContactClicked = function () {
-            self.openCreateContactPage();
-        };
-
-        self.fn.isImageHeader = function () {
-        };
-
-        self.event.onFieldsRestoreDefault = function () {/*implemented in presenter*/};
-        self.event.onToggleColumn = function () {/*implemented in presenter*/};
+        // ---------------------------------------------------
+        // Method stubs, actually implemented in presenter.
+        // ---------------------------------------------------
+        this.event.onFieldsRestoreDefault = function () {};
+        this.event.onToggleColumn = function () {};
     };
 
+
+    /**
+     * Initialize Map.
+     *
+     * @method initializeMap()
+     */
     ContactView.prototype.initializeMap = function () {
         var self = this;
         var mapOptions = {
@@ -60,33 +78,99 @@ app.registerView(function (container) {
         self.mapService.bindClickEvent(self.data.map, self.closeInfoWindowInMap.bind(self));
     };
 
-    ContactView.prototype.closeInfoWindowInMap = function () {
-        var self = this;
 
-        if (self.data.infoWindow) {
-            self.data.infoWindow.close();
+    /**
+     * Initialize Table.
+     *
+     * @method initializeTable()
+     */
+    ContactView.prototype.initializeTable = function () {
+        this.presenter.loadContactColumns();
+        this.presenter.loadContacts();
+    };
+
+    ContactView.prototype.onLoadContactColumnsComplete = function (columns) {
+        this.data.tableColumns = columns;
+        this.renderTable();
+    };
+
+    ContactView.prototype.onLoadContactsComplete = function (contacts) {
+        this.data.contacts = contacts;
+        this.renderTable();
+    };
+
+    ContactView.prototype.renderTable = function () {
+        if( this.data.tableColumns && this.data.contacts ){
+            var dataTableConfig = {
+                data: this.data.contacts,
+                columns: this.data.tableColumns
+            };
+            this.data.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
         }
     };
 
+
+    /**
+     * Toggle Show Map
+     *
+     * @method toggleShowMap()
+     */
+    ContactView.prototype.toggleShowMap = function () {
+        this.data.mapCanvasCollapsed = !this.data.mapCanvasCollapsed;
+    };
+
+
+    /**
+     * Close InfoWindow in Map.
+     *
+     * @method closeInfoWindowInMap()
+     */
+    ContactView.prototype.closeInfoWindowInMap = function () {
+        var self = this;
+
+        if (self.data.mapInfoWindow) {
+            self.data.mapInfoWindow.close();
+        }
+    };
+
+
+    /**
+     * Open the Contact creation page.
+     *
+     * @method openCreateContactPage()
+     */
     ContactView.prototype.openCreateContactPage = function () {
-        // TODO: open create contact page
     };
 
-    ContactView.prototype.onFieldsRestoreDefault = function () {
-        console.log("onFieldsRestoreDefault");
+
+    /**
+     * Wether column is visible or not.
+     *
+     * @method isColumnVisible()
+     */
+    ContactView.prototype.isColumnVisible = function (column) {
+        return column.isVisible;
     };
 
-    ContactView.newInstance = function ($scope, $model, $presenter, $mapService, $viewRepAspect, $logErrorAspect) {
+
+    /**
+     * ContactView factory
+     *
+     * @method static newInstance()
+     */
+    ContactView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
         var model = $model || ContactModel.newInstance().getOrElse(throwInstantiateException(ContactModel));
         var presenter = $presenter || ContactPresenter.newInstance().getOrElse(throwInstantiateException(ContactPresenter));
 
         var mapService = $mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
-        var view = new ContactView(scope, model, presenter, mapService);
+        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
+        var view = new ContactView(scope, model, presenter, mapService, dataTableService);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
+
 
     return ContactView;
 });

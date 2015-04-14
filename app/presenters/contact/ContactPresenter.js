@@ -23,8 +23,11 @@ app.registerPresenter(function (container) {
         );
     };
 
-    ContactPresenter.prototype.loadContactFields = function(){
-        this.model.loadContactFields();
+    ContactPresenter.prototype.loadContactColumns = function(){
+        this.model.loadContactColumns().then(
+            this.view.onLoadContactColumnsComplete.bind(this.view),
+            this.view.onLoadContactColumnsError.bind(this.view)
+        );
     };
 
     ContactPresenter.newInstance = function () {
