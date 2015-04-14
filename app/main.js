@@ -249,6 +249,11 @@ function main() {
             'presenters/accountDetails/OpportunityWidgetPresenter',
             'models/accountDetails/OpportunityWidgetModel',
 
+            // Last documents Widget
+            'directives/AccountDetailDocumentsDirective',
+            'controllers/accountDetails/DocumentsController',
+            'views/accountDetails/DocumentsWidgetView',
+
             // Agenda Widget
             'directives/AccountDetailAgendaDirective',
             'controllers/accountDetails/AgendaWidgetController',
