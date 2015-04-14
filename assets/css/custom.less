@@ -42,7 +42,7 @@ html, body {
 table.dataTable {
   margin-top: 10px !important;
   margin-bottom: 20px !important;
-//  float: left;
+  //  float: left;
 }
 
 .filterDesc {
@@ -180,7 +180,8 @@ span.removeTextBoxBtn {
   }
 }
 
-.btn-padding {
+.btn-big {
+  font-size: 12px;
   padding: 10px 30px;
   border-radius: 3px;
 }
@@ -195,6 +196,12 @@ span.removeTextBoxBtn {
       border: 1px solid transparent;
       border-radius: 3px;
       color: #54585a;
+    }
+    &:hover {
+      background: linear-gradient(to bottom,#edf0f5 0,#e3e8f0 100%);
+      border-color: #989d9f;
+      color: #54585a;
+      text-decoration: none;
     }
   }
 }
@@ -215,6 +222,23 @@ li.string-filter.loading {
 a[function-getlocation] {
   color: #ed8b00;
 }
+
 .form-control {
+  &::-webkit-input-placeholder{
+    font-size: 12px;
+  }
+  &:-moz-placeholder{
+    font-size: 12px;
+  }
+  &::-moz-placeholder{
+    font-size: 12px;
+  }
+  &:-ms-input-placeholder{
+    font-size: 12px;
+  }
   height: 36px;
+}
+
+.map-info {
+  max-width: none;
 }
