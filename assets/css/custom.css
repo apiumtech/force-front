@@ -81,10 +81,6 @@ span.removeTextBoxBtn {
 #map-canvas.map-account {
   height: 400px;
 }
-.dataTables_info,
-#data-table_filter {
-  display: none;
-}
 .panel.panel-expand > .panel-body.timeline-div {
   height: initial;
 }
@@ -185,4 +181,16 @@ a[function-getlocation] {
 }
 .form-control {
   height: 36px;
+}
+.map-info {
+  max-width: none;
+}
+.dataTables_scroll .dataTables_scrollHead {
+  padding: 0;
+}
+.dataTables_scroll .dataTables_scrollHead table {
+  margin-bottom: 0 !important;
+}
+.dataTables_scroll table#data-table {
+  margin-top: 0 !important;
 }

@@ -102,10 +102,6 @@ span.removeTextBoxBtn {
   height: 400px;
 }
 
-.dataTables_info, #data-table_filter {
-  display: none;
-}
-
 .panel.panel-expand > .panel-body.timeline-div {
   height: initial;
 }
@@ -222,4 +218,18 @@ a[function-getlocation] {
 
 .map-info {
   max-width: none;
+}
+
+.dataTables_scroll {
+  .dataTables_scrollHead {
+    padding: 0;
+
+    table {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  table#data-table {
+    margin-top: 0 !important;
+  }
 }
