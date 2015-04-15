@@ -19,11 +19,8 @@ app.registerModel(function (container) {
     ContactModel.prototype.loadContactColumns = function () {
         var deferred = Q.defer();
 
-        var funct, entity, columns;
-
         try {
-            entity = this.entityService.getEntityByName("contact");
-            columns = this.entityService.getEntityColumns(entity);
+            var columns = this.entityService.getEntityColumns("contact");
             setTimeout(deferred.resolve, 10, columns );
         } catch(err) {
             setTimeout(deferred.reject, 10, "Error loading contacts" );
@@ -39,6 +36,7 @@ app.registerModel(function (container) {
             type: 'GET',
             contentType: 'application/json',
             accept: 'application/json',
+            dataType: 'json',
             headers: {
                 token: this.storageService.retrieve("token")
             }

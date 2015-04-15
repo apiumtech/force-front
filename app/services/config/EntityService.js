@@ -27,11 +27,21 @@ app.registerService(function () {
         return entitiesObj[entityName];
     };
 
-    EntityService.prototype.getEntityColumns = function(entity){
-        if(!entity){
-            throw new Error("No entity was specified");
+    EntityService.prototype.getEntityColumns = function(entityName){
+        if(!entityName){
+            throw new Error("No entity name was specified");
         }
-        var columns = [];
+
+        // column spec
+        var fieldToColumn = function(field){
+            return {
+                data: field.name,
+                title: field.list.label
+            };
+        };
+
+        var entity = this.getEntityByName(entityName);
+        var columns = entity.fields.map(fieldToColumn);
         return columns;
     };
 

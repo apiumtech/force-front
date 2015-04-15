@@ -52,23 +52,35 @@ describe("EntityService", function () {
     });
 
     describe('getEntityColumns()', function(){
-        it("shoud throw when no entity is specified", function(){
+        it("shoud throw when no entityName is specified", function(){
             expect(sut.getEntityColumns).toThrow();
         });
 
-        xit('should retrieve the correct entity columns', function(){
+        it('should retrieve the correct entity columns', function(){
             var config_stub = {
                 entities: {
                     account: {
                         fields: [
-
+                            {name:"id", list:{
+                                label: "Id"
+                            }},
+                            {name:"name", list:{
+                                label: "Name"
+                            }}
                         ]
                     }
                 }
             };
+
             sut.storeEntities(config_stub);
-            var entity = sut.getEntityByName("account");
-            expect(entity).toBe(accountEntity);
+            var columns = sut.getEntityColumns("account");
+
+            var accountFields = config_stub.entities.account.fields;
+            expect(columns[0].data).toBe(accountFields[0].name);
+            expect(columns[0].title).toBe(accountFields[0].list.label);
+
+            expect(columns[1].data).toBe(accountFields[1].name);
+            expect(columns[1].title).toBe(accountFields[1].list.label);
         });
     });
 });
