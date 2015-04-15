@@ -4,7 +4,8 @@
 app.registerController(function (container) {
     var DocumentsWidgetView = container.getView('views/accountDetails/DocumentsWidgetView');
 
-    function DocumentsController($scope) {
+    function DocumentsController($scope, $injector) {
+        $scope.injector = $injector;
         DocumentsController.configureView($scope);
     }
 

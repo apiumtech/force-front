@@ -19,7 +19,7 @@ app.registerModel(function (container) {
         var self = this;
 
         return $upload.upload({
-            url: '/upload',
+            url: Configuration.api.uploadFile,
             method: 'POST',
             file: file
         }).then(self.decorateResponseData.bind(self), function (error) {

@@ -10,76 +10,48 @@
                 <th><strong>Title</strong></th>
                 <th><strong>Date</strong></th>
                 <th><strong></strong></th>
-
-
             </tr>
             </thead>
             <tbody>
-            <tr class="odd gradeX">
-                <td><a href="detail_quotes.html">Nombre documento</a></td>
-                <td>23/11/2015</td>
+            <tr ng-repeat="record in data.documentsList">
+                <td class="col-md-5">
+                    <a href="detail_quotes.html" ng-show="!record.editing">
+                        {{record.name}}
+                    </a>
+
+                    <div class="input-group"
+                         ng-show="record.editing">
+                        <input type="text" ng-model="record.name" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default"
+                                    ng-click="fn.saveRecordName(record);$event.preventDefault();">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button class="btn btn-default"
+                                    ng-click="fn.cancelEditing(record);$event.preventDefault();">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    {{record.date | amDateFormat: config.shortDateFormat.moment}}
+                </td>
                 <td>
                     <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Edit document"><i class="fa ic-edit"></i>
+                            ng-click="fn.startEditing(record);$event.preventDefault();"
+                            data-original-title="Edit document">
+                        <i class="fa ic-edit"></i>
                     </button>
                     <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
+                            ng-click="fn.deleteDocument(record);$event.preventDefault();"
                             data-original-title="Delete document"><i class="fa ic-trash"></i>
                     </button>
                     <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
                             data-original-title="Download document"><i class="fa ic-download"></i>
                     </button>
                 </td>
-
             </tr>
-            <tr class="even gradeX">
-                <td><a href="detail_quotes.html">Nombre documento</a></td>
-                <td>23/11/2015</td>
-                <td>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Edit document"><i class="fa ic-edit"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Delete document"><i class="fa ic-trash"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Download document"><i class="fa ic-download"></i>
-                    </button>
-                </td>
-
-            </tr>
-            <tr class="odd gradeX">
-                <td><a href="detail_quotes.html">Nombre documento</a></td>
-                <td>23/11/2015</td>
-                <td>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Edit document"><i class="fa ic-edit"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Delete document"><i class="fa ic-trash"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Download document"><i class="fa ic-download"></i>
-                    </button>
-                </td>
-
-            </tr>
-            <tr class="even gradeX">
-                <td><a href="detail_quotes.html">Nombre documento</a></td>
-                <td>23/11/2015</td>
-                <td>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Edit document"><i class="fa ic-edit"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Delete document"><i class="fa ic-trash"></i>
-                    </button>
-                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            data-original-title="Download document"><i class="fa ic-download"></i>
-                    </button>
-                </td>
-
-            </tr>
-
             </tbody>
         </table>
         <div class="ui-sortable">

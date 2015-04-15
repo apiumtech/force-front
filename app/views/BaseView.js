@@ -2,7 +2,7 @@
  * Created by justin on 12/18/14.
  */
 app.registerView(function (container) {
-
+    var Configuration = container.getService('Configuration');
     var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
@@ -19,6 +19,7 @@ app.registerView(function (container) {
 
         this.model = $model;
         this.presenter = $presenter;
+        this.$scope.config = Configuration;
     }
 
     BaseView.prototype = Object.create(Object.prototype, {

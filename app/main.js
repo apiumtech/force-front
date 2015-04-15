@@ -252,7 +252,9 @@ function main() {
             // Last documents Widget
             'directives/AccountDetailDocumentsDirective',
             'controllers/accountDetails/DocumentsController',
+            'models/accountDetails/DocumentsWidgetModel',
             'views/accountDetails/DocumentsWidgetView',
+            'presenters/accountDetails/DocumentsWidgetPresenter',
 
             // Agenda Widget
             'directives/AccountDetailAgendaDirective',

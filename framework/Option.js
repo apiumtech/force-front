@@ -66,8 +66,10 @@
         return Object.prototype.toString.call(obj) === "[object Array]";
     };
 
-    jsScope.isFunction = function (obj) {
-        return Object.prototype.toString.call(obj) === "[object Function]";
+    jsScope.isFunction = isFunction;
+
+    jsScope.getLocation = function () {
+        return jsScope.location;
     };
 
     jsScope.ApiumOption = function (x) {
