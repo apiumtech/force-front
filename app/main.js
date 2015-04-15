@@ -60,6 +60,48 @@ function main() {
                 templateUrl: '/templates/contact.html',
                 controller: 'ContactController'
             })
+
+
+            .when('/dashboard', {
+                templateUrl: '/templates/dashboard/dashboardIndex.html',
+                controller: 'DashboardIndexController'
+            })
+            .when('/opp', {
+                templateUrl: '/templates/opportunities/oppList.html',
+                controller: 'OppListController'
+            })
+            .when('/opp/detail', {
+                templateUrl: '/templates/opportunities/oppDetail.html',
+                controller: 'OppDetailController'
+            })
+            .when('/quotes', {
+                templateUrl: '/templates/quotes/quotesList.html',
+                controller: 'QuotesListController'
+            })
+            .when('/quotes/detail', {
+                templateUrl: '/templates/quotes/quotesDetail.html',
+                controller: 'QuotesDetailController'
+            })
+            .when('/agenda', {
+                templateUrl: '/templates/agenda.html',
+                controller: 'AgendaController'
+            })
+            .when('/product', {
+                templateUrl: '/templates/products/productsList.html',
+                controller: 'ProductsListController'
+            })
+            .when('/product/detail', {
+                templateUrl: '/templates/products/productDetail.html',
+                controller: 'ProductDetailController'
+            })
+            .when('/document', {
+                templateUrl: '/templates/document/documentList.html',
+                controller: 'DocumentListController'
+            })
+            .when('/activity', {
+                templateUrl: '/templates/activity/activityList.html',
+                controller: 'ActivityListController'
+            })
             .otherwise('/login');
 
         // configure validation system here
@@ -323,6 +365,30 @@ function main() {
             'models/contact/ContactFilterModel',
             'views/contact/ContactFilterView',
             'presenters/contact/ContactFilterPresenter',
+
+            // Dashboard
+            'controllers/dashboard/DashboardIndexController',
+
+            // Opportunities page
+            'controllers/opportunities/OppListController',
+            'controllers/opportunities/OppDetailController',
+
+            // Quotes page
+            'controllers/quotes/QuotesListController',
+            'controllers/quotes/QuotesDetailController',
+
+            // Agenda page
+            'controllers/agenda/AgendaController',
+
+            // Products page
+            'controllers/products/ProductsListController',
+            'controllers/products/ProductDetailController',
+
+            // Document page
+            'controllers/document/DocumentListController',
+
+            // Activity
+            'controllers/activity/ActivityListController',
 
             //config
             'services/config/EntityService'

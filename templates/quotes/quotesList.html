@@ -1,0 +1,965 @@
+<!-- begin breadcrumb -->
+<ul class=" pull-right no-bullet m-t-20">
+    <li><a href="javascript:;"><i class="fa ic-export"></i> Export</a></li>
+</ul>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Quotes
+    <a href="javascript:;" class=" btn btn-big btn-primary "> <span class="ic-plus m-r-5"></span>Create quote</a></h1>
+<!-- end page-header -->
+
+<!-- begin filters -->
+<div class="row filters-div">
+    <!-- begin col-12 -->
+    <div class="col-md-12 ui-sortable ">
+        <div class="line-border clearfix "></div>
+
+        <div class="row m-b-5">
+            <div class="col-md-9 ui-sortable">
+                <h6>Filter by</h6>
+
+                <ul class="nav navbar-nav row row m-t-10">
+                    <li class="dropdown">
+                        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Owner
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+
+                                    <input type="text" class="form-control ic-user" placeholder="Search owner"/>
+
+                                </form>
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object "><img src="assets/img/user-11.jpg"></div>
+                                <div class="media-body">
+
+                                    <p>Andrea Perazzi</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+                                <div class="media-body">
+
+                                    <p>Alberto Sinfoto</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+                                <div class="media-body">
+
+                                    <p>Alberto Sinfoto</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object "><img src="assets/img/user-13.jpg"></div>
+                                <div class="media-body">
+
+                                    <p>Andrea Perazzi</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object green_bg "><i class="fa  ic-salesforce"></i></div>
+                                <div class="media-body">
+
+                                    <p>Alberto Sinfoto</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object "><img src="assets/img/user-14.jpg"></div>
+                                <div class="media-body">
+
+                                    <p>Andrea Perazzi</p>
+
+                                </div>
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="pull-left media-object "><img src="assets/img/user-11.jpg"></div>
+                                <div class="media-body">
+
+                                    <p>Andrea Perazzi</p>
+
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ">
+                        <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Views
+                            <span class="caret"></span>
+
+                        </a>
+                        <ul class="dropdown-menu  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <select name="data-table_length" aria-controls="data-table" class="form-control">
+                                    <option value="10" selected="selected">Select view</option>
+                                    <option value="25">View 1</option>
+                                    <option value="50">View 2</option>
+                                    <option value="100">View 3</option>
+                                </select>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="m-t-10  text-link clearfix">
+                                <a class="pull-left  ic-trash brand-red-text"> Delete view</a>
+                                <a class="pull-right">Save current view</a>
+
+
+                            </li>
+                        </ul>
+
+
+                    </li>
+                    <li class="dropdown ">
+                        <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Environment
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+
+                                    <input type="text" class="form-control ic-user" placeholder="Search owner"/>
+
+                                </form>
+                            </li>
+
+
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Force uk</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Force ES</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Force ASIA</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Force USA</p>
+
+                                </div>
+
+
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li class="dropdown">
+                        <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Account type
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                            <li class="m-t-10 m-b-10">
+                                <form>
+
+                                    <input type="text" class="form-control ic-user" placeholder="Search account type"/>
+
+                                </form>
+                            </li>
+
+
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Internal</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Prospect</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Client</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Potential partner</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Partner</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Other</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Descarded</p>
+
+                                </div>
+
+
+                            </li>
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Restored</p>
+
+                                </div>
+
+
+                            </li>
+
+                            <li class="media">
+
+                                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                                <div class="media-body">
+
+                                    <p>Force uk</p>
+
+                                </div>
+
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown ">
+                        <a id="drop2" href="#" class="dropdown-toggle btn btn-default btn-sm m-r-5 m-b-5"
+                           data-toggle="dropdown">
+                            Add filters
+
+                        </a>
+
+                    </li>
+                </ul>
+
+
+            </div>
+            <!-- global search div -->
+            <div class="col-md-3 ui-sortable">
+                <form>
+                    <div class="input-group  m-t-40 ">
+                        <input type="text" class="form-control " placeholder="Buscar">
+                  <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button"><i class="fa ic-search"></i></button>
+                  </span></div>
+                </form>
+            </div>
+            <!-- global search div -->
+
+
+        </div>
+        <!-- end filters-div -->
+        <div class="line-border clearfix m-b-30 "></div>
+    </div>
+</div>
+<!-- end filters-->
+
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i
+                            class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i
+                            class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning"
+                       data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger"
+                       data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">258 results</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="btn-group m-r-5 m-b-5  pull-right"><a href="javascript:;" data-toggle="dropdown"
+                                                                  class="btn btn-default btn-sm  dropdown-toggle">Fields
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-scrollable pull-right ">
+
+                        <li class="text-link"><a href="javascript:;" class="btn-link">Restore default</a></li>
+                        <li class="divider"></li>
+
+
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>Class</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>Geolocalization</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>Country</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>City</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>Address</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 " checked="">
+
+                            <div class="media-body">
+
+                                <p>Tel number</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                            <div class="media-body">
+
+                                <p>Modification</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                            <div class="media-body">
+
+                                <p>Owner</p>
+
+                            </div>
+
+
+                        </li>
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                            <div class="media-body">
+
+                                <p>Other field</p>
+
+                            </div>
+
+
+                        </li>
+
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                            <div class="media-body">
+
+                                <p>Other field</p>
+
+                            </div>
+
+
+                        </li>
+
+                        <li>
+
+                            <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
+
+                            <div class="media-body">
+
+                                <p>Other field</p>
+
+                            </div>
+
+
+                        </li>
+
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-default btn-sm  dropdown-toggle pull-right m-r-10">Show map
+                </button>
+
+
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th><strong>Description</strong></th>
+                            <th><strong>Browser</strong></th>
+                            <th><strong>Platform(s)</strong></th>
+                            <th><strong>Engine version</strong></th>
+                            <th><strong>CSS grade</strong></th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="odd gradeX">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Internet Explorer 4.0</td>
+                            <td>Win 95+</td>
+                            <td>4</td>
+                            <td>X</td>
+                        </tr>
+                        <tr class="even gradeC">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Internet Explorer 5.0</td>
+                            <td>Win 95+</td>
+                            <td>5</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="odd gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Internet Explorer 5.5</td>
+                            <td>Win 95+</td>
+                            <td>5.5</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="even gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Internet Explorer 6</td>
+                            <td>Win 98+</td>
+                            <td>6</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="odd gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Internet Explorer 7</td>
+                            <td>Win XP SP2+</td>
+                            <td>7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="even gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>AOL browser (AOL desktop)</td>
+                            <td>Win XP</td>
+                            <td>6</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Firefox 1.0</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Firefox 1.5</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Firefox 2.0</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Firefox 3.0</td>
+                            <td>Win 2k+ / OSX.3+</td>
+                            <td>1.9</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Camino 1.0</td>
+                            <td>OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Camino 1.5</td>
+                            <td>OSX.3+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Netscape 7.2</td>
+                            <td>Win 95+ / Mac OS 8.6-9.2</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Netscape Browser 8</td>
+                            <td>Win 98SE+</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Netscape Navigator 9</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.0</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.1</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.1</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.2</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.2</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.3</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.3</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.4</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.4</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.5</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.5</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.6</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1.6</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.7</td>
+                            <td>Win 98+ / OSX.1+</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Mozilla 1.8</td>
+                            <td>Win 98+ / OSX.1+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Seamonkey 1.1</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Epiphany 2.20</td>
+                            <td>Gnome</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Safari 1.2</td>
+                            <td>OSX.3</td>
+                            <td>125.5</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Safari 1.3</td>
+                            <td>OSX.3</td>
+                            <td>312.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Safari 2.0</td>
+                            <td>OSX.4+</td>
+                            <td>419.3</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td><a href="#/quotes/detail">A quote name</a></td>
+                            <td>Safari 3.0</td>
+                            <td>OSX.4+</td>
+                            <td>522.1</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Webkit</td>
+                            <td>OmniWeb 5.5</td>
+                            <td>OSX.4+</td>
+                            <td>420</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Webkit</td>
+                            <td>iPod Touch / iPhone</td>
+                            <td>iPod</td>
+                            <td>420.1</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Webkit</td>
+                            <td>S60</td>
+                            <td>S60</td>
+                            <td>413</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 7.0</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 7.5</td>
+                            <td>Win 95+ / OSX.2+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 8.0</td>
+                            <td>Win 95+ / OSX.2+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 8.5</td>
+                            <td>Win 95+ / OSX.2+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 9.0</td>
+                            <td>Win 95+ / OSX.3+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 9.2</td>
+                            <td>Win 88+ / OSX.3+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera 9.5</td>
+                            <td>Win 88+ / OSX.3+</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Opera for Wii</td>
+                            <td>Wii</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Nokia N800</td>
+                            <td>N800</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Presto</td>
+                            <td>Nintendo DS browser</td>
+                            <td>Nintendo DS</td>
+                            <td>8.5</td>
+                            <td>C/A<sup>1</sup></td>
+                        </tr>
+                        <tr class="gradeC">
+                            <td>KHTML</td>
+                            <td>Konqureror 3.1</td>
+                            <td>KDE 3.1</td>
+                            <td>3.1</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>KHTML</td>
+                            <td>Konqureror 3.3</td>
+                            <td>KDE 3.3</td>
+                            <td>3.3</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>KHTML</td>
+                            <td>Konqureror 3.5</td>
+                            <td>KDE 3.5</td>
+                            <td>3.5</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td>Tasman</td>
+                            <td>Internet Explorer 4.5</td>
+                            <td>Mac OS 8-9</td>
+                            <td>-</td>
+                            <td>X</td>
+                        </tr>
+                        <tr class="gradeC">
+                            <td>Tasman</td>
+                            <td>Internet Explorer 5.1</td>
+                            <td>Mac OS 7.6-9</td>
+                            <td>1</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeC">
+                            <td>Tasman</td>
+                            <td>Internet Explorer 5.2</td>
+                            <td>Mac OS 8-X</td>
+                            <td>1</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Misc</td>
+                            <td>NetFront 3.1</td>
+                            <td>Embedded devices</td>
+                            <td>-</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeA">
+                            <td>Misc</td>
+                            <td>NetFront 3.4</td>
+                            <td>Embedded devices</td>
+                            <td>-</td>
+                            <td>A</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td>Misc</td>
+                            <td>Dillo 0.8</td>
+                            <td>Embedded devices</td>
+                            <td>-</td>
+                            <td>X</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td>Misc</td>
+                            <td>Links</td>
+                            <td>Text only</td>
+                            <td>-</td>
+                            <td>X</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td>Misc</td>
+                            <td>Lynx</td>
+                            <td>Text only</td>
+                            <td>-</td>
+                            <td>X</td>
+                        </tr>
+                        <tr class="gradeC">
+                            <td>Misc</td>
+                            <td>IE Mobile</td>
+                            <td>Windows Mobile 6</td>
+                            <td>-</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeC">
+                            <td>Misc</td>
+                            <td>PSP browser</td>
+                            <td>PSP</td>
+                            <td>-</td>
+                            <td>C</td>
+                        </tr>
+                        <tr class="gradeU">
+                            <td>Other browsers</td>
+                            <td>All others</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>U</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
