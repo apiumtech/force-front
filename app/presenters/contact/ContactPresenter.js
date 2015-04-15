@@ -11,22 +11,22 @@ app.registerPresenter(function (container) {
         this.view = view;
         this.model = model;
 
-        self.event.onFieldsRestoreDefault = function(){
-            self.view.onFieldsRestoreDefault();
-        }
+        view.event.onRestoreColumnDefaults = this.loadContactColumns.bind(this);
     };
 
     ContactPresenter.prototype.loadContacts = function(){
+        var self = this;
         this.model.loadContacts().then(
-            this.view.onLoadContactsComplete.bind(this.view),
-            this.view.onLoadContactsError.bind(this.view)
+            self.view.onLoadContactsComplete.bind(self.view),
+            self.view.onLoadContactsError.bind(self.view)
         );
     };
 
     ContactPresenter.prototype.loadContactColumns = function(){
+        var self = this;
         this.model.loadContactColumns().then(
-            this.view.onLoadContactColumnsComplete.bind(this.view),
-            this.view.onLoadContactColumnsError.bind(this.view)
+            self.view.onLoadContactColumnsComplete.bind(self.view),
+            function(){/*not implemented*/}
         );
     };
 

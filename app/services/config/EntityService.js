@@ -31,8 +31,8 @@ app.registerService(function () {
         if(!entity){
             throw new Error("No entity was specified");
         }
-        var fields = [];
-        return fields;
+        var columns = [];
+        return columns;
     };
 
     EntityService.newInstance = function (storage) {

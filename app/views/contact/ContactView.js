@@ -19,8 +19,8 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.dataTableService = dataTableService;
-
         this.mapService = mapService;
+
         this.data.map = null;
         this.data.latlngbounds = null;
         this.data.mapInfoWindow = null;
@@ -29,6 +29,8 @@ app.registerView(function (container) {
         this.data.tableColumns = null;
         this.data.contacts = null;
         this.data.table = null;
+
+        this.data.currentError = null;
 
         this.configureEvents();
     }
@@ -46,17 +48,13 @@ app.registerView(function (container) {
      * @method configureEvents()
      */
     ContactView.prototype.configureEvents = function () {
-
         this.fn.initializeMap = this.initializeMap.bind(this); // contactTable.html > ng-init
         this.fn.initializeTable = this.initializeTable.bind(this); // contactTable.html > ng-init
         this.fn.createContactClicked = this.openCreateContactPage.bind(this);
         this.fn.isColumnVisible = this.isColumnVisible.bind(this);
         this.fn.toggleShowMap = this.toggleShowMap.bind(this);
 
-
-        // ---------------------------------------------------
         // Method stubs, actually implemented in presenter.
-        // ---------------------------------------------------
         this.event.onFieldsRestoreDefault = function () {};
         this.event.onToggleColumn = function () {};
     };
@@ -97,6 +95,10 @@ app.registerView(function (container) {
     ContactView.prototype.onLoadContactsComplete = function (contacts) {
         this.data.contacts = contacts;
         this.renderTable();
+    };
+
+    ContactView.prototype.onLoadContactsError = function (error) {
+        this.showError(error);
     };
 
     ContactView.prototype.renderTable = function () {
@@ -150,6 +152,17 @@ app.registerView(function (container) {
      */
     ContactView.prototype.isColumnVisible = function (column) {
         return column.isVisible;
+    };
+
+
+    /**
+     * All errors display through this function
+     *
+     * @method showError()
+     * @param error (string) The error message
+     */
+    ContactView.prototype.showError = function (msg) {
+        this.data.currentError = msg;
     };
 
 

@@ -23,6 +23,24 @@ describe("ContactView", function () {
         expect(view.configureEvents).toHaveBeenCalled();
     });
 
+    it('should close mapInfoWindow on closeInfoWindowInMap()', function () {
+        var view = exerciseCreateView();
+        view.data.mapInfoWindow = {
+            close: jasmine.createSpy("close")
+        };
+        view.closeInfoWindowInMap();
+        expect(view.data.mapInfoWindow.close).toHaveBeenCalled();
+    });
+
+    it('should loadContactColumns and loadContats on initializeMap()', function () {
+        var view = exerciseCreateView();
+        spyOn(view.presenter, 'loadContactColumns');
+        spyOn(view.presenter, 'loadContacts');
+        view.initializeTable();
+        expect(view.presenter.loadContactColumns).toHaveBeenCalled();
+        expect(view.presenter.loadContacts).toHaveBeenCalled();
+    });
+
     it('should initialize Map on initializeMap()', function () {
         var view = exerciseCreateView();
         spyOn(view.mapService, "bindClickEvent");
@@ -79,5 +97,11 @@ describe("ContactView", function () {
         view.data.tableColumns = columns;
         view.renderTable();
         expect(view.dataTableService.createDatatable).toHaveBeenCalled();
+    });
+
+    it('should set an error message onLoadContactsError', function(){
+        var view = exerciseCreateView();
+        view.onLoadContactsError("an error");
+        expect(view.data.currentError).toBe("an error");
     });
 });

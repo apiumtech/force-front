@@ -39,17 +39,21 @@ app.registerModel(function (container) {
         this.ajaxService.rawAjaxRequest(params).then(
             function(data) {
                 data = JSON.parse(data);
-                //self.storeToken(data.token);
+                self.storeToken(data.token);
                 self.storeConfig(data.config);
-                deferred.resolve(data)
+                deferred.resolve(data);
             },
-            function(error) {deferred.reject(error)}
+            function(error) {deferred.reject(error);}
         );
         return deferred.promise;
     };
 
     LoginModel.prototype.storeConfig = function(configObject) {
         this.entityService.storeEntities(configObject);
+    };
+
+    LoginModel.prototype.storeToken = function(token) {
+        this.storage.store("token", token);
     };
 
 

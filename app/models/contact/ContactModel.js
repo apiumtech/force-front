@@ -5,44 +5,54 @@ app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
     var EntityService = container.getService("services/config/EntityService");
+    var StorageService = container.getService("services/StorageService");
     var Q = container.getFunction("q");
 
 
-    function ContactModel(ajaxService, entityService, configuration) {
+    function ContactModel(ajaxService, entityService, storageService, configuration) {
         this.ajaxService = ajaxService;
         this.entityService = entityService;
+        this.storageService = storageService;
         this.configuration = configuration;
     }
 
     ContactModel.prototype.loadContactColumns = function () {
         var deferred = Q.defer();
-        setTimeout(function(){
-            var entity = this.entityService.getEntityByName("contact");
-            var columns = this.entityService.getEntityColumns(entity);
-            deferred.resolve( colmns );
-        }, 100);
+
+        var funct, entity, columns;
+
+        try {
+            entity = this.entityService.getEntityByName("contact");
+            columns = this.entityService.getEntityColumns(entity);
+            setTimeout(deferred.resolve, 10, columns );
+        } catch(err) {
+            setTimeout(deferred.reject, 10, "Error loading contacts" );
+        }
+
         return deferred.promise
     };
 
     ContactModel.prototype.loadContacts = function () {
+
         var params = {
             url: this.configuration.api.getContacts,
             type: 'GET',
             contentType: 'application/json',
             accept: 'application/json',
             headers: {
-                token: 'atoken'
+                token: this.storageService.retrieve("token")
             }
         };
         return this.ajaxService.rawAjaxRequest(params);
     };
 
-    ContactModel.newInstance = function (ajaxService, entityService, configuration) {
+    ContactModel.newInstance = function (ajaxService, entityService, storageService, configuration) {
         ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         entityService = entityService || EntityService.newInstance().getOrElse(throwInstantiateException(EntityService));
+        storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         configuration = configuration || Configuration;
 
-        return Some(new ContactModel(ajaxService, entityService, configuration));
+        return Some(new ContactModel(ajaxService, entityService, storageService, configuration));
     };
 
     return ContactModel;

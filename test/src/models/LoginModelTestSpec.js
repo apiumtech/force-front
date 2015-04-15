@@ -20,8 +20,7 @@ describe('LoginModel', function(){
     });
 
     it("should make a parametrized call to ajaxService's rawAjaxRequest() method on login()", function(){
-
-        spyOn(model.ajaxService, 'rawAjaxRequest').and.callThrough();
+        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue( exerciseFakePromise() );
 
         model.login(loginUser, loginPass);
 
@@ -38,17 +37,19 @@ describe('LoginModel', function(){
         expect(credentials.headers.userKey).toEqual( model.calculateUserKey(loginUser, loginPass) );
     });
 
-    it("should call storeConfig() on login success", function(){
+    it("should store entity and token on login success", function(){
         var dummy = {
-            token: "hello token",
-            config: "hello token"
+            token: "fake token",
+            config: "fake config"
         };
         var dummyJSON = JSON.stringify(dummy);
 
         spyOn(model, 'storeConfig');
+        spyOn(model, 'storeToken');
         spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummyJSON));
         model.login(loginUser, loginPass);
         expect(model.storeConfig).toHaveBeenCalledWith(dummy.config);
+        expect(model.storeToken).toHaveBeenCalledWith(dummy.token);
     });
 
     it("should store config's entity object on storeConfig()", function(){
