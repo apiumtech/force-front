@@ -107,12 +107,17 @@ app.registerView(function (container) {
         this.data.dataTableConfig = {
             bServerSide: true,
             processing: true,
+            "scrollY": "500px",
+            "oScroller": {
+                "displayBuffer": 2,
+                loadingIndicator: true
+            },
             bSort: true,
             ajax: {
                 url: Configuration.api.dataTableRequest,
                 type: 'POST'
             },
-            sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>t<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
+            sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>tS<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
             pagingType: "full_numbers",
             columns: this.data.availableColumns,
             fnServerParams: this.onServerRequesting.bind(this),

@@ -2,6 +2,8 @@
  * Created by Justin on 3/19/2015.
  */
 app.registerService(function (container) {
+    var _ = container.getFunction("underscore");
+
     function ModalDialogAdapter(modalService) {
         this.modalService = modalService;
     }
@@ -20,27 +22,33 @@ app.registerService(function (container) {
         return modalInstance;
     };
 
-    ModalDialogAdapter.prototype.confirm = function (title, message, onConfirmed, onCancelled, okButtonTitle, cancelButtonTitle) {
+    ModalDialogAdapter.prototype.confirm = function (title, message,
+                                                     onConfirmed, onCancelled,
+                                                     okButtonTitle, cancelButtonTitle,
+                                                     resolveObject) {
+
+        var resolve = _.extend(resolveObject || {}, {
+            title: function () {
+                return title;
+            },
+            message: function () {
+                return message;
+            },
+            okButtonTitle: function () {
+                return okButtonTitle || "OK";
+            },
+            cancelButtonTitle: function () {
+                return cancelButtonTitle || "Cancel";
+            }
+        });
+
         var modalInstance = this.modalService.open({
             templateUrl: '/templates/confirmationDialog.html',
             backdrop: 'static',
             keyboard: false,
             controller: 'ConfirmationDialogController',
             size: 'md',
-            resolve: {
-                title: function () {
-                    return title;
-                },
-                message: function () {
-                    return message;
-                },
-                okButtonTitle: function () {
-                    return okButtonTitle || "OK";
-                },
-                cancelButtonTitle: function () {
-                    return cancelButtonTitle || "Cancel";
-                }
-            }
+            resolve: resolve
         });
 
         modalInstance.result.then(function (answer) {

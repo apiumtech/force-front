@@ -34,6 +34,7 @@ var require = {
         'flot-crosshair': '../node_modules/flot/jquery.flot.crosshair',
         'moment': '../node_modules/moment/min/moment.min',
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
+        'datatables_scroller':'../assets/js/vendor/dataTables.scroller.min',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
@@ -127,8 +128,11 @@ var require = {
         },
 
         'datatables': {
-            deps: ['jquery'],
-            exports: 'datatables'
+            deps: ['jquery']
+        },
+
+        'datatables_scroller': {
+            deps: ['jquery', 'datatables']
         },
 
         'flot': {
@@ -186,7 +190,7 @@ var require = {
         'framework', 'functional-option', 'moment',
         'i18next', 'ng-i18next',
         'underscore', 'signals', 'ng-sortable', 'angular-moment',
-        'datatables',
+        'datatables', 'datatables_scroller',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
         'crypto.SHA1', 'fullcalendar'
     ],

@@ -12,7 +12,9 @@ app.registerService(function (container) {
     FakeAjaxService.prototype.rawAjaxRequest = function (params) {
         var defer = Q.defer();
 
-        defer.resolve(params.result);
+        setTimeout(function () {
+            defer.resolve(params.result);
+        }, 1000);
 
         return Q(defer.promise);
     };
