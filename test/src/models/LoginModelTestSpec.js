@@ -62,4 +62,11 @@ describe('LoginModel', function(){
         model.storeConfig(config_stub);
         expect(model.entityService.getEntityByName('account')).toBe(accountEntity);
     });
+
+    it("should store token on storeToken()", function(){
+        model.storeToken("the token");
+        expect(model.storage.retrieve('token')).toBe("the token");
+
+        window.localStorage.clear();
+    });
 });
