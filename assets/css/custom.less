@@ -194,10 +194,19 @@ span.removeTextBoxBtn {
     }
     &:hover {
       background: linear-gradient(to bottom,#edf0f5 0,#e3e8f0 100%);
-      border-color: #989d9f;
+      border: 1px solid #989d9f;
       color: #54585a;
       text-decoration: none;
     }
+  }
+  & .open > a {
+    background: transparent;
+    border-top: 1px solid #989d9f;
+    border-left: 1px solid #989d9f;
+    border-right: 1px solid #989d9f;
+    color: #54585a;
+    text-decoration: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1) inset;
   }
 }
 
