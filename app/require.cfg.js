@@ -9,6 +9,7 @@ var require = {
         'angular-validation-rule': '../node_modules/angular-validation/dist/angular-validation-rule.min',
         'angular-bootstrap': '../node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '../node_modules/angular/angular.min',
+        'ngSanitize': '../node_modules/angular-sanitize/angular-sanitize.min',
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '../node_modules/jquery/dist/jquery.min',
         'jquery_migrate': '../assets/js/vendor/jquery-migrate-1.2.1.min',
@@ -34,7 +35,7 @@ var require = {
         'flot-crosshair': '../node_modules/flot/jquery.flot.crosshair',
         'moment': '../node_modules/moment/min/moment.min',
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
-        'datatables_scroller':'../assets/js/vendor/dataTables.scroller.min',
+        'datatables_scroller': '../assets/js/vendor/dataTables.scroller.min',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
@@ -46,6 +47,10 @@ var require = {
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+        'ngSanitize': {
+            deps: ['angular'],
+            exports: 'ngSanitize'
         },
         'signals': {
             exports: 'signals'
@@ -184,7 +189,7 @@ var require = {
 
     'deps': [
         'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll',
-        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'angular', 'ngSanitize', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
         'angular-draganddrop', 'angular-bootstrap',
         'q', 'postal', 'meld',
         'framework', 'functional-option', 'moment',

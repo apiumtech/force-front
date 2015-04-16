@@ -43,14 +43,14 @@ describe("DocumentsWidgetView", function () {
 
     describe("onAccountIdChanged", function () {
         beforeEach(function () {
-            spyOn(sut, 'onReloadCommandReceived');
+            spyOn(sut.eventChannel, 'sendReloadCommand');
         });
 
         describe("accountId is undefined", function () {
             it("should not fire onReloadCommandReceived event", function () {
                 sut.$scope.accountId = null;
                 sut.onAccountIdChanged();
-                expect(sut.onReloadCommandReceived).not.toHaveBeenCalled();
+                expect(sut.eventChannel.sendReloadCommand).not.toHaveBeenCalled();
             });
         });
 
@@ -58,7 +58,7 @@ describe("DocumentsWidgetView", function () {
             it("should fire onReloadCommandReceived event", function () {
                 sut.$scope.accountId = 10;
                 sut.onAccountIdChanged();
-                expect(sut.onReloadCommandReceived).toHaveBeenCalled();
+                expect(sut.eventChannel.sendReloadCommand).toHaveBeenCalled();
             });
         });
     });

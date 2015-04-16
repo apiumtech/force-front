@@ -12,12 +12,21 @@ app.registerPresenter(function (container) {
         self.view = view;
         self.model = model;
 
-        view.event.onLoadDocument = self.onLoadDocumentsHandler.bind(self);
-    };
+        view.event.onLoadDocument = function (accountId) {
+            model.loadDocumentsData(accountId).
+                then(view.onDocumentsLoaded.bind(view), view.showError.bind(view));
+        };
 
-    DocumentsWidgetPresenter.prototype.onLoadDocumentsHandler = function (accountId) {
-        this.model.loadDocumentsData(accountId).
-            then(this.view.onDocumentsLoaded.bind(this.view), this.view.showError.bind(this.view));
+        view.event.onSaveDocument = function (record) {
+            model.updateDocument(record).
+                then(view.onDocumentUpdated.bind(view), view.showError.bind(view));
+        };
+
+
+        view.event.onDeletionConfirmed = function (recordId) {
+            model.deleteDocument(recordId).
+                then(view.onDocumentDeleted.bind(view), view.showError.bind(view));
+        };
     };
 
     DocumentsWidgetPresenter.newInstance = function () {

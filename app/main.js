@@ -66,13 +66,13 @@ function main() {
                 templateUrl: '/templates/dashboard/dashboardIndex.html',
                 controller: 'DashboardIndexController'
             })
-            .when('/opp', {
-                templateUrl: '/templates/opportunities/oppList.html',
-                controller: 'OppListController'
+            .when('/opportunities', {
+                templateUrl: '/templates/opportunities/opportunitiesList.html',
+                controller: 'OpportunitiesListController'
             })
-            .when('/opp/detail', {
-                templateUrl: '/templates/opportunities/oppDetail.html',
-                controller: 'OppDetailController'
+            .when('/opportunities/detail', {
+                templateUrl: '/templates/opportunities/opportunitiesDetail.html',
+                controller: 'OpportunitiesDetailController'
             })
             .when('/quotes', {
                 templateUrl: '/templates/quotes/quotesList.html',
@@ -157,6 +157,7 @@ function main() {
     /** Application Building **/
     app = ApplicationFactory.newRequireApplication("RequireJS")
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
+            'ngSanitize',
             'ngRoute',
             'ui.bootstrap',
             'jm.i18next',
@@ -370,8 +371,8 @@ function main() {
             'controllers/dashboard/DashboardIndexController',
 
             // Opportunities page
-            'controllers/opportunities/OppListController',
-            'controllers/opportunities/OppDetailController',
+            'controllers/opportunities/OpportunitiesListController',
+            'controllers/opportunities/OpportunitiesDetailController',
 
             // Quotes page
             'controllers/quotes/QuotesListController',

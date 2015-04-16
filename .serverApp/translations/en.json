@@ -36,6 +36,18 @@
     "NewEmailFrom": "New email from __from__",
     "NoResultFound": "No result found"
   },
+  "ConfirmationBox": {
+    "Delete": {
+    }
+  },
+  "Documents": {
+    "Title": "Title",
+    "Date": "Date",
+    "AddDocument": "Add Document",
+    "deleteDocumentConfirmationMsg": "<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
+    "deleteBtnConfirm": "Yes, delete it",
+    "cancelDelete": "No, thanks"
+  },
   "DateTime": {
     "Today": "Today",
     "Yesterday": "Yesterday",
