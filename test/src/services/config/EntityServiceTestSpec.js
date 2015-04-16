@@ -51,36 +51,42 @@ describe("EntityService", function () {
         });
     });
 
-    describe('getEntityColumns()', function(){
-        it("shoud throw when no entityName is specified", function(){
-            expect(sut.getEntityColumns).toThrow();
-        });
 
-        it('should retrieve the correct entity columns', function(){
-            var config_stub = {
+    describe('getEntityColumns()', function(){
+        var config_stub;
+        beforeEach(function(){
+            config_stub = {
                 entities: {
                     account: {
                         fields: [
                             {
                                 name: "id",
-                                list: {label: "Id"},
+                                list: {
+                                    label: "Id",
+                                    isAlwaysVisible: false,
+                                    isDefaultVisible: true
+                                },
                                 struct: {type: "int"}
                             },
                             {
                                 name: "name",
-                                list: {label: "Name"},
+                                list: {
+                                    label: "Name",
+                                    isAlwaysVisible: false,
+                                    isDefaultVisible: true
+                                },
                                 struct: {type: "text"}
-                            },
-                            {
-                                name: "sdfgds",
-                                list: {label: "sadsfa"},
-                                struct: {type: "unknownType"}
                             }
                         ]
                     }
                 }
             };
+        });
+        it("shoud throw when no entityName is specified", function(){
+            expect(sut.getEntityColumns).toThrow();
+        });
 
+        it('should retrieve the correct basic entity columns', function(){
             sut.storeEntities(config_stub);
             var columns = sut.getEntityColumns("account");
 
@@ -92,8 +98,64 @@ describe("EntityService", function () {
             expect(columns[1].data).toBe(accountFields[1].name);
             expect(columns[1].title).toBe(accountFields[1].list.label);
             expect(columns[1].type).toBe(EntityService.COLUMN_TYPE_TEXT);
-
-            expect(columns[2].type).toBe(EntityService.COLUMN_TYPE_TEXT);
         });
+
+        it('should set column type to "text" when the type is unknown', function(){
+            config_stub.entities.account.fields[0].struct.type = "unknownType";
+            sut.storeEntities(config_stub);
+            var columns = sut.getEntityColumns("account");
+            var accountFields = config_stub.entities.account.fields;
+            expect(columns[0].type).toBe(EntityService.COLUMN_TYPE_TEXT);
+        });
+
+        it('should throw when no name is specified for the entity', function(){
+            delete config_stub.entities.account.fields[0].name;
+            sut.storeEntities(config_stub);
+            expect(
+                function(){
+                    sut.getEntityColumns("account");
+                }
+            ).toThrow();
+        });
+
+        it('should set a default title when no label provided', function(){
+            delete config_stub.entities.account.fields[0].list.label;
+            sut.storeEntities(config_stub);
+            var cols = sut.getEntityColumns("account");
+            expect(cols[0].title).toBe(EntityService.COLUMN_DEFAULT_LABEL);
+        });
+
+        describe("column.visible", function(){
+            function setupVisibilityAndStore(alwaysVisible, defaultVisible){
+                config_stub.entities.account.fields[0].list.isAlwaysVisible = alwaysVisible;
+                config_stub.entities.account.fields[0].list.isDefaultVisible = defaultVisible;
+                sut.storeEntities(config_stub);
+                return sut.getEntityColumns("account");
+            }
+
+            it('should always be true when isAlwaysVisible', function(){
+                var cols = setupVisibilityAndStore(true, false);
+                expect(cols[0].visible).toBe(true);
+            });
+
+            it('should be true when isDefaultVisible', function(){
+                var cols = setupVisibilityAndStore(false, true);
+                expect(cols[0].visible).toBe(true);
+            });
+
+            it('should be false when !isDefaultVisible', function(){
+                var cols = setupVisibilityAndStore(false, false);
+                expect(cols[0].visible).toBe(false);
+            });
+
+        });
+
+        it('should resolve isAlwaysVisible() to the same value as the original field.isAlwaysVisible', function(){
+            config_stub.entities.account.fields[0].list.isAlwaysVisible = true;
+            sut.storeEntities(config_stub);
+            var cols = sut.getEntityColumns("account");
+            expect(cols[0].isAlwaysVisible()).toBe(true);
+        });
+
     });
 });

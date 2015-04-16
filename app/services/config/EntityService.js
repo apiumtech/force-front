@@ -20,6 +20,7 @@ app.registerService(function () {
     EntityService.STORAGE_KEY = "fmConfigEntities";
     EntityService.COLUMN_TYPE_INT = "num";
     EntityService.COLUMN_TYPE_TEXT = "string";
+    EntityService.COLUMN_DEFAULT_LABEL = "-";
 
 
     /**
@@ -59,18 +60,27 @@ app.registerService(function () {
             throw new Error("No entity name was specified");
         }
 
+        var requiredField = function(fieldName, fieldValue) {
+            assertNotNull(fieldName, fieldValue);
+            return fieldValue;
+        };
+
         var resolveColumnType = function(type) {
             return  type === "int"  ? EntityService.COLUMN_TYPE_INT  :
                     type === "text" ? EntityService.COLUMN_TYPE_TEXT :
                     EntityService.COLUMN_TYPE_TEXT;
         };
 
-        // column spec
+        // column spec resolver
         var fieldToColumn = function(field) {
+            var list = field.list;
+            var struct = field.struct;
             return {
-                data: field.name,
-                title: field.list.label,
-                type: resolveColumnType(field.struct.type)
+                data: requiredField("name", field.name),
+                title: list.label || EntityService.COLUMN_DEFAULT_LABEL,
+                type: resolveColumnType(struct.type),
+                visible: list.isAlwaysVisible ||  list.isDefaultVisible,
+                isAlwaysVisible: function(){ return list.isAlwaysVisible; }
             };
         };
 

@@ -40,8 +40,9 @@
                             <li ng-repeat="column in data.tableColumns">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10"
                                        ng-checked="fn.isColumnVisible(column)"
-                                       ng-click="event.onToggleColumn(column);$event.stopPropagation()">
-                                <div class="media-body" ng-click="event.onToggleColumn(column);$event.stopPropagation()">
+                                       ng-click="fn.onToggleColumn(column);$event.stopPropagation()"
+                                       ng-disabled="!fn.isColumnToggleable(column)">
+                                <div class="media-body">
                                     <p>{{column.title || '&nbsp;'}}</p>
                                 </div>
                                 <div class="clear-fix"></div>
