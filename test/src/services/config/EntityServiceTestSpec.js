@@ -61,12 +61,21 @@ describe("EntityService", function () {
                 entities: {
                     account: {
                         fields: [
-                            {name:"id", list:{
-                                label: "Id"
-                            }},
-                            {name:"name", list:{
-                                label: "Name"
-                            }}
+                            {
+                                name: "id",
+                                list: {label: "Id"},
+                                struct: {type: "int"}
+                            },
+                            {
+                                name: "name",
+                                list: {label: "Name"},
+                                struct: {type: "text"}
+                            },
+                            {
+                                name: "sdfgds",
+                                list: {label: "sadsfa"},
+                                struct: {type: "unknownType"}
+                            }
                         ]
                     }
                 }
@@ -78,9 +87,13 @@ describe("EntityService", function () {
             var accountFields = config_stub.entities.account.fields;
             expect(columns[0].data).toBe(accountFields[0].name);
             expect(columns[0].title).toBe(accountFields[0].list.label);
+            expect(columns[0].type).toBe(EntityService.COLUMN_TYPE_INT);
 
             expect(columns[1].data).toBe(accountFields[1].name);
             expect(columns[1].title).toBe(accountFields[1].list.label);
+            expect(columns[1].type).toBe(EntityService.COLUMN_TYPE_TEXT);
+
+            expect(columns[2].type).toBe(EntityService.COLUMN_TYPE_TEXT);
         });
     });
 });

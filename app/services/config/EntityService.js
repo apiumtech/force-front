@@ -5,13 +5,28 @@
 app.registerService(function () {
     var StorageService = app.getService('services/StorageService');
 
+
+    /**
+     * @constructor
+     */
     function EntityService(storage) {
         this.storage = storage;
     }
 
-    EntityService.prototype = Object.create(Object.prototype, {});
-    EntityService.STORAGE_KEY = "fmConfigEntities";
 
+    EntityService.prototype = Object.create(Object.prototype, {});
+
+
+    EntityService.STORAGE_KEY = "fmConfigEntities";
+    EntityService.COLUMN_TYPE_INT = "num";
+    EntityService.COLUMN_TYPE_TEXT = "string";
+
+
+    /**
+     * Store Entities object from a config object
+     *
+     * @method storeEntities()
+     */
     EntityService.prototype.storeEntities = function(configObj){
         if( !configObj.entities ){
             throw new Error('This Config Object does not have entities');
@@ -19,6 +34,12 @@ app.registerService(function () {
         this.storage.store(EntityService.STORAGE_KEY, configObj.entities );
     };
 
+
+    /**
+     * Get Entity object By Name
+     *
+     * @method getEntityByName()
+     */
     EntityService.prototype.getEntityByName = function(entityName){
         if(!entityName){
             throw new Error("No entity name was specified");
@@ -27,16 +48,29 @@ app.registerService(function () {
         return entitiesObj[entityName];
     };
 
+
+    /**
+     * Given an entity name, returns a collection of dataTable-compilant columns.
+     *
+     * @method getEntityColumns()
+     */
     EntityService.prototype.getEntityColumns = function(entityName){
         if(!entityName){
             throw new Error("No entity name was specified");
         }
 
+        var resolveColumnType = function(type) {
+            return  type === "int"  ? EntityService.COLUMN_TYPE_INT  :
+                    type === "text" ? EntityService.COLUMN_TYPE_TEXT :
+                    EntityService.COLUMN_TYPE_TEXT;
+        };
+
         // column spec
-        var fieldToColumn = function(field){
+        var fieldToColumn = function(field) {
             return {
                 data: field.name,
-                title: field.list.label
+                title: field.list.label,
+                type: resolveColumnType(field.struct.type)
             };
         };
 
@@ -45,6 +79,12 @@ app.registerService(function () {
         return columns;
     };
 
+
+    /**
+     * EntityService factory
+     *
+     * @method static newInstance
+     */
     EntityService.newInstance = function (storage) {
         storage = storage || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         return Some(new EntityService(storage));
