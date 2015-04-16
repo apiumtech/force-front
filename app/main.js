@@ -157,6 +157,7 @@ function main() {
     /** Application Building **/
     app = ApplicationFactory.newRequireApplication("RequireJS")
         .composedWith(ApplicationFactory.newAngularApplication('AngularApp', [
+            'ngSanitize',
             'ngRoute',
             'ui.bootstrap',
             'jm.i18next',

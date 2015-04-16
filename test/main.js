@@ -21,6 +21,7 @@ requirejs.config({
         'angular-validation-rule': '/base/node_modules/angular-validation/dist/angular-validation-rule.min',
         'angular-bootstrap': '/base/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/base/node_modules/angular/angular.min',
+        'ngSanitize': '/base/node_modules/angular-sanitize/angular-sanitize.min',
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
         'postal': '/base/node_modules/postal/lib/postal.min',
         'q': '/base/node_modules/q/q',
@@ -44,6 +45,10 @@ requirejs.config({
     'shim': {
         'angular': {
             exports: 'angular'
+        },
+        'ngSanitize': {
+            deps: ['angular'],
+            exports: 'ngSanitize'
         },
 
         'signals': {
@@ -128,7 +133,7 @@ requirejs.config({
     },
 
     'deps': [
-        'angular', 'ngFileUpload', 'infinite-scroll', 'angular-validation', 'angular-validation-rule',
+        'angular', 'ngSanitize', 'ngFileUpload', 'infinite-scroll', 'angular-validation', 'angular-validation-rule',
         'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
         'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
         'i18next', 'ng-i18next', 'signals', 'ng-sortable', 'crypto.SHA1',

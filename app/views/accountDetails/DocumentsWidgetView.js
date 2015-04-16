@@ -4,6 +4,7 @@
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
     var ModalDialogAdapter = container.getService("services/ModalDialogAdapter");
+    var TranslatorService = container.getService("services/TranslatorService");
 
     var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
         DocumentsWidgetModel = container.getModel('models/accountDetails/DocumentsWidgetModel');
@@ -13,6 +14,7 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, model, presenter);
         this.modalDialogService = modalDialogService;
         this.data.documentsList = [];
+        this.translator = TranslatorService.newInstance().getOrElse(throwInstantiateException(TranslatorService));
     }
 
     DocumentsWidgetView.prototype = Object.create(BaseView.prototype, {
@@ -37,7 +39,7 @@ app.registerView(function (container) {
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
         self.fn.saveRecordName = function (record) {
-            // todo : save record
+            self.event.onSaveDocument(record);
             record.editing = false;
         };
 
@@ -54,23 +56,37 @@ app.registerView(function (container) {
 
         self.fn.deleteDocument = function (record) {
             self.modalDialogService.confirm("Delete document",
-                "Are you sure want to delete this document? ", self.onDeletionConfirmed.bind(self, record), function () {
-                }, "Yes, delete it", "No, thanks");
+                self.translator.translate("Documents.deleteDocumentConfirmationMsg", {documentName: record.name}),
+                self.deletionConfirmed.bind(self, record),
+                doNothing,
+                self.translator.translate("Documents.deleteBtnConfirm"),
+                self.translator.translate("Documents.cancelDelete"));
         };
 
         self.$scope.$watch("accountId", self.onAccountIdChanged.bind(self));
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
     };
 
-    DocumentsWidgetView.prototype.onDeletionConfirmed = function (record) {
+    DocumentsWidgetView.prototype.deletionConfirmed = function (record) {
+        var self = this;
+        self.event.onDeletionConfirmed(record.id);
+    };
 
+    DocumentsWidgetView.prototype.onDocumentDeleted = function () {
+        var self = this;
+        self.eventChannel.sendReloadCommand();
+    };
+
+    DocumentsWidgetView.prototype.onDocumentUpdated = function () {
+        var self = this;
+        self.eventChannel.sendReloadCommand();
     };
 
     DocumentsWidgetView.prototype.onAccountIdChanged = function () {
         var self = this;
         var value = self.$scope.accountId;
 
-        value && self.onReloadCommandReceived();
+        value && self.eventChannel.sendReloadCommand();
     };
 
     DocumentsWidgetView.prototype.onReloadCommandReceived = function () {

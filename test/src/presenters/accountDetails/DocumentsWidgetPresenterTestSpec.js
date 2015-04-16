@@ -1,12 +1,12 @@
 /**
- * Created by justin on 3/18/15.
+ * Created by justin on 4/16/15.
  */
-describe("AgendaWidgetPresenter", function () {
-    var AgendaWidgetPresenter = app.getPresenter('presenters/accountDetails/AgendaWidgetPresenter');
+describe("DocumentsWidgetPresenter", function () {
+    var DocumentsWidgetPresenter = app.getPresenter('presenters/accountDetails/DocumentsWidgetPresenter');
     var sut, view, model;
 
     beforeEach(function () {
-        sut = AgendaWidgetPresenter.newInstance().getOrElse(throwInstantiateException(AgendaWidgetPresenter));
+        sut = DocumentsWidgetPresenter.newInstance().getOrElse(throwInstantiateException(DocumentsWidgetPresenter));
         view = {event: {}};
         model = {};
     });
@@ -14,34 +14,42 @@ describe("AgendaWidgetPresenter", function () {
     describe("show()", function () {
         [
             {
-                viewEvent: "onLoadAgenda", test: onLoadAgendaTest
+                viewEvent: "onLoadDocument",
+                modelMethod: "loadDocumentsData",
+                onSuccess: "onDocumentsLoaded",
+                onError: "showError"
+            },
+            {
+                viewEvent: "onSaveDocument",
+                modelMethod: "updateDocument",
+                onSuccess: "onDocumentUpdated",
+                onError: "showError"
+            },
+            {
+                viewEvent: "onDeletionConfirmed",
+                modelMethod: "deleteDocument",
+                onSuccess: "onDocumentDeleted",
+                onError: "showError"
             }
         ].forEach(function (testCase) {
-                var viewEvent = testCase.viewEvent,
-                    test = testCase.test;
+                var viewEvent = testCase.viewEvent;
+                var modelMethod = testCase.modelMethod;
+                var onSuccess = testCase.onSuccess;
+                var onError = testCase.onError;
 
                 describe("when event '" + viewEvent + "' fired", function () {
                     beforeEach(function () {
                         sut.show(view, model);
+                        model[modelMethod] = function () {
+                        };
+                        view[onSuccess] = jasmine.createSpy();
+                        view[onError] = jasmine.createSpy();
                     });
-                    test();
+                    exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError);
                 });
             });
 
-        function onLoadAgendaTest() {
-            var modelMethod = "loadAgendaData";
-            var onSuccess = "onAgendaLoaded";
-            var onError = "showError";
-            exerciseAjaxCallBinding("onLoadAgenda", modelMethod, onSuccess, onError);
-        }
-
         function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {
-            beforeEach(function () {
-                model[modelMethod] = function () {
-                };
-                view[onSuccess] = jasmine.createSpy();
-                view[onError] = jasmine.createSpy();
-            });
             it("presenter should connect event to '" + modelMethod + "' method on $model", function () {
                 spyOn(model, modelMethod).and.returnValue(exerciseFakePromise());
                 view.event[viewEvent]();

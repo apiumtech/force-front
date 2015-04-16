@@ -68,6 +68,10 @@
 
     jsScope.isFunction = isFunction;
 
+    jsScope.doNothing = function () {
+        // empty implementation cuz we don't wanna do anything
+    };
+
     jsScope.getLocation = function () {
         return jsScope.location;
     };

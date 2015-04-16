@@ -23,14 +23,6 @@ describe("AccountCreatePresenter", function () {
                 var viewEvent = testCase.viewEvent,
                     test = testCase.test;
 
-                beforeEach(function () {
-                    sut.show(view, model);
-                });
-
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
-                });
-
                 describe("when event '" + viewEvent + "' fired", function () {
                     beforeEach(function () {
                         sut.show(view, model);

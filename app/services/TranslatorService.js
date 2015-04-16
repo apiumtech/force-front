@@ -3,8 +3,8 @@
  */
 app.registerService(function (container) {
 
-    function TranslatorService(i18next) {
-        this.translator = i18next;
+    function TranslatorService(translator) {
+        this.translator = translator;
     }
 
     TranslatorService.prototype.translate = function (key, options) {
