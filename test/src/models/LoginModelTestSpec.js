@@ -19,6 +19,17 @@ describe('LoginModel', function(){
             .toEqual(UserKey);
     });
 
+    it("should reject promise on login error", function(done){
+        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue( exerciseFakeKoPromiseWithArg("an error") );
+        model.login(loginUser, loginPass).then(
+            function(){},
+            function(err){
+                expect(err).toBe("an error");
+                done();
+            }
+        );
+    });
+
     it("should make a parametrized call to ajaxService's rawAjaxRequest() method on login()", function(){
         spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue( exerciseFakePromise() );
 
@@ -42,11 +53,11 @@ describe('LoginModel', function(){
             token: "fake token",
             config: "fake config"
         };
-        var dummyJSON = JSON.stringify(dummy);
+
 
         spyOn(model, 'storeConfig');
         spyOn(model, 'storeToken');
-        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummyJSON));
+        spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummy));
         model.login(loginUser, loginPass);
         expect(model.storeConfig).toHaveBeenCalledWith(dummy.config);
         expect(model.storeToken).toHaveBeenCalledWith(dummy.token);
@@ -61,5 +72,12 @@ describe('LoginModel', function(){
         };
         model.storeConfig(config_stub);
         expect(model.entityService.getEntityByName('account')).toBe(accountEntity);
+    });
+
+    it("should store token on storeToken()", function(){
+        model.storeToken("the token");
+        expect(model.storage.retrieve('token')).toBe("the token");
+
+        window.localStorage.clear();
     });
 });

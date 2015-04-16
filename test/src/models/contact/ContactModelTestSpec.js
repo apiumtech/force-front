@@ -13,7 +13,6 @@ describe('ContactModel', function(){
 
     describe("loadContactColumns", function(){
         it("should resolve the promise when operation succeeds", function(done){
-            spyOn(model.entityService, "getEntityByName");
             spyOn(model.entityService, "getEntityColumns").and.returnValue("some columns");
             model.loadContactColumns().then(
                 function(columns){

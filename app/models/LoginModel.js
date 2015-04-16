@@ -28,6 +28,7 @@ app.registerModel(function (container) {
             type: 'POST',
             contentType: 'application/json',
             accept: 'application/json',
+            dataType: 'json',
             headers: {
                 user: loginUser,
                 userKey: this.calculateUserKey(loginUser, loginPassword)
@@ -38,7 +39,6 @@ app.registerModel(function (container) {
         var deferred = Q.defer();
         this.ajaxService.rawAjaxRequest(params).then(
             function(data) {
-                data = JSON.parse(data);
                 self.storeToken(data.token);
                 self.storeConfig(data.config);
                 deferred.resolve(data);
