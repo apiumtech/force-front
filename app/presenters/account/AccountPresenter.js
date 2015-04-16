@@ -85,6 +85,10 @@ app.registerPresenter(function (container) {
             }
         };
 
+        view.event.onTableDataRequesting = function (option, requestData, callback, settings) {
+            model.loadAccountsList(option, requestData, callback, settings);
+        };
+
         view.event.onAccountsNextPage = function () {
 
         };

@@ -174,6 +174,7 @@ function main() {
         src: [
             'Configuration',
             'AppsAdapter',
+            'directives/ScrollTopButtonDirective',
             'services/EventBus', 'services/AjaxService', 'services/ajax/AuthAjaxService', 'services/QueryBuilder',
             'services/ObjectMerger',
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
@@ -188,6 +189,7 @@ function main() {
             'plots/SingleLineChart',
 
             'services/PopoverAdapter',
+            'services/bus/ScrollEventBus',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',

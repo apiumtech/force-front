@@ -38,4 +38,32 @@ describe("AccountModel", function () {
             expect(actual).toEqual(fake);
         });
     });
+
+    describe("loadAccountsList", function () {
+        var option = {
+            startFilter: true
+        };
+        var requestData;
+        beforeEach(function () {
+            requestData = {};
+            spyOn(sut, 'remapAccountListData');
+        });
+        describe("truthy option.startFilter", function () {
+            it("should clear accountsList", function () {
+                sut.accountsList = [{
+                    data: "something"
+                }];
+                sut.loadAccountsList(option, {}, doNothing, {});
+                expect(sut.accountsList).toEqual([]);
+            });
+        });
+
+        it("should call ajaxRequest", function () {
+            spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+            sut.loadAccountsList(option, requestData, doNothing, {});
+            expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
+            expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.dataTableRequest);
+            expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('POST');
+        });
+    });
 });

@@ -11,6 +11,7 @@ app.registerModel(function (container) {
         this.ajaxService = ajaxService;
         this.fakeAjaxService = FakeAjaxService.newInstance().getOrElse(throwInstantiateException(FakeAjaxService));
         this.dataTableDataProvider = dataTableDataProvider;
+        this.accountsList = [];
     }
 
     AccountModel.prototype.toggleFollow = function (record) {
@@ -36,6 +37,35 @@ app.registerModel(function (container) {
 
     AccountModel.prototype.loadTableFields = function () {
         return this.dataTableDataProvider.getTableFields();
+    };
+
+    AccountModel.prototype.loadAccountsList = function (option, requestData, callback, settings) {
+        if (option && option.startFilter) {
+            this.accountsList = [];
+            option.currentPage = 0;
+        }
+
+        requestData.length = option.pageSize;
+        requestData.start = option.pageSize * option.currentPage;
+
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.dataTableRequest,
+            type: "POST",
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: requestData
+        }).then(this.remapAccountListData.bind(this, option, requestData, callback, settings), this.remapResponseError.bind(this));
+    };
+
+    AccountModel.prototype.remapAccountListData = function (option, requestData, callback, settings, responseData) {
+        this.accountsList = this.accountsList.concat(responseData.data);
+
+        responseData.data = this.accountsList;
+        callback(responseData);
+    };
+
+    AccountModel.prototype.remapResponseError = function (error) {
+        return error;
     };
 
     AccountModel.newInstance = function (ajaxService, dataTableDataProvider) {

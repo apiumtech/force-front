@@ -14,6 +14,7 @@ app.registerView(function (container) {
     var ModalDialogAdapter = container.getService("services/ModalDialogAdapter");
     var _ = container.getFunction("underscore");
     var moment = container.getFunction("moment");
+    var ScrollEventBus = container.getService('services/bus/ScrollEventBus').getInstance();
 
     function AccountView($scope, modalService, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -26,6 +27,10 @@ app.registerView(function (container) {
         this.data.mapCanvasCollapsed = false;
         this.data.table = null;
         this.data.accountDetailPage = "#/accounts/{id}";
+        this.tableOption = {
+            pageSize: Configuration.pageSize,
+            currentPage: 0
+        };
 
         this.data.filters = {
             owner: {
@@ -61,6 +66,8 @@ app.registerView(function (container) {
     AccountView.prototype.configureEvents = function () {
         var self = this;
         self.data.map = null;
+
+        ScrollEventBus.onScrolledToBottom(self.onPageScrolledToBottom.bind(self));
 
         self.fn.initializeChart = function () {
             var mapOptions = {
@@ -107,18 +114,10 @@ app.registerView(function (container) {
         this.data.dataTableConfig = {
             bServerSide: true,
             processing: true,
-            "scrollY": "500px",
-            "oScroller": {
-                "displayBuffer": 2,
-                loadingIndicator: true
-            },
             bSort: true,
-            ajax: {
-                url: Configuration.api.dataTableRequest,
-                type: 'POST'
-            },
+            ajax: this.requestTableData.bind(this),
             sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>tS<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
-            pagingType: "full_numbers",
+            paging: false,
             columns: this.data.availableColumns,
             fnServerParams: this.onServerRequesting.bind(this),
             columnDefs: [
@@ -153,6 +152,18 @@ app.registerView(function (container) {
 
         if (self.data.infoWindow)
             self.data.infoWindow.close();
+    };
+
+    AccountView.prototype.onPageScrolledToBottom = function () {
+        console.log("page scrolled to bottom");
+        var self = this;
+        self.tableOption.currentPage++;
+        self.reloadTableData();
+    };
+
+    AccountView.prototype.requestTableData = function (requestData, callback, settings) {
+        var self = this;
+        self.event.onTableDataRequesting(self.tableOption, requestData, callback, settings);
     };
 
     AccountView.prototype.onDataRenderedCallback = function (data) {

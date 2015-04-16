@@ -43,6 +43,7 @@ app.registerService(function (container) {
         shortDateFormat: {
             moment: "DD/MM/YYYY",
             default: "dd/MM/yyyy"
-        }
+        },
+        pageSize: 20
     };
 });
