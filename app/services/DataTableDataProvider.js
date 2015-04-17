@@ -12,19 +12,43 @@ app.registerService(function (container) {
     DataTableDataProvider.prototype.getTableFields = function () {
         return this.ajaxService.rawAjaxRequest({
             result: [
-                {data: "following", title: "Following", dataType: "Boolean", sortable: true, width: 70, visible: true, isFilterable: true},
-                {data: "name", title: "Account Name", dataType: "String", width: 250, visible: true, isFilterable: true},
+                {
+                    data: "following",
+                    title: "Following",
+                    dataType: "Boolean",
+                    sortable: true,
+                    width: 70,
+                    visible: true,
+                    isFilterable: true
+                },
+                {
+                    data: "name",
+                    title: "Account Name",
+                    dataType: "String",
+                    width: 250,
+                    visible: true,
+                    isFilterable: true
+                },
+                {data: "imgUrl", menuName: "Logo", title: "", dataType: "String", visible: true},
                 {data: "class", title: "Class.", dataType: "String", visible: true},
                 {
                     data: "$loki",
-                    title: 'Geolocalization',
+                    title: '<i class="fa ic-checkin-filled brand-green-text"></i>',
+                    menuName: 'Geolocalization',
+                    width: 100,
                     dataType: "String",
                     visible: true
                 },
                 {data: "contactInfo.country", title: "Country", dataType: "String", visible: true, isFilterable: true},
                 {data: "contactInfo.city", title: "City", dataType: "String", visible: true, isFilterable: true},
                 {data: "contactInfo.address", title: "Address", dataType: "String", visible: true, isFilterable: true},
-                {data: "contactInfo.phoneNumber", title: "Tel. Number", dataType: "String", visible: true, isFilterable: true},
+                {
+                    data: "contactInfo.phoneNumber",
+                    title: "Tel. Number",
+                    dataType: "String",
+                    visible: true,
+                    isFilterable: true
+                },
                 {data: "modified", title: "Modification Date", dataType: "DateTime", visible: true, isFilterable: true},
                 {data: "responsible.name", title: "Owner", dataType: "String", visible: true, isFilterable: true}
             ]

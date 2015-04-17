@@ -33,6 +33,7 @@ app.registerView(function (container) {
             stopLoading: false,
             startFilter: false
         };
+        this.$scope.resultCounts = 0;
 
         this.data.filters = {
             owner: {
@@ -138,14 +139,18 @@ app.registerView(function (container) {
                 },
                 {
                     targets: 1,
-                    render: self.renderAccountNameColumn.bind(self)
+                    render: self.renderNameColumn.bind(self)
                 },
                 {
-                    targets: 3,
+                    targets: 2,
+                    render: self.renderLogoColumn.bind(self)
+                },
+                {
+                    targets: 4,
                     render: self.renderLocationColumn.bind(self)
                 },
                 {
-                    targets: 8,
+                    targets: 9,
                     render: self.renderModifiedColumn.bind(self)
                 }
             ],
@@ -307,7 +312,13 @@ app.registerView(function (container) {
             '</button>';
     };
 
-    AccountView.prototype.renderAccountNameColumn = function (data, type, row) {
+    AccountView.prototype.renderLogoColumn = function (data, type, row) {
+        var self = this
+        var accountNameColTemplate = $(".accountLogoTemplate").html();
+        return self.templateParser.parseTemplate(accountNameColTemplate, row);
+    };
+
+    AccountView.prototype.renderNameColumn = function (data, type, row) {
         var self = this
         var accountNameColTemplate = $(".accountNameColumnTemplate").html();
         // TODO: Remove $loki when integrate to real server
@@ -423,6 +434,7 @@ app.registerView(function (container) {
 
     AccountView.prototype.onDisposing = function () {
         var self = this;
+        self.data.table.destroy();
         self.event.onDisposing();
         ScrollEventBus.dispose();
     };

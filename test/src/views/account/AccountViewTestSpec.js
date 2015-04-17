@@ -296,4 +296,88 @@ describe("AccountView", function () {
             expect(aoData).toEqual({customFilter: {view: 1}});
         });
     });
+
+    describe("reloadTableData", function () {
+        it("should fire draw event from the table", function () {
+            __view.data.table = {draw: jasmine.createSpy()};
+
+            __view.reloadTableData();
+            expect(__view.data.table.draw).toHaveBeenCalled();
+        });
+    });
+
+    describe("resetTableColumns", function () {
+        var visible;
+
+        beforeEach(function () {
+            visible = jasmine.createSpy();
+            __view.data.availableColumns = [{
+                visible: true
+            }, {
+                visible: false
+            }, {
+                visible: true
+            }, {
+                visible: false
+            }];
+            __view.data.table = {
+                column: function () {
+
+                }
+            };
+
+            spyOn(__view.data.table, 'column').and.callFake(function (i) {
+                return {
+                    visible: visible
+                };
+            });
+        });
+
+        it("should set all columns to show", function () {
+            __view.resetTableColumns();
+            expect(__view.data.availableColumns[1].visible).toBeTruthy();
+            expect(__view.data.availableColumns[3].visible).toBeTruthy();
+        });
+        it("should set columns in tables to visible", function () {
+            __view.resetTableColumns();
+            expect(visible.calls.count()).toBe(4);
+        });
+    });
+
+    describe("reloadTableColumns", function () {
+        var visible;
+
+        beforeEach(function () {
+            visible = jasmine.createSpy();
+            __view.data.availableColumns = [{
+                visible: true
+            }, {
+                visible: false
+            }, {
+                visible: true
+            }, {
+                visible: false
+            }];
+            __view.data.table = {
+                column: function () {
+
+                }
+            };
+
+            spyOn(__view.data.table, 'column').and.callFake(function (i) {
+                return {
+                    visible: visible
+                };
+            });
+        });
+
+        it("should call visible method to assign visibility of columns to table", function (done) {
+            __view.reloadTableColumns();
+            __view.data.availableColumns.forEach(function (record) {
+                expect(visible).toHaveBeenCalledWith(record.visible);
+            });
+            expect(visible.calls.count()).toBe(__view.data.availableColumns.length);
+            done();
+        });
+    });
 });
