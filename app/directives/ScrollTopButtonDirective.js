@@ -11,7 +11,7 @@ app.registerDirective(function (container) {
             link: function (scope, element) {
                 $(window).scroll(function () {
                     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                        ScrollEventBus.sendScrolledToBottomEvent();
+                        ScrollEventBus.fireScrolledToBottom();
                     }
                 });
 

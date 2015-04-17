@@ -17,9 +17,12 @@ app.registerService(function (container) {
     AccountEventBus.prototype.unsubscribeTableFieldsLoaded = function () {
     };
 
-    AccountEventBus.prototype.onFilterValueChanged = function(){};
-    AccountEventBus.prototype.fireFilterValueChanged = function(){};
-    AccountEventBus.prototype.unsubscribeFilterValueChanged = function(){};
+    AccountEventBus.prototype.onFilterValueChanged = function () {
+    };
+    AccountEventBus.prototype.fireFilterValueChanged = function () {
+    };
+    AccountEventBus.prototype.unsubscribeFilterValueChanged = function () {
+    };
 
     AccountEventBus.prototype.onEnvironmentToggled = function () {
     };
@@ -63,7 +66,7 @@ app.registerService(function (container) {
     AccountEventBus.prototype.unsubscribeQueryChanged = function () {
     };
 
-    app._____AccountEventBusInstance = null;
+    app._____AccountEventBusInstance = app._____AccountEventBusInstance || null;
 
     AccountEventBus.getInstance = function () {
         return app._____AccountEventBusInstance || (app._____AccountEventBusInstance = new AccountEventBus());

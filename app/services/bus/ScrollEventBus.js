@@ -2,30 +2,26 @@
  * Created by justin on 16/4/15.
  */
 app.registerService(function (container) {
-    var EventBus = container.getService("services/EventBus").getInstance();
+    var EventBase = container.getService("services/EventBase");
 
-    function ScrollEventBus(channel) {
-        this.channel = channel;
-
-        this.send = this.channel.send;
-        this.listen = this.channel.listen;
-        this.unsubscribe = this.channel.unsubscribe;
+    function ScrollEventBus() {
+        EventBase.call(this);
     }
 
-    ScrollEventBus.prototype.sendScrolledToBottomEvent = function () {
-        this.send({scrolledToBottom: true});
+    ScrollEventBus.prototype = Object.create(EventBase.prototype, {});
+
+    ScrollEventBus.prototype.fireScrolledToBottom = function () {
     };
 
-    ScrollEventBus.prototype.onScrolledToBottom = function (callback) {
-        this.listen(function (event) {
-            if (event.scrolledToBottom) {
-                callback(event);
-            }
-        });
+    ScrollEventBus.prototype.onScrolledToBottom = function () {
     };
 
+    ScrollEventBus.prototype.unsubscribeScrolledToBottom = function () {
+    };
+
+    app.___scrollEventBus = app.___scrollEventBus || null;
     ScrollEventBus.getInstance = function () {
-        return new ScrollEventBus(EventBus.createChannel("ScrollEventBus", "Global"));
+        return app.___scrollEventBus || (app.___scrollEventBus = new ScrollEventBus());
     };
 
     return ScrollEventBus;
