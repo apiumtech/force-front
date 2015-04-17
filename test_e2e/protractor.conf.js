@@ -24,5 +24,7 @@ exports.config = {
         includeStackTrace: true
     },
 
-    specs: ['src/**/*.test.js']
+    specs: ['src/**/*.test.js'],
+
+    baseUrl: 'http://localhost:8081'
 }

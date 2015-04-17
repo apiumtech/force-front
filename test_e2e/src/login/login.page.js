@@ -1,5 +1,5 @@
 var LoginPage = function(){
-    browser.get('http://localhost:8081');
+    browser.get('/');
 };
 
 LoginPage.prototype = Object.create({
