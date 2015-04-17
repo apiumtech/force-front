@@ -424,6 +424,7 @@ app.registerView(function (container) {
     AccountView.prototype.onDisposing = function () {
         var self = this;
         self.event.onDisposing();
+        ScrollEventBus.dispose();
     };
 
     AccountView.prototype.showError = function (error) {
