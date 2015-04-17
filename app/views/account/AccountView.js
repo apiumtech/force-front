@@ -152,6 +152,7 @@ app.registerView(function (container) {
             rowCallback: self.onRowRenderedCallback.bind(self),
             drawCallback: function () {
                 var api = this.api();
+                self.$scope.resultCounts = api.context[0]._iRecordsDisplay;
                 self.onDataRenderedCallback.call(self, api.data());
             }
         };
