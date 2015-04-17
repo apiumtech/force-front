@@ -20,7 +20,9 @@ app.registerService(function () {
     EntityService.STORAGE_KEY = "fmConfigEntities";
     EntityService.COLUMN_TYPE_INT = "num";
     EntityService.COLUMN_TYPE_TEXT = "string";
+    EntityService.COLUMN_TYPE_DATE = "date";
     EntityService.COLUMN_DEFAULT_LABEL = "-";
+    EntityService.COLUMN_DEFAULT_SORTABLE = true;
 
 
     /**
@@ -68,6 +70,7 @@ app.registerService(function () {
         var resolveColumnType = function(type) {
             return  type === "int"  ? EntityService.COLUMN_TYPE_INT  :
                     type === "text" ? EntityService.COLUMN_TYPE_TEXT :
+                    type === "date" ? EntityService.COLUMN_TYPE_DATE :
                     EntityService.COLUMN_TYPE_TEXT;
         };
 
@@ -80,6 +83,7 @@ app.registerService(function () {
                 title: list.label || EntityService.COLUMN_DEFAULT_LABEL,
                 type: resolveColumnType(struct.type),
                 visible: list.isAlwaysVisible ||  list.isDefaultVisible,
+                sortable: list.isSortable || EntityService.COLUMN_DEFAULT_SORTABLE,
                 isAlwaysVisible: function(){ return list.isAlwaysVisible; }
             };
         };
