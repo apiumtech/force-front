@@ -29,7 +29,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFieldsDeselected = function (fieldNames) {
-            eventBus.fireTableFieldsToggled(fieldNames);
+            eventBus.fireTableFieldsFilterDeselected(fieldNames);
         };
 
         view.event.onSearchQueryChanged = function (searchQuery) {

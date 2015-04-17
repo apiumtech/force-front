@@ -11,25 +11,27 @@ app.registerView(function (container) {
     var DataTableService = container.getService("services/DataTableService");
     var Configuration = container.getService('Configuration');
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
-    var ModalDialogAdapter = container.getService("services/ModalDialogAdapter");
     var _ = container.getFunction("underscore");
+    var $ = container.getFunction("jquery");
     var moment = container.getFunction("moment");
     var ScrollEventBus = container.getService('services/bus/ScrollEventBus').getInstance();
 
-    function AccountView($scope, modalService, $model, $presenter, mapService, dataTableService, templateParser) {
+    function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
         this.popupAdapter = PopoverAdapter.newInstance().getOrElse(throwInstantiateException(PopoverAdapter));
         this.mapService = mapService;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
+        this.isLoading = false;
         this.data.map = null;
         this.data.mapCanvasCollapsed = false;
         this.data.table = null;
         this.data.accountDetailPage = "#/accounts/{id}";
         this.tableOption = {
             pageSize: Configuration.pageSize,
-            currentPage: 0
+            currentPage: -1,
+            stopLoading: false,
+            startFilter: false
         };
 
         this.data.filters = {
@@ -61,7 +63,16 @@ app.registerView(function (container) {
         this.configureEvents();
     }
 
-    AccountView.prototype = Object.create(BaseView.prototype, {});
+    AccountView.prototype = Object.create(BaseView.prototype, {
+        isLoading: {
+            get: function () {
+                return this.$scope.isLoading || (this.$scope.isLoading = false);
+            },
+            set: function (value) {
+                this.$scope.isLoading = value;
+            }
+        }
+    });
 
     AccountView.prototype.configureEvents = function () {
         var self = this;
@@ -115,11 +126,11 @@ app.registerView(function (container) {
             bServerSide: true,
             processing: true,
             bSort: true,
+            columns: this.data.availableColumns,
             ajax: this.requestTableData.bind(this),
+            fnServerParams: this.onServerRequesting.bind(this),
             sDom: "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r>tS<'row'<'col-md-6 col-sm-6'i><'col-md-6 col-sm-6'p>>",
             paging: false,
-            columns: this.data.availableColumns,
-            fnServerParams: this.onServerRequesting.bind(this),
             columnDefs: [
                 {
                     targets: 0,
@@ -141,6 +152,7 @@ app.registerView(function (container) {
             rowCallback: self.onRowRenderedCallback.bind(self),
             drawCallback: function () {
                 var api = this.api();
+                self.$scope.resultCounts = api.context[0]._iRecordsDisplay;
                 self.onDataRenderedCallback.call(self, api.data());
             }
         };
@@ -155,20 +167,22 @@ app.registerView(function (container) {
     };
 
     AccountView.prototype.onPageScrolledToBottom = function () {
-        console.log("page scrolled to bottom");
         var self = this;
-        self.tableOption.currentPage++;
+        if (self.tableOption.stopLoading)
+            return;
+
         self.reloadTableData();
     };
 
     AccountView.prototype.requestTableData = function (requestData, callback, settings) {
         var self = this;
+
+        self.isLoading = true;
         self.event.onTableDataRequesting(self.tableOption, requestData, callback, settings);
     };
 
     AccountView.prototype.onDataRenderedCallback = function (data) {
         var self = this;
-
         self.markers = [];
         _.each(data, function (record) {
             self.createMapMarker(record);
@@ -183,6 +197,7 @@ app.registerView(function (container) {
         });
         self.data.map.setCenter(self.data.latlngbounds.getCenter());
         self.data.map.fitBounds(self.data.latlngbounds);
+        self.isLoading = false;
     };
 
     AccountView.prototype.onRowRenderedCallback = function (nRow, aData) {
@@ -228,7 +243,8 @@ app.registerView(function (container) {
 
         if (filters.customFilters.values.length) {
             filters.customFilters.values.forEach(function (filter) {
-                aoData.customFilter[filter.key] = filter.value;
+                if (filter.value.length)
+                    aoData.customFilter[filter.key] = filter.value;
             });
         }
     };
@@ -418,8 +434,7 @@ app.registerView(function (container) {
         return $(".googleMapPopupContentTemplate").first().html();
     };
 
-    AccountView.newInstance = function ($scope, modalService, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
-        assertNotNull('modalService', modalService);
+    AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
         var model = $model || AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
@@ -428,7 +443,7 @@ app.registerView(function (container) {
         var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
         var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
 
-        var view = new AccountView(scope, modalService, model, presenter, mapService, dataTableService, templateParser);
+        var view = new AccountView(scope, model, presenter, mapService, dataTableService, templateParser);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

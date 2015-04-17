@@ -44,6 +44,6 @@ app.registerService(function (container) {
             moment: "DD/MM/YYYY",
             default: "dd/MM/yyyy"
         },
-        pageSize: 20
+        pageSize: 10
     };
 });

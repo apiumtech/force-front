@@ -1,5 +1,5 @@
 <div class="col-md-12 ui-sortable" ng-init="fn.initializeChart()">
-    <div class="panel panel-inverse">
+    <div class="panel panel-inverse" ng-class="{'panel-loading': isLoading}">
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"
@@ -12,10 +12,13 @@
                    data-original-title="" title=""><i class="fa fa-times"></i></a>
             </div>
             <h4 class="panel-title">
-                {{'Account.Table.Header' | i18next}}
+                {{'Account.Table.Header' | i18next:{xx: resultCounts} }}
             </h4>
         </div>
         <div class="panel-body">
+            <div class="panel-loader" ng-show="isLoading">
+                <span class="spinner-small"></span>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group m-r-5 m-b-5 pull-right">
