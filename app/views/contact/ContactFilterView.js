@@ -9,6 +9,7 @@ app.registerView(function (container) {
 
     function ContactFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.configureEvents();
     }
 
     ContactFilterView.prototype = Object.create(BaseView.prototype, {});

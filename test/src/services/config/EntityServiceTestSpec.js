@@ -197,5 +197,20 @@ describe("EntityService", function () {
             });
         });
 
-    });
+    });// END getEntityColumns
+
+    describe("getEntityFilters", function(){
+
+        it('should be defined', function(){
+            expect(sut.getEntityFilters).toBeDefined();
+        });
+
+        it('throw when no entityName is provided', function(){
+            expect(sut.getEntityFilters).toThrow();
+        });
+
+        xit('should retrieve a collection of filters', function(){
+
+        });
+    })
 });

@@ -93,6 +93,13 @@ app.registerService(function () {
         return columns;
     };
 
+    EntityService.prototype.getEntityFilters = function(entityName){
+        if(!entityName){
+            throw new Error("No entity name was specified");
+        }
+        return [];
+    };
+
 
     /**
      * EntityService factory

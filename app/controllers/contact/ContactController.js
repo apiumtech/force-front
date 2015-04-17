@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     ContactController.configureView = function ($scope) {
-        var view = ContactView.newInstance($scope).getOrElse(throwException("Could not create ContactView!"));
+        var view = ContactView.newInstance($scope).getOrElse(throwException("Could not create ContactController!"));
         view.show();
     };
 
