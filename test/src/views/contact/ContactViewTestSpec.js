@@ -60,9 +60,19 @@ describe("ContactView", function () {
     it('should resolve column visibility', function () {
         var view = exerciseCreateView();
         var column = {
-            isVisible: true
+            visible: true
         };
         expect(view.isColumnVisible(column)).toBe(true);
+    });
+
+    it('should resolve isColumnToggleable', function () {
+        var view = exerciseCreateView();
+        var column = {
+            isAlwaysVisible: function(){
+                return true;
+            }
+        };
+        expect(view.isColumnToggleable(column)).toBe(true);
     });
 
     it('should set contacts data on onLoadContactsComplete()', function () {
@@ -103,5 +113,35 @@ describe("ContactView", function () {
         var view = exerciseCreateView();
         view.onLoadContactsError("an error");
         expect(view.data.currentError).toBe("an error");
+    });
+
+    it('should toggle column on onToggleColumn()', function(){
+        var view = exerciseCreateView();
+
+        view.data.tableColumns = [
+            {visible: true},
+            {visible: false},
+            {visible: true}
+        ];
+
+        var internalColumns = view.data.tableColumns.slice();
+        view.data.table = {
+            internalColumns: internalColumns,
+            column: function(i){
+                return {
+                    visible: function(value){
+                        internalColumns[i].visible = value;
+                    }
+                };
+            }
+        };
+
+        expect(view.data.tableColumns[1].visible).toBe(false);
+        expect(internalColumns[1].visible).toBe(false);
+
+        view.onToggleColumn( view.data.tableColumns[1] );
+
+        expect(view.data.tableColumns[1].visible).toBe(true);
+        expect(internalColumns[1].visible).toBe(true);
     });
 });

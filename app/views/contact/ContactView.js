@@ -53,10 +53,10 @@ app.registerView(function (container) {
         this.fn.createContactClicked = this.openCreateContactPage.bind(this);
         this.fn.isColumnVisible = this.isColumnVisible.bind(this);
         this.fn.toggleShowMap = this.toggleShowMap.bind(this);
+        this.fn.onToggleColumn = this.onToggleColumn.bind(this);
 
         // Method stubs, actually implemented in presenter.
         this.event.onFieldsRestoreDefault = function () {};
-        this.event.onToggleColumn = function () {};
     };
 
 
@@ -151,7 +151,33 @@ app.registerView(function (container) {
      * @method isColumnVisible()
      */
     ContactView.prototype.isColumnVisible = function (column) {
-        return column.isVisible;
+        return column.visible;
+    };
+
+
+    /**
+     * Wether column visibility can be toggled or not
+     *
+     * @method isColumnToggleable()
+     */
+    ContactView.prototype.isColumnToggleable = function (column) {
+        return column.isAlwaysVisible();
+    };
+
+
+    /**
+     * Toggle Column visibility
+     *
+     * @method onToggleColumn()
+     */
+    ContactView.prototype.onToggleColumn = function (column) {
+        column.visible = !column.visible;
+        var len = this.data.tableColumns.length;
+        var i, column;
+        for (i = 0; i < len; i++) {
+            column = this.data.table.column(i);
+            column.visible( this.data.tableColumns[i].visible );
+        }
     };
 
 
