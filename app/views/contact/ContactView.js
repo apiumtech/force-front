@@ -52,6 +52,7 @@ app.registerView(function (container) {
         this.fn.initializeTable = this.initializeTable.bind(this); // contactTable.html > ng-init
         this.fn.createContactClicked = this.openCreateContactPage.bind(this);
         this.fn.isColumnVisible = this.isColumnVisible.bind(this);
+        this.fn.isColumnToggleable = this.isColumnToggleable.bind(this);
         this.fn.toggleShowMap = this.toggleShowMap.bind(this);
         this.fn.onToggleColumn = this.onToggleColumn.bind(this);
 
@@ -161,7 +162,7 @@ app.registerView(function (container) {
      * @method isColumnToggleable()
      */
     ContactView.prototype.isColumnToggleable = function (column) {
-        return column.isAlwaysVisible();
+        return !column.isAlwaysVisible();
     };
 
 

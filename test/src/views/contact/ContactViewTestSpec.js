@@ -72,7 +72,7 @@ describe("ContactView", function () {
                 return true;
             }
         };
-        expect(view.isColumnToggleable(column)).toBe(true);
+        expect(view.isColumnToggleable(column)).toBe(false);
     });
 
     it('should set contacts data on onLoadContactsComplete()', function () {
