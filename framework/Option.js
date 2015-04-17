@@ -130,5 +130,4 @@
             return -1 !== String.prototype.indexOf.call(this, str, startIndex);
         };
     }
-
 })(window);

@@ -42,11 +42,11 @@ app.registerService(function (container) {
     AccountEventBus.prototype.unsubscribeAccountTypeToggled = function () {
     };
 
-    AccountEventBus.prototype.onTableFieldsToggled = function () {
+    AccountEventBus.prototype.onTableFieldsFilterDeselected = function () {
     };
-    AccountEventBus.prototype.fireTableFieldsToggled = function () {
+    AccountEventBus.prototype.fireTableFieldsFilterDeselected = function () {
     };
-    AccountEventBus.prototype.unsubscribeTableFieldsToggled = function () {
+    AccountEventBus.prototype.unsubscribeTableFieldsFilterDeselected = function () {
     };
 
     AccountEventBus.prototype.onOwnerToggled = function () {

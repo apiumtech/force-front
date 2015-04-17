@@ -22,7 +22,7 @@ app.registerPresenter(function (container) {
 
         eventBus.onFilterValueChanged(self.filterChanged.bind(self));
 
-        eventBus.onTableFieldsToggled(self.onTableFieldsToggled.bind(self));
+        eventBus.onTableFieldsFilterDeselected(self.onTableFieldsFilterDeselected.bind(self));
 
         view.event.onOwnerToggled = function (owner) {
             view.updateOwnerFilter(owner);
@@ -104,7 +104,7 @@ app.registerPresenter(function (container) {
         self.view.onTableFieldsLoaded(data);
     };
 
-    AccountPresenter.prototype.onTableFieldsToggled = function (fields) {
+    AccountPresenter.prototype.onTableFieldsFilterDeselected = function (fields) {
         var self = this;
         self.view.updateCustomFilters(fields);
         self.view.reloadTableData();

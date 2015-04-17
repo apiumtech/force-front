@@ -12,6 +12,8 @@ app.registerModel(function (container) {
         this.fakeAjaxService = FakeAjaxService.newInstance().getOrElse(throwInstantiateException(FakeAjaxService));
         this.dataTableDataProvider = dataTableDataProvider;
         this.accountsList = [];
+        this.recentFilters = {};
+        this.recentOrder = {};
     }
 
     AccountModel.prototype.toggleFollow = function (record) {
@@ -40,10 +42,18 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.loadAccountsList = function (option, requestData, callback, settings) {
-        if (option && option.startFilter) {
+
+        if (JSON.stringify(this.recentFilters) !== JSON.stringify(requestData.customFilter) ||
+            JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order)) {
             this.accountsList = [];
+            option.stopLoading = false;
             option.currentPage = 0;
+        } else {
+            option.currentPage++;
         }
+
+        this.recentFilters = requestData.customFilter;
+        this.recentOrder = requestData.order;
 
         requestData.length = option.pageSize;
         requestData.start = option.pageSize * option.currentPage;
@@ -58,10 +68,24 @@ app.registerModel(function (container) {
     };
 
     AccountModel.prototype.remapAccountListData = function (option, requestData, callback, settings, responseData) {
-        this.accountsList = this.accountsList.concat(responseData.data);
+        if (option.startFilter)
+            option.startFilter = false;
+
+        var mappedResponseData = this.mapAccountListResponseData(responseData.data);
+        this.accountsList = this.accountsList.concat(mappedResponseData);
+
+        if (this.accountsList.length === responseData.recordsFiltered)
+            option.stopLoading = true;
 
         responseData.data = this.accountsList;
         callback(responseData);
+    };
+
+    AccountModel.prototype.mapAccountListResponseData = function (data) {
+        return data.map(function (record) {
+            record.id = record.$loki;
+            return record;
+        });
     };
 
     AccountModel.prototype.remapResponseError = function (error) {
