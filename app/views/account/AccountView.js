@@ -97,10 +97,6 @@ app.registerView(function (container) {
             self.fn.bindDocumentDomEvents();
         };
 
-        self.fn.isImageHeader = function (header) {
-            return header.charAt(0) === '<' && header.charAt(header.length - 1) === '>';
-        };
-
         self.fn.bindDocumentDomEvents = function () {
             $(document).on('click', '.close-pop-over', function (e) {
                 self.popupAdapter.closePopover('div.popover');
@@ -221,8 +217,11 @@ app.registerView(function (container) {
         });
 
         $(nRow).on('click', "[function-getlocation]", function (e) {
+            self.popupAdapter.closePopover('div.popover');
             e.stopPropagation();
+
             self.popupAdapter.openPopover($("a[function-getlocation]", nRow));
+            $("a[function-getlocation]", nRow).data("opened", true);
         });
     };
 

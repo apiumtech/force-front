@@ -215,7 +215,10 @@
                                placeholder="Buscar"
                                 />
                   <span class="input-group-btn">
-                    <button class="btn btn-sm btn-default" type="button"><i class="fa ic-search"></i></button>
+                    <button class="btn btn-sm btn-default" type="button"
+                            ng-click="event.onSearchQueryChanged(data.searchQuery)">
+                        <i class="fa ic-search"></i>
+                    </button>
                   </span>
                     </div>
                 </form>

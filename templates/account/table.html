@@ -70,11 +70,8 @@
 
                                 <div class="media-body"
                                      ng-click="event.onToggleColumn(column);$event.stopPropagation()">
-                                    <p ng-if="fn.isImageHeader(column.title)"
-                                       class="glyphicon glyphicon-map-marker"></p>
-
-                                    <p ng-if="!fn.isImageHeader(column.title)">
-                                        {{column.title || '&nbsp;'}}
+                                    <p>
+                                        {{column.menuName || column.title || '&nbsp;'}}
                                     </p>
                                 </div>
                                 <div class="clear-fix"></div>
@@ -107,9 +104,9 @@
             </div>
 
             <div class="hide accountNameColumnTemplate">
-                <span>
-                {name}
-                </span>
+                <a href="#/accounts/{id}">
+                    {name}
+                </a>
 
                 <div>
                     <div class="edit-delete-div">
