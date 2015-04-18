@@ -20,6 +20,7 @@
                                            ng-model="data.ownerFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableOwners(data.ownerFilter);"/>
+                                    <span class="fa ic-search removeTextBoxBtn" ng-show="data.ownerFilter==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.ownerFilter!=''"
                                           ng-click="data.ownerFilter='';event.onShowAvailableOwners(data.ownerFilter);$event.stopPropagation()"></span>
                                 </form>
@@ -93,6 +94,7 @@
                                            ng-model="data.EnvFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableEnvironments(data.EnvFilter);"/>
+                                    <span class="fa ic-search removeTextBoxBtn" ng-show="data.EnvFilter==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.EnvFilter!=''"
                                           ng-click="data.EnvFilter='';event.onShowAvailableEnvironments(data.EnvFilter);$event.stopPropagation()"></span>
                                 </form>
@@ -133,6 +135,8 @@
                                            ng-model="data.AccountTypeFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onShowAvailableAccountTypes(data.AccountTypeFilter);"/>
+                                    <span class="fa ic-search removeTextBoxBtn"
+                                          ng-show="data.AccountTypeFilter==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.AccountTypeFilter!=''"
                                           ng-click="data.AccountTypeFilter='';event.onShowAvailableAccountTypes(data.AccountTypeFilter);$event.stopPropagation()"></span>
                                 </form>
@@ -196,7 +200,7 @@
                                           filter-for="field"
                                           on-close="event.updateAvailableFilters(field);">
                     </datetime-type-filter>
-                        <span class="fa fa-remove"
+                        <span class="ic-remove-circle m-l-10 p-t-32"
                               ng-click="field.selected=false;fn.updateAvailableFilters();$event.stopPropagation()"></span>
 
                     <div class="clearfix"></div>
