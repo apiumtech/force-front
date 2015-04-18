@@ -12,7 +12,7 @@
                             {{'Account.Filters.FilterBy.MenuOwner.Title' | i18next}}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <ul class="dropdown-menu media-list animated-slow fadeInDown">
                             <li class="m-t-10 m-b-10">
                                 <form>
                                     <input type="text" class="form-control ic-user"
@@ -30,7 +30,8 @@
                                     <p>{{'Account.Filters.FilterBy.MenuOwner.OwnerListEmpty' | i18next}}</p>
                                 </div>
                             </li>
-                            <li class="media" ng-repeat="owner in data.availableOwners">
+                            <li class="media"
+                                ng-repeat="owner in data.availableOwners">
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10 "
                                        ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);"
                                        ng-checked="owner.selected"
@@ -41,7 +42,8 @@
                                 </div>
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();owner.selected=!owner.selected;event.onToggleOwnerFilter(owner);">
-                                    <p>{{ owner.name }} &nbsp;</p>
+                                    <p high-light-result="owner.name"
+                                       keywords='data.ownerFilter'></p>
                                 </div>
                             </li>
                         </ul>
@@ -86,7 +88,7 @@
                             {{'Account.Filters.FilterBy.MenuEnvironment.Title' | i18next}}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <ul high-light-result class="dropdown-menu media-list animated-slow fadeInDown">
                             <li class="m-t-10 m-b-10">
                                 <form>
                                     <input type="text" class="form-control ic-user"
@@ -112,7 +114,8 @@
 
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();env.selected=!env.selected;event.onToggleEnvironmentFilter(env);">
-                                    <p>{{ env.name }}</p>
+                                    <p high-light-result="env.name"
+                                       keywords='data.EnvFilter'>{{ env.name }}</p>
                                 </div>
                             </li>
                         </ul>
@@ -126,7 +129,7 @@
                             {{'Account.Filters.FilterBy.MenuAccountType.Title' | i18next}}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu media-list  animated-slow fadeInDown">
+                        <ul high-light-result class="dropdown-menu media-list animated-slow fadeInDown">
                             <li class="m-t-10 m-b-10">
                                 <form>
                                     <input type="text"
@@ -148,7 +151,8 @@
 
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;event.onToggleAccountTypeFilter(filterValue);">
-                                    <p>{{ filterValue.name }}</p>
+                                    <p high-light-result="filterValue.name"
+                                       keywords='data.AccountTypeFilter'>{{ filterValue.name }}</p>
                                 </div>
                             </li>
                         </ul>
@@ -167,6 +171,7 @@
                                     <input type="text"
                                            class="form-control ic-user"
                                            placeholder="{{'Account.Filters.SearchFilters' | i18next}}"
+                                           ng-model="data.customFiltersQuery"
                                            ng-click="$event.stopPropagation();"/>
                                     <span class="fa fa-remove removeTextBoxBtn"
                                           ng-click="$event.stopPropagation()"></span>
@@ -179,7 +184,8 @@
 
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.updateAvailableFilters(atype);">
-                                    <p>{{ atype.title }}</p>
+                                    <p high-light-result="atype.title"
+                                       keywords='data.customFiltersQuery'>{{ atype.title }}</p>
                                 </div>
                             </li>
                         </ul>

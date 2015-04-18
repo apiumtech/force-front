@@ -29,7 +29,8 @@
 
         <div class="media-body"
              ng-click="$event.stopPropagation();filterValue.selected=!filterValue.selected;fn.prePostFilterChanged();">
-            <p>{{ filterValue.name }}</p>
+            <p high-light-result="filterValue.name"
+               keywords="data.filterValue">{{ filterValue.name }}</p>
         </div>
     </li>
 </ul>
