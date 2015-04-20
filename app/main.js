@@ -190,6 +190,7 @@ function main() {
 
             'services/PopoverAdapter',
             'services/bus/ScrollEventBus',
+            'directives/HighLightResultDirective',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',

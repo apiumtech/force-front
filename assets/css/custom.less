@@ -206,6 +206,9 @@ span.removeTextBoxBtn {
       text-decoration: none;
     }
   }
+  .date-range {
+    line-height: 2.5;
+  }
   & .open > a {
     background: transparent;
     border-top: 1px solid #989d9f;
@@ -298,10 +301,20 @@ a[function-getlocation] {
 }
 
 .table-responsive {
-  overflow-x: auto;
-  overflow-y: hidden;
-
   .dataTable {
     max-width: 100% !important;
+    width: 100% !important;
   }
+}
+
+.ic-remove-circle {
+  background: transparent url("../../assets/images/close_filter.png") no-repeat center center;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+}
+
+.highlighted-result {
+  background-color: #ED8B00
 }
