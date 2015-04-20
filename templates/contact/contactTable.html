@@ -1,4 +1,4 @@
-<div class="col-md-12 ui-sortable" ng-init="fn.initializeMap()">
+<div class="col-md-12 ui-sortable">
     <div class="panel panel-inverse">
 
         <!-- Panel header -->
@@ -50,38 +50,8 @@
                         </ul>
                     </div>
 
-                    <!-- Toggle Show map -->
-                    <button type="button" class="btn btn-default btn-sm  dropdown-toggle pull-right m-r-10"
-                            ng-click="fn.toggleShowMap()">
-                        {{'Contact.Table.ShowMap' | i18next}}
-                    </button>
-
                 </div>
             </div>
-
-
-            <!-- Map -->
-            <div collapse="data.mapCanvasCollapsed">
-                <div id="map-canvas" class="map-canvas map-account"></div>
-            </div>
-
-
-            <!-- Map > infoWindow -->
-            <div class="hide googleMapPopupContentTemplate">
-                <div class="infoWindow">
-                    <h4><a href="{{data.accountDetailPage}}">{name}</a></h4>
-
-                    <div class="clearfix"></div>
-                    <div class="info-content">
-                        <p>Address: <span>{contactInfo.address}</span></p>
-
-                        <p>City: <span>{contactInfo.city}</span></p>
-
-                        <p>Country: <span>{contactInfo.country}</span></p>
-                    </div>
-                </div>
-            </div>
-
 
             <!-- Table -->
             <div class="table-responsive">
