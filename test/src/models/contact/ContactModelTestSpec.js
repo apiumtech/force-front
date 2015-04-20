@@ -11,6 +11,7 @@ describe('ContactModel', function(){
         model = ContactModel.newInstance().getOrElse(throwInstantiateException(ContactModel));
     });
 
+
     describe("loadContactColumns", function(){
         it("should resolve the promise when operation succeeds", function(done){
             spyOn(model.entityService, "getEntityColumns").and.returnValue("some columns");
@@ -37,6 +38,7 @@ describe('ContactModel', function(){
         });
     });
 
+
     describe("loadContacts", function(){
         it("should make a tokenized ajax call ", function(){
 
@@ -52,6 +54,33 @@ describe('ContactModel', function(){
 
             expect(params.headers).toBeDefined();
             expect(params.headers.token).toBe(fakeToken);
+        });
+    });
+
+
+    describe("loadContactFilters", function(){
+        it("should resolve the promise when operation succeeds", function(done){
+            spyOn(model.entityService, "getEntityFilters").and.returnValue("some filters");
+            model.loadContactFilters().then(
+                function(filters){
+                    expect(filters).toBe("some filters");
+                    done();
+                },
+                function(){}
+            );
+        });
+
+        it("should reject the promise when operation fails", function(done){
+            spyOn(model.entityService, "getEntityByName").and.callFake(function(){
+                throw new Error("forced error");
+            });
+            model.loadContactFilters().then(
+                function(){},
+                function(error){
+                    expect(error).toBeDefined();
+                    done();
+                }
+            );
         });
     });
 

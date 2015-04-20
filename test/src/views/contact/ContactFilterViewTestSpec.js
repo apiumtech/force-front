@@ -11,10 +11,4 @@ describe("ContactFilterView", function(){
         view.show();
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
     });
-
-    xit("should configureEvents() on instantiation", function () {
-        spyOn(ContactFilterView.prototype, 'configureEvents');
-        var view = exerciseCreateView();
-        expect(view.configureEvents).toHaveBeenCalled();
-    });
 });

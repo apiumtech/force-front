@@ -6,10 +6,43 @@ describe("EntityService", function () {
     var EntityService = app.getService('services/config/EntityService');
     var StorageService = app.getService("services/StorageService");
 
-    var sut, storage;
+    var sut, storage, config_stub;
     beforeEach(function () {
         storage = StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         sut = EntityService.newInstance(storage).getOrElse(throwInstantiateException(EntityService));
+
+        config_stub = {
+            entities: {
+                account: {
+                    fields: [
+                        {
+                            name: "id",
+                            list: {
+                                label: "Id",
+                                isAlwaysVisible: false,
+                                isDefaultVisible: true,
+                                isSortable: false,
+                                isDefaultFilter: true,
+                                isFilter: true
+                            },
+                            struct: {type: "int"}
+                        },
+                        {
+                            name: "name",
+                            list: {
+                                label: "Name",
+                                isAlwaysVisible: false,
+                                isDefaultVisible: true,
+                                isSortable: true,
+                                isDefaultFilter: false,
+                                isFilter: false
+                            },
+                            struct: {type: "text"}
+                        }
+                    ]
+                }
+            }
+        };
     });
 
     afterEach(function(){
@@ -51,38 +84,6 @@ describe("EntityService", function () {
 
 
     describe('getEntityColumns()', function(){
-        var config_stub;
-        beforeEach(function(){
-            config_stub = {
-                entities: {
-                    account: {
-                        fields: [
-                            {
-                                name: "id",
-                                list: {
-                                    label: "Id",
-                                    isAlwaysVisible: false,
-                                    isDefaultVisible: true,
-                                    isSortable: false
-                                },
-                                struct: {type: "int"}
-                            },
-                            {
-                                name: "name",
-                                list: {
-                                    label: "Name",
-                                    isAlwaysVisible: false,
-                                    isDefaultVisible: true,
-                                    isSortable: true
-                                },
-                                struct: {type: "text"}
-                            }
-                        ]
-                    }
-                }
-            };
-        });
-
         it('should retrieve the columns', function(){
             sut.storeEntities(config_stub);
             var columns = sut.getEntityColumns("account");
@@ -130,16 +131,6 @@ describe("EntityService", function () {
             expect(columns[1].data).toBe(accountFields[1].name);
             expect(columns[1].title).toBe(accountFields[1].list.label);
             expect(columns[1].type).toBe(EntityService.COLUMN_TYPE_TEXT);
-        });
-
-        it('should throw when no name is specified for the entity', function(){
-            delete config_stub.entities.account.fields[0].name;
-            sut.storeEntities(config_stub);
-            expect(
-                function(){
-                    sut.getEntityColumns("account");
-                }
-            ).toThrow();
         });
 
         it('should set a default title when no label provided', function(){
@@ -209,8 +200,22 @@ describe("EntityService", function () {
             expect(sut.getEntityFilters).toThrow();
         });
 
-        xit('should retrieve a collection of filters', function(){
+        it('should retrieve a collection of only filters', function(){
+            sut.storeEntities(config_stub);
+            var filters = sut.getEntityFilters("account");
+            expect(filters.length).toBe(1);
+        });
 
+        it('should parse the correct filter', function(){
+            sut.storeEntities(config_stub);
+            var filters = sut.getEntityFilters("account");
+
+            var entity_field_0 = config_stub.entities.account.fields[0];
+            var filter_0 = filters[0];
+            expect(filter_0.name).toBe(entity_field_0.name);
+            expect(filter_0.title).toBe(entity_field_0.list.label);
+            expect(filter_0.type).toBe(entity_field_0.struct.type);
+            expect(filter_0.visible).toBe(entity_field_0.list.isDefaultVisible);
         });
     })
 });

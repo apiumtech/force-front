@@ -16,6 +16,20 @@ app.registerModel(function (container) {
         this.configuration = configuration;
     }
 
+    ContactModel.prototype.loadContactFilters = function () {
+        var deferred = Q.defer();
+
+        try {
+            var filters = this.entityService.getEntityFilters("contact");
+            setTimeout(deferred.resolve, 10, filters );
+        } catch(err) {
+            setTimeout(deferred.reject, 10, "Error loading contacts" );
+        }
+
+        return deferred.promise;
+    };
+
+
     ContactModel.prototype.loadContactColumns = function () {
         var deferred = Q.defer();
 
@@ -26,8 +40,9 @@ app.registerModel(function (container) {
             setTimeout(deferred.reject, 10, "Error loading contacts" );
         }
 
-        return deferred.promise
+        return deferred.promise;
     };
+
 
     ContactModel.prototype.loadContacts = function () {
 
@@ -43,6 +58,7 @@ app.registerModel(function (container) {
         };
         return this.ajaxService.rawAjaxRequest(params);
     };
+
 
     ContactModel.newInstance = function (ajaxService, entityService, storageService, configuration) {
         ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
