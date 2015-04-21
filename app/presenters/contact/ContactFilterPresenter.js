@@ -12,6 +12,11 @@ app.registerPresenter(function (container) {
         this.model = model;
     };
 
+
+    ContactFilterPresenter.prototype.loadContactFilters = function () {
+    };
+
+
     ContactFilterPresenter.newInstance = function () {
         return Some(new ContactFilterPresenter());
     };

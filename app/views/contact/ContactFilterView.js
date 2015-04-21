@@ -15,7 +15,15 @@ app.registerView(function (container) {
     ContactFilterView.prototype = Object.create(BaseView.prototype, {});
 
     ContactFilterView.prototype.configureEvents = function () {
-        var self = this;
+        this.fn.onLoaded = this._onLoaded.bind(this);
+    };
+
+    ContactFilterView.prototype._onLoaded = function(){
+        this.presenter.loadContactFilters();
+    };
+
+    ContactFilterView.prototype.onLoadContactFilters = function(filters){
+        this.data.filters = filters;
     };
 
     ContactFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {

@@ -7,8 +7,16 @@ describe("ContactFilterView", function(){
     }
 
     it("should call presenter's show method on show()", function () {
-        var view = exerciseCreateView(undefined, {}, {show: jasmine.createSpy()});
+        var view = exerciseCreateView();
+        spyOn(view.presenter, "show");
         view.show();
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
+    });
+
+    it("it should call presenter's loadContactFields on onLoad()", function(){
+        var view = exerciseCreateView();
+        spyOn(view.presenter, "loadContactFields");
+        view.onLoaded();
+        expect(view.presenter.loadContactFields).toHaveBeenCalled();
     });
 });
