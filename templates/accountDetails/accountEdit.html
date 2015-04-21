@@ -278,7 +278,10 @@
             </label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control work_phone_box" ng-model="accountData.contactInfo.country">
+                <select class="form-control work_phone_box" ng-model="accountData.contactInfo.country"
+                        valid-method="blur"
+                        validator="required">
+                    <option class="select_value_style" value="">Select one</option>
                     <option class="select_value_style" value="US">US</option>
                     <option class="select_value_style" value="UK">UK</option>
                     <option class="select_value_style" value="Spain">Spain</option>
@@ -308,7 +311,7 @@
             <div class="col-md-9 ui-sortable">
                 <textarea class="form-control work_phone_box"
                           ng-model="accountData.comment"
-                          placeholder="" rows="5" resizable="false"></textarea>
+                          placeholder="" rows="5" resizable="falsev"></textarea>
             </div>
         </div>
 
