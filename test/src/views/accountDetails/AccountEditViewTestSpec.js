@@ -213,6 +213,9 @@ describe("AccountEditView", function () {
     });
 
     describe("onAccountUpdated", function () {
+        beforeEach(function(){
+            spyOn(sut.modalDialogAdapter, 'notify');
+        });
         it("should turn loading indicator of", function () {
             spyOn(sut, 'goBackToPreviousPage');
             sut.onAccountUpdated();
