@@ -13,10 +13,10 @@ describe("ContactFilterView", function(){
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
     });
 
-    it("it should call presenter's loadContactFields on onLoad()", function(){
+    it("it should call presenter's loadContactFields on _onLoaded()", function(){
         var view = exerciseCreateView();
-        spyOn(view.presenter, "loadContactFields");
-        view.onLoaded();
-        expect(view.presenter.loadContactFields).toHaveBeenCalled();
+        spyOn(view.presenter, "loadContactFilters");
+        view._onLoaded();
+        expect(view.presenter.loadContactFilters).toHaveBeenCalled();
     });
 });
