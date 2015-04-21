@@ -211,6 +211,9 @@ describe("AccountCreateView", function () {
     });
 
     describe("onAccountCreated", function () {
+        beforeEach(function(){
+           spyOn(sut.modalDialogAdapter, 'notify');
+        });
         it("should turn loading indicator of", function () {
             spyOn(sut, 'goBackToPreviousPage');
             sut.onAccountCreated();

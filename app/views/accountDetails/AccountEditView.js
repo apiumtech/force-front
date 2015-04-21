@@ -142,6 +142,13 @@ app.registerView(function (container) {
     AccountEditView.prototype.onAccountUpdated = function () {
         var self = this;
         self.data.isPosting = false;
+
+        self.modalDialogAdapter.notify("Edit company",
+            "<div class='notify success'>" +
+            "<span class='ok-tick'><i class='ic-accept'></i></span>" +
+            "<p>Well done !</p>" +
+            "<p>La empresa Company SL ha sido creada correctamente</p>" +
+            "</div>");
         self.goBackToPreviousPage();
     };
 

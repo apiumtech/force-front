@@ -318,3 +318,42 @@ a[function-getlocation] {
 .highlighted-result {
   background-color: #ED8B00
 }
+
+textarea {
+  resize: none;
+}
+
+.modal {
+  .modal-dialog {
+    position: absolute;
+    top: 50% !important;
+    transform: translateY(-50%) translateX(-50%) !important;
+    left: 50%;
+  }
+}
+
+.notify.success {
+  padding: 20px;
+  background: rgba(194, 213, 143, 0.80);
+  border: 1px solid #85AC1F;
+  border-radius: 3px;
+
+  .ok-tick {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid #485E10;
+    padding: 10px;
+    font-size: 18px;
+    margin-right: 20px;
+
+    > i[class^=ic-]:before, > i[class*=" ic-"]:before {
+      font-weight: 700 !important;
+    }
+  }
+
+  p {
+    line-height: 18px;
+  }
+}

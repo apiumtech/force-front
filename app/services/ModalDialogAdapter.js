@@ -58,6 +58,30 @@ app.registerService(function (container) {
         return modalInstance;
     };
 
+    ModalDialogAdapter.prototype.notify = function (title, message,
+                                                     resolveObject) {
+
+        var resolve = _.extend(resolveObject || {}, {
+            title: function () {
+                return title;
+            },
+            message: function () {
+                return message;
+            }
+        });
+
+        var modalInstance = this.modalService.open({
+            templateUrl: '/templates/notifyDialog.html',
+            backdrop: 'static',
+            keyboard: false,
+            controller: 'NotificationDialogController',
+            size: 'md',
+            resolve: resolve
+        });
+
+        return modalInstance;
+    };
+
     ModalDialogAdapter.newInstance = function (modalService) {
         assertNotNull('modalService', modalService);
         return Some(new ModalDialogAdapter(modalService));

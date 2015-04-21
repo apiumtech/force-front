@@ -7,7 +7,7 @@ app.registerService(function (container) {
 
     var baseUrl = "https://backenddev.forcemanager.net/api";
 
-    var baseApi = baseLocation.protocol + "//" + baseLocation.hostname + ":8081";
+    var baseApi = '';
 
     var api = {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
@@ -26,7 +26,7 @@ app.registerService(function (container) {
         toggleFollowActivity: baseApi + '/api/activity/toggleFollow',
         getOpportunities: baseApi + '/api/opportunities',
         getAgenda: baseApi + '/api/agenda',
-        uploadFile: baseApi + '/upload',
+        uploadFile: baseApi + '/api/upload',
         getFilterValues: baseApi + '/api/getFilterValues',
 
         getDocuments: baseApi + '/api/accounts/{0}/documents',

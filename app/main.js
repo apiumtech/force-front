@@ -233,6 +233,7 @@ function main() {
 
             // confirmation dialog
             'controllers/ConfirmationDialogController',
+            'controllers/NotificationDialogController',
             'views/ConfirmationDialogView',
 
             'models/filters/BaseAccountFilterModel',

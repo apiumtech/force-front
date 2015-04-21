@@ -29,7 +29,14 @@ app.registerService(function (container) {
                     visible: true,
                     isFilterable: true
                 },
-                {data: "imgUrl", menuName: "Logo", title: "", dataType: "String", visible: true},
+                {
+                    data: "imgUrl",
+                    menuName: "Logo",
+                    title: "Logo",
+                    dataType: "String",
+                    visible: true,
+                    width: 35
+                },
                 {data: "class", title: "Class.", dataType: "String", visible: true},
                 {
                     data: "$loki",
