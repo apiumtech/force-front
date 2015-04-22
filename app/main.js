@@ -354,6 +354,7 @@ function main() {
             'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
             'controllers/LeftMenuController', 'views/LeftMenuView', 'presenters/LeftMenuPresenter',
+            'controllers/TopMenuController', 'views/TopMenuView', 'presenters/TopMenuPresenter', 'models/TopMenuModel',
             'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel',
 
             //Design Prove Controller
