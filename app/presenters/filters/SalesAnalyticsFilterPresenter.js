@@ -24,7 +24,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterByGroup = function (groupName) {
-            model.addQuery('group', groupName);
+            model.addQuery(groupName);
             view.event.onFilterInitializing();
         };
     };

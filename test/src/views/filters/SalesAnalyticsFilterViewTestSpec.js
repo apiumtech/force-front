@@ -184,7 +184,7 @@ describe("SalesAnalyticsFilterView", function () {
 
         function initializeFiltersTest() {
             beforeEach(function () {
-                sut.event.onFilterInitializing = jasmine.createSpy();
+                sut.event.onFilterByGroup = jasmine.createSpy();
                 spyOn(sut.fn, 'resetDate');
             });
 
@@ -193,15 +193,15 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.fn.resetDate).toHaveBeenCalled();
             });
 
-            it("should set the current filter group to 'team'", function () {
+            it("should set the current filter group to 'Environment'", function () {
                 sut.$scope.currentUserFilterGroup = null;
                 sut.fn.initializeFilters();
-                expect(sut.$scope.currentUserFilterGroup).toEqual('team');
+                expect(sut.$scope.currentUserFilterGroup).toEqual('Environment');
             });
 
-            it("should fire onFilterInitializing event", function () {
+            it("should fire onFilterByGroup event", function () {
                 sut.fn.initializeFilters();
-                expect(sut.event.onFilterInitializing).toHaveBeenCalled();
+                expect(sut.event.onFilterByGroup).toHaveBeenCalled();
             });
         }
 

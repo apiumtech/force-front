@@ -34,7 +34,11 @@ app.registerService(function (container) {
         updateDocument: baseApi + '/api/documents/{0}',
 
         authentication: baseUrl + '/commands/security/login',
-        getContacts: baseUrl + '/queries/crm/contacts'
+        getContacts: baseUrl + '/queries/crm/contacts',
+
+        intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}',
+
+        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery'
     };
 
     return {
@@ -44,6 +48,7 @@ app.registerService(function (container) {
             moment: "DD/MM/YYYY",
             default: "dd/MM/yyyy"
         },
-        pageSize: 10
+        pageSize: 10,
+        tokenStorageKey: "token"
     };
 });

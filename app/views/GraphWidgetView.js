@@ -8,6 +8,7 @@ app.registerView(function (container) {
     var GraphWidgetPresenter = container.getPresenter('presenters/GraphWidgetPresenter');
 
     var Plot = container.getService('plots/Plot');
+    var $ = container.getFunction('jquery');
     var LineGraphPlot = container.getService('plots/LineGraphPlot');
 
     var LINE = 'line', FILLED = 'filled';

@@ -54,7 +54,7 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
                 it("should call model's addQuery", function () {
                     exerciseTest();
-                    expect(___model.addQuery).toHaveBeenCalledWith('group', groupName);
+                    expect(___model.addQuery).toHaveBeenCalledWith(groupName);
                 });
 
                 it("should fire event onFilterInitializing", function () {

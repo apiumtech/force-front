@@ -3,39 +3,26 @@
  */
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
-    var AjaxService = container.getService("services/AjaxService");
+    var AjaxService = container.getService("services/ajax/AuthAjaxService");
     var StorageService = container.getService("services/StorageService");
+    var Configuration = container.getService("Configuration");
 
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
-        this.queries = {};
+        this.currentQuery = 'Environment';
     }
 
     SalesAnalyticsFilterModel.prototype = Object.create(Object.prototype, {});
 
-    SalesAnalyticsFilterModel.prototype.buildQueryString = function () {
-        var queries = "";
-
-        for (var prop in this.queries) {
-            if (queries !== "") queries += "&";
-            queries += prop + "=" + this.queries[prop];
-        }
-
-        return queries;
-    };
-
-    SalesAnalyticsFilterModel.prototype.addQuery = function (key, value) {
-        this.queries[key] = value;
+    SalesAnalyticsFilterModel.prototype.addQuery = function (value) {
+        this.currentQuery = value;
     };
 
     SalesAnalyticsFilterModel.prototype._getUsers = function () {
         var self = this;
 
-        var url = '/api/users';
-
-        var queriesString = self.buildQueryString();
-        if (queriesString) url += "?" + queriesString;
+        var url = Configuration.api.userTreeFiltersApi.format(self.currentQuery);
 
         var params = {
             url: url,
@@ -46,9 +33,10 @@ app.registerModel(function (container) {
 
         var deferred = self.defer();
 
-        self.ajaxService.ajax(params)
+        self.ajaxService.rawAjaxRequest(params)
             .then(function (data) {
                 var formattedData = self.decorateData(data);
+                console.log(formattedData);
                 deferred.resolve(formattedData);
             },
             function (error) {
