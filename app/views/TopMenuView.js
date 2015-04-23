@@ -9,8 +9,6 @@ app.registerView(function(container) {
 
     function TopMenuView($scope, $model, $presenter, $window) {
         BaseView.call(this, $scope, $model, $presenter);
-        console.log($scope);
-        console.log(this.data);
         this.$window = $window;
 
         this.web3Urls = [
