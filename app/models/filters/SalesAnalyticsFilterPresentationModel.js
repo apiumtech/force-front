@@ -2,7 +2,7 @@
  * Created by Justin on 2/5/2015.
  */
 app.registerModel(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
+    var AjaxService = container.getService("services/ajax/AuthAjaxService");
     var StorageService = container.getService("services/StorageService");
     var SalesAnalyticsFilterModel = container.getModel("models/filters/SalesAnalyticsFilterModel");
     var _ = container.getFunction("underscore");

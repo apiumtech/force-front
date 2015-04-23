@@ -224,20 +224,20 @@ app.registerView(function (container) {
 
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
-            self.currentUserFilterGroup = 'team';
+            self.currentUserFilterGroup = 'Environment';
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
-            self.currentUserFilterGroup = 'hierarchy';
+            self.currentUserFilterGroup = 'Hierarqhy';
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.initializeFilters = function () {
-            self.currentUserFilterGroup = 'team';
+            self.currentUserFilterGroup = 'Environment';
             self.fn.resetDate();
-            self.event.onFilterInitializing();
+            self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.applyDateFilter = function () {

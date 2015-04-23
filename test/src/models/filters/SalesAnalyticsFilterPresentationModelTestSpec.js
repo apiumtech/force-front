@@ -7,7 +7,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
         sut;
 
     var ajaxService = {
-            ajax: function () {
+            rawAjaxRequest: function () {
             }
         },
 
@@ -40,21 +40,15 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
         });
 
         it("should call defer to get defer object", function () {
-            spyOn(ajaxService, 'ajax').and.returnValue(exerciseFakePromise());
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
             sut._getUsers();
             expect(sut.defer).toHaveBeenCalled();
         });
 
         it("should call ajax", function () {
-            var params = {
-                url: '/api/users',
-                type: 'get',
-                contentType: 'application/json',
-                accept: 'application/json'
-            };
-            spyOn(ajaxService, 'ajax').and.returnValue(exerciseFakePromise());
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
             sut._getUsers();
-            expect(ajaxService.ajax).toHaveBeenCalledWith(params);
+            expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
         });
 
         describe("service return success", function () {
@@ -78,7 +72,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
             ];
 
             it("should call decorateData to format data", function () {
-                spyOn(ajaxService, 'ajax').and.returnValue(fakePromise());
+                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(fakePromise());
                 spyOn(sut, 'decorateData').and.returnValue(fakeReturnData);
                 spyOn(deferredObject, 'resolve');
                 sut._getUsers();
@@ -86,7 +80,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
             });
 
             it("should resolve the defer with data from server response", function () {
-                spyOn(ajaxService, 'ajax').and.returnValue(fakePromise());
+                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(fakePromise());
                 spyOn(sut, 'decorateData').and.returnValue(fakeReturnData);
                 spyOn(deferredObject, 'resolve');
                 sut._getUsers();
@@ -107,7 +101,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
             }
 
             it("should reject the defer with error", function () {
-                spyOn(ajaxService, 'ajax').and.returnValue(fakePromise());
+                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(fakePromise());
                 spyOn(deferredObject, 'reject');
                 sut._getUsers();
                 expect(deferredObject.reject).toHaveBeenCalledWith(error);
@@ -115,7 +109,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
         });
 
         it("should return the promise deferred", function () {
-            spyOn(ajaxService, 'ajax').and.returnValue(exerciseFakePromise());
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
             var promise = sut._getUsers();
             expect(promise).toEqual(deferredObject.promise);
         });

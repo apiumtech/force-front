@@ -36,7 +36,9 @@ app.registerService(function (container) {
         authentication: baseUrl + '/commands/security/login',
         getContacts: baseUrl + '/queries/crm/contacts',
 
-        intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}'
+        intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}',
+
+        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery'
     };
 
     return {
