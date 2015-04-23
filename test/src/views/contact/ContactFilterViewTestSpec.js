@@ -7,14 +7,16 @@ describe("ContactFilterView", function(){
     }
 
     it("should call presenter's show method on show()", function () {
-        var view = exerciseCreateView(undefined, {}, {show: jasmine.createSpy()});
+        var view = exerciseCreateView();
+        spyOn(view.presenter, "show");
         view.show();
         expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
     });
 
-    xit("should configureEvents() on instantiation", function () {
-        spyOn(ContactFilterView.prototype, 'configureEvents');
+    it("it should call presenter's loadContactFields on _onLoaded()", function(){
         var view = exerciseCreateView();
-        expect(view.configureEvents).toHaveBeenCalled();
+        spyOn(view.presenter, "loadContactFilters");
+        view._onLoaded();
+        expect(view.presenter.loadContactFilters).toHaveBeenCalled();
     });
 });

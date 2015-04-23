@@ -1,0 +1,165 @@
+<div id="header" class="header navbar navbar-default navbar-fixed-top" ng-init="fn.onInit()">
+    <div class="container-fluid">
+
+            <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt="" height="29px"></a>
+            <!-- begin mobile sidebar expand / collapse button -->
+            <button type="button" class="navbar-toggle pull-right " data-click="sidebar-toggled">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- end mobile sidebar expand / collapse button -->
+
+
+            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+                <ul class="nav navbar-nav" style="width:350px;">
+                    <li><a href="#/dashboard" title="{{'LeftMenu.Dashboard' | i18next}}"><i class="fa  ic-dashboard"></i>
+                        <!--<span>{{'LeftMenu.Dashboard' | i18next}}</span>--></a>
+                    </li>
+                    <div class="line-border clearfix "></div>
+                    <li><a href="#/accounts" title="{{'LeftMenu.Accounts' | i18next}}"><i class="fa  ic-accounts"></i>
+                        <!--<span>{{'LeftMenu.Accounts' | i18next}}</span>--></a>
+                    </li>
+                    <li><a href="#contacts" title="{{'LeftMenu.Contacts' | i18next}}"><i class="fa  ic-contacts"></i>
+                        <!--<span>{{'LeftMenu.Contacts' | i18next}}</span>--></a>
+                    </li>
+                    <div class="line-border clearfix "></div>
+                    <li><a href="#/opportunities" title="Opportunities"><i class="fa  ic-opportunities"></i>
+                        <!--<span>Opportunities</span>--></a>
+                    </li>
+                    <li><a href="#/quotes" title="{{'LeftMenu.Quotes' | i18next}}"><i class="fa  ic-offers"></i>
+                        <!--<span>{{'LeftMenu.Quotes' | i18next}}</span>--></a>
+                    </li>
+                    <li><a href="#/agenda" title="{{'LeftMenu.Agenda' | i18next}}"><i class="fa  ic-agenda"></i>
+                        <!--<span>{{'LeftMenu.Agenda' | i18next}}</span>--></a>
+                    </li>
+                    <li><a href="#/product" title="{{'LeftMenu.Products' | i18next}}"><i class="fa  ic-products"></i>
+                        <!--<span>{{'LeftMenu.Products' | i18next}}</span>--></a>
+                    </li>
+                    <li><a href="#/document" title="{{'LeftMenu.Documents' | i18next}}"><i class="fa  ic-documents"></i>
+                        <!--<span>{{'LeftMenu.Documents' | i18next}}</span>--></a>
+                    </li>
+                    <div class="line-border clearfix "></div>
+                    <li><a href="#/activity" title="{{'LeftMenu.Activity' | i18next}}"><i class="fa ic-activity"></i>
+                        <!--<span>{{'LeftMenu.Activity' | i18next}}</span>--></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="{{'LeftMenu.SaleAnalytics' | i18next}}">
+                            <i class="fa  ic-documents"></i><span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}} </i></a></li>
+                            <li><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</i></a></li>
+                            <li><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</i></a></li>
+                            <li><a href="helper_css.html">{{'LeftMenu.Reports' | i18next}}</i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <!--</div>-->
+
+
+            <!-- begin header navigation right -->
+            <ul class="pull-right  nav navbar-nav navbar-right">
+
+                <li class="dropdown" dropdown>
+                    <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14" dropdown-toggle>
+                        <i class="fa ic-notifications"></i>
+                        <span class="label">5</span>
+                    </a>
+                    <ul class="dropdown-menu media-list pull-right animated fadeInDown">
+                        <li class="dropdown-header">Notifications (5)</li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left media-object bg-red"><i class="fa fa-bug"></i></div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">{{'Header.ServerErrorReports' | i18next}}</h6>
+
+                                    <div class="text-muted">{{'commonText.MinuteAgo' | i18next:{minute: 3} }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left"><img src="assets/img/user-1.jpg" class="media-object" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">John Smith</h6>
+
+                                    <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+
+                                    <div class="text-muted">{{'commonText.MinuteAgo' | i18next:{minute: 25} }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left"><img src="assets/img/user-2.jpg" class="media-object" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">Olivia</h6>
+
+                                    <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+
+                                    <div class="text-muted">{{'commonText.MinuteAgo' | i18next:{minute: 35} }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left media-object bg-green"><i class="fa fa-plus"></i></div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">
+                                        {{'Header.NewUserRegistered' | i18next}}
+                                    </h6>
+
+                                    <div class="text-muted">{{'commonText.HourAgo' | i18next:{hour: 1} }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left media-object bg-blue"><i class="fa fa-envelope"></i></div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">{{'commonText.NewEmailFrom' | i18next:{from: 'John'}
+                                        }}</h6>
+
+                                    <div class="text-muted">{{'commonText.HourAgo' | i18next:{hour: 2} }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-footer text-center">
+                            <a href="javascript:;">{{'commonText.ViewMore' | i18next}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown navbar-user" dropdown>
+                    <a href="javascript:;" class="dropdown-toggle" dropdown-toggle>
+                        <img src="assets/img/user-13.jpg" alt="">
+                        <span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li class="arrow"></li>
+                        <li><a href="javascript:;">{{'commonText.EditProfile' | i18next}}</a></li>
+                        <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span>
+                            {{'commonText.Inbox' | i18next}}</a></li>
+                        <li><a href="javascript:;">{{'commonText.Calendar' | i18next}}</a></li>
+                        <li><a href="javascript:;">{{'commonText.Setting' | i18next}}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;">{{'commonText.LogOut' | i18next}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- end header navigation right -->
+
+            <!-- begin expiring date button -->
+            <div class="btn-group pull-right expiring-date-div m-t-5">
+                <button class="btn btn-sm btn-danger pull-right">Upgrade now!</button>
+                <p class="pull-right">Your plan expires in <span class="brand-red-text">14 days</span></p>
+
+            </div>
+            <!-- end expiring date button -->
+
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- begin container-fluid -->

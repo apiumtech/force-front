@@ -62,11 +62,6 @@ app.registerService(function () {
             throw new Error("No entity name was specified");
         }
 
-        var requiredField = function(fieldName, fieldValue) {
-            assertNotNull(fieldName, fieldValue);
-            return fieldValue;
-        };
-
         var resolveColumnType = function(type) {
             return  type === "int"  ? EntityService.COLUMN_TYPE_INT  :
                     type === "text" ? EntityService.COLUMN_TYPE_TEXT :
@@ -79,7 +74,7 @@ app.registerService(function () {
             var list = field.list;
             var struct = field.struct;
             return {
-                data: requiredField("name", field.name),
+                data: field.name,
                 title: list.label || EntityService.COLUMN_DEFAULT_LABEL,
                 type: resolveColumnType(struct.type),
                 visible: list.isAlwaysVisible ||  list.isDefaultVisible,
@@ -97,7 +92,30 @@ app.registerService(function () {
         if(!entityName){
             throw new Error("No entity name was specified");
         }
-        return [];
+
+        // filter spec resolver
+        var fieldToFilter = function(field) {
+            var list = field.list;
+            var struct = field.struct;
+            return {
+                name: field.name,
+                title: list.label,
+                type: struct.type,
+                visible: list.isDefaultFilter
+            };
+        };
+
+        var entity = this.getEntityByName(entityName);
+        var len = entity.fields.length;
+        var field;
+        var filters = [];
+        for ( var i=0; i<len; i++ ) {
+            field = entity.fields[i];
+            if(field.list.isFilter === true) {
+                filters.push(fieldToFilter(field));
+            }
+        }
+        return filters;
     };
 
 

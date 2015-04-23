@@ -5,9 +5,9 @@
 describe("ContactView", function () {
     var ContactView = app.getView('views/contact/ContactView');
 
-    function exerciseCreateView(scope, model, presenter, mapService, dataTableService) {
+    function exerciseCreateView(scope, model, presenter, dataTableService) {
         scope = scope || {};
-        return ContactView.newInstance(scope, model, presenter, mapService, dataTableService, false, false).getOrElse(throwInstantiateException(ContactView));
+        return ContactView.newInstance(scope, model, presenter, dataTableService, false, false).getOrElse(throwInstantiateException(ContactView));
     }
 
     it("should call presenter's show method on show()", function () {
@@ -23,15 +23,6 @@ describe("ContactView", function () {
         expect(view.configureEvents).toHaveBeenCalled();
     });
 
-    it('should close mapInfoWindow on closeInfoWindowInMap()', function () {
-        var view = exerciseCreateView();
-        view.data.mapInfoWindow = {
-            close: jasmine.createSpy("close")
-        };
-        view.closeInfoWindowInMap();
-        expect(view.data.mapInfoWindow.close).toHaveBeenCalled();
-    });
-
     it('should loadContactColumns and loadContats on initializeMap()', function () {
         var view = exerciseCreateView();
         spyOn(view.presenter, 'loadContactColumns');
@@ -39,22 +30,6 @@ describe("ContactView", function () {
         view.initializeTable();
         expect(view.presenter.loadContactColumns).toHaveBeenCalled();
         expect(view.presenter.loadContacts).toHaveBeenCalled();
-    });
-
-    it('should initialize Map on initializeMap()', function () {
-        var view = exerciseCreateView();
-        spyOn(view.mapService, "bindClickEvent");
-        view.initializeMap();
-        expect(view.data.map).not.toBe(null);
-        expect(view.data.latlngbounds).not.toBe(null);
-        expect(view.mapService.bindClickEvent).toHaveBeenCalled();
-    });
-
-    it('should toggle map visibility on toggleShowMap()', function () {
-        var view = exerciseCreateView();
-        var currentState = view.data.mapCanvasCollapsed;
-        view.toggleShowMap();
-        expect(view.data.mapCanvasCollapsed).toBe(!currentState);
     });
 
     it('should resolve column visibility', function () {

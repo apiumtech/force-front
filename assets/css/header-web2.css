@@ -1,0 +1,44 @@
+#header-web2 {
+    background-color: #54585a;
+}
+
+/* BRAND */
+#header-web2 .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 323px;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 0;
+}
+
+#header-web2 .navbar-brand img {
+    width: 285px;
+}
+
+/* MENU ITEMS */
+#header-web2 ul.navbar-nav li a i {
+    line-height: normal;
+}
+
+#header-web2 ul.navbar-nav li a {
+    font-size: 24px;
+    padding: 0!important;
+    padding-top: 10px;
+    text-align: center;
+    color: #fff;
+
+    display: inline-block;
+    width: 54px;
+    height: 60px;
+    line-height: 60px;
+}
+
+#header-web2 ul.navbar-nav li a:hover {
+    background-color: #666869;
+}
+
+#header-web2 ul.navbar-nav li.active a {
+    background-color: #ED8B00;
+}
+
