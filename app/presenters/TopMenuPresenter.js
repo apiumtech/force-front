@@ -11,6 +11,13 @@ app.registerPresenter(function(container) {
         this.model = model;
     };
 
+    TopMenuPresenter.prototype.getUserSections = function () {
+        this.model.getUserSections().then(
+            this.view.onGetUserSections.bind(this.view),
+            this.view.onGetUserSectionsError.bind(this.view)
+        );
+    };
+
     TopMenuPresenter.newInstance = function() {
         return Some(new TopMenuPresenter());
     };

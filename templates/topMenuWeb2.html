@@ -8,10 +8,16 @@
         </div>
 
         <ul class="nav navbar-nav">
-
-            <li class="active"><a id="company-top-menu" data-placement="bottom" data-section="company" href="companylist.aspx" data-original-title="sdfsdf" class="toggle-true"><i class="ic-accounts"></i></a></li>
-
-            <li><a id="contacts-top-menu" data-placement="bottom" data-section="contact" href="contactslist.aspx" data-original-title="Contacts" class="toggle-true"><i class="ic-contact"></i></a></li>
+            <li ng-class="{ active: item.section == 'sfm' }" ng-repeat="item in data.userSections">
+                <a id="{{ item.id }}"
+                   data-placement="bottom"
+                   data-section="{{ item.section }}"
+                   href="{{ item.url }}"
+                   data-original-title="{{ item.name }}"
+                   class="toggle-true">
+                    <i class="ic-{{ item.icon }}"></i>
+                </a>
+            </li>
         </ul>
 
     </div>

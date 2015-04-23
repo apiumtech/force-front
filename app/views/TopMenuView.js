@@ -9,12 +9,14 @@ app.registerView(function(container) {
 
     function TopMenuView($scope, $model, $presenter, $window) {
         BaseView.call(this, $scope, $model, $presenter);
+        console.log($scope);
+        console.log(this.data);
         this.$window = $window;
 
         this.web3Urls = [
-            "localhost",
+            /*"localhost",
             "127.0.0.1",
-            "54.171.216.35"
+            "54.171.216.35"*/
         ];
 
         this.configureEvents();
@@ -38,6 +40,7 @@ app.registerView(function(container) {
     };
 
     TopMenuView.prototype.onInitWeb2 = function () {
+        this.presenter.getUserSections();
     };
 
     TopMenuView.prototype.getMenuTemplateName = function () {
@@ -53,13 +56,24 @@ app.registerView(function(container) {
         return shouldBeWeb3;
     };
 
+
+    TopMenuView.prototype.onGetUserSections = function (userSections) {
+        console.log("onGetUserSections", this.data);
+        this.data.userSections = userSections;
+    };
+
+    TopMenuView.prototype.onGetUserSectionsError = function (err) {
+        console.error(err);
+    };
+
+
     TopMenuView.newInstance = function($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || TopMenuModel.newInstance().getOrElse(throwInstantiateException(TopMenuModel));
         var presenter = $presenter || TopMenuPresenter.newInstance().getOrElse(throwInstantiateException(TopMenuPresenter));
         var view = new TopMenuView(scope, model, presenter, $window);
 
-        return view._injectAspects(!!$viewRepAspect, !!$logErrorAspect);
+        return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
     return TopMenuView;
