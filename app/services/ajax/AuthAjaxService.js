@@ -2,18 +2,31 @@
  * Created by kevin on 10/28/14.
  */
 app.registerService(function (container) {
-    var DelegateAjaxService = container.getService('services/AjaxService');
+    var AjaxService = container.getService('services/AjaxService');
+    var StorageService = container.getService("services/StorageService");
+    var Configuration = container.getService("Configuration");
+    var $ = container.getFunction("jquery");
 
-    function AuthAjaxService(underlying) {
-        this.underlyingAjaxService = underlying;
+    function AuthAjaxService(ajaxImpl, storageService) {
+        AjaxService.call(this, ajaxImpl);
+        this.storageService = storageService;
     }
 
-    AuthAjaxService.prototype.ajax = function (params) {
-        return this.underlyingAjaxService.ajax(params);
+    AuthAjaxService.prototype = Object.create(AjaxService.prototype, {});
+
+    AuthAjaxService.prototype.rawAjaxRequest = function (params) {
+
+        params.headers = params.headers || {};
+        params.headers.token = this.storageService.retrieve(Configuration.tokenStorageKey);
+
+        return AjaxService.prototype.rawAjaxRequest.call(this, params);
     };
 
-    AuthAjaxService.newInstance = function ($underlyingAjaxService) {
-        return Some($underlyingAjaxService || new DelegateAjaxService());
+    AuthAjaxService.newInstance = function ($ajaxImpl, $storageService) {
+        var ajaxImpl = $ajaxImpl || $;
+        var storageService = $storageService || new StorageService();
+
+        return Some(ajaxImpl, storageService);
     };
 
     return AuthAjaxService;

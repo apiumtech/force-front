@@ -20,11 +20,8 @@ app.registerService(function () {
     };
 
     StorageService.prototype.store = function (storageName, storageValue) {
-        var s_Value;
-        if (typeof storageValue !== 'string')
-            s_Value = JSON.stringify(storageValue);
-        else
-            s_Value = storageValue;
+        var s_Value = (typeof storageValue !== 'string')
+            ? JSON.stringify(storageValue) : storageValue;
 
         this.storage.setItem(storageName, s_Value);
     };

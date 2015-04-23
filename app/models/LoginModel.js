@@ -14,11 +14,11 @@ app.registerModel(function (container) {
         this.ajaxService = ajaxService;
         this.entityService = entityService;
         this.storage = storage;
-        this.configuration =  configuration;
+        this.configuration = configuration;
     }
 
     LoginModel.prototype.calculateUserKey = function (loginUser, loginPass) {
-        return Crypto.SHA1( loginUser + '|' + loginPass );
+        return Crypto.SHA1(loginUser + '|' + loginPass);
     };
 
 
@@ -38,22 +38,24 @@ app.registerModel(function (container) {
         var self = this;
         var deferred = Q.defer();
         this.ajaxService.rawAjaxRequest(params).then(
-            function(data) {
+            function (data) {
                 self.storeToken(data.token);
                 self.storeConfig(data.config);
                 deferred.resolve(data);
             },
-            function(error) {deferred.reject(error);}
+            function (error) {
+                deferred.reject(error);
+            }
         );
         return deferred.promise;
     };
 
-    LoginModel.prototype.storeConfig = function(configObject) {
+    LoginModel.prototype.storeConfig = function (configObject) {
         this.entityService.storeEntities(configObject);
     };
 
-    LoginModel.prototype.storeToken = function(token) {
-        this.storage.store("token", token);
+    LoginModel.prototype.storeToken = function (token) {
+        this.storage.store(this.configuration.tokenStorageKey, token);
     };
 
 
