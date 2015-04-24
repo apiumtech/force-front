@@ -4,7 +4,7 @@ describe("TopMenuView", function(){
     var scope, model, presenter, $window;
 
     function exerciseCreateView(){
-        return TopMenuView.newInstance(scope, model, presenter, $window).getOrElse(throwException("Could not create TopMenuView!"));
+        return TopMenuView.newInstance(scope, model, presenter, $window, false, false).getOrElse(throwException("Could not create TopMenuView!"));
     }
 
     it('should configureEvents on instantiation', function(){

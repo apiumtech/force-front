@@ -4,9 +4,9 @@
   font-family: "forcemanager";
   src:url("../fonts/forcemanager.eot");
   src:url("../fonts/forcemanager.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/forcemanager.woff") format("woff"),
-    url("../fonts/forcemanager.ttf") format("truetype"),
-    url("../fonts/forcemanager.svg#forcemanager") format("svg");
+  url("../fonts/forcemanager.woff") format("woff"),
+  url("../fonts/forcemanager.ttf") format("truetype"),
+  url("../fonts/forcemanager.svg#forcemanager") format("svg");
   font-weight: normal;
   font-style: normal;
 
@@ -41,15 +41,6 @@
 .ic-accept:before {
   content: "a";
 }
-.ic-accounts:before {
-  content: "b";
-}
-.ic-activity:before {
-  content: "c";
-}
-.ic-agenda:before {
-  content: "d";
-}
 .ic-arr-left:before {
   content: "e";
 }
@@ -83,12 +74,6 @@
 .ic-close:before {
   content: "o";
 }
-.ic-contact:before {
-  content: "p";
-}
-.ic-contacts:before {
-  content: "q";
-}
 .ic-conversion:before {
   content: "r";
 }
@@ -106,9 +91,6 @@
 }
 .ic-document-generic:before {
   content: "w";
-}
-.ic-documents:before {
-  content: "x";
 }
 .ic-download:before {
   content: "y";
@@ -206,12 +188,6 @@
 .ic-notifications:before {
   content: "3";
 }
-.ic-offers:before {
-  content: "4";
-}
-.ic-opportunities:before {
-  content: "5";
-}
 .ic-phone-settings:before {
   content: "6";
 }
@@ -224,9 +200,6 @@
 .ic-print:before {
   content: "9";
 }
-.ic-products:before {
-  content: "!";
-}
 .ic-prohibited:before {
   content: "\"";
 }
@@ -238,9 +211,6 @@
 }
 .ic-refresh2:before {
   content: "%";
-}
-.ic-reports:before {
-  content: "&";
 }
 .ic-route:before {
   content: "'";
@@ -310,4 +280,34 @@
 }
 .ic-trophy:before {
   content: "|";
+}
+.ic-reports:before {
+  content: "~";
+}
+.ic-accounts:before {
+  content: "&";
+}
+.ic-agenda:before {
+  content: "\\";
+}
+.ic-opportunities:before {
+  content: "\e000";
+}
+.ic-contact:before {
+  content: "b";
+}
+.ic-activity:before {
+  content: "5";
+}
+.ic-documents:before {
+  content: "c";
+}
+.ic-offers:before {
+  content: "p";
+}
+.ic-orders:before {
+  content: "q";
+}
+.ic-products:before {
+  content: "}";
 }
