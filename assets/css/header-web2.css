@@ -77,10 +77,10 @@ RIGHT MENU ITEMS
 
 /* PROFILE DROPDOWN */
 
-#header-web2 .profile-meu-dropdown a[data-toggle]:hover {
+#header-web2 li.profile-meu-dropdown a[data-toggle]:hover {
     background-color: transparent;
 }
-#header-web2 .profile-meu-dropdown .profile-pic {
+#header-web2 li.profile-meu-dropdown .profile-pic {
     float: left;
     margin-top: 10px;
     width: 40px;
@@ -92,15 +92,15 @@ RIGHT MENU ITEMS
             border-radius: 40px;
     overflow: hidden;
 }
-#header-web2 .profile-meu-dropdown .profile-pic img {
+#header-web2 li.profile-meu-dropdown .profile-pic img {
     vertical-align: top;
 }
-#header-web2 .profile-meu-dropdown .caret {
+#header-web2 li.profile-meu-dropdown .caret {
     margin-top: -6px;
     border-top-color: #CCC;
     border-bottom-color: #CCC;
 }
-#header-web2 .profile-meu-dropdown .dropdown-menu {
+#header-web2 li.profile-meu-dropdown .dropdown-menu {
     left: auto;
     right: 0;
     top: 50px;
@@ -120,7 +120,7 @@ RIGHT MENU ITEMS
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
-#header-web2 .profile-meu-dropdown .dropdown-menu a {
+#header-web2 li.profile-meu-dropdown .dropdown-menu a {
     display: block;
     padding: 3px 20px;
     clear: both;
@@ -135,14 +135,14 @@ RIGHT MENU ITEMS
     font-variant: normal;
     font-weight: normal;
 }
-#header-web2 .profile-meu-dropdown .dropdown-menu a:hover {
+#header-web2 li.profile-meu-dropdown .dropdown-menu a:hover {
     background-color: transparent;
 }
-#header-web2 .profile-meu-dropdown .dropdown-menu .divider {
+#header-web2 li.profile-meu-dropdown .dropdown-menu .divider {
     margin-left: -20px;
     margin-right: -20px;
 }
-#header-web2 .profile-meu-dropdown .dropdown-menu:before {
+#header-web2 li.profile-meu-dropdown .dropdown-menu:before {
     content: '';
     display: inline-block;
     border-left: 7px solid transparent;
