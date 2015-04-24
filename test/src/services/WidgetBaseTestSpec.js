@@ -70,25 +70,6 @@ describe("widgetBase", function () {
         });
     });
 
-    describe("addDateFilter", function () {
-        it("should call 'addQuery' with correct argument", function () {
-            spyOn(sut, 'addQuery');
-            var start = new Date();
-            var end = new Date();
-            var fakeToIsoStart = 1;
-            var fakeToIsoEnd = 2;
-            spyOn(start, 'toISOString').and.returnValue(fakeToIsoStart);
-            spyOn(end, 'toISOString').and.returnValue(fakeToIsoEnd);
-
-            sut.addDateFilter(start, end);
-            expect(start.toISOString).toHaveBeenCalled();
-            expect(end.toISOString).toHaveBeenCalled();
-            expect(sut.addQuery.calls.count()).toEqual(2);
-            expect(sut.addQuery).toHaveBeenCalledWith("from-date", fakeToIsoStart);
-            expect(sut.addQuery).toHaveBeenCalledWith("to-date", fakeToIsoEnd);
-        });
-    });
-
     describe("addUserFilter", function () {
         it("should call 'addQuery' with 'users' arguments", function () {
             spyOn(sut, 'addQuery');

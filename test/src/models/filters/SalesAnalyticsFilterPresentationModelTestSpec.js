@@ -146,61 +146,70 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
     //region decorateData test
     describe("decorateData()", function () {
         it("should return correct grouped values", function () {
-            var serverResponse = {
-                "success": true,
-                "data": [
-                    {
-                        "id": 1,
-                        "name": "name1",
-                        "environment": "es"
-                    },
-                    {
-                        "id": 2,
-                        "name": "name2",
-                        "environment": "uk"
-                    },
-                    {
-                        "id": 3,
-                        "name": "name3",
-                        "environment": "uk"
-                    },
-                    {
-                        "id": 4,
-                        "name": "name4",
-                        "environment": "es"
-                    }
-                ]
-            };
+            var serverResponse = [
+                {
+                    "id": "Group-1",
+                    "idParent": "-1",
+                    "name": "Group1-Name"
+                },
+                {
+                    "id": "Group-1-child-1",
+                    "idParent": "Group-1",
+                    "name": "Group1-child-1-Name"
+                },
+                {
+                    "id": "Group-1-child-2",
+                    "idParent": "Group-1",
+                    "name": "Group1-child-2-Name"
+                },
+                {
+                    "id": "Group-2",
+                    "idParent": "-1",
+                    "name": "Group2-Name"
+                },
+                {
+                    "id": "Group-2-child-1",
+                    "idParent": "Group-2",
+                    "name": "Group2-child-1-Name"
+                },
+                {
+                    "id": "Group-2-child-2",
+                    "idParent": "Group-2",
+                    "name": "Group2-child-2-Name"
+                }
+            ];
 
             var expected = [{
-                group: "es",
-                data: [
+                id: "Group-1",
+                group: "Group1-Name",
+                children: [
                     {
-                        "id": 1,
-                        "name": "name1",
-                        "environment": "es",
+                        "id": "Group-1-child-1",
+                        "idParent": "Group-1",
+                        "name": "Group1-child-1-Name",
                         "checked": false
                     },
                     {
-                        "id": 4,
-                        "name": "name4",
-                        "environment": "es",
+                        "id": "Group-1-child-2",
+                        "idParent": "Group-1",
+                        "name": "Group1-child-2-Name",
                         "checked": false
                     }
                 ]
             }, {
-                group: "uk",
-                data: [
+                id: "Group-2",
+                group: "Group2-Name",
+                children: [
                     {
-                        "id": 2,
-                        "name": "name2",
-                        "environment": "uk",
+                        "id": "Group-2-child-1",
+                        "idParent": "Group-2",
+                        "name": "Group2-child-1-Name",
                         "checked": false
                     },
                     {
-                        "id": 3,
-                        "name": "name3",
-                        "environment": "uk",
+                        "id": "Group-2-child-2",
+                        "idParent": "Group-2",
+                        "name": "Group2-child-2-Name",
                         "checked": false
                     }
                 ]

@@ -35,8 +35,15 @@ app.registerModel(function (container) {
 
         self.ajaxService.rawAjaxRequest(params)
             .then(function (data) {
+                if (typeof data === 'string') {
+                    try {
+                        data = JSON.parse(data);
+                    } catch (e) {
+                        deferred.reject(e);
+                    }
+                }
+
                 var formattedData = self.decorateData(data);
-                console.log(formattedData);
                 deferred.resolve(formattedData);
             },
             function (error) {

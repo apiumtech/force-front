@@ -19,6 +19,7 @@ app.registerPresenter(function (container) {
         self.$model = model;
 
         view.event.onFilterInitializing = function () {
+            view.showLoadingUsers();
             model.getUsers()
                 .then(view.onUsersLoadedSuccess.bind(view), view.onUsersLoadedFail.bind(view));
         };

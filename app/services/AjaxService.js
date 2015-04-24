@@ -3,6 +3,7 @@
  */
 app.registerService(function (container) {
     var Q = container.getFunction('q');
+    var $ = container.getFunction('jquery');
     var _ = container.getFunction('underscore');
 
     function AjaxService(ajaxImpl) {
@@ -28,7 +29,9 @@ app.registerService(function (container) {
     };
 
     AjaxService.prototype.rawAjaxRequest = function (params) {
-        return Q(this.ajaxImpl.ajax(this.mapRequest(params)));
+        var requestParams = this.mapRequest(params);
+
+        return Q(this.ajaxImpl(requestParams));
     };
 
     AjaxService.prototype.ajax = function (params) {
@@ -36,7 +39,7 @@ app.registerService(function (container) {
     };
 
     AjaxService.newInstance = function (ajaxImpl) {
-        return Some(new AjaxService(ajaxImpl || $));
+        return Some(new AjaxService(ajaxImpl || $.ajax));
     };
 
     return AjaxService;

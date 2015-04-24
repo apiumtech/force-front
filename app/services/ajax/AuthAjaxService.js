@@ -5,7 +5,7 @@ app.registerService(function (container) {
     var AjaxService = container.getService('services/AjaxService');
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
-    var $ = container.getFunction("jquery");
+    var $ = container.getFunction('jquery');
 
     function AuthAjaxService(ajaxImpl, storageService) {
         AjaxService.call(this, ajaxImpl);
@@ -14,19 +14,19 @@ app.registerService(function (container) {
 
     AuthAjaxService.prototype = Object.create(AjaxService.prototype, {});
 
-    AuthAjaxService.prototype.rawAjaxRequest = function (params) {
+    AuthAjaxService.prototype.mapRequest = function (params) {
+        var request = AjaxService.prototype.mapRequest.call(this, params);
 
-        params.headers = params.headers || {};
-        params.headers.token = this.storageService.retrieve(Configuration.tokenStorageKey);
-
-        return AjaxService.prototype.rawAjaxRequest.call(this, params);
+        request.headers = request.headers || {};
+        request.headers.token = this.storageService.retrieve(Configuration.tokenStorageKey);
+        return request;
     };
 
     AuthAjaxService.newInstance = function ($ajaxImpl, $storageService) {
-        var ajaxImpl = $ajaxImpl || $;
-        var storageService = $storageService || new StorageService();
+        var ajaxImpl = $ajaxImpl || $.ajax;
+        var storageService = $storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
 
-        return Some(ajaxImpl, storageService);
+        return Some(new AuthAjaxService(ajaxImpl, storageService));
     };
 
     return AuthAjaxService;

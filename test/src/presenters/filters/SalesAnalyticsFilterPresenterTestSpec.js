@@ -15,7 +15,11 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
             beforeEach(function () {
                 view = {
-                    event: {}
+                    event: {},
+                    showLoadingUsers: function () {
+                    },
+                    hideLoadingUsers: function () {
+                    }
                 };
                 ___model = {};
                 sut.show(view, ___model);
@@ -46,6 +50,7 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
             function onFilterByGroupTest() {
                 var groupName = "team";
+
                 function exerciseTest() {
                     ___model.addQuery = jasmine.createSpy();
                     view.event.onFilterInitializing = jasmine.createSpy();
