@@ -5,35 +5,46 @@
 app.registerModel(function (container) {
     var AjaxService = container.getService("services/AjaxService");
     var StorageService = container.getService("services/StorageService");
+    var Configuration = container.getService("Configuration");
     var Q = container.getFunction('q');
 
 
-    function TopMenuModel(ajaxService, storageService) {
+    function TopMenuModel(ajaxService, storageService, configuration) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
+        this.configuration = configuration;
     }
+
+    TopMenuModel.USER_DATA_KEY = "fm2UserData";
 
 
     TopMenuModel.prototype.getUserSections = function () {
-        var deferred = Q.defer();
+        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+        return userData.userSections.sections;
+    };
 
-        this._getUserDataInfo().then(
-            function(userData) {
-                deferred.resolve(userData.userSections.sections);
-            },
-            function(error) {deferred.reject(error);}
-        );
+    TopMenuModel.prototype.getUserOptions = function () {
+        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+        return userData.userOptions.menuItems;
+    };
 
-        return deferred.promise;
+    TopMenuModel.prototype.getUserData = function () {
+        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+        return userData.userData;
+    };
+
+    TopMenuModel.prototype.getUserNotifications = function () {
+        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+        return userData.unreadNotifications;
     };
 
 
-    TopMenuModel.prototype._getUserDataInfo = function () {
+    TopMenuModel.prototype.getUserDataInfo = function () {
         var self = this;
         var deferred = Q.defer();
 
         var params = {
-            url: "http://websta.forcemanager.net/ASMX/Proxy.asmx/getUserDataInfo",
+            url: this.configuration.api.getUserDataInfo,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             method: "POST"
@@ -41,9 +52,9 @@ app.registerModel(function (container) {
 
         this.ajaxService.rawAjaxRequest(params).then(
             function(data) {
-                var userData = JSON.parse(data.d)
+                var userData = JSON.parse(data.d);
                 self.storeUserData(userData);
-                deferred.resolve(userData);
+                deferred.resolve();
             },
             function(error) {deferred.reject(error);}
         );
@@ -53,15 +64,16 @@ app.registerModel(function (container) {
 
 
     TopMenuModel.prototype.storeUserData = function(userData) {
-        this.storageService.store("fm2UserData", userData);
+        this.storageService.store(TopMenuModel.USER_DATA_KEY, userData);
     };
 
 
-    TopMenuModel.newInstance = function (ajaxService, storageService) {
+    TopMenuModel.newInstance = function (ajaxService, storageService, configuration) {
         ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        configuration = configuration || Configuration;
 
-        return Some(new TopMenuModel(ajaxService, storageService));
+        return Some(new TopMenuModel(ajaxService, storageService, configuration));
     };
 
 

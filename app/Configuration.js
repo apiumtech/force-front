@@ -6,6 +6,7 @@ app.registerService(function (container) {
     var baseLocation = getLocation();
 
     var baseUrl = "https://backenddev.forcemanager.net/api";
+    var baseProxy = "http://websta.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
 
@@ -33,6 +34,7 @@ app.registerService(function (container) {
         deleteDocument: baseApi + '/api/documents/{0}',
         updateDocument: baseApi + '/api/documents/{0}',
 
+        getUserDataInfo: baseProxy + '/getUserDataInfo',
         authentication: baseUrl + '/commands/security/login',
         getContacts: baseUrl + '/queries/crm/contacts',
 
