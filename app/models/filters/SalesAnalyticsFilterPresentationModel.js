@@ -16,20 +16,29 @@ app.registerModel(function (container) {
     SalesAnalyticsFilterPresentationModel.prototype.decorateData = function (serverData) {
         var result = [];
 
-        serverData.data.forEach(function (dataRecord) {
-            var group = _.find(result, function (item) {
-                return item.group === dataRecord.environment;
-            });
-
-            if (group === undefined) {
-                group = {
-                    group: dataRecord.environment,
-                    data: []
-                };
-                result.push(group);
+        serverData.forEach(function (dataRecord) {
+            var group;
+            if (dataRecord.idParent == "-1") {
+                group = _.find(result, function (item) {
+                    return item.id == dataRecord.id;
+                });
+                if (group === undefined) {
+                    group = {
+                        id: dataRecord.id,
+                        group: dataRecord.name,
+                        children: []
+                    };
+                    result.push(group);
+                }
+            } else {
+                group = _.find(result, function (item) {
+                    return item.id === dataRecord.idParent;
+                });
+                if (group) {
+                    dataRecord.checked = false;
+                    group.children.push(dataRecord);
+                }
             }
-            dataRecord.checked = false;
-            group.data.push(dataRecord);
         });
 
         return result;

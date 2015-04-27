@@ -22,6 +22,7 @@ app.registerView(function (container) {
         self.defaultPreviousDay = 30;
         self.datePickerFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
+        this.data.isLoadingUsers = false;
 
         SalesAnalyticsFilterView.configureEvents(this);
     }
@@ -275,7 +276,7 @@ app.registerView(function (container) {
         };
 
         self.fn.groupSelectAllChanged = function (group) {
-            group.data.forEach(function (user) {
+            group.children.forEach(function (user) {
                 user.checked = group.checked;
             });
 
@@ -294,7 +295,7 @@ app.registerView(function (container) {
         var allSelected = true;
 
         self.userFiltered.forEach(function (group) {
-            var containUnselectedData = _.filter(group.data, function (user) {
+            var containUnselectedData = _.filter(group.children, function (user) {
                     return user.checked === false;
                 }).length > 0;
 
@@ -313,7 +314,7 @@ app.registerView(function (container) {
 
         self.userFiltered.forEach(function (group) {
             group.checked = selectAll;
-            group.data.forEach(function (user) {
+            group.children.forEach(function (user) {
                 user.checked = selectAll;
             });
         });
@@ -323,7 +324,7 @@ app.registerView(function (container) {
         var result = [], self = this;
 
         self.userFiltered.forEach(function (group) {
-            group.data.forEach(function (user) {
+            group.children.forEach(function (user) {
                 if (user.checked)
                     result.push(user.id);
             });
@@ -343,14 +344,14 @@ app.registerView(function (container) {
             if (group === undefined) {
                 group = {
                     group: dataRecord.group,
-                    data: []
+                    children: []
                 };
                 result.push(group);
             }
 
-            dataRecord.data.forEach(function (record) {
+            dataRecord.children.forEach(function (record) {
                 if (record.name.toLowerCase().indexOf(queryString.toLowerCase()) != -1)
-                    group.data.push(record);
+                    group.children.push(record);
             });
         });
 
@@ -361,6 +362,15 @@ app.registerView(function (container) {
         var self = this;
         self.usersList = data;
         self.fn.getFilteredUsersList();
+        self.hideLoadingUsers();
+    };
+
+    SalesAnalyticsFilterView.prototype.showLoadingUsers = function () {
+        this.data.isLoadingUsers = true;
+    };
+
+    SalesAnalyticsFilterView.prototype.hideLoadingUsers = function () {
+        this.data.isLoadingUsers = false;
     };
 
     SalesAnalyticsFilterView.prototype.onUsersLoadedFail = function (error) {

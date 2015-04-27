@@ -208,13 +208,13 @@ describe("SalesAnalyticsFilterView", function () {
         function getFilteredUsersListTest() {
             var fullList = [{
                 group: "abc",
-                data: []
+                children: []
             }, {
                 group: "def",
-                data: []
+                children: []
             }], filteredList = [{
                 group: "abc",
-                data: []
+                children: []
             }];
             describe("not filtering", function () {
                 it("should return the full list", function () {
@@ -343,7 +343,7 @@ describe("SalesAnalyticsFilterView", function () {
                 group = {
                     checked: false,
                     group: 'group1',
-                    data: [{
+                    children: [{
                         name: "group1",
                         checked: false
                     }, {
@@ -361,7 +361,7 @@ describe("SalesAnalyticsFilterView", function () {
             it("should change state of all users in group to its state", function () {
                 group.checked = true;
                 sut.fn.groupSelectAllChanged(group);
-                expect(group.data).toEqual([{
+                expect(group.children).toEqual([{
                     name: "group1",
                     checked: true
                 }, {
@@ -382,7 +382,7 @@ describe("SalesAnalyticsFilterView", function () {
             it("should change state of all users in group to its state", function () {
                 group.checked = false;
                 sut.fn.groupSelectAllChanged(group);
-                expect(group.data).toEqual([{
+                expect(group.children).toEqual([{
                     name: "group1",
                     checked: false
                 }, {
@@ -431,9 +431,9 @@ describe("SalesAnalyticsFilterView", function () {
         });
 
         var data = [{
-            group: "fake group", data: []
+            group: "fake group", children: []
         }, {
-            group: "fake group 2", data: []
+            group: "fake group 2", children: []
         }];
 
         it("should assign data", function () {
@@ -462,7 +462,7 @@ describe("SalesAnalyticsFilterView", function () {
             it("should return correct filtered list", function () {
                 var input = [{
                     group: "group1",
-                    data: [{
+                    children: [{
                         name: "test STRING 1",
                         id: 1
                     }, {
@@ -477,7 +477,7 @@ describe("SalesAnalyticsFilterView", function () {
                     }]
                 }, {
                     group: "group2",
-                    data: [{
+                    children: [{
                         name: "test notmatch 1",
                         id: 5
                     }, {
@@ -493,7 +493,7 @@ describe("SalesAnalyticsFilterView", function () {
                 }];
                 var expected = [{
                     group: "group1",
-                    data: [{
+                    children: [{
                         name: "test STRING 1",
                         id: 1
                     }, {
@@ -502,7 +502,7 @@ describe("SalesAnalyticsFilterView", function () {
                     }]
                 }, {
                     group: "group2",
-                    data: [{
+                    children: [{
                         name: "test sTring matched 2",
                         id: 8
                     }]
@@ -529,7 +529,7 @@ describe("SalesAnalyticsFilterView", function () {
             input: [{
                 group: "groupA",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -539,7 +539,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -553,7 +553,7 @@ describe("SalesAnalyticsFilterView", function () {
             output: [{
                 group: "groupA",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -563,7 +563,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -578,7 +578,7 @@ describe("SalesAnalyticsFilterView", function () {
             input: [{
                 group: "groupA",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -588,7 +588,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -603,7 +603,7 @@ describe("SalesAnalyticsFilterView", function () {
             output: [{
                 group: "groupA",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -613,7 +613,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -628,7 +628,7 @@ describe("SalesAnalyticsFilterView", function () {
             input: [{
                 group: "groupA",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -638,7 +638,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -653,7 +653,7 @@ describe("SalesAnalyticsFilterView", function () {
             output: [{
                 group: "groupA",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -663,7 +663,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -693,7 +693,7 @@ describe("SalesAnalyticsFilterView", function () {
             sut.userFiltered = [{
                 group: "groupA",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: true
                 }, {
@@ -703,7 +703,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -731,7 +731,7 @@ describe("SalesAnalyticsFilterView", function () {
 
             sut.userFiltered = [{
                 group: "groupA",
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -740,7 +740,7 @@ describe("SalesAnalyticsFilterView", function () {
                 }]
             }, {
                 group: "groupB",
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: false
                 }, {
@@ -758,7 +758,7 @@ describe("SalesAnalyticsFilterView", function () {
             expect(sut.userFiltered).toEqual([{
                 group: "groupA",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: true
                 }, {
@@ -768,7 +768,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: true,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: true
                 }, {
@@ -786,7 +786,7 @@ describe("SalesAnalyticsFilterView", function () {
             expect(sut.userFiltered).toEqual([{
                 group: "groupA",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupa-1",
                     checked: false
                 }, {
@@ -796,7 +796,7 @@ describe("SalesAnalyticsFilterView", function () {
             }, {
                 group: "groupB",
                 checked: false,
-                data: [{
+                children: [{
                     name: "groupb-1",
                     checked: false
                 }, {
@@ -822,7 +822,7 @@ describe("SalesAnalyticsFilterView", function () {
 
             sut.userFiltered = [{
                 group: "groupA",
-                data: [{
+                children: [{
                     id: 1,
                     name: "groupa-1",
                     checked: false
@@ -833,7 +833,7 @@ describe("SalesAnalyticsFilterView", function () {
                 }]
             }, {
                 group: "groupB",
-                data: [{
+                children: [{
                     id: 3,
                     name: "groupb-1",
                     checked: false

@@ -4,6 +4,7 @@
 
 app.registerService(function (container) {
     var AjaxService = container.getService("services/AjaxService");
+    var moment = container.getFunction("moment");
 
     function WidgetBase(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
@@ -47,8 +48,7 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        this.addQuery("from-date", dateStart.toISOString());
-        this.addQuery("to-date", dateEnd.toISOString());
+        this.addQuery("period", moment(dateStart).unix() + "," + moment(dateEnd).unix());
     };
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
