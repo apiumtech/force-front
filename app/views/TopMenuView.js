@@ -32,6 +32,7 @@ app.registerView(function(container) {
 
 
     TopMenuView.prototype.configureData = function () {
+        this.data.currentError = "";
         this.data.userSections = []; // userSections.sections
         this.data.userOptions = []; // userOptions.menuItems
         this.data.userData = null; // userData
@@ -65,6 +66,15 @@ app.registerView(function(container) {
     };
 
 
+    TopMenuView.prototype.inWeb3 = function () {
+        var self = this;
+        var shouldBeWeb3 = this.web3Urls.filter(function(item){
+                var found = self.$window.location.href.indexOf(item) > -1;
+                return found;
+            }).length > 0;
+        return shouldBeWeb3;
+    };
+
     TopMenuView.prototype.onInit = function () {
         this.inWeb3() ? this.onInitWeb3() : this.onInitWeb2();
     };
@@ -80,16 +90,6 @@ app.registerView(function(container) {
     };
 
 
-    TopMenuView.prototype.inWeb3 = function () {
-        var self = this;
-        var shouldBeWeb3 = this.web3Urls.filter(function(item){
-                var found = self.$window.location.href.indexOf(item) > -1;
-                return found;
-            }).length > 0;
-        return shouldBeWeb3;
-    };
-
-
 
     TopMenuView.prototype.onGetUserDataInfo = function () {
         this.data.userSections = this.presenter.getUserSections();
@@ -102,8 +102,8 @@ app.registerView(function(container) {
         this.data.eventsForToday = unreadNotifications.events;
     };
 
-    TopMenuView.prototype.onGetUserDataInfoError = function (err) {
-        console.error(err);
+    TopMenuView.prototype.onGetUserDataInfoError = function (error) {
+        this.data.currentError = error;
     };
 
 
