@@ -12,10 +12,14 @@ app.registerView(function(container) {
         this.$window = $window;
 
         this.web3Urls = [
-            /*"localhost",
+            "localhost",
             "127.0.0.1",
-            "54.171.216.35"*/
+            "54.171.216.35"
         ];
+
+        this.data.unreadNotifications = 0;
+        this.data.tasksToday = 0;
+        this.data.eventsToday = 0;
 
         this.configureEvents();
     }
@@ -28,10 +32,15 @@ app.registerView(function(container) {
     TopMenuView.prototype.configureEvents = function () {
         this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);
         this.fn.onInit = this.onInit.bind(this);
+        this.fn.hasEventsOrTasksForToday = this.hasEventsOrTasksForToday.bind(this);
     };
 
     TopMenuView.prototype.onInit = function () {
         this.inWeb3() ? this.onInitWeb3() : this.onInitWeb2();
+    };
+
+    TopMenuView.prototype.hasEventsOrTasksForToday = function () {
+        return this.data.tasksForToday > 0 || this.data.eventsForToday > 0;
     };
 
     TopMenuView.prototype.onInitWeb3 = function () {

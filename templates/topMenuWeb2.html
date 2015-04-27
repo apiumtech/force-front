@@ -25,13 +25,13 @@
         <ul class="nav navbar-nav user-section-nav pull-right">
 
             <!-- AGENDA -->
-            <li class="agenda-notifications">
+            <li class="agenda-notifications" ng-show="data.fn.hasEventsOrTasksForToday()">
                 <i class="icon-agenda-notify"></i>
                 <span id="events-top-menu">
                     <a href="calendar.aspx">
                         <span class="notification">
-                            <div>5 events</div>
-                            <div>3 task</div>
+                            <div>{{ data.unreadEvents }} events</div>
+                            <div>{{ data.unreadTasks }} task</div>
                         </span>
                     </a>
                 </span>
@@ -40,7 +40,7 @@
             <li id="unreadNotifications" class="user-notifications">
                 <a href="#">
                     <i class="icon-alert-notify"></i>
-                    <span class="badge">3</span>
+                    <span class="badge">{{ data.unreadNotifications }}</span>
                 </a>
             </li>
             <!-- PROFILE -->

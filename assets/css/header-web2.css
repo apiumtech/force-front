@@ -100,7 +100,7 @@ RIGHT MENU ITEMS
     border-top-color: #CCC;
     border-bottom-color: #CCC;
 }
-#header-web2 li.profile-meu-dropdown .dropdown-menu {
+#header-web2 li.profile-meu-dropdown>ul.dropdown-menu {
     left: auto;
     right: 0;
     top: 50px;
@@ -120,7 +120,7 @@ RIGHT MENU ITEMS
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
-#header-web2 li.profile-meu-dropdown .dropdown-menu a {
+#header-web2 li.profile-meu-dropdown>ul.dropdown-menu a {
     display: block;
     padding: 3px 20px;
     clear: both;
@@ -135,14 +135,14 @@ RIGHT MENU ITEMS
     font-variant: normal;
     font-weight: normal;
 }
-#header-web2 li.profile-meu-dropdown .dropdown-menu a:hover {
+#header-web2 li.profile-meu-dropdown>ul.dropdown-menu a:hover {
     background-color: transparent;
 }
-#header-web2 li.profile-meu-dropdown .dropdown-menu .divider {
+#header-web2 li.profile-meu-dropdown>ul.dropdown-menu .divider {
     margin-left: -20px;
     margin-right: -20px;
 }
-#header-web2 li.profile-meu-dropdown .dropdown-menu:before {
+#header-web2 li.profile-meu-dropdown>ul.dropdown-menu:before {
     content: '';
     display: inline-block;
     border-left: 7px solid transparent;
