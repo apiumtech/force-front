@@ -341,7 +341,10 @@ requirejs.config({
         // Table widget
         'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
-        'controllers/TopMenuController', 'views/TopMenuView', 'presenters/TopMenuPresenter', 'models/TopMenuModel',
+        'controllers/TopMenuController', 'views/TopMenuView',
+        'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',
+        'views/topMenu/TopMenuWeb3View',
+
         'controllers/filters/FilterController', 'views/filters/FilterView', 'presenters/filters/FilterPresenter', 'models/filters/FilterModel',
 
         //Design Prove Controller

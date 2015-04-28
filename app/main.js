@@ -102,7 +102,7 @@ function main() {
                 templateUrl: '/templates/activity/activityList.html',
                 controller: 'ActivityListController'
             })
-            .otherwise('/login');
+            .otherwise('/analytics/intensity');
 
         // configure validation system here
         var expression = {
