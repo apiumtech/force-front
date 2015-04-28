@@ -9,37 +9,37 @@ app.registerModel(function (container) {
     var Q = container.getFunction('q');
 
 
-    function TopMenuModel(ajaxService, storageService, configuration) {
+    function TopMenuWeb2Model(ajaxService, storageService, configuration) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
         this.configuration = configuration;
     }
 
-    TopMenuModel.USER_DATA_KEY = "fm2UserData";
+    TopMenuWeb2Model.USER_DATA_KEY = "fm2UserData";
 
 
-    TopMenuModel.prototype.getUserSections = function () {
-        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+    TopMenuWeb2Model.prototype.getUserSections = function () {
+        var userData = this.storageService.retrieve(TopMenuWeb2Model.USER_DATA_KEY);
         return userData.userSections.sections;
     };
 
-    TopMenuModel.prototype.getUserOptions = function () {
-        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+    TopMenuWeb2Model.prototype.getUserOptions = function () {
+        var userData = this.storageService.retrieve(TopMenuWeb2Model.USER_DATA_KEY);
         return userData.userOptions.menuItems;
     };
 
-    TopMenuModel.prototype.getUserData = function () {
-        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+    TopMenuWeb2Model.prototype.getUserData = function () {
+        var userData = this.storageService.retrieve(TopMenuWeb2Model.USER_DATA_KEY);
         return userData.userData;
     };
 
-    TopMenuModel.prototype.getUserNotifications = function () {
-        var userData = this.storageService.retrieve(TopMenuModel.USER_DATA_KEY);
+    TopMenuWeb2Model.prototype.getUserNotifications = function () {
+        var userData = this.storageService.retrieve(TopMenuWeb2Model.USER_DATA_KEY);
         return userData.unreadNotifications;
     };
 
 
-    TopMenuModel.prototype.getUserDataInfo = function () {
+    TopMenuWeb2Model.prototype.getUserDataInfo = function () {
         var self = this;
         var deferred = Q.defer();
 
@@ -63,21 +63,21 @@ app.registerModel(function (container) {
     };
 
 
-    TopMenuModel.prototype.storeUserData = function(userData) {
-        this.storageService.store(TopMenuModel.USER_DATA_KEY, userData);
+    TopMenuWeb2Model.prototype.storeUserData = function(userData) {
+        this.storageService.store(TopMenuWeb2Model.USER_DATA_KEY, userData);
     };
 
 
-    TopMenuModel.newInstance = function (ajaxService, storageService, configuration) {
+    TopMenuWeb2Model.newInstance = function (ajaxService, storageService, configuration) {
         ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
         configuration = configuration || Configuration;
 
-        return Some(new TopMenuModel(ajaxService, storageService, configuration));
+        return Some(new TopMenuWeb2Model(ajaxService, storageService, configuration));
     };
 
 
     return {
-        newInstance: TopMenuModel.newInstance
+        newInstance: TopMenuWeb2Model.newInstance
     };
 });

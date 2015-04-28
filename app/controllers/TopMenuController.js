@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     TopMenuController.configureView = function ($scope, $window) {
-        this.view = TopMenuView.newInstance($scope, null, null, $window).getOrElse(throwException("Could not create TopMenuView!"));
+        this.view = TopMenuView.newInstance($scope, $window).getOrElse(throwException("Could not create TopMenuView!"));
         this.view.show();
     };
 
