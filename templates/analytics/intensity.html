@@ -7,9 +7,24 @@
 </ul>
 <!-- end breadcrumb -->
 
+
+<!-- title -->
 <h1 class="page-header">
-    Intensity
+    {{'LeftMenu.SaleAnalytics' | i18next}}
 </h1>
+
+
+<!-- submenu -->
+<div class="submenu-analytics">
+    <ul class="list-inline">
+        <li class="active"><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}}</a></li>
+        <li><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</a></li>
+        <li><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</a></li>
+        <li><a href="helper_css.html">{{'LeftMenu.Reports' | i18next}}</a></li>
+    </ul>
+</div>
+
+
 
 <!-- begin filters -->
 <ng-include src="'/templates/analytics/analyticsFilter.html'"></ng-include>

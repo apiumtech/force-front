@@ -11,7 +11,8 @@
             <!-- end mobile sidebar expand / collapse button -->
 
 
-            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+        <!-- MENU ITEM -->
+            <div class="collapse navbar-collapse pull-left" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" style="width:350px;">
                     <li><a href="#/dashboard" title="{{'LeftMenu.Dashboard' | i18next}}"><i class="fa  ic-dashboard"></i>
                         <!--<span>{{'LeftMenu.Dashboard' | i18next}}</span>--></a>
@@ -37,22 +38,18 @@
                     <li><a href="#/document" title="{{'LeftMenu.Documents' | i18next}}"><i class="fa  ic-documents"></i>
                         <!--<span>{{'LeftMenu.Documents' | i18next}}</span>--></a>
                     </li>
-                    <li><a href="#/activity" title="{{'LeftMenu.Activity' | i18next}}"><i class="fa ic-activity"></i>
-                        <!--<span>{{'LeftMenu.Activity' | i18next}}</span>--></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="{{'LeftMenu.SaleAnalytics' | i18next}}">
-                            <i class="fa  ic-documents"></i><span class="caret"></span>
+                    <li>
+                        <a href="#/activity" title="{{'LeftMenu.Activity' | i18next}}">
+                            <i class="fa ic-activity"></i>
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}} </i></a></li>
-                            <li><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</i></a></li>
-                            <li><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</i></a></li>
-                            <li><a href="helper_css.html">{{'LeftMenu.Reports' | i18next}}</i></a></li>
-                        </ul>
+                    </li>
+                    <li>
+                        <a href="#/analytics/intensity" title="{{'LeftMenu.SaleAnalytics' | i18next}}">
+                            <i class="fa ic-documents"></i>
+                        </a>
                     </li>
                 </ul>
-            <!--</div>-->
+            </div>
 
 
             <!-- begin header navigation right -->

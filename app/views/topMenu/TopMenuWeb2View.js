@@ -60,6 +60,7 @@ app.registerView(function(container) {
 
 
     TopMenuWeb2View.prototype.onInit = function () {
+        $('.content').addClass('with-web2-menu');
         this.presenter.getUserDataInfo();
     };
 

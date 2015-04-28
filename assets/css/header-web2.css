@@ -1,3 +1,8 @@
+/* dynamically assigned from TopMenuWeb2View */
+.content.with-web2-menu {
+    margin-top: 20px;
+}
+
 #header-web2 {
     background-color: #54585a;
 }
