@@ -23,83 +23,83 @@ function main() {
     function AngularConfig($routeProvider, $validationProvider) {
         $routeProvider
             .when('/login', {
-                templateUrl: '/templates/login.html',
+                templateUrl: 'templates/login.html',
                 controller: 'LoginController'
             })
             .when('/accounts', {
-                templateUrl: '/templates/account.html',
+                templateUrl: 'templates/account.html',
                 controller: 'AccountController'
             })
 
             .when('/accounts/:account_id', {
-                templateUrl: '/templates/accountDetails/account_details.html',
+                templateUrl: 'templates/accountDetails/account_details.html',
                 controller: 'AccountDetailsController'
             })
             .when('/accounts/:account_id/edit', {
-                templateUrl: '/templates/accountDetails/accountEdit.html',
+                templateUrl: 'templates/accountDetails/accountEdit.html',
                 controller: 'AccountEditController'
             })
             .when('/account/create', {
-                templateUrl: '/templates/accountDetails/accountCreate.html',
+                templateUrl: 'templates/accountDetails/accountCreate.html',
                 controller: 'AccountCreateController'
             })
 
             .when('/analytics/conversion', {
-                templateUrl: '/templates/analytics/conversion.html',
+                templateUrl: 'templates/analytics/conversion.html',
                 controller: 'ConversionController'
             })
             .when('/analytics/distribution', {
-                templateUrl: '/templates/analytics/distribution.html',
+                templateUrl: 'templates/analytics/distribution.html',
                 controller: 'DistributionController'
             })
             .when('/analytics/intensity', {
-                templateUrl: '/templates/analytics/intensity.html',
+                templateUrl: 'templates/analytics/intensity.html',
                 controller: 'IntensityController'
             })
             .when('/contacts', {
-                templateUrl: '/templates/contact.html',
+                templateUrl: 'templates/contact.html',
                 controller: 'ContactController'
             })
 
 
             .when('/dashboard', {
-                templateUrl: '/templates/dashboard/dashboardIndex.html',
+                templateUrl: 'templates/dashboard/dashboardIndex.html',
                 controller: 'DashboardIndexController'
             })
             .when('/opportunities', {
-                templateUrl: '/templates/opportunities/opportunitiesList.html',
+                templateUrl: 'templates/opportunities/opportunitiesList.html',
                 controller: 'OpportunitiesListController'
             })
             .when('/opportunities/detail', {
-                templateUrl: '/templates/opportunities/opportunitiesDetail.html',
+                templateUrl: 'templates/opportunities/opportunitiesDetail.html',
                 controller: 'OpportunitiesDetailController'
             })
             .when('/quotes', {
-                templateUrl: '/templates/quotes/quotesList.html',
+                templateUrl: 'templates/quotes/quotesList.html',
                 controller: 'QuotesListController'
             })
             .when('/quotes/detail', {
-                templateUrl: '/templates/quotes/quotesDetail.html',
+                templateUrl: 'templates/quotes/quotesDetail.html',
                 controller: 'QuotesDetailController'
             })
             .when('/agenda', {
-                templateUrl: '/templates/agenda.html',
+                templateUrl: 'templates/agenda.html',
                 controller: 'AgendaController'
             })
             .when('/product', {
-                templateUrl: '/templates/products/productsList.html',
+                templateUrl: 'templates/products/productsList.html',
                 controller: 'ProductsListController'
             })
             .when('/product/detail', {
-                templateUrl: '/templates/products/productDetail.html',
+                templateUrl: 'templates/products/productDetail.html',
                 controller: 'ProductDetailController'
             })
             .when('/document', {
-                templateUrl: '/templates/document/documentList.html',
+                templateUrl: 'templates/document/documentList.html',
                 controller: 'DocumentListController'
             })
             .when('/activity', {
-                templateUrl: '/templates/activity/activityList.html',
+                templateUrl: 'templates/activity/activityList.html',
                 controller: 'ActivityListController'
             })
             .otherwise('/analytics/intensity');
