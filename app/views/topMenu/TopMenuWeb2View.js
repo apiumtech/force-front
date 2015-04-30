@@ -11,8 +11,9 @@ app.registerView(function(container) {
     /**
      * @constructor
      */
-    function TopMenuWeb2View($scope, $model, $presenter) {
+    function TopMenuWeb2View($scope, $model, $presenter, $window) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.$window = $window;
 
         this.configureData();
         this.configureEvents();
@@ -35,6 +36,8 @@ app.registerView(function(container) {
     TopMenuWeb2View.prototype.configureEvents = function () {
         this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);
         this.fn.onInit = this.onInit.bind(this);
+        this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
+        this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
 
         this.fn.hasEventsOrTasksForToday = this.hasEventsOrTasksForToday.bind(this);
         this.fn.hasTasksForToday = this.hasTasksForToday.bind(this);
@@ -64,6 +67,17 @@ app.registerView(function(container) {
         this.presenter.getUserDataInfo();
     };
 
+
+
+    TopMenuWeb2View.prototype.onLogout = function () {
+        this.$window.location.href = "/Login.aspx";
+    };
+    TopMenuWeb2View.prototype.onLogoutError = function (error) {
+        this.data.currentError = error;
+    };
+
+
+
     TopMenuWeb2View.prototype.onGetUserDataInfo = function () {
         this.data.userSections = this.presenter.getUserSections();
         this.data.userOptions = this.presenter.getUserOptions();
@@ -74,24 +88,42 @@ app.registerView(function(container) {
         this.data.tasksForToday = unreadNotifications.tasks;
         this.data.eventsForToday = unreadNotifications.events;
     };
+    TopMenuWeb2View.prototype.onGetUserDataInfoError = function (error) {
+        this.data.currentError = error;
+    };
 
 
+
+    TopMenuWeb2View.prototype.doProfileMenuAction = function(id, linkToGo, target) {
+        if(id == "logout"){
+            this.presenter.logout();
+        } else {
+            if(target=="_blank"){
+                this.$window.open(linkToGo, target);
+            } else {
+                this.$window.location.href = linkToGo;
+            }
+        }
+    };
+
+
+
+    TopMenuWeb2View.prototype.adjustLinkToParentFolder = function (url) {
+        return "../" + url;
+    };
 
     TopMenuWeb2View.prototype.getMenuTemplateName = function () {
         return 'topMenuWeb2';
     };
 
 
-    TopMenuWeb2View.prototype.onGetUserDataInfoError = function (error) {
-        this.data.currentError = error;
-    };
 
-
-    TopMenuWeb2View.newInstance = function($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    TopMenuWeb2View.newInstance = function($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || TopMenuWeb2Model.newInstance().getOrElse(throwInstantiateException(TopMenuWeb2Model));
         var presenter = $presenter || TopMenuWeb2Presenter.newInstance().getOrElse(throwInstantiateException(TopMenuWeb2Presenter));
-        var view = new TopMenuWeb2View(scope, model, presenter);
+        $window = $window || document.window;
+        var view = new TopMenuWeb2View(scope, model, presenter, $window);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

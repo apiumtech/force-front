@@ -93,6 +93,9 @@ RIGHT MENU ITEMS
 
 /* PROFILE DROPDOWN */
 
+#header-web2 li.profile-meu-dropdown {
+    /*margin-left: 30px;*/
+}
 #header-web2 li.profile-meu-dropdown a[data-toggle]:hover {
     background-color: transparent;
 }
@@ -222,6 +225,7 @@ RIGHT MENU ITEMS
 /* AGENDA MENU ITEM */
 
 #header-web2 .nav>li.agenda-notifications {
+    margin-right: 30px;
     margin-left: 10px;
     padding: 0;
     line-height: 60px;

@@ -35,6 +35,7 @@ app.registerService(function (container) {
         updateDocument: baseApi + '/api/documents/{0}',
 
         getUserDataInfo: baseProxy + '/getUserDataInfo',
+        logout: baseProxy + '/LogOff',
         authentication: baseUrl + '/commands/security/login',
         getContacts: baseUrl + '/queries/crm/contacts',
 

@@ -20,19 +20,23 @@ app.registerPresenter(function(container) {
         );
     };
 
+    TopMenuWeb2Presenter.prototype.logout = function () {
+        this.model.logout().then(
+            this.view.onLogout.bind(this.view),
+            this.view.onLogoutError.bind(this.view)
+        );
+    };
+
 
     TopMenuWeb2Presenter.prototype.getUserSections = function () {
         return this.model.getUserSections();
     };
-
     TopMenuWeb2Presenter.prototype.getUserOptions = function () {
         return this.model.getUserOptions();
     };
-
     TopMenuWeb2Presenter.prototype.getUserData = function () {
         return this.model.getUserData();
     };
-
     TopMenuWeb2Presenter.prototype.getUserNotifications = function () {
         return this.model.getUserNotifications();
     };

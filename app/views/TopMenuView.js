@@ -33,7 +33,7 @@ app.registerView(function(container) {
     };
 
     TopMenuView.prototype.getViewImpl = function (scope) {
-        return this.inWeb3() ? TopMenuWeb3View.newInstance(scope)  : TopMenuWeb2View.newInstance(scope);
+        return this.inWeb3() ? TopMenuWeb3View.newInstance(scope)  : TopMenuWeb2View.newInstance(scope, null, null, this.$window);
     };
 
 

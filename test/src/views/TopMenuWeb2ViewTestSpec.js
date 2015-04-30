@@ -4,8 +4,15 @@ describe("TopMenuWeb2View", function(){
     var scope, model, presenter, $window;
 
     function exerciseCreateView(){
-        return TopMenuWeb2View.newInstance(scope, model, presenter, false, false).getOrElse(throwException("Could not create TopMenuWeb2View!"));
+        return TopMenuWeb2View.newInstance(scope, model, presenter, $window, false, false).getOrElse(throwInstantiateException(TopMenuWeb2View));
     }
+
+    afterEach(function(){
+        scope = null;
+        model = null;
+        presenter = null;
+        $window = null;
+    });
 
     it('should configureEvents on instantiation', function(){
         spyOn(TopMenuWeb2View.prototype, "configureEvents");
@@ -102,11 +109,64 @@ describe("TopMenuWeb2View", function(){
         expect(view.data.eventsForToday).toBe(3);
     });
 
-    it('should set errorMessage onGetUserDataInfoError', function(){
+    it('should adjust link to parent folder correctly', function(){
+        var view = exerciseCreateView();
+        expect(view.adjustLinkToParentFolder("contactslist.aspx")).toBe("../contactslist.aspx");
+    });
+
+    it('should call logout on doProfileMenuAction when id is "logout"', function(){
+        var view = exerciseCreateView();
+        spyOn(view.presenter, "logout");
+        view.doProfileMenuAction("logout")
+        expect(view.presenter.logout).toHaveBeenCalled();
+    });
+
+    describe('doProfileMenuAction when id is not "logout"', function(){
+        beforeEach(function(){
+            $window = {
+                open: function(link, target){},
+                location: {
+                    href: null
+                }
+            };
+        });
+        it('should call window.open when target is "_blank"', function(){
+            var view = exerciseCreateView();
+            spyOn(view.$window, "open");
+            var _url = "http://www.google.com";
+            var _target = "_blank";
+            view.doProfileMenuAction("anything", _url, _target);
+            expect(view.$window.open).toHaveBeenCalledWith(_url, _target);
+        });
+        it('should change window.location.href when target is not "_blank"', function(){
+            var view = exerciseCreateView();
+            var _url = "http://www.google.com";
+            var _target = "_self";
+            view.doProfileMenuAction("anything", _url, _target);
+            expect(view.$window.location.href).toBe(_url);
+        });
+    });
+
+    it('should redirect to Login onLogout success', function(){
+        $window = {
+            location: {href: null}
+        };
+        var view = exerciseCreateView();
+        view.onLogout();
+        expect(view.$window.location.href).toBe("/Login.aspx");
+    });
+
+
+    it('onGetUserDataInfoError should set currentError', function(){
         var view = exerciseCreateView();
         view.onGetUserDataInfoError("An error");
         expect(view.data.currentError).toBe("An error");
     });
 
+    it('onLogoutError should set currentError', function(){
+        var view = exerciseCreateView();
+        view.onLogoutError("An error");
+        expect(view.data.currentError).toBe("An error");
+    });
 
 });

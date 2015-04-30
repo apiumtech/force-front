@@ -14,7 +14,7 @@
                 <a id="{{ item.id }}"
                    data-placement="bottom"
                    data-section="{{ item.section }}"
-                   href="{{ item.url }}"
+                   href="{{ fn.adjustLinkToParentFolder(item.url) }}"
                    data-original-title="{{ item.name }}"
                    class="toggle-true">
                     <i class="ic-{{ item.icon }}"></i>
@@ -33,7 +33,7 @@
             <li class="agenda-notifications" ng-show="fn.hasEventsOrTasksForToday()">
                 <i class="icon-agenda-notify"></i>
                 <span id="events-top-menu">
-                    <a href="calendar.aspx">
+                    <a href="{{ fn.adjustLinkToParentFolder('calendar.aspx') }}">
                         <span class="notification">
                             <div ng-show="fn.hasEventsForToday()">{{ data.eventsForToday }} events</div>
                             <div ng-show="fn.hasTasksForToday()">{{ data.tasksForToday }} task</div>
@@ -43,12 +43,12 @@
             </li>
 
             <!-- NOTIFICATIONS -->
-            <li id="unreadNotifications" class="user-notifications">
+            <!--<li id="unreadNotifications" class="user-notifications">
                 <a href="#">
                     <i class="icon-alert-notify"></i>
                     <span class="badge" ng-show="fn.hasUnreadNotifications()">{{ data.unreadNotifications }}</span>
                 </a>
-            </li>
+            </li>-->
 
             <!-- PROFILE -->
             <li class="dropdown profile-meu-dropdown" dropdown>
@@ -60,7 +60,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li ng-repeat="item in data.userOptions" ng-class="{ 'with-divider': $last }">
-                        <a id="{{ item.id }}" href="{{ item.linkToGo }}" target="{{ item.target }}">
+                        <a id="{{ item.id }}" href="#"
+                           ng-click="fn.doProfileMenuAction(item.id, item.linkToGo, item.target)">
                             {{ item.name }}
                         </a>
                     </li>

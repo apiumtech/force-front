@@ -39,6 +39,20 @@ app.registerModel(function (container) {
     };
 
 
+    TopMenuWeb2Model.prototype.logout = function () {
+        var self = this;
+
+        var params = {
+            url: this.configuration.api.logout,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            method: "POST"
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
+    };
+
+
     TopMenuWeb2Model.prototype.getUserDataInfo = function () {
         var self = this;
         var deferred = Q.defer();
