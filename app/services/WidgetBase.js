@@ -5,12 +5,15 @@
 app.registerService(function (container) {
     var AjaxService = container.getService("services/AjaxService");
     var moment = container.getFunction("moment");
+    var Configuration = container.getService('Configuration');
 
     function WidgetBase(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
         this.fetchPoint = null;
         this.widgetId = null;
-        this.queries = {};
+        this.queries = {
+            period: ""
+        };
     }
 
     WidgetBase.prototype.normalizeServerInput = function (input) {
@@ -48,6 +51,8 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
+        console.log(dateStart);
+        console.log(dateEnd);
         this.addQuery("period", moment(dateStart).unix() + "," + moment(dateEnd).unix());
     };
 
@@ -56,9 +61,6 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.reloadWidget = function () {
-        if (!this.widgetId) {
-            throw new Error("Widget Id is not defined");
-        }
         if (!this.fetchPoint) {
             throw new Error("FetchPoint is not defined");
         }

@@ -41,7 +41,9 @@ app.registerService(function (container) {
 
         intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}',
 
-        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery'
+        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery',
+
+        graphWidgetIntensityDataApi: baseUrl + '/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod'
     };
 
     return {
@@ -52,6 +54,7 @@ app.registerService(function (container) {
             default: "dd/MM/yyyy"
         },
         pageSize: 10,
+        defaultDateSubtraction: 30,
         tokenStorageKey: "token"
     };
 });

@@ -59,10 +59,6 @@ describe("GraphWidgetPresenter", function () {
                 };
                 spyOn(sut, '_executeLoadWidget');
             });
-            it("should add endpoint to model", function () {
-                view.event.onReloadWidgetStart();
-                expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
-            });
 
             it("should call '_executeLoadWidget' method", function () {
                 view.event.onReloadWidgetStart();
@@ -114,6 +110,7 @@ describe("GraphWidgetPresenter", function () {
             var errMsg = {msg: "test message"};
             beforeEach(function () {
                 ___model.addQuery = jasmine.createSpy();
+                ___model.changeQueryFilter = jasmine.createSpy();
                 view.$scope = {
                     selectedFilter: 'selectedFilter',
                     selectedRangeOption: 'selectedRangeOption'
@@ -122,11 +119,11 @@ describe("GraphWidgetPresenter", function () {
                 view.event.onReloadWidgetDone(errMsg);
             });
 
-            it("should call 'addQuery' on model for initialing selectedFilter", function () {
-                expect(___model.addQuery).toHaveBeenCalledWith('filter', 'selectedFilter');
+            it("should call 'changeQueryFilter' on model for initialing selectedFilter", function () {
+                expect(___model.changeQueryFilter).toHaveBeenCalledWith('selectedFilter');
             });
             it("should call 'addQuery' on model for initialing selectedRangeOption", function () {
-                expect(___model.addQuery).toHaveBeenCalledWith('rangeOption', 'selectedRangeOption');
+                expect(___model.addQuery).toHaveBeenCalledWith('grouping', 'selectedRangeOption');
             });
 
             it("should call 'sendReloadCompleteSignal' on the channel", function () {
@@ -136,7 +133,7 @@ describe("GraphWidgetPresenter", function () {
 
         function onFilterChangedTest() {
             beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
+                ___model.changeQueryFilter = jasmine.createSpy();
             });
 
             function exercisePrepareFilterChangeCall() {
@@ -147,7 +144,7 @@ describe("GraphWidgetPresenter", function () {
 
             it("should call addQuery on model", function () {
                 exercisePrepareFilterChangeCall();
-                expect(___model.addQuery).toHaveBeenCalledWith('filter', 'abcdef');
+                expect(___model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
             });
 
             it("should fire sendReloadSignal signal on channel", function () {
@@ -169,7 +166,7 @@ describe("GraphWidgetPresenter", function () {
 
             it("should call addQuery on model", function () {
                 exercisePrepareFilterChangeCall();
-                expect(___model.addQuery).toHaveBeenCalledWith('rangeOption', 'date');
+                expect(___model.addQuery).toHaveBeenCalledWith('grouping', 'date');
             });
 
             it("should fire sendReloadSignal signal on channel", function () {

@@ -6,8 +6,8 @@
             <select class="form-control pull left"
                     ng-change="fn.changeFilter()"
                     ng-model="selectedFilter">
-                <option value="{{filter}}"
-                        ng-repeat="filter in filters">{{filter}}
+                <option value="{{filter.key}}"
+                        ng-repeat="filter in filters">{{filter.name}}
                 </option>
             </select>
         </div>

@@ -13,14 +13,10 @@ app.registerView(function (container) {
 
     var LINE = 'line', FILLED = 'filled';
 
-    function onlyVal(data) {
-        return data[1];
-    }
-
     function GraphWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         scope.filters = [];
-        scope.selectedFilter = "";
+        scope.selectedFilter = "visits";
         scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;
         var self = this;
@@ -48,6 +44,7 @@ app.registerView(function (container) {
         };
 
         self.fn.changeFilter = function () {
+            self.availableFields = [];
             self.event.onFilterChanged();
         };
 
@@ -104,7 +101,7 @@ app.registerView(function (container) {
             chartFields.push(lineGraph);
         });
 
-        self.paintChart(self.element.find('.chart-place-holder'), chartFields, data.axis);
+        self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
     };
 
     GraphWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
@@ -158,10 +155,14 @@ app.registerView(function (container) {
         var filterList = self.$scope.filters,
             currentSelectedFilter = self.$scope.selectedFilter;
 
+        var filterKeys = filterList.map(function (filter) {
+            return filter.key;
+        });
+
         self.$scope.selectedFilter =
-            currentSelectedFilter && filterList.indexOf(currentSelectedFilter) !== -1 ?
+            currentSelectedFilter && filterKeys.indexOf(currentSelectedFilter) !== -1 ?
                 currentSelectedFilter :
-                self.$scope.filters[0];
+                self.$scope.filters[0].key;
     };
 
     GraphWidgetView.prototype.extractDisplayFields = function () {
@@ -197,7 +198,7 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.getLineGraphInstance = function (field, hidden, filled) {
-        return LineGraphPlot.newInstance(field.name, field.data.map(onlyVal), hidden, filled);
+        return LineGraphPlot.newInstance(field.name, field.data, hidden, filled);
     };
 
     return GraphWidgetView;

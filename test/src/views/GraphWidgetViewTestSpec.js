@@ -283,7 +283,13 @@ describe("GraphWidgetView", function () {
         describe("assign new value to selectedFilter", function () {
             describe("current value is empty", function () {
                 it("should assign selectedFilter to the first element in array", function () {
-                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.data.filters = [{
+                        key: 'filter1',
+                        name: 'Filter1'
+                    }, {
+                        key: 'filter2',
+                        name: 'Filter2'
+                    }];
                     sut.extractFilters();
                     expect(sut.$scope.selectedFilter).toEqual('filter1');
                 });
@@ -292,7 +298,13 @@ describe("GraphWidgetView", function () {
             describe("current value is not in filters list", function () {
                 it("should assign selectedFilter to the first element in array", function () {
                     sut.$scope.selectedFilter = 'filterNotInList';
-                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.data.filters = [{
+                        key: 'filter1',
+                        name: 'Filter1'
+                    }, {
+                        key: 'filter2',
+                        name: 'Filter2'
+                    }];
                     sut.extractFilters();
                     expect(sut.$scope.selectedFilter).toEqual('filter1');
                 });
@@ -301,7 +313,13 @@ describe("GraphWidgetView", function () {
             describe("current value is in filters list", function () {
                 it("should not assign selectedFilter if it has value", function () {
                     sut.$scope.selectedFilter = 'filter2';
-                    sut.data.filters = ['filter1', 'filter2'];
+                    sut.data.filters = [{
+                        key: 'filter1',
+                        name: 'Filter1'
+                    }, {
+                        key: 'filter2',
+                        name: 'Filter2'
+                    }];
                     sut.extractFilters();
                     expect(sut.$scope.selectedFilter).toEqual('filter2');
                 });

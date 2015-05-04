@@ -4,6 +4,8 @@
 
 app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+    var Configuration  = container.getService('Configuration');
+
     var widgetName = "intensityWidgetA";
 
     function GraphWidgetPresenter(widgetEventChannel) {
@@ -50,13 +52,12 @@ app.registerPresenter(function (container) {
         self.rebindChannelListener();
 
         view.event.onReloadWidgetStart = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data = {};
             self._executeLoadWidget();
         };
 
         view.event.onFilterChanged = function () {
-            model.addQuery('filter', view.$scope.selectedFilter);
+            model.changeQueryFilter(view.$scope.selectedFilter);
             self.widgetEventChannel.sendReloadSignal();
         };
 
@@ -71,14 +72,14 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterRangeChanged = function () {
-            model.addQuery('rangeOption', view.$scope.selectedRangeOption);
+            model.addQuery('grouping', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadSignal();
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {
             // init the value when widget loaded
-            model.addQuery('filter', view.$scope.selectedFilter);
-            model.addQuery('rangeOption', view.$scope.selectedRangeOption);
+            model.changeQueryFilter(view.$scope.selectedFilter);
+            model.addQuery('grouping', view.$scope.selectedRangeOption);
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
     };
