@@ -12,11 +12,9 @@
         <ul class="nav navbar-nav section-nav">
             <li ng-class="{ active: item.section == 'sfm' }" ng-repeat="item in data.userSections">
                 <a id="{{ item.id }}"
-                   data-placement="bottom"
-                   data-section="{{ item.section }}"
-                   href="{{ fn.adjustLinkToParentFolder(item.url) }}"
-                   data-original-title="{{ item.name }}"
-                   class="toggle-true">
+                   tooltip-placement="bottom"
+                   tooltip="{{ item.name }}"
+                   href="{{ fn.adjustLinkToParentFolder(item.url) }}">
                     <i class="ic-{{ item.icon }}"></i>
                 </a>
             </li>
