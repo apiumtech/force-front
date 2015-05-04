@@ -15,8 +15,6 @@ app.registerService(function () {
         var keys = [];
         var myArray;
         while ((myArray = regex.exec(templateString)) !== null) {
-            var msg = 'Found ' + myArray[0] + '. ';
-            console.log(msg);
             keys.push(myArray[0].replace(/\{|\}/g, ""));
         }
         return keys;
