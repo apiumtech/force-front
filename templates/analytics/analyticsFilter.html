@@ -22,6 +22,18 @@
                             <span class="panel-loading isLoading" ng-if="data.isLoadingUsers">
                                 <i class="spinner"></i>
                              </span>
+
+                            <!-- search users -->
+                            <li class="m-t-10 m-b-10">
+                                <form>
+                                    <input type="text" class="form-control ic-user"
+                                           ng-model="searchingUser"
+                                           ng-change="fn.getFilteredUsersList()"
+                                           ng-click="$event.stopPropagation()"
+                                           ng-i18next="[placeholder]Filters.SearchOwner">
+                                </form>
+                            </li>
+                            <!-- END search users -->
                             <li class="media">
                                 <div class="btn-group pull-right">
 
@@ -49,17 +61,6 @@
                                     <strong>{{'Filters.AllUsers' | i18next}}</strong></div>
                             </li>
                             <!-- END recent added users -->
-                            <!-- search users -->
-                            <li class="m-t-10 m-b-10">
-                                <form>
-                                    <input type="text" class="form-control ic-user"
-                                           ng-model="searchingUser"
-                                           ng-change="fn.getFilteredUsersList()"
-                                           ng-click="$event.stopPropagation()"
-                                           ng-i18next="[placeholder]Filters.SearchOwner">
-                                </form>
-                            </li>
-                            <!-- END search users -->
                             <!-- Starts users tree -->
                             <li class="users-tree">
                                 <div class="clearfix">
