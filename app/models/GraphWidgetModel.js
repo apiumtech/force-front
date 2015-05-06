@@ -58,20 +58,14 @@ app.registerModel(function (container) {
             this.currentFilter = filter;
     };
 
+    GraphWidgetModel.prototype.getUrl = function(){
+        return Configuration.api.graphWidgetIntensityDataApi.format(this.currentFilter);
+    };
+
+    GraphWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
+
     GraphWidgetModel.prototype._reload = function () {
-        var url = Configuration.api.graphWidgetIntensityDataApi.format(this.currentFilter);
-
-        if (this.queries && !isEmptyObject(this.queries)) {
-            var queries = this.buildQueryString();
-            url += "?" + queries;
-        }
-
-        var request = {
-            url: url,
-            type: 'get',
-            contentType: 'application/json'
-        };
-        return this.ajaxService.rawAjaxRequest(request)
+        return this._baseReload()
             .then(this.decorateServerData.bind(this));
     };
 

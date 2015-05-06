@@ -10,6 +10,8 @@ describe("widgetBase", function () {
     beforeEach(function () {
         ajaxService = {
             ajax: function () {
+            },
+            rawAjaxRequest: function () {
             }
         };
 
@@ -17,12 +19,6 @@ describe("widgetBase", function () {
     });
 
     describe("reloadWidget", function () {
-        it("should throw exception if widgetId is not defined", function () {
-            sut.fetchPoint = "/test/fetch/point";
-            expect(function () {
-                sut.reloadWidget();
-            }).toThrowError();
-        });
 
         it("should throw exception if fetchPoint is not defined", function () {
             sut.widgetId = 20020;
@@ -94,6 +90,7 @@ describe("widgetBase", function () {
     describe("_reload", function () {
         beforeEach(function () {
             spyOn(ajaxService, 'ajax').and.returnValue(exerciseFakePromise());
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
             spyOn(sut, 'buildQueryString');
         });
 
@@ -151,8 +148,8 @@ describe("widgetBase", function () {
                         sut._reload();
 
                         var expected = test.expected;
-                        expect(ajaxService.ajax).toHaveBeenCalled();
-                        expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual(expected);
+                        expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
+                        expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(expected);
                     });
                 });
         });

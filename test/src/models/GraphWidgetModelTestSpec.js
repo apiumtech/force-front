@@ -11,6 +11,14 @@ describe("GraphWidgetModel", function () {
         sut = GraphWidgetModel.newInstance().getOrElse(throwInstantiateException(GraphWidgetModel));
     });
 
+    describe("_reload", function () {
+        beforeEach(function () {
+            spyOn(WidgetBase.prototype, '_reload').and.callThrough();
+        });
+
+
+    });
+
     describe("decorateServerData", function () {
         it("should return correct decorated format", function () {
             sut.filters = [];
