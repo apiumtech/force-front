@@ -48,9 +48,9 @@ app.registerDirective(function (container) {
                     }
                 };
 
-                $($element).on('click', $scope.updateState);
+                $($element).on('click change', $scope.updateState);
 
-                $scope.$watch('checked', $scope.verifyCheckState);
+                $scope.$watch('ngModel', $scope.verifyCheckState);
 
                 $scope.$on('$destroy', function () {
                     $(element).unbind('click', $scope.updateState);
