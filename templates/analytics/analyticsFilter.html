@@ -81,6 +81,7 @@
                                                ng-class="{'glyphicon-chevron-down': group.isOpen, 'glyphicon-chevron-right': !group.isOpen}"></i>
 
                                             <input type="checkbox"
+                                                   tri-state-check-box
                                                    ng-model="group.checked"
                                                    ng-change="fn.groupSelectAllChanged(group)"
                                                    ng-click="$event.stopPropagation()"

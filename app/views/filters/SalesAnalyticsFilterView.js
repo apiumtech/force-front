@@ -302,6 +302,7 @@ app.registerView(function (container) {
             group.checked = !(containUnselectedData);
 
             if (!group.checked) {
+                group.checked = null;
                 allSelected = false;
                 return;
             }
