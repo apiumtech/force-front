@@ -43,9 +43,9 @@ describe('LogErrorAspect', function () {
         expect(LogErrorAspect._log).toHaveBeenCalledWith("to string");
     });
 
-    it('should call _warn after throwing an exception', function(){
-        var warnSpy = jasmine.createSpy();
-        LogErrorAspect._warn = warnSpy;
+    it('should call _error after throwing an exception', function(){
+        var errorSpy = jasmine.createSpy();
+        LogErrorAspect._error = errorSpy;
 
         var view = exerciseCreateView();
         view.methodThatThrows = function(){
@@ -56,9 +56,9 @@ describe('LogErrorAspect', function () {
             view.methodThatThrows();
         }catch(err){}
 
-        expect(LogErrorAspect._warn).toHaveBeenCalled();
+        expect(errorSpy).toHaveBeenCalled();
 
-        var errorMessage = warnSpy.calls.mostRecent().args[0];
+        var errorMessage = errorSpy.calls.mostRecent().args[0];
         expect(errorMessage).toMatch(/Ugly error/);
     });
 });
