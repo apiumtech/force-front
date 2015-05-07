@@ -2,11 +2,11 @@
      ng-init="fn.assignWidget(widget)">
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
-            <button class="btn btn-white btn-sm" ng-repeat="filter in tabs"
-                    ng-click="fn.changeFilter(filter)"
-                    ng-class="{'active':selectedFilter==filter}">
-                {{filter}}
-            </button>
+            <select class="form-control pull left"
+                    ng-model="selectedFilter"
+                    ng-change="fn.changeFilter(selectedFilter)">
+                <option ng-repeat="filter in filters" value="{{filter}}">{{filter}}</option>
+            </select>
         </div>
     </div>
     <div class="chart-place-holder height-sm"></div>

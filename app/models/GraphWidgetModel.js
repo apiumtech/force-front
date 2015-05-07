@@ -58,7 +58,7 @@ app.registerModel(function (container) {
             this.currentFilter = filter;
     };
 
-    GraphWidgetModel.prototype.getUrl = function(){
+    GraphWidgetModel.prototype.getUrl = function () {
         return Configuration.api.graphWidgetIntensityDataApi.format(this.currentFilter);
     };
 
