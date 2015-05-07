@@ -68,6 +68,7 @@ app.registerPresenter(function (container) {
 
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
+
             self.widgetEventChannel.sendReloadSignal();
         };
 

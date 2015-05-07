@@ -52,7 +52,7 @@
                                 </div>
                                 <span class="pull-right m-t-5">{{'commonText.Show' | i18next}}</span></li>
                             <!-- recent added users -->
-                            <li class="media">
+                            <li class="media hide">
                                 <h6>{{'Filters.RecentSelected' | i18next}}</h6>
                                 <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
 
@@ -63,7 +63,7 @@
                             <!-- END recent added users -->
                             <!-- Starts users tree -->
                             <li class="users-tree">
-                                <div class="clearfix">
+                                <div class="clearfix hide">
                                     <input type="checkbox" class="pull-left m-t-10 m-r-10"
                                            ng-model="allUsersSelected"
                                            ng-click="fn.allUserSelectionChanged($event)">
@@ -73,9 +73,13 @@
                                     </div>
                                 </div>
                                 <!-- Start Firts Environmet -->
-                                <ul class="m-t-10">
-                                    <li ng-repeat="group in userFiltered">
-                                        <div class="clearfix">
+                                <accordion class="users-filter-list clearfix" close-others="false">
+                                    <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
+                                                     class="clearfix">
+                                        <accordion-heading class="clearfix">
+                                            <i class="pull-right glyphicon"
+                                               ng-class="{'glyphicon-chevron-down': group.isOpen, 'glyphicon-chevron-right': !group.isOpen}"></i>
+
                                             <input type="checkbox"
                                                    ng-model="group.checked"
                                                    ng-change="fn.groupSelectAllChanged(group)"
@@ -85,9 +89,8 @@
                                             <div class="pull-left m-t-5">
                                                 <strong>{{group.group}}</strong>
                                             </div>
-                                        </div>
-
-                                        <ul class="clearfix">
+                                        </accordion-heading>
+                                        <ul>
                                             <li class="clearfix" ng-repeat="user in group.children">
                                                 <input type="checkbox"
                                                        value="{{user.id}}"
@@ -101,11 +104,9 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <!-- END Environmet -->
-                                    </li>
-                                </ul>
+                                    </accordion-group>
+                                </accordion>
                                 <!-- END Environmet -->
-
                             </li>
                             <!-- END users tree -->
                         </ul>
