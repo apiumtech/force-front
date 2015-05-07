@@ -295,14 +295,15 @@ app.registerView(function (container) {
         var allSelected = true;
 
         self.userFiltered.forEach(function (group) {
-            var containUnselectedData = _.filter(group.children, function (user) {
+            var unselectedData = _.filter(group.children, function (user) {
                     return user.checked === false;
-                }).length > 0;
+                }).length;
 
-            group.checked = !(containUnselectedData);
+            group.checked = (unselectedData == group.children.length) ? false : ( (unselectedData == 0) ? true : null );
+
+            console.log(group.group + " : " + group.checked);
 
             if (!group.checked) {
-                group.checked = null;
                 allSelected = false;
                 return;
             }

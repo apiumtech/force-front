@@ -7,9 +7,8 @@ app.registerDirective(function (container) {
     function TriStateCheckBoxDirective() {
         return {
             restrict: "EA",
-            //require: ['ngModel'], // we wil lcome back with this later, this is the correct approach
             scope: {
-              ngModel: '='
+                ngModel: '='
             },
             link: function ($scope, $element, $attr) {
                 var checkbox = $($element)[0];
@@ -18,7 +17,7 @@ app.registerDirective(function (container) {
                  * Update state when click the element
                  */
                 $scope.updateState = function () {
-                    var ngModel=$scope.ngModel;
+                    var ngModel = $scope.ngModel;
                     if (ngModel === false) {
                         ngModel = true;
                     } else if (ngModel === true) {
@@ -32,26 +31,26 @@ app.registerDirective(function (container) {
                  * Verify the state when scope values changed
                  */
                 $scope.verifyCheckState = function () {
-                    debugger;
-                    var ngModel = $scope.ngModel;
+                    var ngModel = $scope.ngModel; //sorry ^^
                     switch (ngModel) {
-                        case 'true':
-                            checkbox.prop('indeterminate', false);
-                            checkbox.prop('checked', true);
+                        case true:
+                            $(checkbox).prop('indeterminate', false);
+                            $(checkbox).prop('checked', true);
                             break;
-                        case 'false':
-                            checkbox.prop('indeterminate', false);
-                            checkbox.prop('checked', false);
+                        case false:
+                            $(checkbox).prop('indeterminate', false);
+                            $(checkbox).prop('checked', false);
                             break;
-                        default:
-                            checkbox.prop('indeterminate', true);
+                        case null:
+                            $(checkbox).prop('indeterminate', true);
                             break;
+                        default: break;
                     }
                 };
 
                 $($element).on('click', $scope.updateState);
 
-                $scope.$watch('ngModel', $scope.verifyCheckState);
+                $scope.$watch('checked', $scope.verifyCheckState);
 
                 $scope.$on('$destroy', function () {
                     $(element).unbind('click', $scope.updateState);
