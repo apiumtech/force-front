@@ -43,7 +43,9 @@ app.registerService(function (container) {
 
         userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery',
 
-        graphWidgetIntensityDataApi: baseUrl + '/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod'
+        graphWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
+
+        rankingWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/usersTableStatsByUsersAndPeriodQuery'
     };
 
     return {
