@@ -221,6 +221,17 @@ requirejs.config({
         'presenters/LoginPresenter',
         'models/LoginModel',
 
+
+        // Liteal List Page
+        'controllers/literal/LiteralListController', 'views/literal/LiteralListView', 'presenters/literal/LiteralListPresenter', 'models/literal/LiteralListModel',
+        'services/literal/LiteralListService', 'services/literal/QueryLiteralListBuilder',
+
+        //Literal Page
+        'controllers/literal/LiteralController', 'views/literal/LiteralView', 'presenters/literal/LiteralPresenter', 'models/literal/LiteralModel',
+        'services/literal/LiteralService', 'services/literal/QueryLiteralBuilder',
+
+
+
         // Account Page
         'controllers/account/AccountController',
         'models/account/AccountModel',
