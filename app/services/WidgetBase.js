@@ -68,8 +68,12 @@ app.registerService(function (container) {
         return this._reload();
     };
 
+    WidgetBase.prototype.getUrl = function(){
+        return this.fetchPoint;
+    };
+
     WidgetBase.prototype._reload = function () {
-        var url = this.fetchPoint;
+        var url = this.getUrl();
 
         if (this.queries && !isEmptyObject(this.queries)) {
             var queries = this.buildQueryString();
@@ -81,8 +85,8 @@ app.registerService(function (container) {
             type: 'get',
             contentType: 'application/json'
         };
-        return this.ajaxService.ajax(request)
-            .then(this.normalizeServerInput, throwException("Could not normalize server input!"));
+
+        return this.ajaxService.rawAjaxRequest(request);
     };
 
     return WidgetBase;

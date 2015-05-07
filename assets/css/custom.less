@@ -113,6 +113,7 @@ span.removeTextBoxBtn {
 
   .panel-loader {
     margin: 40px 10px 20px !important;
+    z-index: 999;
   }
 }
 
@@ -364,5 +365,49 @@ span.panel-loading.isLoading {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.users-filter-list {
+  .panel-heading {
+    padding: 2px;
+    background: #FFFFFF !important;
+
+    h4 {
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    a {
+      color: rgba(0, 0, 0, .8);
+      div {
+        padding: 2px 0 4px 0;
+      }
+
+      &.accordion-toggle {
+
+        overflow: hidden;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .panel-body {
+    padding: 0 0 3px !important;
+    ul {
+      padding: 4px 0 8px 15px;
+      margin: 0 !important;
+      background-color: rgba(0, 0, 0, .05);
+    }
+  }
+
+  .panel-collapse {
+    margin-top: -3px;
+  }
+
+  .panel-collapse {
+  }
+}
+
+input[tri-state-check-box] {
+  -webkit-appearance: checkbox;
 }

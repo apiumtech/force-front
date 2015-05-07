@@ -207,6 +207,9 @@ function main() {
             'services/PopoverAdapter',
             'services/bus/ScrollEventBus',
             'directives/HighLightResultDirective',
+            'directives/TriStateCheckBoxDirective',
+
+
 
             // TODO: to be removed in production
             'services/FakeAjaxService',
