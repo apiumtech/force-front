@@ -20,13 +20,20 @@ app.registerView(function (container) {
         var self = this;
         self.resetDate = true;
         self.defaultPreviousDay = 30;
-        self.datePickerFormat = 'DD/MM/YYYY';
+        self.$scope.datePickerFormat = "dd/MM/yyyy";
+        self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
-        self.$scope.isoStringDateStart = function(){
+        self.$scope.isoStringDateStart = function () {
             return self.$scope.dateRangeStart.toString();
         };
-        self.$scope.isoStringDateEnd = function(){
+        self.$scope.isoStringDateEnd = function () {
             return self.$scope.dateRangeEnd.toString();
+        };
+        self.$scope.isoStringDateEndLimit = function () {
+            return self.$scope.dateRangeStart.toString();
+        };
+        self.$scope.isoStringMaxDateLimit = function () {
+            return new Date().toString();
         };
 
         this.data.isLoadingUsers = false;
@@ -137,23 +144,24 @@ app.registerView(function (container) {
         var self = instance;
 
         self.$scope.$watch('displayDateStart', function (value) {
-            var _date = moment(value, self.datePickerFormat);
+            var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
                 console.error("Input date is not valid");
                 return;
             }
-
             self.dateRangeStart = _date.toDate();
+            self.validateDates();
         });
 
         self.$scope.$watch('displayDateEnd', function (value) {
-            var _date = moment(value, self.datePickerFormat);
+            var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
                 console.error("Input date is not valid");
                 return;
             }
 
             self.dateRangeEnd = _date.toDate();
+            self.validateDates();
         });
 
         self.fn.openDatePickerStart = function (event) {
@@ -219,7 +227,7 @@ app.registerView(function (container) {
         };
 
         self.fn.getFormattedDate = function (date) {
-            return moment(date).format(self.datePickerFormat);
+            return moment(date).format(self.momentFormat);
         };
 
         self.fn.getFilteredUsersList = function () {
@@ -296,14 +304,22 @@ app.registerView(function (container) {
         };
     };
 
+    SalesAnalyticsFilterView.prototype.validateDates = function () {
+        var self = this;
+        if( moment(self.dateRangeStart).isAfter(self.dateRangeEnd) ){
+            self.dateRangeEnd = new Date(self.dateRangeStart.toString());
+            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+        }
+    };
+
     SalesAnalyticsFilterView.prototype.checkSelectAllState = function () {
         var self = this;
         var allSelected = true;
 
         self.userFiltered.forEach(function (group) {
             var unselectedData = _.filter(group.children, function (user) {
-                    return user.checked === false;
-                }).length;
+                return user.checked === false;
+            }).length;
 
             group.checked = (unselectedData == group.children.length) ? false : ( (unselectedData == 0) ? true : null );
 

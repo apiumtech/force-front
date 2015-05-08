@@ -49,6 +49,7 @@ var require = {
 
     'shim': {
         'angular': {
+            deps: ['jquery'],
             exports: 'angular'
         },
         'ngSanitize': {

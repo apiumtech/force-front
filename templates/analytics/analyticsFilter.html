@@ -144,17 +144,19 @@
                                                 <div class="input-group input-daterange">
                                                     <force-date-picker
                                                             date-set="{{isoStringDateStart()}}"
-                                                            date-format="dd/MM/yyyy">
+                                                            date-max-limit="{{isoStringMaxDateLimit()}}"
+                                                            date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="start"
                                                                ng-model="displayDateStart"/>
                                                     </force-date-picker>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <force-date-picker
                                                             date-set={{isoStringDateEnd()}}
-                                                            date-format="dd/MM/yyyy">
+                                                            date-min-limit="{{isoStringDateEndLimit()}}"
+                                                            date-max-limit="{{isoStringMaxDateLimit()}}"
+                                                            date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="end"
-                                                               ng-model="displayDateEnd"
-                                                               ng-keydown="fn.validateDateInput($event)"/>
+                                                               ng-model="displayDateEnd"/>
                                                     </force-date-picker>
                                                 </div>
                                             </div>
