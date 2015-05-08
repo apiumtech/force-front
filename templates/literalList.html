@@ -1,0 +1,16 @@
+<div ng-init="event.onInit()">
+    <ul class="pull-right">
+        <li><a href="javascript:;">{{'commonText.Export' |i18next}}</a></li>
+    </ul>
+    <h1 class="page-header">{{'Literals.Table' | i18next}}
+        <a href="#/literal" class="btn btn-primary m-r-5">
+            {{'Literals_create' | i18next}}
+        </a>
+    </h1>
+
+    <div ng-include="'templates/literal/table.html'"></div>
+
+    <div style="text-align: center; border-top: 1px solid gray; position: fixed; width: 100%; left: 0; bottom: 0;">
+        {{data.currentError}}
+    </div>
+</div>

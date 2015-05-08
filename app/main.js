@@ -26,6 +26,22 @@ function main() {
                 templateUrl: 'templates/login.html',
                 controller: 'LoginController'
             })
+
+
+            .when('/literal-list', {
+                templateUrl: 'templates/literalList.html',
+                controller: 'LiteralListController'
+            }).
+            when('/literal', {
+                templateUrl: 'templates/literal/literal.html',
+                controller: 'LiteralController'
+            }).
+            when('/literal/:literalId', {
+                templateUrl: 'templates/literal/literal.html',
+                controller: 'LiteralController'
+            })
+
+
             .when('/accounts', {
                 templateUrl: 'templates/account.html',
                 controller: 'AccountController'
@@ -227,6 +243,17 @@ function main() {
             'views/LoginView',
             'presenters/LoginPresenter',
             'models/LoginModel',
+
+
+            // Liteal List Page
+            'controllers/literal/LiteralListController', 'views/literal/LiteralListView', 'presenters/literal/LiteralListPresenter', 'models/literal/LiteralListModel',
+            'services/literal/LiteralListService', 'services/literal/QueryLiteralListBuilder',
+
+            //Literal Page
+            'controllers/literal/LiteralController', 'views/literal/LiteralView', 'presenters/literal/LiteralPresenter', 'models/literal/LiteralModel',
+            'services/literal/LiteralService', 'services/literal/QueryLiteralBuilder',
+
+
 
             // Account Page
             'controllers/account/AccountController',
