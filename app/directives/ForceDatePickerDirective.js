@@ -35,17 +35,17 @@ app.registerDirective(function (container) {
                     , isMouseOnInput = false
                     , datetime = $locale.DATETIME_FORMATS
                     , pageDatepickers
-                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-blur="hideCalendar()">' +
+                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-click="$event.stopPropagation();" ng-blur="hideCalendar()">' +
                             //motnh+year header
                         '<div class="force-datepicker-calendar-header" ng-hide="isMobile()">' +
                         '<div class="force-datepicker-calendar-header-left">' +
-                        '<a href="javascript:void(0)" ng-click="prevMonth()">' + prevButton + '</a>' +
+                        '<a href="javascript:void(0)" ng-click="$event.stopPropagation();prevMonth()">' + prevButton + '</a>' +
                         '</div>' +
                         '<div class="force-datepicker-calendar-header-middle force-datepicker-calendar-month">' +
-                        '{{month}} <a href="javascript:void(0)" ng-click="showYearsPagination = !showYearsPagination"><span>{{year}} <i ng-if="!showYearsPagination">&dtrif;</i> <i ng-if="showYearsPagination">&urtri;</i> </span> </a>' +
+                        '{{month}} <a href="javascript:void(0)" ng-click="$event.stopPropagation();showYearsPagination = !showYearsPagination"><span>{{year}} <i ng-if="!showYearsPagination">&dtrif;</i> <i ng-if="showYearsPagination">&urtri;</i> </span> </a>' +
                         '</div>' +
                         '<div class="force-datepicker-calendar-header-right">' +
-                        '<a href="javascript:void(0)" ng-click="nextMonth()">' + nextButton + '</a>' +
+                        '<a href="javascript:void(0)" ng-click="$event.stopPropagation();nextMonth()">' + nextButton + '</a>' +
                         '</div>' +
                         '</div>' +
                             //Mobile month+year pagination
@@ -66,11 +66,11 @@ app.registerDirective(function (container) {
                             //years pagination header
                         '<div class="force-datepicker-calendar-header" ng-show="showYearsPagination">' +
                         '<div class="force-datepicker-calendar-years-pagination">' +
-                        '<a ng-class="{\'force-datepicker-active\': y === year, \'force-datepicker-disabled\': !isSelectableMaxYear(y) || !isSelectableMinYear(y)}" href="javascript:void(0)" ng-click="setNewYear(y)" ng-repeat="y in paginationYears">{{y}}</a>' +
+                        '<a ng-class="{\'force-datepicker-active\': y === year, \'force-datepicker-disabled\': !isSelectableMaxYear(y) || !isSelectableMinYear(y)}" href="javascript:void(0)" ng-click="$event.stopPropagation();setNewYear(y)" ng-repeat="y in paginationYears">{{y}}</a>' +
                         '</div>' +
                         '<div class="force-datepicker-calendar-years-pagination-pages">' +
-                        '<a href="javascript:void(0)" ng-click="paginateYears(paginationYears[0])" ng-class="{\'force-datepicker-item-hidden\': paginationYearsPrevDisabled}">' + prevButton + '</a>' +
-                        '<a href="javascript:void(0)" ng-click="paginateYears(paginationYears[paginationYears.length -1 ])" ng-class="{\'force-datepicker-item-hidden\': paginationYearsNextDisabled}">' + nextButton + '</a>' +
+                        '<a href="javascript:void(0)" ng-click="$event.stopPropagation();paginateYears(paginationYears[0])" ng-class="{\'force-datepicker-item-hidden\': paginationYearsPrevDisabled}">' + prevButton + '</a>' +
+                        '<a href="javascript:void(0)" ng-click="$event.stopPropagation();paginateYears(paginationYears[paginationYears.length -1 ])" ng-class="{\'force-datepicker-item-hidden\': paginationYearsNextDisabled}">' + nextButton + '</a>' +
                         '</div>' +
                         '</div>' +
                             //days column
@@ -80,7 +80,7 @@ app.registerDirective(function (container) {
                             //days
                         '<div class="force-datepicker-calendar-body">' +
                         '<a href="javascript:void(0)" ng-repeat="px in prevMonthDays" class="force-datepicker-calendar-day force-datepicker-disabled">{{px}}</a>' +
-                        '<a href="javascript:void(0)" ng-repeat="item in days" ng-click="setDatepickerDay(item)" ng-class="{\'force-datepicker-active\': day === item, \'force-datepicker-disabled\': !isSelectableMinDate(year + \'/\' + monthNumber + \'/\' + item ) || !isSelectableMaxDate(year + \'/\' + monthNumber + \'/\' + item)}" class="force-datepicker-calendar-day">{{item}}</a>' +
+                        '<a href="javascript:void(0)" ng-repeat="item in days" ng-click="$event.stopPropagation();setDatepickerDay(item)" ng-class="{\'force-datepicker-active\': day === item, \'force-datepicker-disabled\': !isSelectableMinDate(year + \'/\' + monthNumber + \'/\' + item ) || !isSelectableMaxDate(year + \'/\' + monthNumber + \'/\' + item)}" class="force-datepicker-calendar-day">{{item}}</a>' +
                         '<a href="javascript:void(0)" ng-repeat="nx in nextMonthDays" class="force-datepicker-calendar-day force-datepicker-disabled">{{nx}}</a>' +
                         '</div>' +
                         '</div>' +

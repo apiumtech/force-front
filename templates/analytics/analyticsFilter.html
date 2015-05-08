@@ -141,15 +141,16 @@
                                             <div class="col-md-12">
                                                 <p>{{'Filters.Customized' | i18next}}</p></div>
                                             <div class="col-md-12">
-
                                                 <div class="input-group input-daterange">
                                                     <force-date-picker
+                                                            date-set="{{isoStringDateStart()}}"
                                                             date-format="dd/MM/yyyy">
                                                         <input type="text" class="form-control" name="start"
                                                                ng-model="displayDateStart"/>
                                                     </force-date-picker>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <force-date-picker
+                                                            date-set={{isoStringDateEnd()}}
                                                             date-format="dd/MM/yyyy">
                                                         <input type="text" class="form-control" name="end"
                                                                ng-model="displayDateEnd"

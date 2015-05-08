@@ -22,6 +22,13 @@ app.registerView(function (container) {
         self.defaultPreviousDay = 30;
         self.datePickerFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
+        self.$scope.isoStringDateStart = function(){
+            return self.$scope.dateRangeStart.toString();
+        };
+        self.$scope.isoStringDateEnd = function(){
+            return self.$scope.dateRangeEnd.toString();
+        };
+
         this.data.isLoadingUsers = false;
 
         SalesAnalyticsFilterView.configureEvents(this);
