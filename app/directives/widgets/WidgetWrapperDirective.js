@@ -2,12 +2,12 @@
  * Created by justin on 3/13/15.
  */
 app.registerDirective(function (container) {
-    var AccountDetailWidgetWrapperController = container.getController("controllers/accountDetails/AccountDetailWidgetWrapperController");
+    var WidgetWrapperController = container.getController("controllers/widgets/WidgetWrapperController");
 
-    function AccountDetailWidgetWrapperDirective() {
+    function WidgetWrapperDirective() {
         return {
             restrict: "EA",
-            controller: AccountDetailWidgetWrapperController,
+            controller: WidgetWrapperController,
             scope: {
                 title: "@",
                 bodyClass: "@",
@@ -19,5 +19,5 @@ app.registerDirective(function (container) {
         };
     }
 
-    return AccountDetailWidgetWrapperDirective;
+    return WidgetWrapperDirective;
 });

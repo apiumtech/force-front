@@ -1,6 +1,9 @@
 /**
  * Created by apium on 5/8/15.
  */
+/**
+ * Downloaded from Github
+ */
 app.registerDirective(function (container) {
 
     function ForceDatePickerDirective() {

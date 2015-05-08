@@ -310,9 +310,9 @@ function main() {
             'presenters/accountDetails/AccountDetailsPresenter',
             'services/AccountService',
 
-            'views/accountDetails/AccountDetailWidgetWrapperView',
-            'controllers/accountDetails/AccountDetailWidgetWrapperController',
-            'directives/WidgetWrapperDirective',
+            'views/widgets/WidgetWrapperView',
+            'controllers/widgets/WidgetWrapperController',
+            'directives/widgets/WidgetWrapperDirective',
 
             // Activity widget
             'directives/AccountDetailActivityDirective',
