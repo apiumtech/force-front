@@ -181,7 +181,8 @@ function main() {
             'angularMoment',
             'angularFileUpload',
             'infinite-scroll',
-            'validation', 'validation.rule'
+            'validation',
+            'validation.rule'
         ], AngularConfig));
 
     app.manifest = {
@@ -208,6 +209,7 @@ function main() {
             'services/bus/ScrollEventBus',
             'directives/HighLightResultDirective',
             'directives/TriStateCheckBoxDirective',
+            'directives/ForceDatePickerDirective',
 
 
 

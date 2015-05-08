@@ -79,11 +79,18 @@ ul[datepicker-popup-wrap] {
   display: initial !important;
 }
 
-.filters-div .dropdown-menu.media-list li.media {
-  cursor: default;
+.filters-div .dropdown-menu.media-list {
+  li.media {
+    cursor: default;
 
-  &:hover {
-    background-color: initial !important;
+    &:hover {
+      background-color: initial !important;
+    }
+  }
+
+  &.haveDatePicker{
+    overflow-y: initial;
+    max-height: initial;
   }
 }
 

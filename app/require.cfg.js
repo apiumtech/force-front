@@ -44,6 +44,7 @@ var require = {
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
         'fullcalendar': "../node_modules/fullcalendar/dist/fullcalendar.min"
+
     },
 
     'shim': {

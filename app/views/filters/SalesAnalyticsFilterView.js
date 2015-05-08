@@ -161,10 +161,9 @@ app.registerView(function (container) {
             self.datePickerStartOpened = false;
         };
 
-        self.fn.closeDateTimePickers = function (event) {
+        self.fn.closeDatePickers = function (event) {
             event.stopPropagation();
-            self.datePickerEndOpened = false;
-            self.datePickerStartOpened = false;
+            $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
         };
 
         self.fn.loadPreviousLastDaysFilter = function (days, event) {

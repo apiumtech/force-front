@@ -30,6 +30,7 @@
   },
   "engine": "node 0.4.1",
   "devDependencies": {
+    "angular-date-picker": "^1.2.0",
     "body-parser": "^1.10.0",
     "connect-busboy": "0.0.2",
     "datatable": "^1.1.2",
