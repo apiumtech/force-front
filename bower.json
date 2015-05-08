@@ -1,0 +1,19 @@
+{
+  "name": "force-front",
+  "version": "0.0.0",
+  "homepage": "https://github.com/apiumtech/force-front",
+  "authors": [
+    "apiumtech"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

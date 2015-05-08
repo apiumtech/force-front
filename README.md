@@ -1,9 +1,14 @@
 force-front
 ===========
 
-for adding the design folder just run
-
-`grunt reload-design`
+-- May 8 2015
+* Installed bower for some front-end dependencies
+* Run
+  
+  > npm i
+  > bower install
+  
+  before doing anything
 
 -- March 26 2015
 * Removed dependencies to force-design
