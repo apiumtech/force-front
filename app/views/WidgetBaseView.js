@@ -3,7 +3,11 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
+
+    // TODO: deprecated, removing
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+
+
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
 
     function WidgetBaseView(scope, element, model, presenter) {
@@ -39,6 +43,7 @@ app.registerView(function (container) {
         this.__show.call(this);
 
         var self = this;
+
         self.filterChannel.onDateFilterApplySignalReceived(function (filterValue) {
             self.event.onDateFilterApplied(filterValue);
         });

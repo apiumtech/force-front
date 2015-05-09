@@ -197,6 +197,8 @@ function main() {
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
             // Channels
             'services/bus/FilterChannel',
+
+            'services/bus/BaseWidgetEventBus',
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
             'plots/PieChart',

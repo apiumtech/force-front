@@ -7,6 +7,9 @@ app.registerView(function (container) {
     var GraphWidgetModel = container.getModel('models/GraphWidgetModel');
     var GraphWidgetPresenter = container.getPresenter('presenters/GraphWidgetPresenter');
 
+
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+
     var Plot = container.getService('plots/Plot');
     var $ = container.getFunction('jquery');
     var LineGraphPlot = container.getService('plots/LineGraphPlot');
@@ -20,6 +23,8 @@ app.registerView(function (container) {
         scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;
         var self = this;
+
+        console.log(self.eventChannel);
         self.configureEvents();
     }
 
@@ -31,12 +36,23 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.availableFields = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
     GraphWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
+        var eventChannel = self.eventChannel;
+
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
@@ -78,13 +94,18 @@ app.registerView(function (container) {
         };
     };
 
+    GraphWidgetView.prototype.onReloadCommandReceived = function () {
+        this.$scope.isLoading = true;
+        this.event.onReloadWidgetStart();
+    };
+
     GraphWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
         self.data = data.data.params;
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
-        self.event.onReloadWidgetDone();
+        self.eventChannel.sendReloadCompleteCommand();
     };
 
     GraphWidgetView.prototype.refreshChart = function () {

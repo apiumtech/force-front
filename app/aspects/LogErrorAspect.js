@@ -18,7 +18,7 @@ app.registerService(function (container) {
             }.bind(this));
 
             meld.afterThrowing(view, /^[a-z].+/, function (error) {
-                this._error(errorMessage(error));
+                console.warn(errorMessage(error));
             }.bind(this));
         }
     };

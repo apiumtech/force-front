@@ -1,90 +1,94 @@
-<div ng-controller="GraphWidgetController" ng-init="fn.assignWidget(widget)">
+<widget-wrapper body-class=""
+                title="{{widget.widgetName}}"
+                event-bus-channel="eventChannel"
+                is-reloading="isReloading">
+    <div ng-controller="GraphWidgetController" ng-init="fn.assignWidget(widget)">
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-lg-4 m-b-20 ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-lg-4 m-b-20 ">
 
-            <select class="form-control pull left"
-                    ng-change="fn.changeFilter()"
-                    ng-model="selectedFilter">
-                <option value="{{filter.key}}"
-                        ng-repeat="filter in filters">{{filter.name}}
-                </option>
-            </select>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-lg-8 m-b-20">
-            <div class="btn-group pull-right">
-                <button class="btn btn-white btn-sm"
-                        ng-class="{'active': selectedRangeOption=='hour'}"
-                        ng-click="fn.changeFilterRange('hour')">
-                    {{'LineWidget.Filters.Hour' | i18next}}
-                </button>
-                <button class="btn btn-white btn-sm"
-                        ng-class="{'active': selectedRangeOption=='date'}"
-                        ng-click="fn.changeFilterRange('date')">
-                    {{'LineWidget.Filters.Date' | i18next}}
-                </button>
-                <button class="btn btn-white btn-sm"
-                        ng-class="{'active': selectedRangeOption=='week'}"
-                        ng-click="fn.changeFilterRange('week')">
-                    {{'LineWidget.Filters.Week' | i18next}}
-                </button>
-                <button class="btn btn-white btn-sm"
-                        ng-class="{'active': selectedRangeOption=='month'}"
-                        ng-click="fn.changeFilterRange('month')">
-                    {{'LineWidget.Filters.Month' | i18next}}
-                </button>
+                <select class="form-control pull left"
+                        ng-change="fn.changeFilter()"
+                        ng-model="selectedFilter">
+                    <option value="{{filter.key}}"
+                            ng-repeat="filter in filters">{{filter.name}}
+                    </option>
+                </select>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-8 col-lg-10">
-            <div class="chart-place-holder height-sm">
-            </div>
-        </div>
-        <div class="col-sm-4 col-lg-2 ">
-            <div class=" border-grey parameters clearfix">
-                <div class="clearfix">
-                    <h6>
-                        {{'LineWidget.Filters.ShowFields' | i18next}}
-                    </h6>
-
-                    <div class="checkbox">
-                        <label ng-repeat="field in availableFields" class="block">
-                            <input type="checkbox"
-                                   ng-checked="field.isDisplaying"
-                                   ng-click="fn.toggleDisplayField(field.name)"
-                                   value="{{field.name}}">{{field.name}}
-                        </label>
-                    </div>
+            <div class="col-xs-12 col-sm-6 col-lg-8 m-b-20">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-white btn-sm"
+                            ng-class="{'active': selectedRangeOption=='hour'}"
+                            ng-click="fn.changeFilterRange('hour')">
+                        {{'LineWidget.Filters.Hour' | i18next}}
+                    </button>
+                    <button class="btn btn-white btn-sm"
+                            ng-class="{'active': selectedRangeOption=='date'}"
+                            ng-click="fn.changeFilterRange('date')">
+                        {{'LineWidget.Filters.Date' | i18next}}
+                    </button>
+                    <button class="btn btn-white btn-sm"
+                            ng-class="{'active': selectedRangeOption=='week'}"
+                            ng-click="fn.changeFilterRange('week')">
+                        {{'LineWidget.Filters.Week' | i18next}}
+                    </button>
+                    <button class="btn btn-white btn-sm"
+                            ng-class="{'active': selectedRangeOption=='month'}"
+                            ng-click="fn.changeFilterRange('month')">
+                        {{'LineWidget.Filters.Month' | i18next}}
+                    </button>
                 </div>
-                <div class="m-t-20 clearfix">
-                    <h6>{{'LineWidget.DataDisplay' | i18next}}</h6>
-
-                    <div class="btn-group  m-t-10 m-b-10">
-                        <button class="btn btn-white btn-sm"
-                                ng-click="fn.switchToLine()"
-                                ng-class="{'active': currentChartType=='line'}"
-                                style="padding: 4px 8px!important;">
-                            <img src="assets/img/graph-1.png" alt="">
-                        </button>
-                        <button class="btn btn-white btn-sm "
-                                ng-click="fn.switchToFilled()"
-                                ng-class="{'active': currentChartType=='filled'}"
-                                style="padding: 4px 8px!important;">
-                            <img src="assets/img/graph-2.png" alt="">
-                        </button>
-
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
+
+        <div class="row">
+            <div class="col-sm-8 col-lg-10">
+                <div class="chart-place-holder height-sm">
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-2 ">
+                <div class=" border-grey parameters clearfix">
+                    <div class="clearfix">
+                        <h6>
+                            {{'LineWidget.Filters.ShowFields' | i18next}}
+                        </h6>
+
+                        <div class="checkbox">
+                            <label ng-repeat="field in availableFields" class="block">
+                                <input type="checkbox"
+                                       ng-checked="field.isDisplaying"
+                                       ng-click="fn.toggleDisplayField(field.name)"
+                                       value="{{field.name}}">{{field.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="m-t-20 clearfix">
+                        <h6>{{'LineWidget.DataDisplay' | i18next}}</h6>
+
+                        <div class="btn-group  m-t-10 m-b-10">
+                            <button class="btn btn-white btn-sm"
+                                    ng-click="fn.switchToLine()"
+                                    ng-class="{'active': currentChartType=='line'}"
+                                    style="padding: 4px 8px!important;">
+                                <img src="assets/img/graph-1.png" alt="">
+                            </button>
+                            <button class="btn btn-white btn-sm "
+                                    ng-click="fn.switchToFilled()"
+                                    ng-class="{'active': currentChartType=='filled'}"
+                                    style="padding: 4px 8px!important;">
+                                <img src="assets/img/graph-2.png" alt="">
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
-    <div class="row">
-        <div class="col-xs-12 m-t-10">
+        <div class="row">
+            <div class="col-xs-12 m-t-10">
             <span class="container-popover">
                 <span class="btn btn-white btn-lg m-r-10 m-t-10 noHover">
                     <strong>324</strong>
@@ -92,42 +96,6 @@
                         {{'LineWidget.TotalVisits' | i18next}}
                     </small>
                 </span>
-                <!-- popover-->
-                <!--<div class="popover fade right in"-->
-                     <!--role="tooltip"-->
-                     <!--style=" left: 200px; top: -57px;">-->
-                    <!--<div class="arrow"></div>-->
-                    <!--<h3 class="popover-title">-->
-                        <!--<strong>324 </strong>Visitas totales-->
-                    <!--</h3>-->
-
-                    <!--<div class="popover-content">-->
-                        <!--<ul class="no-bullet">-->
-
-                            <!--<li class="text-link"><a href="">Company-->
-                                <!--name1 Lorem</a></li>-->
-
-                            <!--<li class="text-link"><a href="">Company-->
-                                <!--name ipsum</a></li>-->
-                            <!--<li class="text-link"><a href="">Company-->
-                                <!--data lorem</a></li>-->
-                            <!--<li class="text-link"><a href="">Company-->
-                                <!--SL</a></li>-->
-                            <!--<li class="text-link"><a href="">Company-->
-                                <!--Ipsum sit</a></li>-->
-
-                            <!--<li class="divider"></li>-->
-                            <!--<li class="m-t-10 m-b-5 text-link clearfix">-->
-                                <!--<button type="button"-->
-                                        <!--class="btn btn-default btn-sm pull-left"-->
-                                        <!--data-toggle="modal"-->
-                                        <!--data-target="#all-companies">-->
-                                    <!--See all-->
-                                <!--</button>-->
-                            <!--</li>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!-- popover-->
             </span>
 
             <span class="btn btn-white btn-lg m-r-10 m-t-10 noHover">
@@ -138,7 +106,7 @@
                 <strong>5,7</strong>
                 <small>{{'LineWidget.VisitsPerUserPerDay' | i18next}}</small>
             </span>
+            </div>
         </div>
     </div>
-    <!-- all graph-related items here -->
-</div>
+</widget-wrapper>

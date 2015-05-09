@@ -196,13 +196,13 @@ describe("GraphWidgetView", function () {
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
         });
-
-        it("Should fire done reload widget event", function () {
-            instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
-        });
+///*
+//        it("Should fire done reload widget event", function () {
+//            instantiateSut();
+//            spyOn(sut.event, 'onReloadWidgetDone');
+//            sut.onReloadWidgetSuccess(fakeResponseData);
+//            expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+//        });*/
     });
 
     describe("extractDisplayFields", function () {

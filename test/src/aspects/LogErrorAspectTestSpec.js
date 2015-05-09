@@ -6,7 +6,11 @@ describe('LogErrorAspect', function () {
     var LogErrorAspect = app.getService('aspects/LogErrorAspect');
 
     function exerciseCreateView() {
-        return { showError: function () {}, anotherPublicFunction: function () {} };
+        return {
+            showError: function () {
+            }, anotherPublicFunction: function () {
+            }
+        };
     }
 
     it("should call the _log function after running showError", function () {
@@ -29,13 +33,13 @@ describe('LogErrorAspect', function () {
         expect(LogErrorAspect._log).not.toHaveBeenCalled();
     });
 
-    it('should log error.toString when error.stack is not available', function(){
+    it('should log error.toString when error.stack is not available', function () {
         LogErrorAspect._log = jasmine.createSpy();
 
         var view = exerciseCreateView();
         LogErrorAspect.weave(view);
         view.showError({
-            toString:function(){
+            toString: function () {
                 return "to string"
             }
         });
@@ -43,18 +47,19 @@ describe('LogErrorAspect', function () {
         expect(LogErrorAspect._log).toHaveBeenCalledWith("to string");
     });
 
-    it('should call _error after throwing an exception', function(){
-        var errorSpy = jasmine.createSpy();
+    it('should call _error after throwing an exception', function () {
+        var errorSpy = spyOn(console, 'warn').and.callThrough();
         LogErrorAspect._error = errorSpy;
 
         var view = exerciseCreateView();
-        view.methodThatThrows = function(){
+        view.methodThatThrows = function () {
             throw new Error("Ugly error");
-        }
+        };
         LogErrorAspect.weave(view);
-        try{
+        try {
             view.methodThatThrows();
-        }catch(err){}
+        } catch (err) {
+        }
 
         expect(errorSpy).toHaveBeenCalled();
 

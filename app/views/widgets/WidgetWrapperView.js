@@ -96,10 +96,11 @@ app.registerView(function (container) {
 
     WidgetWrapperView.prototype.bindEventsToChannel = function () {
         var self = this;
-        if (self.eventBusChannel && !self.boundChannelEvent) {
-            self.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-            self.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
-            self.boundChannelEvent = true;
+        if (self.$scope.eventBusChannel && !self.boundChannelEvent) {
+            console.log("eventbuschannel changed:", self.$scope.eventBusChannel);
+            self.$scope.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+            self.$scope.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
+            self.$scope.boundChannelEvent = true;
         }
     };
 
