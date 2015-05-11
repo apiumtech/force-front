@@ -1,29 +1,41 @@
-/**
- * Created by kevin on 10/22/14.
- */
 app.registerModel(function (container) {
-    var LiteralService = container.getService('services/literal/LiteralService');
+    var Configuration = container.getService('Configuration');
+    var AjaxService = container.getService("services/AjaxService");
 
-    function LiteralModel($literalService) {
-        this.gateway = $literalService; // LiteralService.js
+    function LiteralModel(ajaxService) {
+        this.ajaxService = ajaxService;
+        this.page = -1;
     }
 
-    LiteralModel.prototype.getLiteralById = function (id) {
-        return this.gateway.getLiteralById(id);
+
+    // ------
+    // List
+    // ------
+
+
+    LiteralModel.prototype.getLiteralList = function (searchTerm) {
+        this.page++;
+
+        var body = {
+            search: searchTerm,
+            skip: this.page,
+            limit: Configuration.pageSize
+        };
+
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalListBySearch,
+            data: JSON.stringify(body),
+            type: 'POST',
+            dataType: 'json'
+        });
     };
 
-    LiteralModel.prototype.updateOrCreateLiteral = function (literal) {
-        return this.gateway.updateOrCreateLiteral(literal);
-    };
 
-    LiteralModel.prototype.deleteLiteral = function (id) {
-        return this.gateway.deleteLiteral(id);
-    };
 
-    LiteralModel.newInstance = function (ls) {
-        var literalService = ls || LiteralService.newInstance().getOrElse(throwException("Could not create LiteralService"));
+    LiteralModel.newInstance = function (ajaxService) {
+        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
 
-        return Some(new LiteralModel(literalService));
+        return Some(new LiteralModel(ajaxService));
     };
 
     return {newInstance: LiteralModel.newInstance};

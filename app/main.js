@@ -32,11 +32,7 @@ function main() {
                 templateUrl: 'templates/literalList.html',
                 controller: 'LiteralListController'
             }).
-            when('/literal', {
-                templateUrl: 'templates/literal/literal.html',
-                controller: 'LiteralController'
-            }).
-            when('/literal/:literalId', {
+            when('/literal/:literalId/edit', {
                 templateUrl: 'templates/literal/literal.html',
                 controller: 'LiteralController'
             })
@@ -246,12 +242,19 @@ function main() {
 
 
             // Liteal List Page
-            'controllers/literal/LiteralListController', 'views/literal/LiteralListView', 'presenters/literal/LiteralListPresenter', 'models/literal/LiteralListModel',
-            'services/literal/LiteralListService', 'services/literal/QueryLiteralListBuilder',
+            'controllers/literal/LiteralListController',
+            'views/literal/LiteralListView',
+            'presenters/literal/LiteralListPresenter',
+
 
             //Literal Page
-            'controllers/literal/LiteralController', 'views/literal/LiteralView', 'presenters/literal/LiteralPresenter', 'models/literal/LiteralModel',
-            'services/literal/LiteralService', 'services/literal/QueryLiteralBuilder',
+            'controllers/literal/LiteralController',
+            'views/literal/LiteralView',
+            'presenters/literal/LiteralPresenter',
+            'models/literal/LiteralModel',
+
+            'services/literal/LiteralService',
+            'services/literal/QueryLiteralBuilder',
 
 
 

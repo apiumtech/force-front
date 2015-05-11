@@ -46,5 +46,17 @@
         <!-- End Panel body -->
 
     </div>
+
+    <!-- TEMPLATES -->
+    <div class="hide literalKeyColumnTemplate">
+        {Key}
+        <div>
+            <div class="edit-delete-div">
+                <a href="#/literal/{Id}/edit"><i class="fa ic-edit"></i>Edit</a> |
+                <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>Delete</a>
+            </div>
+        </div>
+    </div>
+    <!-- END TEMPLATES -->
 </div>
 

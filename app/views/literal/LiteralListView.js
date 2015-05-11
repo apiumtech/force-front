@@ -1,9 +1,9 @@
-
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var LiteralListPresenter = container.getPresenter('presenters/literal/LiteralListPresenter');
-    var LiteralListModel = container.getModel('models/literal/LiteralListModel');
+    var LiteralModel = container.getModel('models/literal/LiteralModel');
     var DataTableService = container.getService("services/DataTableService");
+    var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
 
 
     /**
@@ -11,10 +11,11 @@ app.registerView(function (container) {
      *
      * @constructor
      */
-    function LiteralListView($scope, $model, $presenter, dataTableService) {
+    function LiteralListView($scope, $model, $presenter, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.dataTableService = dataTableService;
+        this.templateParser = templateParser;
         this.data.tableColumns = null;
         this.data.literals = null;
         this.data.table = null;
@@ -38,21 +39,32 @@ app.registerView(function (container) {
      */
     LiteralListView.prototype.configureEvents = function () {
 
+        this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
+
         // Events defined in Presenter
-        this.event.onInit = function () {
-        };
-        this.event.onSearchTextFilterChanged = function () {
-        };
+        this.event.onInit = function () {};
+        this.event.onSearchTextFilterChanged = function () {};
     };
 
 
-    LiteralListView.prototype.showError = function (error) {
-        console.error(error);
-        this.data.currentError = error;
+    /**
+     * Literal deletion prompt
+     *
+     * @method deleteLiteralPrompt()
+     */
+    LiteralListView.prototype.deleteLiteralPrompt = function (literalId) {
+        alert("Literal Id: " + literalId);
     };
 
+
+    /**
+     * Renders the table with the retrieved data
+     *
+     * @method showTableData()
+     */
     LiteralListView.prototype.showTableData = function (data) {
 
+        var self = this;
         var languages = [];
 
         data[0].LanguageValues.forEach(function (value, index) {
@@ -70,7 +82,7 @@ app.registerView(function (container) {
             title: "Key",
             type: "string",
             visible: true,
-            sortable: true
+            sortable: false
         }];
         columns = columns.concat(languages);
 
@@ -78,23 +90,27 @@ app.registerView(function (container) {
         var requestRow = function(obj){
             var row = {};
             row.$ref = obj;
+            row.Id = obj.Id;
             row.Key = obj.Key;
             languages.forEach(function(lang, index){
                 row[lang.data] = obj.LanguageValues[index].Value;
             });
             return row;
         };
-        var cont = 0;
-        console.log(data.length);
+
         data = data.map(function(row){
-            cont++;
             return requestRow(row);
         });
-        console.log("cont", cont);
 
         var dataTableConfig = {
             data: data,
             columns: columns,
+            columnDefs: [
+                {
+                    targets: 0,
+                    render: self.renderKeyColumn.bind(self)
+                }
+            ],
             deferRender: true,
             pageLength: 50,
             pagingType: "full_numbers"
@@ -103,13 +119,42 @@ app.registerView(function (container) {
     };
 
 
-    LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $viewRepAspect, $logErrorAspect) {
+    /**
+     * Renders the Key column with the provided template
+     *
+     * @method renderKeyColumn()
+     */
+    LiteralListView.prototype.renderKeyColumn = function (data, type, row) {
+        var self = this
+        var colTemplate = $(".literalKeyColumnTemplate").html();
+        return self.templateParser.parseTemplate(colTemplate, row);
+    };
+
+
+    /**
+     * Error displaying
+     *
+     * @method showError()
+     */
+    LiteralListView.prototype.showError = function (error) {
+        console.error(error);
+        this.data.currentError = error;
+    };
+
+
+    /**
+     * Static module factory
+     *
+     * @method newInstance()
+     */
+    LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
+        var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
         var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
         var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
+        var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
 
-        var view = new LiteralListView(scope, model, presenter, dataTableService);
+        var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

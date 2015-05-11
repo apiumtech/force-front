@@ -2,7 +2,7 @@ app.registerService(function (container) {
     var AjaxService = container.getService('services/AjaxService');
     var QueryLiteralListBuilder = container.getService('services/literal/QueryLiteralListBuilder');
 
-    var LITERAL_KEY_LIST_URL = "https://commons-queries.forcemanager.net/literals/literal/literalListBySearchAndLimit.ashx"
+    var LITERAL_KEY_LIST_URL = "https://backenddev.forcemanager.net/literals/literalListBySearch"
 
     var LiteralListService = function ($ajaxService, $queryLiteralListBuilder) {
         this.ajaxService = $ajaxService;

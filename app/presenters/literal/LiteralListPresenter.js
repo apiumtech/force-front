@@ -1,46 +1,51 @@
-/**
- * Created by kevin on 10/22/14.
- */
-
 app.registerPresenter(function (container) {
 
-    // FIXME: LiteralListPresenter with a instance of LiteralModel :(
     var LiteralModel = container.getModel('models/literal/LiteralModel');
 
-    function LiteralListPresenter(literalmodel) {
-        this.literalmodel = literalmodel;
+    function LiteralListPresenter() {
     }
 
+
     LiteralListPresenter.prototype.show = function (view, model) {
+        this.model = model;
+        this.view = view;
 
-        view.event.onSearchTextFilterChanged = function (value) {
-            model.setSearchTextFilter(value)
-                .then(
-                    view.showTableData.bind(view),
-                    view.showError.bind(view)
-                );
-        };
-
-        view.event.onInit = function () {
-            model.getLiteralKeyList()
-                .then(
-                view.showTableData.bind(view),
-                view.showError.bind(view)
-            );
-        };
-
-        view.event.onDelete = function (id) {
-            this.literalmodel.deleteLiteral(id)
-                .then(model.getLiteralKeyList.bind(model), view.showError.bind(view))
-                .then(view.showTableData.bind(view), view.showError.bind(view));
-        }.bind(this);
-
+        view.event.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
+        view.event.onInit = this.onInit.bind(this);
+        view.event.onDelete = this.onDelete.bind(this);
     };
 
-    LiteralListPresenter.newInstance = function ($filterChannel, $literalmodel) {
-        var literalmodel = $literalmodel || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
 
-        return Some(new LiteralListPresenter(literalmodel));
+    LiteralListPresenter.prototype.onInit = function () {
+        var self = this;
+        self.model.getLiteralList("")
+            .then(
+            self.view.showTableData.bind(self.view),
+            self.view.showError.bind(self.view)
+        );
+    };
+
+
+    LiteralListPresenter.prototype.onSearchTextFilterChanged = function (value) {
+        var self = this;
+        self.model.getLiteralList(value)
+            .then(
+            self.view.showTableData.bind(self.view),
+            self.view.showError.bind(self.view)
+        );
+    };
+
+
+    LiteralListPresenter.prototype.onDelete = function (id) {
+        var self = this;
+        self.model.deleteLiteral(id)
+            .then(self.model.getLiteralList.bind(self.model), self.view.showError.bind(self.view))
+            .then(self.view.showTableData.bind(self.view), self.view.showError.bind(self.view));
+    };
+
+
+    LiteralListPresenter.newInstance = function () {
+        return Some(new LiteralListPresenter());
     };
 
     return {newInstance: LiteralListPresenter.newInstance};

@@ -5,7 +5,7 @@ app.registerService(function (container) {
 
     var baseLocation = getLocation();
 
-    var baseUrl = "https://backenddev.forcemanager.net/api";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "http://websta.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -36,16 +36,17 @@ app.registerService(function (container) {
 
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
-        authentication: baseUrl + '/commands/security/login',
-        getContacts: baseUrl + '/queries/crm/contacts',
+        authentication: baseUrl + '/api/commands/security/login',
+        getContacts: baseUrl + '/api/queries/crm/contacts',
+        literalListBySearch: baseUrl + '/literals/literalListBySearch',
 
-        intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}',
+        intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
-        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
 
-        graphWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
+        graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
-        rankingWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/usersTableStatsByUsersAndPeriodQuery'
+        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersTableStatsByUsersAndPeriodQuery'
     };
 
     return {
