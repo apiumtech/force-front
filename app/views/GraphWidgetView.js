@@ -89,10 +89,6 @@ app.registerView(function (container) {
         };
     };
 
-    GraphWidgetView.prototype.sendReloadCommandToChannel = function () {
-        this.eventChannel.sendReloadCommand();
-    };
-
     GraphWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
         self.data = data.data.params;

@@ -4,30 +4,12 @@
 
 app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var widgetName = "tableWidget";
 
-    function TableWidgetPresenter(widgetEventChannel) {
-        this.widgetEventChannel = widgetEventChannel;
+    function TableWidgetPresenter() {
     }
 
     TableWidgetPresenter.prototype = Object.create(Object.prototype, {
-        widgetEventChannel: {
-            get: function () {
-                return this._widgetEventChannel;
-            },
-            set: function (value) {
-                this._widgetEventChannel = value;
-                this.rebindChannelListener();
-            }
-        }
     });
-
-    TableWidgetPresenter.prototype.rebindChannelListener = function () {
-        var self = this;
-        self.widgetEventChannel.onReloadSignalReceived(function () {
-            self._executeLoadWidget();
-        });
-    };
 
     TableWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
@@ -47,8 +29,6 @@ app.registerPresenter(function (container) {
         self.$view = view;
         self.$model = model;
 
-        self.rebindChannelListener();
-
         view.event.onReloading = function () {
             view.data = {};
             self._executeLoadWidget();
@@ -65,9 +45,8 @@ app.registerPresenter(function (container) {
         };
     };
 
-    TableWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new TableWidgetPresenter(_widgetEventChannel));
+    TableWidgetPresenter.newInstance = function () {
+        return Some(new TableWidgetPresenter());
     };
 
     return TableWidgetPresenter;

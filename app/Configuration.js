@@ -45,7 +45,9 @@ app.registerService(function (container) {
 
         graphWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
-        rankingWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod'
+        rankingWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
+
+        geographicalWidgetDistributionDataApi: baseUrl + ' /queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod'
     };
 
     return {

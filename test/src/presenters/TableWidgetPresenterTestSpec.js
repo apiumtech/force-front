@@ -81,7 +81,6 @@ describe("TableWidgetPresenter", function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
                 spyOn(view, 'sendReloadCommandToChannel');
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 view.event.onUsersFilterApplied(filterValue);
             });
 

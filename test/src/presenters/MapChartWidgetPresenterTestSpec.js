@@ -15,10 +15,7 @@ describe("MapChartWidgetPresenter", function () {
         var ___view, ___model;
         [
             {
-                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
-            },
-            {
-                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
+                viewEvent: "onReloading", test: onReloadingTest
             },
             {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
@@ -43,14 +40,10 @@ describe("MapChartWidgetPresenter", function () {
                     sut.show(view, ___model);
                 });
 
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
-                });
-
                 describe("when event '" + viewEvent + "' fired", test);
             });
 
-        function onReloadWidgetStartTest() {
+        function onReloadingTest() {
             beforeEach(function () {
                 view.selectedFilter = 'users';
                 view.widget = {
@@ -60,17 +53,17 @@ describe("MapChartWidgetPresenter", function () {
                 ___model.changeFilterTab = jasmine.createSpy();
             });
             it("should add endpoint to model", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
 
             it("should call addQuery with new value", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(___model.changeFilterTab).toHaveBeenCalledWith(view.selectedFilter);
             });
 
             it("should call '_executeLoadWidget' method", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }
@@ -114,22 +107,6 @@ describe("MapChartWidgetPresenter", function () {
             });
         }
 
-        function onReloadWidgetDoneTest() {
-            var errMsg = {msg: "test message"};
-            beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
-                view.$scope = {
-                    selectedFilter: 'selectedFilter',
-                    selectedRangeOption: 'selectedRangeOption'
-                };
-                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                view.event.onReloadWidgetDone(errMsg);
-            });
-
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
-            });
-        }
 
         function onTabChangedTest() {
             function prepareTabChanged() {

@@ -1,0 +1,20 @@
+<widget-wrapper body-class=""
+                title="{{widget.widgetName}}"
+                event-bus-channel="eventChannel">
+    <div>
+        <div class="clearfix m-b-20 ">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20">
+                    <select class="form-control pull left" ng-model="selectedFilter" ng-change="fn.changeFilter(selectedFilter)">
+                        <option value="checkins">{{'MapChart.CheckIns' | i18next}}</option>
+                        <option value="users">{{'MapChart.Users' | i18next}}</option>
+                        <option value="activity">{{'MapChart.Activity' | i18next}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="chart-place-holder height-sm">
+
+        </div>
+    </div>
+</widget-wrapper>
