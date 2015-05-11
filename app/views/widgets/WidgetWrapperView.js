@@ -6,11 +6,11 @@ app.registerView(function (container) {
 
     function WidgetWrapperView($scope, $element) {
         $scope = $scope || {
-            $on: function () {
-            },
-            $watch: function () {
-            }
-        };
+                $on: function () {
+                },
+                $watch: function () {
+                }
+            };
 
         BaseView.call(this, $scope);
         this.element = $element || {};
@@ -97,10 +97,11 @@ app.registerView(function (container) {
     WidgetWrapperView.prototype.bindEventsToChannel = function () {
         var self = this;
         if (self.$scope.eventBusChannel && !self.boundChannelEvent) {
-            console.log("eventbuschannel changed:", self.$scope.eventBusChannel);
             self.$scope.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
             self.$scope.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
             self.$scope.boundChannelEvent = true;
+
+            self.$scope.eventBusChannel.sendReloadCommand();
         }
     };
 
@@ -121,12 +122,12 @@ app.registerView(function (container) {
 
     WidgetWrapperView.prototype.onReloadCommandReceived = function () {
         var self = this;
-        self.isLoading = true;
+        self.$scope.isLoading = true;
     };
 
     WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function () {
         var self = this;
-        self.isLoading = false;
+        self.$scope.isLoading = false;
     };
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {

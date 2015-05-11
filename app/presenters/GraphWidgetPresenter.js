@@ -4,7 +4,7 @@
 
 app.registerPresenter(function (container) {
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var Configuration  = container.getService('Configuration');
+    var Configuration = container.getService('Configuration');
 
     var widgetName = "intensityWidgetA";
 
@@ -56,25 +56,28 @@ app.registerPresenter(function (container) {
             self._executeLoadWidget();
         };
 
+        view.event.onReloading = function () {
+            self._executeLoadWidget();
+        };
+
         view.event.onFilterChanged = function () {
             model.changeQueryFilter(view.$scope.selectedFilter);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onDateFilterApplied = function (filterValue) {
             model.addDateFilter(filterValue.dateStart, filterValue.dateEnd);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
-
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onFilterRangeChanged = function () {
             model.addQuery('grouping', view.$scope.selectedRangeOption);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {

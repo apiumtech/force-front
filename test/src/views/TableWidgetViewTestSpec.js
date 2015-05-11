@@ -4,7 +4,7 @@
 describe("TableWidgetView", function () {
     var TableWidgetView = app.getView('views/TableWidgetView');
     var WidgetBaseView = app.getView('views/WidgetBaseView');
-    var sut;
+    var sut, scope;
 
     var fakeResponseData = {
         data: {
@@ -29,7 +29,11 @@ describe("TableWidgetView", function () {
         };
 
         beforeEach(function () {
-            sut = TableWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
+            scope = {
+                $on: function(){},
+                $watch: function(){}
+            };
+            sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
         });
 
         [{
@@ -179,35 +183,31 @@ describe("TableWidgetView", function () {
     });
 
     describe("onReloadWidgetSuccess", function () {
-        function instantiateSut() {
-            sut = new TableWidgetView({}, {});
+        beforeEach(function () {
+            sut = new TableWidgetView(scope, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
             spyOn(sut, 'assignColumnsData');
             spyOn(sut, 'renderChart');
-        }
+        });
 
         it("Should assign server data's param to scope", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.data).toEqual(fakeResponseData.data.params);
         });
 
         it("Should call assignColumnsData", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.assignColumnsData).toHaveBeenCalledWith(fakeResponseData.data.params.columns);
         });
 
         it("Should call renderChart", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.renderChart).toHaveBeenCalledWith();
         });
 
         it("Should fire done reload widget event", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
@@ -216,7 +216,7 @@ describe("TableWidgetView", function () {
 
     describe("getDisplayColumnIndices", function () {
         beforeEach(function () {
-            sut = new TableWidgetView({}, {}, {}, {});
+            sut = new TableWidgetView(scope, {}, {}, {});
         });
 
         describe("input is not valid", function () {
@@ -290,9 +290,6 @@ describe("TableWidgetView", function () {
     });
 
     describe("getDisplayData", function () {
-        beforeEach(function () {
-            sut = new TableWidgetView({}, {}, {}, {});
-        });
 
         describe("input data is invalid", function () {
             it("should throw exception if any rows in input data has different number of element", function () {
@@ -435,7 +432,6 @@ describe("TableWidgetView", function () {
 
     describe("renderChart", function () {
         beforeEach(function () {
-            sut = new TableWidgetView({}, {}, {}, {});
             sut.data = fakeResponseData.data.params;
             sut.getDisplayData = function () {
             };

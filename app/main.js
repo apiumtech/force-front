@@ -370,6 +370,7 @@ function main() {
             'presenters/filters/SalesAnalyticsFilterPresenter',
 
             // Graph widget
+            'directives/widgets/IntensityGraphWidgetDirective',
             'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
             // Map chart widget

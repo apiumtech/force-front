@@ -19,6 +19,7 @@ describe("WidgetDecoratedPageView", function () {
     describe("decorateWidget", function () {
         it("Should specific template for widgets", function () {
             var view = exerciseCreateView({}, {});
+            view.pageName="page_name_fake";
             var widgetData = [{
                 type: "bar"
             }];
@@ -26,7 +27,7 @@ describe("WidgetDecoratedPageView", function () {
             view.decorateWidget(widgetData);
             expect(widgetData[0].template).not.toBeNull();
 
-            expect(widgetData[0].template).toEqual('/templates/widgets/' + widgetData[0].type + '.html');
+            expect(widgetData[0].template).toEqual('/templates/widgets/page_name_fake/' + widgetData[0].type + '.html');
         });
     });
 

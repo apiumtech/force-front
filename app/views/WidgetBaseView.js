@@ -21,6 +21,8 @@ app.registerView(function (container) {
         this.event.onUsersFilterApplied = function (filterValue) {
             throw new Error("NotImplementedException");
         };
+        this.channelInitialized = false;
+        scope.$watch('widget', this.initializeWidgetChannel.bind(this));
     }
 
     WidgetBaseView.prototype = Object.create(BaseView.prototype, {
@@ -30,13 +32,23 @@ app.registerView(function (container) {
             },
             set: function (value) {
                 this.$scope.widget = value;
-                this.presenter.widgetEventChannel = this._getWidgetChannelInstance(value.widgetType + "||" + value.widgetId);
                 this.model.widgetId = value.widgetId;
                 this.model.order = value.order;
                 this.model.column = value.column;
             }
         }
     });
+
+    WidgetBaseView.prototype.initializeWidgetChannel = function () {
+        if (this.widget && !this.channelInitialized) {
+            this.channelInitialized = true;
+            this.presenter.widgetEventChannel = this._getWidgetChannelInstance(this.widget.widgetType + "||" + this.widget.widgetId);
+        }
+    };
+
+    WidgetBaseView.prototype.sendReloadCommandToChannel = function () {
+
+    };
 
     WidgetBaseView.prototype.__show = BaseView.prototype.show;
     WidgetBaseView.prototype.show = function () {

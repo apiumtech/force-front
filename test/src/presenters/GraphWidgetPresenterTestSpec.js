@@ -37,6 +37,7 @@ describe("GraphWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
+                        sendReloadCommandToChannel: function(){},
                         event: {}
                     };
                     ___model = {
@@ -76,6 +77,7 @@ describe("GraphWidgetPresenter", function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
 
@@ -83,8 +85,8 @@ describe("GraphWidgetPresenter", function () {
                 expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -94,6 +96,7 @@ describe("GraphWidgetPresenter", function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onUsersFilterApplied(filterValue);
             });
 
@@ -101,8 +104,8 @@ describe("GraphWidgetPresenter", function () {
                 expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -134,22 +137,18 @@ describe("GraphWidgetPresenter", function () {
         function onFilterChangedTest() {
             beforeEach(function () {
                 ___model.changeQueryFilter = jasmine.createSpy();
-            });
-
-            function exercisePrepareFilterChangeCall() {
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.$scope = {selectedFilter: "abcdef"};
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 view.event.onFilterChanged();
-            }
+            });
 
             it("should call addQuery on model", function () {
-                exercisePrepareFilterChangeCall();
                 expect(___model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
             });
 
-            it("should fire sendReloadSignal signal on channel", function () {
-                exercisePrepareFilterChangeCall();
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should fire sendReloadCommandToChannel signal on view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -160,7 +159,7 @@ describe("GraphWidgetPresenter", function () {
 
             function exercisePrepareFilterChangeCall() {
                 view.$scope = {selectedRangeOption: "date"};
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onFilterRangeChanged();
             }
 
@@ -171,7 +170,7 @@ describe("GraphWidgetPresenter", function () {
 
             it("should fire sendReloadSignal signal on channel", function () {
                 exercisePrepareFilterChangeCall();
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 

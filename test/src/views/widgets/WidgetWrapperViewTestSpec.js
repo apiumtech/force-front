@@ -90,7 +90,8 @@ describe("WidgetWrapperView", function () {
                 onReloadCommandReceived: function () {
                 },
                 onReloadCompleteCommandReceived: function () {
-                }
+                },
+                sendReloadCommand: function(){}
             };
             sut.boundChannelEvent = false;
         });

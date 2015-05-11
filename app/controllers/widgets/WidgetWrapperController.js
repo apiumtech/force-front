@@ -4,7 +4,7 @@
 app.registerController(function (container) {
     var WidgetWrapperView = container.getView('views/widgets/WidgetWrapperView');
 
-    function WidgetWrapperController($scope, $element) {
+    function WidgetWrapperController($scope, $element, $compile) {
         WidgetWrapperController.configureView($scope, $element);
     }
 
@@ -13,5 +13,5 @@ app.registerController(function (container) {
         this.view.show();
     };
 
-    return WidgetWrapperController;
+    return ['$scope', '$element', '$compile', WidgetWrapperController];
 });

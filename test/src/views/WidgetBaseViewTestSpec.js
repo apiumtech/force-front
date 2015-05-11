@@ -3,7 +3,7 @@
  */
 describe("WidgetBaseView", function () {
     var WidgetBaseView = app.getView('views/WidgetBaseView');
-    var sut;
+    var sut, scope;
 
     describe("on show()", function () {
         var presenter = {
@@ -11,7 +11,11 @@ describe("WidgetBaseView", function () {
         };
 
         function exerciseContructViewInstance() {
-            sut = new WidgetBaseView({}, {}, {}, presenter);
+            scope = {
+                $on: function(){},
+                $watch: function(){}
+            };
+            sut = new WidgetBaseView(scope, {}, {}, presenter);
             sut.event.onReloadWidgetStart = jasmine.createSpy();
         }
 

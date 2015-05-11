@@ -3,6 +3,7 @@
  */
 app.registerService(function (container) {
     var EventBus = container.getService("services/EventBus").getInstance();
+    var _ = container.getFunction("underscore");
 
     function WidgetEventBus(widgetName) {
         this.channel = WidgetEventBus._initChannel(widgetName).getOrElse(throwException("Cannot instantiate channel"));

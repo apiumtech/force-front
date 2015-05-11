@@ -4,10 +4,14 @@
 
 describe("SingleLineChartWidgetView", function () {
     var SingleLineChartWidgetView = app.getView('views/SingleLineChartWidgetView');
-    var sut;
+    var sut, scope;
 
     function initSut() {
-        sut = SingleLineChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(SingleLineChartWidgetView));
+        scope = {
+            $on: function(){},
+            $watch: function(){}
+        };
+        sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(SingleLineChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -116,37 +120,33 @@ describe("SingleLineChartWidgetView", function () {
             }
         };
 
-        function instantiateSut() {
-            sut = new SingleLineChartWidgetView({}, {});
+        beforeEach(function () {
+            sut = new SingleLineChartWidgetView(scope, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
 
             spyOn(sut, 'refreshChart');
             spyOn(sut, 'extractFilters');
-        }
+        });
 
         it("Should assign data to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.data).toEqual(fakeResponseData.data.params);
         });
 
         it("should call extractFilters method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.extractFilters).toHaveBeenCalled();
         });
 
         it("should call refreshChart method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
         });
 
         it("Should fire done reload widget event", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();

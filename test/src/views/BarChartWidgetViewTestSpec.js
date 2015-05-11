@@ -4,10 +4,14 @@
 
 describe("BarChartWidgetView", function () {
     var BarChartWidgetView = app.getView('views/BarChartWidgetView');
-    var sut;
+    var sut, scope;
 
     function initSut() {
-        sut = BarChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(BarChartWidgetView));
+        scope={
+            $on:function(){},
+            $watch:function(){}
+        };
+        sut = BarChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(BarChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -116,33 +120,25 @@ describe("BarChartWidgetView", function () {
             }
         };
 
-        function instantiateSut() {
-            sut = new BarChartWidgetView({}, {});
-            sut.event = {};
-            sut.event.onReloadWidgetDone = function () {
-            };
-
-            spyOn(sut, 'refreshChart');
-            sut.$scope.apply = function () {
-            };
-        }
+        beforeEach(function(){
+            initSut();
+            sut.event.onReloadWidgetDone=function(){};
+            sut.refreshChart = jasmine.createSpy();
+        });
 
         it("Should assign filters to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.tabs).toEqual(fakeResponseData.data.params.filters);
         });
 
         it("Should assign selectedFiler to scope with value is first element of filters", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
         });
 
         it("Should not assign selectedFiler if it has value", function () {
-            instantiateSut();
             sut.selectedFilter = "tab2";
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
@@ -151,27 +147,23 @@ describe("BarChartWidgetView", function () {
         });
 
         it("Should assign data to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.data).toEqual(fakeResponseData.data.params.bars);
         });
 
         it("Should assign tickLabels to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.tickLabels).toEqual(fakeResponseData.data.params.axis.x);
         });
 
         it("should call refreshChart method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
         });
 
         it("Should fire done reload widget event", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();

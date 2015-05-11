@@ -10,7 +10,7 @@ app.registerView(function (container) {
 
     function ConversionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
-        this.configureEvents();
+        this.pageName = 'conversion';
     }
 
     ConversionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});

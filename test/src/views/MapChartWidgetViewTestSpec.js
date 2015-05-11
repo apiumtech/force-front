@@ -4,10 +4,14 @@
 
 describe("MapChartWidgetView", function () {
     var MapChartWidgetView = app.getView('views/MapChartWidgetView');
-    var sut;
+    var sut, scope;
 
     function initSut() {
-        sut = MapChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(MapChartWidgetView));
+        scope = {
+            $on: function(){},
+            $watch: function(){}
+        };
+        sut = MapChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(MapChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -99,23 +103,21 @@ describe("MapChartWidgetView", function () {
             }
         };
 
-        function instantiateSut() {
-            sut = new MapChartWidgetView({}, {});
+        beforeEach(function () {
+            //sut = new MapChartWidgetView(scope, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
 
             spyOn(sut, 'refreshChart');
-        }
+        });
 
         it("should call refreshChart method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
         });
 
         it("Should fire done reload widget event", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
@@ -123,9 +125,8 @@ describe("MapChartWidgetView", function () {
     });
 
     describe("refreshChart", function () {
-        var scope, element, mapChart;
+        var element, mapChart;
         beforeEach(function () {
-            scope = {};
             element = {};
             mapChart = {
                 clearHeatMap: jasmine.createSpy(),

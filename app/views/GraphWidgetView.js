@@ -50,7 +50,8 @@ app.registerView(function (container) {
     GraphWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel;
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -62,11 +63,6 @@ app.registerView(function (container) {
         self.fn.changeFilter = function () {
             self.availableFields = [];
             self.event.onFilterChanged();
-        };
-
-        self.fn.assignWidget = function (outerScopeWidget) {
-            self.widget = outerScopeWidget;
-            self.event.onReloadWidgetStart();
         };
 
         self.fn.switchToFilled = function () {
@@ -95,8 +91,11 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.prototype.onReloadCommandReceived = function () {
-        this.$scope.isLoading = true;
-        this.event.onReloadWidgetStart();
+        this.event.onReloading();
+    };
+
+    GraphWidgetView.prototype.sendReloadCommandToChannel = function () {
+        this.eventChannel.sendReloadCommand();
     };
 
     GraphWidgetView.prototype.onReloadWidgetSuccess = function (data) {

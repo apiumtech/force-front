@@ -4,10 +4,14 @@
 
 describe("PieChartWidgetView", function () {
     var PieChartWidgetView = app.getView('views/PieChartWidgetView');
-    var sut;
+    var sut, scope;
 
     function initSut() {
-        sut = PieChartWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(PieChartWidgetView));
+        scope = {
+            $on: function(){},
+            $watch: function(){}
+        };
+        sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(PieChartWidgetView));
     }
 
     describe("configureEvents", function () {
@@ -113,8 +117,7 @@ describe("PieChartWidgetView", function () {
             }
         };
 
-        function instantiateSut() {
-            sut = new PieChartWidgetView({}, {});
+        beforeEach(function () {
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
@@ -122,24 +125,21 @@ describe("PieChartWidgetView", function () {
             spyOn(sut, 'refreshChart');
             sut.$scope.apply = function () {
             };
-        }
+        });
 
         it("Should assign filters to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.tabs).toEqual(fakeResponseData.data.params.filters);
         });
 
         it("Should assign selectedFiler to scope with value is first element of filters", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
         });
 
         it("Should not assign selectedFiler if it has value", function () {
-            instantiateSut();
             sut.selectedFilter = "tab2";
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
@@ -148,20 +148,17 @@ describe("PieChartWidgetView", function () {
         });
 
         it("Should assign data to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.data).toEqual(fakeResponseData.data.params.params);
         });
 
         it("should call refreshChart method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
         });
 
         it("Should fire done reload widget event", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();

@@ -173,11 +173,14 @@ requirejs.config({
 
         'Configuration',
         'AppsAdapter',
+        'directives/ScrollTopButtonDirective',
         'services/EventBus', 'services/AjaxService', 'services/ajax/AuthAjaxService', 'services/QueryBuilder',
         'services/ObjectMerger',
         'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
         // Channels
         'services/bus/FilterChannel',
+
+        'services/bus/BaseWidgetEventBus',
         // plots
         'plots/Plot', 'plots/LineGraphPlot',
         'plots/PieChart',
@@ -187,6 +190,12 @@ requirejs.config({
         'plots/SingleLineChart',
 
         'services/PopoverAdapter',
+        'services/bus/ScrollEventBus',
+        'directives/HighLightResultDirective',
+        'directives/TriStateCheckBoxDirective',
+        'directives/ForceDatePickerDirective',
+
+
 
         // TODO: to be removed in production
         'services/FakeAjaxService',
@@ -240,6 +249,7 @@ requirejs.config({
 
         // confirmation dialog
         'controllers/ConfirmationDialogController',
+        'controllers/NotificationDialogController',
         'views/ConfirmationDialogView',
 
         'models/filters/BaseAccountFilterModel',
@@ -284,9 +294,9 @@ requirejs.config({
         'presenters/accountDetails/AccountDetailsPresenter',
         'services/AccountService',
 
-        'views/accountDetails/AccountDetailWidgetWrapperView',
-        'controllers/accountDetails/AccountDetailWidgetWrapperController',
-        'directives/WidgetWrapperDirective',
+        'views/widgets/WidgetWrapperView',
+        'controllers/widgets/WidgetWrapperController',
+        'directives/widgets/WidgetWrapperDirective',
 
         // Activity widget
         'directives/AccountDetailActivityDirective',
@@ -301,6 +311,13 @@ requirejs.config({
         'views/accountDetails/OpportunityWidgetView',
         'presenters/accountDetails/OpportunityWidgetPresenter',
         'models/accountDetails/OpportunityWidgetModel',
+
+        // Last documents Widget
+        'directives/AccountDetailDocumentsDirective',
+        'controllers/accountDetails/DocumentsController',
+        'models/accountDetails/DocumentsWidgetModel',
+        'views/accountDetails/DocumentsWidgetView',
+        'presenters/accountDetails/DocumentsWidgetPresenter',
 
         // Agenda Widget
         'directives/AccountDetailAgendaDirective',
@@ -360,6 +377,45 @@ requirejs.config({
 
         //Design Prove Controller
         'controllers/DesignProveController',
+
+        // Contacts Page
+        'controllers/contact/ContactController',
+        'models/contact/ContactModel',
+        'views/contact/ContactView',
+        'presenters/contact/ContactPresenter',
+
+        // Contacts filter
+        'controllers/contact/ContactFilterController',
+        'models/contact/ContactFilterModel',
+        'views/contact/ContactFilterView',
+        'presenters/contact/ContactFilterPresenter',
+
+        // Dashboard
+        'controllers/dashboard/DashboardIndexController',
+
+        // Opportunities page
+        'controllers/opportunities/OpportunitiesListController',
+        'controllers/opportunities/OpportunitiesDetailController',
+
+        // Quotes page
+        'controllers/quotes/QuotesListController',
+        'controllers/quotes/QuotesDetailController',
+
+        // Agenda page
+        'controllers/agenda/AgendaController',
+
+        // Products page
+        'controllers/products/ProductsListController',
+        'controllers/products/ProductDetailController',
+
+        // Document page
+        'controllers/document/DocumentListController',
+
+        // Activity
+        'controllers/activity/ActivityListController',
+
+        //config
+        'services/config/EntityService',
 
         // main application
 
