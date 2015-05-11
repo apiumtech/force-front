@@ -17,9 +17,6 @@ describe("TableWidgetPresenter", function () {
                 viewEvent: "onReloading", test: onReloadingTest
             },
             {
-                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
-            },
-            {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
             },
             {
@@ -31,7 +28,8 @@ describe("TableWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
-                        event: {}
+                        event: {},
+                        sendReloadCommandToChannel: function(){}
                     };
                     ___model = {
                         setFetchEndPoint: jasmine.createSpy()
@@ -49,31 +47,10 @@ describe("TableWidgetPresenter", function () {
                 };
                 spyOn(sut, '_executeLoadWidget');
             });
-            it("should add endpoint to model", function () {
-                view.event.onReloading();
-                expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
-            });
 
             it("should call '_executeLoadWidget' method", function () {
                 view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
-            });
-        }
-
-        function onReloadWidgetDoneTest() {
-            var errMsg = {msg: "test message"};
-            beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
-                view.$scope = {
-                    selectedFilter: 'selectedFilter',
-                    selectedRangeOption: 'selectedRangeOption'
-                };
-                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                view.event.onReloadWidgetDone(errMsg);
-            });
-
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
             });
         }
 
@@ -85,7 +62,7 @@ describe("TableWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
 
@@ -93,8 +70,8 @@ describe("TableWidgetPresenter", function () {
                 expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -103,6 +80,7 @@ describe("TableWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
+                spyOn(view, 'sendReloadCommandToChannel');
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 view.event.onUsersFilterApplied(filterValue);
             });
@@ -111,8 +89,8 @@ describe("TableWidgetPresenter", function () {
                 expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 

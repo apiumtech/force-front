@@ -107,7 +107,7 @@ app.registerView(function (container) {
                 errorMessage = "Error while requesting data. " + err;
                 break;
         }
-        self.event.onReloadWidgetDone(errorMessage);
+        self.eventChannel.sendReloadCompleteCommand(errorMessage);
     };
 
     return WidgetBaseView;

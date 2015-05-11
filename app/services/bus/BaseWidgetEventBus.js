@@ -28,8 +28,8 @@ app.registerService(function (container) {
         this.reloadCompleteSignal.add(callback);
     };
 
-    BaseWidgetEventBus.prototype.sendReloadCompleteCommand = function () {
-        this.reloadCompleteSignal.dispatch.apply(arguments);
+    BaseWidgetEventBus.prototype.sendReloadCompleteCommand = function (message) {
+        this.reloadCompleteSignal.dispatch(message);
     };
 
     BaseWidgetEventBus.prototype.unsubscribeReloadCompleteCommand = function () {

@@ -125,9 +125,11 @@ app.registerView(function (container) {
         self.$scope.isLoading = true;
     };
 
-    WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function () {
+    WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function (message) {
         var self = this;
-        self.$scope.isLoading = false;
+        self.errorMessage = message;
+        self.hasError = !!self.errorMessage;
+        self.isLoading = false;
     };
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {
