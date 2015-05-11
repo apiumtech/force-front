@@ -376,7 +376,8 @@ function main() {
             'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
 
             // Pie chart widget
-            'controllers/PieChartWidgetController', 'views/PieChartWidgetView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
+            'directives/widgets/DistributionSegmentPieWidgetDirective',
+            'controllers/widgets/DistributionSegmentPieWidgetController', 'views/PieChartWidgetView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
 
             // Bar chart widget
             'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/BarChartWidgetPresenter', 'models/BarChartWidgetModel',

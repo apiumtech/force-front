@@ -8,6 +8,8 @@ app.registerView(function (container) {
     var PieChartWidgetModel = container.getModel('models/PieChartWidgetModel');
     var PieChartWidgetPresenter = container.getPresenter('presenters/PieChartWidgetPresenter');
 
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+
     var PieChart = container.getService('plots/PieChart');
 
     function PieChartWidgetView(scope, element, model, presenter) {
@@ -32,12 +34,24 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.selectedFilter = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
     PieChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
+
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -61,7 +75,6 @@ app.registerView(function (container) {
         self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0];
 
         self.refreshChart();
-        self.event.onReloadWidgetDone();
     };
 
     PieChartWidgetView.prototype.refreshChart = function () {
