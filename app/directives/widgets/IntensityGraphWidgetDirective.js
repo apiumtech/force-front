@@ -2,7 +2,7 @@
  * Created by justin on 5/9/15.
  */
 app.registerDirective(function (container) {
-    var GraphWidgetController = container.getController("controllers/GraphWidgetController");
+    var GraphWidgetController = container.getController("controllers/widgets/IntensityGraphWidgetController");
 
     function IntensityGraphWidgetDirective() {
         return {
@@ -11,7 +11,7 @@ app.registerDirective(function (container) {
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/graph.html'
+            templateUrl: 'templates/widgets/intensityGraphWidget.html'
         };
     }
 

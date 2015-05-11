@@ -2,7 +2,7 @@
  * Created by justin on 12/30/14.
  */
 describe("GraphWidgetController", function () {
-    var GraphWidgetController = app.getController('controllers/GraphWidgetController');
+    var GraphWidgetController = app.getController('controllers/widgets/IntensityGraphWidgetController');
 
     it("should call GraphWidgetController.configureView global method", function () {
         var scope = {someScope: true},

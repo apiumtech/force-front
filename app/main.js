@@ -371,7 +371,7 @@ function main() {
 
             // Graph widget
             'directives/widgets/IntensityGraphWidgetDirective',
-            'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+            'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
             // Map chart widget
             'controllers/MapChartWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',

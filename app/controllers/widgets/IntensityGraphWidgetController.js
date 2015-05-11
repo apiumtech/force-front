@@ -4,14 +4,14 @@
 app.registerController(function (container) {
     var GraphWidgetView = container.getView("views/GraphWidgetView");
 
-    function GraphWidgetController($scope, $element) {
-        GraphWidgetController.configureView($scope, $element);
+    function IntensityGraphWidgetController($scope, $element) {
+        IntensityGraphWidgetController.configureView($scope, $element);
     }
 
-    GraphWidgetController.configureView = function ($scope, $element) {
+    IntensityGraphWidgetController.configureView = function ($scope, $element) {
         this.view = GraphWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(GraphWidgetView));
         this.view.show();
     };
 
-    return GraphWidgetController;
+    return IntensityGraphWidgetController;
 });
