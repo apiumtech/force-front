@@ -38,7 +38,6 @@ app.registerService(function (container) {
         logout: baseProxy + '/LogOff',
         authentication: baseUrl + '/api/commands/security/login',
         getContacts: baseUrl + '/api/queries/crm/contacts',
-        literalListBySearch: baseUrl + '/literals/literalListBySearch',
 
         intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
@@ -46,7 +45,9 @@ app.registerService(function (container) {
 
         graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
-        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersTableStatsByUsersAndPeriodQuery'
+        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
+
+        literalListBySearch: baseUrl + '/literals/literalListBySearch'
     };
 
     return {

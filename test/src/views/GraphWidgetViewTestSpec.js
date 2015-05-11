@@ -3,17 +3,20 @@
  */
 describe("GraphWidgetView", function () {
     var GraphWidgetView = app.getView('views/GraphWidgetView');
-    var sut;
+    var sut, scope;
 
     function initSut() {
-        sut = GraphWidgetView.newInstance({}, {}, {}, {}, false, false).getOrElse(throwInstantiateException(GraphWidgetView));
+        scope = {
+            $on: function(){},
+            $watch: function(){}
+        };
+        sut = GraphWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(GraphWidgetView));
     }
 
     describe("configureEvents", function () {
         beforeEach(initSut);
 
         [
-            {method: 'assignWidget', exercise: assignWidgetTestExercise},
             {method: 'changeFilterRange', exercise: changeFilterRangeTestExercise},
             {method: 'changeFilter', exercise: changeFilterTestExercise},
             {method: 'switchToFilled', exercise: switchToFilledTestExercise},
@@ -24,11 +27,6 @@ describe("GraphWidgetView", function () {
                 var method = testCase.method,
                     exercise = testCase.exercise;
 
-                it("should declare method fn." + method, function () {
-                    expect(sut.fn[method]).not.toBeNull();
-                    expect(isFunction(sut.fn[method])).toEqual(true);
-                });
-
                 if (exercise)
                     describe("calling fn." + method, function () {
                         beforeEach(function () {
@@ -38,30 +36,6 @@ describe("GraphWidgetView", function () {
                         exercise();
                     });
             });
-
-        function assignWidgetTestExercise() {
-            var outerWidgetScope = {
-                widgetId: 10,
-                order: 10
-            };
-
-            function spyEvent() {
-                sut.event.onReloadWidgetStart = jasmine.createSpy();
-            }
-
-            it("should assign outer scope to current instance", function () {
-                spyEvent();
-                sut.fn.assignWidget(outerWidgetScope);
-                expect(sut.widget).toEqual(outerWidgetScope);
-            });
-
-            it("should fire event 'onReloadWidgetStart'", function () {
-                spyEvent();
-                sut.fn.assignWidget(outerWidgetScope);
-                expect(sut.event.onReloadWidgetStart).toHaveBeenCalled();
-            });
-
-        }
 
         function changeFilterRangeTestExercise() {
             beforeEach(function () {
@@ -161,8 +135,8 @@ describe("GraphWidgetView", function () {
             }
         };
 
-        function instantiateSut() {
-            sut = new GraphWidgetView({}, {});
+        beforeEach(function () {
+            sut = new GraphWidgetView(scope, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
@@ -170,38 +144,27 @@ describe("GraphWidgetView", function () {
             spyOn(sut, 'extractFilters');
             spyOn(sut, 'extractDisplayFields');
             spyOn(sut, 'refreshChart');
-        }
+        });
 
         it("Should assign data to scope", function () {
-            instantiateSut();
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.data).toEqual(fakeResponseData.data.params);
         });
 
         it("should call extractFilters method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.extractFilters).toHaveBeenCalled();
         });
 
         it("should call extractDisplayFields method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.extractDisplayFields).toHaveBeenCalled();
         });
 
         it("should call refreshChart method", function () {
-            instantiateSut();
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.refreshChart).toHaveBeenCalled();
-        });
-
-        it("Should fire done reload widget event", function () {
-            instantiateSut();
-            spyOn(sut.event, 'onReloadWidgetDone');
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
         });
     });
 

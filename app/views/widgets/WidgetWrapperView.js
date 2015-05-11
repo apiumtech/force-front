@@ -4,13 +4,13 @@
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
 
-    function AccountDetailWidgetWrapperView($scope, $element) {
+    function WidgetWrapperView($scope, $element) {
         $scope = $scope || {
-            $on: function () {
-            },
-            $watch: function () {
-            }
-        };
+                $on: function () {
+                },
+                $watch: function () {
+                }
+            };
 
         BaseView.call(this, $scope);
         this.element = $element || {};
@@ -19,7 +19,7 @@ app.registerView(function (container) {
         this.configureEvents.call(this);
     }
 
-    AccountDetailWidgetWrapperView.prototype = Object.create(BaseView.prototype, {
+    WidgetWrapperView.prototype = Object.create(BaseView.prototype, {
         isExpanded: {
             get: function () {
                 return this.$scope.isExpanded || (this.$scope.isExpanded = false);
@@ -70,7 +70,7 @@ app.registerView(function (container) {
         }
     });
 
-    AccountDetailWidgetWrapperView.prototype.configureEvents = function () {
+    WidgetWrapperView.prototype.configureEvents = function () {
         var self = this,
             scope = this.$scope;
 
@@ -94,21 +94,23 @@ app.registerView(function (container) {
         scope.$watch('eventBusChannel', self.bindEventsToChannel.bind(self));
     };
 
-    AccountDetailWidgetWrapperView.prototype.bindEventsToChannel = function () {
+    WidgetWrapperView.prototype.bindEventsToChannel = function () {
         var self = this;
-        if (self.eventBusChannel && !self.boundChannelEvent) {
-            self.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-            self.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
-            self.boundChannelEvent = true;
+        if (self.$scope.eventBusChannel && !self.boundChannelEvent) {
+            self.$scope.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+            self.$scope.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
+            self.$scope.boundChannelEvent = true;
+
+            self.$scope.eventBusChannel.sendReloadCommand();
         }
     };
 
-    AccountDetailWidgetWrapperView.prototype.reloadPanel = function () {
+    WidgetWrapperView.prototype.reloadPanel = function () {
         var self = this;
         self.eventBusChannel.sendReloadCommand(true);
     };
 
-    AccountDetailWidgetWrapperView.prototype.handleScroll = function (event) {
+    WidgetWrapperView.prototype.handleScroll = function (event) {
         var offsetHeight = event.target.offsetHeight;
         var scrollTop = event.target.scrollTop;
         var scrollHeight = event.target.scrollHeight;
@@ -118,20 +120,22 @@ app.registerView(function (container) {
         }
     };
 
-    AccountDetailWidgetWrapperView.prototype.onReloadCommandReceived = function () {
+    WidgetWrapperView.prototype.onReloadCommandReceived = function () {
         var self = this;
-        self.isLoading = true;
+        self.$scope.isLoading = true;
     };
 
-    AccountDetailWidgetWrapperView.prototype.onReloadCompleteCommandReceived = function () {
+    WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function (message) {
         var self = this;
+        self.errorMessage = message;
+        self.hasError = !!self.errorMessage;
         self.isLoading = false;
     };
 
-    AccountDetailWidgetWrapperView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {
-        var view = new AccountDetailWidgetWrapperView($scope, $element);
+    WidgetWrapperView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {
+        var view = new WidgetWrapperView($scope, $element);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);
     };
 
-    return AccountDetailWidgetWrapperView;
+    return WidgetWrapperView;
 });

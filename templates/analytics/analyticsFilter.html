@@ -118,7 +118,9 @@
                             {{'Filters.DateRange' | i18next}}
                         </span>
 
-                        <div class="input-group " style="width:300px; margin-bottom: 4px; ">
+                        <div class="input-group " style="width:300px; margin-bottom: 4px; "
+                             ng-click="fn.closeDatePickers($event);"
+                                >
 
                             <input type="text" class="form-control"
                                    ng-keypress="$event.preventDefault()"
@@ -129,8 +131,8 @@
                                  is-open="dateRangeFilterOpened"
                                  on-toggle="fn.dateFilterToggled(open)"
                                  dropdown-toggle>
-                                <ul class="dropdown-menu media-list pull-right animated fadeInDown"
-                                    ng-click="$event.stopPropagation()"
+                                <ul class="dropdown-menu media-list pull-right haveDatePicker animated fadeInDown"
+                                    ng-click="fn.closeDatePickers($event);"
                                     style="width:300px; max-width:300px;">
                                     <li><h6 class="m-t-20">{{'Filters.SelectDateRange' | i18next}}</h6></li>
                                     <li class="divider"></li>
@@ -140,13 +142,22 @@
                                                 <p>{{'Filters.Customized' | i18next}}</p></div>
                                             <div class="col-md-12">
                                                 <div class="input-group input-daterange">
-                                                    <input type="text" class="form-control" name="start"
-                                                           ng-model="displayDateStart"
-                                                           ng-keydown="fn.validateDateInput($event)"/>
+                                                    <force-date-picker
+                                                            date-set="{{isoStringDateStart()}}"
+                                                            date-max-limit="{{isoStringMaxDateLimit()}}"
+                                                            date-format="{{datePickerFormat}}">
+                                                        <input type="text" class="form-control" name="start"
+                                                               ng-model="displayDateStart"/>
+                                                    </force-date-picker>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
-                                                    <input type="text" class="form-control" name="end"
-                                                           ng-model="displayDateEnd"
-                                                           ng-keydown="fn.validateDateInput($event)"/>
+                                                    <force-date-picker
+                                                            date-set={{isoStringDateEnd()}}
+                                                            date-min-limit="{{isoStringDateEndLimit()}}"
+                                                            date-max-limit="{{isoStringMaxDateLimit()}}"
+                                                            date-format="{{datePickerFormat}}">
+                                                        <input type="text" class="form-control" name="end"
+                                                               ng-model="displayDateEnd"/>
+                                                    </force-date-picker>
                                                 </div>
                                             </div>
                                         </div>

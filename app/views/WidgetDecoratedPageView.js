@@ -9,6 +9,7 @@ app.registerView(function (container) {
         this.dropZoneClassName = "dropzone";
         this.widgetContainerSelector = '.widgets-container[as-sortable]';
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
+        this.configureEvents();
     }
 
     WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {
@@ -22,9 +23,13 @@ app.registerView(function (container) {
         }
     });
 
+    WidgetDecoratePageView.prototype.configureEvents = function () {
+    };
+
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
+        var self = this;
         widgetsData.forEach(function (widget) {
-            widget.template = '/templates/widgets/' + widget.type + '.html';
+            widget.template = '/templates/widgets/' + self.pageName + '/' + widget.type + '.html';
         });
     };
 

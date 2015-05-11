@@ -1,8 +1,8 @@
 /**
  * Created by justin on 3/13/15.
  */
-describe("AccountDetailWidgetWrapperView", function () {
-    var AccountDetailWidgetWrapperView = app.getView('views/accountDetails/AccountDetailWidgetWrapperView');
+describe("WidgetWrapperView", function () {
+    var WidgetWrapperView = app.getView('views/widgets/WidgetWrapperView');
 
     var sut, presenter, model, scope, element;
 
@@ -16,7 +16,7 @@ describe("AccountDetailWidgetWrapperView", function () {
             }
         };
         element = {};
-        sut = AccountDetailWidgetWrapperView.newInstance(scope, element, false, false).getOrElse(throwInstantiateException(AccountDetailWidgetWrapperView));
+        sut = WidgetWrapperView.newInstance(scope, element, false, false).getOrElse(throwInstantiateException(WidgetWrapperView));
     });
 
     describe("handleScroll", function () {
@@ -90,7 +90,8 @@ describe("AccountDetailWidgetWrapperView", function () {
                 onReloadCommandReceived: function () {
                 },
                 onReloadCompleteCommandReceived: function () {
-                }
+                },
+                sendReloadCommand: function(){}
             };
             sut.boundChannelEvent = false;
         });

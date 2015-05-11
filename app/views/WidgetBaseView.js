@@ -3,7 +3,12 @@
  */
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
+
+    // TODO: deprecated, removing
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+
+    var meld = container.getFunction('meld');
+
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
 
     function WidgetBaseView(scope, element, model, presenter) {
@@ -17,6 +22,13 @@ app.registerView(function (container) {
         this.event.onUsersFilterApplied = function (filterValue) {
             throw new Error("NotImplementedException");
         };
+        this.channelInitialized = false;
+        scope.$watch('widget', this.initializeWidgetChannel.bind(this));
+        var self = this;
+        console.log(self);
+        meld.after(self, 'onReloadWidgetSuccess', function () {
+            self._onReloadWidgetSuccess.call(self);
+        });
     }
 
     WidgetBaseView.prototype = Object.create(BaseView.prototype, {
@@ -26,7 +38,6 @@ app.registerView(function (container) {
             },
             set: function (value) {
                 this.$scope.widget = value;
-                this.presenter.widgetEventChannel = this._getWidgetChannelInstance(value.widgetType + "||" + value.widgetId);
                 this.model.widgetId = value.widgetId;
                 this.model.order = value.order;
                 this.model.column = value.column;
@@ -34,11 +45,27 @@ app.registerView(function (container) {
         }
     });
 
+    WidgetBaseView.prototype.initializeWidgetChannel = function () {
+        if (this.widget && !this.channelInitialized) {
+            this.channelInitialized = true;
+            this.presenter.widgetEventChannel = this._getWidgetChannelInstance(this.widget.widgetType + "||" + this.widget.widgetId);
+        }
+    };
+
+    WidgetBaseView.prototype.sendReloadCommandToChannel = function () {
+
+    };
+
+    WidgetBaseView.prototype.onReloadCommandReceived = function () {
+        this.event.onReloading();
+    };
+
     WidgetBaseView.prototype.__show = BaseView.prototype.show;
     WidgetBaseView.prototype.show = function () {
         this.__show.call(this);
 
         var self = this;
+
         self.filterChannel.onDateFilterApplySignalReceived(function (filterValue) {
             self.event.onDateFilterApplied(filterValue);
         });
@@ -50,6 +77,15 @@ app.registerView(function (container) {
 
     WidgetBaseView.prototype._getWidgetChannelInstance = function (widgetName) {
         return WidgetEventBus.newInstance(widgetName).getOrElse(throwInstantiateException(WidgetEventBus));
+    };
+
+    // abstract method
+    WidgetBaseView.prototype.onReloadWidgetSuccess = function () {
+        throw new Error("NotImplementedException");
+    };
+
+    WidgetBaseView.prototype._onReloadWidgetSuccess = function () {
+        this.eventChannel.sendReloadCompleteCommand();
     };
 
     WidgetBaseView.prototype.onReloadWidgetError = function (error) {
@@ -71,7 +107,7 @@ app.registerView(function (container) {
                 errorMessage = "Error while requesting data. " + err;
                 break;
         }
-        self.event.onReloadWidgetDone(errorMessage);
+        self.eventChannel.sendReloadCompleteCommand(errorMessage);
     };
 
     return WidgetBaseView;

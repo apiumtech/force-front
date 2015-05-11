@@ -10,6 +10,7 @@ app.registerView(function (container) {
 
     function IntensityView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+        this.pageName = 'intensity';
     }
 
     IntensityView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
@@ -24,6 +25,10 @@ app.registerView(function (container) {
         var self = this;
 
         self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
+    };
+
+    IntensityView.prototype.configureEvents = function (data) {
+
     };
 
     IntensityView.prototype.onWidgetsUpdated = function (data) {

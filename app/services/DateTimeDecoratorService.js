@@ -9,7 +9,7 @@ app.registerService(function (container) {
         this.translator = translator;
     }
 
-    DateTimeDecoratorService.prototype.getFormattedPastDate = function (earlier, dateClose) {
+    DateTimeDecoratorService.prototype.getFormattedDateDistance = function (earlier, dateClose) {
         var dateFar = moment(earlier);
         var dateClose = moment(dateClose);
 

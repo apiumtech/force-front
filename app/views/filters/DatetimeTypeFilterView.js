@@ -10,7 +10,7 @@ app.registerView(function (container) {
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
         var self = this;
-        self.datePickerFormat = 'DD/MM/YYYY';
+        self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
         self.$scope.dateRangeFilterOpened = false;
         this.configureEvents();
@@ -111,7 +111,7 @@ app.registerView(function (container) {
         };
 
         self.fn.getFormattedDate = function (date) {
-            return moment(date).format(self.datePickerFormat);
+            return moment(date).format(self.momentFormat);
         };
 
         self.fn.resetDate = function () {

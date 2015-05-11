@@ -177,7 +177,8 @@ function main() {
             'angularMoment',
             'angularFileUpload',
             'infinite-scroll',
-            'validation', 'validation.rule'
+            'validation',
+            'validation.rule'
         ], AngularConfig));
 
     app.manifest = {
@@ -192,6 +193,8 @@ function main() {
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
             // Channels
             'services/bus/FilterChannel',
+
+            'services/bus/BaseWidgetEventBus',
             // plots
             'plots/Plot', 'plots/LineGraphPlot',
             'plots/PieChart',
@@ -204,7 +207,7 @@ function main() {
             'services/bus/ScrollEventBus',
             'directives/HighLightResultDirective',
             'directives/TriStateCheckBoxDirective',
-
+            'directives/ForceDatePickerDirective',
 
 
             // TODO: to be removed in production
@@ -255,7 +258,6 @@ function main() {
 
             'services/literal/LiteralService',
             'services/literal/QueryLiteralBuilder',
-
 
 
             // Account Page
@@ -311,9 +313,9 @@ function main() {
             'presenters/accountDetails/AccountDetailsPresenter',
             'services/AccountService',
 
-            'views/accountDetails/AccountDetailWidgetWrapperView',
-            'controllers/accountDetails/AccountDetailWidgetWrapperController',
-            'directives/WidgetWrapperDirective',
+            'views/widgets/WidgetWrapperView',
+            'controllers/widgets/WidgetWrapperController',
+            'directives/widgets/WidgetWrapperDirective',
 
             // Activity widget
             'directives/AccountDetailActivityDirective',
@@ -369,7 +371,8 @@ function main() {
             'presenters/filters/SalesAnalyticsFilterPresenter',
 
             // Graph widget
-            'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+            'directives/widgets/IntensityGraphWidgetDirective',
+            'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
             // Map chart widget
             'controllers/MapChartWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
@@ -384,7 +387,8 @@ function main() {
             'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/SingleLineChartWidgetPresenter', 'models/SingleLineChartWidgetModel',
 
             // Table widget
-            'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
+            'directives/widgets/IntensityRankingWidgetDirective',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
             'controllers/TopMenuController', 'views/TopMenuView',
             'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',

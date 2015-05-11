@@ -25,7 +25,6 @@
 </div>
 
 
-
 <!-- begin filters -->
 <ng-include src="'templates/analytics/analyticsFilter.html'"></ng-include>
 <!-- end filters-->
@@ -39,7 +38,7 @@
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">
-            <ng-include src="'templates/widgets/widgetWrapper.html'"></ng-include>
+            <ng-include src="widget.template"></ng-include>
         </div>
     </div>
 </div>

@@ -117,7 +117,7 @@ app.registerView(function (container) {
         var decorated = _.sortBy(data, function (record) {
             return record.date;
         }).reverse().map(function (record) {
-            record.timeLabel = self.dateTimeDecoratorService.getFormattedPastDate(record.date, new Date());
+            record.timeLabel = self.dateTimeDecoratorService.getFormattedDateDistance(record.date, new Date());
             return record;
         });
 

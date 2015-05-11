@@ -13,7 +13,7 @@ describe("DateTimeDecoratorService", function () {
         sut = DateTimeDecoratorService.newInstance(translator).getOrElse(throwInstantiateException(DateTimeDecoratorService));
     });
 
-    describe("getFormattedPastDate", function () {
+    describe("getFormattedDateDistance", function () {
         [{
             dateFar: new Date(2015, 2, 16),
             dateClose: new Date(2015, 2, 16),
@@ -80,7 +80,7 @@ describe("DateTimeDecoratorService", function () {
                 var expected = testCase.expected;
                 it("should return correct result", function () {
                     spyOn(translator, 'translate');
-                    sut.getFormattedPastDate(momentEarlier, dateClose);
+                    sut.getFormattedDateDistance(momentEarlier, dateClose);
                     if (testCase.params)
                         expect(sut.translator.translate).toHaveBeenCalledWith(expected, testCase.params);
                     else

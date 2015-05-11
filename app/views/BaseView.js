@@ -7,12 +7,14 @@ app.registerView(function (container) {
     var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
     function BaseView($scope, $model, $presenter) {
-        this.$scope = $scope || {
-            $on: function () {
-            },
-            $watch: function () {
-            }
-        };
+        $scope = $scope || {
+                $on: function () {
+                },
+                $watch: function () {
+                }
+            };
+
+        this.$scope = $scope;
         this.event = {};
         this.fn = {};
         this.data = {};

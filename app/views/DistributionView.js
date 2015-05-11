@@ -10,7 +10,7 @@ app.registerView(function (container) {
 
     function DistributionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
-        this.configureEvents();
+        this.pageName = 'distribution';
     }
 
     DistributionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
