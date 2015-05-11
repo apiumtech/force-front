@@ -18,6 +18,7 @@ app.registerPresenter(function (container) {
 
     LiteralListPresenter.prototype.onInit = function () {
         var self = this;
+        //self.model.getLiteralDictionary();
         self.model.getLiteralList("")
             .then(
             self.view.showTableData.bind(self.view),

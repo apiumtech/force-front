@@ -17,8 +17,10 @@ app.registerService(function (container) {
     AuthAjaxService.prototype.mapRequest = function (params) {
         var request = AjaxService.prototype.mapRequest.call(this, params);
 
+        var token = this.storageService.retrieve(Configuration.tokenStorageKey);
+        token = token || "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
         request.headers = request.headers || {};
-        request.headers.token = this.storageService.retrieve(Configuration.tokenStorageKey);
+        request.headers.token = token;
         return request;
     };
 

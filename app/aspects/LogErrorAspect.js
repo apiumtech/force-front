@@ -11,14 +11,14 @@ app.registerService(function (container) {
 
     return {
         _log: console.log,
-        _error: console.error,
+        _warn: console.warn,
         weave: function (view) {
             meld.before(view, "showError", function (error) {
                 this._log(errorMessage(error));
             }.bind(this));
 
             meld.afterThrowing(view, /^[a-z].+/, function (error) {
-                console.warn(errorMessage(error));
+                this._warn(errorMessage(error));
             }.bind(this));
         }
     };

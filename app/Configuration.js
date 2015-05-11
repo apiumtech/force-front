@@ -47,7 +47,12 @@ app.registerService(function (container) {
 
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
 
-        literalListBySearch: baseUrl + '/literals/literalListBySearch'
+
+        createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
+        changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
+        deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
+        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
+        literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
     };
 
     return {
@@ -59,6 +64,7 @@ app.registerService(function (container) {
         },
         pageSize: 10,
         defaultDateSubtraction: 30,
-        tokenStorageKey: "token"
+        tokenStorageKey: "token",
+        defaultLiteralLang: "en"
     };
 });
