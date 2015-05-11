@@ -60,14 +60,13 @@ describe("SalesAnalyticsFilterView", function () {
         }, {
             method: "userSelectionChanged", test: userSelectionChangedTest
         }, {
+            method: "__applyUserFilter", test: __applyUserFilterTest
+        }, {
             method: "applyUserFilter", test: applyUserFilterTest
         }, {
             method: "groupSelectAllChanged", test: groupSelectAllChangedTest
         }].forEach(function (test) {
                 var method = test.method;
-                it("should declare method fn." + method, function () {
-                    testDeclareMethod(sut.fn, method);
-                });
 
                 describe("calling fn." + method, test.test);
             });
@@ -401,11 +400,19 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function applyUserFilterTest() {
+            it("should delay the call to __applyUserFilterTest for 2 seconds", function(){
+                spyOn(sut.awaitHelper, 'await');
+                sut.fn.applyUserFilter();
+                expect(sut.awaitHelper.await).toHaveBeenCalledWith(sut.fn.__applyUserFilter, 2000);
+            })
+        }
+
+        function __applyUserFilterTest() {
             var filtered = [1, 4, 5];
             beforeEach(function () {
                 spyOn(sut, 'getFilteredUserIdsList').and.returnValue(filtered);
                 spyOn(sut.filterChannel, 'sendUserFilterApplySignal');
-                sut.fn.applyUserFilter();
+                sut.fn.__applyUserFilter();
             });
 
             it("should call getFilteredUserIdsList to have filtered list", function () {
