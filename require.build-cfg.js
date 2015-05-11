@@ -352,7 +352,8 @@ requirejs.config({
         'presenters/filters/SalesAnalyticsFilterPresenter',
 
         // Graph widget
-        'controllers/GraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+        'directives/widgets/IntensityGraphWidgetDirective',
+        'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
 
         // Map chart widget
         'controllers/MapChartWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
@@ -367,7 +368,8 @@ requirejs.config({
         'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/SingleLineChartWidgetPresenter', 'models/SingleLineChartWidgetModel',
 
         // Table widget
-        'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
+        'directives/widgets/IntensityRankingWidgetDirective',
+        'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
         'controllers/TopMenuController', 'views/TopMenuView',
         'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',
@@ -377,7 +379,6 @@ requirejs.config({
 
         //Design Prove Controller
         'controllers/DesignProveController',
-
         // Contacts Page
         'controllers/contact/ContactController',
         'models/contact/ContactModel',

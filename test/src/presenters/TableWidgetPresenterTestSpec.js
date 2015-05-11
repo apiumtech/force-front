@@ -14,7 +14,7 @@ describe("TableWidgetPresenter", function () {
         var ___view, ___model;
         [
             {
-                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
+                viewEvent: "onReloading", test: onReloadingTest
             },
             {
                 viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
@@ -39,14 +39,10 @@ describe("TableWidgetPresenter", function () {
                     sut.show(view, ___model);
                 });
 
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
-                });
-
                 describe("when event '" + viewEvent + "' fired", test);
             });
 
-        function onReloadWidgetStartTest() {
+        function onReloadingTest() {
             beforeEach(function () {
                 view.widget = {
                     dataEndpoint: "/test/end/point"
@@ -54,12 +50,12 @@ describe("TableWidgetPresenter", function () {
                 spyOn(sut, '_executeLoadWidget');
             });
             it("should add endpoint to model", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
 
             it("should call '_executeLoadWidget' method", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }

@@ -123,6 +123,7 @@ describe("PieChartWidgetView", function () {
             };
 
             spyOn(sut, 'refreshChart');
+            spyOn(sut, '_onReloadWidgetSuccess');
             sut.$scope.apply = function () {
             };
         });
@@ -162,6 +163,12 @@ describe("PieChartWidgetView", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+        });
+
+        it("Should call _onReloadWidgetSuccess on base", function () {
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
         });
     });
 

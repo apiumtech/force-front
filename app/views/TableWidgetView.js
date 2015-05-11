@@ -7,6 +7,8 @@ app.registerView(function (container) {
     var TableWidgetModel = container.getModel('models/TableWidgetModel');
     var TableWidgetPresenter = container.getPresenter('presenters/TableWidgetPresenter');
 
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+
     function TableWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         this.dataSource = [];
@@ -30,16 +32,24 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.dataSource = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
 
-        self.fn.assignWidget = function (outerScopeWidget) {
-            self.widget = outerScopeWidget;
-            self.event.onReloadWidgetStart();
-        };
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
+
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.isImage = function (string) {
             if (typeof string !== 'string') return false;
@@ -159,7 +169,6 @@ app.registerView(function (container) {
         self.data = data.data.params;
         self.assignColumnsData(self.data.columns);
         self.renderChart();
-        self.event.onReloadWidgetDone();
     };
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {

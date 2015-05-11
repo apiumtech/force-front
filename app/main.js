@@ -214,7 +214,6 @@ function main() {
             'directives/ForceDatePickerDirective',
 
 
-
             // TODO: to be removed in production
             'services/FakeAjaxService',
 
@@ -256,7 +255,6 @@ function main() {
             //Literal Page
             'controllers/literal/LiteralController', 'views/literal/LiteralView', 'presenters/literal/LiteralPresenter', 'models/literal/LiteralModel',
             'services/literal/LiteralService', 'services/literal/QueryLiteralBuilder',
-
 
 
             // Account Page
@@ -386,7 +384,8 @@ function main() {
             'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/SingleLineChartWidgetPresenter', 'models/SingleLineChartWidgetModel',
 
             // Table widget
-            'controllers/TableWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
+            'directives/widgets/IntensityRankingWidgetDirective',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
 
             'controllers/TopMenuController', 'views/TopMenuView',
             'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',

@@ -22,23 +22,21 @@ describe("TableWidgetView", function () {
         }
     };
 
+    beforeEach(function () {
+        scope = {
+            $on: function(){},
+            $watch: function(){}
+        };
+        sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
+    });
+
     describe("configureEvents", function () {
         var outerWidgetScope = {
             widgetId: 10,
             order: 10
         };
 
-        beforeEach(function () {
-            scope = {
-                $on: function(){},
-                $watch: function(){}
-            };
-            sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
-        });
-
         [{
-            method: "assignWidget", test: assignWidgetTestExercise
-        }, {
             method: "toggleColumn", test: toggleColumnTestExercise
         }, {
             method: "restoreColumnDisplay", test: restoreColumnDisplayTestExercise
@@ -46,10 +44,6 @@ describe("TableWidgetView", function () {
             method: "isImage", test: isImageTestExercise
         }].forEach(function (test) {
                 var method = test.method;
-                it("should declare method fn." + method, function () {
-                    expect(sut.fn[method]).not.toBeNull();
-                    expect(isFunction(sut.fn[method])).toEqual(true);
-                });
 
                 describe("calling fn." + method, test.test);
             });
@@ -189,6 +183,7 @@ describe("TableWidgetView", function () {
             sut.event.onReloadWidgetDone = function () {
             };
             spyOn(sut, 'assignColumnsData');
+            spyOn(sut, '_onReloadWidgetSuccess');
             spyOn(sut, 'renderChart');
         });
 
@@ -207,10 +202,19 @@ describe("TableWidgetView", function () {
             expect(sut.renderChart).toHaveBeenCalledWith();
         });
 
-        it("Should fire done reload widget event", function () {
+        it("Should call _onReloadWidgetSuccess on base", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+            expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
+        });
+    });
+
+    describe('onReloadCommandReceived', function () {
+        it("should invoke the method onReloading", function () {
+            sut.event.onReloading = jasmine.createSpy();
+
+            sut.onReloadCommandReceived();
+            expect(sut.event.onReloading).toHaveBeenCalled();
         });
     });
 

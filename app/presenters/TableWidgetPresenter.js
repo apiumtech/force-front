@@ -49,7 +49,7 @@ app.registerPresenter(function (container) {
 
         self.rebindChannelListener();
 
-        view.event.onReloadWidgetStart = function () {
+        view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data = {};
             self._executeLoadWidget();

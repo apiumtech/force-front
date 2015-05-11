@@ -24,7 +24,6 @@ app.registerView(function (container) {
         scope.currentChartType = LINE;
         var self = this;
 
-        console.log(self.eventChannel);
         self.configureEvents();
     }
 
@@ -90,10 +89,6 @@ app.registerView(function (container) {
         };
     };
 
-    GraphWidgetView.prototype.onReloadCommandReceived = function () {
-        this.event.onReloading();
-    };
-
     GraphWidgetView.prototype.sendReloadCommandToChannel = function () {
         this.eventChannel.sendReloadCommand();
     };
@@ -104,7 +99,6 @@ app.registerView(function (container) {
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
-        self.eventChannel.sendReloadCompleteCommand();
     };
 
     GraphWidgetView.prototype.refreshChart = function () {

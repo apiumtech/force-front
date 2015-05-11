@@ -128,6 +128,7 @@ describe("SingleLineChartWidgetView", function () {
 
             spyOn(sut, 'refreshChart');
             spyOn(sut, 'extractFilters');
+            spyOn(sut, '_onReloadWidgetSuccess');
         });
 
         it("Should assign data to scope", function () {
@@ -150,6 +151,12 @@ describe("SingleLineChartWidgetView", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+        });
+
+        it("Should call _onReloadWidgetSuccess on base", function () {
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
         });
     });
 

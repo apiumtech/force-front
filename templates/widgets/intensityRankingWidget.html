@@ -1,0 +1,63 @@
+<widget-wrapper body-class=""
+                title="{{widget.widgetName}}"
+                event-bus-channel="eventChannel">
+    <div>
+        <div class="btn-group m-r-5 m-b-5  pull-right" is-open="filterDropdown"
+             dropdown>
+            <a data-toggle="dropdown" href="javascript:"
+               class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+                {{'TableWidget.AddColumns' | i18next}}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li class="text-link">
+                    <a ng-click="fn.restoreColumnDisplay()"
+                       class="btn-link">
+                        {{'TableWidget.RestoreDefault' | i18next}}
+                    </a>
+                </li>
+                <li class="divider"></li>
+
+
+                <li ng-repeat="column in columns">
+                    <input type="checkbox"
+                           class="pull-left m-t-10 m-r-10 "
+                           ng-checked="column.isShown"
+                           ng-click="fn.toggleColumn(column.name, $event)">
+
+                    <div class="media-body"
+                         ng-click="fn.toggleColumn(column.name, $event)">
+                        <p>{{column.name}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- dropdown-->
+
+
+        <div class="table-responsive m-t-20">
+            <table class="table table-striped  table-picture-40">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th ng-repeat="column in columns" ng-if="column.isShown">
+                        {{column.name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="gradeX" ng-repeat="record in dataSource">
+                    <td><p class="m-t-10 ">{{$index+1}}</td>
+                    <td ng-repeat="field in record" ng-class="{'photo': fn.isImage(field)}">
+                        <div ng-if="fn.isImage(field)" class="img-user">
+                            <img src="{{field}}" class="media-object" alt=""/>
+                        </div>
+                        <p class="m-t-10" ng-if="!fn.isImage(field)">{{field}}</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</widget-wrapper>

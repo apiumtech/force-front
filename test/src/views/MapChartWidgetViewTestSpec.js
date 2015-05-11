@@ -110,6 +110,7 @@ describe("MapChartWidgetView", function () {
             };
 
             spyOn(sut, 'refreshChart');
+            spyOn(sut, '_onReloadWidgetSuccess');
         });
 
         it("should call refreshChart method", function () {
@@ -121,6 +122,12 @@ describe("MapChartWidgetView", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut.event.onReloadWidgetDone).toHaveBeenCalledWith();
+        });
+
+        it("Should call _onReloadWidgetSuccess on base", function () {
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
         });
     });
 
