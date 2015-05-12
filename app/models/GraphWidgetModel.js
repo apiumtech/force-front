@@ -10,7 +10,6 @@ app.registerModel(function (container) {
 
     function GraphWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.setFetchEndPoint(Configuration.api.graphWidgetIntensityDataApi);
         this.currentFilter = 'visits';
         this.filters = [{
             name: 'Visits',

@@ -48,7 +48,7 @@ app.registerPresenter(function (container) {
 
         self.rebindChannelListener();
 
-        view.event.onReloadWidgetStart = function () {
+        view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
             model.changeFilterTab(view.selectedFilter);
             view.data = {};
@@ -68,10 +68,6 @@ app.registerPresenter(function (container) {
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
             self.widgetEventChannel.sendReloadSignal();
-        };
-
-        view.event.onReloadWidgetDone = function (errMsg) {
-            self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
     };
 

@@ -44,7 +44,7 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "pie",
+        widgetType: "segment_distribution",
         widgetName: "Distribucion por segmento",
         widgetId: 1029,
         order: 3,
@@ -53,7 +53,7 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "pie",
+        widgetType: "hour_distribution",
         widgetName: "DISTRIBUCION HORARIA",
         widgetId: 5,
         order: 3,
@@ -62,7 +62,7 @@ var widgetList = [
     },
     {
         page: "distribution",
-        widgetType: "singleline",
+        widgetType: "hour_distribution_singleline",
         widgetName: "DISTRIBUCION HORARIA",
         data: {},
         widgetId: 2002,
@@ -161,6 +161,7 @@ widgetService.getWidget = function (widgetId, request) {
             };
             break;
         case "singleline":
+        case "hour_distribution_singleline":
             widget.data = {
                 filters: [
                     "Checkins",
@@ -210,6 +211,8 @@ widgetService.getWidget = function (widgetId, request) {
             };
             break;
         case 'pie':
+        case 'segment_distribution':
+        case 'hour_distribution':
             widget.data = {
                 filters: ["TODA LA ACTIVIDAD", "Solo Visita"],
                 params: generateRandomPieData(["Chrome", "FireFox", "Safari", "Opera", "IE"], 100)

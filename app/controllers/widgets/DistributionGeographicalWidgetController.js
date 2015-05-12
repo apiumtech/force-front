@@ -4,14 +4,14 @@
 app.registerController(function (container) {
     var MapChartWidgetView = container.getView("views/MapChartWidgetView");
 
-    function MapChartWidgetController($scope, $element) {
-        MapChartWidgetController.configureView($scope, $element);
+    function DistributionGeographicalWidgetController($scope, $element) {
+        DistributionGeographicalWidgetController.configureView($scope, $element);
     }
 
-    MapChartWidgetController.configureView = function ($scope, $element) {
+    DistributionGeographicalWidgetController.configureView = function ($scope, $element) {
         this.view = MapChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(MapChartWidgetView));
         this.view.show();
     };
 
-    return MapChartWidgetController;
+    return DistributionGeographicalWidgetController;
 });

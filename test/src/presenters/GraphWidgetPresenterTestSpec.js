@@ -14,7 +14,7 @@ describe("GraphWidgetPresenter", function () {
         var ___view, ___model;
         [
             {
-                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
+                viewEvent: "onReloading", test: onReloadingTest
             },
             {
                 viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
@@ -37,7 +37,8 @@ describe("GraphWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
-                        sendReloadCommandToChannel: function(){},
+                        sendReloadCommandToChannel: function () {
+                        },
                         event: {}
                     };
                     ___model = {
@@ -46,23 +47,17 @@ describe("GraphWidgetPresenter", function () {
                     sut.show(view, ___model);
                 });
 
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
-                });
-
                 describe("when event '" + viewEvent + "' fired", test);
             });
 
-        function onReloadWidgetStartTest() {
+        function onReloadingTest() {
             beforeEach(function () {
-                view.widget = {
-                    dataEndpoint: "/test/end/point"
-                };
+                view.widget = {};
                 spyOn(sut, '_executeLoadWidget');
             });
 
             it("should call '_executeLoadWidget' method", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }
@@ -118,7 +113,6 @@ describe("GraphWidgetPresenter", function () {
                     selectedFilter: 'selectedFilter',
                     selectedRangeOption: 'selectedRangeOption'
                 };
-                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
                 view.event.onReloadWidgetDone(errMsg);
             });
 
@@ -127,10 +121,6 @@ describe("GraphWidgetPresenter", function () {
             });
             it("should call 'addQuery' on model for initialing selectedRangeOption", function () {
                 expect(___model.addQuery).toHaveBeenCalledWith('grouping', 'selectedRangeOption');
-            });
-
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
             });
         }
 

@@ -49,7 +49,7 @@ app.registerPresenter(function (container) {
 
         self.rebindChannelListener();
 
-        view.event.onReloadWidgetStart = function () {
+        view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data = {};
             self._executeLoadWidget();
@@ -57,17 +57,17 @@ app.registerPresenter(function (container) {
 
         view.event.onTabChanged = function () {
             model.changeFilterTab(view.selectedFilter);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onDateFilterApplied = function (filterValue) {
             model.addDateFilter(filterValue.dateStart, filterValue.dateEnd);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onReloadWidgetDone = function (errMsg) {

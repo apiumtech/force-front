@@ -6,6 +6,7 @@ app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
     //var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
+    var AwaitHelper = container.getService('services/AwaitHelper');
 
     var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterPresentationModel');
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
@@ -17,6 +18,7 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, $model, $presenter);
         this.filter = $filter;
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
+        this.awaitHelper = AwaitHelper.newInstance().getOrElse(throwInstantiateException(AwaitHelper));
         var self = this;
         self.resetDate = true;
         self.defaultPreviousDay = 30;
@@ -299,6 +301,10 @@ app.registerView(function (container) {
         };
 
         self.fn.applyUserFilter = function () {
+            self.awaitHelper.await(self.fn.__applyUserFilter, 2000);
+        };
+
+        self.fn.__applyUserFilter = function () {
             var filteredIds = self.getFilteredUserIdsList();
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };
@@ -322,8 +328,6 @@ app.registerView(function (container) {
             }).length;
 
             group.checked = (unselectedData == group.children.length) ? false : ( (unselectedData == 0) ? true : null );
-
-            console.log(group.group + " : " + group.checked);
 
             if (!group.checked) {
                 allSelected = false;

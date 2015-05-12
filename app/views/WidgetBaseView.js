@@ -24,8 +24,8 @@ app.registerView(function (container) {
         };
         this.channelInitialized = false;
         scope.$watch('widget', this.initializeWidgetChannel.bind(this));
+        scope.$on('$destroy', this.unbindEventChannelEventListeners.bind(this));
         var self = this;
-        console.log(self);
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);
         });
@@ -53,7 +53,12 @@ app.registerView(function (container) {
     };
 
     WidgetBaseView.prototype.sendReloadCommandToChannel = function () {
+        this.eventChannel.sendReloadCommand();
+    };
 
+    WidgetBaseView.prototype.unbindEventChannelEventListeners = function () {
+        this.eventChannel.unsubscribeReloadCommand();
+        this.eventChannel.unsubscribeReloadCompleteCommand();
     };
 
     WidgetBaseView.prototype.onReloadCommandReceived = function () {

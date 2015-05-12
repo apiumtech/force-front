@@ -51,12 +51,8 @@ app.registerPresenter(function (container) {
 
         self.rebindChannelListener();
 
-        view.event.onReloadWidgetStart = function () {
-            view.data = {};
-            self._executeLoadWidget();
-        };
-
         view.event.onReloading = function () {
+            view.data = {};
             self._executeLoadWidget();
         };
 
@@ -80,11 +76,10 @@ app.registerPresenter(function (container) {
             view.sendReloadCommandToChannel();
         };
 
-        view.event.onReloadWidgetDone = function (errMsg) {
+        view.event.onReloadWidgetDone = function () {
             // init the value when widget loaded
             model.changeQueryFilter(view.$scope.selectedFilter);
             model.addQuery('grouping', view.$scope.selectedRangeOption);
-            self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
     };
 

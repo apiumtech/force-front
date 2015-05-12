@@ -47,6 +47,8 @@ app.registerService(function (container) {
 
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
 
+        geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
+
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',

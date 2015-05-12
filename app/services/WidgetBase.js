@@ -16,20 +16,6 @@ app.registerService(function (container) {
         };
     }
 
-    WidgetBase.prototype.normalizeServerInput = function (input) {
-        var empty = function () {
-            return {data: {params: {}}, success: false};
-        };
-        if (input == null || input.data == null || input.data.params == null || input.data.widgetId == null) {
-            return empty();
-        }
-
-        if (typeof input.data.params === 'string')
-            input.data.params = JSON.parse(input.data.params);
-
-        return input;
-    };
-
     WidgetBase.prototype.buildQueryString = function () {
         var queries = "";
 
@@ -61,7 +47,7 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.reloadWidget = function () {
-        if (!this.fetchPoint) {
+        if (!this.getUrl()) {
             throw new Error("FetchPoint is not defined");
         }
 

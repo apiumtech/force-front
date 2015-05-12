@@ -5,18 +5,25 @@ describe("GraphWidgetModel", function () {
     var GraphWidgetModel = app.getModel("models/GraphWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
 
-    var sut;
+    var sut, ajaxService;
 
     beforeEach(function () {
-        sut = GraphWidgetModel.newInstance().getOrElse(throwInstantiateException(GraphWidgetModel));
+        ajaxService = {
+            rawAjaxRequest: function () {
+            }
+        };
+        sut = GraphWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(GraphWidgetModel));
     });
 
     describe("_reload", function () {
-        beforeEach(function () {
-            spyOn(WidgetBase.prototype, '_reload').and.callThrough();
+        it('should call decoration method to decorate data from server', function (done) {
+            spyOn(sut, 'decorateServerData');
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+            sut._reload().then(function () {
+                expect(sut.decorateServerData).toHaveBeenCalled();
+                done();
+            });
         });
-
-
     });
 
     describe("decorateServerData", function () {

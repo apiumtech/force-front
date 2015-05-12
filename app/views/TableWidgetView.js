@@ -164,10 +164,6 @@ app.registerView(function (container) {
         self.dataSource = self.getDisplayData(self.data.data, displayColumnIndices);
     };
 
-    TableWidgetView.prototype.sendReloadCommandToChannel = function () {
-        this.eventChannel.sendReloadCommand();
-    };
-
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
         self.data = data.data.params;

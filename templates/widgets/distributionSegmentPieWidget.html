@@ -1,13 +1,15 @@
-<div ng-controller="PieChartWidgetController"
-     ng-init="fn.assignWidget(widget)">
+<widget-wrapper body-class=""
+                title="{{widget.widgetName}}"
+                event-bus-channel="eventChannel">
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
             <select class="form-control pull left"
                     ng-model="selectedFilter"
                     ng-change="fn.changeFilter(selectedFilter)">
-                <option ng-repeat="filter in filters" value="{{filter}}">{{filter}}</option>
+                <option ng-repeat="filter in tabs" value="{{filter}}">{{filter}}</option>
             </select>
         </div>
     </div>
     <div class="chart-place-holder height-sm"></div>
-</div>
+
+</widget-wrapper>

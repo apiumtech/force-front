@@ -8,6 +8,8 @@ app.registerView(function (container) {
     var MapChartWidgetModel = container.getModel('models/MapChartWidgetModel');
     var MapChartWidgetPresenter = container.getPresenter('presenters/MapChartWidgetPresenter');
 
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+
     var MapChart = container.getService("plots/MapChart");
 
     function MapChartWidgetView(scope, element, mapChart, model, presenter) {
@@ -26,6 +28,14 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.selectedFilter = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
@@ -33,12 +43,13 @@ app.registerView(function (container) {
         var self = this;
         self.isAssigned = false;
 
-        self.fn.assignWidget = function (outerScopeWidget) {
-            self.widget = outerScopeWidget;
-            self.event.onReloadWidgetStart();
-        };
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
 
-        self.fn.changeFilter = function () {
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
+        self.fn.changeFilter = function (selectedFilter) {
+            self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
         };
 
@@ -51,7 +62,6 @@ app.registerView(function (container) {
         var self = this;
 
         self.refreshChart(responseData.data.params);
-        self.event.onReloadWidgetDone();
     };
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
