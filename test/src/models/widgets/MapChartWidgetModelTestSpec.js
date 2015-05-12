@@ -18,16 +18,15 @@ describe("MapChartWidgetModel", function () {
 
     describe('getUrl', function () {
         it("should format the Api with the current filter", function(){
-            var fakeFormatted="fake_formatted_string";
 
-           spyOn(String.prototype, 'format').and.callFake(function(fake){
-               return fakeFormatted;
-           });
+            sut.currentFilter="fake_filter";
+            var expectedUrl = Configuration.api.geographicalWidgetDistributionDataApi.format(sut.currentFilter);
+           spyOn(String.prototype, 'format').and.callThrough();
 
             var result = sut.getUrl();
 
-            expect(String.prototype.format).toHaveBeenCalledWith(sut.currentFilter);
-            expect(result).toEqual(fakeFormatted);
+            expect(Configuration.api.geographicalWidgetDistributionDataApi.format).toHaveBeenCalledWith(sut.currentFilter);
+            expect(result).toEqual(expectedUrl);
         });
     });
 

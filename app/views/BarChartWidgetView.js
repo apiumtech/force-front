@@ -8,6 +8,8 @@ app.registerView(function (container) {
     var BarChartWidgetModel = container.getModel('models/widgets/BarChartWidgetModel');
     var BarChartWidgetPresenter = container.getPresenter('presenters/widgets/BarChartWidgetPresenter');
 
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+
     var BarChart = container.getService('plots/BarChart');
 
     function BarChartWidgetView(scope, element, model, presenter) {
@@ -40,12 +42,24 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.tickLabels = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
     BarChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
+
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -70,7 +84,6 @@ app.registerView(function (container) {
         self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0];
 
         self.refreshChart();
-        self.event.onReloadWidgetDone();
     };
 
     BarChartWidgetView.prototype.refreshChart = function () {

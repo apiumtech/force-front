@@ -12,8 +12,10 @@ app.registerService(function (container) {
         this.fetchPoint = null;
         this.widgetId = null;
         this.queries = {
+            users: "",
             period: ""
         };
+        this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
     WidgetBase.prototype.buildQueryString = function () {
@@ -52,7 +54,7 @@ app.registerService(function (container) {
         return this._reload();
     };
 
-    WidgetBase.prototype.getUrl = function(){
+    WidgetBase.prototype.getUrl = function () {
         return this.fetchPoint;
     };
 

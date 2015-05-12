@@ -36,13 +36,8 @@ app.registerModel(function (container) {
             name: 'Quotes',
             key: 'quotes'
         }];
-        this.queries = {
-            users: "",
-            period: "",
-            grouping: "hour"
-        };
 
-        this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
+        this.queries.grouping= "hour";
     }
 
     GraphWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
@@ -82,7 +77,7 @@ app.registerModel(function (container) {
             }
         };
 
-        responseData.data.params.axis.x = data.Labels;
+        responseData.data.params.axis.x = data.Labels[0];
 
         data.Series.forEach(function (series) {
             var decorated = {

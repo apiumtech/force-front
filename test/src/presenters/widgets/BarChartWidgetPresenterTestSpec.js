@@ -15,10 +15,7 @@ describe("BarChartWidgetPresenter", function () {
         var ___view, ___model;
         [
             {
-                viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
-            },
-            {
-                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
+                viewEvent: "onReloading", test: onReloadingTest
             },
             {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
@@ -35,6 +32,8 @@ describe("BarChartWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
+                        sendReloadCommandToChannel: function () {
+                        },
                         event: {}
                     };
                     ___model = {
@@ -43,14 +42,10 @@ describe("BarChartWidgetPresenter", function () {
                     sut.show(view, ___model);
                 });
 
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
-                });
-
                 describe("when event '" + viewEvent + "' fired", test);
             });
 
-        function onReloadWidgetStartTest() {
+        function onReloadingTest() {
             beforeEach(function () {
                 view.widget = {
                     dataEndpoint: "/test/end/point"
@@ -58,12 +53,30 @@ describe("BarChartWidgetPresenter", function () {
                 spyOn(sut, '_executeLoadWidget');
             });
             it("should add endpoint to model", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
             it("should call '_executeLoadWidget' method", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
+            });
+        }
+
+        function onUsersFilterAppliedTest() {
+            var filterValue = [1, 2, 3, 4, 5];
+            beforeEach(function () {
+                ___model.addUserFilter = jasmine.createSpy();
+
+                spyOn(view, 'sendReloadCommandToChannel');
+                view.event.onUsersFilterApplied(filterValue);
+            });
+
+            it("should call 'addUserFilter' on the model", function () {
+                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+            });
+
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -73,9 +86,10 @@ describe("BarChartWidgetPresenter", function () {
                 dateEnd: new Date()
             };
             beforeEach(function () {
+
                 ___model.addDateFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
 
@@ -83,62 +97,25 @@ describe("BarChartWidgetPresenter", function () {
                 expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
-            });
-        }
-
-        function onReloadWidgetDoneTest() {
-            var errMsg = {msg: "test message"};
-            beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
-                view.$scope = {
-                    selectedFilter: 'selectedFilter',
-                    selectedRangeOption: 'selectedRangeOption'
-                };
-                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                view.event.onReloadWidgetDone(errMsg);
-            });
-
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
-            });
-        }
-
-        function onUsersFilterAppliedTest() {
-            var filterValue = [1, 2, 3, 4, 5];
-            beforeEach(function () {
-                ___model.addUserFilter = jasmine.createSpy();
-
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                view.event.onUsersFilterApplied(filterValue);
-            });
-
-            it("should call 'addUserFilter' on the model", function () {
-                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
-            });
-
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
         function onTabChangedTest() {
-            function prepareTabChanged() {
+            beforeEach(function () {
                 view.selectedFilter = "tab1";
                 ___model.changeFilterTab = jasmine.createSpy();
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onTabChanged();
-            }
+            });
 
             it("should call addQuery with new value", function () {
-                prepareTabChanged();
                 expect(___model.changeFilterTab).toHaveBeenCalledWith("tab1");
             });
 
-            it("should fire reload signal on channel", function () {
-                prepareTabChanged();
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 

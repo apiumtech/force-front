@@ -70,7 +70,7 @@ app.registerView(function (container) {
         var self = this;
         self.data = responseData.data.params.params;
         self.tabs = responseData.data.params.filters;
-        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0];
+        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
 
         self.refreshChart();
     };

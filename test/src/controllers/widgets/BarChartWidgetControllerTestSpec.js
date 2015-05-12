@@ -2,7 +2,7 @@
  * Created by justin on 1/28/15.
  */
 describe("BarChartWidgetController", function () {
-    var BarChartWidgetController = app.getController('controllers/BarChartWidgetController');
+    var BarChartWidgetController = app.getController('controllers/widgets/BarChartWidgetController');
 
     it("should call BarChartWidgetController.configureView global method", function () {
         var scope = {someScope: true},

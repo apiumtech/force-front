@@ -4,6 +4,7 @@
 describe("GraphWidgetModel", function () {
     var GraphWidgetModel = app.getModel("models/widgets/GraphWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
+    var Configuration = app.getService("Configuration");
 
     var sut, ajaxService;
 
@@ -13,6 +14,20 @@ describe("GraphWidgetModel", function () {
             }
         };
         sut = GraphWidgetModel.newInstance(ajaxService);
+    });
+
+    describe('getUrl', function () {
+        it("should format the Api with the current filter", function(){
+
+            sut.currentFilter="fake_filter";
+            var expectedUrl = Configuration.api.graphWidgetIntensityDataApi.format(sut.currentFilter);
+            spyOn(String.prototype, 'format').and.callThrough();
+
+            var result = sut.getUrl();
+
+            expect(Configuration.api.graphWidgetIntensityDataApi.format).toHaveBeenCalledWith(sut.currentFilter);
+            expect(result).toEqual(expectedUrl);
+        });
     });
 
     describe("_reload", function () {
@@ -49,7 +64,7 @@ describe("GraphWidgetModel", function () {
                         Y: 6
                     }]
                 }],
-                Labels: ["Label1", "Label2", "Label3"]
+                Labels: [["Label1", "Label2", "Label3"]]
             };
 
             var expectedOutput = {
