@@ -151,8 +151,8 @@ app.registerView(function (container) {
         var scope = $scope || {};
         var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
         var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
-        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
-        var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
+        var dataTableService = $dataTableService || DataTableService.newInstance();
+        var templateParser = $templateParser || SimpleTemplateParser.newInstance();
 
         var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser);
 

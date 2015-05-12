@@ -54,6 +54,7 @@ app.registerService(function (container) {
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
         literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
+        literalById: baseUrl + '/api/queries/commons/literals/literalById',
         literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
     };
 

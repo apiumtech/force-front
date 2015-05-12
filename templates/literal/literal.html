@@ -1,58 +1,65 @@
-<div ng-init="event.onInit()">
+<div ng-init="fn.onInit()">
     <h1 class="page-header">{{'Literal' | i18next}}</h1>
+
     <div class="row">
-      <div class="col-md-12 ui-sortable">
-        <div class="panel panel-inverse">
+        <div class="col-md-12 ui-sortable">
+            <div class="panel panel-inverse">
 
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <span ng-if="fn.isNew()">{{'Create' | i18next}} </span>
-              <span ng-if="!fn.isNew()">{{'Edit' | i18next}} </span>
-              {{'Literal_Form' | i18next}}
-            </h4>
-          </div>
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span ng-if="fn.isNew()">{{'Create' | i18next}} </span>
+                        <span ng-if="!fn.isNew()">{{'Edit' | i18next}} </span>
+                        {{'Literal_Form' | i18next}}
+                    </h4>
+                </div>
 
-          <div class="panel-body">
-              <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="col-md-3 control-label">{{'Literal_Form_Key' | i18next}}</label>
-                      <div class="col-md-9">
-                        <input type="text"
-                               class="form-control"
-                               placeholder="{{'Literal_Form_Key_Placeholder' | i18next}}"
-                               ng-model="data.literal.Key"
-                               value={{data.literal.Key}}>
-                      </div>
-                  </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'Literal_Form_Key' | i18next}}</label>
 
-                  <div
-                      class="form-group"
-                      ng-repeat="language in data.literal.LanguageValues">
-                    <label class="col-md-3 control-label">{{ language.Key }}</label>
-                      <div class="col-md-9">
-                        <input type="text"
-                               ng-model="data.literal.LanguageValues[$index].Value"
-                               class="form-control"
-                               placeholder="{{'Literal_Form_Key_Placeholder' | i18next}}"
-                               value="{{ language.Value }}"/>
-                      </div>
-                  </div>
+                            <div class="col-md-9">
 
-                  <div class="form-group">
-                      <div class="col-md-9">
-                          <button type="submit"
-                                  ng-click="event.onSave()"
-                                  class="btn btn-sm btn-success">{{'Literal_Form_Submit' | i18next}}</button>
-                          <button type="submit"
-                                  ng-click="event.onCancel()"
-                                  class="btn btn-sm btn-error">{{'Literal_Form_Cancel' | i18next}}</button>
-                      </div>
-                  </div>
-              </form>
-          </div>
+                                <!-- Literal Key -->
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="{{'Literal_Form_Key_Placeholder' | i18next}}"
+                                       ng-model="data.literal.Key"
+                                       value={{data.literal.Key}}>
+                            </div>
+                        </div>
 
+                        <div class="form-group"
+                             ng-repeat="language in data.literal.LanguageValues">
+                            <label class="col-md-3 control-label">{{ language.Key }}</label>
+                            <div class="col-md-9">
+
+                                <!-- Literal language -->
+                                <input type="text"
+                                       ng-model="data.literal.LanguageValues[$index].Value"
+                                       class="form-control"
+                                       placeholder="{{'Literal_Form_Key_Placeholder' | i18next}}"
+                                       value="{{ language.Value }}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-9">
+                                <button type="submit"
+                                        ng-click="fn.onSave()"
+                                        class="btn btn-sm btn-success">{{'Literal_Form_Submit' | i18next}}
+                                </button>
+                                <button type="submit"
+                                        ng-click="fn.onCancel()"
+                                        class="btn btn-sm btn-error">{{'Literal_Form_Cancel' | i18next}}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-      </div>
     </div>
 </div>
 

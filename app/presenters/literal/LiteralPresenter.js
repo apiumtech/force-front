@@ -4,27 +4,53 @@
 
 app.registerPresenter(function (container) {
 
-    function LiteralPresenter() {
+    /**
+     * @constructor
+     */
+    function LiteralPresenter($window) {
+        this.$window = $window;
     }
 
+
+    /**
+     * show()
+     */
     LiteralPresenter.prototype.show = function (view, model) {
-
-        view.event.onInit = function () {
-            view.model.getLiteralById( view.routeParams.literalId ).then(view.showForm.bind(view), view.showError.bind(view));
-        };
-
-        view.event.onCancel = function(){
-          window.history.back();
-        };
-
-        view.event.onSave = function(){
-          view.model.updateOrCreateLiteral( view.data.literal).then( function(){ debugger; window.history.back(); }, view.showError.bind(view));;
-        };
-
+        this.view = view;
+        this.model = model;
     };
 
-    LiteralPresenter.newInstance = function () {
-        return new LiteralPresenter();
+
+    /**
+     * onSave()
+     */
+    LiteralPresenter.prototype.updateLiteral = function(literal){
+        var view = this.view;
+        this.model.changeLiteralDetails(literal).then(
+            view.goBack.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
+    /**
+     * getLiteralById()
+     */
+    LiteralPresenter.prototype.getLiteralById = function (id) {
+        var view = this.view;
+        this.model.getLiteralById( id ).then(
+            view.showForm.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
+    /**
+     * newInstance()
+     */
+    LiteralPresenter.newInstance = function ($window) {
+        $window = $window || window;
+        return Some(new LiteralPresenter($window));
     };
 
     return {newInstance: LiteralPresenter.newInstance};
