@@ -394,10 +394,13 @@ function main() {
             'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
             // SingleLine chart widget
-            'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
+            'directives/widgets/DistributionHourLineWidgetDirective',
+            'controllers/widgets/DistributionHourLineWidgetController',
+            'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
 
             // Table widget
             'directives/widgets/IntensityRankingWidgetDirective',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
             'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
 
             'controllers/TopMenuController', 'views/TopMenuView',

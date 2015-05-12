@@ -18,9 +18,6 @@ describe("SingleLineChartWidgetPresenter", function () {
                 viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
             },
             {
-                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
-            },
-            {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
             },
             {
@@ -35,16 +32,14 @@ describe("SingleLineChartWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
+                        sendReloadCommandToChannel: function () {
+                        },
                         event: {}
                     };
                     ___model = {
                         setFetchEndPoint: jasmine.createSpy()
                     };
                     sut.show(view, ___model);
-                });
-
-                it("should declared '" + viewEvent + "' event for View", function () {
-                    testDeclareMethod(view.event, viewEvent);
                 });
 
                 describe("when event '" + viewEvent + "' fired", test);
@@ -58,11 +53,11 @@ describe("SingleLineChartWidgetPresenter", function () {
                 spyOn(sut, '_executeLoadWidget');
             });
             it("should add endpoint to model", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
             });
             it("should call '_executeLoadWidget' method", function () {
-                view.event.onReloadWidgetStart();
+                view.event.onReloading();
                 expect(sut._executeLoadWidget).toHaveBeenCalled();
             });
         }
@@ -72,7 +67,7 @@ describe("SingleLineChartWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onUsersFilterApplied(filterValue);
             });
 
@@ -80,8 +75,8 @@ describe("SingleLineChartWidgetPresenter", function () {
                 expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
@@ -91,9 +86,10 @@ describe("SingleLineChartWidgetPresenter", function () {
                 dateEnd: new Date()
             };
             beforeEach(function () {
+
                 ___model.addDateFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
 
@@ -101,44 +97,25 @@ describe("SingleLineChartWidgetPresenter", function () {
                 expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
-            });
-        }
-
-        function onReloadWidgetDoneTest() {
-            var errMsg = {msg: "test message"};
-            beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
-                view.$scope = {
-                    selectedFilter: 'selectedFilter',
-                    selectedRangeOption: 'selectedRangeOption'
-                };
-                spyOn(sut.widgetEventChannel, 'sendReloadCompleteSignal');
-                view.event.onReloadWidgetDone(errMsg);
-            });
-
-            it("should call 'sendReloadCompleteSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadCompleteSignal).toHaveBeenCalledWith(errMsg);
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
         function onFilterChangedTest() {
-            function prepareTabChanged() {
+            beforeEach(function () {
                 view.selectedFilter = "tab1";
                 ___model.changeFilterTab = jasmine.createSpy();
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onFilterChanged();
-            }
+            });
 
             it("should call addQuery with new value", function () {
-                prepareTabChanged();
                 expect(___model.changeFilterTab).toHaveBeenCalledWith("tab1");
             });
 
-            it("should fire reload signal on channel", function () {
-                prepareTabChanged();
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the channel", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 

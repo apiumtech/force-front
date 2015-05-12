@@ -4,6 +4,7 @@
 
 var widgetPageLists = {};
 var WidgetService = require("../services/widgetService");
+var utils = require('../utils');
 
 exports.getWidgetsByPage = function (request, response) {
     var page = request.params.page;
@@ -34,13 +35,15 @@ exports.getWidget = function (request, response) {
         return;
     }
 
-    response.json({
-        success: true,
-        data: {
-            widgetId: widget.widgetId,
-            params: widget.data
-        }
-    });
+    setTimeout(function () {
+        response.json({
+            success: true,
+            data: {
+                widgetId: widget.widgetId,
+                params: widget.data
+            }
+        });
+    }, utils.generateRandom(1000, 5000));
 };
 
 exports.updateWidgets = function (request, response) {
