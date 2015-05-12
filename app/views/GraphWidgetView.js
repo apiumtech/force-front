@@ -53,15 +53,15 @@ app.registerView(function (container) {
             scope = self.$scope;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-        eventChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
             self.event.onFilterRangeChanged();
         };
 
-        self.fn.changeFilter = function () {
+        self.fn.changeFilter = function (selectedFilter) {
             self.availableFields = [];
+            self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
         };
 
@@ -96,10 +96,6 @@ app.registerView(function (container) {
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
-    };
-
-    GraphWidgetView.prototype.onReloadCompleteCommandReceived = function(){
-        this.event.onReloadWidgetDone();
     };
 
     GraphWidgetView.prototype.refreshChart = function () {

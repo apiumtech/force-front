@@ -1,8 +1,9 @@
 /**
  * Created by justin on 1/26/15.
  */
-describe("PieChartWidgetModel", function () {
-    var PieChartWidgetModel = app.getModel("models/widgets/PieChartWidgetModel");
+describe("SegmentPieChartWidgetModel", function () {
+    var SegmentPieChartWidgetModel = app.getModel("models/widgets/SegmentPieChartWidgetModel");
+    var Configuration = app.getService("Configuration");
 
     var sut, ajaxService;
 
@@ -11,7 +12,7 @@ describe("PieChartWidgetModel", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = PieChartWidgetModel.newInstance(ajaxService);
+        sut = SegmentPieChartWidgetModel.newInstance(ajaxService);
     });
 
     describe('changeQueryFilter', function () {
@@ -39,6 +40,20 @@ describe("PieChartWidgetModel", function () {
                 sut.changeQueryFilter('f3');
                 expect(sut.currentFilter).toEqual('f3');
             });
+        });
+    });
+
+    describe('getUrl', function () {
+        it("should format the Api with the current filter", function(){
+
+            sut.currentFilter="fake_filter";
+            var expectedUrl = Configuration.api.segmentWidgetDistributionDataApi.format(sut.currentFilter);
+            spyOn(String.prototype, 'format').and.callThrough();
+
+            var result = sut.getUrl();
+
+            expect(Configuration.api.segmentWidgetDistributionDataApi.format).toHaveBeenCalledWith(sut.currentFilter);
+            expect(result).toEqual(expectedUrl);
         });
     });
 
@@ -104,5 +119,4 @@ describe("PieChartWidgetModel", function () {
             expect(output).toEqual(expectedOutput);
         });
     });
-
 });

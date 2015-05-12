@@ -106,7 +106,7 @@ describe("HourPieChartWidgetView", function () {
             data: {
                 widgetType: "pie",
                 params: {
-                    filters: ["filter1", "filter2"],
+                    filters: [{name: "name1", key: "key1"},{name: "name2", key: "key2"}],
                     params: [
                         {label: "pie1", data: 30},
                         {label: "pie4", data: 15},
@@ -137,14 +137,14 @@ describe("HourPieChartWidgetView", function () {
         it("Should assign selectedFiler to scope with value is first element of filters", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
+            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0].key);
         });
 
         it("Should not assign selectedFiler if it has value", function () {
             sut.selectedFilter = "tab2";
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedFilter).not.toEqual(fakeResponseData.data.params.filters[0]);
+            expect(sut.selectedFilter).not.toEqual(fakeResponseData.data.params.filters[0].key);
             expect(sut.selectedFilter).toEqual("tab2");
         });
 

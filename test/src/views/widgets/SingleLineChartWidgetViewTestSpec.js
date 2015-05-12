@@ -8,8 +8,10 @@ describe("SingleLineChartWidgetView", function () {
 
     function initSut() {
         scope = {
-            $on: function(){},
-            $watch: function(){}
+            $on: function () {
+            },
+            $watch: function () {
+            }
         };
         sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
@@ -158,7 +160,7 @@ describe("SingleLineChartWidgetView", function () {
         beforeEach(initSut);
 
         it("should assign filters from data", function () {
-            sut.data.filters = ['filter1', 'filter2'];
+            sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
             sut.extractFilters();
             expect(sut.filters).toEqual(sut.data.filters);
         });
@@ -166,27 +168,27 @@ describe("SingleLineChartWidgetView", function () {
         describe("assign new value to selectedFilter", function () {
             describe("current value is empty", function () {
                 it("should assign selectedFilter to the first element in array", function () {
-                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
                     sut.extractFilters();
-                    expect(sut.$scope.selectedFilter).toEqual('filter1');
+                    expect(sut.$scope.selectedFilter).toEqual('key1');
                 });
             });
 
             describe("current value is not in filters list", function () {
                 it("should assign selectedFilter to the first element in array", function () {
                     sut.selectedFilter = 'filterNotInList';
-                    sut.data.filters = ['filter1', 'filter2', 'filter3'];
+                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
                     sut.extractFilters();
-                    expect(sut.selectedFilter).toEqual('filter1');
+                    expect(sut.selectedFilter).toEqual('key1');
                 });
             });
 
             describe("current value is in filters list", function () {
                 it("should not assign selectedFilter if it has value", function () {
-                    sut.selectedFilter = 'filter2';
-                    sut.data.filters = ['filter1', 'filter2'];
+                    sut.selectedFilter = 'key2';
+                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
                     sut.extractFilters();
-                    expect(sut.selectedFilter).toEqual('filter2');
+                    expect(sut.selectedFilter).toEqual('key2');
                 });
             });
         });
@@ -226,10 +228,7 @@ describe("SingleLineChartWidgetView", function () {
                 sut.data = {
                     fields: [
                         {
-                            label: "pie1", data: [
-                            [0, 1],
-                            [1, 2]
-                        ]
+                            name: "pie1", data: [1, 2]
                         }
                     ]
                 };

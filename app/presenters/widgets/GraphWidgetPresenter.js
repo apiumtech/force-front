@@ -57,7 +57,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterChanged = function () {
-            model.changeQueryFilter(view.$scope.selectedFilter);
+            model.changeQueryFilter(view.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 
@@ -74,12 +74,6 @@ app.registerPresenter(function (container) {
         view.event.onFilterRangeChanged = function () {
             model.addQuery('grouping', view.$scope.selectedRangeOption);
             view.sendReloadCommandToChannel();
-        };
-
-        view.event.onReloadWidgetDone = function () {
-            // init the value when widget loaded
-            model.changeQueryFilter(view.$scope.selectedFilter);
-            model.addQuery('grouping', view.$scope.selectedRangeOption);
         };
     };
 

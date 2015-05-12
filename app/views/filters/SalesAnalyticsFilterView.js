@@ -32,10 +32,18 @@ app.registerView(function (container) {
             return self.$scope.dateRangeEnd.toString();
         };
         self.$scope.isoStringDateEndLimit = function () {
-            return self.$scope.dateRangeStart.toString();
+            var date = new Date(self.$scope.dateRangeStart);
+            date = date.setDate(date.getDate() + 1);
+            return new Date(date).toString();
         };
         self.$scope.isoStringMaxDateLimit = function () {
             return new Date().toString();
+        };
+
+        self.$scope.isoStringMaxDateFromLimit = function () {
+            var date = new Date(self.$scope.dateRangeEnd);
+            date = date.setDate(date.getDate() - 1);
+            return new Date(date).toString();
         };
 
         this.data.isLoadingUsers = false;
@@ -312,7 +320,7 @@ app.registerView(function (container) {
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {
         var self = this;
-        if( moment(self.dateRangeStart).isAfter(self.dateRangeEnd) ){
+        if (moment(self.dateRangeStart).isAfter(self.dateRangeEnd)) {
             self.dateRangeEnd = new Date(self.dateRangeStart.toString());
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
         }

@@ -56,7 +56,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterChanged = function () {
-            model.changeFilterTab(view.selectedFilter);
+            model.changeQueryFilter(view.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 
@@ -68,10 +68,6 @@ app.registerPresenter(function (container) {
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
             view.sendReloadCommandToChannel();
-        };
-
-        view.event.onReloadWidgetDone = function (errMsg) {
-            self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
     };
 

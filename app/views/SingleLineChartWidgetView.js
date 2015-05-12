@@ -13,10 +13,6 @@ app.registerView(function (container) {
     var SingleLineChart = container.getService('plots/SingleLineChart');
     var LineGraphPlot = container.getService('plots/LineGraphPlot');
 
-    function onlyVal(data) {
-        return data[1];
-    }
-
     function SingleLineChartWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         var self = this;
@@ -65,7 +61,6 @@ app.registerView(function (container) {
             scope = self.$scope;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-        eventChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -89,10 +84,6 @@ app.registerView(function (container) {
         self.refreshChart();
     };
 
-    SingleLineChartWidgetView.prototype.onReloadCompleteCommandReceived = function(){
-        this.event.onReloadWidgetDone();
-    };
-
     SingleLineChartWidgetView.prototype.extractFilters = function () {
         var self = this;
         self.filters = self.data.filters;
@@ -100,9 +91,11 @@ app.registerView(function (container) {
             currentSelectedFilter = self.selectedFilter;
 
         self.selectedFilter =
-            currentSelectedFilter && filterList.indexOf(currentSelectedFilter) !== -1 ?
+            currentSelectedFilter && filterList.map(function (f) {
+                return f.key;
+            }).indexOf(currentSelectedFilter) !== -1 ?
                 currentSelectedFilter :
-                self.filters[0];
+                self.filters[0].key;
     };
 
     SingleLineChartWidgetView.prototype.refreshChart = function () {
@@ -119,6 +112,10 @@ app.registerView(function (container) {
         });
 
         self.paintChart(self.element.find('.chart-place-holder'), chartFields);
+    };
+
+    SingleLineChartWidgetView.getLineGraphInstance = function (field) {
+        return LineGraphPlot.newInstance(field.name, field.data, false, false);
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
@@ -151,10 +148,6 @@ app.registerView(function (container) {
             previousPoint = null;
         }
         event.preventDefault();
-    };
-
-    SingleLineChartWidgetView.getLineGraphInstance = function (field) {
-        return LineGraphPlot.newInstance(field.name, field.data.map(onlyVal), false, false);
     };
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
