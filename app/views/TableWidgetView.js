@@ -4,8 +4,8 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var TableWidgetModel = container.getModel('models/TableWidgetModel');
-    var TableWidgetPresenter = container.getPresenter('presenters/TableWidgetPresenter');
+    var TableWidgetModel = container.getModel('models/widgets/TableWidgetModel');
+    var TableWidgetPresenter = container.getPresenter('presenters/widgets/TableWidgetPresenter');
 
     var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
 

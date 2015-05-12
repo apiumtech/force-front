@@ -3,7 +3,7 @@
  */
 
 describe("PieChartWidgetPresenter", function () {
-    var PieChartWidgetPresenter = app.getPresenter('presenters/PieChartWidgetPresenter');
+    var PieChartWidgetPresenter = app.getPresenter('presenters/widgets/PieChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {

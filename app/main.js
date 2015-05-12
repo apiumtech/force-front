@@ -369,36 +369,36 @@ function main() {
 
             // Graph widget
             'directives/widgets/IntensityGraphWidgetDirective',
-            'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/GraphWidgetModel', 'presenters/GraphWidgetPresenter',
+            'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
 
             // Map chart widget
             'directives/widgets/DistributionGeographicalWidgetDirective',
-            'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
+            'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
 
             // Pie chart widget
-            'presenters/PieChartWidgetPresenter',
-            'views/PieChartWidgetView',
-            'models/PieChartWidgetModel',
+            'presenters/widgets/PieChartWidgetPresenter',
+            'views/widgets/PieChartWidgetView',
+            'models/widgets/PieChartWidgetModel',
             // Distribution Segment Pie Chart
             'directives/widgets/DistributionSegmentPieWidgetDirective',
-            'models/SegmentPieChartWidgetModel',
+            'models/widgets/SegmentPieChartWidgetModel',
             'controllers/widgets/DistributionSegmentPieWidgetController',
             'views/SegmentPieChartWidgetView',
             // Distribution Hour Pie Chart
             'directives/widgets/DistributionHourPieWidgetDirective',
-            'models/HourPieChartWidgetModel',
+            'models/widgets/HourPieChartWidgetModel',
             'controllers/widgets/DistributionHourPieWidgetController',
             'views/HourPieChartWidgetView',
 
             // Bar chart widget
-            'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/BarChartWidgetPresenter', 'models/BarChartWidgetModel',
+            'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
             // SingleLine chart widget
-            'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/SingleLineChartWidgetPresenter', 'models/SingleLineChartWidgetModel',
+            'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
 
             // Table widget
             'directives/widgets/IntensityRankingWidgetDirective',
-            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/TableWidgetModel', 'presenters/TableWidgetPresenter',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
 
             'controllers/TopMenuController', 'views/TopMenuView',
             'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',

@@ -3,7 +3,7 @@
  */
 
 describe("MapChartWidgetPresenter", function () {
-    var MapChartWidgetPresenter = app.getPresenter('presenters/MapChartWidgetPresenter');
+    var MapChartWidgetPresenter = app.getPresenter('presenters/widgets/MapChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {

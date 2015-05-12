@@ -3,7 +3,7 @@
  */
 
 describe("SingleLineChartWidgetPresenter", function () {
-    var SingleLineChartWidgetPresenter = app.getPresenter('presenters/SingleLineChartWidgetPresenter');
+    var SingleLineChartWidgetPresenter = app.getPresenter('presenters/widgets/SingleLineChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {

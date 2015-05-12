@@ -2,7 +2,7 @@
  * Created by justin on 12/30/14.
  */
 describe("TableWidgetModel", function () {
-    var TableWidgetModel = app.getModel("models/TableWidgetModel");
+    var TableWidgetModel = app.getModel("models/widgets/TableWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
 
     var sut, ajaxService;

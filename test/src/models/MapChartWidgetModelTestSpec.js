@@ -2,7 +2,7 @@
  * Created by justin on 2/11/15.
  */
 describe("MapChartWidgetModel", function () {
-    var MapChartWidgetModel = app.getModel("models/MapChartWidgetModel");
+    var MapChartWidgetModel = app.getModel("models/widgets/MapChartWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
     var Configuration = app.getService("Configuration");
 

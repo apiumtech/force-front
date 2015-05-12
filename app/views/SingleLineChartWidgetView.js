@@ -5,8 +5,8 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var SingleLineChartWidgetModel = container.getModel('models/SingleLineChartWidgetModel');
-    var SingleLineChartWidgetPresenter = container.getPresenter('presenters/SingleLineChartWidgetPresenter');
+    var SingleLineChartWidgetModel = container.getModel('models/widgets/SingleLineChartWidgetModel');
+    var SingleLineChartWidgetPresenter = container.getPresenter('presenters/widgets/SingleLineChartWidgetPresenter');
 
     var SingleLineChart = container.getService('plots/SingleLineChart');
     var LineGraphPlot = container.getService('plots/LineGraphPlot');

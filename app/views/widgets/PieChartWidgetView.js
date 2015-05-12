@@ -4,7 +4,7 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var PieChartWidgetPresenter = container.getPresenter('presenters/PieChartWidgetPresenter');
+    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
 
     var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
 

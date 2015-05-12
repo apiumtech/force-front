@@ -5,8 +5,8 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var MapChartWidgetModel = container.getModel('models/MapChartWidgetModel');
-    var MapChartWidgetPresenter = container.getPresenter('presenters/MapChartWidgetPresenter');
+    var MapChartWidgetModel = container.getModel('models/widgets/MapChartWidgetModel');
+    var MapChartWidgetPresenter = container.getPresenter('presenters/widgets/MapChartWidgetPresenter');
 
     var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
 

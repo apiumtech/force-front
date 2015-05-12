@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 describe("PieChartWidgetModel", function () {
-    var PieChartWidgetModel = app.getModel("models/PieChartWidgetModel");
+    var PieChartWidgetModel = app.getModel("models/widgets/PieChartWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
 
     describe("changeFilterTab", function () {

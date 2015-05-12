@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 describe("TableWidgetPresenter", function () {
-    var TableWidgetPresenter = app.getPresenter('presenters/TableWidgetPresenter');
+    var TableWidgetPresenter = app.getPresenter('presenters/widgets/TableWidgetPresenter');
     var sut;
 
     beforeEach(function () {

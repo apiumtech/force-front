@@ -4,14 +4,14 @@
 app.registerController(function (container) {
     var HourPieChartWidgetView = container.getView("views/HourPieChartWidgetView");
 
-    function HourPieChartWidgetController($scope, $element) {
-        HourPieChartWidgetController.configureView($scope, $element);
+    function DistributionHourPieWidgetController($scope, $element) {
+        DistributionHourPieWidgetController.configureView($scope, $element);
     }
 
-    HourPieChartWidgetController.configureView = function ($scope, $element) {
-        this.view = HourPieChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(HourPieChartWidgetView));
+    DistributionHourPieWidgetController.configureView = function ($scope, $element) {
+        this.view = HourPieChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 
-    return HourPieChartWidgetController;
+    return DistributionHourPieWidgetController;
 });

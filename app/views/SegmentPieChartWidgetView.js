@@ -3,9 +3,9 @@
  */
 
 app.registerView(function (container) {
-    var PieChartWidgetPresenter = container.getPresenter('presenters/PieChartWidgetPresenter');
-    var PieChartWidgetView = container.getView("views/PieChartWidgetView");
-    var SegmentPieChartWidgetModel = container.getModel('models/SegmentPieChartWidgetModel');
+    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
+    var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
+    var SegmentPieChartWidgetModel = container.getModel('models/widgets/SegmentPieChartWidgetModel');
 
     function SegmentPieChartWidgetView(scope, element, model, presenter) {
         PieChartWidgetView.call(this, scope, element, model, presenter);
@@ -14,8 +14,8 @@ app.registerView(function (container) {
     SegmentPieChartWidgetView.prototype = Object.create(PieChartWidgetView.prototype, {});
 
     SegmentPieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SegmentPieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(SegmentPieChartWidgetModel));
-        var presenter = $presenter || PieChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(PieChartWidgetPresenter));
+        var model = $model || SegmentPieChartWidgetModel.newInstance();
+        var presenter = $presenter || PieChartWidgetPresenter.newInstance();
 
         var view = new SegmentPieChartWidgetView($scope, $element, model, presenter);
 

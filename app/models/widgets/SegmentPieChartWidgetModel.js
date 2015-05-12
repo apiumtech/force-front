@@ -3,7 +3,7 @@
  */
 
 app.registerModel(function (container) {
-    var PieChartWidgetModel = container.getModel("models/PieChartWidgetModel");
+    var PieChartWidgetModel = container.getModel("models/widgets/PieChartWidgetModel");
 
     function SegmentPieChartWidgetModel() {
         PieChartWidgetModel.call(this);
@@ -12,7 +12,7 @@ app.registerModel(function (container) {
     SegmentPieChartWidgetModel.prototype = Object.create(PieChartWidgetModel.prototype, {});
 
     SegmentPieChartWidgetModel.newInstance = function () {
-        return Some(new SegmentPieChartWidgetModel());
+        return new SegmentPieChartWidgetModel();
     };
 
     return SegmentPieChartWidgetModel;

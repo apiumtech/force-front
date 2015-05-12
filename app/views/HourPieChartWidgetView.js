@@ -3,9 +3,9 @@
  */
 
 app.registerView(function (container) {
-    var PieChartWidgetPresenter = container.getPresenter('presenters/PieChartWidgetPresenter');
-    var PieChartWidgetView = container.getView("views/PieChartWidgetView");
-    var HourPieChartWidgetModel = container.getModel('models/HourPieChartWidgetModel');
+    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
+    var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
+    var HourPieChartWidgetModel = container.getModel('models/widgets/HourPieChartWidgetModel');
 
     function HourPieChartWidgetView(scope, element, model, presenter) {
         PieChartWidgetView.call(this, scope, element, model, presenter);
@@ -14,8 +14,8 @@ app.registerView(function (container) {
     HourPieChartWidgetView.prototype = Object.create(PieChartWidgetView.prototype, {});
 
     HourPieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || HourPieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(HourPieChartWidgetModel));
-        var presenter = $presenter || PieChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(PieChartWidgetPresenter));
+        var model = $model || HourPieChartWidgetModel.newInstance();
+        var presenter = $presenter || PieChartWidgetPresenter.newInstance();
 
         var view = new HourPieChartWidgetView($scope, $element, model, presenter);
 

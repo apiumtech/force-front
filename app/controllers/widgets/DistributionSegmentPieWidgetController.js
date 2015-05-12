@@ -4,14 +4,14 @@
 app.registerController(function (container) {
     var SegmentPieChartWidgetView = container.getView("views/SegmentPieChartWidgetView");
 
-    function SegmentPieChartWidgetController($scope, $element) {
-        SegmentPieChartWidgetController.configureView($scope, $element);
+    function DistributionSegmentPieWidgetController($scope, $element) {
+        DistributionSegmentPieWidgetController.configureView($scope, $element);
     }
 
-    SegmentPieChartWidgetController.configureView = function ($scope, $element) {
-        this.view = SegmentPieChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(SegmentPieChartWidgetView));
+    DistributionSegmentPieWidgetController.configureView = function ($scope, $element) {
+        this.view = SegmentPieChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 
-    return SegmentPieChartWidgetController;
+    return DistributionSegmentPieWidgetController;
 });

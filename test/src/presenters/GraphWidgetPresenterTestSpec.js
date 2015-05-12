@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 describe("GraphWidgetPresenter", function () {
-    var GraphWidgetPresenter = app.getPresenter('presenters/GraphWidgetPresenter');
+    var GraphWidgetPresenter = app.getPresenter('presenters/widgets/GraphWidgetPresenter');
     var sut;
 
     beforeEach(function () {

@@ -3,7 +3,7 @@
  */
 
 app.registerModel(function (container) {
-    var PieChartWidgetModel = container.getModel("models/PieChartWidgetModel");
+    var PieChartWidgetModel = container.getModel("models/widgets/PieChartWidgetModel");
 
     function HourPieChartWidgetModel() {
         PieChartWidgetModel.call(this);
@@ -12,7 +12,7 @@ app.registerModel(function (container) {
     HourPieChartWidgetModel.prototype = Object.create(PieChartWidgetModel.prototype, {});
 
     HourPieChartWidgetModel.newInstance = function () {
-        return Some(new HourPieChartWidgetModel());
+        return new HourPieChartWidgetModel();
     };
 
     return HourPieChartWidgetModel;

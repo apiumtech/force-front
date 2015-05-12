@@ -2,7 +2,7 @@
  * Created by justin on 2/2/15.
  */
 describe("SingleLineChartWidgetModel", function () {
-    var SingleLineChartWidgetModel = app.getModel("models/SingleLineChartWidgetModel");
+    var SingleLineChartWidgetModel = app.getModel("models/widgets/SingleLineChartWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
 
     describe("changeFilterTab", function () {

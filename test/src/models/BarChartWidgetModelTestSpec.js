@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 describe("BarChartWidgetModel", function () {
-    var BarChartWidgetModel = app.getModel("models/BarChartWidgetModel");
+    var BarChartWidgetModel = app.getModel("models/widgets/BarChartWidgetModel");
     var WidgetBase = app.getService("services/WidgetBase");
 
     describe("changeFilterTab", function () {

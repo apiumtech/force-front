@@ -11,7 +11,7 @@ describe("HourPieChartWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = HourPieChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(HourPieChartWidgetView));
+        sut = HourPieChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {

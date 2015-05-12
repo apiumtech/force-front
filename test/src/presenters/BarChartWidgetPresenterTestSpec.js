@@ -3,7 +3,7 @@
  */
 
 describe("BarChartWidgetPresenter", function () {
-    var BarChartWidgetPresenter = app.getPresenter('presenters/BarChartWidgetPresenter');
+    var BarChartWidgetPresenter = app.getPresenter('presenters/widgets/BarChartWidgetPresenter');
     var sut;
 
     beforeEach(function () {
