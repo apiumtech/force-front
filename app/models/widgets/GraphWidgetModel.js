@@ -43,6 +43,7 @@ app.registerModel(function (container) {
     GraphWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
     GraphWidgetModel.prototype.changeQueryFilter = function (filter) {
+        console.log("Setting filter: ", filter);
         if (this.filters.map(function (filterValue) {
                 return filterValue.key;
             }).indexOf(filter) == -1) {

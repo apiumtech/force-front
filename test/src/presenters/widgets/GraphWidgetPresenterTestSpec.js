@@ -105,7 +105,7 @@ describe("GraphWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.changeQueryFilter = jasmine.createSpy();
                 spyOn(view, 'sendReloadCommandToChannel');
-                view.$scope = {selectedFilter: "abcdef"};
+                view.selectedFilter = "abcdef";
                 spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 view.event.onFilterChanged();
             });

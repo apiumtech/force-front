@@ -57,7 +57,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onFilterChanged = function () {
-            model.changeQueryFilter(view.$scope.selectedFilter);
+            model.changeQueryFilter(view.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 

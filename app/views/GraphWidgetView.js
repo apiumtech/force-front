@@ -59,8 +59,9 @@ app.registerView(function (container) {
             self.event.onFilterRangeChanged();
         };
 
-        self.fn.changeFilter = function () {
+        self.fn.changeFilter = function (selectedFilter) {
             self.availableFields = [];
+            self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
         };
 
