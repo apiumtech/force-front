@@ -376,8 +376,19 @@ function main() {
             'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/MapChartWidgetPresenter', 'models/MapChartWidgetModel',
 
             // Pie chart widget
+            'presenters/PieChartWidgetPresenter',
+            'views/PieChartWidgetView',
+            'models/PieChartWidgetModel',
+            // Distribution Segment Pie Chart
             'directives/widgets/DistributionSegmentPieWidgetDirective',
-            'controllers/widgets/DistributionSegmentPieWidgetController', 'views/PieChartWidgetView', 'presenters/PieChartWidgetPresenter', 'models/PieChartWidgetModel',
+            'models/SegmentPieChartWidgetModel',
+            'controllers/widgets/DistributionSegmentPieWidgetController',
+            'views/SegmentPieChartWidgetView',
+            // Distribution Hour Pie Chart
+            'directives/widgets/DistributionHourPieWidgetDirective',
+            'models/HourPieChartWidgetModel',
+            'controllers/widgets/DistributionHourPieWidgetController',
+            'views/HourPieChartWidgetView',
 
             // Bar chart widget
             'controllers/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/BarChartWidgetPresenter', 'models/BarChartWidgetModel',

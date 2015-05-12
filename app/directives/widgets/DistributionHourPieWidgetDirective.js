@@ -2,12 +2,12 @@
  * Created by justin on 5/9/15.
  */
 app.registerDirective(function (container) {
-    var SegmentPieWidgetController = container.getController("controllers/widgets/DistributionSegmentPieWidgetController");
+    var HourPieWidgetController = container.getController("controllers/widgets/DistributionHourPieWidgetController");
 
-    function DistributionSegmentPieWidgetDirective() {
+    function DistributionHourPieWidgetDirective() {
         return {
             restrict: "EAC",
-            controller: SegmentPieWidgetController,
+            controller: HourPieWidgetController,
             scope: {
                 widget: "="
             },
@@ -15,5 +15,5 @@ app.registerDirective(function (container) {
         };
     }
 
-    return DistributionSegmentPieWidgetDirective;
+    return DistributionHourPieWidgetDirective;
 });

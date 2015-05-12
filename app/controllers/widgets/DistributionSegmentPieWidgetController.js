@@ -2,16 +2,16 @@
  * Created by justin on 12/22/14.
  */
 app.registerController(function (container) {
-    var PieChartWidgetView = container.getView("views/PieChartWidgetView");
+    var SegmentPieChartWidgetView = container.getView("views/SegmentPieChartWidgetView");
 
-    function PieChartWidgetController($scope, $element) {
-        PieChartWidgetController.configureView($scope, $element);
+    function SegmentPieChartWidgetController($scope, $element) {
+        SegmentPieChartWidgetController.configureView($scope, $element);
     }
 
-    PieChartWidgetController.configureView = function ($scope, $element) {
-        this.view = PieChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(PieChartWidgetView));
+    SegmentPieChartWidgetController.configureView = function ($scope, $element) {
+        this.view = SegmentPieChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(SegmentPieChartWidgetView));
         this.view.show();
     };
 
-    return PieChartWidgetController;
+    return SegmentPieChartWidgetController;
 });

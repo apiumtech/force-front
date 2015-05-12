@@ -1,11 +1,9 @@
 /**
- * Created by justin on 1/26/15.
+ * Created by apium on 5/12/15.
  */
-
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var PieChartWidgetModel = container.getModel('models/PieChartWidgetModel');
     var PieChartWidgetPresenter = container.getPresenter('presenters/PieChartWidgetPresenter');
 
     var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
@@ -87,7 +85,7 @@ app.registerView(function (container) {
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {
-        var plot = PieChart.basic(this.data).getOrElse(throwException("invalid plot!"));
+        var plot = PieChart.basic(this.data);
         plot.paint($(element));
     };
 

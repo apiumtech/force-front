@@ -2,8 +2,8 @@
  * Created by justin on 1/26/15.
  */
 
-describe("PieChartWidgetView", function () {
-    var PieChartWidgetView = app.getView('views/PieChartWidgetView');
+describe("SegmentPieChartWidgetView", function () {
+    var SegmentPieChartWidgetView = app.getView('views/SegmentPieChartWidgetView');
     var sut, scope;
 
     function initSut() {
@@ -11,7 +11,7 @@ describe("PieChartWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(PieChartWidgetView));
+        sut = SegmentPieChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(SegmentPieChartWidgetView));
     }
 
     describe("configureEvents", function () {

@@ -26,7 +26,7 @@ describe("PieChart", function () {
             var paintPlotImpl = jasmine.createSpy(),
                 element = {},
                 config = {};
-            sut = PieChart.newInstance([], config, paintPlotImpl).getOrElse(throwInstantiateException(PieChart));
+            sut = PieChart.newInstance([], config, paintPlotImpl);
             sut.paint(element);
             expect(paintPlotImpl).toHaveBeenCalled();
             expect(paintPlotImpl.calls.mostRecent().args[0]).toEqual(element);
