@@ -18,7 +18,11 @@ app.registerService(function (container) {
         var request = AjaxService.prototype.mapRequest.call(this, params);
 
         var token = this.storageService.retrieve(Configuration.tokenStorageKey);
-        token = token || "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+
+        // TODO: get rid of it when proper login is implemented
+        var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+        
+        token = token || dev_token;
         request.headers = request.headers || {};
         request.headers.token = token;
         return request;
