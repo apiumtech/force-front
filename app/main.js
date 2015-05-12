@@ -395,7 +395,7 @@ function main() {
 
             // Bar chart widget
             'directives/widgets/BarChartWidgetDirective',
-            'controllers/widgets/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
+            'controllers/widgets/BarChartWidgetController', 'views/widgets/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
             // SingleLine chart widget
             'directives/widgets/DistributionHourLineWidgetDirective',

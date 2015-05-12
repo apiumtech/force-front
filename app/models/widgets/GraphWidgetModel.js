@@ -46,7 +46,7 @@ app.registerModel(function (container) {
         if (this.filters.map(function (filterValue) {
                 return filterValue.key;
             }).indexOf(filter) == -1) {
-            this.currentFilter = 'visits';
+            this.currentFilter = this.filters[0].key;
         }
         else
             this.currentFilter = filter;

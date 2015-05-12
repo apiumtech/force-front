@@ -19,8 +19,14 @@ app.registerModel(function (container) {
             .then(this.decorateServerData.bind(this));
     };
 
-    PieChartWidgetModel.prototype.changeFilterTab = function (tabName) {
-        this.addQuery("selectedFilter", tabName);
+    PieChartWidgetModel.prototype.changeQueryFilter = function (filter) {
+        if (this.filters.map(function (filterValue) {
+                return filterValue.key;
+            }).indexOf(filter) == -1) {
+            this.currentFilter = this.filters[0].key;
+        }
+        else
+            this.currentFilter = filter;
     };
 
     PieChartWidgetModel.prototype.decorateServerData = function (data) {

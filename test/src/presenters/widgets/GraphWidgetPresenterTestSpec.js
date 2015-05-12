@@ -17,9 +17,6 @@ describe("GraphWidgetPresenter", function () {
                 viewEvent: "onReloading", test: onReloadingTest
             },
             {
-                viewEvent: "onReloadWidgetDone", test: onReloadWidgetDoneTest
-            },
-            {
                 viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
             },
             {
@@ -101,26 +98,6 @@ describe("GraphWidgetPresenter", function () {
 
             it("should call 'sendReloadCommandToChannel' on the view", function () {
                 expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
-            });
-        }
-
-        function onReloadWidgetDoneTest() {
-            var errMsg = {msg: "test message"};
-            beforeEach(function () {
-                ___model.addQuery = jasmine.createSpy();
-                ___model.changeQueryFilter = jasmine.createSpy();
-                view.$scope = {
-                    selectedFilter: 'selectedFilter',
-                    selectedRangeOption: 'selectedRangeOption'
-                };
-                view.event.onReloadWidgetDone(errMsg);
-            });
-
-            it("should call 'changeQueryFilter' on model for initialing selectedFilter", function () {
-                expect(___model.changeQueryFilter).toHaveBeenCalledWith('selectedFilter');
-            });
-            it("should call 'addQuery' on model for initialing selectedRangeOption", function () {
-                expect(___model.addQuery).toHaveBeenCalledWith('grouping', 'selectedRangeOption');
             });
         }
 

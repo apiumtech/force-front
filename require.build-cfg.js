@@ -364,7 +364,7 @@ requirejs.config({
         'controllers/widgets/DistributionSegmentPieWidgetController', 'views/SegmentPieChartWidgetView', 'presenters/widgets/PieChartWidgetPresenter', 'models/widgets/PieChartWidgetModel',
 
         // Bar chart widget
-        'controllers/widgets/BarChartWidgetController', 'views/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
+        'controllers/widgets/BarChartWidgetController', 'views/widgets/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
         // SingleLine chart widget
         'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',

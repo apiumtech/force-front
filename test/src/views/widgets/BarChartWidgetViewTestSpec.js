@@ -3,7 +3,7 @@
  */
 
 describe("BarChartWidgetView", function () {
-    var BarChartWidgetView = app.getView('views/BarChartWidgetView');
+    var BarChartWidgetView = app.getView('views/widgets/BarChartWidgetView');
     var sut, scope;
 
     function initSut() {

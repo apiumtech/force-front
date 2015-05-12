@@ -14,11 +14,31 @@ describe("PieChartWidgetModel", function () {
         sut = PieChartWidgetModel.newInstance(ajaxService);
     });
 
-    describe("changeFilterTab", function () {
-        it("should call addQuery from base to add filter", function () {
-            spyOn(sut, 'addQuery');
-            sut.changeFilterTab("tab1");
-            expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");
+    describe('changeQueryFilter', function () {
+        beforeEach(function () {
+            sut.filters = [{
+                name: 'f1',
+                key: 'f1'
+            }, {
+                name: 'f2',
+                key: 'f2'
+            }, {
+                name: 'f3',
+                key: 'f3'
+            }];
+        });
+        describe('the selected filter is not available in acceptance list', function () {
+            it('should assign the default one (the first element\'s key in the list to currentFilter', function(){
+                sut.changeQueryFilter('f10000');
+                expect(sut.currentFilter).toEqual('f1');
+            });
+        });
+
+        describe('the selected filter is in acceptance list', function () {
+            it('should assign the input value to currentFilter', function(){
+                sut.changeQueryFilter('f3');
+                expect(sut.currentFilter).toEqual('f3');
+            });
         });
     });
 
