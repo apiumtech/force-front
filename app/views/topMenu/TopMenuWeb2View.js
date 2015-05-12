@@ -120,8 +120,8 @@ app.registerView(function(container) {
 
     TopMenuWeb2View.newInstance = function($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || TopMenuWeb2Model.newInstance().getOrElse(throwInstantiateException(TopMenuWeb2Model));
-        var presenter = $presenter || TopMenuWeb2Presenter.newInstance().getOrElse(throwInstantiateException(TopMenuWeb2Presenter));
+        var model = $model || TopMenuWeb2Model.newInstance();
+        var presenter = $presenter || TopMenuWeb2Presenter.newInstance();
         $window = $window || document.window;
         var view = new TopMenuWeb2View(scope, model, presenter, $window);
 

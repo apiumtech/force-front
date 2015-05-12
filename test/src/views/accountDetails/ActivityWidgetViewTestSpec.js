@@ -26,7 +26,7 @@ describe("ActivityWidgetView", function () {
     });
 
     beforeEach(function () {
-        sut = ActivityWidgetView.newInstance($scope, element, model, presenter, false).getOrElse(throwInstantiateException(ActivityWidgetView));
+        sut = ActivityWidgetView.newInstance($scope, element, model, presenter, false);
         sut.configureEvents();
     });
 

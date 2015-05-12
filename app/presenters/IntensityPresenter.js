@@ -27,7 +27,7 @@ app.registerPresenter(function (container) {
     };
 
     IntensityPresenter.newInstance = function () {
-        return Some(new IntensityPresenter());
+        return new IntensityPresenter();
     };
 
     return IntensityPresenter;

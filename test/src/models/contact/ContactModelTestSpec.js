@@ -8,7 +8,7 @@ describe('ContactModel', function(){
     var model;
 
     beforeEach(function() {
-        model = ContactModel.newInstance().getOrElse(throwInstantiateException(ContactModel));
+        model = ContactModel.newInstance();
     });
 
 

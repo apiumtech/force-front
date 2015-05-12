@@ -13,7 +13,7 @@ describe("AgendaWidgetModel", function () {
             }
         };
 
-        sut = AgendaWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(AgendaWidgetModel));
+        sut = AgendaWidgetModel.newInstance(ajaxService);
     });
 
     describe("loadAgendaData", function () {

@@ -38,7 +38,7 @@ app.registerView(function (container) {
     BooleanFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
         $scope = $scope || {};
         $element = $element || {};
-        $presenter = $presenter || BooleanTypeFilterPresenter.newInstance().getOrElse(throwInstantiateException(BooleanTypeFilterPresenter));
+        $presenter = $presenter || BooleanTypeFilterPresenter.newInstance();
 
         var view = new BooleanFilterView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);

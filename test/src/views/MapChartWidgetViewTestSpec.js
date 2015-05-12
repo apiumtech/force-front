@@ -11,7 +11,7 @@ describe("MapChartWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = MapChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(MapChartWidgetView));
+        sut = MapChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {
@@ -106,7 +106,7 @@ describe("MapChartWidgetView", function () {
                 createUserMap: jasmine.createSpy(),
                 createPointMap: jasmine.createSpy()
             };
-            sut = MapChartWidgetView.newInstance(scope, element, mapChart, {}, {}, false, false).getOrElse(throwInstantiateException(MapChartWidgetView));
+            sut = MapChartWidgetView.newInstance(scope, element, mapChart, {}, {}, false, false);
 
             sut.element = {
                 find: function () {

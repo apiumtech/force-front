@@ -84,7 +84,7 @@ app.registerService(function (container) {
 
     QueryBuilder.newInstance = function ($defaultQuery) {
         var q = $defaultQuery || Configuration.defaultQuery;
-        return Some(new QueryBuilder(q));
+        return new QueryBuilder(q);
     };
 
     return {newInstance: QueryBuilder.newInstance};

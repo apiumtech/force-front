@@ -103,7 +103,7 @@ app.registerService(function (container) {
     };
 
     GoogleMapService.newInstance = function (googleMapService) {
-        return Some(new GoogleMapService(googleMapService || google.maps));
+        return new GoogleMapService(googleMapService || google.maps);
     };
 
     return GoogleMapService;

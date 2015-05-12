@@ -11,7 +11,7 @@ describe("AccountPresenter", function () {
             fn: {}
         };
         model = {};
-        sut = AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
+        sut = AccountPresenter.newInstance();
     });
 
     describe("show", function () {

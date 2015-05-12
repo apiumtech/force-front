@@ -16,7 +16,7 @@ app.registerModel(function (container) {
     };
 
     PieChartWidgetModel.newInstance = function () {
-        return Some(new PieChartWidgetModel());
+        return new PieChartWidgetModel();
     };
 
     return PieChartWidgetModel;

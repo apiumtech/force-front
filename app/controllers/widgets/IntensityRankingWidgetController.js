@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     TableWidgetController.configureView = function ($scope, $element) {
-        this.view = TableWidgetView.newInstance($scope, $element).getOrElse(throwException("Cannot instantiate TableWidgetView"));
+        this.view = TableWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

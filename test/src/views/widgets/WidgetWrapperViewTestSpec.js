@@ -16,7 +16,7 @@ describe("WidgetWrapperView", function () {
             }
         };
         element = {};
-        sut = WidgetWrapperView.newInstance(scope, element, false, false).getOrElse(throwInstantiateException(WidgetWrapperView));
+        sut = WidgetWrapperView.newInstance(scope, element, false, false);
     });
 
     describe("handleScroll", function () {

@@ -107,8 +107,8 @@ app.registerView(function (container) {
 
     AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || AccountFilterModel.newInstance().getOrElse(throwInstantiateException(AccountFilterModel));
-        var presenter = $presenter || AccountFilterPresenter.newInstance().getOrElse(throwInstantiateException(AccountFilterPresenter));
+        var model = $model || AccountFilterModel.newInstance();
+        var presenter = $presenter || AccountFilterPresenter.newInstance();
 
         var view = new AccountFilterView(scope, model, presenter);
 

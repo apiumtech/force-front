@@ -27,7 +27,7 @@ app.registerPresenter(function (container) {
     };
 
     ConversionPresenter.newInstance = function () {
-        return Some(new ConversionPresenter());
+        return new ConversionPresenter();
     };
 
     return ConversionPresenter;

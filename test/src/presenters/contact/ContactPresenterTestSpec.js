@@ -14,7 +14,7 @@ describe("ContactPresenter", function () {
             fn: {}
         };
         model = {};
-        presenter = ContactPresenter.newInstance().getOrElse(throwInstantiateException(ContactPresenter));
+        presenter = ContactPresenter.newInstance();
     });
 
     it("should set view and model on show()", function(){

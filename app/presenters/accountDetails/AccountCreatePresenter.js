@@ -21,7 +21,7 @@ app.registerPresenter(function (container) {
     };
 
     AccountCreatePresenter.newInstance = function () {
-        return Some(new AccountCreatePresenter());
+        return new AccountCreatePresenter();
     };
 
     return AccountCreatePresenter;

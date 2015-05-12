@@ -14,7 +14,7 @@ app.registerView(function (container) {
     function WidgetBaseView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
         this.element = element || {};
-        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
+        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
         this.event.onDateFilterApplied = function (filterValue) {
             throw new Error("NotImplementedException");
@@ -81,7 +81,7 @@ app.registerView(function (container) {
     };
 
     WidgetBaseView.prototype._getWidgetChannelInstance = function (widgetName) {
-        return WidgetEventBus.newInstance(widgetName).getOrElse(throwInstantiateException(WidgetEventBus));
+        return WidgetEventBus.newInstance(widgetName);
     };
 
     // abstract method

@@ -7,7 +7,7 @@ app.registerController(function (container) {
     }
 
     ConversionController.configureView = function ($scope) {
-        this.view = ConversionView.newInstance($scope).getOrElse(throwInstantiateException(ConversionView));
+        this.view = ConversionView.newInstance($scope);
         this.view.show();
     };
 

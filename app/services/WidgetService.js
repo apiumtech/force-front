@@ -36,9 +36,9 @@ app.registerService(function (container) {
     };
 
     WidgetService.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        var _ajaxService = ajaxService || AjaxService.newInstance();
         var widgetService = new WidgetService(_ajaxService);
-        return Some(widgetService);
+        return widgetService;
     };
 
     return WidgetService;

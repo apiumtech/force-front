@@ -33,7 +33,7 @@ describe("TopMenuView", function(){
 
         $window.location.href = "http://localhost:8081/";
         var scope = {$apply: function(){}};
-        var viewInstance = view.getViewImpl(scope).getOrElse(throwException("Could not create TopMenu view instance!"));
+        var viewInstance = view.getViewImpl(scope);
         expect(viewInstance.getMenuTemplateName()).toBe('topMenuWeb2');
     });
 

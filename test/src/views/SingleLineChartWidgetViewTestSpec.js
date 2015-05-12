@@ -11,7 +11,7 @@ describe("SingleLineChartWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(SingleLineChartWidgetView));
+        sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {

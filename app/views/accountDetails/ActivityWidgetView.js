@@ -15,7 +15,7 @@ app.registerView(function (container) {
         this.currentPage = -1;
         this.isLastPage = false;
         this.nextPage = false;
-        this.dateTimeDecoratorService = DateTimeDecoratorService.newInstance().getOrElse(throwInstantiateException(DateTimeDecoratorService));
+        this.dateTimeDecoratorService = DateTimeDecoratorService.newInstance();
     }
 
     ActivityWidgetView.prototype = Object.create(BaseView.prototype, {
@@ -37,7 +37,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || ( this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance().getOrElse(throwInstantiateException(AccountDetailWidgetEventBus)));
+                return this.$scope.eventChannel || ( this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -152,8 +152,8 @@ app.registerView(function (container) {
     };
 
     ActivityWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
-        $model = $model || ActivityWidgetModel.newInstance().getOrElse(throwInstantiateException(ActivityWidgetModel));
-        $presenter = $presenter || ActivityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(ActivityWidgetPresenter));
+        $model = $model || ActivityWidgetModel.newInstance();
+        $presenter = $presenter || ActivityWidgetPresenter.newInstance();
         var view = new ActivityWidgetView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);
     };

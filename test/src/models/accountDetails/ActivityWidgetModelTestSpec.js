@@ -13,7 +13,7 @@ describe("ActivityWidgetModel", function () {
             }
         };
 
-        sut = ActivityWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(ActivityWidgetModel));
+        sut = ActivityWidgetModel.newInstance(ajaxService);
     });
 
     describe("loadActivity", function () {

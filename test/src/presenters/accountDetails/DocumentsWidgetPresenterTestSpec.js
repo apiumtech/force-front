@@ -6,7 +6,7 @@ describe("DocumentsWidgetPresenter", function () {
     var sut, view, model;
 
     beforeEach(function () {
-        sut = DocumentsWidgetPresenter.newInstance().getOrElse(throwInstantiateException(DocumentsWidgetPresenter));
+        sut = DocumentsWidgetPresenter.newInstance();
         view = {event: {}};
         model = {};
     });

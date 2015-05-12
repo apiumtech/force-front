@@ -11,7 +11,7 @@ describe("PieChartWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(PieChartWidgetView));
+        sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {

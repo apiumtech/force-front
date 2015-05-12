@@ -31,7 +31,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -89,9 +89,9 @@ app.registerView(function (container) {
     };
 
     MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || MapChartWidgetModel.newInstance().getOrElse(throwInstantiateException(MapChartWidgetModel));
-        var mapChart = $mapChart || MapChart.newInstance().getOrElse(throwInstantiateException(MapChart));
-        var presenter = $presenter || MapChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(MapChartWidgetPresenter));
+        var model = $model || MapChartWidgetModel.newInstance();
+        var mapChart = $mapChart || MapChart.newInstance();
+        var presenter = $presenter || MapChartWidgetPresenter.newInstance();
 
         var view = new MapChartWidgetView($scope, $element, mapChart, model, presenter);
 

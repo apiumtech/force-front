@@ -8,7 +8,7 @@ describe('LoginModel', function(){
     var model, loginUser, loginPass, UserKey;
 
 	beforeEach(function() {
-		model = LoginModel.newInstance().getOrElse(throwInstantiateException(LoginModel));
+		model = LoginModel.newInstance();
         loginUser = "bruno_test@gmail.com";
         loginPass = "dimarts1*";
         UserKey = "7b414ab1746611d76c64d0b55a6cf5aaaaf865b3";

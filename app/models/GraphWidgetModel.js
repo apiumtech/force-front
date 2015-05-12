@@ -98,8 +98,8 @@ app.registerModel(function (container) {
     };
 
     GraphWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AuthAjaxService.newInstance().getOrElse(throwInstantiateException(AuthAjaxService));
-        return Some(new GraphWidgetModel(ajaxService));
+        ajaxService = ajaxService || AuthAjaxService.newInstance();
+        return new GraphWidgetModel(ajaxService);
     };
 
     return GraphWidgetModel;

@@ -31,7 +31,7 @@ app.registerPresenter(function (container) {
     };
 
     ContactPresenter.newInstance = function () {
-        return Some(new ContactPresenter());
+        return new ContactPresenter();
     };
 
     return ContactPresenter;

@@ -5,7 +5,7 @@ app.registerService(function (container) {
     var SignalService = container.getService('services/SignalService');
 
     function EventBase() {
-        this.signalService = SignalService.newInstance().getOrElse(throwInstantiateException(SignalService));
+        this.signalService = SignalService.newInstance();
         var self = this;
 
         var methods = Object.keys(Object.getPrototypeOf(self));

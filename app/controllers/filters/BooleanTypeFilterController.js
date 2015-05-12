@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     BooleanTypeFilterController.configureView = function ($scope, $element) {
-        this.view = BooleanTypeFilterView.newInstance($scope, $element).getOrElse(throwInstantiateException(BooleanTypeFilterView));
+        this.view = BooleanTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
 

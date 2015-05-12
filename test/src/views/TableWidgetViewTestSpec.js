@@ -27,7 +27,7 @@ describe("TableWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(TableWidgetView));
+        sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false);
     });
 
     describe("configureEvents", function () {

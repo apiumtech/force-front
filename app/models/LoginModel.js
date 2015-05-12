@@ -60,11 +60,11 @@ app.registerModel(function (container) {
 
 
     LoginModel.newInstance = function (ajaxService, entityService, storage, configuration) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        var _entityService = entityService || EntityService.newInstance().getOrElse(throwInstantiateException(EntityService));
-        var _storage = storage || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var _ajaxService = ajaxService || AjaxService.newInstance();
+        var _entityService = entityService || EntityService.newInstance();
+        var _storage = storage || StorageService.newInstance();
         var _configuration = configuration || Configuration;
-        return Some(new LoginModel(_ajaxService, _entityService, _storage, _configuration));
+        return new LoginModel(_ajaxService, _entityService, _storage, _configuration);
     };
 
 

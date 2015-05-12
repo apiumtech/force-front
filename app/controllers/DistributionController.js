@@ -6,7 +6,7 @@ app.registerController(function (container) {
     }
 
     DistributionController.configureView = function ($scope) {
-        this.view = DistributionView.newInstance($scope).getOrElse(throwInstantiateException(DistributionView));
+        this.view = DistributionView.newInstance($scope);
         this.view.show();
     };
 

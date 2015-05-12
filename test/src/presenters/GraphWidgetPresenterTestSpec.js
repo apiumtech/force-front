@@ -6,7 +6,7 @@ describe("GraphWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = GraphWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate GraphWidgetPresenter"));
+        sut = GraphWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

@@ -18,7 +18,7 @@ app.registerView(function (container) {
 
     function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.popupAdapter = PopoverAdapter.newInstance().getOrElse(throwInstantiateException(PopoverAdapter));
+        this.popupAdapter = PopoverAdapter.newInstance();
         this.mapService = mapService;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
@@ -449,11 +449,11 @@ app.registerView(function (container) {
     AccountView.newInstance = function ($scope, $model, $presenter, $mapService, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
-        var model = $model || AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
-        var presenter = $presenter || AccountPresenter.newInstance().getOrElse(throwInstantiateException(AccountPresenter));
-        var mapService = $mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
-        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
-        var templateParser = $templateParser || SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
+        var model = $model || AccountModel.newInstance();
+        var presenter = $presenter || AccountPresenter.newInstance();
+        var mapService = $mapService || GoogleMapService.newInstance();
+        var dataTableService = $dataTableService || DataTableService.newInstance();
+        var templateParser = $templateParser || SimpleTemplateParser.newInstance();
 
         var view = new AccountView(scope, model, presenter, mapService, dataTableService, templateParser);
 

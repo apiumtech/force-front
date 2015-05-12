@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     OpportunityWidgetController.configureView = function ($scope, $element) {
-        this.view = OpportunityWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(OpportunityWidgetView));
+        this.view = OpportunityWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

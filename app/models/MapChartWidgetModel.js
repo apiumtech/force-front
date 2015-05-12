@@ -45,8 +45,8 @@ app.registerModel(function (container) {
     };
 
     MapChartWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AuthAjaxService.newInstance().getOrElse(throwInstantiateException(AuthAjaxService));
-        return Some(new MapChartWidgetModel(ajaxService));
+        ajaxService = ajaxService || AuthAjaxService.newInstance();
+        return new MapChartWidgetModel(ajaxService);
     };
 
     return MapChartWidgetModel;

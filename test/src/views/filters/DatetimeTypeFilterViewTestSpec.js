@@ -30,7 +30,7 @@ describe("DatetimeTypeFilterView", function () {
         element = {};
         model = {};
         presenter = {};
-        sut = DatetimeTypeFilterView.newInstance(scope, element, model, presenter, false, false).getOrElse(throwInstantiateException(DatetimeTypeFilterView));
+        sut = DatetimeTypeFilterView.newInstance(scope, element, model, presenter, false, false);
     });
 
 

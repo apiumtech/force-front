@@ -18,7 +18,7 @@ app.registerPresenter(function (container) {
 
 
     ContactFilterPresenter.newInstance = function () {
-        return Some(new ContactFilterPresenter());
+        return new ContactFilterPresenter();
     };
 
     return ContactFilterPresenter;

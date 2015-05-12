@@ -18,7 +18,7 @@ describe("IntensityModel", function () {
         };
 
     beforeEach(function () {
-        sut = IntensityModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(IntensityModel));
+        sut = IntensityModel.newInstance(widgetService, storageService);
     });
     function fakeAjax() {
         return {

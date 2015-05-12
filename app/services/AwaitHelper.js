@@ -17,7 +17,7 @@ app.registerService(function (container) {
     };
 
     AwaitHelper.newInstance = function () {
-        return Some(new AwaitHelper());
+        return new AwaitHelper();
     };
 
     return AwaitHelper;

@@ -127,7 +127,7 @@ app.registerView(function (container) {
         $scope = $scope || {};
         $element = $element || {};
 
-        $presenter = $presenter || DatetimeTypeFilterPresenter.newInstance().getOrElse(throwInstantiateException(DatetimeTypeFilterPresenter));
+        $presenter = $presenter || DatetimeTypeFilterPresenter.newInstance();
 
         var view = new DatetimeTypeFilterView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);

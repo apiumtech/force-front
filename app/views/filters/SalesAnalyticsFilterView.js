@@ -17,8 +17,8 @@ app.registerView(function (container) {
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.filter = $filter;
-        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage").getOrElse(throwInstantiateException(SalesAnalyticsFilterChannel));
-        this.awaitHelper = AwaitHelper.newInstance().getOrElse(throwInstantiateException(AwaitHelper));
+        this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
+        this.awaitHelper = AwaitHelper.newInstance();
         var self = this;
         self.resetDate = true;
         self.defaultPreviousDay = 30;
@@ -410,8 +410,8 @@ app.registerView(function (container) {
     };
 
     SalesAnalyticsFilterView.newInstance = function ($scope, $filter, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SalesAnalyticsFilterModel.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterModel));
-        var presenter = $presenter || SalesAnalyticsFilterPresenter.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterPresenter));
+        var model = $model || SalesAnalyticsFilterModel.newInstance();
+        var presenter = $presenter || SalesAnalyticsFilterPresenter.newInstance();
 
         var view = new SalesAnalyticsFilterView($scope, $filter, model, presenter);
 

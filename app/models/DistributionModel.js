@@ -11,10 +11,10 @@ app.registerModel(function (container) {
     DistributionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
 
     DistributionModel.newInstance = function (widgetService, storageService) {
-        var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var _widgetService = widgetService || WidgetService.newInstance();
+        var _storageService = storageService || StorageService.newInstance();
 
-        return Some(new DistributionModel(_widgetService, _storageService));
+        return new DistributionModel(_widgetService, _storageService);
     };
 
     return DistributionModel;

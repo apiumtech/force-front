@@ -23,7 +23,7 @@ app.registerPresenter(function () {
     };
 
     ActivityWidgetPresenter.newInstance = function () {
-        return Some(new ActivityWidgetPresenter());
+        return new ActivityWidgetPresenter();
     };
 
     return ActivityWidgetPresenter;

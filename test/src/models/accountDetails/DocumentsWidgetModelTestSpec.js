@@ -12,7 +12,7 @@ describe("DocumentsWidgetModel", function () {
             rawAjaxRequest: exerciseFakeOkPromise
         };
 
-        sut = DocumentsWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(DocumentsWidgetModel));
+        sut = DocumentsWidgetModel.newInstance(ajaxService);
     });
 
     describe("loadDocumentsData", function () {

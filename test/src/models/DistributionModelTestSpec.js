@@ -18,7 +18,7 @@ describe("DistributionModel", function () {
         };
 
     beforeEach(function () {
-        sut = DistributionModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(DistributionModel));
+        sut = DistributionModel.newInstance(widgetService, storageService);
     });
     function fakeAjax() {
         return {

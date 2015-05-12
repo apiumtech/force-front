@@ -7,7 +7,7 @@ describe("SingleLineChartWidgetModel", function () {
 
     describe("changeFilterTab", function () {
         it("should call addQuery from base to add filter", function () {
-            var sut = SingleLineChartWidgetModel.newInstance().getOrElse(throwInstantiateException(SingleLineChartWidgetModel));
+            var sut = SingleLineChartWidgetModel.newInstance();
             spyOn(sut, 'addQuery');
             sut.changeFilterTab("tab1");
             expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");

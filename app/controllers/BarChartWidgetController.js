@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     BarChartWidgetController.configureView = function ($scope, $element) {
-        this.view = BarChartWidgetView.newInstance($scope, $element).getOrElse(throwException("Cannot instantiate BarChartWidgetView"));
+        this.view = BarChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

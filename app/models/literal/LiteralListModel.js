@@ -27,10 +27,10 @@ app.registerModel(function (container) {
 
 
     LiteralListModel.newInstance = function (ls, qb) {
-        var literalService = ls || LiteralListService.newInstance().getOrElse(throwException("Could not create LiteralListService"));
-        var queryLiteralListBuilder = qb || QueryLiteralListBuilder.newInstance().getOrElse(throwException("Could not create QueryBuilder"));
+        var literalService = ls || LiteralListService.newInstance();
+        var queryLiteralListBuilder = qb || QueryLiteralListBuilder.newInstance();
 
-        return Some(new LiteralListModel(literalService, queryLiteralListBuilder));
+        return new LiteralListModel(literalService, queryLiteralListBuilder);
     };
 
     return {newInstance: LiteralListModel.newInstance};

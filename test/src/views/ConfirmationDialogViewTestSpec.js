@@ -18,7 +18,7 @@ describe("ConfirmationDialogView", function () {
 
     describe("construct()", function () {
         it("should assign modalInstance", function () {
-            sut = ConfirmationDialogView.newInstance(scope, modalInstance, false, false).getOrElse(throwInstantiateException(ConfirmationDialogView));
+            sut = ConfirmationDialogView.newInstance(scope, modalInstance, false, false);
             expect(sut.modalInstance).toEqual(modalInstance);
         });
     });

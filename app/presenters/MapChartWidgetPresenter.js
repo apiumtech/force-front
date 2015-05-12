@@ -72,8 +72,8 @@ app.registerPresenter(function (container) {
     };
 
     MapChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance("UnknownChart").getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new MapChartWidgetPresenter(_widgetEventChannel));
+        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance("UnknownChart");
+        return new MapChartWidgetPresenter(_widgetEventChannel);
     };
 
     return MapChartWidgetPresenter;

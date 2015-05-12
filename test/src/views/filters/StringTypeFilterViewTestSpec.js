@@ -27,7 +27,7 @@ describe("StringTypeFilterView", function () {
         element = {};
         model = {};
         presenter = {};
-        sut = StringTypeFilterView.newInstance(scope, element, model, presenter, false, false).getOrElse(throwInstantiateException(StringTypeFilterView));
+        sut = StringTypeFilterView.newInstance(scope, element, model, presenter, false, false);
     });
 
     describe("configureEvents", function () {

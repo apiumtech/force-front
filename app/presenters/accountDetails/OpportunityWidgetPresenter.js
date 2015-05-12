@@ -18,7 +18,7 @@ app.registerPresenter(function () {
     };
 
     OpportunityWidgetPresenter.newInstance = function () {
-        return Some(new OpportunityWidgetPresenter());
+        return new OpportunityWidgetPresenter();
     };
 
     return OpportunityWidgetPresenter;

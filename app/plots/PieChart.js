@@ -38,8 +38,8 @@ app.registerService(function () {
     };
 
     PieChart.newInstance = function (plotData, cfg, plotImpl) {
-        return Some(new PieChart(plotData, cfg, plotImpl || $.plot || function () {
-        }));
+        return new PieChart(plotData, cfg, plotImpl || $.plot || function () {
+        });
     };
 
     return PieChart;

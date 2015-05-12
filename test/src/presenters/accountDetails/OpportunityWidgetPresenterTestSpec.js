@@ -6,7 +6,7 @@ describe("OpportunityWidgetPresenter", function () {
     var sut, view, model;
 
     beforeEach(function () {
-        sut = OpportunityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(OpportunityWidgetPresenter));
+        sut = OpportunityWidgetPresenter.newInstance();
         view = {event: {}};
         model = {};
     });

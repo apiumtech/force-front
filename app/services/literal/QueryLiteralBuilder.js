@@ -58,7 +58,7 @@ app.registerService(function (container) {
   };
 
   QueryLiteralBuilder.newInstance = function( itemsPerPage ){
-    return Some( new QueryLiteralBuilder() );
+    return  new QueryLiteralBuilder() ;
   };
 
   return QueryLiteralBuilder;

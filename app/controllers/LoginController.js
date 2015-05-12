@@ -10,7 +10,7 @@ app.registerController(function(container) {
     }
 
     LoginController.configureView = function($scope, $location) {
-        this.view = LoginView.newInstance($scope, undefined, undefined, $location).getOrElse(throwInstantiateException(LoginView));
+        this.view = LoginView.newInstance($scope, undefined, undefined, $location);
         this.view.show();
     };
 

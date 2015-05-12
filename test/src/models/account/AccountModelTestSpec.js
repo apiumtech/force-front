@@ -9,7 +9,7 @@ describe("AccountModel", function () {
     var sut;
 
     beforeEach(function () {
-        sut = AccountModel.newInstance().getOrElse(throwInstantiateException(AccountModel));
+        sut = AccountModel.newInstance();
     });
 
     describe("toggleFollow", function () {

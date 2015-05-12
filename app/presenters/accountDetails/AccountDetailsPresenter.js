@@ -32,7 +32,7 @@ app.registerPresenter(function () {
     };
 
     AccountDetailsPresenter.newInstance = function () {
-        return Some(new AccountDetailsPresenter());
+        return new AccountDetailsPresenter();
     };
 
     return AccountDetailsPresenter;

@@ -67,7 +67,7 @@ app.registerView(function (container) {
     };
 
     WidgetWrapperView._getWidgetChannelInstance = function (widgetName) {
-        return WidgetEventBus.newInstance(widgetName).getOrElse(throwInstantiateException(WidgetEventBus));
+        return WidgetEventBus.newInstance(widgetName);
     };
 
     WidgetWrapperView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {

@@ -44,9 +44,9 @@ app.registerModel(function (container) {
     };
 
     ActivityWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new ActivityWidgetModel(ajaxService));
+        return new ActivityWidgetModel(ajaxService);
     };
 
     return ActivityWidgetModel;

@@ -43,7 +43,7 @@ describe("SingleLineChart", function () {
 
     describe("onHover", function () {
         it("should bind plothover event", function () {
-            sut = SingleLineChart.newInstance([{data: 1}], [], config, jasmine.createSpy()).getOrElse(throwInstantiateException(SingleLineChart));
+            sut = SingleLineChart.newInstance([{data: 1}], [], config, jasmine.createSpy());
             sut.renderedElement = {
                 bind: jasmine.createSpy()
             };

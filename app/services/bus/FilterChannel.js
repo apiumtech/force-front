@@ -5,7 +5,7 @@ app.registerService(function (container) {
     var EventBus = container.getService("services/EventBus").getInstance();
 
     function FilterChannel(tableName) {
-        this.channel = FilterChannel._initChannel(tableName).getOrElse(throwException("Cannot instantiate channel"));
+        this.channel = FilterChannel._initChannel(tableName);
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
@@ -88,11 +88,11 @@ app.registerService(function (container) {
     };
 
     FilterChannel._initChannel = function (tableName) {
-        return Some(EventBus.createChannel("LocalTableFilter", tableName || "Global"));
+        return EventBus.createChannel("LocalTableFilter", tableName || "Global");
     };
 
     FilterChannel.newInstance = function (tableName) {
-        return Some(new FilterChannel(tableName));
+        return new FilterChannel(tableName);
     };
 
     return FilterChannel;

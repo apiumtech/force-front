@@ -46,7 +46,7 @@ app.registerPresenter(function (container) {
     };
 
     TableWidgetPresenter.newInstance = function () {
-        return Some(new TableWidgetPresenter());
+        return new TableWidgetPresenter();
     };
 
     return TableWidgetPresenter;

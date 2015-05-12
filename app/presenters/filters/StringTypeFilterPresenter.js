@@ -27,7 +27,7 @@ app.registerPresenter(function (container) {
     StringTypeFilterPresenter.newInstance = function (accountEventBus) {
         accountEventBus = accountEventBus || AccountEventBus.getInstance();
 
-        return Some(new StringTypeFilterPresenter(accountEventBus));
+        return new StringTypeFilterPresenter(accountEventBus);
     };
 
     return StringTypeFilterPresenter;

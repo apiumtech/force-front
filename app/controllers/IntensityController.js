@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     IntensityController.configureView = function ($scope) {
-        this.view = IntensityView.newInstance($scope).getOrElse(throwException(i18n.t("Errors.IntensityViewCannotInstantiate")));
+        this.view = IntensityView.newInstance($scope);
         this.view.show();
     };
 

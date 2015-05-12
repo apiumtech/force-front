@@ -22,7 +22,7 @@ app.registerPresenter(function (container) {
     BooleanTypeFilterPresenter.newInstance = function (accountEventBus) {
         accountEventBus = accountEventBus || AccountEventBus.getInstance();
 
-        return Some(new BooleanTypeFilterPresenter(accountEventBus));
+        return new BooleanTypeFilterPresenter(accountEventBus);
     };
 
     return BooleanTypeFilterPresenter;

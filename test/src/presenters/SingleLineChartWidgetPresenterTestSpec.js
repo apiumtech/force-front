@@ -7,7 +7,7 @@ describe("SingleLineChartWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = SingleLineChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate SingleLineChartWidgetPresenter"));
+        sut = SingleLineChartWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

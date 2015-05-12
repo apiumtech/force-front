@@ -16,7 +16,7 @@ app.registerModel(function (container) {
     };
 
     BarChartWidgetModel.newInstance = function () {
-        return Some(new BarChartWidgetModel());
+        return new BarChartWidgetModel();
     };
 
     return BarChartWidgetModel;

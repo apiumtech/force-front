@@ -5,7 +5,7 @@ app.registerService(function (container) {
     var EventBus = container.getService("services/EventBus").getInstance();
 
     function SalesAnalyticsFilterChannel(widgetName) {
-        this.channel = SalesAnalyticsFilterChannel._initChannel(widgetName).getOrElse(throwException("Cannot instantiate channel"));
+        this.channel = SalesAnalyticsFilterChannel._initChannel(widgetName);
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
@@ -47,11 +47,11 @@ app.registerService(function (container) {
     };
 
     SalesAnalyticsFilterChannel._initChannel = function (widgetName) {
-        return Some(EventBus.createChannel("SalesAnalyticsFilterChannel", widgetName || "Global"));
+        return EventBus.createChannel("SalesAnalyticsFilterChannel", widgetName || "Global");
     };
 
     SalesAnalyticsFilterChannel.newInstance = function (widgetName) {
-        return Some(new SalesAnalyticsFilterChannel(widgetName));
+        return new SalesAnalyticsFilterChannel(widgetName);
     };
 
     return SalesAnalyticsFilterChannel;

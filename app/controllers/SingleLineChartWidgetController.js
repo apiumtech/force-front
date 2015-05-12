@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     SingleLineChartWidgetController.configureView = function ($scope, $element) {
-        this.view = SingleLineChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(SingleLineChartWidgetView));
+        this.view = SingleLineChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

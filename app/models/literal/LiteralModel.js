@@ -21,9 +21,9 @@ app.registerModel(function (container) {
     };
 
     LiteralModel.newInstance = function (ls) {
-        var literalService = ls || LiteralService.newInstance().getOrElse(throwException("Could not create LiteralService"));
+        var literalService = ls || LiteralService.newInstance();
 
-        return Some(new LiteralModel(literalService));
+        return new LiteralModel(literalService);
     };
 
     return {newInstance: LiteralModel.newInstance};

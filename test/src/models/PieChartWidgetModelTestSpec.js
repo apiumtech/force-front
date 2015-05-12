@@ -7,7 +7,7 @@ describe("PieChartWidgetModel", function () {
 
     describe("changeFilterTab", function () {
         it("should call addQuery from base to add filter", function () {
-            var sut = PieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(PieChartWidgetModel));
+            var sut = PieChartWidgetModel.newInstance();
             spyOn(sut, 'addQuery');
             sut.changeFilterTab("tab1");
             expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");

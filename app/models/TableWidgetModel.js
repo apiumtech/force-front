@@ -55,8 +55,8 @@ app.registerModel(function (container) {
     };
 
     TableWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AuthAjaxService.newInstance().getOrElse(throwInstantiateException(AuthAjaxService));
-        return Some(new TableWidgetModel(ajaxService));
+        ajaxService = ajaxService || AuthAjaxService.newInstance();
+        return new TableWidgetModel(ajaxService);
     };
 
     return TableWidgetModel;

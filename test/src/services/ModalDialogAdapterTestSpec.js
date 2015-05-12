@@ -29,7 +29,7 @@ describe("ModalDialogAdapter", function () {
                     return {result: exerciseFakePromise()};
                 }
             };
-            sut = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
+            sut = ModalDialogAdapter.newInstance(modalService);
         });
 
         describe("createDialog", function () {

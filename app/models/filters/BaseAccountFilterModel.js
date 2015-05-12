@@ -6,7 +6,7 @@ app.registerModel(function (container) {
     var Configuration = container.getService("Configuration");
 
     function BaseAccountFilterModel(ajaxService) {
-        this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        this.ajaxService = ajaxService || AjaxService.newInstance();
     }
 
     BaseAccountFilterModel.prototype.getFilterValues = function (filterName, queryString) {

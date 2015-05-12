@@ -10,7 +10,7 @@ describe("StringTypeFilterModel", function () {
     beforeEach(function () {
         ajaxService = jasmineMock(AjaxService, 'ajaxService');
 
-        sut = StringTypeFilterModel.newInstance(ajaxService).getOrElse(throwInstantiateException(StringTypeFilterModel));
+        sut = StringTypeFilterModel.newInstance(ajaxService);
     });
 
     describe("getFilterValues", function () {

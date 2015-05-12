@@ -48,7 +48,7 @@ describe("FakeDatabase", function () {
     ];
 
     it("should return a default table fields list", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
+        var db = FakeDatabase.newInstance();
         var expected = {success: true, data: DefaultTableList};
         var result = db.getAccountFields();
 
@@ -56,7 +56,7 @@ describe("FakeDatabase", function () {
     });
 
     it("should register a new column in the table fields list", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
+        var db = FakeDatabase.newInstance();
         var newColumn = {columnKey: "someNewColumn", name: "Some New Column"};
         var expected = {success: true, data: DefaultTableList.concat(newColumn)};
 
@@ -65,7 +65,7 @@ describe("FakeDatabase", function () {
     });
 
     it("should delete an existing column in the table fields list", function () {
-        var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
+        var db = FakeDatabase.newInstance();
         var columnToRemove = "responsible.name";
         var expected = {
             success: true, data: DefaultTableList.filter(function (k) {
@@ -145,7 +145,7 @@ describe("FakeDatabase", function () {
 
     dataProvider.forEach(function (test) {
         it("should get a basic response of a element", function () {
-            var db = FakeDatabase.newInstance().getOrElse(throwException("Could not create a FakeDatabase!!"));
+            var db = FakeDatabase.newInstance();
             var result = db.getAccounts({
                     order: {field: 'name', direction: 'asc', offset: test.offset, limit: test.limit},
                     filters: test.filters
@@ -159,7 +159,7 @@ describe("FakeDatabase", function () {
         describe("toggling an environment", function () {
             var sut;
             beforeEach(function () {
-                sut = FakeDatabase.newInstance([],[],[],[],[],[]).getOrElse(throwInstantiateException(FakeDatabase));
+                sut = FakeDatabase.newInstance([],[],[],[],[],[]);
             });
 
             it("should turn 'selected' to false if it's selected", function () {

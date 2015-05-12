@@ -24,9 +24,9 @@ app.registerService(function (container) {
 
     AuthAjaxService.newInstance = function ($ajaxImpl, $storageService) {
         var ajaxImpl = $ajaxImpl || $.ajax;
-        var storageService = $storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var storageService = $storageService || StorageService.newInstance();
 
-        return Some(new AuthAjaxService(ajaxImpl, storageService));
+        return new AuthAjaxService(ajaxImpl, storageService);
     };
 
     return AuthAjaxService;

@@ -10,7 +10,7 @@ describe("GraphWidgetView", function () {
             $on: function(){},
             $watch: function(){}
         };
-        sut = GraphWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(GraphWidgetView));
+        sut = GraphWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {

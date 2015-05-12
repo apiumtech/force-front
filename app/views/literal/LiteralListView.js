@@ -105,9 +105,9 @@ app.registerView(function (container) {
 
     LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
-        var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
-        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
+        var model = $model || LiteralListModel.newInstance();
+        var presenter = $presenter || LiteralListPresenter.newInstance();
+        var dataTableService = $dataTableService || DataTableService.newInstance();
 
         var view = new LiteralListView(scope, model, presenter, dataTableService);
 

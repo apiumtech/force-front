@@ -12,7 +12,7 @@ describe("AccountService", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = AccountService.newInstance(ajaxService).getOrElse(throwInstantiateException(AccountService));
+        sut = AccountService.newInstance(ajaxService);
     });
 
     function exerciseAjaxOk() {

@@ -8,7 +8,7 @@ describe("IntensityView", function () {
         return IntensityView.newInstance({}, model, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create IntensityView!"));
+        }, false, false);
     }
 
     describe("show() method", function () {

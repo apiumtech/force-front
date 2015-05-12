@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     ActivityWidgetController.configureView = function ($scope, $element) {
-        this.view = ActivityWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(ActivityWidgetView));
+        this.view = ActivityWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

@@ -11,7 +11,7 @@ describe("BarChartWidgetView", function () {
             $on:function(){},
             $watch:function(){}
         };
-        sut = BarChartWidgetView.newInstance(scope, {}, {}, {}, false, false).getOrElse(throwInstantiateException(BarChartWidgetView));
+        sut = BarChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {

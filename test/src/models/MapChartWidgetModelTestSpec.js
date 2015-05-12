@@ -13,7 +13,7 @@ describe("MapChartWidgetModel", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = MapChartWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(MapChartWidgetModel));
+        sut = MapChartWidgetModel.newInstance(ajaxService);
     });
 
     describe('getUrl', function () {
@@ -77,7 +77,7 @@ describe("MapChartWidgetModel", function () {
 
     describe("changeFilterTab", function () {
         it("should call addQuery from base to add filter", function () {
-            var sut = MapChartWidgetModel.newInstance().getOrElse(throwInstantiateException(MapChartWidgetModel));
+            var sut = MapChartWidgetModel.newInstance();
             sut.changeFilterTab("tab1");
             expect(sut.currentFilter).toEqual("tab1");
         });

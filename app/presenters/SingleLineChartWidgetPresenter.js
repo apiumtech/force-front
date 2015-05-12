@@ -76,8 +76,8 @@ app.registerPresenter(function (container) {
     };
 
     SingleLineChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new SingleLineChartWidgetPresenter(_widgetEventChannel));
+        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+        return new SingleLineChartWidgetPresenter(_widgetEventChannel);
     };
 
     return SingleLineChartWidgetPresenter;

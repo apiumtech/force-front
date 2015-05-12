@@ -81,8 +81,8 @@ app.registerView(function(container) {
 
     LoginView.newInstance = function($scope, $model, $presenter, $location, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || LoginModel.newInstance().getOrElse(throwInstantiateException(LoginModel));
-        var presenter = $presenter || LoginPresenter.newInstance().getOrElse(throwInstantiateException(LoginPresenter));
+        var model = $model || LoginModel.newInstance();
+        var presenter = $presenter || LoginPresenter.newInstance();
         var view = new LoginView(scope, model, presenter, $location);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);

@@ -67,10 +67,10 @@ app.registerModel(function (container) {
     };
 
     SalesAnalyticsFilterModel.newInstance = function (ajaxService, storageService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var _ajaxService = ajaxService || AjaxService.newInstance();
+        var _storageService = storageService || StorageService.newInstance();
 
-        return Some(new SalesAnalyticsFilterModel(_ajaxService, _storageService));
+        return new SalesAnalyticsFilterModel(_ajaxService, _storageService);
     };
 
     return SalesAnalyticsFilterModel;

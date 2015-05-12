@@ -7,7 +7,7 @@ describe("FakeAjaxService", function () {
     var sut;
 
     beforeEach(function () {
-        sut = FakeAjaxService.newInstance().getOrElse(throwInstantiateException(FakeAjaxService));
+        sut = FakeAjaxService.newInstance();
     });
 
     describe("rawAjaxRequest", function () {

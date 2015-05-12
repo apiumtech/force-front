@@ -33,9 +33,9 @@ app.registerModel(function (container) {
 
     AccountEditingModel.newInstance = function (uploadService, ajaxService) {
         assertNotNull('uploadService', uploadService);
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new AccountEditingModel(ajaxService, uploadService));
+        return new AccountEditingModel(ajaxService, uploadService);
     };
 
     return AccountEditingModel;

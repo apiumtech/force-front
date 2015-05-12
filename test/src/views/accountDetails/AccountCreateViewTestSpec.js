@@ -25,7 +25,7 @@ describe("AccountCreateView", function () {
                 }
             }
         };
-        sut = AccountCreateView.newInstance(scope, model, presenter, false, false).getOrElse(throwInstantiateException(AccountCreateView));
+        sut = AccountCreateView.newInstance(scope, model, presenter, false, false);
     });
 
     describe("BaseView inheritance test", function () {

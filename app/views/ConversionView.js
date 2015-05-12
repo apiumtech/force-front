@@ -67,8 +67,8 @@ app.registerView(function (container) {
     };
 
     ConversionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || ConversionModel.newInstance().getOrElse(throwInstantiateException(ConversionModel));
-        var presenter = $presenter || ConversionPresenter.newInstance().getOrElse(throwInstantiateException(ConversionPresenter));
+        var model = $model || ConversionModel.newInstance();
+        var presenter = $presenter || ConversionPresenter.newInstance();
 
         var view = new ConversionView($scope, model, presenter);
 

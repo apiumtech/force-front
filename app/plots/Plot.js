@@ -79,8 +79,8 @@ app.registerService(function () {
         var labelArray = labels.map(Plot._asLabel);
         var plotArray = plots.filter(Plot._isNotEmpty).map(Plot._asPlot);
 
-        return Some(new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {
-        }));
+        return new Plot(labelArray, plotArray, cfg, plotImpl || $.plot || function () {
+        });
     };
 
     return Plot;

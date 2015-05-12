@@ -12,7 +12,7 @@ describe("GraphWidgetModel", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = GraphWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(GraphWidgetModel));
+        sut = GraphWidgetModel.newInstance(ajaxService);
     });
 
     describe("_reload", function () {
