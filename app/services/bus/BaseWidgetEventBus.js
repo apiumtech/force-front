@@ -37,8 +37,8 @@ app.registerService(function (container) {
     };
 
     BaseWidgetEventBus.newInstance = function () {
-        var signalService = SignalService.newInstance().getOrElse(throwInstantiateException(SignalService));
-        return Some(new BaseWidgetEventBus(signalService));
+        var signalService = SignalService.newInstance();
+        return new BaseWidgetEventBus(signalService);
     };
 
     return BaseWidgetEventBus;

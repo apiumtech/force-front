@@ -6,7 +6,7 @@ describe("ActivityWidgetPresenter", function () {
     var sut, view, model;
 
     beforeEach(function () {
-        sut = ActivityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(ActivityWidgetPresenter));
+        sut = ActivityWidgetPresenter.newInstance();
         view = {event: {}};
         model = {};
     });

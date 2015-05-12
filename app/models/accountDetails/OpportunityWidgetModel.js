@@ -30,9 +30,9 @@ app.registerModel(function (container) {
     };
 
     OpportunityWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new OpportunityWidgetModel(ajaxService));
+        return new OpportunityWidgetModel(ajaxService);
     };
 
     return OpportunityWidgetModel;

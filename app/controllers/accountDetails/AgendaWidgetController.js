@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     AgendaWidgetController.configureView = function ($scope, $element) {
-        this.view = AgendaWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(AgendaWidgetView));
+        this.view = AgendaWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

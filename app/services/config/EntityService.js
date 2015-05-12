@@ -125,8 +125,8 @@ app.registerService(function () {
      * @method static newInstance
      */
     EntityService.newInstance = function (storage) {
-        storage = storage || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
-        return Some(new EntityService(storage));
+        storage = storage || StorageService.newInstance();
+        return new EntityService(storage);
     };
 
     return EntityService;

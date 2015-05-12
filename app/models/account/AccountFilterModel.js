@@ -86,8 +86,8 @@ app.registerModel(function (container) {
     };
 
     AccountFilterModel.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        return Some(new AccountFilterModel(_ajaxService));
+        var _ajaxService = ajaxService || AjaxService.newInstance();
+        return new AccountFilterModel(_ajaxService);
     };
 
     return AccountFilterModel;

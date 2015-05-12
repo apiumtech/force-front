@@ -13,7 +13,7 @@ app.registerView(function (container) {
     function AccountCreateView($scope, model, presenter) {
         BaseView.call(this, $scope, model, presenter);
         $scope.$modal = $scope.$injector.get("$modal");
-        this.modalDialogAdapter = ModalDialogAdapter.newInstance($scope.$modal).getOrElse(throwInstantiateException(ModalDialogAdapter));
+        this.modalDialogAdapter = ModalDialogAdapter.newInstance($scope.$modal);
         this.accountData = {
             "following": false,
             "name": "",
@@ -154,8 +154,8 @@ app.registerView(function (container) {
 
     AccountCreateView.newInstance = function (scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var uploadService = scope.$upload;
-        model = model || AccountEditingModel.newInstance(uploadService).getOrElse(throwInstantiateException(AccountEditingModel));
-        presenter = presenter || AccountCreatePresenter.newInstance().getOrElse(throwInstantiateException(AccountCreatePresenter));
+        model = model || AccountEditingModel.newInstance(uploadService);
+        presenter = presenter || AccountCreatePresenter.newInstance();
 
         var view = new AccountCreateView(scope, model, presenter);
         return view._injectAspects(viewRepaintAspect, logErrorAspect);

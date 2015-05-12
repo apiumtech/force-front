@@ -5,8 +5,8 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var BarChartWidgetModel = container.getModel('models/BarChartWidgetModel');
-    var BarChartWidgetPresenter = container.getPresenter('presenters/BarChartWidgetPresenter');
+    var BarChartWidgetModel = container.getModel('models/widgets/BarChartWidgetModel');
+    var BarChartWidgetPresenter = container.getPresenter('presenters/widgets/BarChartWidgetPresenter');
 
     var BarChart = container.getService('plots/BarChart');
 
@@ -83,7 +83,7 @@ app.registerView(function (container) {
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {
-        var plot = BarChart.basic(this.data, this.tickLabels).getOrElse(throwException("invalid plot!"));
+        var plot = BarChart.basic(this.data, this.tickLabels);
         plot.paint($(element));
         plot.onHover(this.onPlotHover.bind(this));
     };
@@ -125,8 +125,8 @@ app.registerView(function (container) {
     };
 
     BarChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || BarChartWidgetModel.newInstance().getOrElse(throwInstantiateException(BarChartWidgetModel));
-        var presenter = $presenter || BarChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(BarChartWidgetPresenter));
+        var model = $model || BarChartWidgetModel.newInstance();
+        var presenter = $presenter || BarChartWidgetPresenter.newInstance();
 
         var view = new BarChartWidgetView($scope, $element, model, presenter);
 

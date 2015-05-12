@@ -15,7 +15,7 @@ describe("AccountFilterPresenter", function () {
 
 
     beforeEach(function () {
-        sut = AccountFilterPresenter.newInstance().getOrElse(throwInstantiateException(AccountFilterPresenter));
+        sut = AccountFilterPresenter.newInstance();
     });
 
     describe("show", function () {

@@ -9,7 +9,7 @@ app.registerModel(function (container) {
 
     function AccountModel(ajaxService, dataTableDataProvider) {
         this.ajaxService = ajaxService;
-        this.fakeAjaxService = FakeAjaxService.newInstance().getOrElse(throwInstantiateException(FakeAjaxService));
+        this.fakeAjaxService = FakeAjaxService.newInstance();
         this.dataTableDataProvider = dataTableDataProvider;
         this.accountsList = [];
         this.recentFilters = {};
@@ -93,10 +93,10 @@ app.registerModel(function (container) {
     };
 
     AccountModel.newInstance = function (ajaxService, dataTableDataProvider) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance().getOrElse(throwInstantiateException(DataTableDataProvider))
+        ajaxService = ajaxService || AjaxService.newInstance();
+        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance()
 
-        return Some(new AccountModel(ajaxService, dataTableDataProvider));
+        return new AccountModel(ajaxService, dataTableDataProvider);
     };
 
     return AccountModel;

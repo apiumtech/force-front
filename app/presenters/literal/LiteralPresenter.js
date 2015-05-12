@@ -24,7 +24,7 @@ app.registerPresenter(function (container) {
     };
 
     LiteralPresenter.newInstance = function () {
-        return Some(new LiteralPresenter());
+        return new LiteralPresenter();
     };
 
     return {newInstance: LiteralPresenter.newInstance};

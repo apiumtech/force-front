@@ -5,8 +5,10 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var SingleLineChartWidgetModel = container.getModel('models/SingleLineChartWidgetModel');
-    var SingleLineChartWidgetPresenter = container.getPresenter('presenters/SingleLineChartWidgetPresenter');
+    var SingleLineChartWidgetModel = container.getModel('models/widgets/SingleLineChartWidgetModel');
+    var SingleLineChartWidgetPresenter = container.getPresenter('presenters/widgets/SingleLineChartWidgetPresenter');
+
+    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
 
     var SingleLineChart = container.getService('plots/SingleLineChart');
     var LineGraphPlot = container.getService('plots/LineGraphPlot');
@@ -45,12 +47,25 @@ app.registerView(function (container) {
             set: function (value) {
                 this.$scope.tickLabels = value;
             }
+        },
+        eventChannel: {
+            get: function () {
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
+            },
+            set: function (value) {
+                this.$scope.eventChannel = value;
+            }
         }
     });
 
     SingleLineChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
+        var eventChannel = self.eventChannel,
+            scope = self.$scope;
+
+        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        eventChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -72,7 +87,10 @@ app.registerView(function (container) {
         self.data = responseData.data.params;
         self.extractFilters();
         self.refreshChart();
-        self.event.onReloadWidgetDone();
+    };
+
+    SingleLineChartWidgetView.prototype.onReloadCompleteCommandReceived = function(){
+        this.event.onReloadWidgetDone();
     };
 
     SingleLineChartWidgetView.prototype.extractFilters = function () {
@@ -104,7 +122,7 @@ app.registerView(function (container) {
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
-        var plot = SingleLineChart.basic(chartFields, []).getOrElse(throwException("invalid plot!"));
+        var plot = SingleLineChart.basic(chartFields, []);
         plot.paint($(element));
         plot.onHover(this.onPlotHover.bind(this));
     };
@@ -140,8 +158,8 @@ app.registerView(function (container) {
     };
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SingleLineChartWidgetModel.newInstance().getOrElse(throwInstantiateException(SingleLineChartWidgetModel));
-        var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(SingleLineChartWidgetPresenter));
+        var model = $model || SingleLineChartWidgetModel.newInstance();
+        var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance();
 
         var view = new SingleLineChartWidgetView($scope, $element, model, presenter);
 

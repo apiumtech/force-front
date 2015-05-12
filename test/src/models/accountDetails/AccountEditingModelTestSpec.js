@@ -14,7 +14,7 @@ describe("AccountEditingModel", function () {
             }
         };
         expect(function () {
-            sut = AccountEditingModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountEditingModel));
+            sut = AccountEditingModel.newInstance(uploadService, ajaxService);
         }).toThrow(new Error("uploadService cannot be null"));
     });
 
@@ -28,7 +28,7 @@ describe("AccountEditingModel", function () {
             upload: function () {
             }
         };
-        sut = AccountEditingModel.newInstance(uploadService, ajaxService).getOrElse(throwInstantiateException(AccountEditingModel));
+        sut = AccountEditingModel.newInstance(uploadService, ajaxService);
     });
 
     function exerciseAjaxOk() {

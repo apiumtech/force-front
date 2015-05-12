@@ -64,9 +64,9 @@ app.registerModel(function (container) {
     };
 
     AccountDetailsModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new AccountDetailsModel(ajaxService));
+        return new AccountDetailsModel(ajaxService);
     };
 
     return AccountDetailsModel;

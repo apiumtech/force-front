@@ -10,7 +10,7 @@ describe("WidgetService", function () {
         ajaxService = {
             ajax: jasmine.createSpy()
         };
-        sut = WidgetService.newInstance(ajaxService).getOrElse(throwInstantiateException(WidgetService));
+        sut = WidgetService.newInstance(ajaxService);
     });
 
     describe("getWidgetsForPage", function () {

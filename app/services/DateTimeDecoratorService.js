@@ -42,8 +42,8 @@ app.registerService(function (container) {
 
 
     DateTimeDecoratorService.newInstance = function (translator) {
-        translator = translator || Translator.newInstance().getOrElse(throwInstantiateException(Translator));
-        return Some(new DateTimeDecoratorService(translator));
+        translator = translator || Translator.newInstance();
+        return new DateTimeDecoratorService(translator);
     };
 
     return DateTimeDecoratorService;

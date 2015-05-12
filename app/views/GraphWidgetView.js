@@ -4,8 +4,8 @@
 app.registerView(function (container) {
     var WidgetBaseView = container.getView("views/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var GraphWidgetModel = container.getModel('models/GraphWidgetModel');
-    var GraphWidgetPresenter = container.getPresenter('presenters/GraphWidgetPresenter');
+    var GraphWidgetModel = container.getModel('models/widgets/GraphWidgetModel');
+    var GraphWidgetPresenter = container.getPresenter('presenters/widgets/GraphWidgetPresenter');
 
 
     var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
@@ -38,7 +38,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -120,7 +120,7 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
-        var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED).getOrElse(throwException("invalid plot!"));
+        var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED);
         plot.paint($(element));
         plot.onHover(this.onChartHover.bind(this));
     };
@@ -204,8 +204,8 @@ app.registerView(function (container) {
     };
 
     GraphWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || GraphWidgetModel.newInstance().getOrElse(throwInstantiateException(GraphWidgetModel));
-        var presenter = $presenter || GraphWidgetPresenter.newInstance().getOrElse(throwInstantiateException(GraphWidgetPresenter));
+        var model = $model || GraphWidgetModel.newInstance();
+        var presenter = $presenter || GraphWidgetPresenter.newInstance();
 
         var view = new GraphWidgetView($scope, $element, model, presenter);
 

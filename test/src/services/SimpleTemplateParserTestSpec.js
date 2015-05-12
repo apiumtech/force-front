@@ -7,7 +7,7 @@ describe("SimpleTemplateParser", function () {
     var sut;
 
     beforeEach(function () {
-        sut = SimpleTemplateParser.newInstance().getOrElse(throwInstantiateException(SimpleTemplateParser));
+        sut = SimpleTemplateParser.newInstance();
     });
 
     describe("getKeysFromTemplate", function () {

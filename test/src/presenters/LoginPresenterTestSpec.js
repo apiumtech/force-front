@@ -20,7 +20,7 @@ describe('LoginPresenter', function(){
             onLoggedIn: function(){},
             onLoggingInError: function(){}
         };
-        presenter = LoginPresenter.newInstance().getOrElse(throwInstantiateException(LoginPresenter));
+        presenter = LoginPresenter.newInstance();
         presenter.show(view, model);
     });
 

@@ -13,7 +13,7 @@ describe("AccountDetailsModel", function () {
             }
         };
 
-        sut = AccountDetailsModel.newInstance(ajaxService).getOrElse(throwInstantiateException(AccountDetailsModel));
+        sut = AccountDetailsModel.newInstance(ajaxService);
     });
 
     describe("getAccountDetail", function () {

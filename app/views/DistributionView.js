@@ -67,8 +67,8 @@ app.registerView(function (container) {
     };
 
     DistributionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || DistributionModel.newInstance().getOrElse(throwInstantiateException(DistributionModel));
-        var presenter = $presenter || DistributionPresenter.newInstance().getOrElse(throwInstantiateException(DistributionPresenter));
+        var model = $model || DistributionModel.newInstance();
+        var presenter = $presenter || DistributionPresenter.newInstance();
 
         var view = new DistributionView($scope, model, presenter);
 

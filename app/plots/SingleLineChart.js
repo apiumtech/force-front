@@ -71,8 +71,8 @@ app.registerService(function () {
         if (plotArray.length == 0) {
             return None();
         }
-        return Some(new SingleLineChart(plotArray, tickLabels, cfg, plotImpl || $.plot || function () {
-        }));
+        return new SingleLineChart(plotArray, tickLabels, cfg, plotImpl || $.plot || function () {
+        });
     };
 
     return SingleLineChart;

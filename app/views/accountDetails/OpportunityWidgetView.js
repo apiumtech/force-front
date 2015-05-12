@@ -31,7 +31,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || ( this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance().getOrElse(throwInstantiateException(AccountDetailWidgetEventBus)));
+                return this.$scope.eventChannel || ( this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -92,8 +92,8 @@ app.registerView(function (container) {
     };
 
     OpportunityWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
-        $model = $model || OpportunityWidgetModel.newInstance().getOrElse(throwInstantiateException(OpportunityWidgetModel));
-        $presenter = $presenter || OpportunityWidgetPresenter.newInstance().getOrElse(throwInstantiateException(OpportunityWidgetPresenter));
+        $model = $model || OpportunityWidgetModel.newInstance();
+        $presenter = $presenter || OpportunityWidgetPresenter.newInstance();
         var view = new OpportunityWidgetView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);
     };

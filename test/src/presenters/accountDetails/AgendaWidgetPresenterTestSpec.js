@@ -6,7 +6,7 @@ describe("AgendaWidgetPresenter", function () {
     var sut, view, model;
 
     beforeEach(function () {
-        sut = AgendaWidgetPresenter.newInstance().getOrElse(throwInstantiateException(AgendaWidgetPresenter));
+        sut = AgendaWidgetPresenter.newInstance();
         view = {event: {}};
         model = {};
     });

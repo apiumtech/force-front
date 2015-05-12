@@ -151,10 +151,10 @@ app.registerView(function (container) {
     ContactView.newInstance = function ($scope, $model, $presenter, $dataTableService, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
-        var model = $model || ContactModel.newInstance().getOrElse(throwInstantiateException(ContactModel));
-        var presenter = $presenter || ContactPresenter.newInstance().getOrElse(throwInstantiateException(ContactPresenter));
+        var model = $model || ContactModel.newInstance();
+        var presenter = $presenter || ContactPresenter.newInstance();
 
-        var dataTableService = $dataTableService || DataTableService.newInstance().getOrElse(throwInstantiateException(DataTableService));
+        var dataTableService = $dataTableService || DataTableService.newInstance();
         var view = new ContactView(scope, model, presenter, dataTableService);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);

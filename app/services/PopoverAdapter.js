@@ -30,7 +30,7 @@ app.registerService(function () {
     };
 
     PopoverAdapter.newInstance = function (popoverImp) {
-        return Some(new PopoverAdapter(popoverImp || DefaultPopoverImpl));
+        return new PopoverAdapter(popoverImp || DefaultPopoverImpl);
     };
 
     return PopoverAdapter;

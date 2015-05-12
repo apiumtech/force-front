@@ -6,7 +6,7 @@ describe("SalesAnalyticsFilterPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = SalesAnalyticsFilterPresenter.newInstance().getOrElse(throwInstantiateException(SalesAnalyticsFilterPresenter));
+        sut = SalesAnalyticsFilterPresenter.newInstance();
     });
 
     var ___view, ___model;

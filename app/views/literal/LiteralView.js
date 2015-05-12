@@ -56,8 +56,8 @@ app.registerView(function (container) {
     LiteralView.newInstance = function ($routeParams, $scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var routeParams = $routeParams;
-        var model = $model || LiteralModel.newInstance().getOrElse(throwException("LiteralModel could not be instantiated!!"));
-        var presenter = $presenter || LiteralPresenter.newInstance().getOrElse(throwException("LiteralPresenter could not be instantiated!!"));
+        var model = $model || LiteralModel.newInstance();
+        var presenter = $presenter || LiteralPresenter.newInstance();
 
         var view = new LiteralView(routeParams, scope, model, presenter);
 
@@ -69,7 +69,7 @@ app.registerView(function (container) {
             ($logErrorAspect || LogErrorAspect).weave(view);
         }
 
-        return Some(view);
+        return view;
     };
 
     return {newInstance: LiteralView.newInstance};

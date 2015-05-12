@@ -13,7 +13,7 @@ describe("AccountFilterView", function () {
         }, model || {}, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwInstantiateException(AccountFilterView));
+        }, false, false);
     }
 
     it("should call presenter's show method on show()", function () {

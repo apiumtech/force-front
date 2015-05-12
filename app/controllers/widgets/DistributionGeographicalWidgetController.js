@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     DistributionGeographicalWidgetController.configureView = function ($scope, $element) {
-        this.view = MapChartWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(MapChartWidgetView));
+        this.view = MapChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

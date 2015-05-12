@@ -76,8 +76,8 @@ app.registerService(function () {
     };
 
     BarChart.newInstance = function (plotData, tickLabels, cfg, plotImpl) {
-        return Some(new BarChart(plotData, tickLabels, cfg, plotImpl || $.plot || function () {
-        }));
+        return new BarChart(plotData, tickLabels, cfg, plotImpl || $.plot || function () {
+        });
     };
 
     return BarChart;

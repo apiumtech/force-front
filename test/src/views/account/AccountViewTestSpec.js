@@ -14,7 +14,7 @@ describe("AccountView", function () {
         return AccountView.newInstance(scope, model || {}, presenter || {
             show: function () {
             }
-        }, googleMapService || {}, datatableService || {}, false, false).getOrElse(throwInstantiateException(AccountView));
+        }, googleMapService || {}, datatableService || {}, false, false);
     }
 
     it("should call presenter's show method on show()", function () {

@@ -61,12 +61,12 @@ app.registerModel(function (container) {
 
 
     ContactModel.newInstance = function (ajaxService, entityService, storageService, configuration) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        entityService = entityService || EntityService.newInstance().getOrElse(throwInstantiateException(EntityService));
-        storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        ajaxService = ajaxService || AjaxService.newInstance();
+        entityService = entityService || EntityService.newInstance();
+        storageService = storageService || StorageService.newInstance();
         configuration = configuration || Configuration;
 
-        return Some(new ContactModel(ajaxService, entityService, storageService, configuration));
+        return new ContactModel(ajaxService, entityService, storageService, configuration);
     };
 
     return ContactModel;

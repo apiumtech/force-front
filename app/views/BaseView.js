@@ -78,7 +78,7 @@ app.registerView(function (container) {
             ($logErrorAspect || LogErrorAspect).weave(this);
         }
 
-        return Some(this);
+        return this;
     };
 
 

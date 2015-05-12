@@ -6,7 +6,7 @@ describe("AccountEditPresenter", function () {
     var sut, view, model;
 
     beforeEach(function () {
-        sut = AccountEditPresenter.newInstance().getOrElse(throwInstantiateException(AccountEditPresenter));
+        sut = AccountEditPresenter.newInstance();
         view = {event: {}};
         model = {};
     });

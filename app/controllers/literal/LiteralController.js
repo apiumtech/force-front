@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     LiteralController.configureView = function ($routeParams, $scope) {
-        this.view = LiteralView.newInstance($routeParams, $scope).getOrElse(throwException("Could not create LiteralView!"));
+        this.view = LiteralView.newInstance($routeParams, $scope);
         this.view.show();
     };
 

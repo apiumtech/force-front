@@ -416,7 +416,7 @@ app.registerModel(function () {
                 }
             ];
 
-        return Some(new FakeDatabase(cf, ca, co, cat, cev, cv));
+        return new FakeDatabase(cf, ca, co, cat, cev, cv);
     };
 
     return {newInstance: FakeDatabase.newInstance};

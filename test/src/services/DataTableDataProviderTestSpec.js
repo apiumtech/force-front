@@ -6,7 +6,7 @@ describe("DataTableDataProvider", function () {
     var sut;
 
     beforeEach(function () {
-        sut = DataTableDataProvider.newInstance().getOrElse(throwInstantiateException(DataTableDataProvider));
+        sut = DataTableDataProvider.newInstance();
     });
 
     describe("getTableFields", function () {

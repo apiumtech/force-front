@@ -5,7 +5,7 @@ describe("ConversionView", function () {
         return ConversionView.newInstance({}, model, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create ConversionView!"));
+        }, false, false);
     }
 
     describe("show() method", function () {

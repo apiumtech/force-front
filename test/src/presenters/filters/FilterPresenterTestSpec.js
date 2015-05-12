@@ -5,7 +5,7 @@ describe("FilterPresenter", function () {
     var FilterPresenter = app.getPresenter('presenters/filters/FilterPresenter');
 
     function exerciseCreatePresenter() {
-        return FilterPresenter.newInstance(exerciseFakeChannel()).getOrElse("Could not create FilterPresenter");
+        return FilterPresenter.newInstance(exerciseFakeChannel());
     }
 
     [

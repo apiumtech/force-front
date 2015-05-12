@@ -18,7 +18,7 @@ app.registerController(function (container) {
     }
 
     AccountDetailsController.configureView = function (scope, $modal) {
-        this.view = AccountDetailsView.newInstance(scope, $modal).getOrElse(throwInstantiateException(AccountDetailsView));
+        this.view = AccountDetailsView.newInstance(scope, $modal);
         this.view.show();
     };
 

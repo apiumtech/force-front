@@ -13,7 +13,7 @@ app.registerController(function (container) {
     }
 
     ConfirmationDialogController.configureView = function ($scope, $modalInstance) {
-        this.view = ConfirmationDialogView.newInstance($scope, $modalInstance).getOrElse(throwInstantiateException(ConfirmationDialogView));
+        this.view = ConfirmationDialogView.newInstance($scope, $modalInstance);
         this.view.show();
     };
 

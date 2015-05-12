@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     StringTypeFilterController.configureView = function ($scope, $element) {
-        this.view = StringTypeFilterView.newInstance($scope, $element).getOrElse(throwInstantiateException(StringTypeFilterView));
+        this.view = StringTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
 

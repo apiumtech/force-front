@@ -13,7 +13,7 @@ app.registerService(function (container) {
     };
 
     SignalsService.newInstance = function (signal) {
-        return Some(new SignalsService(signal || signals.Signal));
+        return new SignalsService(signal || signals.Signal);
     };
 
     return SignalsService;

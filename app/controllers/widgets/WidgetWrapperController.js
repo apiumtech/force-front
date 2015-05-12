@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     WidgetWrapperController.configureView = function ($scope, $element) {
-        this.view = WidgetWrapperView.newInstance($scope, $element).getOrElse(throwInstantiateException(WidgetWrapperView));
+        this.view = WidgetWrapperView.newInstance($scope, $element);
         this.view.show();
     };
 

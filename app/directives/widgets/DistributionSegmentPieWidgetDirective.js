@@ -11,7 +11,7 @@ app.registerDirective(function (container) {
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/distributionSegmentPieWidget.html'
+            templateUrl: 'templates/widgets/distributionPieWidget.html'
         };
     }
 

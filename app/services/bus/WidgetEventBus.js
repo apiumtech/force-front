@@ -6,7 +6,7 @@ app.registerService(function (container) {
     var _ = container.getFunction("underscore");
 
     function WidgetEventBus(widgetName) {
-        this.channel = WidgetEventBus._initChannel(widgetName).getOrElse(throwException("Cannot instantiate channel"));
+        this.channel = WidgetEventBus._initChannel(widgetName);
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
@@ -58,11 +58,11 @@ app.registerService(function (container) {
     };
 
     WidgetEventBus._initChannel = function (widgetName) {
-        return Some(EventBus.createChannel("WidgetEventBus", widgetName || "Global"));
+        return EventBus.createChannel("WidgetEventBus", widgetName || "Global");
     };
 
     WidgetEventBus.newInstance = function (widgetName) {
-        return Some(new WidgetEventBus(widgetName));
+        return new WidgetEventBus(widgetName);
     };
 
     return WidgetEventBus;

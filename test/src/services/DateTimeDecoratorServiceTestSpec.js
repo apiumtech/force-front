@@ -10,7 +10,7 @@ describe("DateTimeDecoratorService", function () {
             translate: function () {
             }
         };
-        sut = DateTimeDecoratorService.newInstance(translator).getOrElse(throwInstantiateException(DateTimeDecoratorService));
+        sut = DateTimeDecoratorService.newInstance(translator);
     });
 
     describe("getFormattedDateDistance", function () {

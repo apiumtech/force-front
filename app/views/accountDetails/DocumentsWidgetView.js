@@ -14,13 +14,13 @@ app.registerView(function (container) {
         BaseView.call(this, $scope, model, presenter);
         this.modalDialogService = modalDialogService;
         this.data.documentsList = [];
-        this.translator = TranslatorService.newInstance().getOrElse(throwInstantiateException(TranslatorService));
+        this.translator = TranslatorService.newInstance();
     }
 
     DocumentsWidgetView.prototype = Object.create(BaseView.prototype, {
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || (this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance().getOrElse(throwInstantiateException(AccountDetailWidgetEventBus)));
+                return this.$scope.eventChannel || (this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -113,10 +113,10 @@ app.registerView(function (container) {
     DocumentsWidgetView.newInstance = function ($scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var modal = $scope.injector.get("$modal");
 
-        var modalDialog = ModalDialogAdapter.newInstance(modal).getOrElse(throwInstantiateException(ModalDialogAdapter));
+        var modalDialog = ModalDialogAdapter.newInstance(modal);
 
-        model = model || DocumentsWidgetModel.newInstance().getOrElse(throwInstantiateException(DocumentsWidgetModel));
-        presenter = presenter || DocumentsWidgetPresenter.newInstance().getOrElse(throwInstantiateException(DocumentsWidgetPresenter));
+        model = model || DocumentsWidgetModel.newInstance();
+        presenter = presenter || DocumentsWidgetPresenter.newInstance();
 
         var view = new DocumentsWidgetView($scope, model, presenter, modalDialog);
         return view._injectAspects(viewRepaintAspect, logErrorAspect);

@@ -17,7 +17,7 @@ app.registerService(function (container) {
     DataTableService.newInstance = function (dataTableImpl) {
         var dtImpl = dataTableImpl || DataTableIntegrateImplement;
 
-        return Some(new DataTableService(dtImpl));
+        return new DataTableService(dtImpl);
     };
 
     return DataTableService;

@@ -12,10 +12,10 @@ app.registerModel(function (container) {
     ConversionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
 
     ConversionModel.newInstance = function (widgetService, storageService) {
-        var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var _widgetService = widgetService || WidgetService.newInstance();
+        var _storageService = storageService || StorageService.newInstance();
 
-        return Some(new ConversionModel(_widgetService, _storageService));
+        return new ConversionModel(_widgetService, _storageService);
     };
 
     return ConversionModel;

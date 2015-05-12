@@ -11,7 +11,7 @@ app.registerView(function (container) {
 
     function AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter) {
         BaseView.call(this, scope, model, presenter);
-        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService).getOrElse(throwInstantiateException(ModalDialogAdapter));
+        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService);
         this.mapService = mapService;
         this.popoverAdapter = popoverAdapter;
         this.configureEvents(this);
@@ -200,10 +200,10 @@ app.registerView(function (container) {
     AccountDetailsView.newInstance = function (scope, modalService, model, presenter, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
         assertNotNull('modalService', modalService);
 
-        model = model || AccountDetailsModel.newInstance().getOrElse(AccountDetailsModel);
-        presenter = presenter || AccountDetailsPresenter.newInstance().getOrElse(AccountDetailsPresenter);
-        mapService = mapService || GoogleMapService.newInstance().getOrElse(GoogleMapService);
-        popoverAdapter = popoverAdapter || PopoverAdapter.newInstance().getOrElse(PopoverAdapter);
+        model = model || AccountDetailsModel.newInstance();
+        presenter = presenter || AccountDetailsPresenter.newInstance();
+        mapService = mapService || GoogleMapService.newInstance();
+        popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
 
         var view = new AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter);
 

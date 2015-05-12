@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     DatetimeTypeFilterController.configureView = function ($scope, $element) {
-        this.view = DatetimeTypeFilterView.newInstance($scope, $element).getOrElse(throwInstantiateException(DatetimeTypeFilterView));
+        this.view = DatetimeTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
 

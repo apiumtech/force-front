@@ -68,8 +68,8 @@ app.registerService(function (container) {
     };
 
     DataTableDataProvider.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        return Some(new DataTableDataProvider(ajaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
+        return new DataTableDataProvider(ajaxService);
     };
 
     return DataTableDataProvider;

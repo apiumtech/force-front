@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     SalesAnalyticsFilterController.configureView = function ($scope, $filter) {
-        this.view = SalesAnalyticsFilterView.newInstance($scope, $filter).getOrElse(throwInstantiateException(SalesAnalyticsFilterView));
+        this.view = SalesAnalyticsFilterView.newInstance($scope, $filter);
         this.view.show();
     };
 

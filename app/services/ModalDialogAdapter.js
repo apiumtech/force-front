@@ -84,7 +84,7 @@ app.registerService(function (container) {
 
     ModalDialogAdapter.newInstance = function (modalService) {
         assertNotNull('modalService', modalService);
-        return Some(new ModalDialogAdapter(modalService));
+        return new ModalDialogAdapter(modalService);
     };
 
     return ModalDialogAdapter;

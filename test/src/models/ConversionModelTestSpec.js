@@ -18,7 +18,7 @@ describe("ConversionModel", function () {
         };
 
     beforeEach(function () {
-        sut = ConversionModel.newInstance(widgetService, storageService).getOrElse(throwInstantiateException(ConversionModel));
+        sut = ConversionModel.newInstance(widgetService, storageService);
     });
     function fakeAjax() {
         return {

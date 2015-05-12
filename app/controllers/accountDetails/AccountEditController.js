@@ -13,7 +13,7 @@ app.registerController(function (container) {
     }
 
     AccountEditController.configureView = function ($scope) {
-        this.view = AccountEditView.newInstance($scope).getOrElse(throwInstantiateException(AccountEditView));
+        this.view = AccountEditView.newInstance($scope);
         this.view.show();
     };
 

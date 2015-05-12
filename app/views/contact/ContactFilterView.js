@@ -29,8 +29,8 @@ app.registerView(function (container) {
     ContactFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
 
         var scope = $scope || {};
-        var model = $model || ContactFilterModel.newInstance().getOrElse(throwInstantiateException(ContactFilterModel));
-        var presenter = $presenter || ContactFilterPresenter.newInstance().getOrElse(throwInstantiateException(ContactFilterPresenter));
+        var model = $model || ContactFilterModel.newInstance();
+        var presenter = $presenter || ContactFilterPresenter.newInstance();
         var view = new ContactFilterView(scope, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);

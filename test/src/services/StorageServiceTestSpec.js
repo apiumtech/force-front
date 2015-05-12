@@ -7,7 +7,7 @@ describe("StorageService", function () {
     var sut;
 
     beforeEach(function () {
-        sut = StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        sut = StorageService.newInstance();
     });
 
     describe("retrieve", function () {

@@ -20,7 +20,7 @@ app.registerService(function (container) {
     };
 
     FakeAjaxService.newInstance = function () {
-        return Some(new FakeAjaxService());
+        return new FakeAjaxService();
     };
 
     return FakeAjaxService;

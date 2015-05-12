@@ -7,7 +7,7 @@ describe("DistributionView", function () {
         return DistributionView.newInstance({}, _model, _presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create DistributionView!"));
+        }, false, false);
     }
 
     describe("show() method", function () {
