@@ -5,7 +5,7 @@ app.registerService(function (container) {
 
     var baseLocation = getLocation();
 
-    var baseUrl = "https://backenddev.forcemanager.net/api";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "http://websta.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -36,20 +36,27 @@ app.registerService(function (container) {
 
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
-        authentication: baseUrl + '/commands/security/login',
-        getContacts: baseUrl + '/queries/crm/contacts',
+        authentication: baseUrl + '/api/commands/security/login',
+        getContacts: baseUrl + '/api/queries/crm/contacts',
 
-        intensityWidgetApi: baseUrl + '/stats/dashboard/intensity/{0}',
+        intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
-        userTreeFiltersApi: baseUrl + '/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
 
-        graphWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
+        graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
-        rankingWidgetIntensityDataApi: baseUrl + '/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
+        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
 
-        geographicalWidgetDistributionDataApi: baseUrl + '/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
+        geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
+        segmentWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
 
-        segmentWidgetDistributionDataApi: baseUrl + '/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod'
+
+        createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
+        changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
+        deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
+        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
+        literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
+        
     };
 
     return {
@@ -61,6 +68,7 @@ app.registerService(function (container) {
         },
         pageSize: 10,
         defaultDateSubtraction: 30,
-        tokenStorageKey: "token"
+        tokenStorageKey: "token",
+        defaultLiteralLang: "en"
     };
 });

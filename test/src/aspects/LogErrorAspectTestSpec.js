@@ -48,8 +48,8 @@ describe('LogErrorAspect', function () {
     });
 
     it('should call _error after throwing an exception', function () {
-        var errorSpy = spyOn(console, 'warn').and.callThrough();
-        LogErrorAspect._error = errorSpy;
+        var warnSpy = spyOn(console, 'warn');
+        LogErrorAspect._warn = warnSpy;
 
         var view = exerciseCreateView();
         view.methodThatThrows = function () {
@@ -61,9 +61,9 @@ describe('LogErrorAspect', function () {
         } catch (err) {
         }
 
-        expect(errorSpy).toHaveBeenCalled();
+        expect(warnSpy).toHaveBeenCalled();
 
-        var errorMessage = errorSpy.calls.mostRecent().args[0];
+        var errorMessage = warnSpy.calls.mostRecent().args[0];
         expect(errorMessage).toMatch(/Ugly error/);
     });
 });

@@ -17,8 +17,14 @@ app.registerService(function (container) {
     AuthAjaxService.prototype.mapRequest = function (params) {
         var request = AjaxService.prototype.mapRequest.call(this, params);
 
+        var token = this.storageService.retrieve(Configuration.tokenStorageKey);
+
+        // TODO: get rid of it when proper login is implemented
+        var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+        
+        token = token || dev_token;
         request.headers = request.headers || {};
-        request.headers.token = this.storageService.retrieve(Configuration.tokenStorageKey);
+        request.headers.token = token;
         return request;
     };
 

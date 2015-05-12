@@ -1,30 +1,114 @@
-/**
- * Created by kevin on 10/22/14.
- */
 app.registerModel(function (container) {
-    var LiteralService = container.getService('services/literal/LiteralService');
+    var Configuration = container.getService('Configuration');
+    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
+    var StorageService = container.getService("services/StorageService");
+    var Q = container.getFunction('q');
 
-    function LiteralModel($literalService) {
-        this.gateway = $literalService; // LiteralService.js
+
+    function LiteralModel(ajaxService, storageService) {
+        this.ajaxService = ajaxService;
+        this.storageService = storageService;
+        this.page = 0;
     }
 
-    LiteralModel.prototype.getLiteralById = function (id) {
-        return this.gateway.getLiteralById(id);
+
+    LiteralModel.prototype.createLiteral = function () {
+        var body = {
+            "key" : "aaaa",//key del literal
+            "values" : {// uno o más valores
+                "es-es" : "vvvv1",
+                "en-us" : "vvvv2"
+            }
+        };
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.createLiteral,
+            data: body,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json'
+        });
     };
 
-    LiteralModel.prototype.updateOrCreateLiteral = function (literal) {
-        return this.gateway.updateOrCreateLiteral(literal);
+
+    /**
+     * changeLiteralDetails()
+     */
+    LiteralModel.prototype.changeLiteralDetails = function () {
+        var body = {
+            "id": "un guid e string.....",
+            "key" : "aaaa",//key del literal
+            "values" : {// uno o más valores
+                "es-es" : "vvvv1",
+                "en-us" : "vvvv2"
+            }
+        };
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.changeLiteralDetails,
+            data: body,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json'
+        });
     };
 
-    LiteralModel.prototype.deleteLiteral = function (id) {
-        return this.gateway.deleteLiteral(id);
+
+    /**
+     * deleteLiteral()
+     */
+    LiteralModel.prototype.deleteLiteral = function () {
+        var body = {
+            "id": "un guid e string....."
+        };
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.deleteLiteral,
+            data: body,
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json'
+        });
     };
 
-    LiteralModel.newInstance = function (ls) {
-        var literalService = ls || LiteralService.newInstance();
 
-        return new LiteralModel(literalService);
+    // ------
+    // List
+    // ------
+
+
+    LiteralModel.prototype.getLiteralList = function (searchTerm) {
+        var body = "search="+ encodeURIComponent(searchTerm) +
+            "&skip="+ this.page +
+            "&limit="+ Configuration.pageSize;
+
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalListBySearch,
+            data: body,
+            type: 'GET',
+            dataType: 'json'
+        });
     };
+
+
+
+    /*LiteralModel.prototype.getLiteralDictionary = function (lang, implementationCode) {
+        lang = lang || Configuration.defaultLiteralLang;
+        implementationCode = implementationCode || "";
+
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalValueDictionaryByLanguageAndImplementationCode,
+            type: 'GET',
+            data: "language="+ lang +"&implementationCode=" + implementationCode
+        });
+    };*/
+
+
+
+    LiteralModel.newInstance = function (ajaxService, storageService) {
+        ajaxService = ajaxService || AuthAjaxService.newInstance().getOrElse(throwInstantiateException(AuthAjaxService));
+        storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+
+        return Some(new LiteralModel(ajaxService, storageService));
+    };
+
 
     return {newInstance: LiteralModel.newInstance};
 });
