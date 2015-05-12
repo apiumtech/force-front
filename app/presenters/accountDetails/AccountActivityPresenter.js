@@ -21,7 +21,7 @@ app.registerPresenter(function (container) {
     };
 
     AccountActivityPresenter.newInstance = function () {
-        return Some(new AccountActivityPresenter());
+        return new AccountActivityPresenter();
     };
 
     return AccountActivityPresenter;

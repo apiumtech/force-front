@@ -27,7 +27,7 @@ app.registerPresenter(function(container) {
 	};
 
     LoginPresenter.newInstance = function() {
-        return Some(new LoginPresenter());
+        return new LoginPresenter();
     };
 
     return {

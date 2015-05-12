@@ -26,7 +26,7 @@ describe("OpportunityWidgetView", function () {
     });
 
     beforeEach(function () {
-        sut = OpportunityWidgetView.newInstance($scope, element, model, presenter, false).getOrElse(throwInstantiateException(OpportunityWidgetView));
+        sut = OpportunityWidgetView.newInstance($scope, element, model, presenter, false);
         sut.configureEvents();
     });
 

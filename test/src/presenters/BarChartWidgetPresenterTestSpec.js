@@ -7,7 +7,7 @@ describe("BarChartWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = BarChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate BarChartWidgetPresenter"));
+        sut = BarChartWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

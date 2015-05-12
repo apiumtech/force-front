@@ -48,7 +48,7 @@ app.registerService(function () {
     };
 
     SimpleTemplateParser.newInstance = function () {
-        return Some(new SimpleTemplateParser());
+        return new SimpleTemplateParser();
     };
 
     return SimpleTemplateParser;

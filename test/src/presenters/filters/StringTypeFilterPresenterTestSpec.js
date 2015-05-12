@@ -13,7 +13,7 @@ describe("StringTypeFilterPresenter", function () {
         accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
         view = jasmineMock(StringTypeFilterView, 'StringTypeFilterView');
         model = jasmineMock(StringTypeFilterModel, 'StringTypeFilterModel');
-        sut = StringTypeFilterPresenter.newInstance(accountEventBus).getOrElse(throwInstantiateException(StringTypeFilterPresenter));
+        sut = StringTypeFilterPresenter.newInstance(accountEventBus);
     });
 
     describe("show()", function () {

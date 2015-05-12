@@ -8,7 +8,7 @@ app.registerService(function (container) {
     var Configuration = container.getService('Configuration');
 
     function WidgetBase(ajaxService) {
-        this.ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        this.ajaxService = ajaxService || AjaxService.newInstance();
         this.fetchPoint = null;
         this.widgetId = null;
         this.queries = {
@@ -37,8 +37,6 @@ app.registerService(function (container) {
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        console.log(dateStart);
-        console.log(dateEnd);
         this.addQuery("period", moment(dateStart).unix() + "," + moment(dateEnd).unix());
     };
 

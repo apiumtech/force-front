@@ -135,8 +135,8 @@ app.registerService(function (container) {
     };
 
     AccountService.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        return Some(new AccountService(_ajaxService));
+        var _ajaxService = ajaxService || AjaxService.newInstance();
+        return new AccountService(_ajaxService);
     };
 
     return AccountService;

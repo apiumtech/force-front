@@ -8,7 +8,7 @@ describe("FilterView", function () {
         return FilterView.newInstance({}, model || {}, presenter || {
             show: function () {
             }
-        }, false, false).getOrElse(throwException("Could not create AccountView!"));
+        }, false, false);
     }
 
     it("should call presenter's show method on show()", function () {

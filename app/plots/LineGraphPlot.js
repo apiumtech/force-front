@@ -38,7 +38,7 @@ app.registerService(function () {
         var result = {};
         if (this.label.isOption) {
             if (!this.label.isEmpty) {
-                result.label = this.label.getOrElse(throwException("invalid label"));
+                result.label = this.label;
             }
         } else {
             result.label = this.label;
@@ -59,7 +59,7 @@ app.registerService(function () {
     };
 
     LineGraphPlot.newInstance = function (label, data, hidden, filled, color) {
-        return Some(new LineGraphPlot(label || None(), data || [], hidden || false, filled || false, color));
+        return new LineGraphPlot(label || None(), data || [], hidden || false, filled || false, color);
     };
 
     return LineGraphPlot;

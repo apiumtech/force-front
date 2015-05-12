@@ -7,7 +7,7 @@ describe("PieChartWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = PieChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate PieChartWidgetPresenter"));
+        sut = PieChartWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

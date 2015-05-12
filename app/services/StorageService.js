@@ -34,7 +34,7 @@ app.registerService(function () {
         if (undefined === window.localStorage)
             return None();
 
-        return Some(new StorageService(window.localStorage));
+        return new StorageService(window.localStorage);
     };
 
     return StorageService;

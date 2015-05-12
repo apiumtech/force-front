@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     LiteralListController.configureView = function ($scope) {
-        this.view = LiteralListView.newInstance($scope).getOrElse(throwInstantiateException(LiteralListView));
+        this.view = LiteralListView.newInstance($scope);
         this.view.show();
     };
 

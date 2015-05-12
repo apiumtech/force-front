@@ -35,9 +35,9 @@ app.registerModel(function (container) {
     };
 
     AgendaWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new AgendaWidgetModel(ajaxService));
+        return new AgendaWidgetModel(ajaxService);
     };
 
     return AgendaWidgetModel;

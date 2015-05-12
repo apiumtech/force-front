@@ -10,7 +10,7 @@ describe("FilterModel", function () {
     }
 
     function exerciseSut(fakeDb) {
-        return FilterModel.newInstance(fakeDb).getOrElse(throwException("fail!"));
+        return FilterModel.newInstance(fakeDb);
     }
 
     function exerciseFakeDbWithAvailableFilter(filters) {

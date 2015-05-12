@@ -36,10 +36,10 @@ app.registerService(function (container) {
   };
 
   LiteralService.newInstance = function($ajaxService, $queryLiteralBuilder){
-    var ajaxService = $ajaxService || AjaxService.newInstance().getOrElse(throwException("AjaxService could not be instantiated!!"));
-    var queryLiteralBuilder = $queryLiteralBuilder || QueryLiteralBuilder.newInstance().getOrElse(throwException("QueryLiteralBuilder could not be instantiated!!"));
+    var ajaxService = $ajaxService || AjaxService.newInstance();
+    var queryLiteralBuilder = $queryLiteralBuilder || QueryLiteralBuilder.newInstance();
 
-    return Some( new LiteralService( ajaxService, queryLiteralBuilder ) );
+    return  new LiteralService( ajaxService, queryLiteralBuilder ) ;
   };
 
   return LiteralService;

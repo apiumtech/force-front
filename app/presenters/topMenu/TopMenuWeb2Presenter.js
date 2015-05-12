@@ -43,7 +43,7 @@ app.registerPresenter(function(container) {
 
 
     TopMenuWeb2Presenter.newInstance = function() {
-        return Some(new TopMenuWeb2Presenter());
+        return new TopMenuWeb2Presenter();
     };
 
 

@@ -9,7 +9,7 @@ describe('LoginView', function(){
 
     function exerciseCreateView(_model, _presenter, _location) {
         return LoginView.newInstance({}, _model, _presenter, _location, false, false)
-        	.getOrElse(throwException("Could not create LoginView"));
+        	;
     }
 
     beforeEach(function () {

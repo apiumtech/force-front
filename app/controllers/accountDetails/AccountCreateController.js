@@ -12,7 +12,7 @@ app.registerController(function (container) {
     }
 
     AccountCreateController.configureView = function ($scope) {
-        this.view = AccountCreateView.newInstance($scope).getOrElse(throwInstantiateException(AccountCreateView));
+        this.view = AccountCreateView.newInstance($scope);
         this.view.show();
     };
 

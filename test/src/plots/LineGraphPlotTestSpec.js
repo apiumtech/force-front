@@ -6,7 +6,7 @@ describe("LineGraphPlot", function () {
     var LineGraphPlot = app.getService('plots/LineGraphPlot');
 
     function exerciseAnySut() {
-        return LineGraphPlot.newInstance().getOrElse(throwException("could not create the graph plot"));
+        return LineGraphPlot.newInstance();
     }
 
     [
@@ -83,7 +83,7 @@ describe("LineGraphPlot", function () {
         [
             { value: "hi", expect: "hi" },
             { value: None(), expect: undefined },
-            { value: Some("hi"), expect: "hi" }
+            { value: "hi", expect: "hi" }
         ].forEach(function (testCase) {
             it("should contain the label parameter for " + JSON.stringify(testCase), function () {
                 var sut = exerciseAnySut();

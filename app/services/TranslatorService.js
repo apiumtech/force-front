@@ -12,7 +12,7 @@ app.registerService(function (container) {
     };
 
     TranslatorService.newInstance = function () {
-        return Some(new TranslatorService(i18n));
+        return new TranslatorService(i18n);
     };
 
     return TranslatorService;

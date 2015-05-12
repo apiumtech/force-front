@@ -22,7 +22,7 @@ app.registerService(function (container) {
     };
 
     QueryLiteralListBuilder.newInstance = function (itemsPerPage) {
-        return Some(new QueryLiteralListBuilder(itemsPerPage || DEFAULT_ITEM_PER_PAGE));
+        return new QueryLiteralListBuilder(itemsPerPage || DEFAULT_ITEM_PER_PAGE);
     };
 
     return QueryLiteralListBuilder;

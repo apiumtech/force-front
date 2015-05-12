@@ -5,7 +5,7 @@ describe("DistributionPresenter", function () {
     beforeEach(function () {
         view = {data: {}, event: {}, fn: {}};
         model = {};
-        sut = DistributionPresenter.newInstance().getOrElse(throwInstantiateException(DistributionPresenter));
+        sut = DistributionPresenter.newInstance();
     });
 
     describe("show() ", function () {

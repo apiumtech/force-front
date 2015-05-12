@@ -25,7 +25,7 @@ describe("BarChart", function () {
         it("should return correct array with index", function () {
             var plotData = [],
                 ticks = ["tick1", "tick2", "tick3", "tick4"];
-            sut = BarChart.basic(plotData, ticks).getOrElse(throwInstantiateException(BarChart));
+            sut = BarChart.basic(plotData, ticks);
             var actual = sut.getTickLabels();
             expect(actual).toEqual([
                 [0, "tick1"],
@@ -44,7 +44,7 @@ describe("BarChart", function () {
             config = {
                 xaxis: {}
             };
-            sut = BarChart.newInstance([], [], config, paintPlotImpl).getOrElse(throwInstantiateException(BarChart));
+            sut = BarChart.newInstance([], [], config, paintPlotImpl);
         });
 
         it("should call getTickLabels if no label is assigned", function () {
@@ -79,7 +79,7 @@ describe("BarChart", function () {
             config = {
                 xaxis: {}
             };
-            sut = BarChart.newInstance([], [], config, paintPlotImpl).getOrElse(throwInstantiateException(BarChart));
+            sut = BarChart.newInstance([], [], config, paintPlotImpl);
         });
 
         it("should bind plothover event", function () {

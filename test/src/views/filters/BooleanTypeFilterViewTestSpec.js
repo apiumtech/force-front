@@ -26,7 +26,7 @@ describe("BooleanTypeFilterView", function () {
         element = {};
         model = {};
         presenter = {};
-        sut = BooleanTypeFilterView.newInstance(scope, element, model, presenter, false, false).getOrElse(throwInstantiateException(BooleanTypeFilterView));
+        sut = BooleanTypeFilterView.newInstance(scope, element, model, presenter, false, false);
     });
     describe("configureEvents", function () {
         describe("prePostFilterChanged", function () {

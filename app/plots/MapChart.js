@@ -159,8 +159,8 @@ app.registerService(function (container) {
     };
 
     MapChart.newInstance = function (mapService) {
-        mapService = mapService || GoogleMapService.newInstance().getOrElse(throwInstantiateException(GoogleMapService));
-        return Some(new MapChart(mapService));
+        mapService = mapService || GoogleMapService.newInstance();
+        return new MapChart(mapService);
     };
 
     return MapChart;

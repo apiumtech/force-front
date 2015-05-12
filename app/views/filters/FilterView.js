@@ -54,8 +54,8 @@ app.registerView(function (container) {
 
     FilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || FilterModel.newInstance().getOrElse(throwException("FilterModel could not be instantiated!!"));
-        var presenter = $presenter || FilterPresenter.newInstance().getOrElse(throwException("FilterPresenter could not be instantiated!!"));
+        var model = $model || FilterModel.newInstance();
+        var presenter = $presenter || FilterPresenter.newInstance();
 
         var view = new FilterView(scope, model, presenter);
 
@@ -67,7 +67,7 @@ app.registerView(function (container) {
             ($logErrorAspect || LogErrorAspect).weave(view);
         }
 
-        return Some(view);
+        return view;
     };
 
     return FilterView;

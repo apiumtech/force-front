@@ -5,7 +5,7 @@ describe("ConversionPresenter", function () {
     beforeEach(function () {
         view = {data: {}, event: {}, fn: {}};
         model = {};
-        sut = ConversionPresenter.newInstance().getOrElse(throwInstantiateException(ConversionPresenter));
+        sut = ConversionPresenter.newInstance();
     });
 
     describe("show() ", function () {

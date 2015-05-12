@@ -2,7 +2,7 @@ describe("TopMenuWeb2Presenter", function() {
     var TopMenuWeb2Presenter = app.getView("presenters/topMenu/TopMenuWeb2Presenter");
 
     function exerciseCreatePresenter() {
-        return TopMenuWeb2Presenter.newInstance().getOrElse(throwInstantiateException(TopMenuWeb2Presenter));
+        return TopMenuWeb2Presenter.newInstance();
     }
 
     it("should set view and model refs on show()", function(){

@@ -35,7 +35,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -180,8 +180,8 @@ app.registerView(function (container) {
     };
 
     TableWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || TableWidgetModel.newInstance().getOrElse(throwInstantiateException(TableWidgetModel));
-        var presenter = $presenter || TableWidgetPresenter.newInstance().getOrElse(throwInstantiateException(TableWidgetPresenter));
+        var model = $model || TableWidgetModel.newInstance();
+        var presenter = $presenter || TableWidgetPresenter.newInstance();
 
         var view = new TableWidgetView($scope, $element, model, presenter);
 

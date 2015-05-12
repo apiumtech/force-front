@@ -15,10 +15,10 @@ app.registerModel(function (container) {
     IntensityModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
 
     IntensityModel.newInstance = function (widgetService, storageService) {
-        var _widgetService = widgetService || WidgetService.newInstance().getOrElse(throwInstantiateException(WidgetService));
-        var _storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        var _widgetService = widgetService || WidgetService.newInstance();
+        var _storageService = storageService || StorageService.newInstance();
 
-        return Some(new IntensityModel(_widgetService, _storageService));
+        return new IntensityModel(_widgetService, _storageService);
     };
 
     return IntensityModel;

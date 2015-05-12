@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     AccountController.configureView = function ($scope) {
-        this.view = AccountView.newInstance($scope).getOrElse(throwException("Could not create AccountView!"));
+        this.view = AccountView.newInstance($scope);
         this.view.show();
     };
 

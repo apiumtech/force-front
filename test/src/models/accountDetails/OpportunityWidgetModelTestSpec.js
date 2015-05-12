@@ -13,7 +13,7 @@ describe("OpportunityWidgetModel", function () {
             }
         };
 
-        sut = OpportunityWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(OpportunityWidgetModel));
+        sut = OpportunityWidgetModel.newInstance(ajaxService);
     });
 
     describe("loadOpportunities", function () {

@@ -106,9 +106,9 @@ app.registerModel(function (container) {
     };
 
     DocumentsWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
+        ajaxService = ajaxService || AjaxService.newInstance();
 
-        return Some(new DocumentsWidgetModel(ajaxService));
+        return new DocumentsWidgetModel(ajaxService);
     };
 
     return DocumentsWidgetModel;

@@ -30,7 +30,7 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
     };
 
     beforeEach(function () {
-        sut = SalesAnalyticsFilterPresentationModel.newInstance(ajaxService, storageService).getOrElse(throwInstantiateException(SalesAnalyticsFilterPresentationModel));
+        sut = SalesAnalyticsFilterPresentationModel.newInstance(ajaxService, storageService);
         spyOn(sut, 'defer').and.returnValue(deferredObject);
     });
 

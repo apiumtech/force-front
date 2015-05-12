@@ -83,11 +83,11 @@ app.registerModel(function (container) {
 
 
     TopMenuWeb2Model.newInstance = function (ajaxService, storageService, configuration) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        ajaxService = ajaxService || AjaxService.newInstance();
+        storageService = storageService || StorageService.newInstance();
         configuration = configuration || Configuration;
 
-        return Some(new TopMenuWeb2Model(ajaxService, storageService, configuration));
+        return new TopMenuWeb2Model(ajaxService, storageService, configuration);
     };
 
 

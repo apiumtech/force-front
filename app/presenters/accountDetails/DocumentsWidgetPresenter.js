@@ -30,7 +30,7 @@ app.registerPresenter(function (container) {
     };
 
     DocumentsWidgetPresenter.newInstance = function () {
-        return Some(new DocumentsWidgetPresenter());
+        return new DocumentsWidgetPresenter();
     };
 
     return DocumentsWidgetPresenter;

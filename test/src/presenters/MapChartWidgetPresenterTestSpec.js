@@ -7,7 +7,7 @@ describe("MapChartWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = MapChartWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate MapChartWidgetPresenter"));
+        sut = MapChartWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

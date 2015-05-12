@@ -75,8 +75,8 @@ app.registerModel(function (container) {
     };
 
     FilterModel.newInstance = function (db) {
-        var database = db || FakeDatabase.newInstance(undefined, Configuration.fakeAccountData).getOrElse(throwException("We could not create a FakeDatabase!!!"));
-        return Some(new FilterModel(database));
+        var database = db || FakeDatabase.newInstance(undefined, Configuration.fakeAccountData);
+        return new FilterModel(database);
     };
 
     return FilterModel;

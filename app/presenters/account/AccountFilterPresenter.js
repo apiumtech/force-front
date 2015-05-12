@@ -70,10 +70,10 @@ app.registerPresenter(function (container) {
     };
 
     AccountFilterPresenter.newInstance = function ($filterChannel, accountEventBus) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        var filterChannel = $filterChannel || FilterChannel.newInstance();
         accountEventBus = accountEventBus || AccountEventBus.getInstance();
 
-        return Some(new AccountFilterPresenter(filterChannel, accountEventBus));
+        return new AccountFilterPresenter(filterChannel, accountEventBus);
     };
 
     return AccountFilterPresenter;

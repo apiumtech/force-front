@@ -35,7 +35,7 @@ app.registerView(function (container) {
         },
         eventChannel: {
             get: function () {
-                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance().getOrElse(throwInstantiateException(BaseWidgetEventBus)));
+                return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
             },
             set: function (value) {
                 this.$scope.eventChannel = value;
@@ -90,8 +90,8 @@ app.registerView(function (container) {
     };
 
     PieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || PieChartWidgetModel.newInstance().getOrElse(throwInstantiateException(PieChartWidgetModel));
-        var presenter = $presenter || PieChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(PieChartWidgetPresenter));
+        var model = $model || PieChartWidgetModel.newInstance();
+        var presenter = $presenter || PieChartWidgetPresenter.newInstance();
 
         var view = new PieChartWidgetView($scope, $element, model, presenter);
 

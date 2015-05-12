@@ -10,7 +10,7 @@ app.registerController(function (container) {
     }
 
     DocumentsController.configureView = function ($scope) {
-        this.view = DocumentsWidgetView.newInstance($scope).getOrElse(throwInstantiateException(DocumentsWidgetView));
+        this.view = DocumentsWidgetView.newInstance($scope);
         this.view.show();
     };
 

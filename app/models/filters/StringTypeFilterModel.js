@@ -25,7 +25,7 @@ app.registerModel(function (container) {
     };
 
     StringFilterModel.newInstance = function (ajaxService) {
-        return Some(new StringFilterModel(ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService))));
+        return new StringFilterModel(ajaxService || AjaxService.newInstance());
     };
 
     return StringFilterModel;

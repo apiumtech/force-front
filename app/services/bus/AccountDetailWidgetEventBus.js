@@ -37,8 +37,8 @@ app.registerService(function (container) {
     };
 
     AccountDetailWidgetEventBus.newInstance = function () {
-        var signalService = SignalService.newInstance().getOrElse(throwInstantiateException(SignalService));
-        return Some(new AccountDetailWidgetEventBus(signalService));
+        var signalService = SignalService.newInstance();
+        return new AccountDetailWidgetEventBus(signalService);
     };
 
     return AccountDetailWidgetEventBus;

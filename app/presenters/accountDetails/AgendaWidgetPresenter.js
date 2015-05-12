@@ -18,7 +18,7 @@ app.registerPresenter(function () {
     };
 
     AgendaWidgetPresenter.newInstance = function () {
-        return Some(new AgendaWidgetPresenter());
+        return new AgendaWidgetPresenter();
     };
 
     return AgendaWidgetPresenter;

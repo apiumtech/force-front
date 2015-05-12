@@ -7,7 +7,7 @@ describe("ContactView", function () {
 
     function exerciseCreateView(scope, model, presenter, dataTableService) {
         scope = scope || {};
-        return ContactView.newInstance(scope, model, presenter, dataTableService, false, false).getOrElse(throwInstantiateException(ContactView));
+        return ContactView.newInstance(scope, model, presenter, dataTableService, false, false);
     }
 
     it("should call presenter's show method on show()", function () {

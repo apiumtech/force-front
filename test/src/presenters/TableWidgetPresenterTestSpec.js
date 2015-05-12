@@ -6,7 +6,7 @@ describe("TableWidgetPresenter", function () {
     var sut;
 
     beforeEach(function () {
-        sut = TableWidgetPresenter.newInstance().getOrElse(throwException("Cannot instantiate TableWidgetPresenter"));
+        sut = TableWidgetPresenter.newInstance();
     });
 
     describe("Connect view to model", function () {

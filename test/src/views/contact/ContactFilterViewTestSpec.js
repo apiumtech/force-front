@@ -3,7 +3,7 @@ describe("ContactFilterView", function(){
 
     function exerciseCreateView(scope, model, presenter){
         scope = scope || {$apply:function(){}};
-        return ContactFilterView.newInstance(scope, model, presenter).getOrElse(throwInstantiateException(ContactFilterView));
+        return ContactFilterView.newInstance(scope, model, presenter);
     }
 
     it("should call presenter's show method on show()", function () {

@@ -12,7 +12,7 @@ describe("AccountFilterModel", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = AccountFilterModel.newInstance(ajaxService).getOrElse(throwInstantiateException(AccountFilterModel));
+        sut = AccountFilterModel.newInstance(ajaxService);
     });
 
     function exerciseAjaxOk() {

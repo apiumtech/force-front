@@ -4,7 +4,7 @@ describe("TopMenuWeb2View", function(){
     var scope, model, presenter, $window;
 
     function exerciseCreateView(){
-        return TopMenuWeb2View.newInstance(scope, model, presenter, $window, false, false).getOrElse(throwInstantiateException(TopMenuWeb2View));
+        return TopMenuWeb2View.newInstance(scope, model, presenter, $window, false, false);
     }
 
     afterEach(function(){

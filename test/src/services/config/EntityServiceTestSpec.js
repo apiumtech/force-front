@@ -8,8 +8,8 @@ describe("EntityService", function () {
 
     var sut, storage, config_stub;
     beforeEach(function () {
-        storage = StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
-        sut = EntityService.newInstance(storage).getOrElse(throwInstantiateException(EntityService));
+        storage = StorageService.newInstance();
+        sut = EntityService.newInstance(storage);
 
         config_stub = {
             entities: {

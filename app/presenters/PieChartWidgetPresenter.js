@@ -76,8 +76,8 @@ app.registerPresenter(function (container) {
     };
 
     PieChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new PieChartWidgetPresenter(_widgetEventChannel));
+        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+        return new PieChartWidgetPresenter(_widgetEventChannel);
     };
 
     return PieChartWidgetPresenter;

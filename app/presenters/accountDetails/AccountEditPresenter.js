@@ -26,7 +26,7 @@ app.registerPresenter(function (container) {
     };
 
     AccountEditPresenter.newInstance = function () {
-        return Some(new AccountEditPresenter());
+        return new AccountEditPresenter();
     };
 
     return AccountEditPresenter;

@@ -76,8 +76,8 @@ app.registerPresenter(function (container) {
     };
 
     BarChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new BarChartWidgetPresenter(_widgetEventChannel));
+        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+        return new BarChartWidgetPresenter(_widgetEventChannel);
     };
 
     return BarChartWidgetPresenter;

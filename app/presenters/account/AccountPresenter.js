@@ -117,10 +117,10 @@ app.registerPresenter(function (container) {
     };
 
     AccountPresenter.newInstance = function ($filterChannel, accountEventBus) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        var filterChannel = $filterChannel || FilterChannel.newInstance();
         accountEventBus = accountEventBus || AccountEventBus.getInstance();
 
-        return Some(new AccountPresenter(filterChannel, accountEventBus));
+        return new AccountPresenter(filterChannel, accountEventBus);
     };
 
     return AccountPresenter;

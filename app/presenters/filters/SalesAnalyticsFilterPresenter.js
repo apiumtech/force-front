@@ -31,7 +31,7 @@ app.registerPresenter(function (container) {
     };
 
     SalesAnalyticsFilterPresenter.newInstance = function () {
-        return Some(new SalesAnalyticsFilterPresenter());
+        return new SalesAnalyticsFilterPresenter();
     };
 
     return SalesAnalyticsFilterPresenter;

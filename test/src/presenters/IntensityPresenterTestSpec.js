@@ -8,7 +8,7 @@ describe("IntensityPresenter", function () {
     beforeEach(function () {
         view = {data: {}, event: {}, fn: {}};
         model = {};
-        sut = IntensityPresenter.newInstance().getOrElse(throwInstantiateException(IntensityPresenter));
+        sut = IntensityPresenter.newInstance();
     });
 
     describe("show() ", function () {

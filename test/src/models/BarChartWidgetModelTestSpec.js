@@ -7,7 +7,7 @@ describe("BarChartWidgetModel", function () {
 
     describe("changeFilterTab", function () {
         it("should call addQuery from base to add filter", function () {
-            var sut = BarChartWidgetModel.newInstance().getOrElse(throwInstantiateException(BarChartWidgetModel));
+            var sut = BarChartWidgetModel.newInstance();
             spyOn(sut, 'addQuery');
             sut.changeFilterTab("tab1");
             expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");

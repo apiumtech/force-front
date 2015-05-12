@@ -16,10 +16,10 @@ app.registerModel(function (container) {
     };
 
     ContactFilterModel.newInstance = function (ajaxService, dataTableDataProvider) {
-        ajaxService = ajaxService || AjaxService.newInstance().getOrElse(throwInstantiateException(AjaxService));
-        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance().getOrElse(throwInstantiateException(DataTableDataProvider))
+        ajaxService = ajaxService || AjaxService.newInstance();
+        dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance()
 
-        return Some(new ContactFilterModel(ajaxService, dataTableDataProvider));
+        return new ContactFilterModel(ajaxService, dataTableDataProvider);
     };
 
     return ContactFilterModel;

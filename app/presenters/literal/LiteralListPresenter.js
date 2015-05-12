@@ -38,9 +38,9 @@ app.registerPresenter(function (container) {
     };
 
     LiteralListPresenter.newInstance = function ($filterChannel, $literalmodel) {
-        var literalmodel = $literalmodel || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
+        var literalmodel = $literalmodel || LiteralModel.newInstance();
 
-        return Some(new LiteralListPresenter(literalmodel));
+        return new LiteralListPresenter(literalmodel);
     };
 
     return {newInstance: LiteralListPresenter.newInstance};

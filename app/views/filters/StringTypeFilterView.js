@@ -10,7 +10,7 @@ app.registerView(function (container) {
     function StringTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
-        this.awaitHelper = AwaitHelper.newInstance().getOrElse(throwInstantiateException(AwaitHelper));
+        this.awaitHelper = AwaitHelper.newInstance();
         this.data.valueList = [];
         this.data.filterValue = '';
         this.configureEvents();
@@ -62,8 +62,8 @@ app.registerView(function (container) {
         $scope = $scope || {};
         $element = $element || {};
 
-        $model = $model || StringTypeFilterModel.newInstance().getOrElse(throwInstantiateException(StringTypeFilterModel));
-        $presenter = $presenter || StringTypeFilterPresenter.newInstance().getOrElse(throwInstantiateException(StringTypeFilterPresenter));
+        $model = $model || StringTypeFilterModel.newInstance();
+        $presenter = $presenter || StringTypeFilterPresenter.newInstance();
 
         var view = new StringTypeFilterView($scope, $element, $model, $presenter);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);

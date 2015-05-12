@@ -104,7 +104,7 @@ app.registerView(function (container) {
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
-        var plot = SingleLineChart.basic(chartFields, []).getOrElse(throwException("invalid plot!"));
+        var plot = SingleLineChart.basic(chartFields, []);
         plot.paint($(element));
         plot.onHover(this.onPlotHover.bind(this));
     };
@@ -140,8 +140,8 @@ app.registerView(function (container) {
     };
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SingleLineChartWidgetModel.newInstance().getOrElse(throwInstantiateException(SingleLineChartWidgetModel));
-        var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance().getOrElse(throwInstantiateException(SingleLineChartWidgetPresenter));
+        var model = $model || SingleLineChartWidgetModel.newInstance();
+        var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance();
 
         var view = new SingleLineChartWidgetView($scope, $element, model, presenter);
 

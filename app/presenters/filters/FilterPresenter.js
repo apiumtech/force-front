@@ -51,9 +51,9 @@ app.registerPresenter(function (container) {
     };
 
     FilterPresenter.newInstance = function ($filterChannel) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance().getOrElse(throwException("Could not create FilterChannel!"));
+        var filterChannel = $filterChannel || FilterChannel.newInstance();
 
-        return Some(new FilterPresenter(filterChannel));
+        return new FilterPresenter(filterChannel);
     };
 
     return FilterPresenter;

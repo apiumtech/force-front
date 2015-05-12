@@ -5,7 +5,7 @@ describe("QueryBuilder", function () {
     var QueryBuilder = app.getService('services/QueryBuilder');
 
     function exerciseSut(defaultQuery) {
-        return QueryBuilder.newInstance(defaultQuery || {}).getOrElse(throwException("fail!"));
+        return QueryBuilder.newInstance(defaultQuery || {});
     }
 
     describe("constructor", function () {

@@ -26,7 +26,7 @@ describe("AgendaWidgetView", function () {
     });
 
     beforeEach(function () {
-        sut = AgendaWidgetView.newInstance($scope, element, model, presenter, false).getOrElse(throwInstantiateException(AgendaWidgetView));
+        sut = AgendaWidgetView.newInstance($scope, element, model, presenter, false);
         sut.configureEvents();
     });
 

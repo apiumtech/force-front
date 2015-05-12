@@ -84,8 +84,8 @@ app.registerPresenter(function (container) {
     };
 
     GraphWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName).getOrElse(throwException("Cannot instantiate WidgetEventBus"));
-        return Some(new GraphWidgetPresenter(_widgetEventChannel));
+        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+        return new GraphWidgetPresenter(_widgetEventChannel);
     };
 
     return GraphWidgetPresenter;

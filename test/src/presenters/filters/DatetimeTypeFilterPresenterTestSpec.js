@@ -12,7 +12,7 @@ describe("DatetimeTypeFilterPresenter", function () {
         accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
         view = jasmineMock(DatetimeTypeFilterView, 'DatetimeTypeFilterView');
         model = {};
-        sut = DatetimeTypeFilterPresenter.newInstance(accountEventBus).getOrElse(throwInstantiateException(DatetimeTypeFilterPresenter));
+        sut = DatetimeTypeFilterPresenter.newInstance(accountEventBus);
     });
 
     describe("show()", function () {

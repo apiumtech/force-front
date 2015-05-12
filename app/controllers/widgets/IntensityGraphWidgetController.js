@@ -9,7 +9,7 @@ app.registerController(function (container) {
     }
 
     IntensityGraphWidgetController.configureView = function ($scope, $element) {
-        this.view = GraphWidgetView.newInstance($scope, $element).getOrElse(throwInstantiateException(GraphWidgetView));
+        this.view = GraphWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 

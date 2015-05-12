@@ -12,7 +12,7 @@ describe("TableWidgetModel", function () {
             rawAjaxRequest: function () {
             }
         };
-        sut = TableWidgetModel.newInstance(ajaxService).getOrElse(throwInstantiateException(TableWidgetModel));
+        sut = TableWidgetModel.newInstance(ajaxService);
     });
 
     describe('_reload', function () {

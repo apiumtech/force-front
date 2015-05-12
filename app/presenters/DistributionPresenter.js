@@ -27,7 +27,7 @@ app.registerPresenter(function (container) {
     };
 
     DistributionPresenter.newInstance = function () {
-        return Some(new DistributionPresenter());
+        return new DistributionPresenter();
     };
 
     return DistributionPresenter;

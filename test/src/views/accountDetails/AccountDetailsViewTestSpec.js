@@ -13,7 +13,7 @@ describe("AccountDetailViews", function () {
             show: jasmine.createSpy(),
             showError: jasmine.createSpy()
         };
-        sut = AccountDetailsView.newInstance({}, modalService, model, presenter, null, null, false, false).getOrElse(throwInstantiateException(AccountDetailsView));
+        sut = AccountDetailsView.newInstance({}, modalService, model, presenter, null, null, false, false);
     });
 
     it("should call presenter's show method on show()", function () {

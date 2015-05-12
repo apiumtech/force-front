@@ -12,7 +12,7 @@ describe("BooleanTypeFilterPresenter", function () {
         accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
         view = jasmineMock(BooleanTypeFilterView, 'BooleanTypeFilterView');
         model = {};
-        sut = BooleanTypeFilterPresenter.newInstance(accountEventBus).getOrElse(throwInstantiateException(BooleanTypeFilterPresenter));
+        sut = BooleanTypeFilterPresenter.newInstance(accountEventBus);
     });
 
     describe("show()", function () {
