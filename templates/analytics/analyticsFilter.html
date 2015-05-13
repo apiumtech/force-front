@@ -17,7 +17,7 @@
                             {{'Filters.AllUsers' | i18next}}
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu media-list animated fadeInDown"
+                        <ul class="dropdown-menu media-list animated fadeInDown width-md"
                             ng-click="$event.stopPropagation()">
                             <span class="panel-loading isLoading" ng-if="data.isLoadingUsers">
                                 <i class="spinner"></i>
@@ -72,22 +72,22 @@
                                         <strong>{{'Filters.AllUserSelectsAllEnvironments' | i18next}}</strong>
                                     </div>
                                 </div>
-                                <!-- Start Firts Environmet -->
-                                <accordion class="users-filter-list clearfix" close-others="false">
+                                <!-- Start Environmet -->
+                                <accordion ng-if="currentUserFilterGroup=='Environment'" class="users-filter-list clearfix" close-others="false">
                                     <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
                                                      class="clearfix">
                                         <accordion-heading class="clearfix">
-                                            <i class="pull-right glyphicon"
-                                               ng-class="{'glyphicon-chevron-down': group.isOpen, 'glyphicon-chevron-right': !group.isOpen}"></i>
+                                            <i class="pull-left fa environment-collapse-icon"
+                                               ng-class="{'fa-caret-down': group.isOpen, 'fa-caret-right': !group.isOpen}"></i>
 
                                             <input type="checkbox"
                                                    tri-state-check-box
                                                    ng-model="group.checked"
                                                    ng-change="fn.groupSelectAllChanged(group)"
                                                    ng-click="$event.stopPropagation()"
-                                                   class="pull-left m-t-10 m-r-10 ">
+                                                   class="pull-left m-l-10 ">
 
-                                            <div class="pull-left m-t-5">
+                                            <div class="pull-left m-l-10">
                                                 <strong>{{group.group}}</strong>
                                             </div>
                                         </accordion-heading>
@@ -108,6 +108,43 @@
                                     </accordion-group>
                                 </accordion>
                                 <!-- END Environmet -->
+
+                                <!-- Start Team -->
+                                <accordion ng-if="currentUserFilterGroup=='Hierarqhy'" class="users-filter-list clearfix" close-others="false">
+                                    <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
+                                                     class="clearfix">
+                                        <accordion-heading class="clearfix">
+                                            <i class="pull-left fa environment-collapse-icon"
+                                               ng-class="{'fa-caret-down': group.isOpen, 'fa-caret-right': !group.isOpen}"></i>
+
+                                            <input type="checkbox"
+                                                   tri-state-check-box
+                                                   ng-model="group.checked"
+                                                   ng-change="fn.groupSelectAllChanged(group)"
+                                                   ng-click="$event.stopPropagation()"
+                                                   class="pull-left m-l-10 ">
+
+                                            <div class="pull-left m-l-10">
+                                                <strong>{{group.group}}</strong>
+                                            </div>
+                                        </accordion-heading>
+                                        <ul>
+                                            <li class="clearfix" ng-repeat="user in group.children">
+                                                <input type="checkbox"
+                                                       value="{{user.id}}"
+                                                       ng-model="user.checked"
+                                                       ng-change="fn.userSelectionChanged()"
+                                                       ng-click="$event.stopPropagation()"
+                                                       class="pull-left m-t-10 m-r-10 ">
+
+                                                <div class="pull-left m-t-5">
+                                                    {{user.name}}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </accordion-group>
+                                </accordion>
+                                <!-- END team -->
                             </li>
                             <!-- END users tree -->
                         </ul>
@@ -124,6 +161,7 @@
 
                             <input type="text" class="form-control"
                                    ng-keypress="$event.preventDefault()"
+                                   ng-click="dateRangeFilterOpened=!dateRangeFilterOpened"
                                    ng-attr-placeholder="{{dateRangePlaceholder}}">
 
                             <div class="input-group-btn"
