@@ -5,6 +5,9 @@ app.registerModel(function (container) {
     var Q = container.getFunction('q');
 
 
+    /**
+     * @constructor
+     */
     function LiteralModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
@@ -12,6 +15,9 @@ app.registerModel(function (container) {
     }
 
 
+    /**
+     * createLiteral()
+     */
     LiteralModel.prototype.createLiteral = function () {
         var body = {
             "key" : "aaaa",//key del literal
@@ -33,22 +39,29 @@ app.registerModel(function (container) {
     /**
      * changeLiteralDetails()
      */
-    LiteralModel.prototype.changeLiteralDetails = function () {
+    LiteralModel.prototype.changeLiteralDetails = function (literal) {
+        var languageValues = [];
+        literal.LanguageValues.forEach(function (lang) {
+            var langObj = {};
+            langObj[lang.Key] = lang.Value;
+            languageValues.push(langObj);
+        });
+
         var body = {
-            "id": "un guid e string.....",
-            "key" : "aaaa",//key del literal
-            "values" : {// uno o más valores
-                "es-es" : "vvvv1",
-                "en-us" : "vvvv2"
-            }
+            "id": literal.Id,
+            "key" : literal.Key,//key del literal
+            "values" : languageValues
         };
-        return this.ajaxService.rawAjaxRequest({
+
+        var params = {
             url: Configuration.api.changeLiteralDetails,
-            data: body,
+            data: JSON.stringify(body),
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json'
-        });
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
 
@@ -74,6 +87,9 @@ app.registerModel(function (container) {
     // ------
 
 
+    /**
+     * getLiteralList()
+     */
     LiteralModel.prototype.getLiteralList = function (searchTerm) {
         var body = "search="+ encodeURIComponent(searchTerm) +
             "&skip="+ this.page +
@@ -87,6 +103,52 @@ app.registerModel(function (container) {
         });
     };
 
+
+
+    /**
+     * getLiteralById()
+     */
+    LiteralModel.prototype.getLiteralById = function (id) {
+        if(id===null){
+            return this.getNullLiteral();
+        } else {
+            return this.getActualLiteralById(id);
+        }
+    };
+
+    /**
+     * getActualLiteralById()
+     */
+    LiteralModel.prototype.getActualLiteralById = function (id) {
+        var body = "id="+ id;
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalById,
+            data: body,
+            type: 'GET',
+            dataType: 'json'
+        });
+    };
+
+    /**
+     * getNullLiteral()
+     */
+    LiteralModel.prototype.getNullLiteral = function () {
+        var deferred = Q.defer();
+        var nullLiteral = {
+            DeviceCategories: [],
+            DeviceTypes: [],
+            Id: null,
+            Key: "",
+            LanguageValues:[
+                {Key:"es-es",Value:""},
+                {Key:"en-us","Value":""}
+            ],
+            LiteralType: null,
+            OldKey:""
+        };
+        setTimeout(deferred.resolve.bind(deferred), 100, nullLiteral);
+        return deferred.promise;
+    };
 
 
     /*LiteralModel.prototype.getLiteralDictionary = function (lang, implementationCode) {
@@ -103,8 +165,8 @@ app.registerModel(function (container) {
 
 
     LiteralModel.newInstance = function (ajaxService, storageService) {
-        ajaxService = ajaxService || AuthAjaxService.newInstance().getOrElse(throwInstantiateException(AuthAjaxService));
-        storageService = storageService || StorageService.newInstance().getOrElse(throwInstantiateException(StorageService));
+        ajaxService = ajaxService || AuthAjaxService.newInstance();
+        storageService = storageService || StorageService.newInstance();
 
         return Some(new LiteralModel(ajaxService, storageService));
     };

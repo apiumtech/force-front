@@ -31,8 +31,12 @@ function main() {
             .when('/literal-list', {
                 templateUrl: 'templates/literalList.html',
                 controller: 'LiteralListController'
-            }).
-            when('/literal/:literalId/edit', {
+            })
+            .when('/literal/:literalId/edit', {
+                templateUrl: 'templates/literal/literal.html',
+                controller: 'LiteralController'
+            })
+            .when('/literal', {
                 templateUrl: 'templates/literal/literal.html',
                 controller: 'LiteralController'
             })
@@ -244,20 +248,20 @@ function main() {
             'models/LoginModel',
 
 
-            // Liteal List Page
+
+            // Literal
+            'models/literal/LiteralModel',
+
+            // Literal List Page
             'controllers/literal/LiteralListController',
             'views/literal/LiteralListView',
             'presenters/literal/LiteralListPresenter',
-
 
             //Literal Page
             'controllers/literal/LiteralController',
             'views/literal/LiteralView',
             'presenters/literal/LiteralPresenter',
-            'models/literal/LiteralModel',
 
-            'services/literal/LiteralService',
-            'services/literal/QueryLiteralBuilder',
 
 
             // Account Page

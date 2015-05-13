@@ -1,76 +1,115 @@
-
 /**
  * Created by kevin on 10/22/14.
  */
 
 app.registerView(function (container) {
-
+    var BaseView = container.getView("views/BaseView");
     var LiteralPresenter = container.getPresenter('presenters/literal/LiteralPresenter');
     var LiteralModel = container.getModel('models/literal/LiteralModel');
 
-    // TODO: WTF!!!!
-    var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
-    var LogErrorAspect = container.getService('aspects/LogErrorAspect');
 
-    function LiteralView($routeParams, $scope, $model, $presenter) {
-        this.data = {};
-        this.event = {};
-        this.fn = {};
+    function LiteralView($routeParams, $scope, $model, $presenter, $window) {
+        BaseView.call(this, $scope, $model, $presenter);
 
-        this.$scope = $scope;
-
-        $scope.data = this.data;
-        $scope.event = this.event;
-        $scope.fn = this.fn;
-
-        this.model = $model;
-        this.presenter = $presenter;
+        this.$window = $window;
         this.routeParams = $routeParams;
+        this.data.currentError = null;
+
+        this.configureEvents();
     }
 
-    LiteralView.prototype.show = function () {
-        this.presenter.show(this);
+
+    /**
+     * Extend BaseView
+     */
+    LiteralView.prototype = Object.create(BaseView.prototype, {});
+
+
+    /**
+     * configureEvents()
+     */
+    LiteralView.prototype.configureEvents = function () {
+        this.fn.onInit = this.onInit.bind(this);
+        this.fn.isNew = this.isNew.bind(this);
+        this.fn.onCancel = this.onCancel.bind(this);
+        this.fn.onSave = this.onSave.bind(this);
     };
 
-    LiteralView.prototype.showForm = function( literal ){
-      this.data.literal = literal;
-      this.data.languages = data[0].LanguageValues.reduce( function( languages, language ){
 
-        // TODO: That code is not crossbrowser
-        if( languages.indexOf( language.Key ) === -1 ){
-          languages.push( language.Key );
+    /**
+     * onInit()
+     */
+    LiteralView.prototype.onInit = function () {
+        this.presenter.getLiteralById(this.routeParams.literalId);
+    };
+
+
+    /**
+     * onCancel()
+     */
+    LiteralView.prototype.onCancel = function () {
+        this.goBack();
+    };
+
+
+    /**
+     * goBack()
+     */
+    LiteralView.prototype.goBack = function () {
+        this.$window.history.back();
+    };
+
+
+    /**
+     * onSave()
+     */
+    LiteralView.prototype.onSave = function () {
+        if( this.isNew() ){
+            this.presenter.createLiteral(this.data.literal);
+        } else {
+            this.presenter.updateLiteral(this.data.literal);
         }
-        return languages;
-      }, [] );
-
-      this.fn.isNew = function(){
-        return literal.Id != null;
-      };
     };
 
-    LiteralView.prototype.showError = function( err ){
-      debugger;
+    /**
+     * showForm()
+     */
+    LiteralView.prototype.showForm = function (literal) {
+        this.data.literal = literal;
     };
 
 
-    LiteralView.newInstance = function ($routeParams, $scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    /**
+     * isNew()
+     */
+    LiteralView.prototype.isNew = function () {
+        return !this.data.literal || this.data.literal.Id === null;
+    };
+
+
+    /**
+     * showForm()
+     */
+    LiteralView.prototype.showError = function (err) {
+        console.error(err);
+        this.data.currentError = err;
+    };
+
+
+    /**
+     * newInstance()
+     */
+    LiteralView.newInstance = function ($routeParams, $scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var routeParams = $routeParams;
-        var model = $model || LiteralModel.newInstance();
-        var presenter = $presenter || LiteralPresenter.newInstance();
+        var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
+        var presenter = $presenter || LiteralPresenter.newInstance().getOrElse(throwInstantiateException(LiteralPresenter));
+        $window = $window || window;
 
-        var view = new LiteralView(routeParams, scope, model, presenter);
+        var view = new LiteralView(routeParams, scope, model, presenter, $window);
 
-        if ($viewRepAspect !== false) {
-            ($viewRepAspect || ViewRepaintAspect).weave(view);
-        }
-
-        if ($logErrorAspect !== false) {
-            ($logErrorAspect || LogErrorAspect).weave(view);
-        }
-
-        return view;
+        return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    return {newInstance: LiteralView.newInstance};
+    return LiteralView;
 });
