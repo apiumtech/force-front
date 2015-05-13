@@ -73,7 +73,8 @@
                                     </div>
                                 </div>
                                 <!-- Start Environmet -->
-                                <accordion ng-if="currentUserFilterGroup=='Environment'" class="users-filter-list clearfix" close-others="false">
+                                <accordion ng-if="currentUserFilterGroup=='Environment'"
+                                           class="users-filter-list clearfix" close-others="false">
                                     <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
                                                      class="clearfix">
                                         <accordion-heading class="clearfix">
@@ -110,7 +111,8 @@
                                 <!-- END Environmet -->
 
                                 <!-- Start Team -->
-                                <accordion ng-if="currentUserFilterGroup=='Hierarqhy'" class="users-filter-list clearfix" close-others="false">
+                                <accordion ng-if="currentUserFilterGroup=='Hierarqhy'"
+                                           class="users-filter-list clearfix" close-others="false">
                                     <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
                                                      class="clearfix">
                                         <accordion-heading class="clearfix">
@@ -183,6 +185,7 @@
                                                     <force-date-picker
                                                             date-set="{{isoStringDateStart()}}"
                                                             date-max-limit="{{isoStringMaxDateFromLimit()}}"
+                                                            year-range="2"
                                                             date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="start"
                                                                ng-model="displayDateStart"/>
@@ -190,6 +193,7 @@
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <force-date-picker
                                                             date-set={{isoStringDateEnd()}}
+                                                            year-range="2"
                                                             date-min-limit="{{isoStringDateEndLimit()}}"
                                                             date-max-limit="{{isoStringMaxDateLimit()}}"
                                                             date-format="{{datePickerFormat}}">
