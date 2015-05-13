@@ -220,7 +220,7 @@ function main() {
             // views
             'views/BaseView',
             'views/WidgetDecoratedPageView',
-            'views/WidgetBaseView',
+            'views/widgets/WidgetBaseView',
 
             'services/DataTableDataProvider',
             'services/EventBase',
@@ -376,11 +376,11 @@ function main() {
 
             // Graph widget
             'directives/widgets/IntensityGraphWidgetDirective',
-            'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
+            'controllers/widgets/IntensityGraphWidgetController', 'views/widgets/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
 
             // Map chart widget
             'directives/widgets/DistributionGeographicalWidgetDirective',
-            'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
+            'controllers/widgets/DistributionGeographicalWidgetController', 'views/widgets/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
 
             // Pie chart widget
             'presenters/widgets/PieChartWidgetPresenter',
@@ -390,12 +390,12 @@ function main() {
             'directives/widgets/DistributionSegmentPieWidgetDirective',
             'models/widgets/SegmentPieChartWidgetModel',
             'controllers/widgets/DistributionSegmentPieWidgetController',
-            'views/SegmentPieChartWidgetView',
+            'views/widgets/SegmentPieChartWidgetView',
             // Distribution Hour Pie Chart
             'directives/widgets/DistributionHourPieWidgetDirective',
             'models/widgets/HourPieChartWidgetModel',
             'controllers/widgets/DistributionHourPieWidgetController',
-            'views/HourPieChartWidgetView',
+            'views/widgets/HourPieChartWidgetView',
 
             // Bar chart widget
             'directives/widgets/BarChartWidgetDirective',
@@ -404,12 +404,12 @@ function main() {
             // SingleLine chart widget
             'directives/widgets/DistributionHourLineWidgetDirective',
             'controllers/widgets/DistributionHourLineWidgetController',
-            'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
+            'views/widgets/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
 
             // Table widget
             'directives/widgets/IntensityRankingWidgetDirective',
-            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
-            'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/widgets/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
+            'controllers/widgets/IntensityRankingWidgetController', 'views/widgets/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
 
             'controllers/TopMenuController', 'views/TopMenuView',
             'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',

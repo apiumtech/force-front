@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 app.registerView(function (container) {
-    var WidgetBaseView = container.getView("views/WidgetBaseView");
+    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
     var TableWidgetModel = container.getModel('models/widgets/TableWidgetModel');
     var TableWidgetPresenter = container.getPresenter('presenters/widgets/TableWidgetPresenter');

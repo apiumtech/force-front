@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 describe("GraphWidgetView", function () {
-    var GraphWidgetView = app.getView('views/GraphWidgetView');
+    var GraphWidgetView = app.getView('views/widgets/GraphWidgetView');
     var sut, scope;
 
     function initSut() {

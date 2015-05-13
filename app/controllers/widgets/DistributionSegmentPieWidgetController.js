@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 app.registerController(function (container) {
-    var SegmentPieChartWidgetView = container.getView("views/SegmentPieChartWidgetView");
+    var SegmentPieChartWidgetView = container.getView("views/widgets/SegmentPieChartWidgetView");
 
     function DistributionSegmentPieWidgetController($scope, $element) {
         DistributionSegmentPieWidgetController.configureView($scope, $element);

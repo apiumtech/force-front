@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 app.registerController(function (container) {
-    var GraphWidgetView = container.getView("views/GraphWidgetView");
+    var GraphWidgetView = container.getView("views/widgets/GraphWidgetView");
 
     function IntensityGraphWidgetController($scope, $element) {
         IntensityGraphWidgetController.configureView($scope, $element);

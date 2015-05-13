@@ -1,19 +1,17 @@
 /**
- * Created by justin on 2/2/15.
+ * Created by justin on 1/26/15.
  */
 
-describe("SingleLineChartWidgetView", function () {
-    var SingleLineChartWidgetView = app.getView('views/widgets/SingleLineChartWidgetView');
+describe("PieChartWidgetView", function () {
+    var PieChartWidgetView = app.getView('views/widgets/PieChartWidgetView');
     var sut, scope;
 
     function initSut() {
         scope = {
-            $on: function () {
-            },
-            $watch: function () {
-            }
+            $on: function(){},
+            $watch: function(){}
         };
-        sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
+        sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
     }
 
     describe("configureEvents", function () {
@@ -21,7 +19,7 @@ describe("SingleLineChartWidgetView", function () {
 
         [
             {method: 'assignWidget', exercise: assignWidgetTestExercise},
-            {method: 'changeFilter', exercise: changeFilterTestExercise},
+            {method: 'changeFilter', exercise: changeTabTestExercise},
             {method: 'refreshChart', exercise: refreshChartTestExercise}
         ].forEach(function (testCase) {
                 var method = testCase.method,
@@ -66,10 +64,10 @@ describe("SingleLineChartWidgetView", function () {
 
         }
 
-        function changeFilterTestExercise() {
+        function changeTabTestExercise() {
             beforeEach(function () {
                 sut.event = sut.event || {};
-                sut.event.onFilterChanged = jasmine.createSpy();
+                sut.event.onTabChanged = jasmine.createSpy();
             });
             var newValue = "tab2";
 
@@ -84,7 +82,7 @@ describe("SingleLineChartWidgetView", function () {
 
             it("should fire onTabChanged event", function () {
                 exerciseChangeTab();
-                expect(sut.event.onFilterChanged).toHaveBeenCalled();
+                expect(sut.event.onTabChanged).toHaveBeenCalled();
             });
         }
 
@@ -106,42 +104,54 @@ describe("SingleLineChartWidgetView", function () {
     describe("onReloadWidgetSuccess", function () {
         var fakeResponseData = {
             data: {
-                widgetType: "bar",
+                widgetType: "pie",
                 params: {
-                    filters: ["filter1", "filter2"],
-                    axis: {
-                        x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-                    },
-                    bars: [
-                        {label: "bar1", data: [12, 13, 25, 32, 46, 58]},
-                        {label: "bar4", data: [12, 13, 25, 32, 46, 58]},
-                        {label: "bar3", data: [12, 13, 25, 32, 46, 58]},
-                        {label: "bar2", data: [12, 13, 25, 32, 46, 58]}
+                    filters: [{name: "name1", key: "key1"},{name: "name2", key: "key2"}],
+                    params: [
+                        {label: "pie1", data: 30},
+                        {label: "pie4", data: 15},
+                        {label: "pie3", data: 15},
+                        {label: "pie2", data: 40}
                     ]
                 }
             }
         };
 
         beforeEach(function () {
-            sut = new SingleLineChartWidgetView(scope, {});
             sut.event = {};
             sut.event.onReloadWidgetDone = function () {
             };
 
             spyOn(sut, 'refreshChart');
-            spyOn(sut, 'extractFilters');
             spyOn(sut, '_onReloadWidgetSuccess');
+            sut.$scope.apply = function () {
+            };
+        });
+
+        it("Should assign filters to scope", function () {
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut.tabs).toEqual(fakeResponseData.data.params.filters);
+        });
+
+        it("Should assign selectedFiler to scope with value is first element of filters", function () {
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0].key);
+        });
+
+        it("Should not assign selectedFiler if it has value", function () {
+            sut.selectedFilter = "tab2";
+            spyOn(sut.event, 'onReloadWidgetDone');
+            sut.onReloadWidgetSuccess(fakeResponseData);
+            expect(sut.selectedFilter).not.toEqual(fakeResponseData.data.params.filters[0].key);
+            expect(sut.selectedFilter).toEqual("tab2");
         });
 
         it("Should assign data to scope", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.data).toEqual(fakeResponseData.data.params);
-        });
-
-        it("should call extractFilters method", function () {
-            sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.extractFilters).toHaveBeenCalled();
+            expect(sut.data).toEqual(fakeResponseData.data.params.params);
         });
 
         it("should call refreshChart method", function () {
@@ -153,44 +163,6 @@ describe("SingleLineChartWidgetView", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
             expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
-        });
-    });
-
-    describe("extractFilters", function () {
-        beforeEach(initSut);
-
-        it("should assign filters from data", function () {
-            sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
-            sut.extractFilters();
-            expect(sut.filters).toEqual(sut.data.filters);
-        });
-
-        describe("assign new value to selectedFilter", function () {
-            describe("current value is empty", function () {
-                it("should assign selectedFilter to the first element in array", function () {
-                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
-                    sut.extractFilters();
-                    expect(sut.$scope.selectedFilter).toEqual('key1');
-                });
-            });
-
-            describe("current value is not in filters list", function () {
-                it("should assign selectedFilter to the first element in array", function () {
-                    sut.selectedFilter = 'filterNotInList';
-                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
-                    sut.extractFilters();
-                    expect(sut.selectedFilter).toEqual('key1');
-                });
-            });
-
-            describe("current value is in filters list", function () {
-                it("should not assign selectedFilter if it has value", function () {
-                    sut.selectedFilter = 'key2';
-                    sut.data.filters = [{name: "name1", key: "key1"},{name: "name2", key: "key2"}];
-                    sut.extractFilters();
-                    expect(sut.selectedFilter).toEqual('key2');
-                });
-            });
         });
     });
 
@@ -209,6 +181,8 @@ describe("SingleLineChartWidgetView", function () {
                 testCase: "data is not defined", widgetData: undefined
             }, {
                 testCase: "data is null", widgetData: null
+            }, {
+                testCase: "data is not array", widgetData: {fields: {blah: 123456}}
             }].forEach(function (test) {
                     describe(test.testCase, function () {
                         it("Should not call paintChart", function () {
@@ -225,13 +199,12 @@ describe("SingleLineChartWidgetView", function () {
             var fakeElement = {"element returned": "element"};
             beforeEach(function () {
                 spyOn(sut, 'paintChart');
-                sut.data = {
-                    fields: [
-                        {
-                            name: "pie1", data: [1, 2]
-                        }
-                    ]
-                };
+                sut.data = [
+                    {label: "pie1", data: 30},
+                    {label: "pie4", data: 15},
+                    {label: "pie3", data: 15},
+                    {label: "pie2", data: 40}
+                ];
                 sut.element = {
                     find: function () {
                         return fakeElement;
@@ -241,7 +214,7 @@ describe("SingleLineChartWidgetView", function () {
 
             it("should call paintChart()", function () {
                 sut.refreshChart();
-                expect(sut.paintChart).toHaveBeenCalled();
+                expect(sut.paintChart).toHaveBeenCalledWith(fakeElement);
             });
         });
     });

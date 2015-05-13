@@ -2,7 +2,7 @@
  * Created by justin on 02/11/15.
  */
 app.registerController(function (container) {
-    var MapChartWidgetView = container.getView("views/MapChartWidgetView");
+    var MapChartWidgetView = container.getView("views/widgets/MapChartWidgetView");
 
     function DistributionGeographicalWidgetController($scope, $element) {
         DistributionGeographicalWidgetController.configureView($scope, $element);

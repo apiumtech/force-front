@@ -2,7 +2,7 @@
  * Created by justin on 2/2/15.
  */
 app.registerController(function (container) {
-    var SingleLineChartWidgetView = container.getView("views/SingleLineChartWidgetView");
+    var SingleLineChartWidgetView = container.getView("views/widgets/SingleLineChartWidgetView");
 
     function SingleLineChartWidgetController($scope, $element) {
         SingleLineChartWidgetController.configureView($scope, $element);

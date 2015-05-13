@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 app.registerController(function (container) {
-    var HourLineChartWidgetView = container.getView("views/SingleLineChartWidgetView");
+    var HourLineChartWidgetView = container.getView("views/widgets/SingleLineChartWidgetView");
 
     function DistributionHourLineWidgetController($scope, $element) {
         DistributionHourLineWidgetController.configureView($scope, $element);
