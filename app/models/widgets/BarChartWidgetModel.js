@@ -52,14 +52,18 @@ app.registerModel(function (container) {
         };
 
         var dataArray = [];
-        data.Series.forEach(function (i) {
-            responseData.data.params.axis.x.push(i.name);
-        });
 
-        data.Labels.forEach(function (label) {
+        data.Labels[0].forEach(function (label) {
             responseData.data.params.bars.push({
                 data: [],
                 label: label
+            });
+        });
+
+        data.Series.forEach(function (i) {
+            responseData.data.params.axis.x.push(i.Name);
+            i.Points.forEach(function (point, index) {
+                responseData.data.params.bars[index].data.push(point.Y);
             });
         });
 

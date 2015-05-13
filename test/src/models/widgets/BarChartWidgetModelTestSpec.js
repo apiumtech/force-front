@@ -186,12 +186,12 @@ describe("BarChartWidgetModel", function () {
                 "data": {
                     "params": {
                         "filters": filters,
-                        "axis": {"x": ["A", "B", "C", "CA", "D", "E", "-"]},
+                        "axis": {"x": ["A", "B", "C", "CA", "D", "E", "F", "-"]},
                         "bars": [{
-                            "data": [17,16,40,6,32,55,12,10],
+                            "data": [17, 16, 40, 6, 32, 55, 12, 10],
                             "label": "hard"
                         }, {
-                            "data": [26,23,54,12,41,56,15,14],
+                            "data": [26, 23, 54, 12, 41, 56, 15, 14],
                             "label": "soft"
                         }]
                     }
@@ -199,7 +199,7 @@ describe("BarChartWidgetModel", function () {
             };
 
             var output = sut.decorateServerData(serverInput);
-            expect(output).not.toEqual(expectedOutput);
+            expect(output).toEqual(expectedOutput);
         });
     });
 
