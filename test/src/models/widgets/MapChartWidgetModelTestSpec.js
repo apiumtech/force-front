@@ -17,11 +17,11 @@ describe("MapChartWidgetModel", function () {
     });
 
     describe('getUrl', function () {
-        it("should format the Api with the current filter", function(){
+        it("should format the Api with the current filter", function () {
 
-            sut.currentFilter="fake_filter";
+            sut.currentFilter = "fake_filter";
             var expectedUrl = Configuration.api.geographicalWidgetDistributionDataApi.format(sut.currentFilter);
-           spyOn(String.prototype, 'format').and.callThrough();
+            spyOn(String.prototype, 'format').and.callThrough();
 
             var result = sut.getUrl();
 
@@ -41,38 +41,74 @@ describe("MapChartWidgetModel", function () {
         });
     });
 
-    //describe("decorateServerData", function () {
-    //    describe("currentFilter is checkins", function(){
-    //        it("should return correct decorated format", function () {
-    //            sut.filters = [];
-    //            var serverInput = {
-    //
-    //            };
-    //
-    //            var expectedOutput = {
-    //                data: {
-    //                    params: {
-    //                        axis: {
-    //                            x: ["Label1", "Label2", "Label3"],
-    //                            y: ""
-    //                        },
-    //                        fields: [{
-    //                            name: "Series1",
-    //                            data: [0, 1, 2]
-    //                        }, {
-    //                            name: "Series2",
-    //                            data: [4, 5, 6]
-    //                        }],
-    //                        filters: []
-    //                    }
-    //                }
-    //            };
-    //
-    //            var output = sut.decorateServerData(serverInput);
-    //            expect(output).toEqual(expectedOutput);
-    //        });
-    //    });
-    //});
+    describe("decorateServerData", function () {
+        describe("currentFilter is checkins", function () {
+            it("should return correct decorated format", function () {
+                sut.filters = [];
+                var serverInput = {
+                    "Series": [
+                        {
+                            "Name": "checkins geographical distribution",
+                            "Points": [
+                                {
+                                    "Y": -33.453056,
+                                    "X": -70.594086,
+                                    "Checkins": 1
+                                },
+                                {
+                                    "Y": -23.65,
+                                    "X": -70.39999999999999,
+                                    "Checkins": 1
+                                },
+                                {
+                                    "Y": 35.689506,
+                                    "X": 139.6917,
+                                    "Checkins": 3
+                                }
+                            ]
+                        }
+                    ],
+                    "Labels": [
+                        []
+                    ]
+                };
+
+                var expectedOutput = {
+                    "data": {
+                        "params": [
+                            {
+                                "Activity": "109,0831182",
+                                "CompanyName": "Électricité Solaire SLU",
+                                "IdCompany": "595",
+                                "IdTipoCheckIn": null,
+                                "Latitude": "-33.453056",
+                                "Longitude": "-70.594086"
+                            },
+                            {
+                                "Activity": "101,39225643",
+                                "CompanyName": "Investment 73 SL",
+                                "IdCompany": "600",
+                                "IdTipoCheckIn": null,
+                                "Latitude": "-23.65",
+                                "Longitude": "-70.39999999999999"
+                            },
+                            {
+                                "Activity": "100,45394005",
+                                "CompanyName": "Éditions Monaco",
+                                "IdCompany": "598",
+                                "IdTipoCheckIn": null,
+                                "Latitude": "35.689506",
+                                "Longitude": "139.6917"
+                            }
+                        ]
+                    }
+                };
+
+                var output = sut.decorateServerData(serverInput);
+                expect(output).toEqual(expectedOutput);
+            });
+        });
+    });
 
     describe("changeFilterTab", function () {
         it("should call addQuery from base to add filter", function () {
@@ -81,4 +117,5 @@ describe("MapChartWidgetModel", function () {
             expect(sut.currentFilter).toEqual("tab1");
         });
     });
-});
+})
+;

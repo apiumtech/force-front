@@ -76,9 +76,9 @@ app.registerView(function (container) {
             case 'users':
                 self.mapChart.createUserMap(data);
                 break;
-            case 'activity':
-                self.mapChart.createPointMap(data);
-                break;
+            //case 'activity':
+            //    self.mapChart.createPointMap(data);
+            //    break;
             default:
                 break;
         }

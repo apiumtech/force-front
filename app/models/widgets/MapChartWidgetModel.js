@@ -28,16 +28,44 @@ app.registerModel(function (container) {
 
     MapChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
-    MapChartWidgetModel.prototype.getUrl = function(){
+    MapChartWidgetModel.prototype.getUrl = function () {
         return Configuration.api.geographicalWidgetDistributionDataApi.format(this.currentFilter);
     };
 
     MapChartWidgetModel.prototype.__baseReload = WidgetBase.prototype._reload;
-    MapChartWidgetModel.prototype._reload = function(){
+    MapChartWidgetModel.prototype._reload = function () {
         return this.__baseReload().then(this.decorateServerData.bind(this));
     };
 
+    MapChartWidgetModel.prototype.decorateCheckins = function (serverData) {
+        var responseData = {
+            data:{
+                params:[]
+            }
+        };
+
+
+
+        return responseData;
+    }
+
+    MapChartWidgetModel.prototype.decorateUsers = function (serverData) {
+        var responseData = {
+            data:{
+                params:[]
+            }
+        };
+        return responseData;
+    }
+
     MapChartWidgetModel.prototype.decorateServerData = function (serverData) {
+        var self = this;
+        switch (self.currentFilter) {
+            case 'checkins' :
+                return self.decorateCheckins(serverData);
+            default         :
+                return self.decorateUsers(serverData);
+        }
     };
 
     MapChartWidgetModel.prototype.changeFilterTab = function (tabName) {
