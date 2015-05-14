@@ -29,7 +29,7 @@ app.registerService(function (container) {
 
     MapChart.prototype.decorateHeatMapData = function (data) {
         var maxActivityRecord = _.max(data, function (record) {
-            record.Activity = parseFloat(record.Activity.replace(",", "."));
+
             return record.Activity;
         });
 
@@ -102,18 +102,15 @@ app.registerService(function (container) {
     MapChart.prototype.createUserMap = function (data) {
         var self = this;
 
-        self.markers = [];
         if (self.markerClusterer) {
             self.markerClusterer.clearMarkers();
         }
 
         var latlngbounds = self.mapService.getLatLngBounds();
-        data.forEach(function (r) {
+
+        self.markers =  data.map(function (r) {
             var image = r.ImageB64;
-            if (image) {
-                image = "";
-            }
-            else
+            if (!image)
                 image = defaultImageUrl;
 
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
@@ -125,7 +122,7 @@ app.registerService(function (container) {
                 flat: true
             });
 
-            self.markers.push(iconMarker);
+            return iconMarker;
         });
 
         self.markerCluster = new MarkerClusterer(self.map, self.markers, {
