@@ -5,6 +5,7 @@ app.registerService(function (container) {
     var Q = container.getFunction('q');
     var $ = container.getFunction('jquery');
     var _ = container.getFunction('underscore');
+    var Configuration = container.getService('Configuration');
 
     function AjaxService(ajaxImpl) {
         this.ajaxImpl = ajaxImpl;
@@ -30,6 +31,11 @@ app.registerService(function (container) {
 
     AjaxService.prototype.rawAjaxRequest = function (params) {
         var requestParams = this.mapRequest(params);
+
+        if (Configuration.corsEnabled) {
+            params.crossDomain = true;
+            params.jsonp = false;
+        }
 
         return Q(this.ajaxImpl(requestParams));
     };

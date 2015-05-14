@@ -106,7 +106,13 @@ describe("BarChartWidgetView", function () {
             data: {
                 widgetType: "bar",
                 params: {
-                    filters: ["filter1", "filter2"],
+                    filters: [{
+                        name: "filter1",
+                        key: "filter1"
+                    },{
+                        name: "filter2",
+                        key:"filter2"
+                    }],
                     axis: {
                         x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
                     },
@@ -136,7 +142,7 @@ describe("BarChartWidgetView", function () {
         it("Should assign selectedFiler to scope with value is first element of filters", function () {
             spyOn(sut.event, 'onReloadWidgetDone');
             sut.onReloadWidgetSuccess(fakeResponseData);
-            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0]);
+            expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0].key);
         });
 
         it("Should not assign selectedFiler if it has value", function () {

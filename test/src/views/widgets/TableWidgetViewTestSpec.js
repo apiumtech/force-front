@@ -2,8 +2,8 @@
  * Created by justin on 12/22/14.
  */
 describe("TableWidgetView", function () {
-    var TableWidgetView = app.getView('views/TableWidgetView');
-    var WidgetBaseView = app.getView('views/WidgetBaseView');
+    var TableWidgetView = app.getView('views/widgets/TableWidgetView');
+    var WidgetBaseView = app.getView('views/widgets/WidgetBaseView');
     var sut, scope;
 
     var fakeResponseData = {

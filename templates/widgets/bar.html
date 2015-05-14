@@ -4,9 +4,9 @@
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
             <button class="btn btn-white btn-sm" ng-repeat="filter in tabs"
-                    ng-click="fn.changeFilter(filter)"
-                    ng-class="{'active':selectedFilter==filter}">
-                {{filter}}
+                    ng-click="fn.changeFilter(filter.key)"
+                    ng-class="{'active':selectedFilter==filter.key}">
+                {{filter.name}}
             </button>
         </div>
     </div>

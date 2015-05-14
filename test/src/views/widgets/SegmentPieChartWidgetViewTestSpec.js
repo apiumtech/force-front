@@ -3,7 +3,7 @@
  */
 
 describe("SegmentPieChartWidgetView", function () {
-    var SegmentPieChartWidgetView = app.getView('views/SegmentPieChartWidgetView');
+    var SegmentPieChartWidgetView = app.getView('views/widgets/SegmentPieChartWidgetView');
     var sut, scope;
 
     function initSut() {

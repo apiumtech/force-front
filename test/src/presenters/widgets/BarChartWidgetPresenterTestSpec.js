@@ -105,13 +105,13 @@ describe("BarChartWidgetPresenter", function () {
         function onTabChangedTest() {
             beforeEach(function () {
                 view.selectedFilter = "tab1";
-                ___model.changeFilterTab = jasmine.createSpy();
+                ___model.changeQueryFilter = jasmine.createSpy();
                 spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onTabChanged();
             });
 
             it("should call addQuery with new value", function () {
-                expect(___model.changeFilterTab).toHaveBeenCalledWith("tab1");
+                expect(___model.changeQueryFilter).toHaveBeenCalledWith("tab1");
             });
 
             it("should call 'sendReloadCommandToChannel' on the channel", function () {

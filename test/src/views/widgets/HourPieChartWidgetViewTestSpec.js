@@ -3,7 +3,7 @@
  */
 
 describe("HourPieChartWidgetView", function () {
-    var HourPieChartWidgetView = app.getView('views/HourPieChartWidgetView');
+    var HourPieChartWidgetView = app.getView('views/widgets/HourPieChartWidgetView');
     var sut, scope;
 
     function initSut() {

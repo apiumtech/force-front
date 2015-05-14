@@ -3,7 +3,7 @@
  */
 
 describe("MapChartWidgetView", function () {
-    var MapChartWidgetView = app.getView('views/MapChartWidgetView');
+    var MapChartWidgetView = app.getView('views/widgets/MapChartWidgetView');
     var sut, scope;
 
     function initSut() {

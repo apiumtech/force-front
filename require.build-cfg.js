@@ -203,7 +203,7 @@ requirejs.config({
         // views
         'views/BaseView',
         'views/WidgetDecoratedPageView',
-        'views/WidgetBaseView',
+        'views/widgets/WidgetBaseView',
 
         'services/DataTableDataProvider',
         'services/EventBase',
@@ -362,23 +362,23 @@ requirejs.config({
 
         // Graph widget
         'directives/widgets/IntensityGraphWidgetDirective',
-        'controllers/widgets/IntensityGraphWidgetController', 'views/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
+        'controllers/widgets/IntensityGraphWidgetController', 'views/widgets/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
 
         // Map chart widget
-        'controllers/widgets/DistributionGeographicalWidgetController', 'views/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
+        'controllers/widgets/DistributionGeographicalWidgetController', 'views/widgets/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
 
         // Pie chart widget
-        'controllers/widgets/DistributionSegmentPieWidgetController', 'views/SegmentPieChartWidgetView', 'presenters/widgets/PieChartWidgetPresenter', 'models/widgets/PieChartWidgetModel',
+        'controllers/widgets/DistributionSegmentPieWidgetController', 'views/widgets/SegmentPieChartWidgetView', 'presenters/widgets/PieChartWidgetPresenter', 'models/widgets/PieChartWidgetModel',
 
         // Bar chart widget
         'controllers/widgets/BarChartWidgetController', 'views/widgets/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
         // SingleLine chart widget
-        'controllers/SingleLineChartWidgetController', 'views/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
+        'controllers/SingleLineChartWidgetController', 'views/widgets/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
 
         // Table widget
         'directives/widgets/IntensityRankingWidgetDirective',
-        'controllers/widgets/IntensityRankingWidgetController', 'views/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
+        'controllers/widgets/IntensityRankingWidgetController', 'views/widgets/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
 
         'controllers/TopMenuController', 'views/TopMenuView',
         'views/topMenu/TopMenuWeb2View', 'presenters/topMenu/TopMenuWeb2Presenter', 'models/topMenu/TopMenuWeb2Model',

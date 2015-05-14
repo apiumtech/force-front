@@ -78,14 +78,6 @@ describe("SalesAnalyticsFilterPresentationModel", function () {
                 sut._getUsers();
                 expect(sut.decorateData).toHaveBeenCalledWith(returnData);
             });
-
-            it("should resolve the defer with data from server response", function () {
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(fakePromise());
-                spyOn(sut, 'decorateData').and.returnValue(fakeReturnData);
-                spyOn(deferredObject, 'resolve');
-                sut._getUsers();
-                expect(deferredObject.resolve).toHaveBeenCalledWith(fakeReturnData);
-            });
         });
 
         describe("service return error", function () {

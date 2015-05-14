@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 describe("WidgetBaseView", function () {
-    var WidgetBaseView = app.getView('views/WidgetBaseView');
+    var WidgetBaseView = app.getView('views/widgets/WidgetBaseView');
     var sut, scope;
     var presenter;
 
