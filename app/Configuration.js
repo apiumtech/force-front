@@ -58,6 +58,12 @@ app.registerService(function (container) {
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
         literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
+
+        languageList: baseUrl + '/api/queries/commons/languages/languageList',
+        deviceCategoryList: baseUrl + '/api/queries/commons/devices/deviceCategoryList',
+        literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
+        deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
+
         literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
         
     };

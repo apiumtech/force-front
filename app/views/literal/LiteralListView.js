@@ -1,15 +1,13 @@
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var LiteralListPresenter = container.getPresenter('presenters/literal/LiteralListPresenter');
-    var LiteralModel = container.getModel('models/literal/LiteralModel');
+    var LiteralListModel = container.getModel('models/literal/LiteralListModel');
     var DataTableService = container.getService("services/DataTableService");
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
 
 
     /**
      * LiteralListView
-     *
-     * @constructor
      */
     function LiteralListView($scope, $model, $presenter, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -33,37 +31,68 @@ app.registerView(function (container) {
 
 
     /**
-     * Configure Events
-     *
-     * @method configureEvents()
+     * configureEvents()
      */
     LiteralListView.prototype.configureEvents = function () {
 
         this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
 
         // Events defined in Presenter
-        this.event.onInit = function () {};
+        this.event.onInit = function(){};
         this.event.onSearchTextFilterChanged = function () {};
+        this.event.onDelete = function () {};
     };
 
 
     /**
-     * Literal deletion prompt
-     *
-     * @method deleteLiteralPrompt()
+     * deleteLiteralPrompt()
      */
     LiteralListView.prototype.deleteLiteralPrompt = function (literalId) {
-        alert("Literal Id: " + literalId);
+        if( confirm("Delete Literal with Id: " + literalId) ) {
+            this.event.onDelete(literalId);
+        }
+    };
+
+
+    /**
+     * createColumns()
+     */
+    LiteralListView.prototype.onGetLanguageList = function (data) {
+        this.createColumns(data);
+        this.presenter.getLiteralList();
+    };
+
+
+    /**
+     * createColumns()
+     */
+    LiteralListView.prototype.createColumns = function (data) {
+        var languages = [];
+        data.forEach(function (lang) {
+            languages.push({
+                data: lang.Name,
+                title: lang.Name,
+                type: "string",
+                visible: true,
+                sortable: true
+            });
+        });
+        var columns = [{
+            data: "Key",
+            title: "Key",
+            type: "string",
+            visible: true,
+            sortable: false
+        }];
+        this.data.tableColumns = columns.concat(languages);
     };
 
 
     /**
      * Renders the table with the retrieved data
-     *
-     * @method showTableData()
+     * showTableData()
      */
     LiteralListView.prototype.showTableData = function (data) {
-
         var self = this;
         var languages = [];
 
@@ -77,16 +106,6 @@ app.registerView(function (container) {
             });
         });
 
-        var columns = [{
-            data: "Key",
-            title: "Key",
-            type: "string",
-            visible: true,
-            sortable: false
-        }];
-        columns = columns.concat(languages);
-
-
         var requestRow = function(obj){
             var row = {};
             row.$ref = obj;
@@ -97,14 +116,13 @@ app.registerView(function (container) {
             });
             return row;
         };
-
         data = data.map(function(row){
             return requestRow(row);
         });
 
         var dataTableConfig = {
             data: data,
-            columns: columns,
+            columns: this.data.tableColumns,
             columnDefs: [
                 {
                     targets: 0,
@@ -115,14 +133,14 @@ app.registerView(function (container) {
             pageLength: 50,
             pagingType: "full_numbers"
         };
+
         this.data.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
     };
 
 
     /**
      * Renders the Key column with the provided template
-     *
-     * @method renderKeyColumn()
+     * renderKeyColumn()
      */
     LiteralListView.prototype.renderKeyColumn = function (data, type, row) {
         var self = this
@@ -133,8 +151,7 @@ app.registerView(function (container) {
 
     /**
      * Error displaying
-     *
-     * @method showError()
+     * showError()
      */
     LiteralListView.prototype.showError = function (error) {
         console.error(error);
@@ -144,12 +161,10 @@ app.registerView(function (container) {
 
     /**
      * Static module factory
-     *
-     * @method newInstance()
      */
     LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
-        var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
+        var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
         var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
         var dataTableService = $dataTableService || DataTableService.newInstance();
         var templateParser = $templateParser || SimpleTemplateParser.newInstance();

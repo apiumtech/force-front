@@ -11,17 +11,26 @@ app.registerPresenter(function (container) {
         this.view = view;
 
         view.event.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
-        view.event.onInit = this.onInit.bind(this);
         view.event.onDelete = this.onDelete.bind(this);
+        view.event.onInit = this.onInit.bind(this);
+    };
+
+
+    LiteralListPresenter.prototype.getLiteralList = function () {
+        var self = this;
+        self.model.getLiteralList("")
+            .then(
+            self.view.showTableData.bind(self.view),
+            self.view.showError.bind(self.view)
+        );
     };
 
 
     LiteralListPresenter.prototype.onInit = function () {
         var self = this;
-        //self.model.getLiteralDictionary();
-        self.model.getLiteralList("")
+        self.model.getLanguageList()
             .then(
-            self.view.showTableData.bind(self.view),
+            self.view.onGetLanguageList.bind(self.view),
             self.view.showError.bind(self.view)
         );
     };
