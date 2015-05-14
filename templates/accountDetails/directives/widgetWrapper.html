@@ -35,6 +35,6 @@
             <i class="glyphicon glyphicon-warning-sign"></i>
             {{errorMessage}}
         </div>
-        <ng-transclude class="{{bodyClass}}"></ng-transclude>
+        <ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>
     </div>
 </div>
