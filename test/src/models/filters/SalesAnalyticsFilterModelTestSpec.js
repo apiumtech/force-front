@@ -79,6 +79,7 @@ describe("SalesAnalyticsFilterModel", function () {
                 sut._getUsers();
                 expect(deferredObject.resolve).toHaveBeenCalledWith(fakeReturnData);
             });
+
         });
 
         describe("service return error", function () {
@@ -141,6 +142,170 @@ describe("SalesAnalyticsFilterModel", function () {
             var expected = 1;
             var actual = sut.currentQuery;
             expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('decorateData', function () {
+        describe('data is empty', function () {
+            it("should return data empty error", function () {
+                var data = [];
+                expect(function () {
+                    sut.decorateData(data);
+                }).toThrow(new Error("No data received from server"));
+            });
+        });
+
+        it("should return correct output", function () {
+            var input = [
+                {
+                    "id": 1,
+                    "name": "A",
+                    "idParent": -1,
+                    "isEnvironment": true
+                },
+                {
+                    "id": 2,
+                    "name": "B",
+                    "idParent": -1,
+                    "isEnvironment": true
+                },
+                {
+                    "id": 3,
+                    "name": "C",
+                    "idParent": -1,
+                    "isEnvironment": true
+                },
+                {
+                    "id": 4,
+                    "name": "D",
+                    "idParent": -1,
+                    "isEnvironment": true
+                },
+                {
+                    "id": 5,
+                    "name": "Child of A",
+                    "idParent": 1,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 6,
+                    "name": "Child of B 1",
+                    "idParent": 2,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 7,
+                    "name": "Child of B 2",
+                    "idParent": 2,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 8,
+                    "name": "Child of D 1",
+                    "idParent": 4,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 9,
+                    "name": "Child of D 2",
+                    "idParent": 4,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 10,
+                    "name": "Child of Child of D 2",
+                    "idParent": 9,
+                    "isEnvironment": false
+                },
+                {
+                    "id": 11,
+                    "name": "Child of Child of Child of D 2",
+                    "idParent": 10,
+                    "isEnvironment": false
+                }];
+
+            var expected = [
+                {
+                    "id": 1,
+                    "name": 'A',
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    "children": [
+                        {
+                            "id": 5,
+                            "name": "Child of A",
+                            "idParent": 1,
+                            "isEnvironment": false
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "name": "B",
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    children: [
+                        {
+                            "id": 6,
+                            "name": "Child of B 1",
+                            "idParent": 2,
+                            "isEnvironment": false
+                        },
+                        {
+                            "id": 7,
+                            "name": "Child of B 2",
+                            "idParent": 2,
+                            "isEnvironment": false
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "name": "C",
+                    "idParent": -1,
+                    "isEnvironment": true
+                },
+                {
+                    "id": 4,
+                    "name": "D",
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    children: [
+                        {
+                            "id": 8,
+                            "name": "Child of D 1",
+                            "idParent": 4,
+                            "isEnvironment": false
+                        },
+                        {
+                            "id": 9,
+                            "name": "Child of D 2",
+                            "idParent": 4,
+                            "isEnvironment": false,
+                            children: [
+                                {
+                                    "id": 10,
+                                    "name": "Child of Child of D 2",
+                                    "idParent": 9,
+                                    "isEnvironment": false,
+                                    children: [
+                                        {
+                                            "id": 11,
+                                            "name": "Child of Child of Child of D 2",
+                                            "idParent": 10,
+                                            "isEnvironment": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            sut.currentQuery='Environment';
+            var output = sut.decorateData(input);
+            expect(output).toEqual(expected);
         });
     });
 

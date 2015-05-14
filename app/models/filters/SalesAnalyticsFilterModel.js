@@ -8,6 +8,7 @@ app.registerModel(function (container) {
     var FakeAjaxService = container.getService("services/FakeAjaxService");
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
+    var _ = container.getFunction("underscore");
 
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
@@ -69,8 +70,38 @@ app.registerModel(function (container) {
     };
 
     SalesAnalyticsFilterModel.prototype.decorateData = function (data) {
+        if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
+        var self = this;
+        if (self.currentQuery == 'Environment') {
+            var groupedData = _.groupBy(data, function (record) {
+                return record.idParent;
+            });
+
+            _.each(groupedData, function (value, key) {
+                if (key == '-1') { // move all the 2nd level nodes to the 1st one
+                    _.each(value, function (record) {
+
+                        if (groupedData['' + record.id + ''] != undefined) {
+                            record.children = groupedData['' + record.id + ''];
+                        }
+                    });
+                } else {
+                    _.each(value, function (record) {
+                        if (groupedData['' + record.id + ''] != undefined) {
+                            record.children = groupedData['' + record.id + ''];
+                        }
+                    });
+                }
+            });
+
+            return groupedData['-1'];
+        }
         return data.data;
     };
+
+    SalesAnalyticsFilterModel.prototype.getDecoratedRecordById = function (decoratedData, id) {
+
+    }
 
     SalesAnalyticsFilterModel.prototype.defer = function () {
         var deferred = Q.defer();
