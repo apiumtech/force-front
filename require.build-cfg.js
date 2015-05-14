@@ -233,18 +233,19 @@ requirejs.config({
 
 
         // Literal
-        'models/literal/LiteralModel',
+        'services/LiteralService',
 
         // Literal List Page
         'controllers/literal/LiteralListController',
         'views/literal/LiteralListView',
         'presenters/literal/LiteralListPresenter',
-
+        'models/literal/LiteralListModel',
 
         //Literal Page
         'controllers/literal/LiteralController',
         'views/literal/LiteralView',
         'presenters/literal/LiteralPresenter',
+        'models/literal/LiteralModel',
 
 
 
