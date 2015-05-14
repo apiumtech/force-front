@@ -60,13 +60,9 @@ describe("BarChartWidgetModel", function () {
     describe('_reload', function () {
         it('should call decoration method to decorate data from server', function (done) {
             spyOn(sut, 'decorateServerData');
-            // TODO: This is the real one
-            //spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-            spyOn(sut.fakeAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+            spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
             sut._reload().then(function () {
-                // TODO: This is the real one
-                //expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-                expect(sut.fakeAjaxService.rawAjaxRequest).toHaveBeenCalled();
+                expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
                 expect(sut.decorateServerData).toHaveBeenCalled();
                 done();
             });
@@ -188,10 +184,10 @@ describe("BarChartWidgetModel", function () {
                         "filters": filters,
                         "axis": {"x": ["A", "B", "C", "CA", "D", "E", "F", "-"]},
                         "bars": [{
-                            "data": [17, 16, 40, 6, 32, 55, 12, 10],
+                            "data": [[0, 17], [1, 16], [2, 40], [3, 6], [4, 32], [5, 55], [6, 12], [7, 10]],
                             "label": "hard"
                         }, {
-                            "data": [26, 23, 54, 12, 41, 56, 15, 14],
+                            "data": [[0, 26], [1, 23], [2, 54], [3, 12], [4, 41], [5, 56], [6, 15], [7, 14]],
                             "label": "soft"
                         }]
                     }

@@ -56,7 +56,7 @@ app.registerPresenter(function (container) {
         };
 
         view.event.onTabChanged = function () {
-            model.changeFilterTab(view.selectedFilter);
+            model.changeQueryFilter(view.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 

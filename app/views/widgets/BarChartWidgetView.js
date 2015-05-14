@@ -81,7 +81,7 @@ app.registerView(function (container) {
         self.data = responseData.data.params.bars;
         self.tickLabels = responseData.data.params.axis.x;
         self.tabs = responseData.data.params.filters;
-        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0];
+        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
 
         self.refreshChart();
     };

@@ -14,7 +14,7 @@ app.registerModel(function (container) {
         // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
         this.fakeAjaxService = FakeAjaxService.newInstance();
 
-        this.currentFilter = 'allActivities';
+        this.currentFilter = 'AccountType';
         this.filters = [{
             name: "Account Type",
             key: "AccountType"
@@ -51,8 +51,6 @@ app.registerModel(function (container) {
             }
         };
 
-        var dataArray = [];
-
         data.Labels[0].forEach(function (label) {
             responseData.data.params.bars.push({
                 data: [],
@@ -63,7 +61,8 @@ app.registerModel(function (container) {
         data.Series.forEach(function (i) {
             responseData.data.params.axis.x.push(i.Name);
             i.Points.forEach(function (point, index) {
-                responseData.data.params.bars[index].data.push(point.Y);
+                var dataIndex = responseData.data.params.bars[index].data.length;
+                responseData.data.params.bars[index].data.push([dataIndex, point.Y]);
             });
         });
 
@@ -73,113 +72,113 @@ app.registerModel(function (container) {
     BarChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
 
     BarChartWidgetModel.prototype._reload = function () {
-        //return this._baseReload()
+        return this._baseReload()
 
 // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-        var request = {
-            url: '',
-            type: '',
-            result: {
-                "Series": [
-                    {
-                        "Name": "A",
-                        "Points": [
-                            {
-                                "Y": "17,79"
-                            },
-                            {
-                                "Y": "26,92"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "B",
-                        "Points": [
-                            {
-                                "Y": "17,02"
-                            },
-                            {
-                                "Y": "23,40"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "C",
-                        "Points": [
-                            {
-                                "Y": "40,00"
-                            },
-                            {
-                                "Y": "54,00"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "CA",
-                        "Points": [
-                            {
-                                "Y": "6,25"
-                            },
-                            {
-                                "Y": "12,50"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "D",
-                        "Points": [
-                            {
-                                "Y": "32,26"
-                            },
-                            {
-                                "Y": "41,94"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "E",
-                        "Points": [
-                            {
-                                "Y": "55,56"
-                            },
-                            {
-                                "Y": "55,56"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "F",
-                        "Points": [
-                            {
-                                "Y": "12,82"
-                            },
-                            {
-                                "Y": "15,38"
-                            }
-                        ]
-                    },
-                    {
-                        "Name": "-",
-                        "Points": [
-                            {
-                                "Y": "10,99"
-                            },
-                            {
-                                "Y": "14,45"
-                            }
-                        ]
-                    }
-                ],
-                "Labels": [
-                    [
-                        "hard",
-                        "soft"
-                    ]
-                ]
-            }
-        };
-
-        return this.fakeAjaxService.rawAjaxRequest(request)
+//        var request = {
+//            url: '',
+//            type: '',
+//            result: {
+//                "Series": [
+//                    {
+//                        "Name": "A",
+//                        "Points": [
+//                            {
+//                                "Y": "17,79"
+//                            },
+//                            {
+//                                "Y": "26,92"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "B",
+//                        "Points": [
+//                            {
+//                                "Y": "17,02"
+//                            },
+//                            {
+//                                "Y": "23,40"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "C",
+//                        "Points": [
+//                            {
+//                                "Y": "40,00"
+//                            },
+//                            {
+//                                "Y": "54,00"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "CA",
+//                        "Points": [
+//                            {
+//                                "Y": "6,25"
+//                            },
+//                            {
+//                                "Y": "12,50"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "D",
+//                        "Points": [
+//                            {
+//                                "Y": "32,26"
+//                            },
+//                            {
+//                                "Y": "41,94"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "E",
+//                        "Points": [
+//                            {
+//                                "Y": "55,56"
+//                            },
+//                            {
+//                                "Y": "55,56"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "F",
+//                        "Points": [
+//                            {
+//                                "Y": "12,82"
+//                            },
+//                            {
+//                                "Y": "15,38"
+//                            }
+//                        ]
+//                    },
+//                    {
+//                        "Name": "-",
+//                        "Points": [
+//                            {
+//                                "Y": "10,99"
+//                            },
+//                            {
+//                                "Y": "14,45"
+//                            }
+//                        ]
+//                    }
+//                ],
+//                "Labels": [
+//                    [
+//                        "hard",
+//                        "soft"
+//                    ]
+//                ]
+//            }
+//        };
+//
+//        return this.fakeAjaxService.rawAjaxRequest(request)
 // TODO: END OF TODO
             .then(this.decorateServerData.bind(this));
     };

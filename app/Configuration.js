@@ -69,6 +69,7 @@ app.registerService(function (container) {
             moment: "DD/MM/YYYY",
             default: "dd/MM/yyyy"
         },
+        corsEnabled: true,
         pageSize: 10,
         defaultDateSubtraction: 30,
         tokenStorageKey: "token",
