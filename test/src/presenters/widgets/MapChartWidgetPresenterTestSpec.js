@@ -24,7 +24,7 @@ describe("MapChartWidgetPresenter", function () {
                 viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
             },
             {
-                viewEvent: "onFilterChanged", test: onTabChangedTest
+                viewEvent: "onFilterChanged", test: onFilterChangedTest
             }
         ].forEach(function (testCase) {
                 var viewEvent = testCase.viewEvent,
@@ -32,7 +32,8 @@ describe("MapChartWidgetPresenter", function () {
 
                 beforeEach(function () {
                     view = {
-                        event: {}
+                        event: {},
+                        sendReloadCommandToChannel: function(){}
                     };
                     ___model = {
                         setFetchEndPoint: jasmine.createSpy()
@@ -52,15 +53,6 @@ describe("MapChartWidgetPresenter", function () {
                 spyOn(sut, '_executeLoadWidget');
                 ___model.changeFilterTab = jasmine.createSpy();
             });
-            it("should add endpoint to model", function () {
-                view.event.onReloading();
-                expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
-            });
-
-            it("should call addQuery with new value", function () {
-                view.event.onReloading();
-                expect(___model.changeFilterTab).toHaveBeenCalledWith(view.selectedFilter);
-            });
 
             it("should call '_executeLoadWidget' method", function () {
                 view.event.onReloading();
@@ -68,23 +60,6 @@ describe("MapChartWidgetPresenter", function () {
             });
         }
 
-        function onUsersFilterAppliedTest() {
-            var filterValue = [1, 2, 3, 4, 5];
-            beforeEach(function () {
-                ___model.addUserFilter = jasmine.createSpy();
-
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                view.event.onUsersFilterApplied(filterValue);
-            });
-
-            it("should call 'addUserFilter' on the model", function () {
-                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
-            });
-
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
-            });
-        }
 
         function onDateFilterAppliedTest() {
             var filterValue = {
@@ -94,7 +69,7 @@ describe("MapChartWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
+                spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
 
@@ -102,28 +77,43 @@ describe("MapChartWidgetPresenter", function () {
                 expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
             });
 
-            it("should call 'sendReloadSignal' on the channel", function () {
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 
+        function onUsersFilterAppliedTest() {
+            var filterValue = [1, 2, 3, 4, 5];
+            beforeEach(function () {
+                ___model.addUserFilter = jasmine.createSpy();
 
-        function onTabChangedTest() {
-            function prepareTabChanged() {
-                view.selectedFilter = "tab1";
-                ___model.changeFilterTab = jasmine.createSpy();
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
-                view.event.onFilterChanged();
-            }
-
-            it("should call addQuery with new value", function () {
-                prepareTabChanged();
-                expect(___model.changeFilterTab).toHaveBeenCalledWith("tab1");
+                spyOn(view, 'sendReloadCommandToChannel');
+                view.event.onUsersFilterApplied(filterValue);
             });
 
-            it("should fire reload signal on channel", function () {
-                prepareTabChanged();
-                expect(sut.widgetEventChannel.sendReloadSignal).toHaveBeenCalled();
+            it("should call 'addUserFilter' on the model", function () {
+                expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+            });
+
+            it("should call 'sendReloadCommandToChannel' on the view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
+            });
+        }
+
+        function onFilterChangedTest() {
+            beforeEach(function () {
+                ___model.changeQueryFilter = jasmine.createSpy();
+                spyOn(view, 'sendReloadCommandToChannel');
+                view.selectedFilter = "abcdef";
+                view.event.onFilterChanged();
+            });
+
+            it("should call addQuery on model", function () {
+                expect(___model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
+            });
+
+            it("should fire sendReloadCommandToChannel signal on view", function () {
+                expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
             });
         }
 

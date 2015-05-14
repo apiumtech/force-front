@@ -68,7 +68,6 @@ describe("GraphWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addDateFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onDateFilterApplied(filterValue);
             });
@@ -87,7 +86,6 @@ describe("GraphWidgetPresenter", function () {
             beforeEach(function () {
                 ___model.addUserFilter = jasmine.createSpy();
 
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 spyOn(view, 'sendReloadCommandToChannel');
                 view.event.onUsersFilterApplied(filterValue);
             });
@@ -106,7 +104,6 @@ describe("GraphWidgetPresenter", function () {
                 ___model.changeQueryFilter = jasmine.createSpy();
                 spyOn(view, 'sendReloadCommandToChannel');
                 view.selectedFilter = "abcdef";
-                spyOn(sut.widgetEventChannel, 'sendReloadSignal');
                 view.event.onFilterChanged();
             });
 

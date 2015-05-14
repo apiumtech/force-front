@@ -29,6 +29,17 @@ app.registerModel(function (container) {
 
     MapChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
+    MapChartWidgetModel.prototype.changeQueryFilter = function (filter) {
+        if (this.filters.map(function (filterValue) {
+                return filterValue.key;
+            }).indexOf(filter) == -1) {
+            this.currentFilter = this.filters[0].key;
+        }
+        else
+            this.currentFilter = filter;
+    };
+
+
     MapChartWidgetModel.prototype.getUrl = function () {
         return Configuration.api.geographicalWidgetDistributionDataApi.format(this.currentFilter);
     };
@@ -92,10 +103,6 @@ app.registerModel(function (container) {
             default         :
                 return serverData;
         }
-    };
-
-    MapChartWidgetModel.prototype.changeFilterTab = function (tabName) {
-        this.currentFilter = tabName;
     };
 
     MapChartWidgetModel.newInstance = function (ajaxService) {
