@@ -1,3 +1,7 @@
+/**
+ * Created by joanllenas 5/14/15
+ */
+
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
     var LiteralListPresenter = container.getPresenter('presenters/literal/LiteralListPresenter');
@@ -9,11 +13,13 @@ app.registerView(function (container) {
     /**
      * LiteralListView
      */
-    function LiteralListView($scope, $model, $presenter, dataTableService, templateParser) {
+    function LiteralListView($scope, $model, $presenter, dataTableService, templateParser, $compile) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
+        this.$compile = $compile;
+
         this.data.tableColumns = null;
         this.data.literals = null;
         this.data.table = null;
@@ -126,7 +132,10 @@ app.registerView(function (container) {
             columnDefs: [
                 {
                     targets: 0,
-                    render: self.renderKeyColumn.bind(self)
+                    render: self.renderKeyColumn.bind(self),
+                    createdCell: function(cell, cellData, rowData, rowIndex, colIndex){
+                        self.$compile(cell)(self.$scope);
+                    }
                 }
             ],
             deferRender: true,
@@ -162,14 +171,14 @@ app.registerView(function (container) {
     /**
      * Static module factory
      */
-    LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
+    LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $compile, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
         var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
         var dataTableService = $dataTableService || DataTableService.newInstance();
         var templateParser = $templateParser || SimpleTemplateParser.newInstance();
 
-        var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser);
+        var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser, $compile);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

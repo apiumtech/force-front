@@ -1,42 +1,26 @@
 /**
- * Created by kevin on 10/22/14.
+ * Created by joanllenas 5/14/15
  */
 
 app.registerPresenter(function (container) {
 
-    /**
-     * @constructor
-     */
+
     function LiteralPresenter($window) {
         this.$window = $window;
     }
 
-
-    /**
-     * show()
-     */
-    LiteralPresenter.prototype.show = function (view, model) {
+    var proto = LiteralPresenter.prototype;
+    
+    
+    proto.show = function (view, model) {
         this.view = view;
         this.model = model;
+
+        view.event.isNew = model.isNew.bind(model);
     };
 
 
-    /**
-     * onSave()
-     */
-    LiteralPresenter.prototype.updateLiteral = function(literal){
-        var view = this.view;
-        this.model.changeLiteralDetails(literal).then(
-            view.goBack.bind(view),
-            view.showError.bind(view)
-        );
-    };
-
-
-    /**
-     * getLiteralById()
-     */
-    LiteralPresenter.prototype.getLiteralById = function (id) {
+    proto.getLiteralById = function (id) {
         var view = this.view;
         this.model.getLiteralById( id ).then(
             view.showForm.bind(view),
@@ -45,9 +29,24 @@ app.registerPresenter(function (container) {
     };
 
 
-    /**
-     * newInstance()
-     */
+    proto.updateLiteral = function(literal){
+        var view = this.view;
+        this.model.changeLiteralDetails(literal).then(
+            view._goBack.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
+    proto.createLiteral = function(literal){
+        var view = this.view;
+        thisreateLiterallDetails(literal).then(
+            view._goBack.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
     LiteralPresenter.newInstance = function ($window) {
         $window = $window || window;
         return Some(new LiteralPresenter($window));

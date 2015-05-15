@@ -1,69 +1,37 @@
+/**
+ * Created by joanllenas 5/14/15
+ */
+
 app.registerModel(function (container) {
     var LiteralService = container.getService('services/LiteralService');
 
-
-    // ----------------------------------------
-    //
-    //  CONSTRUCTOR
-    //
-    // ----------------------------------------
 
     function LiteralModel(literalService) {
         this.literalService = literalService;
     }
 
+    var proto = LiteralModel.prototype;
 
-    // ----------------------------------------
-    //
-    //  API
-    //
-    // ----------------------------------------
 
-    /**
-     * createLiteral()
-     */
-    LiteralModel.prototype.createLiteral = function (literal) {
-        return this.literalService.createLiteral(literal);
+    proto.createLiteral = function(literal) { return this.literalService.createLiteral(literal); };
+
+    proto.changeLiteralDetails = function(literal) { return this.literalService.changeLiteralDetails(literal); };
+
+    proto.deleteLiteral = function(id) { return this.literalService.deleteLiteral(id); };
+
+    proto.getLiteralById = function(id) {
+        var literalStub = { Id: id };
+        if( this.isNew(literalStub) ) {
+            return this.literalService.getNullLiteral();
+        } else {
+            return this.literalService.getLiteralById(id);
+        }
     };
 
+    proto.getLanguageList = function() { return this.literalService.getLanguageList(); };
 
-    /**
-     * changeLiteralDetails()
-     */
-    LiteralModel.prototype.changeLiteralDetails = function (literal) {
-        return this.literalService.changeLiteralDetails(literal);
-    };
+    proto.isNew = function(literal) { return literal == null || literal.Id == null; };
 
-
-    /**
-     * deleteLiteral()
-     */
-    LiteralModel.prototype.deleteLiteral = function (id) {
-        return this.literalService.deleteLiteral(id);
-    };
-
-
-    /**
-     * getLiteralById()
-     */
-    LiteralModel.prototype.getLiteralById = function (id) {
-        return this.literalService.getLiteralById(id);
-    };
-
-
-    /**
-     * getLanguageList()
-     */
-    LiteralModel.prototype.getLanguageList = function () {
-        return this.literalService.getLanguageList();
-    };
-
-
-    // ----------------------------------------
-    //
-    //  FACTORY
-    //
-    // ----------------------------------------
 
     LiteralModel.newInstance = function (literalService) {
         literalService = literalService || LiteralService.newInstance();

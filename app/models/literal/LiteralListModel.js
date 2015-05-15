@@ -1,3 +1,7 @@
+/**
+ * Created by joanllenas 5/14/15
+ */
+
 app.registerModel(function (container) {
     var Configuration = container.getService('Configuration');
     var LiteralService = container.getService('services/LiteralService');

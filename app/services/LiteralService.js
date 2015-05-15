@@ -1,3 +1,7 @@
+/**
+ * Created by joanllenas 5/14/15
+ */
+
 app.registerService(function (container) {
     var Configuration = container.getService('Configuration');
     var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
@@ -16,7 +20,7 @@ app.registerService(function (container) {
         this.storageService = storageService;
     }
 
-    LiteralService.prototype = Object.create(Object.prototype, {});
+    var proto = LiteralService.prototype = Object.create(Object.prototype, {});
 
 
 
@@ -26,18 +30,22 @@ app.registerService(function (container) {
     //
     // ----------------------------------------
 
-
-    /**
-     * createLiteral()
-     */
-    LiteralService.prototype.createLiteral = function () {
+    proto._createLiteralBody = function(literal){
         var body = {
-            "key" : "aaaa",//key del literal
-            "values" : {// uno o más valores
-                "es-es" : "vvvv1",
-                "en-us" : "vvvv2"
-            }
+            key : literal.Key,
+            values : {}
         };
+
+        literal.LanguageValues.forEach(function (lang) {
+            body.values[lang.Key] = lang.Value;
+        });
+
+        return body;
+    };
+
+    proto.createLiteral = function (literal) {
+        var body = this._createLiteralBody(literal);
+
         return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.createLiteral,
             data: body,
@@ -48,26 +56,15 @@ app.registerService(function (container) {
     };
 
 
-    /**
-     * changeLiteralDetails()
-     */
-    LiteralService.prototype.changeLiteralDetails = function (literal) {
-        var languageValues = [];
-        literal.LanguageValues.forEach(function (lang) {
-            var langObj = {};
-            langObj[lang.Key] = lang.Value;
-            languageValues.push(langObj);
-        });
+    proto.changeLiteralDetails = function (literal) {
+        assertNotNull("Id", literal.Id);
 
-        var body = {
-            "id": literal.Id,
-            "key" : literal.Key,//key del literal
-            "values" : languageValues
-        };
+        var body = this._createLiteralBody(literal);
+        body.id = literal.Id;
 
         var params = {
             url: Configuration.api.changeLiteralDetails,
-            data: JSON.stringify(body),
+            data: body,
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json'
@@ -77,10 +74,8 @@ app.registerService(function (container) {
     };
 
 
-    /**
-     * deleteLiteral()
-     */
-    LiteralService.prototype.deleteLiteral = function (id) {
+    proto.deleteLiteral = function (id) {
+        assertNotNull("id", id);
         var body = {
             "id": id
         };
@@ -101,11 +96,7 @@ app.registerService(function (container) {
     //
     // ----------------------------------------
 
-
-    /**
-     * getLiteralList()
-     */
-    LiteralService.prototype.getLiteralList = function (searchTerm, skip, limit) {
+    proto.getLiteralList = function (searchTerm, skip, limit) {
         var body = "search="+ encodeURIComponent(searchTerm) +
             "&skip="+ skip +
             "&limit="+ limit;
@@ -119,10 +110,7 @@ app.registerService(function (container) {
     };
 
 
-    /**
-     * getLiteralDictionary()
-     */
-    LiteralService.prototype.getLiteralDictionary = function (lang, implementationCode) {
+    proto.getLiteralDictionary = function (lang, implementationCode) {
         lang = lang || Configuration.defaultLiteralLang;
         implementationCode = implementationCode || "";
 
@@ -142,44 +130,96 @@ app.registerService(function (container) {
     // ----------------------------------------
 
 
-    /**
-     * getLiteralById()
-     */
-    LiteralService.prototype.getLiteralById = function (id) {
-        if(id===null){
-            return this._getNullLiteral();
-        } else {
-            return this._getActualLiteralById(id);
-        }
+    proto._mergeLanguagesWithLiteral = function(literal) {
+        var deferred = Q.defer();
+
+        literal.LanguageValues = literal.LanguageValues || [];
+
+        var languagesToAdd = [];
+        this.getLanguageList().then(
+            function(languageList) {
+                languageList.forEach(function(langListItem){
+                    var languageIsFound = false;
+                    if(literal.LanguageValues.length) {
+                        languageIsFound = literal.LanguageValues.every(function (langValue) {
+                            console.log(langListItem.Name, "===", langValue.Key);
+                            return langListItem.Name === langValue.Key;
+                        });
+                    }
+                    if(!languageIsFound) {
+                        languagesToAdd.push({ Key:langListItem.Name, Value:"" });
+                    }
+                });
+                console.log("languagesToAdd", languagesToAdd);
+                literal.LanguageValues = literal.LanguageValues.concat(languagesToAdd);
+                deferred.resolve(literal);
+            },
+            function(err){ deferred.reject(err); }
+        );
+
+        return deferred.promise;
     };
 
-    LiteralService.prototype._getNullLiteral = function () {
+
+    proto.getLiteralById = function (id) {
         var deferred = Q.defer();
+        var self = this;
+
+        var body = "id=" + id;
+        this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalById,
+            data: body,
+            type: 'GET',
+            dataType: 'json'
+        }).then(
+            function(literal) {
+                self._mergeLanguagesWithLiteral(literal).then(
+                    function(mergedLiteral){
+                        deferred.resolve(mergedLiteral);
+                    }
+                )
+            },
+            function(err){ deferred.reject(err); }
+        );
+
+        return deferred.promise;
+    };
+
+
+    proto.getNullLiteral = function () {
+        var deferred = Q.defer();
+
         var nullLiteral = {
             DeviceCategories: [],
             DeviceTypes: [],
             Id: null,
             Key: "",
-            LanguageValues:[
-                {Key:"es-es",Value:""},
-                {Key:"en-us","Value":""}
-            ],
+            LanguageValues:[],
             LiteralType: null,
             OldKey:""
         };
-        setTimeout(deferred.resolve.bind(deferred), 100, nullLiteral);
+
+        this._mergeLanguagesWithLiteral(nullLiteral).then(
+            function(mergedLiteral){
+                deferred.resolve(mergedLiteral);
+            }
+        );
+
+        /*this.getLanguageList().then(
+            function(data){
+                data.forEach(function(lang){
+                    nullLiteral.LanguageValues.push(
+                        { Key:lang.Name, Value:"" }
+                    );
+                });
+                deferred.resolve(nullLiteral);
+            },
+            function(err){ deferred.reject(err); }
+        );*/
+
         return deferred.promise;
     };
 
-    LiteralService.prototype._getActualLiteralById = function (id) {
-        var body = "id=" + id;
-        return this.ajaxService.rawAjaxRequest({
-            url: Configuration.api.literalById,
-            data: body,
-            type: 'GET',
-            dataType: 'json'
-        });
-    };
 
 
     // ----------------------------------------
@@ -188,18 +228,13 @@ app.registerService(function (container) {
     //
     // ----------------------------------------
 
-
-    /**
-     * getLanguageList()
-     */
-    LiteralService.prototype.getLanguageList = function () {
+    proto.getLanguageList = function () {
         return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.languageList,
             type: 'GET',
             dataType: 'json'
         });
     };
-
 
 
 
