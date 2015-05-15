@@ -49,25 +49,23 @@ app.registerPresenter(function (container) {
         self.rebindChannelListener();
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
-            model.changeFilterTab(view.selectedFilter);
             view.data = {};
             self._executeLoadWidget();
         };
 
         view.event.onFilterChanged = function () {
-            model.changeFilterTab(view.selectedFilter);
-            self.widgetEventChannel.sendReloadSignal();
+            model.changeQueryFilter(view.selectedFilter);
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onDateFilterApplied = function (filterValue) {
             model.addDateFilter(filterValue.dateStart, filterValue.dateEnd);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onUsersFilterApplied = function (filterValue) {
             model.addUserFilter(filterValue);
-            self.widgetEventChannel.sendReloadSignal();
+            view.sendReloadCommandToChannel();
         };
     };
 

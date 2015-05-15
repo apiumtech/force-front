@@ -133,8 +133,7 @@ describe("MapChartWidgetView", function () {
 
         [
             {selectedFilter: "checkins", method: "applyHeatLayer"},
-            {selectedFilter: "users", method: "createUserMap"},
-            {selectedFilter: "activity", method: "createPointMap"}
+            {selectedFilter: "users", method: "createUserMap"}
         ].forEach(function (test) {
                 var filter = test.selectedFilter;
                 var method = test.method;

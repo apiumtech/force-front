@@ -152,6 +152,8 @@ app.registerView(function (container) {
                 r.push(rowData[columnIndex]);
             }
 
+            console.log('data', rowData);
+
             return r;
         });
 
@@ -162,6 +164,7 @@ app.registerView(function (container) {
         var self = this;
         var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
         self.dataSource = self.getDisplayData(self.data.data, displayColumnIndices);
+        console.log(self.dataSource);
     };
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {

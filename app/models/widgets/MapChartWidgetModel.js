@@ -10,6 +10,7 @@ app.registerModel(function (container) {
 
     function MapChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
+
         this.currentFilter = 'checkins';
         this.filters = [{
             name: 'Users',
@@ -28,20 +29,80 @@ app.registerModel(function (container) {
 
     MapChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
 
-    MapChartWidgetModel.prototype.getUrl = function(){
+    MapChartWidgetModel.prototype.changeQueryFilter = function (filter) {
+        if (this.filters.map(function (filterValue) {
+                return filterValue.key;
+            }).indexOf(filter) == -1) {
+            this.currentFilter = this.filters[0].key;
+        }
+        else
+            this.currentFilter = filter;
+    };
+
+
+    MapChartWidgetModel.prototype.getUrl = function () {
         return Configuration.api.geographicalWidgetDistributionDataApi.format(this.currentFilter);
     };
 
     MapChartWidgetModel.prototype.__baseReload = WidgetBase.prototype._reload;
-    MapChartWidgetModel.prototype._reload = function(){
-        return this.__baseReload().then(this.decorateServerData.bind(this));
+    MapChartWidgetModel.prototype._reload = function () {
+        var self = this;
+
+        return self.__baseReload().then(self.decorateServerData.bind(self));
+    };
+
+    MapChartWidgetModel.prototype.decorateCheckins = function (serverData) {
+        var responseData = {
+            data: {
+                params: [],
+                filters: this.filters
+            }
+        };
+
+        var outputArray = serverData.Series[0].Points.map(function (record) {
+            return {
+                Latitude: record.Y,
+                Longitude: record.X,
+                Activity: record.Checkins
+            };
+        });
+
+        responseData.data.params = outputArray;
+
+        return responseData;
+    };
+
+    MapChartWidgetModel.prototype.decorateUsers = function (serverData) {
+        var responseData = {
+            data: {
+                params: [],
+                filters: this.filters
+            }
+        };
+
+        var outputArray = serverData.Series[0].Points.map(function (record) {
+            return {
+                Latitude: record.Y,
+                Longitude: record.X,
+                FullName: record.Name + " " + record.Surname
+            };
+        });
+
+        responseData.data.params = outputArray;
+
+        return responseData;
     };
 
     MapChartWidgetModel.prototype.decorateServerData = function (serverData) {
-    };
-
-    MapChartWidgetModel.prototype.changeFilterTab = function (tabName) {
-        this.currentFilter = tabName;
+        var self = this;
+        switch (self.currentFilter) {
+            case 'checkins' :
+                return self.decorateCheckins(serverData);
+            case 'users' :
+                return self.decorateUsers(serverData);
+            default         :
+                return serverData;
+        }
     };
 
     MapChartWidgetModel.newInstance = function (ajaxService) {
@@ -50,4 +111,5 @@ app.registerModel(function (container) {
     };
 
     return MapChartWidgetModel;
-});
+})
+;
