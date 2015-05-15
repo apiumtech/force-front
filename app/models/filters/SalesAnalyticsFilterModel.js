@@ -4,16 +4,12 @@
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
     var AjaxService = container.getService("services/ajax/AuthAjaxService");
-    // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-    var FakeAjaxService = container.getService("services/FakeAjaxService");
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
     var _ = container.getFunction("underscore");
 
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
-        // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-        this.fakeAjaxService = FakeAjaxService.newInstance();
         this.storageService = storageService;
         this.currentQuery = 'Environment';
     }
@@ -36,12 +32,7 @@ app.registerModel(function (container) {
             accept: 'application/json'
         };
 
-        // TODO: Remove when have correct contract
-        var ajaxService = self.currentQuery === 'Environment' ? self.ajaxService : self.fakeAjaxService;
-
-        if (self.currentQuery !== 'Environment') {
-            params.result = '[{"id":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",            "name":"jc-addded---blahblah",                "idParent":"-1",                "isTeamLeader":false},        {"id":"56FE524B-23CD-40AC-9979-E6FFA9BD5D13",            "name":"Jose Luis Garcia",            "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",            "isTeamLeader":true,            "children":[{"id":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",            "name":"jc-addded---blahblah",            "idParent":"-1",            "isTeamLeader":false},            {"id":"56FE524B-23CD-40AC-9979-E6FFA9BD5D13",                "name":"Jose Luis Garcia",                "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                "isTeamLeader":true,                "children":[{"id":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                    "name":"jc-addded---blahblah",                    "idParent":"-1",                    "isTeamLeader":false},                    {"id":"56FE524B-23CD-40AC-9979-E6FFA9BD5D13",                        "name":"Jose Luis Garcia",                        "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                        "isTeamLeader":true},                    {"id":"14195428-31A7-4302-8B00-8387A78EBDB7",                        "name":"Laura Del Monte Oscuro",                        "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                        "isTeamLeader":false}]},            {"id":"56F61AB3-9B78-4FEF-B7C1-F257DF2954C9",                "name":"Antonia Marin",                "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                "isTeamLeader":false},            {"id":"14195428-31A7-4302-8B00-8387A78EBDB7",                "name":"Laura Del Monte Oscuro",                "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",                "isTeamLeader":false}]},        {"id":"56F61AB3-9B78-4FEF-B7C1-F257DF2954C9",            "name":"Antonia Marin",            "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",            "isTeamLeader":false},        {"id":"14195428-31A7-4302-8B00-8387A78EBDB7",            "name":"Laura Del Monte Oscuro",            "idParent":"8AD6BC42-1956-4902-9E1A-2FD1FCF8118A",            "isTeamLeader":false}]';
-        }
+        var ajaxService = self.ajaxService ;
 
         var deferred = self.defer();
 
@@ -81,13 +72,13 @@ app.registerModel(function (container) {
                 if (key == '-1') { // move all the 2nd level nodes to the 1st one
                     _.each(value, function (record) {
 
-                        if (groupedData['' + record.id + ''] != undefined) {
+                        if (groupedData['' + record.id + '']) {
                             record.children = groupedData['' + record.id + ''];
                         }
                     });
                 } else {
                     _.each(value, function (record) {
-                        if (groupedData['' + record.id + ''] != undefined) {
+                        if (groupedData['' + record.id + '']) {
                             record.children = groupedData['' + record.id + ''];
                         }
                     });
@@ -98,10 +89,6 @@ app.registerModel(function (container) {
         }
         return data.data;
     };
-
-    SalesAnalyticsFilterModel.prototype.getDecoratedRecordById = function (decoratedData, id) {
-
-    }
 
     SalesAnalyticsFilterModel.prototype.defer = function () {
         var deferred = Q.defer();
