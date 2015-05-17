@@ -1,6 +1,7 @@
 /**
  * Created by Justin on 2/5/2015.
  */
+
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
     var AjaxService = container.getService("services/ajax/AuthAjaxService");
@@ -32,7 +33,7 @@ app.registerModel(function (container) {
             accept: 'application/json'
         };
 
-        var ajaxService = self.ajaxService ;
+        var ajaxService = self.ajaxService;
 
         var deferred = self.defer();
 
