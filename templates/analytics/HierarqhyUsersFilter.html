@@ -1,35 +1,3 @@
-<accordion class="users-filter-list clearfix" close-others="false">
-    <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
-                     class="clearfix">
-        <accordion-heading class="clearfix">
-            <i class="pull-left fa environment-collapse-icon"
-               ng-class="{'fa-caret-down': group.isOpen, 'fa-caret-right': !group.isOpen}"></i>
-
-            <input type="checkbox"
-                   tri-state-check-box
-                   ng-model="group.checked"
-                   ng-change="fn.groupSelectAllChanged(group)"
-                   ng-click="$event.stopPropagation()"
-                   class="pull-left m-l-10 ">
-
-            <div class="pull-left m-l-10">
-                <strong>{{group.name}}</strong>
-            </div>
-        </accordion-heading>
-        <div class="some-where-to-put-some-code"></div>
-        <ul>
-            <li class="clearfix" ng-repeat="user in group.children">
-                <input type="checkbox"
-                       value="{{user.id}}"
-                       ng-model="user.checked"
-                       ng-change="fn.userSelectionChanged()"
-                       ng-click="$event.stopPropagation()"
-                       class="pull-left m-t-10 m-r-10 ">
-
-                <div class="pull-left m-t-5">
-                    {{user.name}}
-                </div>
-            </li>
-        </ul>
-    </accordion-group>
+<accordion class="users-filter-list team-view clearfix" close-others="false">
+    <div tree-list="userFiltered"></div>
 </accordion>

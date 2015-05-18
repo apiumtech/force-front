@@ -1,0 +1,28 @@
+<accordion-group ng-repeat="item in treeList"
+                 is-open="item.isOpen" is-disabled="!item.children"
+                 class="clearfix">
+    <accordion-heading class="clearfix">
+
+        <div class="item-box col-xs-8">
+
+            <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
+               ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
+
+            <i ng-if="item.children && item.idParent == -1" class="fa fa-star pull-left m-t-2 m-l-10 m-r-10"></i>
+            <i ng-if="item.children && item.idParent !== -1" class="fa fa-train pull-left m-t-2 m-l-10 m-r-10"></i>
+            <i ng-if="!item.children && item.idParent == -1"
+               class="glyphicon glyphicon-user pull-left m-t-2 m-l-20 m-r-10"></i>
+
+
+            <div class="m-l-10"><strong>{{item.name}}</strong></div>
+        </div>
+
+        <div class="select-box text-center col-xs-3 col-xs-offset-1">
+            <a ng-if="item.children" href="#" class="clearfix">SELECT TEAM</a>
+        </div>
+    </accordion-heading>
+
+    <accordion>
+        <div tree-list="item.children"></div>
+    </accordion>
+</accordion-group>

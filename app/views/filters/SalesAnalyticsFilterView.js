@@ -11,9 +11,13 @@ app.registerView(function (container) {
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
     var moment = container.getFunction('moment');
 
+    var angular = container.getFunction('angular');
+
     var _ = container.getFunction("underscore");
 
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
+        var $compile = angular.compile;
+        console.log('test compile: ', $compile);
         BaseView.call(this, $scope, $model, $presenter);
         this.filter = $filter;
         this.$compileService = $scope.$compile || {};

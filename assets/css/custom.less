@@ -376,7 +376,7 @@ span.panel-loading.isLoading {
   background: rgba(255, 255, 255, 0.6);
 }
 
-.users-filter-list {
+.users-filter-list.environment {
   .environment-collapse-icon {
     float: left;
   }
@@ -417,6 +417,48 @@ span.panel-loading.isLoading {
   }
 
   .panel-collapse {
+  }
+}
+
+.users-filter-list.team-view {
+  .panel-heading {
+
+    .environment-collapse-icon {
+      font-size: 1.3em;
+    }
+
+    .item-box{
+      background: rgba(0,0,0,0.05);
+      padding: 5px 0 0 10px;
+    }
+
+    .select-box{
+      a {
+        font-size: .7em;
+        padding: 2px !important;
+        border: 1px solid #000;
+        color: #000;
+        border-radius: 4px;
+      }
+    }
+
+    border: none !important;
+    padding: 2px;
+    background: #FFF !important;
+    a {
+      padding: 4px 15px !important;
+      text-transform: none !important;
+      color: rgba(0, 0, 0, .8);
+
+      div {
+        padding: 2px 0 4px 0;
+      }
+
+      &.accordion-toggle {
+        overflow: hidden;
+        margin-bottom: 0 !important;
+      }
+    }
   }
 }
 

@@ -214,6 +214,11 @@ function main() {
             'directives/TriStateCheckBoxDirective',
             'directives/ForceDatePickerDirective',
 
+            //Tree
+
+            'directives/tree/TreeListDirective',
+            'directives/tree/TreeNodeDirective',
+            'views/tree/TreeNodeView',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',
