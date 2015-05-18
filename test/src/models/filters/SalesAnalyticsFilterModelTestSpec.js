@@ -145,220 +145,6 @@ describe("SalesAnalyticsFilterModel", function () {
         });
     });
 
-
-    //region decoratingDataUsingEnvironmentMethod test
-    describe("decoratingDataUsingEnvironmentMethod()", function () {
-        it("should return correct grouped values", function () {
-            var serverResponse = [
-                {
-                    "id": "Group-1",
-                    "idParent": "-1",
-                    "name": "Group1-Name"
-                },
-                {
-                    "id": "Group-1-child-1",
-                    "idParent": "Group-1",
-                    "name": "Group1-child-1-Name"
-                },
-                {
-                    "id": "Group-1-child-2",
-                    "idParent": "Group-1",
-                    "name": "Group1-child-2-Name"
-                },
-                {
-                    "id": "Group-2",
-                    "idParent": "-1",
-                    "name": "Group2-Name"
-                },
-                {
-                    "id": "Group-2-child-1",
-                    "idParent": "Group-2",
-                    "name": "Group2-child-1-Name"
-                },
-                {
-                    "id": "Group-2-child-2",
-                    "idParent": "Group-2",
-                    "name": "Group2-child-2-Name"
-                }
-            ];
-
-            var expected = [{
-                id: "Group-1",
-                group: "Group1-Name",
-                children: [
-                    {
-                        "id": "Group-1-child-1",
-                        "idParent": "Group-1",
-                        "name": "Group1-child-1-Name",
-                        "checked": false
-                    },
-                    {
-                        "id": "Group-1-child-2",
-                        "idParent": "Group-1",
-                        "name": "Group1-child-2-Name",
-                        "checked": false
-                    }
-                ]
-            }, {
-                id: "Group-2",
-                group: "Group2-Name",
-                children: [
-                    {
-                        "id": "Group-2-child-1",
-                        "idParent": "Group-2",
-                        "name": "Group2-child-1-Name",
-                        "checked": false
-                    },
-                    {
-                        "id": "Group-2-child-2",
-                        "idParent": "Group-2",
-                        "name": "Group2-child-2-Name",
-                        "checked": false
-                    }
-                ]
-            }];
-
-            var actual = sut.decoratingDataUsingEnvironmentMethod(serverResponse);
-            expect(actual).toEqual(expected);
-        });
-    });
-    //endregion decoratingDataUsingEnvironmentMethod test
-
-    //region decoratingDataUsingHierarqhyMethod test
-    describe("decoratingDataUsingHierarqhyMethod()", function () {
-
-        it("should return correct output", function () {
-            var input = [
-                {
-                    "id": 1,
-                    "name": "A",
-                    "idParent": -1
-                },
-                {
-                    "id": 2,
-                    "name": "B",
-                    "idParent": -1
-                },
-                {
-                    "id": 3,
-                    "name": "C",
-                    "idParent": -1
-                },
-                {
-                    "id": 4,
-                    "name": "D",
-                    "idParent": -1
-                },
-                {
-                    "id": 5,
-                    "name": "Child of A",
-                    "idParent": 1
-                },
-                {
-                    "id": 6,
-                    "name": "Child of B 1",
-                    "idParent": 2
-                },
-                {
-                    "id": 7,
-                    "name": "Child of B 2",
-                    "idParent": 2
-                },
-                {
-                    "id": 8,
-                    "name": "Child of D 1",
-                    "idParent": 4
-                },
-                {
-                    "id": 9,
-                    "name": "Child of D 2",
-                    "idParent": 4
-                },
-                {
-                    "id": 10,
-                    "name": "Child of Child of D 2",
-                    "idParent": 9
-                },
-                {
-                    "id": 11,
-                    "name": "Child of Child of Child of D 2",
-                    "idParent": 10
-                }];
-
-            var expected = [
-                {
-                    "id": 1,
-                    "name": 'A',
-                    "idParent": -1,
-                    "children": [
-                        {
-                            "id": 5,
-                            "name": "Child of A",
-                            "idParent": 1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "name": "B",
-                    "idParent": -1,
-                    children: [
-                        {
-                            "id": 6,
-                            "name": "Child of B 1",
-                            "idParent": 2
-                        },
-                        {
-                            "id": 7,
-                            "name": "Child of B 2",
-                            "idParent": 2
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "name": "C",
-                    "idParent": -1
-                },
-                {
-                    "id": 4,
-                    "name": "D",
-                    "idParent": -1,
-                    children: [
-                        {
-                            "id": 8,
-                            "name": "Child of D 1",
-                            "idParent": 4
-                        },
-                        {
-                            "id": 9,
-                            "name": "Child of D 2",
-                            "idParent": 4,
-                            children: [
-                                {
-                                    "id": 10,
-                                    "name": "Child of Child of D 2",
-                                    "idParent": 9,
-                                    children: [
-                                        {
-                                            "id": 11,
-                                            "name": "Child of Child of Child of D 2",
-                                            "idParent": 10
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ];
-            var output = sut.decoratingDataUsingHierarqhyMethod(input);
-            expect(output).toEqual(expected);
-        });
-
-    });
-    //endregion decoratingDataUsingHierarqhyMethod test
-
     describe('decorateData', function () {
         describe('data is empty', function () {
             it("should return data empty error", function () {
@@ -369,30 +155,138 @@ describe("SalesAnalyticsFilterModel", function () {
             });
         });
 
-        beforeEach(function () {
-            var decoratingMethods = Object.keys(Object.getPrototypeOf(sut)).filter(function (methodName) {
-                return methodName.match(/^(decoratingData)+/);
-            });
+        describe('has value in server response', function () {
+            it("should decorate the data into tree", function () {
+                var input = [
+                    {
+                        "id": 1,
+                        "name": "A",
+                        "idParent": -1
+                    },
+                    {
+                        "id": 2,
+                        "name": "B",
+                        "idParent": -1
+                    },
+                    {
+                        "id": 3,
+                        "name": "C",
+                        "idParent": -1
+                    },
+                    {
+                        "id": 4,
+                        "name": "D",
+                        "idParent": -1
+                    },
+                    {
+                        "id": 5,
+                        "name": "Child of A",
+                        "idParent": 1
+                    },
+                    {
+                        "id": 6,
+                        "name": "Child of B 1",
+                        "idParent": 2
+                    },
+                    {
+                        "id": 7,
+                        "name": "Child of B 2",
+                        "idParent": 2
+                    },
+                    {
+                        "id": 8,
+                        "name": "Child of D 1",
+                        "idParent": 4
+                    },
+                    {
+                        "id": 9,
+                        "name": "Child of D 2",
+                        "idParent": 4
+                    },
+                    {
+                        "id": 10,
+                        "name": "Child of Child of D 2",
+                        "idParent": 9
+                    },
+                    {
+                        "id": 11,
+                        "name": "Child of Child of Child of D 2",
+                        "idParent": 10
+                    }];
 
-            decoratingMethods.forEach(function (method) {
-                spyOn(sut, method);
+                var expected = [
+                    {
+                        "id": 1,
+                        "name": 'A',
+                        "idParent": -1,
+                        "children": [
+                            {
+                                "id": 5,
+                                "name": "Child of A",
+                                "idParent": 1
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "name": "B",
+                        "idParent": -1,
+                        children: [
+                            {
+                                "id": 6,
+                                "name": "Child of B 1",
+                                "idParent": 2
+                            },
+                            {
+                                "id": 7,
+                                "name": "Child of B 2",
+                                "idParent": 2
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "name": "C",
+                        "idParent": -1
+                    },
+                    {
+                        "id": 4,
+                        "name": "D",
+                        "idParent": -1,
+                        children: [
+                            {
+                                "id": 8,
+                                "name": "Child of D 1",
+                                "idParent": 4
+                            },
+                            {
+                                "id": 9,
+                                "name": "Child of D 2",
+                                "idParent": 4,
+                                children: [
+                                    {
+                                        "id": 10,
+                                        "name": "Child of Child of D 2",
+                                        "idParent": 9,
+                                        children: [
+                                            {
+                                                "id": 11,
+                                                "name": "Child of Child of Child of D 2",
+                                                "idParent": 10
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ];
+                spyOn(sut.arrayHelper, 'makeTree').and.callThrough();
+                var output = sut.decorateData(input);
+                expect(sut.arrayHelper.makeTree).toHaveBeenCalledWith(input, 'idParent', 'id', 'children', -1);
+                expect(output).toEqual(expected);
             });
         });
-
-        [{
-            query: 'Environment', expectedCallMethod: 'decoratingDataUsingEnvironmentMethod'
-        }, {
-            query: 'Hierarqhy', expectedCallMethod: 'decoratingDataUsingHierarqhyMethod'
-        }].forEach(function (testCase) {
-                it("should call '" + testCase.expectedCallMethod + "' to decorate when query is '" + testCase.query + "'", function () {
-                    var data = [{
-                        msg: "some fake data"
-                    }];
-                    sut.currentQuery = testCase.query;
-                    sut.decorateData(data);
-                    expect(sut[testCase.expectedCallMethod]).toHaveBeenCalledWith(data);
-                });
-            });
     });
 
     describe("getFilteredData", function () {
@@ -471,7 +365,10 @@ describe("SalesAnalyticsFilterModel", function () {
             var input = [
                 {
                     "id": 1,
-                    "group": "Antonio",
+                    "name": "Antonio",
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    "checked": false,
                     "children": [{
                         "id": 3,
                         "name": "Beck",
@@ -488,7 +385,10 @@ describe("SalesAnalyticsFilterModel", function () {
                 },
                 {
                     "id": 2,
-                    "group": "Kevin",
+                    "name": "Kevin",
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    "checked": false,
                     "children": [{
                         "id": 5,
                         "name": "Thomas",
@@ -504,10 +404,13 @@ describe("SalesAnalyticsFilterModel", function () {
                     }]
                 }
             ];
-            var expectedOutput = [
+            var output = [
                 {
                     "id": 1,
-                    "group": "Antonio",
+                    "name": "Antonio",
+                    "idParent": -1,
+                    "isEnvironment": true,
+                    "checked": false,
                     "children": [{
                         "id": 4,
                         "name": "Victoria",
@@ -518,7 +421,10 @@ describe("SalesAnalyticsFilterModel", function () {
                 },
                 {
                     "id": 2,
-                    "group": "Kevin",
+                    "name": "Kevin",
+                    "idParent": -1,
+                    "checked": false,
+                    "isEnvironment": true,
                     "children": [{
                         "id": 5,
                         "name": "Thomas",
@@ -528,8 +434,10 @@ describe("SalesAnalyticsFilterModel", function () {
                     }]
                 }
             ];
+            spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
             var filteredData = sut.getFilteredDataForEnvironment(input, searchQuery);
-            expect(filteredData).toEqual(expectedOutput);
+            expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+            expect(filteredData).toEqual(output);
         });
     });
 
@@ -540,7 +448,7 @@ describe("SalesAnalyticsFilterModel", function () {
                 {
                     "id": 1,
                     "name": "Antonio",
-                    "idParent" : -1,
+                    "idParent": -1,
                     "checked": false,
                     "children": [{
                         "id": 3,
@@ -551,6 +459,7 @@ describe("SalesAnalyticsFilterModel", function () {
                         "id": 4,
                         "name": "Victoria",
                         "idParent": 1,
+                        "checked": false,
                         "children": [
                             {
                                 "id": 41,
@@ -564,14 +473,13 @@ describe("SalesAnalyticsFilterModel", function () {
                                 "idParent": 4,
                                 "checked": false
                             }
-                        ],
-                        "checked": false
+                        ]
                     }]
                 },
                 {
                     "id": 2,
                     "name": "Kevin",
-                    "idParent" : -1,
+                    "idParent": -1,
                     "checked": false,
                     "children": [{
                         "id": 5,
@@ -582,11 +490,13 @@ describe("SalesAnalyticsFilterModel", function () {
                         "id": 6,
                         "name": "Cindy",
                         "idParent": 2,
+                        "checked": false,
                         "children": [
                             {
                                 "id": 61,
                                 "name": "Alex",
                                 "idParent": 6,
+                                "checked": false,
                                 "children": [
                                     {
                                         "id": 611,
@@ -594,11 +504,9 @@ describe("SalesAnalyticsFilterModel", function () {
                                         "idParent": 61,
                                         "checked": false
                                     }
-                                ],
-                                "checked": false
+                                ]
                             }
-                        ],
-                        "checked": false
+                        ]
                     }]
                 }
             ];
@@ -606,12 +514,13 @@ describe("SalesAnalyticsFilterModel", function () {
                 {
                     "id": 1,
                     "name": "Antonio",
-                    "idParent" : -1,
+                    "idParent": -1,
                     "checked": false,
                     "children": [{
                         "id": 4,
                         "name": "Victoria",
                         "idParent": 1,
+                        "checked": false,
                         "children": [
                             {
                                 "id": 42,
@@ -619,30 +528,30 @@ describe("SalesAnalyticsFilterModel", function () {
                                 "idParent": 4,
                                 "checked": false
                             }
-                        ],
-                        "checked": false
+                        ]
                     }]
                 },
                 {
                     "id": 2,
                     "name": "Kevin",
-                    "idParent" : -1,
+                    "idParent": -1,
                     "checked": false,
                     "children": [{
                         "id": 5,
                         "name": "Thomas",
                         "idParent": 2,
-                        "isEnvironment": false,
                         "checked": false
                     }, {
                         "id": 6,
                         "name": "Cindy",
                         "idParent": 2,
+                        "checked": false,
                         "children": [
                             {
                                 "id": 61,
                                 "name": "Alex",
                                 "idParent": 6,
+                                "checked": false,
                                 "children": [
                                     {
                                         "id": 611,
@@ -650,15 +559,15 @@ describe("SalesAnalyticsFilterModel", function () {
                                         "idParent": 61,
                                         "checked": false
                                     }
-                                ],
-                                "checked": false
+                                ]
                             }
-                        ],
-                        "checked": false
+                        ]
                     }]
                 }
             ];
+            spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
             var filteredData = sut.getFilteredDataForHierarqhy(input, searchQuery);
+            expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
             expect(filteredData).toEqual(expectedOutput);
         });
     });

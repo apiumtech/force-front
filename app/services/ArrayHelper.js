@@ -71,6 +71,7 @@ app.registerService(function (container) {
     };
 
     var clone = function (array) {
+        console.log(JSON.stringify(array));
         return JSON.parse(JSON.stringify(array));
     };
 

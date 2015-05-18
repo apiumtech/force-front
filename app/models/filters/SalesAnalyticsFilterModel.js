@@ -8,13 +8,15 @@ app.registerModel(function (container) {
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
     var _ = container.getFunction("underscore");
+    var ArrayHelper = container.getService("services/ArrayHelper");
 
     var ENVIRONMENT = 'Environment', TEAM = 'Hierarqhy';
 
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
-        this.currentQuery = 'Environment';
+        this.currentQuery = SalesAnalyticsFilterModel.ENVIRONMENT;
+        this.arrayHelper = ArrayHelper;
     }
 
     SalesAnalyticsFilterModel.prototype = Object.create(Object.prototype, {});
@@ -62,67 +64,10 @@ app.registerModel(function (container) {
     SalesAnalyticsFilterModel.prototype.getUsers = function () {
         return Q.fcall(this._getUsers.bind(this));
     };
-    SalesAnalyticsFilterModel.prototype.decoratingDataUsingEnvironmentMethod = function (data) {
-        var result = [];
-
-        data.forEach(function (dataRecord) {
-            var group;
-            if (dataRecord.idParent == "-1") {
-                group = _.find(result, function (item) {
-                    return item.id == dataRecord.id;
-                });
-                if (group === undefined) {
-                    group = {
-                        id: dataRecord.id,
-                        group: dataRecord.name,
-                        children: []
-                    };
-                    result.push(group);
-                }
-            } else {
-                group = _.find(result, function (item) {
-                    return item.id === dataRecord.idParent;
-                });
-                if (group) {
-                    dataRecord.checked = false;
-                    group.children.push(dataRecord);
-                }
-            }
-        });
-
-        return result;
-    };
-
-    SalesAnalyticsFilterModel.prototype.decoratingDataUsingHierarqhyMethod = function (data) {
-        var groupedData = _.groupBy(data, function (record) {
-            return record.idParent;
-        });
-
-        _.each(groupedData, function (value, key) {
-            if (key == '-1') { // move all the 2nd level nodes to the 1st one
-                _.each(value, function (record) {
-
-                    if (groupedData['' + record.id + '']) {
-                        record.children = groupedData['' + record.id + ''];
-                    }
-                });
-            } else {
-                _.each(value, function (record) {
-                    if (groupedData['' + record.id + '']) {
-                        record.children = groupedData['' + record.id + ''];
-                    }
-                });
-            }
-        });
-
-        return groupedData['-1'];
-    };
 
     SalesAnalyticsFilterModel.prototype.decorateData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        var self = this;
-
-        return self['decoratingDataUsing' + self.currentQuery + 'Method'](data);
+        return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
     };
 
     SalesAnalyticsFilterModel.prototype.defer = function () {
@@ -137,46 +82,30 @@ app.registerModel(function (container) {
         var self = this;
         var clonedData = JSON.parse(JSON.stringify(data));
         return self['getFilteredDataFor' + filter](clonedData, searchQuery);
+        // TODO: Refactor to use same method
+        //return this.arrayHelper.queryTree(clonedData, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
     };
 
     SalesAnalyticsFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        var filteredData = data.map(function (record) {
-            if (!record.children) return record;
+        //    var filteredData = data.map(function (record) {
+        //        if (!record.children) return record;
+        //
+        //        // 2nd level
+        //        var filteredChildren = _.filter(record.children, function (child) {
+        //            return child.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+        //        });
+        //
+        //        record.children = filteredChildren;
+        //        return record;
+        //    });
+        //    return filteredData;
 
-            // 2nd level
-            var filteredChildren = _.filter(record.children, function (child) {
-                return child.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-            });
-
-            record.children = filteredChildren;
-            return record;
-        });
-        return filteredData;
+        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
     };
 
     SalesAnalyticsFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-        var self = this;
-        var outputArr = [];
-        function flattenChildren(arr) {
-            return arr.reduce(function (flat, toFlatten) {
-                if(toFlatten.children){
-                    flattenChildren(toFlatten.children);
-                }
-                if(toFlatten.children || toFlatten.name.indexOf(searchQuery) > -1) {
-                    outputArr.push({
-                        id: toFlatten.id,
-                        name: toFlatten.name,
-                        idParent: toFlatten.idParent,
-                        checked: toFlatten.checked
-                    });
-                }
-            }, []);
-        }
 
-        flattenChildren(data);
-
-        console.log(JSON.stringify(self.decoratingDataUsingHierarqhyMethod(outputArr)));
-        return self.decoratingDataUsingHierarqhyMethod(outputArr);
+        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
 
     };
 
@@ -192,4 +121,5 @@ app.registerModel(function (container) {
     };
 
     return SalesAnalyticsFilterModel;
-});
+})
+;
