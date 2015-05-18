@@ -2,7 +2,8 @@ describe('LiteralListView', function(){
     var LiteralListView = app.getView('views/literal/LiteralListView');
 
     function exerciseCreateView(scope, model, presenter){
-        return LiteralListView.newInstance(scope, model, presenter, null, null, false, false);
+        var $compileFake = function(){return function(){}};
+        return LiteralListView.newInstance(scope, model, presenter, null, null, $compileFake, false, false);
     }
 
     it('should configureEvents on instantiation', function(){

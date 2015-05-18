@@ -10,60 +10,37 @@ app.registerView(function (container) {
 
     function LiteralView($routeParams, $scope, $model, $presenter, $window) {
         BaseView.call(this, $scope, $model, $presenter);
-
         this.$window = $window;
         this.routeParams = $routeParams;
         this.data.currentError = null;
-
         this.configureEvents();
     }
 
-
-    /**
-     * Extend BaseView
-     */
-    LiteralView.prototype = Object.create(BaseView.prototype, {});
+    var proto = LiteralView.prototype = Object.create(BaseView.prototype, {});
 
 
-    /**
-     * configureEvents()
-     */
-    LiteralView.prototype.configureEvents = function () {
-        this.fn.onInit = this.onInit.bind(this);
+    proto.configureEvents = function () {
+        this.fn.onInit = this._onInit.bind(this);
+        this.fn.onCancel = this._onCancel.bind(this);
+        this.fn.onSave = this._onSave.bind(this);
         this.fn.isNew = this.isNew.bind(this);
-        this.fn.onCancel = this.onCancel.bind(this);
-        this.fn.onSave = this.onSave.bind(this);
     };
 
-
-    /**
-     * onInit()
-     */
-    LiteralView.prototype.onInit = function () {
+    proto._onInit = function () {
         this.presenter.getLiteralById(this.routeParams.literalId);
     };
 
+    proto._onCancel = function () { this._goBack(); };
 
-    /**
-     * onCancel()
-     */
-    LiteralView.prototype.onCancel = function () {
-        this.goBack();
-    };
+    proto._goBack = function () { this.$window.history.back(); };
 
+    proto.isNew = function () { return this.event.isNew(this.data.literal); };
 
-    /**
-     * goBack()
-     */
-    LiteralView.prototype.goBack = function () {
-        this.$window.history.back();
-    };
+    proto.showForm = function (literal) { this.data.literal = literal; };
 
+    proto.showError = function (err) { this.data.currentError = err; };
 
-    /**
-     * onSave()
-     */
-    LiteralView.prototype.onSave = function () {
+    proto._onSave = function () {
         if( this.isNew() ){
             this.presenter.createLiteral(this.data.literal);
         } else {
@@ -71,34 +48,7 @@ app.registerView(function (container) {
         }
     };
 
-    /**
-     * showForm()
-     */
-    LiteralView.prototype.showForm = function (literal) {
-        this.data.literal = literal;
-    };
 
-
-    /**
-     * isNew()
-     */
-    LiteralView.prototype.isNew = function () {
-        return !this.data.literal || this.data.literal.Id === null;
-    };
-
-
-    /**
-     * showForm()
-     */
-    LiteralView.prototype.showError = function (err) {
-        console.error(err);
-        this.data.currentError = err;
-    };
-
-
-    /**
-     * newInstance()
-     */
     LiteralView.newInstance = function ($routeParams, $scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var routeParams = $routeParams;

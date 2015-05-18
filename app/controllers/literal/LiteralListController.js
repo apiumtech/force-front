@@ -5,12 +5,12 @@
 app.registerController(function (container) {
     var LiteralListView = container.getView("views/literal/LiteralListView");
 
-    function LiteralListController($scope) {
-        LiteralListController.configureView($scope);
+    function LiteralListController($scope, $compile) {
+        LiteralListController.configureView($scope, $compile);
     }
 
-    LiteralListController.configureView = function ($scope) {
-        this.view = LiteralListView.newInstance($scope);
+    LiteralListController.configureView = function ($scope, $compile) {
+        this.view = LiteralListView.newInstance($scope, null, null, null, null, $compile);
         this.view.show();
     };
 
