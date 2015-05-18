@@ -27,18 +27,27 @@ app.registerView(function (container) {
     };
 
     proto._onInit = function () {
+        this.presenter.getLiteralTypeList();
+    };
+
+    proto.onGetLiteralTypeList = function(data){
+        this.data.literalTypeList = data;
         this.presenter.getLiteralById(this.routeParams.literalId);
     };
 
     proto._onCancel = function () { this._goBack(); };
 
-    proto._goBack = function () { this.$window.history.back(); };
+    proto._goBack = function () {
+        this.$window.history.back();
+    };
 
     proto.isNew = function () { return this.event.isNew(this.data.literal); };
 
     proto.showForm = function (literal) { this.data.literal = literal; };
 
-    proto.showError = function (err) { this.data.currentError = err; };
+    proto.showError = function (err) {
+        this.data.currentError = err;
+    };
 
     proto._onSave = function () {
         if( this.isNew() ){

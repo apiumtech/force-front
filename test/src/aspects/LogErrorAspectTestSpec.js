@@ -14,27 +14,27 @@ describe('LogErrorAspect', function () {
     }
 
     it("should call the _log function after running showError", function () {
-        LogErrorAspect._log = jasmine.createSpy();
+        spyOn(console, "log");
 
         var view = exerciseCreateView();
         LogErrorAspect.weave(view);
         view.showError({stack: "someStack"});
 
-        expect(LogErrorAspect._log).toHaveBeenCalledWith("someStack");
+        expect(console.log).toHaveBeenCalledWith("someStack");
     });
 
     it("should not call the _log function on a call to another public function that isn't showError", function () {
-        LogErrorAspect._log = jasmine.createSpy();
+        spyOn(console, "log");
 
         var view = exerciseCreateView();
         LogErrorAspect.weave(view);
         view.anotherPublicFunction();
 
-        expect(LogErrorAspect._log).not.toHaveBeenCalled();
+        expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should log error.toString when error.stack is not available', function () {
-        LogErrorAspect._log = jasmine.createSpy();
+        spyOn(console, "log");;
 
         var view = exerciseCreateView();
         LogErrorAspect.weave(view);
@@ -44,7 +44,7 @@ describe('LogErrorAspect', function () {
             }
         });
 
-        expect(LogErrorAspect._log).toHaveBeenCalledWith("to string");
+        expect(console.log).toHaveBeenCalledWith("to string");
     });
 
     it('should call _error after throwing an exception', function () {

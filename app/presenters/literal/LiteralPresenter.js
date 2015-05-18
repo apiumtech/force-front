@@ -20,6 +20,15 @@ app.registerPresenter(function (container) {
     };
 
 
+    proto.getLiteralTypeList = function () {
+        var view = this.view;
+        this.model.getLiteralTypeList().then(
+            view.onGetLiteralTypeList.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
     proto.getLiteralById = function (id) {
         var view = this.view;
         this.model.getLiteralById( id ).then(
@@ -32,15 +41,19 @@ app.registerPresenter(function (container) {
     proto.updateLiteral = function(literal){
         var view = this.view;
         this.model.changeLiteralDetails(literal).then(
-            view._goBack.bind(view),
-            view.showError.bind(view)
+            function(){
+                view._goBack();
+            },
+            function(err){
+                view.showError(err);
+            }
         );
     };
 
 
     proto.createLiteral = function(literal){
         var view = this.view;
-        thisreateLiterallDetails(literal).then(
+        this.model.createLiteral(literal).then(
             view._goBack.bind(view),
             view.showError.bind(view)
         );

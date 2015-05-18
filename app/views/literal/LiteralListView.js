@@ -10,9 +10,6 @@ app.registerView(function (container) {
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
 
 
-    /**
-     * LiteralListView
-     */
     function LiteralListView($scope, $model, $presenter, dataTableService, templateParser, $compile) {
         BaseView.call(this, $scope, $model, $presenter);
 
@@ -24,55 +21,51 @@ app.registerView(function (container) {
         this.data.literals = null;
         this.data.table = null;
 
+        this.data.currentSearchQuery = "";
         this.data.currentError = null;
+
+        this.onSearchTimeout = null;
 
         this.configureEvents();
     }
 
-
-    /**
-     * Extend BaseView
-     */
-    LiteralListView.prototype = Object.create(BaseView.prototype, {});
+    var proto = LiteralListView.prototype = Object.create(BaseView.prototype, {});
 
 
-    /**
-     * configureEvents()
-     */
-    LiteralListView.prototype.configureEvents = function () {
-
+    proto.configureEvents = function () {
         this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
+        this.fn.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
 
         // Events defined in Presenter
         this.event.onInit = function(){};
-        this.event.onSearchTextFilterChanged = function () {};
         this.event.onDelete = function () {};
     };
 
 
-    /**
-     * deleteLiteralPrompt()
-     */
-    LiteralListView.prototype.deleteLiteralPrompt = function (literalId) {
+    proto.onSearchTextFilterChanged = function (searchQuery) {
+        clearTimeout(this.onSearchTimeout);
+        this.onSearchTimeout = setTimeout(
+            this.presenter.onSearchTextFilterChanged.bind(this.presenter),
+            1000,
+            searchQuery
+        );
+    };
+
+
+    proto.deleteLiteralPrompt = function (literalId) {
         if( confirm("Delete Literal with Id: " + literalId) ) {
             this.event.onDelete(literalId);
         }
     };
 
 
-    /**
-     * createColumns()
-     */
-    LiteralListView.prototype.onGetLanguageList = function (data) {
+    proto.onGetLanguageList = function (data) {
         this.createColumns(data);
         this.presenter.getLiteralList();
     };
 
 
-    /**
-     * createColumns()
-     */
-    LiteralListView.prototype.createColumns = function (data) {
+    proto.createColumns = function (data) {
         var languages = [];
         data.forEach(function (lang) {
             languages.push({
@@ -94,11 +87,7 @@ app.registerView(function (container) {
     };
 
 
-    /**
-     * Renders the table with the retrieved data
-     * showTableData()
-     */
-    LiteralListView.prototype.showTableData = function (data) {
+    proto.showTableData = function (data) {
         var self = this;
         var languages = [];
 
@@ -126,60 +115,56 @@ app.registerView(function (container) {
             return requestRow(row);
         });
 
-        var dataTableConfig = {
-            data: data,
-            columns: this.data.tableColumns,
-            columnDefs: [
-                {
-                    targets: 0,
-                    render: self.renderKeyColumn.bind(self),
-                    createdCell: function(cell, cellData, rowData, rowIndex, colIndex){
-                        self.$compile(cell)(self.$scope);
+        if(this.data.table){
+            this.data.table
+                .clear()
+                .rows.add(data)
+                .draw();
+        } else {
+            var dataTableConfig = {
+                data: data,
+                columns: this.data.tableColumns,
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: self.renderKeyColumn.bind(self),
+                        createdCell: function(cell, cellData, rowData, rowIndex, colIndex){
+                            self.$compile(cell)(self.$scope);
+                        }
                     }
-                }
-            ],
-            deferRender: true,
-            pageLength: 50,
-            pagingType: "full_numbers"
-        };
+                ],
+                deferRender: true,
+                pageLength: 50,
+                pagingType: "full_numbers"
+            };
 
-        this.data.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
+            this.data.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
+
+        }
     };
 
 
-    /**
-     * Renders the Key column with the provided template
-     * renderKeyColumn()
-     */
-    LiteralListView.prototype.renderKeyColumn = function (data, type, row) {
+    proto.renderKeyColumn = function (data, type, row) {
         var self = this
         var colTemplate = $(".literalKeyColumnTemplate").html();
         return self.templateParser.parseTemplate(colTemplate, row);
     };
 
 
-    /**
-     * Error displaying
-     * showError()
-     */
-    LiteralListView.prototype.showError = function (error) {
+    proto.showError = function (error) {
         console.error(error);
         this.data.currentError = error;
     };
 
 
-    /**
-     * Static module factory
-     */
+
     LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $compile, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
         var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
         var dataTableService = $dataTableService || DataTableService.newInstance();
         var templateParser = $templateParser || SimpleTemplateParser.newInstance();
-
         var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser, $compile);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

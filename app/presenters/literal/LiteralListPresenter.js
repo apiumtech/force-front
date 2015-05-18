@@ -3,24 +3,25 @@
  */
 
 app.registerPresenter(function (container) {
-
     var LiteralModel = container.getModel('models/literal/LiteralModel');
+
 
     function LiteralListPresenter() {
     }
 
+    var proto = LiteralListPresenter.prototype;
 
-    LiteralListPresenter.prototype.show = function (view, model) {
+
+    proto.show = function (view, model) {
         this.model = model;
         this.view = view;
 
-        view.event.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
         view.event.onDelete = this.onDelete.bind(this);
         view.event.onInit = this.onInit.bind(this);
     };
 
 
-    LiteralListPresenter.prototype.getLiteralList = function () {
+    proto.getLiteralList = function () {
         var self = this;
         self.model.getLiteralList("")
             .then(
@@ -30,7 +31,7 @@ app.registerPresenter(function (container) {
     };
 
 
-    LiteralListPresenter.prototype.onInit = function () {
+    proto.onInit = function () {
         var self = this;
         self.model.getLanguageList()
             .then(
@@ -40,21 +41,22 @@ app.registerPresenter(function (container) {
     };
 
 
-    LiteralListPresenter.prototype.onSearchTextFilterChanged = function (value) {
+    proto.onSearchTextFilterChanged = function (searchQuery) {
         var self = this;
-        self.model.getLiteralList(value)
-            .then(
+        self.model.getLiteralList(searchQuery).then(
             self.view.showTableData.bind(self.view),
             self.view.showError.bind(self.view)
         );
     };
 
 
-    LiteralListPresenter.prototype.onDelete = function (id) {
+    proto.onDelete = function (id) {
         var self = this;
         self.model.deleteLiteral(id)
-            .then(self.model.getLiteralList.bind(self.model), self.view.showError.bind(self.view))
-            .then(self.view.showTableData.bind(self.view), self.view.showError.bind(self.view));
+            .then(
+                self.getLiteralList.bind(self),
+                self.view.showError.bind(self.view)
+            );
     };
 
 

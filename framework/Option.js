@@ -98,6 +98,11 @@
         }
     };
 
+    jsScope.isset = function(value) {
+        return value !== undefined && value !== null;
+    };
+
+
     /**
      * Extending String native javascript object
      */
