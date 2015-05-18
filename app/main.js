@@ -373,7 +373,6 @@ function main() {
             'controllers/filters/SalesAnalyticsFilterController',
             'views/filters/SalesAnalyticsFilterView',
             'models/filters/SalesAnalyticsFilterModel',
-            'models/filters/SalesAnalyticsFilterPresentationModel',
             'presenters/filters/SalesAnalyticsFilterPresenter',
 
             // Graph widget

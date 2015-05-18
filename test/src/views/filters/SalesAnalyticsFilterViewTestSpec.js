@@ -3,20 +3,22 @@
  */
 describe("SalesAnalyticsFilterView", function () {
     var SalesAnalyticsFilterView = app.getView("views/filters/SalesAnalyticsFilterView");
+    var sut, $scope;
+
+    beforeEach(function () {
+        $scope = {
+            $watch: function () {
+            }
+        };
+        sut = new SalesAnalyticsFilterView($scope);
+    });
 
     describe("__construct()", function () {
-        beforeEach(function () {
-            SalesAnalyticsFilterView.___configureEvents = SalesAnalyticsFilterView.configureEvents;
-            SalesAnalyticsFilterView.configureEvents = jasmine.createSpy();
-        });
-
-        afterEach(function () {
-            SalesAnalyticsFilterView.configureEvents = SalesAnalyticsFilterView.___configureEvents;
-        });
 
         it("should call configureEvents static method", function () {
-            var sut = new SalesAnalyticsFilterView();
-            expect(SalesAnalyticsFilterView.configureEvents).toHaveBeenCalledWith(sut);
+            spyOn(SalesAnalyticsFilterView, 'configureEvents').and.callThrough();
+            var _sut = new SalesAnalyticsFilterView($scope);
+            expect(SalesAnalyticsFilterView.configureEvents).toHaveBeenCalledWith(_sut);
         });
     });
 
@@ -205,33 +207,10 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function getFilteredUsersListTest() {
-            var fullList = [{
-                group: "abc",
-                children: []
-            }, {
-                group: "def",
-                children: []
-            }], filteredList = [{
-                group: "abc",
-                children: []
-            }];
-            describe("not filtering", function () {
-                it("should return the full list", function () {
-                    sut.usersList = fullList;
-                    sut.searchingUser = "";
-                    sut.fn.getFilteredUsersList();
-                    expect(sut.userFiltered).toEqual(fullList);
-                });
-            });
-            describe("is filtering", function () {
-                it("should call filtered method", function () {
-                    sut.usersList = fullList;
-                    sut.searchingUser = "abc";
-                    spyOn(sut, '_getFilteredUsers').and.returnValue(filteredList);
-                    sut.fn.getFilteredUsersList();
-                    expect(sut._getFilteredUsers).toHaveBeenCalledWith(fullList, "abc");
-                    expect(sut.userFiltered).toEqual(filteredList);
-                });
+            it("should fire event 'onFilteringUsers'", function () {
+                sut.event.onFilteringUsers = jasmine.createSpy();
+                sut.fn.getFilteredUsersList();
+                expect(sut.event.onFilteringUsers).toHaveBeenCalledWith(sut.usersList, sut.currentUserFilterGroup, sut.searchingUser);
             });
         }
 
@@ -400,7 +379,7 @@ describe("SalesAnalyticsFilterView", function () {
         }
 
         function applyUserFilterTest() {
-            it("should delay the call to __applyUserFilterTest for 2 seconds", function(){
+            it("should delay the call to __applyUserFilterTest for 2 seconds", function () {
                 spyOn(sut.awaitHelper, 'await');
                 sut.fn.applyUserFilter();
                 expect(sut.awaitHelper.await).toHaveBeenCalledWith(sut.fn.__applyUserFilter, 2000);
@@ -454,259 +433,185 @@ describe("SalesAnalyticsFilterView", function () {
         });
     });
 
-    describe("_getFilteredUsers()", function () {
-        var sut, $scope;
-
-        beforeEach(function () {
-            $scope = {
-                $watch: function () {
-                }
-            };
-            sut = new SalesAnalyticsFilterView($scope);
-        });
-
-        ["STRING", "String", "sTRing", "sTring", "string"].forEach(function (searchString) {
-            it("should return correct filtered list", function () {
-                var input = [{
-                    group: "group1",
-                    children: [{
-                        name: "test STRING 1",
-                        id: 1
-                    }, {
-                        name: "test not-matched",
-                        id: 2
-                    }, {
-                        name: "test string matched",
-                        id: 3
-                    }, {
-                        name: "test no matched 2",
-                        id: 4
-                    }]
-                }, {
-                    group: "group2",
-                    children: [{
-                        name: "test notmatch 1",
-                        id: 5
-                    }, {
-                        name: "test not-matched",
-                        id: 6
-                    }, {
-                        name: "test no matched",
-                        id: 7
-                    }, {
-                        name: "test sTring matched 2",
-                        id: 8
-                    }]
-                }];
-                var expected = [{
-                    group: "group1",
-                    children: [{
-                        name: "test STRING 1",
-                        id: 1
-                    }, {
-                        name: "test string matched",
-                        id: 3
-                    }]
-                }, {
-                    group: "group2",
-                    children: [{
-                        name: "test sTring matched 2",
-                        id: 8
-                    }]
-                }];
-
-                var actual = sut._getFilteredUsers(input, searchString);
-                expect(actual).toEqual(expected);
-            });
-        });
-    });
-
     describe("checkSelectAllState", function () {
-        var sut, $scope;
 
-        [
-            {
-                input: [{
-                    group: "groupA",
-                    checked: false,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
+        describe("Some users are deselected", function () {
+            [
+                {
+                    input: [{
+                        group: "groupA",
+                        checked: false,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: true
+                        }]
                     }, {
-                        name: "groupa-2",
-                        checked: true
+                        group: "groupB",
+                        checked: true,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
+                    }],
+                    output: [{
+                        group: "groupA",
+                        checked: null,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: true
+                        }]
+                    }, {
+                        group: "groupB",
+                        checked: true,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
                     }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
+                },
+                {
+                    input: [{
+                        group: "groupC",
+                        checked: null,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: false
+                        }]
                     }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }],
-                output: [{
-                    group: "groupA",
-                    checked: null,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
-                    }, {
-                        name: "groupa-2",
-                        checked: true
-                    }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
-                    }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }]
-            },
-            {
-                input: [{
-                    group: "groupA",
-                    checked: null,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
-                    }, {
-                        name: "groupa-2",
-                        checked: false
-                    }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
-                    }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }],
+                        group: "groupD",
+                        checked: false,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
+                    }],
 
-                output: [{
-                    group: "groupA",
-                    checked: false,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
+                    output: [{
+                        group: "groupC",
+                        checked: false,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: false
+                        }]
                     }, {
-                        name: "groupa-2",
-                        checked: false
+                        group: "groupD",
+                        checked: true,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
                     }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
+                },
+                {
+                    input: [{
+                        group: "groupE",
+                        checked: true,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: true
+                        }]
                     }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }]
-            },
-            {
-                input: [{
-                    group: "groupA",
-                    checked: true,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
-                    }, {
-                        name: "groupa-2",
-                        checked: true
-                    }]
-                }, {
-                    group: "groupB",
-                    checked: false,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
-                    }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }],
+                        group: "groupF",
+                        checked: false,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
+                    }],
 
-                output: [{
-                    group: "groupA",
-                    checked: null,
-                    children: [{
-                        name: "groupa-1",
-                        checked: false
+                    output: [{
+                        group: "groupE",
+                        checked: null,
+                        children: [{
+                            name: "groupa-1",
+                            checked: false
+                        }, {
+                            name: "groupa-2",
+                            checked: true
+                        }]
                     }, {
-                        name: "groupa-2",
-                        checked: true
+                        group: "groupF",
+                        checked: true,
+                        children: [{
+                            name: "groupb-1",
+                            checked: true
+                        }, {
+                            name: "groupb-2",
+                            checked: true
+                        }, {
+                            name: "groupb-3",
+                            checked: true
+                        }]
                     }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
-                    }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }]
-            }
-        ].forEach(function (test) {
-                var sut;
-                beforeEach(function () {
-                    $scope = {
-                        $watch: function () {
-                        }
-                    };
-                    sut = new SalesAnalyticsFilterView($scope);
-                    sut.userFiltered = test.input;
-                    sut.checkSelectAllState();
-                });
-                describe("Some users are deselected", function () {
+                }
+            ].forEach(function (test) {
+                    var _sut, $scope;
+                    beforeEach(function () {
+                        $scope = {
+                            $watch: function () {
+                            }
+                        };
+                        _sut = new SalesAnalyticsFilterView($scope);
+                        _sut.userFiltered = test.input;
+                        _sut.checkSelectAllState();
+                    });
+
                     it("should be false if any user is unselected", function () {
-                        expect(sut.allUsersSelected).toEqual(false);
+                        expect(_sut.allUsersSelected).toEqual(false);
                     });
 
                     it("should decorate filtered users to correct states", function () {
-                        expect(sut.userFiltered).toEqual(test.output);
+                        expect(_sut.userFiltered).toEqual(test.output);
                     });
                 });
-            });
+        });
 
         describe("All users are selected", function () {
-            beforeEach(function () {
-                $scope = {
-                    $watch: function () {
-                    }
-                };
-                sut = new SalesAnalyticsFilterView($scope);
-            });
             it("should be true if all users is selected", function () {
                 sut.userFiltered = [{
                     group: "groupA",
@@ -739,14 +644,8 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("toggleSelectAllUsers", function () {
-        var sut, $scope;
 
         beforeEach(function () {
-            $scope = {
-                $watch: function () {
-                }
-            };
-            sut = new SalesAnalyticsFilterView($scope);
 
             sut.userFiltered = [{
                 group: "groupA",
@@ -830,14 +729,7 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("getFilteredUserIdsList", function () {
-        var sut, $scope;
-
         beforeEach(function () {
-            $scope = {
-                $watch: function () {
-                }
-            };
-            sut = new SalesAnalyticsFilterView($scope);
 
             sut.userFiltered = [{
                 group: "groupA",
@@ -876,15 +768,6 @@ describe("SalesAnalyticsFilterView", function () {
     });
 
     describe("validateDates", function () {
-        var sut, $scope;
-
-        beforeEach(function () {
-            $scope = {
-                $watch: function () {
-                }
-            };
-            sut = new SalesAnalyticsFilterView($scope);
-        });
 
         describe("'from' date is prior to 'to' date", function () {
             it("should keep from and to dates remain", function () {
@@ -930,14 +813,45 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.dateRangeEnd.getDate()).toEqual(12);
             });
 
-            it("should get formatted string with 'getFormatted'", function(){
+            it("should get formatted string with 'getFormatted'", function () {
                 expect(sut.fn.getFormattedDate).toHaveBeenCalledWith(sut.dateRangeEnd);
             });
 
-            it("should assign formatted string to displayDateEnd", function(){
+            it("should assign formatted string to displayDateEnd", function () {
                 expect(sut.displayDateEnd).toEqual('some-stupid-string');
             });
 
+        });
+    });
+
+    describe('setFilteredData', function () {
+        describe('data is empty', function () {
+            beforeEach(function () {
+                sut.userFiltered = [{
+                    "data": "data"
+                }];
+            });
+            it("should return a 'data empty' error and the value of 'userFiltered' should remain the same", function () {
+                [undefined, null, []].forEach(function (filteredData) {
+                    var filter = sut.userFiltered;
+                    expect(function () {
+                        sut.setFilteredData(filteredData);
+                    }).toThrow(new Error('Filtered data is empty, no change will be made'));
+                    expect(sut.userFiltered).toEqual(filter);
+                });
+            });
+        });
+        describe('filtered data is returned', function () {
+            it("should assign the filtered data to 'userFiltered'", function () {
+                sut.userFiltered = [{
+                    "data": "data"
+                }];
+                var filteredData = [{
+                    "data": "filtered data"
+                }];
+                sut.setFilteredData(filteredData);
+                expect(sut.userFiltered).toEqual(filteredData);
+            });
         });
     });
 });

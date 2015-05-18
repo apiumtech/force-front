@@ -14,28 +14,29 @@ describe("SalesAnalyticsFilterPresenter", function () {
         describe("should connect view's events to model", function () {
 
             beforeEach(function () {
-                view = {
+                ___view = {
                     event: {},
                     showLoadingUsers: function () {
                     },
                     hideLoadingUsers: function () {
+                    },
+                    setFilteredData: function () {
+
                     }
                 };
                 ___model = {};
-                sut.show(view, ___model);
+                sut.show(___view, ___model);
             });
 
             [{
                 viewEvent: "onFilterInitializing", test: onFilterInitializingTest
             }, {
                 viewEvent: "onFilterByGroup", test: onFilterByGroupTest
+            }, {
+                viewEvent: "onFilteringUsers", test: onFilteringUsersTest
             }].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
                         test = testCase.test;
-
-                    it("should declared '" + viewEvent + "' event for View", function () {
-                        testDeclareMethod(view.event, viewEvent);
-                    });
 
                     describe("when event '" + viewEvent + "' fired", test);
                 });
@@ -53,8 +54,8 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
                 function exerciseTest() {
                     ___model.addQuery = jasmine.createSpy();
-                    view.event.onFilterInitializing = jasmine.createSpy();
-                    view.event.onFilterByGroup(groupName);
+                    ___view.event.onFilterInitializing = jasmine.createSpy();
+                    ___view.event.onFilterByGroup(groupName);
                 }
 
                 it("should call model's addQuery", function () {
@@ -64,7 +65,33 @@ describe("SalesAnalyticsFilterPresenter", function () {
 
                 it("should fire event onFilterInitializing", function () {
                     exerciseTest();
-                    expect(view.event.onFilterInitializing).toHaveBeenCalled();
+                    expect(___view.event.onFilterInitializing).toHaveBeenCalled();
+                });
+            }
+
+            function onFilteringUsersTest() {
+                beforeEach(function () {
+                    ___model.getFilteredData = function(){};
+                    ___view.usersList = [{
+                        "data": "mockup"
+                    }];
+                    ___view.currentUserFilterGroup = 'Environment';
+                });
+
+                it("should call the filter method from model", function () {
+                    var searchQuery = "some search query";
+                    spyOn(___model, 'getFilteredData');
+                    ___view.event.onFilteringUsers('a','b',searchQuery);
+                    expect(___model.getFilteredData).toHaveBeenCalledWith('a', 'b', searchQuery);
+                });
+
+                it("should pass the result to view", function () {
+                    var searchQuery = "some search query";
+                    var fakeValue = {};
+                    spyOn(___model, 'getFilteredData').and.returnValue(fakeValue);
+                    spyOn(___view, 'setFilteredData');
+                    ___view.event.onFilteringUsers('a','b',searchQuery);
+                    expect(___view.setFilteredData).toHaveBeenCalledWith(fakeValue);
                 });
             }
         });
@@ -75,26 +102,26 @@ describe("SalesAnalyticsFilterPresenter", function () {
         beforeEach(function () {
             ___model[modelMethod] = function () {
             };
-            view[onSuccess] = jasmine.createSpy();
-            view[onError] = jasmine.createSpy();
+            ___view[onSuccess] = jasmine.createSpy();
+            ___view[onError] = jasmine.createSpy();
         });
 
         it("presenter should connect event to '" + modelMethod + "' method on model", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakePromise());
-            view.event[viewEvent]();
+            ___view.event[viewEvent]();
             expect(___model[modelMethod]).toHaveBeenCalled();
         });
 
         it("should call method '" + onSuccess + "' on view if model '" + modelMethod + "' return success", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeOkPromise());
-            view.event[viewEvent]();
-            expect(view[onSuccess]).toHaveBeenCalled();
+            ___view.event[viewEvent]();
+            expect(___view[onSuccess]).toHaveBeenCalled();
         });
 
         it("should call method '" + onError + "' on view if model '" + modelMethod + "' return error", function () {
             spyOn(___model, modelMethod).and.returnValue(exerciseFakeKoPromise());
-            view.event[viewEvent]();
-            expect(view[onError]).toHaveBeenCalled();
+            ___view.event[viewEvent]();
+            expect(___view[onError]).toHaveBeenCalled();
         });
     }
 });

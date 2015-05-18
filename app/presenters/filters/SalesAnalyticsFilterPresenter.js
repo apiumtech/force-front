@@ -28,6 +28,11 @@ app.registerPresenter(function (container) {
             model.addQuery(groupName);
             view.event.onFilterInitializing();
         };
+
+        view.event.onFilteringUsers = function(usersList, currentUserFilterGroup, searchQuery){
+            var data = model.getFilteredData(usersList, currentUserFilterGroup, searchQuery);
+            view.setFilteredData(data);
+        }
     };
 
     SalesAnalyticsFilterPresenter.newInstance = function () {
