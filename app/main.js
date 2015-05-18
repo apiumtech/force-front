@@ -182,7 +182,8 @@ function main() {
             'angularFileUpload',
             'infinite-scroll',
             'validation',
-            'validation.rule'
+            'validation.rule',
+            'RecursionHelper'
         ], AngularConfig));
 
     app.manifest = {
@@ -214,6 +215,8 @@ function main() {
             'directives/TriStateCheckBoxDirective',
             'directives/ForceDatePickerDirective',
 
+            //Tree
+            'directives/tree/TreeListDirective',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',

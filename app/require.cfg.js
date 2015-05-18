@@ -42,9 +42,7 @@ var require = {
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
-        //'bootstrap-datepicker': '/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
-        'fullcalendar': "../node_modules/fullcalendar/dist/fullcalendar.min"
-
+        'angularRecursion': "../node_modules/angular-recursion/angular-recursion.min"
     },
 
     'shim': {
@@ -104,6 +102,11 @@ var require = {
         'angular-bootstrap': {
             deps: ['angular'],
             exports: 'angular-bootstrap'
+        },
+
+        'angularRecursion': {
+            deps: ['angular'],
+            exports: 'angularRecursion'
         },
 
         'ng-i18next': {
@@ -201,7 +204,7 @@ var require = {
         'underscore', 'signals', 'ng-sortable', 'angular-moment',
         'datatables', //'datatables_scroller',
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
-        'crypto.SHA1', 'fullcalendar'
+        'crypto.SHA1', 'angularRecursion'
     ],
 
     callback: main

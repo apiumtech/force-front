@@ -22,44 +22,59 @@ requirejs.config({
         'angular-bootstrap': '/base/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
         'angular': '/base/node_modules/angular/angular.min',
         'ngSanitize': '/base/node_modules/angular-sanitize/angular-sanitize.min',
+        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
+        'jquery_migrate': '/base/assets/js/vendor/jquery-migrate-1.2.1.min',
+        'jquery_ui': '/base/node_modules/jquery-ui/jquery-ui',
+        'bootstrap': '/base/assets/js/bootstrap.min',
+        'slimscroll': '/base/assets/js/jquery.slimscroll.min',
         'postal': '/base/node_modules/postal/lib/postal.min',
         'q': '/base/node_modules/q/q',
         'functional-option': '/base/framework/Option',
         'framework': '/base/framework/ApplicationFactory',
         'meld': '/base/node_modules/meld/meld',
-        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'i18next': '/base/node_modules/i18next/lib/dep/i18next.min',
         'ng-i18next': '/base/assets/js/vendor/ng-i18next',
-        'signals': '/base/node_modules/signals/dist/signals.min',
         'ng-sortable': '/base/assets/js/vendor/ng-sortable',
+        'signals': '/base/node_modules/signals/dist/signals.min',
         'underscore': '/base/node_modules/underscore/underscore-min',
+        'flot': '/base/node_modules/flot/jquery.flot',
+        'flot-resize': '/base/node_modules/flot/jquery.flot.resize',
+        'flot-stack': '/base/node_modules/flot/jquery.flot.stack',
+        'flot-pie': '/base/node_modules/flot/jquery.flot.pie',
+        'flot-categories': '/base/node_modules/flot/jquery.flot.categories',
+        'flot-crosshair': '/base/node_modules/flot/jquery.flot.crosshair',
         'moment': '/base/node_modules/moment/min/moment.min',
+
+        'datatables': '/base/node_modules/datatables/media/js/jquery.dataTables',
+        'datatables_scroller': '/base/assets/js/vendor/dataTables.scroller.min',
+
         'angular-moment': '/base/node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min',
         'crypto': "/base/node_modules/cryptojs/lib/Crypto",
-        'crypto.SHA1': "/base/node_modules/cryptojs/lib/SHA1"
+        'crypto.SHA1': "/base/node_modules/cryptojs/lib/SHA1",
+        'angularRecursion': "/base/node_modules/angular-recursion/angular-recursion.min"
     },
 
     'shim': {
         'angular': {
+            deps: ['jquery'],
             exports: 'angular'
         },
         'ngSanitize': {
             deps: ['angular'],
             exports: 'ngSanitize'
         },
-
         'signals': {
             exports: 'signals'
         },
-
-        'ngFileUpload': {
-            deps: ['angular'],
-            exports: 'ngFileUpload'
+        'moment': {
+            exports: 'moment'
         },
-
+        'i18next': {
+            exports: 'i18next'
+        },
 
         'angular-validation': {
             deps: ['angular'],
@@ -70,16 +85,10 @@ requirejs.config({
             deps: ['angular', 'angular-validation'],
             exports: 'angular-validation-rule'
         },
-        'moment': {
-            exports: 'moment'
-        },
 
-        'angular-moment': {
-            deps: ['angular', 'moment'],
-            exports: 'angular-moment'
-        },
-        'i18next': {
-            exports: 'i18next'
+        'infinite-scroll': {
+            deps: ['angular'],
+            exports: 'infinite-scroll'
         },
 
         'angular-route': {
@@ -87,14 +96,29 @@ requirejs.config({
             exports: 'angular-route'
         },
 
+        'ngFileUpload': {
+            deps: ['angular'],
+            exports: 'ngFileUpload'
+        },
+
         'angular-draganddrop': {
             deps: ['angular'],
             exports: 'angular-draganddrop'
         },
 
+        'angular-moment': {
+            deps: ['angular', 'moment'],
+            exports: 'angular-moment'
+        },
+
         'angular-bootstrap': {
             deps: ['angular'],
             exports: 'angular-bootstrap'
+        },
+
+        'angularRecursion': {
+            deps: ['angular'],
+            exports: 'angularRecursion'
         },
 
         'ng-i18next': {
@@ -107,17 +131,62 @@ requirejs.config({
             exports: 'ng-sortable'
         },
 
-        'infinite-scroll': {
-            deps: ['angular'],
-            exports: 'infinite-scroll'
-        },
-
         'jquery': {
             exports: '$'
         },
 
+        'jquery_migrate': {
+            deps: ['jquery']
+        },
+
+        'jquery_ui': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'slimscroll': {
+            deps: ['jquery', 'jquery_migrate']
+        },
+
+        'bootstrap': {
+            deps: ['jquery', 'jquery_migrate', 'jquery_ui']
+        },
+
+        'datatables': {
+            deps: ['jquery']
+        },
+
+        'datatables_scroller': {
+            deps: ['jquery', 'datatables']
+        },
+
         'flot': {
+            deps: ['jquery'],
             exports: 'flot'
+        },
+
+        'flot-resize': {
+            deps: ['jquery', 'flot'],
+            exports: 'flot-resize'
+        },
+
+        'flot-stack': {
+            deps: ['jquery', 'flot'],
+            exports: 'flot-stack'
+        },
+
+        'flot-pie': {
+            deps: ['jquery', 'flot'],
+            exports: 'flot-pie'
+        },
+
+        'flot-categories': {
+            exports: 'flotCategories',
+            deps: ['flot']
+        },
+
+        'flot-crosshair': {
+            exports: 'flotCrosshair',
+            deps: ['flot']
         },
 
         'functional-option': {
@@ -129,15 +198,26 @@ requirejs.config({
             exports: 'ApplicationFactory'
         },
 
+        'fullcalendar': {
+            deps: ['moment'],
+            exports: 'fullcalendar'
+        },
+
         'crypto.SHA1': ['crypto']
     },
 
     'deps': [
-        'angular', 'ngSanitize', 'ngFileUpload', 'infinite-scroll', 'angular-validation', 'angular-validation-rule',
-        'angular-route', 'jquery', 'q', 'postal', 'meld', 'framework', 'functional-option',
-        'underscore', 'angular-draganddrop', 'angular-bootstrap', 'moment', 'angular-moment',
-        'i18next', 'ng-i18next', 'signals', 'ng-sortable', 'crypto.SHA1',
-        'main'
+        'jquery', 'jquery_migrate', 'jquery_ui',
+        'angular', 'ngSanitize', 'ngFileUpload', 'infinite-scroll', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'angular-draganddrop', 'angular-bootstrap',
+        'q', 'postal', 'meld',
+        'framework', 'functional-option', 'moment',
+        'i18next', 'ng-i18next',
+        'underscore', 'signals', 'ng-sortable', 'angular-moment',
+        'datatables', //'datatables_scroller',
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
+        'crypto.SHA1',
+        'angularRecursion', 'main'
     ],
 
     callback: test_main
