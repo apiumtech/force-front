@@ -197,6 +197,7 @@ function main() {
             'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
             // Channels
             'services/bus/FilterChannel',
+            'services/ArrayHelper',
 
             'services/bus/BaseWidgetEventBus',
             // plots
@@ -373,7 +374,6 @@ function main() {
             'controllers/filters/SalesAnalyticsFilterController',
             'views/filters/SalesAnalyticsFilterView',
             'models/filters/SalesAnalyticsFilterModel',
-            'models/filters/SalesAnalyticsFilterPresentationModel',
             'presenters/filters/SalesAnalyticsFilterPresenter',
 
             // Graph widget

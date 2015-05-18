@@ -5,10 +5,9 @@
 app.registerView(function (container) {
     var BaseView = container.getView('views/BaseView');
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
-    //var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
+    var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
     var AwaitHelper = container.getService('services/AwaitHelper');
 
-    var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterPresentationModel');
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
     var moment = container.getFunction('moment');
 
@@ -17,6 +16,7 @@ app.registerView(function (container) {
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.filter = $filter;
+        this.$compileService = $scope.$compile || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         this.awaitHelper = AwaitHelper.newInstance();
         var self = this;
@@ -241,26 +241,25 @@ app.registerView(function (container) {
         };
 
         self.fn.getFilteredUsersList = function () {
-            if (!self.searchingUser || self.searchingUser === "")
-                self.userFiltered = self.usersList;
-            else
-                self.userFiltered = self._getFilteredUsers(self.usersList, self.searchingUser);
+            var clonedUserList= _.clone(self.usersList);
+            console.log("cloned user list: ", clonedUserList)
+            self.event.onFilteringUsers(clonedUserList, self.currentUserFilterGroup, self.searchingUser);
         };
 
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
-            self.currentUserFilterGroup = 'Environment';
+            self.currentUserFilterGroup = SalesAnalyticsFilterModel.ENVIRONMENT;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
-            self.currentUserFilterGroup = 'Hierarqhy';
+            self.currentUserFilterGroup = SalesAnalyticsFilterModel.TEAM;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.initializeFilters = function () {
-            self.currentUserFilterGroup = 'Environment';
+            self.currentUserFilterGroup = SalesAnalyticsFilterModel.ENVIRONMENT;
             self.fn.resetDate();
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
@@ -326,6 +325,13 @@ app.registerView(function (container) {
         }
     };
 
+    SalesAnalyticsFilterView.prototype.setFilteredData = function (data) {
+        if (!data || data.length <= 0) throw new Error('Filtered data is empty, no change will be made');
+        var self = this;
+        console.log(data);
+        self.userFiltered = data;
+    };
+
     SalesAnalyticsFilterView.prototype.checkSelectAllState = function () {
         var self = this;
         var allSelected = true;
@@ -360,6 +366,9 @@ app.registerView(function (container) {
         var result = [], self = this;
 
         self.userFiltered.forEach(function (group) {
+            if (group.checked === true || group.checked === null /* tri-state*/) {
+                result.push(group.id);
+            }
             group.children.forEach(function (user) {
                 if (user.checked)
                     result.push(user.id);
@@ -377,8 +386,11 @@ app.registerView(function (container) {
                 return item.group === dataRecord.group;
             });
 
+            console.log(dataRecord);
+
             if (group === undefined) {
                 group = {
+                    id: dataRecord.id,
                     group: dataRecord.group,
                     children: []
                 };

@@ -5,14 +5,15 @@
 app.registerController(function (container) {
     var SalesAnalyticsFilterView = container.getView("views/filters/SalesAnalyticsFilterView");
 
-    function SalesAnalyticsFilterController($scope, $filter) {
-        SalesAnalyticsFilterController.configureView($scope, $filter);
+    function SalesAnalyticsFilterController($scope, $filter, $compile) {
+        SalesAnalyticsFilterController.configureView($scope, $filter, $compile);
     }
 
-    SalesAnalyticsFilterController.configureView = function ($scope, $filter) {
+    SalesAnalyticsFilterController.configureView = function ($scope, $filter, $compile) {
+        $scope.$compile = $compile;
         this.view = SalesAnalyticsFilterView.newInstance($scope, $filter);
         this.view.show();
     };
 
-    return SalesAnalyticsFilterController;
+    return ['$scope', '$filter', '$compile', SalesAnalyticsFilterController];
 });

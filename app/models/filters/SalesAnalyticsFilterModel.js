@@ -1,17 +1,22 @@
 /**
  * Created by Justin on 2/5/2015.
  */
+
 app.registerModel(function (container) {
     var Q = container.getFunction('q');
     var AjaxService = container.getService("services/ajax/AuthAjaxService");
     var StorageService = container.getService("services/StorageService");
     var Configuration = container.getService("Configuration");
     var _ = container.getFunction("underscore");
+    var ArrayHelper = container.getService("services/ArrayHelper");
+
+    var ENVIRONMENT = 'Environment', TEAM = 'Hierarqhy';
 
     function SalesAnalyticsFilterModel(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
-        this.currentQuery = 'Environment';
+        this.currentQuery = SalesAnalyticsFilterModel.ENVIRONMENT;
+        this.arrayHelper = ArrayHelper;
     }
 
     SalesAnalyticsFilterModel.prototype = Object.create(Object.prototype, {});
@@ -32,7 +37,7 @@ app.registerModel(function (container) {
             accept: 'application/json'
         };
 
-        var ajaxService = self.ajaxService ;
+        var ajaxService = self.ajaxService;
 
         var deferred = self.defer();
 
@@ -62,38 +67,51 @@ app.registerModel(function (container) {
 
     SalesAnalyticsFilterModel.prototype.decorateData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        var self = this;
-        if (self.currentQuery == 'Environment') {
-            var groupedData = _.groupBy(data, function (record) {
-                return record.idParent;
-            });
-
-            _.each(groupedData, function (value, key) {
-                if (key == '-1') { // move all the 2nd level nodes to the 1st one
-                    _.each(value, function (record) {
-
-                        if (groupedData['' + record.id + '']) {
-                            record.children = groupedData['' + record.id + ''];
-                        }
-                    });
-                } else {
-                    _.each(value, function (record) {
-                        if (groupedData['' + record.id + '']) {
-                            record.children = groupedData['' + record.id + ''];
-                        }
-                    });
-                }
-            });
-
-            return groupedData['-1'];
-        }
-        return data.data;
+        return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
     };
 
     SalesAnalyticsFilterModel.prototype.defer = function () {
         var deferred = Q.defer();
         return deferred;
     };
+
+    SalesAnalyticsFilterModel.prototype.getFilteredData = function (data, filter, searchQuery) {
+        if (!data || !(data instanceof Array) || data.length <= 0) throw new Error('Invalid data passed');
+        if (filter != ENVIRONMENT && filter != TEAM) throw new Error('Invalid filterGroup passed');
+        if (!searchQuery) return data;
+        var self = this;
+        var clonedData = JSON.parse(JSON.stringify(data));
+        return self['getFilteredDataFor' + filter](clonedData, searchQuery);
+        // TODO: Refactor to use same method
+        //return this.arrayHelper.queryTree(clonedData, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+    };
+
+    SalesAnalyticsFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
+        //    var filteredData = data.map(function (record) {
+        //        if (!record.children) return record;
+        //
+        //        // 2nd level
+        //        var filteredChildren = _.filter(record.children, function (child) {
+        //            return child.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+        //        });
+        //
+        //        record.children = filteredChildren;
+        //        return record;
+        //    });
+        //    return filteredData;
+
+        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+    };
+
+    SalesAnalyticsFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
+
+        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+
+    };
+
+    SalesAnalyticsFilterModel.ENVIRONMENT = ENVIRONMENT;
+
+    SalesAnalyticsFilterModel.TEAM = TEAM;
 
     SalesAnalyticsFilterModel.newInstance = function (ajaxService, storageService) {
         var _ajaxService = ajaxService || AjaxService.newInstance();
@@ -103,4 +121,5 @@ app.registerModel(function (container) {
     };
 
     return SalesAnalyticsFilterModel;
-});
+})
+;
