@@ -182,7 +182,8 @@ function main() {
             'angularFileUpload',
             'infinite-scroll',
             'validation',
-            'validation.rule'
+            'validation.rule',
+            'RecursionHelper'
         ], AngularConfig));
 
     app.manifest = {
@@ -215,10 +216,7 @@ function main() {
             'directives/ForceDatePickerDirective',
 
             //Tree
-
             'directives/tree/TreeListDirective',
-            'directives/tree/TreeNodeDirective',
-            'views/tree/TreeNodeView',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',
