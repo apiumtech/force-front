@@ -424,6 +424,17 @@ span.panel-loading.isLoading {
   .panel-body {
     border-top: none !important;
   }
+
+  :not(.panel-group) .panel-body {
+    padding-right: 0 !important;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+  }
+
+  .panel-group {
+    margin-bottom: 0 !important;
+  }
+
   .panel-heading {
 
     .environment-collapse-icon {
@@ -444,6 +455,11 @@ span.panel-loading.isLoading {
         border: 1px solid #000;
         color: #000;
         border-radius: 4px;
+
+        &.checked {
+          border: 1px solid #ED8B00;
+          color: #ED8B00;
+        }
       }
     }
 
@@ -451,7 +467,7 @@ span.panel-loading.isLoading {
     padding: 2px;
     background: #FFF !important;
     a {
-      padding: 4px 15px !important;
+      padding: 4px 0 4px 15px !important;
       text-transform: none !important;
       color: rgba(0, 0, 0, .8);
 
@@ -469,6 +485,11 @@ span.panel-loading.isLoading {
       }
     }
 
+    :not(.accordion-toggle) {
+      .accordion-toggle {
+        padding-right: 0 !important;
+      }
+    }
   }
 }
 
