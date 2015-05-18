@@ -7,20 +7,18 @@ app.registerView(function (container) {
     var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
     var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
     var AwaitHelper = container.getService('services/AwaitHelper');
+    var ArrayHelper = container.getService("services/ArrayHelper");
 
     var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
     var moment = container.getFunction('moment');
-
-    var angular = container.getFunction('angular');
+    var UserTreeListEventBus = container.getService('services/UserTreeListEventBus').getInstance();
 
     var _ = container.getFunction("underscore");
 
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
-        var $compile = angular.compile;
-        console.log('test compile: ', $compile);
         BaseView.call(this, $scope, $model, $presenter);
+        this.arrayHelper = ArrayHelper;
         this.filter = $filter;
-        this.$compileService = $scope.$compile || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         this.awaitHelper = AwaitHelper.newInstance();
         var self = this;
@@ -157,6 +155,8 @@ app.registerView(function (container) {
     SalesAnalyticsFilterView.configureEvents = function (instance) {
         var self = instance;
 
+        UserTreeListEventBus.onNodeSelected(self.onNodeSelected.bind(self));
+
         self.$scope.$watch('displayDateStart', function (value) {
             var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
@@ -245,7 +245,7 @@ app.registerView(function (container) {
         };
 
         self.fn.getFilteredUsersList = function () {
-            var clonedUserList= _.clone(self.usersList);
+            var clonedUserList = _.clone(self.usersList);
             console.log("cloned user list: ", clonedUserList)
             self.event.onFilteringUsers(clonedUserList, self.currentUserFilterGroup, self.searchingUser);
         };
@@ -319,6 +319,10 @@ app.registerView(function (container) {
             var filteredIds = self.getFilteredUserIdsList();
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };
+
+        self.fn.selectTeam = function (item) {
+            console.log("selecting team: ", item);
+        };
     };
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {
@@ -327,6 +331,11 @@ app.registerView(function (container) {
             self.dateRangeEnd = new Date(self.dateRangeStart.toString());
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
         }
+    };
+
+    SalesAnalyticsFilterView.prototype.onNodeSelected = function () {
+        var self = this;
+        self.fn.applyUserFilter();
     };
 
     SalesAnalyticsFilterView.prototype.setFilteredData = function (data) {
@@ -367,17 +376,15 @@ app.registerView(function (container) {
     };
 
     SalesAnalyticsFilterView.prototype.getFilteredUserIdsList = function () {
-        var result = [], self = this;
+        var self = this;
+        var result = [];
 
-        self.userFiltered.forEach(function (group) {
-            if (group.checked === true || group.checked === null /* tri-state*/) {
-                result.push(group.id);
-            }
-            group.children.forEach(function (user) {
-                if (user.checked)
-                    result.push(user.id);
-            });
-        });
+        var cloned = this.arrayHelper.clone(self.userFiltered);
+        var flattened = this.arrayHelper.flatten(cloned, 'children');
+
+        result = _.pluck(flattened.filter(function (node) {
+            return node.checked === true;
+        }), 'id');
 
         return result;
     };

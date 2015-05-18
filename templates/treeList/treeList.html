@@ -1,24 +1,34 @@
 <accordion-group ng-repeat="item in treeList"
                  is-open="item.isOpen" is-disabled="!item.children"
-                 class="clearfix">
+                 class="clearfix accordion-tree-group">
     <accordion-heading class="clearfix">
 
-        <div class="item-box col-xs-8">
+        <div class="item-container">
 
-            <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
-               ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
+            <div class="item-box col-xs-8" ng-class="{'checked': item.checked}">
 
-            <i ng-if="item.children && item.idParent == -1" class="fa fa-star pull-left m-t-2 m-l-10 m-r-10"></i>
-            <i ng-if="item.children && item.idParent !== -1" class="fa fa-train pull-left m-t-2 m-l-10 m-r-10"></i>
-            <i ng-if="!item.children && item.idParent == -1"
-               class="glyphicon glyphicon-user pull-left m-t-2 m-l-20 m-r-10"></i>
+                <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
+                   ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
+                <i class="pull-left m-t-2 m-r-10"
+                   ng-class="{'fa fa-star  m-l-10': item.children && item.idParent == -1,
+                    'fa fa-bookmark m-l-10': item.children && item.idParent !== -1,
+                    'glyphicon glyphicon-user m-l-25': !item.children}"
+                        ></i>
 
-            <div class="m-l-10"><strong>{{item.name}}</strong></div>
-        </div>
+                <div class="m-l-10" ng-click="toggleNode(item);">
+                    <strong>{{item.name}}</strong>
+                    <span ng-show="item.checked" class="pull-right fa ic-close m-r-10"></span>
+                </div>
+            </div>
 
-        <div class="select-box text-center col-xs-3 col-xs-offset-1">
-            <a ng-if="item.children" href="#" class="clearfix">SELECT TEAM</a>
+            <div class="select-box text-center pull-right">
+                <a ng-if="item.children && item.children.length" href="#" class="clearfix"
+                   ng-click="toggleSelectGroupItems(item)">
+                    SELECT TEAM
+                </a>
+            </div>
+
         </div>
     </accordion-heading>
 
