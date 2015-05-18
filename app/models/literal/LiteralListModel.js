@@ -7,48 +7,31 @@ app.registerModel(function (container) {
     var LiteralService = container.getService('services/LiteralService');
 
 
-    // ----------------------------------------
-    //
-    //  CONSTRUCTOR
-    //
-    // ----------------------------------------
-
     function LiteralListModel(literalService) {
         this.literalService = literalService;
-        this.page = -1;
+        this.page = 0;
     }
 
+    var proto = LiteralListModel.prototype;
 
-    // ----------------------------------------
-    //
-    //  API
-    //
-    // ----------------------------------------
 
-    /**
-     * getLiteralList()
-     */
-    LiteralListModel.prototype.getLiteralList = function (searchTerm) {
-        this.page++;
+    proto.getLiteralList = function (searchTerm) {
         var skip = this.page;
-        var limit = Configuration.pageSize;
+        var limit = 1000;//Configuration.pageSize;
         return this.literalService.getLiteralList(searchTerm, skip, limit);
     };
 
 
-    /**
-     * getLanguageList()
-     */
-    LiteralListModel.prototype.getLanguageList = function () {
+    proto.getLanguageList = function () {
         return this.literalService.getLanguageList();
     };
 
 
-    // ----------------------------------------
-    //
-    //  FACTORY
-    //
-    // ----------------------------------------
+    proto.deleteLiteral = function(id) {
+        assertNotNull("id", id);
+        return this.literalService.deleteLiteral(id);
+    };
+
 
     LiteralListModel.newInstance = function (literalService) {
         literalService = literalService || LiteralService.newInstance();

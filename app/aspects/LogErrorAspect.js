@@ -5,19 +5,18 @@
 app.registerService(function (container) {
     var meld = container.getFunction('meld');
 
-    function errorMessage(error){
-        return error.stack || error.toString();
+    function errorMessage(error, defaultMessage){
+        return isset(error) ? error.stack || error.toString() : defaultMessage;
     }
 
     return {
-        _log: console.log,
         weave: function (view) {
             meld.before(view, "showError", function (error) {
-                this._log(errorMessage(error));
+                console.log(errorMessage(error, "Error without value"));
             }.bind(this));
 
             meld.afterThrowing(view, /^[a-z].+/, function (error) {
-                console.warn(errorMessage(error));
+                console.warn(errorMessage(error, "Error without value"));
             }.bind(this));
         }
     };

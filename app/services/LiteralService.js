@@ -9,6 +9,14 @@ app.registerService(function (container) {
     var Q = container.getFunction('q');
 
 
+    // TODO: remove when getting rid of OK KO results
+    var okKoDataFilter = function(data, type){
+        if (type == "json" && data == "OK" || data == "KO") {
+            return JSON.stringify({result:data});
+        }
+    };
+
+
     // ----------------------------------------
     //
     //  CONSTRUCTOR
@@ -33,12 +41,25 @@ app.registerService(function (container) {
     proto._createLiteralBody = function(literal){
         var body = {
             key : literal.Key,
-            values : {}
+            values : {},
+            deviceCategoryIds: [],
+            deviceTypeIds: [],
+            literalTypeId: null
         };
 
         literal.LanguageValues.forEach(function (lang) {
             body.values[lang.Key] = lang.Value;
         });
+
+        literal.DeviceCategories.forEach(function (deviceCat) {
+            body.deviceCategoryIds.push(deviceCat.Id);
+        });
+
+        literal.DeviceTypes.forEach(function (deviceType) {
+            body.deviceTypeIds.push(deviceType.Id);
+        });
+
+        body.literalTypeId = literal.LiteralType ? literal.LiteralType.Id : null;
 
         return body;
     };
@@ -51,7 +72,8 @@ app.registerService(function (container) {
             data: body,
             type: 'POST',
             dataType: 'json',
-            contentType: 'application/json'
+            contentType: 'application/json',
+            dataFilter: okKoDataFilter
         });
     };
 
@@ -67,7 +89,8 @@ app.registerService(function (container) {
             data: body,
             type: 'POST',
             dataType: 'json',
-            contentType: 'application/json'
+            contentType: 'application/json',
+            dataFilter: okKoDataFilter
         };
 
         return this.ajaxService.rawAjaxRequest(params);
@@ -84,7 +107,8 @@ app.registerService(function (container) {
             data: body,
             type: 'POST',
             dataType: 'json',
-            contentType: 'application/json'
+            contentType: 'application/json',
+            dataFilter: okKoDataFilter
         });
     };
 
@@ -138,19 +162,22 @@ app.registerService(function (container) {
         var languagesToAdd = [];
         this.getLanguageList().then(
             function(languageList) {
-                languageList.forEach(function(langListItem){
+                var langListLen = languageList.length;
+                var langValuesLen = literal.LanguageValues.length;
+                for( var i=0; i<langListLen; i++ ) {
                     var languageIsFound = false;
-                    if(literal.LanguageValues.length) {
-                        languageIsFound = literal.LanguageValues.every(function (langValue) {
-                            console.log(langListItem.Name, "===", langValue.Key);
-                            return langListItem.Name === langValue.Key;
-                        });
+                    var langListItemName = languageList[i].Name;
+                    for( var j=0; j<langValuesLen; j++ ) {
+                        var langValueKey = literal.LanguageValues[j].Key;
+                        if( langListItemName == langValueKey ) {
+                            languageIsFound = true;
+                            break;
+                        }
                     }
                     if(!languageIsFound) {
-                        languagesToAdd.push({ Key:langListItem.Name, Value:"" });
+                        languagesToAdd.push({ Key: langListItemName, Value: "" });
                     }
-                });
-                console.log("languagesToAdd", languagesToAdd);
+                }
                 literal.LanguageValues = literal.LanguageValues.concat(languagesToAdd);
                 deferred.resolve(literal);
             },
@@ -205,18 +232,6 @@ app.registerService(function (container) {
             }
         );
 
-        /*this.getLanguageList().then(
-            function(data){
-                data.forEach(function(lang){
-                    nullLiteral.LanguageValues.push(
-                        { Key:lang.Name, Value:"" }
-                    );
-                });
-                deferred.resolve(nullLiteral);
-            },
-            function(err){ deferred.reject(err); }
-        );*/
-
         return deferred.promise;
     };
 
@@ -231,6 +246,15 @@ app.registerService(function (container) {
     proto.getLanguageList = function () {
         return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.languageList,
+            type: 'GET',
+            dataType: 'json'
+        });
+    };
+
+
+    proto.getLiteralTypeList = function () {
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.literalTypeList,
             type: 'GET',
             dataType: 'json'
         });

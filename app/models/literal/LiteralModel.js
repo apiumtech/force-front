@@ -3,6 +3,7 @@
  */
 
 app.registerModel(function (container) {
+    var Q = container.getFunction('q');
     var LiteralService = container.getService('services/LiteralService');
 
 
@@ -15,9 +16,18 @@ app.registerModel(function (container) {
 
     proto.createLiteral = function(literal) { return this.literalService.createLiteral(literal); };
 
-    proto.changeLiteralDetails = function(literal) { return this.literalService.changeLiteralDetails(literal); };
-
-    proto.deleteLiteral = function(id) { return this.literalService.deleteLiteral(id); };
+    proto.changeLiteralDetails = function(literal) {
+        var deferred = Q.defer();
+        this.literalService.changeLiteralDetails(literal).then(
+            function(data){
+                deferred.resolve(data);
+            },
+            function(err){
+                deferred.reject(err);
+            }
+        )
+        return deferred.promise;
+    };
 
     proto.getLiteralById = function(id) {
         var literalStub = { Id: id };
@@ -29,6 +39,8 @@ app.registerModel(function (container) {
     };
 
     proto.getLanguageList = function() { return this.literalService.getLanguageList(); };
+
+    proto.getLiteralTypeList = function() { return this.literalService.getLiteralTypeList(); };
 
     proto.isNew = function(literal) { return literal == null || literal.Id == null; };
 
