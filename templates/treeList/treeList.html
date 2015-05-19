@@ -23,10 +23,11 @@
             </div>
 
             <div class="select-box text-center pull-right">
-                <a ng-if="item.children && item.children.length" href="#" class="clearfix"
-                   ng-click="toggleSelectGroupItems(item)"
+                <a ng-if="item.children && item.children.length"
+                   href="#" class="clearfix"
+                   ng-click="toggleSelectGroupItems(item, $event)"
                    ng-class="{'checked': item.checked}"
-                   >
+                        >
                     SELECT TEAM
                     <span ng-show="item.checked" class="pull-right fa ic-close m-l-5"></span>
                 </a>

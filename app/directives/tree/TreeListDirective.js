@@ -17,13 +17,14 @@ app.registerDirective(function (container) {
             compile: function (element) {
                 return RecursionHelper.compile(element, function (scope, iElement, iAttrs, controller, transcludeFn) {
 
-                    scope.toggleSelectGroupItems = function (parentItem, notFireEvent) {
+                    scope.toggleSelectGroupItems = function (parentItem, event, notFireEvent) {
+                        event.stopPropagation();
                         var selectState = parentItem.checked;
                         parentItem.checked = !selectState;
                         parentItem.children.forEach(function (n) {
                             if (n.children) {
                                 n.checked = selectState;
-                                scope.toggleSelectGroupItems(n, !notFireEvent);
+                                scope.toggleSelectGroupItems(n, event, !notFireEvent);
                             }
                             else n.checked = !selectState;
                         });
@@ -33,8 +34,8 @@ app.registerDirective(function (container) {
                     };
 
                     scope.toggleNode = function (item) {
-                        if (item.children) return;
                         item.checked = !item.checked;
+                        if (item.children) return;
                         eventBus.fireNodeSelected(item);
                     };
                 });
