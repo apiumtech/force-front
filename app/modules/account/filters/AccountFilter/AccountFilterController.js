@@ -3,8 +3,11 @@
  */
 define([
     'app',
-    'modules/filters/account/AccountFilterView'
-], function (AccountFilterView) {
+    'modules/account/filters/AccountFilter/AccountFilterView',
+    'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterController',
+    'modules/account/filters/DatetimeFilter/DatetimeTypeFilterController',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterController'
+], function (app, AccountFilterView) {
 
     function AccountFilterController($scope) {
         AccountFilterController.configureView($scope);
@@ -16,4 +19,6 @@ define([
     };
 
     app.register.controller('AccountFilterController', ['$scope', AccountFilterController]);
+
+    return AccountFilterController;
 });

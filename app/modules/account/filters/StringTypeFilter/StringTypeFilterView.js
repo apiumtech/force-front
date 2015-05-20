@@ -1,11 +1,12 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-    var StringTypeFilterModel = container.getModel('models/filters/StringTypeFilterModel');
-    var StringTypeFilterPresenter = container.getModel('presenters/filters/StringTypeFilterPresenter');
-    var AwaitHelper = container.getService('services/AwaitHelper');
+define([
+    'shared/BaseView',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterModel',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterPresenter',
+    'shared/services/AwaitHelper'
+], function (BaseView, StringTypeFilterModel, StringTypeFilterPresenter, AwaitHelper) {
 
     function StringTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;

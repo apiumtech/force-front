@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerController(function (container) {
-    var DatetimeTypeFilterView = container.getView("views/filters/DatetimeTypeFilterView");
+define([
+    'app',
+    'modules/account/filters/DatetimeFilter/DatetimeTypeFilterView'
+], function (app, DatetimeTypeFilterView) {
 
     function DatetimeTypeFilterController($scope, $element) {
         DatetimeTypeFilterController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = DatetimeTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('DatetimeTypeFilterController', ['$scope', '$element', DatetimeTypeFilterController]);
 
     return DatetimeTypeFilterController;
 });

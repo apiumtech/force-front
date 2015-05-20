@@ -48,7 +48,7 @@ function main() {
             })
 
             .when('/accounts/:account_id', {
-                templateUrl: 'templates/accountDetails/account_details.html',
+                templateUrl: 'templates/accountDetails/accountDetails.html',
                 controller: 'AccountDetailsController'
             })
             .when('/accounts/:account_id/edit', {

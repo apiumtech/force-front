@@ -1,7 +1,7 @@
 /**
  * Created by Justin on 4/6/2015.
  */
-app.registerService(function (container) {
+define([], function () {
     function AwaitHelper() {
 
     }

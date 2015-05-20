@@ -1,10 +1,11 @@
 /**
  * Created by kevin on 11/5/14.
  */
-app.registerModel(function (container) {
-    var Configuration = container.getService('Configuration');
-    var FakeDatabase = container.getService('models/fakes/FakeDatabase');
-    var Q = container.getFunction('q');
+define([
+    'config',
+    'modules/account/FakeDatabase',
+    'q'
+], function (Configuration, FakeDatabase, Q) {
 
     function FilterModel($fakeDatabase) {
         this.fakeDatabase = $fakeDatabase;

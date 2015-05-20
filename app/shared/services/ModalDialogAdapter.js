@@ -1,8 +1,9 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-app.registerService(function (container) {
-    var _ = container.getFunction("underscore");
+define([
+    'underscore'
+], function (_) {
 
     function ModalDialogAdapter(modalService) {
         this.modalService = modalService;

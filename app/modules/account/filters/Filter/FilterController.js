@@ -1,8 +1,10 @@
 /**
  * Created by kevin on 11/5/14.
  */
-app.registerController(function (container) {
-    var FilterView = container.getView("views/filters/FilterView");
+define([
+    'app',
+    'modules/account/filters/Filter/FilterView'
+], function (app, FilterView) {
 
     function FilterController($scope) {
         FilterController.configureView($scope);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = FilterView.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('FilterController', ['$scope', FilterController]);
 
     return FilterController;
 });

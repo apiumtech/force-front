@@ -5,7 +5,9 @@
 define([], function () {
     return {
         register: function ($routeProvider, resolveRoute) {
-            $routeProvider.when('/account', resolveRoute('modules/account/AccountController', 'modules/account/account'));
+            $routeProvider.when('/accounts', resolveRoute('modules/account/AccountController', 'modules/account/account'));
+            $routeProvider.when('/accounts/:account_id',
+                resolveRoute('modules/account/details/AccountDetailsController', 'modules/account/details/accountDetails'));
         }
     };
 });

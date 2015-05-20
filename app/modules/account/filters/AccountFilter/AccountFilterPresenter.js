@@ -1,9 +1,10 @@
 /**
  * Created by trung.dang on 02/12/2015
  */
-app.registerPresenter(function (container) {
-    var FilterChannel = container.getService('services/bus/FilterChannel');
-    var AccountEventBus = container.getService('services/AccountEventBus');
+define([
+    'shared/services/bus/FilterChannel',
+    'shared/services/AccountEventBus'
+], function (FilterChannel, AccountEventBus) {
 
     function AccountFilterPresenter(filterEventChannel, accountEventBus) {
         this.filterChannel = filterEventChannel;

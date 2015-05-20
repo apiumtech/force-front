@@ -1,14 +1,14 @@
 /**
  * Created by trung.dang on 02/12/2015
  */
-app.registerView(function (container) {
-    var _ = container.getFunction("underscore");
-    var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
-    var LogErrorAspect = container.getService('aspects/LogErrorAspect');
-    var BaseView = container.getView("views/BaseView");
-
-    var AccountFilterPresenter = container.getPresenter('presenters/account/AccountFilterPresenter');
-    var AccountFilterModel = container.getModel('models/account/AccountFilterModel');
+define([
+    'underscore',
+    'shared/aspects/ViewRepaintAspect',
+    'shared/aspects/LogErrorAspect',
+    'shared/BaseView',
+    'modules/account/filters/AccountFilter/AccountFilterPresenter',
+    'modules/account/filters/AccountFilter/AccountFilterModel'
+], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel) {
 
     function AccountFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

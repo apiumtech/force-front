@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerDirective(function (container) {
-    var DatetimeTypeFilterController = container.getController("controllers/filters/DatetimeTypeFilterController");
+define([
+    'app',
+    'modules/account/filters/DatetimeFilter/DatetimeTypeFilterController'
+], function (app, DatetimeTypeFilterController) {
 
     function DatetimeTypeFilterDirective() {
         return {
@@ -15,6 +17,8 @@ app.registerDirective(function (container) {
             templateUrl: '/templates/filters/datetimeTypeFilter.html'
         };
     }
+
+    app.register.directive('DatetimeTypeFilterDirective', DatetimeTypeFilterDirective);
 
     return DatetimeTypeFilterDirective;
 });

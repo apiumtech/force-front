@@ -1,8 +1,10 @@
 /**
  * Created by justin on 3/9/15.
  */
-app.registerController(function (container) {
-    var AccountDetailsView = container.getView("views/accountDetails/AccountDetailsView");
+define([
+    'app',
+    'modules/account/details/AccountDetailsView'
+], function (app, AccountDetailsView) {
 
     /**
      * Create instance of AccountDetailsController
@@ -21,6 +23,8 @@ app.registerController(function (container) {
         this.view = AccountDetailsView.newInstance(scope, $modal);
         this.view.show();
     };
+
+    app.register.controller('AccountDetailsController', ['$scope', '$modal', '$routeParams', AccountDetailsController]);
 
     return AccountDetailsController;
 });

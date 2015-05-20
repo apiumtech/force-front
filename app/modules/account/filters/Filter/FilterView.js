@@ -1,12 +1,12 @@
 /**
  * Created by kevin on 11/5/14.
  */
-app.registerView(function (container) {
-    var ViewRepaintAspect = container.getService('aspects/ViewRepaintAspect');
-    var LogErrorAspect = container.getService('aspects/LogErrorAspect');
-
-    var FilterPresenter = container.getPresenter('presenters/filters/FilterPresenter');
-    var FilterModel = container.getModel('models/filters/FilterModel');
+define([
+    'shared/aspects/ViewRepaintAspect',
+    'shared/aspects/LogErrorAspect',
+    'modules/account/filters/Filter/FilterPresenter',
+    'modules/account/filters/Filter/FilterModel'
+], function (ViewRepaintAspect, LogErrorAspect, FilterPresenter, FilterModel) {
 
     function FilterView($scope, $model, $presenter) {
         this.data = {};

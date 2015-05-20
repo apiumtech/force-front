@@ -1,9 +1,10 @@
 /**
  * Created by Justin on 4/3/2015.
  */
-app.registerModel(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
-    var Configuration = container.getService("Configuration");
+define([
+    'shared/services/ajax/AjaxService',
+    'config'
+], function (AjaxService, Configuration) {
 
     function BaseAccountFilterModel(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance();

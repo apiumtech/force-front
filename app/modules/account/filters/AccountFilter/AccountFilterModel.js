@@ -1,7 +1,8 @@
-app.registerModel(function (container) {
-    var Configuration = container.getService('Configuration');
-    var AjaxService = container.getService("services/AjaxService");
-    var AccountService = container.getService("services/AccountService");
+define([
+    'config',
+    'shared/services/ajax/AjaxService',
+    'shared/services/AccountService'
+], function (Configuration, AjaxService, AccountService) {
 
     function AccountFilterModel(ajaxService) {
         AccountService.call(this, ajaxService);

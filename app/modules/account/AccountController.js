@@ -3,7 +3,8 @@
  */
 define([
     'app',
-    'modules/account/AccountView'
+    'modules/account/AccountView',
+    'modules/account/filters/AccountFilter/AccountFilterController'
 ], function (app, AccountView) {
 
     function AccountController($scope) {
@@ -16,4 +17,6 @@ define([
     };
 
     app.register.controller('AccountController', ['$scope', AccountController]);
+
+    return AccountController;
 });

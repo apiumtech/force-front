@@ -1,13 +1,15 @@
 /**
  * Created by justin on 3/9/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var AccountDetailsModel = container.getModel("models/accountDetails/AccountDetailsModel");
-    var AccountDetailsPresenter = container.getPresenter("presenters/accountDetails/AccountDetailsPresenter");
-    var GoogleMapService = container.getService("services/GoogleMapService");
-    var PopoverAdapter = container.getService("services/PopoverAdapter");
-    var ModalDialogAdapter = container.getService('services/ModalDialogAdapter');
+define([
+    'shared/BaseView',
+    'modules/account/details/AccountDetailsModel',
+    'modules/account/details/AccountDetailsPresenter',
+    'shared/services/GoogleMapService',
+    'shared/services/PopoverAdapter',
+    'shared/services/ModalDialogAdapter',
+    'jquery'
+], function (BaseView, AccountDetailsModel, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $) {
 
     function AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter) {
         BaseView.call(this, scope, model, presenter);

@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerController(function (container) {
-    var BooleanTypeFilterView = container.getView("views/filters/BooleanTypeFilterView");
+define([
+    'app',
+    'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterView'
+], function (app, BooleanTypeFilterView) {
 
     function BooleanTypeFilterController($scope, $element) {
         BooleanTypeFilterController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = BooleanTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('BooleanTypeFilterController', ['$scope', '$element', BooleanTypeFilterController]);
 
     return BooleanTypeFilterController;
 });

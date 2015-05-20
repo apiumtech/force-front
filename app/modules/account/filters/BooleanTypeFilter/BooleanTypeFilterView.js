@@ -1,9 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-    var BooleanTypeFilterPresenter = container.getModel('presenters/filters/BooleanTypeFilterPresenter');
+define([
+    'shared/BaseView',
+    'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterPresenter'
+], function (BaseView, BooleanTypeFilterPresenter) {
 
     function BooleanFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;

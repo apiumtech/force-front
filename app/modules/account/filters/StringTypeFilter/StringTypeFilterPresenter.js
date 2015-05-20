@@ -1,8 +1,9 @@
 /**
  * Created by Justin on 4/2/2015.
  */
-app.registerPresenter(function (container) {
-    var AccountEventBus = container.getService('services/AccountEventBus');
+define([
+    'shared/services/AccountEventBus'
+], function (AccountEventBus) {
 
     function StringTypeFilterPresenter(accountEventBus) {
         this.accountEventBus = accountEventBus;

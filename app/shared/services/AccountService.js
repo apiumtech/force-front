@@ -2,10 +2,11 @@
  * Created by justin on 3/9/15.
  */
 
-app.registerService(function (container) {
-    var Configuration = container.getService('Configuration');
-    var AjaxService = container.getService("services/AjaxService");
-    var Q = container.getFunction('q');
+define([
+    'config',
+    'shared/services/ajax/AjaxService',
+    'q'
+], function (Configuration, AjaxService, Q) {
 
     function AccountService(ajaxService) {
         this.ajaxService = ajaxService;

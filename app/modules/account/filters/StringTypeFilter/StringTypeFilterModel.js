@@ -1,10 +1,10 @@
 /**
  * Created by Justin on 4/3/2015.
  */
-app.registerModel(function (container) {
-    var BaseAccountFilterModel = container.getService("models/filters/BaseAccountFilterModel");
-    var AjaxService = container.getService("services/AjaxService");
-    var Configuration = container.getService("Configuration");
+define([
+    'modules/account/filters/BaseAccountFilterModel',
+    'shared/services/ajax/AjaxService'
+], function (BaseAccountFilterModel, AjaxService) {
 
     function StringFilterModel(ajaxService) {
         BaseAccountFilterModel.call(this, ajaxService);

@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerDirective(function (container) {
-    var BooleanTypeFilterController = container.getController("controllers/filters/BooleanTypeFilterController");
+define([
+    'app',
+    'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterController'
+], function (app, BooleanTypeFilterController) {
 
     function BooleanTypeFilterDirective() {
         return {
@@ -12,9 +14,11 @@ app.registerDirective(function (container) {
                 onClose: "&"
             },
             controller: BooleanTypeFilterController,
-            templateUrl: '/templates/filters/booleanTypeFilter.html'
+            templateUrl: '/app/modules/account/filters/BooleanTypeFilter/booleanTypeFilter.html'
         };
     }
+
+    app.register.directive('BooleanTypeFilterDirective', BooleanTypeFilterDirective);
 
     return BooleanTypeFilterDirective;
 });

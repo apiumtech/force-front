@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerDirective(function (container) {
-    var StringTypeFilterController = container.getController("controllers/filters/StringTypeFilterController");
+define([
+    'app',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterController'
+], function (app, StringTypeFilterController) {
 
     function StringTypeFilterDirective() {
         return {
@@ -15,6 +17,8 @@ app.registerDirective(function (container) {
             templateUrl: '/templates/filters/stringTypeFilter.html'
         };
     }
+
+    app.register.directive('StringTypeFilterDirective', StringTypeFilterDirective);
 
     return StringTypeFilterDirective;
 });

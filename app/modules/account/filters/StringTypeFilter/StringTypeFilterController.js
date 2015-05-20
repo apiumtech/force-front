@@ -1,8 +1,10 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerController(function (container) {
-    var StringTypeFilterView = container.getView("views/filters/StringTypeFilterView");
+define([
+    'app',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterView'
+], function (app, StringTypeFilterView) {
 
     function StringTypeFilterController($scope, $element) {
         StringTypeFilterController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = StringTypeFilterView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('StringTypeFilterController', ['$scope', '$element', StringTypeFilterController]);
 
     return StringTypeFilterController;
 });

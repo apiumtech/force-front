@@ -1,10 +1,11 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-    var moment = container.getFunction('moment');
-    var DatetimeTypeFilterPresenter = container.getModel('presenters/filters/DatetimeTypeFilterPresenter');
+define([
+    'shared/BaseView',
+    'moment',
+    'modules/account/filters/DatetimeFilter/DatetimeTypeFilterPresenter'
+], function (BaseView, moment, DatetimeTypeFilterPresenter) {
 
     function DatetimeTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
