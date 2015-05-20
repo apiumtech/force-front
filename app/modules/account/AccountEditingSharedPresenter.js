@@ -1,7 +1,7 @@
 /**
  * Created by justin on 4/10/15.
  */
-app.registerPresenter(function (container) {
+define([], function () {
     function AccountEditingSharedPresenter() {
         this.view = null;
         this.model = null;
@@ -9,7 +9,6 @@ app.registerPresenter(function (container) {
 
     AccountEditingSharedPresenter.prototype.show = function (view, model) {
         var self = this;
-
         self.view = view;
         self.model = model;
 

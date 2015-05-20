@@ -2,8 +2,9 @@
  * Created by justin on 3/30/15.
  */
 
-app.registerService(function (container) {
-    var Q = container.getFunction('q');
+define([
+    'q'
+], function (Q) {
 
     function FakeAjaxService() {
 

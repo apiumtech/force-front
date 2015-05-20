@@ -1,8 +1,10 @@
 /**
  * Created by trung.dang on 02/12/2015
  */
-app.registerController(function (container) {
-    var AccountFilterView = container.getView("views/account/AccountFilterView");
+define([
+    'app',
+    'modules/filters/account/AccountFilterView'
+], function (AccountFilterView) {
 
     function AccountFilterController($scope) {
         AccountFilterController.configureView($scope);
@@ -13,5 +15,5 @@ app.registerController(function (container) {
         this.view.show();
     };
 
-    return AccountFilterController;
+    app.register.controller('AccountFilterController', ['$scope', AccountFilterController]);
 });

@@ -1,7 +1,7 @@
 /**
  * Created by Justin on 3/2/2015.
  */
-app.registerService(function (container) {
+define([], function () {
     function DataTableIntegrateImplement(domAccess, dtOptions) {
         return $(domAccess).DataTable(dtOptions);
     }

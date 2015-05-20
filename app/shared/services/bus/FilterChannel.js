@@ -1,8 +1,11 @@
 /**
  * Created by justin on 3/4/15.
  */
-app.registerService(function (container) {
-    var EventBus = container.getService("services/EventBus").getInstance();
+define([
+    'shared/services/EventBus'
+], function (EventBus) {
+
+    EventBus = EventBus.getInstance();
 
     function FilterChannel(tableName) {
         this.channel = FilterChannel._initChannel(tableName);
