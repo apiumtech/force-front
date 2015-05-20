@@ -2,11 +2,12 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerView(function (container) {
-    var WidgetDecoratedPageView = container.getView('views/WidgetDecoratedPageView');
-
-    var DistributionPresenter = container.getPresenter('presenters/DistributionPresenter');
-    var DistributionModel = container.getModel('models/DistributionModel');
+define([
+    'modules/saleAnalytics/base/WidgetDecoratedPageView',
+    'modules/saleAnalytics/distribution/DistributionModel',
+    'modules/saleAnalytics/distribution/DistributionPresenter',
+    'jquery'
+], function (WidgetDecoratedPageView, DistributionModel, DistributionPresenter, $) {
 
     function DistributionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);

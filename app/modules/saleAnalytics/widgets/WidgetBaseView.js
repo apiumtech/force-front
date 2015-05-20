@@ -1,15 +1,13 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-
-    // TODO: deprecated, removing
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-
-    var meld = container.getFunction('meld');
-
-    var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
+define([
+    'shared/BaseView',
+    'meld',
+    'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
+    // TODO: This is deprecated
+    'modules/saleAnalytics/eventBus/WidgetEventBus'
+], function (BaseView, meld, SalesAnalyticsFilterChannel, /*TODO: this is deprecated*/WidgetEventBus) {
 
     function WidgetBaseView(scope, element, model, presenter) {
         BaseView.call(this, scope, model, presenter);
@@ -23,8 +21,11 @@ app.registerView(function (container) {
             throw new Error("NotImplementedException");
         };
         this.channelInitialized = false;
+
+        // TODO: This is deprecated
         scope.$watch('widget', this.initializeWidgetChannel.bind(this));
         scope.$on('$destroy', this.unbindEventChannelEventListeners.bind(this));
+
         var self = this;
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);

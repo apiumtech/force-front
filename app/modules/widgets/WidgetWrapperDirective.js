@@ -1,8 +1,11 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerDirective(function (container) {
-    var WidgetWrapperController = container.getController("controllers/widgets/WidgetWrapperController");
+
+define([
+    'modules/widgets/WidgetWrapperController'
+], function (WidgetWrapperController) {
+    'use strict';
 
     function WidgetWrapperDirective() {
         return {
@@ -15,7 +18,7 @@ app.registerDirective(function (container) {
                 foreverScroll: "&"
             },
             transclude: true,
-            templateUrl: "templates/accountDetails/directives/widgetWrapper.html"
+            templateUrl: "app/modules/widgets/widgetWrapper.html"
         };
     }
 

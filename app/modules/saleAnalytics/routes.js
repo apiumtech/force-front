@@ -10,11 +10,11 @@ define([], function () {
 
             $routeProvider
 
-                .when('/analytics/conversion', resolveRoute(modulePath + 'conversion/ConversionController', modulePath + 'conversion/index.html'))
+                .when('/analytics/conversion', resolveRoute(modulePath + 'conversion/ConversionController', modulePath + 'conversion/index'))
 
-                .when('/analytics/distribution', resolveRoute(modulePath + 'distribution/DistributionController', modulePath + 'distribution/index.html'))
+                .when('/analytics/distribution', resolveRoute(modulePath + 'distribution/DistributionController', modulePath + 'distribution/index'))
 
-                .when('/analytics/intensity', resolveRoute(modulePath + 'intensity/IntensityController', modulePath + 'intensity/index.html'))
+                .when('/analytics/intensity', resolveRoute(modulePath + 'intensity/IntensityController', modulePath + 'intensity/index'))
 
             ;
         }

@@ -1,65 +1,65 @@
 /**
  * Created by Justin on 2/11/2015.
  */
-define(function () {
+define([], function () {
     var google = window.google || {};
     google.maps = google.maps || {
-        MapTypeId: {ROADMAP: ""},
-        event: {
-            addListener: function () {
-            },
-            addDomListener: function () {
-            },
-        },
-        Map: function () {
-            return {
-                setCenter: function () {
+            MapTypeId: {ROADMAP: ""},
+            event: {
+                addListener: function () {
                 },
-                fitBounds: function () {
-                }
-            }
-        },
-        LatLngBounds: function () {
-            return {
-                getCenter: function () {
+                addDomListener: function () {
                 },
-                extend: function () {
+            },
+            Map: function () {
+                return {
+                    setCenter: function () {
+                    },
+                    fitBounds: function () {
+                    }
                 }
-            }
-        },
-        LatLng: function () {
-        },
-        visualization: {
-            HeatmapLayer: function () {
+            },
+            LatLngBounds: function () {
+                return {
+                    getCenter: function () {
+                    },
+                    extend: function () {
+                    }
+                }
+            },
+            LatLng: function () {
+            },
+            visualization: {
+                HeatmapLayer: function () {
+                    return {
+                        setMap: function () {
+                        }
+                    }
+                }
+            },
+            MVCArray: function () {
+            },
+            OverlayView: function () {
                 return {
                     setMap: function () {
                     }
                 }
-            }
-        },
-        MVCArray: function () {
-        },
-        OverlayView: function () {
-            return {
-                setMap: function () {
+            },
+            Marker: function () {
+                return {
+                    setMap: function () {
+                    }
                 }
+            },
+            Point: function () {
+            },
+            InfoWindow: function () {
+            },
+            Size: function () {
+            },
+            MarkerImage: function () {
             }
-        },
-        Marker: function () {
-            return {
-                setMap: function () {
-                }
-            }
-        },
-        Point: function () {
-        },
-        InfoWindow: function () {
-        },
-        Size: function () {
-        },
-        MarkerImage: function () {
-        }
-    };
+        };
 
     function GoogleMapService(googleMap) {
         this.googleMap = googleMap;

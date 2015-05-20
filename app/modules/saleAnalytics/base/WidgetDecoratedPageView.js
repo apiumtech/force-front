@@ -3,7 +3,8 @@
  */
 
 define([
-    'shared/BaseView'
+    'shared/BaseView',
+    'modules/widgets/WidgetWrapperDirective'
 ], function (BaseView) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
@@ -31,7 +32,7 @@ define([
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
         var self = this;
         widgetsData.forEach(function (widget) {
-            widget.template = '/templates/widgets/' + self.pageName + '/' + widget.type + '.html';
+            widget.template = 'app/modules/saleAnalytics/' + self.pageName + '/' + widget.type + '.html';
         });
     };
 

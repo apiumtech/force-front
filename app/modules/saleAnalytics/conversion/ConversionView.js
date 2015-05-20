@@ -2,11 +2,13 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerView(function (container) {
-    var WidgetDecoratedPageView = container.getView('views/WidgetDecoratedPageView');
-
-    var ConversionPresenter = container.getPresenter('presenters/ConversionPresenter');
-    var ConversionModel = container.getModel('models/ConversionModel');
+define([
+    'modules/saleAnalytics/base/WidgetDecoratedPageView',
+    'modules/saleAnalytics/conversion/ConversionModel',
+    'modules/saleAnalytics/conversion/ConversionPresenter',
+    'jquery'
+], function (WidgetDecoratedPageView, ConversionModel, ConversionPresenter, $) {
+    'use strict';
 
     function ConversionView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);

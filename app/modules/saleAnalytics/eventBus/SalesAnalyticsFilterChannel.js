@@ -1,8 +1,10 @@
 /**
  * Created by justin on 2/4/15.
  */
-app.registerService(function (container) {
-    var EventBus = container.getService("services/EventBus").getInstance();
+define([
+    'shared/services/EventBus'
+], function (EventBus) {
+    'use strict';
 
     function SalesAnalyticsFilterChannel(widgetName) {
         this.channel = SalesAnalyticsFilterChannel._initChannel(widgetName);

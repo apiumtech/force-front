@@ -4,7 +4,6 @@ define([
 ], function (app, ConversionView) {
     'use strict';
 
-
     function ConversionController($scope) {
         ConversionController.configureView($scope);
     }
@@ -15,4 +14,6 @@ define([
     };
 
     app.register.controller('ConversionController', ['$scope', ConversionController]);
+
+    return ConversionController;
 });

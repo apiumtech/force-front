@@ -2,10 +2,11 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerModel(function (container) {
-    var WidgetDecoratedPageModel = container.getModel("models/WidgetDecoratedPageModel");
-    var WidgetService = container.getService("services/WidgetService");
-    var StorageService = container.getService("services/StorageService");
+define([
+    'modules/saleAnalytics/base/WidgetDecoratedPageModel',
+    'modules/saleAnalytics/widgets/WidgetService',
+    'shared/services/StorageService'
+], function (WidgetDecoratedPageModel, WidgetService, StorageService) {
 
     function IntensityModel(widgetService, storageService) {
         WidgetDecoratedPageModel.call(this, widgetService, storageService);

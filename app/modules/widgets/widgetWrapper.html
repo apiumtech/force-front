@@ -1,0 +1,40 @@
+<div class="panel panel-inverse"
+     ng-class="{'panel-expand': isExpanded, 'panel-loading': isLoading}">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;"
+               class="btn btn-xs btn-icon btn-circle btn-default"
+               ng-click="fn.expandPanel()">
+                <i class="fa fa-expand"></i>
+            </a>
+            <a href="javascript:;"
+               class="btn btn-xs btn-icon btn-circle btn-success"
+               ng-click="fn.reloadPanel()">
+                <i class="fa fa-repeat"></i>
+            </a>
+            <a href="javascript:;"
+               class="btn btn-xs btn-icon btn-circle btn-warning"
+               ng-click="fn.toggleCollapsePanel()">
+                <i class="fa fa-minus"></i>
+            </a>
+            <a href="javascript:;"
+               class="btn btn-xs btn-icon btn-circle btn-danger"
+               ng-click="fn.closeWidget()">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <h4 class="panel-title">
+            {{title}}
+        </h4>
+    </div>
+    <div class="panel-body {{bodyClass}}">
+        <div class="panel-loader" ng-show="isLoading">
+            <span class="spinner-small"></span>
+        </div>
+        <div class="alert alert-warning" ng-if="hasError">
+            <i class="glyphicon glyphicon-warning-sign"></i>
+            {{errorMessage}}
+        </div>
+        <ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>
+    </div>
+</div>

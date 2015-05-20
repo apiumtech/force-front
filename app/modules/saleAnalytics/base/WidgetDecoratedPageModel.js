@@ -1,4 +1,6 @@
-define(['q'], function (Q) {
+define([
+    'q'
+], function (Q) {
 
     function WidgetDecoratedPageModel(widgetService, storageService) {
         this.widgetService = widgetService;

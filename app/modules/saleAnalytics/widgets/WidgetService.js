@@ -2,8 +2,10 @@
  * Created by Justin on 1/5/2015.
  */
 
-app.registerService(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
+define([
+    'shared/services/ajax/AjaxService'
+], function (AjaxService) {
+    'use strict';
 
     function WidgetService(ajaxService) {
         this.ajaxService = ajaxService;
