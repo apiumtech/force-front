@@ -18,7 +18,7 @@ define([
         };
     }
 
-    app.register.directive('StringTypeFilterDirective', StringTypeFilterDirective);
+    app.register.directive('stringTypeFilter', [StringTypeFilterDirective]);
 
     return StringTypeFilterDirective;
 });

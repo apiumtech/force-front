@@ -1,8 +1,9 @@
 /**
  * Created by Justin on 3/17/2015.
  */
-app.registerService(function (container) {
-    var SignalService = container.getService('services/SignalService');
+define([
+    'shared/services/SignalService'
+], function (SignalService) {
 
     function AccountDetailWidgetEventBus(signalService) {
         this.signalService = signalService;

@@ -1,13 +1,14 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
-        ActivityWidgetModel = container.getModel('models/accountDetails/ActivityWidgetModel'),
-        ActivityWidgetPresenter = container.getPresenter('presenters/accountDetails/ActivityWidgetPresenter'),
-        DateTimeDecoratorService = container.getService('services/DateTimeDecoratorService'),
-        _ = container.getFunction("underscore");
+define([
+    'shared/BaseView',
+    'shared/services/bus/AccountDetailWidgetEventBus',
+    'modules/account/widgets/activity/ActivityWidgetModel',
+    'modules/account/widgets/activity/ActivityWidgetPresenter',
+    'shared/services/DateTimeDecoratorService',
+    'underscore'
+], function (BaseView, AccountDetailWidgetEventBus, ActivityWidgetModel, ActivityWidgetPresenter, DateTimeDecoratorService, _) {
 
     function ActivityWidgetView($scope, $element, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

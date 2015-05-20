@@ -3,7 +3,9 @@
  */
 define([
     'app',
-    'modules/account/details/AccountDetailsView'
+    'modules/account/details/AccountDetailsView',
+    'modules/account/widgets/activity/ActivityWidgetController',
+    'modules/account/widgets/activity/AccountDetailActivityDirective'
 ], function (app, AccountDetailsView) {
     'use strict';
 

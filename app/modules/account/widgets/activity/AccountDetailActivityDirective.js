@@ -1,8 +1,12 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerDirective(function (container) {
-    var ActivityWidgetController = container.getController('controllers/accountDetails/ActivityWidgetController');
+define([
+    'app',
+    'modules/account/widgets/activity/ActivityWidgetController',
+
+    'modules/widgets/WidgetWrapperDirective'
+], function (app, ActivityWidgetController) {
 
     function AccountDetailActivityDirective() {
         return {
@@ -11,10 +15,11 @@ app.registerDirective(function (container) {
             scope: {
                 accountId: "="
             },
-            templateUrl: "templates/accountDetails/directives/activityWidget.html"
+            templateUrl: "app/modules/account/widgets/activity/activityWidget.html"
         };
-
     }
+
+    app.register.directive('accountDetailActivity', [AccountDetailActivityDirective]);
 
     return AccountDetailActivityDirective;
 });

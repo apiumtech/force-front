@@ -6,7 +6,10 @@ define([
     'modules/account/filters/AccountFilter/AccountFilterView',
     'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterController',
     'modules/account/filters/DatetimeFilter/DatetimeTypeFilterController',
-    'modules/account/filters/StringTypeFilter/StringTypeFilterController'
+    'modules/account/filters/StringTypeFilter/StringTypeFilterController',
+    'modules/account/filters/BooleanTypeFilter/BooleanTypeFilterDirective',
+    'modules/account/filters/DatetimeFilter/DatetimeTypeFilterDirective',
+    'modules/account/filters/StringTypeFilter/StringTypeFilterDirective'
 ], function (app, AccountFilterView) {
 
     function AccountFilterController($scope) {

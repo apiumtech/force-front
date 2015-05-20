@@ -158,7 +158,10 @@ define([
             title: accountName
         });
         marker.setMap(self.data.map);
-        self.data.map.setCenter(latLng);
+        //console.log(this.data);
+        //console.log(this.data.map);
+        //console.log(this.data.map.setCenter);
+        //this.data.map.setCenter(latLng);
     };
 
     AccountDetailsView.prototype.onFollowToggled = function () {

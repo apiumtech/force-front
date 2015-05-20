@@ -1,9 +1,10 @@
 /**
  * Created by Justin on 3/16/2015.
  */
-app.registerService(function (container) {
-    var moment = container.getFunction('moment');
-    var Translator = container.getService('services/TranslatorService');
+define([
+    'moment',
+    'shared/services/TranslatorService'
+], function (moment, Translator) {
 
     function DateTimeDecoratorService(translator) {
         this.translator = translator;

@@ -1,7 +1,7 @@
 /**
  * Created by Justin on 3/17/2015.
  */
-app.registerService(function (container) {
+define([], function () {
 
     function TranslatorService(translator) {
         this.translator = translator;

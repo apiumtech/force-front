@@ -18,7 +18,7 @@ define([
         };
     }
 
-    app.register.directive('DatetimeTypeFilterDirective', DatetimeTypeFilterDirective);
+    app.register.directive('datetimeTypeFilter', [DatetimeTypeFilterDirective]);
 
     return DatetimeTypeFilterDirective;
 });

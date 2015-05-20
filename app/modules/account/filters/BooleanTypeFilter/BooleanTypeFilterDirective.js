@@ -18,7 +18,7 @@ define([
         };
     }
 
-    app.register.directive('BooleanTypeFilterDirective', BooleanTypeFilterDirective);
+    app.register.directive('booleanTypeFilter', [BooleanTypeFilterDirective]);
 
     return BooleanTypeFilterDirective;
 });

@@ -18,7 +18,6 @@ define([
 ], function (BaseView, AccountPresenter, AccountModel, GoogleMapService, PopoverAdapter,
              DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus) {
 
-    ScrollEventBus = ScrollEventBus.getInstance();
 
     function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);

@@ -2,7 +2,7 @@
  * Created by justin on 3/13/15.
  */
 
-app.registerPresenter(function (container) {
+define([], function () {
 
     function AccountActivityPresenter() {
 

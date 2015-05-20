@@ -1,9 +1,10 @@
 /**
  * Created by justin on 3/16/15.
  */
-app.registerModel(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
-    var Configuration = app.getService('Configuration');
+define([
+    'shared/services/ajax/AjaxService',
+    'config'
+], function (AjaxService, Configuration) {
 
     function ActivityWidgetModel(ajaxService) {
         this.ajaxService = ajaxService;

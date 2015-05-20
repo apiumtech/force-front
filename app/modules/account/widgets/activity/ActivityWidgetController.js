@@ -1,8 +1,10 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerController(function (container) {
-    var ActivityWidgetView = container.getView("views/accountDetails/ActivityWidgetView");
+define([
+    'app',
+    'modules/account/widgets/activity/ActivityWidgetView'
+], function (app, ActivityWidgetView) {
 
     function ActivityWidgetController($scope, $element) {
         ActivityWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = ActivityWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('ActivityWidgetController', ['$scope', '$element', ActivityWidgetController]);
 
     return ActivityWidgetController;
 });
