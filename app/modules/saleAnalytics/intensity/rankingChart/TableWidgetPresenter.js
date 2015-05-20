@@ -2,14 +2,13 @@
  * Created by justin on 12/22/14.
  */
 
-app.registerPresenter(function (container) {
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+define([], function () {
+    'use strict';
 
     function TableWidgetPresenter() {
     }
 
-    TableWidgetPresenter.prototype = Object.create(Object.prototype, {
-    });
+    TableWidgetPresenter.prototype = Object.create(Object.prototype, {});
 
     TableWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,

@@ -1,13 +1,13 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerView(function (container) {
-    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var TableWidgetModel = container.getModel('models/widgets/TableWidgetModel');
-    var TableWidgetPresenter = container.getPresenter('presenters/widgets/TableWidgetPresenter');
-
-    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
+define([
+    'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/intensity/rankingChart/TableWidgetModel',
+    'modules/saleAnalytics/intensity/rankingChart/TableWidgetPresenter',
+    'modules/widgets/BaseWidgetEventBus'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus) {
+    'use strict';
 
     function TableWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
@@ -46,8 +46,7 @@ app.registerView(function (container) {
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
 
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 

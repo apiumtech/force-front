@@ -3,8 +3,9 @@
  */
 
 define([
+    'app',
     'modules/widgets/WidgetWrapperController'
-], function (WidgetWrapperController) {
+], function (app, WidgetWrapperController) {
     'use strict';
 
     function WidgetWrapperDirective() {
@@ -21,6 +22,8 @@ define([
             templateUrl: "app/modules/widgets/widgetWrapper.html"
         };
     }
+
+    app.register.directive('widgetWrapper', [WidgetWrapperDirective]);
 
     return WidgetWrapperDirective;
 });
