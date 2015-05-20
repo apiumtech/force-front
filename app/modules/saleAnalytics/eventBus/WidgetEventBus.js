@@ -1,9 +1,11 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerService(function (container) {
-    var EventBus = container.getService("services/EventBus").getInstance();
-    var _ = container.getFunction("underscore");
+define([
+    'shared/services/EventBus',
+    'underscore'
+], function (EventBusClass, _) {
+    var EventBus = EventBusClass.getInstance();
 
     function WidgetEventBus(widgetName) {
         this.channel = WidgetEventBus._initChannel(widgetName);

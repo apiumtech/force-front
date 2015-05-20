@@ -27,5 +27,5 @@ define([
         return app.___scrollEventBus || (app.___scrollEventBus = new ScrollEventBus());
     };
 
-    return ScrollEventBus;
+    return ScrollEventBus.getInstance();
 });

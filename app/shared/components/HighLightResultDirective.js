@@ -1,7 +1,10 @@
 /**
  * Created by justin on 4/18/15.
  */
-app.registerDirective(function (container) {
+define([
+    'app'
+], function (app) {
+    'use strict';
 
     function HighLightResultDirective() {
         return {
@@ -35,6 +38,8 @@ app.registerDirective(function (container) {
             }
         };
     }
+
+    app.register.directive('highLightResult', [HighLightResultDirective]);
 
     return HighLightResultDirective;
 });

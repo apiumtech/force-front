@@ -1,9 +1,13 @@
 /**
  * Created by apium on 5/13/15.
  */
-app.registerDirective(function (container) {
-    var _ = container.getFunction("underscore");
-    var eventBus = container.getService('services/UserTreeListEventBus').getInstance();
+
+define([
+    'app',
+    'underscore',
+    'modules/saleAnalytics/eventBus/UserTreeListEventBus'
+], function (app, _, UserTreeListEventBus) {
+    'use strict';
 
     function TreeListDirective(RecursionHelper) {
         return {
@@ -13,7 +17,7 @@ app.registerDirective(function (container) {
                 groupSelectionChanged: "&",
                 selectionChanged: "&"
             },
-            templateUrl: 'templates/treeList/treeList.html',
+            templateUrl: 'app/modules/saleAnalytics/directives/treeList.html',
             compile: function (element) {
                 return RecursionHelper.compile(element, function (scope, iElement, iAttrs, controller, transcludeFn) {
 
@@ -30,18 +34,20 @@ app.registerDirective(function (container) {
                         });
 
                         if (!notFireEvent)
-                            eventBus.fireNodeSelected();
+                            UserTreeListEventBus.fireNodeSelected();
                     };
 
                     scope.toggleNode = function (item) {
                         item.checked = !item.checked;
                         if (item.children) return;
-                        eventBus.fireNodeSelected(item);
+                        UserTreeListEventBus.fireNodeSelected(item);
                     };
                 });
             }
         };
     }
+
+    app.register.directive('treeList', ['RecursionHelper', TreeListDirective]);
 
     return TreeListDirective;
 });

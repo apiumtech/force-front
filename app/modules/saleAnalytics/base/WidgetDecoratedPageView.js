@@ -4,7 +4,8 @@
 
 define([
     'shared/BaseView',
-    'modules/widgets/WidgetWrapperDirective'
+    'modules/widgets/WidgetWrapperDirective',
+    'modules/saleAnalytics/filters/SalesAnalyticsFilterController'
 ], function (BaseView) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {

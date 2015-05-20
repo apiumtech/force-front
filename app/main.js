@@ -7,7 +7,14 @@ define([
     'config',
 
     'app',
+
+    // default controllers
+    'core/coreModulesLoader',
+
+    // route loader
     'routeConf',
+
+    // validation config
     'validationConfig'
 ], function ($, angular, config) {
     'use strict';

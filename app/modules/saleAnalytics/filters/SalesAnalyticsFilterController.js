@@ -2,8 +2,13 @@
  * Created by justin on 2/3/15.
  */
 
-app.registerController(function (container) {
-    var SalesAnalyticsFilterView = container.getView("views/filters/SalesAnalyticsFilterView");
+define([
+    'app',
+    'modules/saleAnalytics/filters/SalesAnalyticsFilterView',
+
+    'modules/saleAnalytics/directives/TreeListDirective'
+], function (app, SalesAnalyticsFilterView) {
+    'use strict';
 
     function SalesAnalyticsFilterController($scope, $filter, $compile) {
         SalesAnalyticsFilterController.configureView($scope, $filter, $compile);
@@ -15,5 +20,7 @@ app.registerController(function (container) {
         this.view.show();
     };
 
-    return ['$scope', '$filter', '$compile', SalesAnalyticsFilterController];
+    app.register.controller('SalesAnalyticsFilterController', ['$scope', '$filter', '$compile', SalesAnalyticsFilterController]);
+
+    return SalesAnalyticsFilterController;
 });

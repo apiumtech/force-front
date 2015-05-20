@@ -2,15 +2,14 @@
  * Created by joanllenas on 4/27/15.
  */
 
-app.registerView(function(container) {
-    var BaseView = container.getView('views/BaseView');
-    var TopMenuWeb2Presenter = container.getPresenter('presenters/topMenu/TopMenuWeb2Presenter');
-    var TopMenuWeb2Model = container.getModel('models/topMenu/TopMenuWeb2Model');
+define([
+    'shared/BaseView',
+    'core/topMenu/TopMenuWeb2Model',
+    'core/topMenu/TopMenuWeb2Presenter',
+    'jquery'
+], function (BaseView, TopMenuWeb2Model, TopMenuWeb2Presenter, $) {
+    'use strict';
 
-
-    /**
-     * @constructor
-     */
     function TopMenuWeb2View($scope, $model, $presenter, $window) {
         BaseView.call(this, $scope, $model, $presenter);
         this.$window = $window;
@@ -46,7 +45,6 @@ app.registerView(function(container) {
     };
 
 
-
     TopMenuWeb2View.prototype.hasEventsOrTasksForToday = function () {
         return this.hasEventsForToday() || this.hasTasksForToday();
     };
@@ -61,12 +59,10 @@ app.registerView(function(container) {
     };
 
 
-
     TopMenuWeb2View.prototype.onInit = function () {
         $('.content').addClass('with-web2-menu');
         this.presenter.getUserDataInfo();
     };
-
 
 
     TopMenuWeb2View.prototype.onLogout = function () {
@@ -75,7 +71,6 @@ app.registerView(function(container) {
     TopMenuWeb2View.prototype.onLogoutError = function (error) {
         this.data.currentError = error;
     };
-
 
 
     TopMenuWeb2View.prototype.onGetUserDataInfo = function () {
@@ -93,19 +88,17 @@ app.registerView(function(container) {
     };
 
 
-
-    TopMenuWeb2View.prototype.doProfileMenuAction = function(id, linkToGo, target) {
-        if(id == "logout"){
+    TopMenuWeb2View.prototype.doProfileMenuAction = function (id, linkToGo, target) {
+        if (id == "logout") {
             this.presenter.logout();
         } else {
-            if(target=="_blank"){
+            if (target == "_blank") {
                 this.$window.open(linkToGo, target);
             } else {
                 this.$window.location.href = linkToGo;
             }
         }
     };
-
 
 
     TopMenuWeb2View.prototype.adjustLinkToParentFolder = function (url) {
@@ -117,8 +110,7 @@ app.registerView(function(container) {
     };
 
 
-
-    TopMenuWeb2View.newInstance = function($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
+    TopMenuWeb2View.newInstance = function ($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || TopMenuWeb2Model.newInstance();
         var presenter = $presenter || TopMenuWeb2Presenter.newInstance();

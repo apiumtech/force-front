@@ -4,6 +4,7 @@
 define([
     'angular',
     'config',
+
     'routeResolverSvc'
 ], function (angular, config) {
     var $i18nextProviderOptions = config.i18nextOptions;

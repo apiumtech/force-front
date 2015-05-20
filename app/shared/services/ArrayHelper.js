@@ -1,9 +1,10 @@
 /**
  * Created by justin on 5/17/15.
  */
-app.registerService(function (container) {
-
-    var _ = container.getFunction("underscore");
+define([
+    'underscore'
+], function (_) {
+    'use strict';
 
     var flatten = function (array, nestedProp, target) {
         if (!target) target = [];

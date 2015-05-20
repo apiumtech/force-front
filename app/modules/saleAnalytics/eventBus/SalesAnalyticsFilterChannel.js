@@ -3,8 +3,9 @@
  */
 define([
     'shared/services/EventBus'
-], function (EventBus) {
+], function (EventBusClass) {
     'use strict';
+    var EventBus = EventBusClass.getInstance();
 
     function SalesAnalyticsFilterChannel(widgetName) {
         this.channel = SalesAnalyticsFilterChannel._initChannel(widgetName);
