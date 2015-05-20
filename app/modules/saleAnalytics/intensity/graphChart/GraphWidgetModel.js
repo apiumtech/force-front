@@ -2,11 +2,13 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerModel(function (container) {
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-    var WidgetBase = container.getService('services/WidgetBase');
-    var Configuration = container.getService('Configuration');
-    var moment = container.getFunction("moment");
+define([
+    'shared/services/ajax/AuthAjaxService',
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'config',
+    'moment',
+    'q'
+], function (AuthAjaxService, WidgetBase, Configuration, moment, Q) {
 
     function GraphWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
@@ -37,7 +39,7 @@ app.registerModel(function (container) {
             key: 'quotes'
         }];
 
-        this.queries.grouping= "hour";
+        this.queries.grouping = "hour";
     }
 
     GraphWidgetModel.prototype = Object.create(WidgetBase.prototype, {});

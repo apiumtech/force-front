@@ -151,8 +151,6 @@ define([
                 r.push(rowData[columnIndex]);
             }
 
-            console.log('data', rowData);
-
             return r;
         });
 
@@ -163,7 +161,6 @@ define([
         var self = this;
         var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
         self.dataSource = self.getDisplayData(self.data.data, displayColumnIndices);
-        console.log(self.dataSource);
     };
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
@@ -174,7 +171,6 @@ define([
     };
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        console.log("Widget moved to new position");
     };
 
     TableWidgetView.prototype.onMoveWidgetError = function (error) {

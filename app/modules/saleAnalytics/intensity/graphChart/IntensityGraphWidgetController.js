@@ -1,8 +1,11 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerController(function (container) {
-    var GraphWidgetView = container.getView("views/widgets/GraphWidgetView");
+define([
+    'app',
+    'modules/saleAnalytics/intensity/graphChart/GraphWidgetView'
+], function (app, GraphWidgetView) {
+    'use strict';
 
     function IntensityGraphWidgetController($scope, $element) {
         IntensityGraphWidgetController.configureView($scope, $element);
@@ -12,6 +15,7 @@ app.registerController(function (container) {
         this.view = GraphWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
 
     return IntensityGraphWidgetController;
 });

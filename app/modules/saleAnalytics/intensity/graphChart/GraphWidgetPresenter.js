@@ -1,35 +1,14 @@
 /**
  * Created by justin on 12/22/14.
  */
-
-app.registerPresenter(function (container) {
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var Configuration = container.getService('Configuration');
-
-    var widgetName = "intensityWidgetA";
+define([], function () {
+    'use strict';
 
     function GraphWidgetPresenter(widgetEventChannel) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
-    GraphWidgetPresenter.prototype = Object.create(Object.prototype, {
-        widgetEventChannel: {
-            get: function () {
-                return this._widgetEventChannel;
-            },
-            set: function (value) {
-                this._widgetEventChannel = value;
-                this.rebindChannelListener();
-            }
-        }
-    });
-
-    GraphWidgetPresenter.prototype.rebindChannelListener = function () {
-        var self = this;
-        self.widgetEventChannel.onReloadSignalReceived(function () {
-            self._executeLoadWidget();
-        });
-    };
+    GraphWidgetPresenter.prototype = Object.create(Object.prototype, {});
 
     GraphWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
@@ -48,8 +27,6 @@ app.registerPresenter(function (container) {
         var self = this;
         self.$view = view;
         self.$model = model;
-
-        self.rebindChannelListener();
 
         view.event.onReloading = function () {
             view.data = {};
@@ -77,9 +54,8 @@ app.registerPresenter(function (container) {
         };
     };
 
-    GraphWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new GraphWidgetPresenter(_widgetEventChannel);
+    GraphWidgetPresenter.newInstance = function () {
+        return new GraphWidgetPresenter();
     };
 
     return GraphWidgetPresenter;
