@@ -1,18 +1,16 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerView(function (container) {
-    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var GraphWidgetModel = container.getModel('models/widgets/GraphWidgetModel');
-    var GraphWidgetPresenter = container.getPresenter('presenters/widgets/GraphWidgetPresenter');
-
-
-    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
-
-    var Plot = container.getService('plots/Plot');
-    var $ = container.getFunction('jquery');
-    var LineGraphPlot = container.getService('plots/LineGraphPlot');
+define([
+    'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/intensity/graphChart/GraphWidgetModel',
+    'modules/saleAnalytics/intensity/graphChart/GraphWidgetPresenter',
+    'modules/widgets/BaseWidgetEventBus',
+    'plots/Plot',
+    'plots/LineGraphPlot',
+    'jquery'
+], function (WidgetBaseView, GraphWidgetModel, GraphWidgetPresenter, BaseWidgetEventBus, Plot, LineGraphPlot, $) {
+    'use strict';
 
     var LINE = 'line', FILLED = 'filled';
 
