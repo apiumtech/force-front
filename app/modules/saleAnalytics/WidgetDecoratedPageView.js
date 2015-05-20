@@ -1,9 +1,10 @@
 /**
  * Created by Justin on 1/5/2015.
  */
-app.registerView(function (container) {
-//define(['views/BaseView'], function (BaseView) {
-    var BaseView = container.getView("views/BaseView");
+
+define([
+    'shared/BaseView'
+], function (BaseView) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

@@ -2,8 +2,10 @@
  * Created by Justin on 2/11/2015.
  */
 
-app.registerService(function (container) {
-    var GoogleMapService = container.getService("services/GoogleMapService");
+define([
+    'jquery',
+    'shared/services/GoogleMapService'
+], function ($, GoogleMapService) {
 
     var defaultImageUrl = "https://fmassets.s3-eu-west-1.amazonaws.com/pro/2122/img/default.png";
 
@@ -22,9 +24,9 @@ app.registerService(function (container) {
             canvas = document.getElementById(mapCanvasId);
 
         this.map = this.mapService.createMap(canvas, mapOptions || {
-            center: this.mapService.getLatLng(41.23, 2.11),
-            zoom: 7
-        });
+                center: this.mapService.getLatLng(41.23, 2.11),
+                zoom: 7
+            });
     };
 
     MapChart.prototype.decorateHeatMapData = function (data) {
@@ -108,7 +110,7 @@ app.registerService(function (container) {
 
         var latlngbounds = self.mapService.getLatLngBounds();
 
-        self.markers =  data.map(function (r) {
+        self.markers = data.map(function (r) {
             var image = r.ImageB64;
             if (!image)
                 image = defaultImageUrl;

@@ -1,7 +1,7 @@
 /**
  * Created by Justin on 2/11/2015.
  */
-app.registerService(function (container) {
+define(function () {
     var google = window.google || {};
     google.maps = google.maps || {
         MapTypeId: {ROADMAP: ""},

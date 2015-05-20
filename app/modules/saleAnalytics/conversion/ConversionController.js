@@ -1,6 +1,9 @@
+define([
+    'app',
+    'modules/saleAnalytics/conversion/ConversionView'
+], function (app, ConversionView) {
+    'use strict';
 
-app.registerController(function (container) {
-    var ConversionView = container.getView("views/ConversionView");
 
     function ConversionController($scope) {
         ConversionController.configureView($scope);
@@ -11,5 +14,5 @@ app.registerController(function (container) {
         this.view.show();
     };
 
-    return ConversionController;
+    app.register.controller('ConversionController', ['$scope', ConversionController]);
 });
