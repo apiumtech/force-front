@@ -42,6 +42,8 @@ app.registerModel(function (container) {
 
     proto.getLiteralTypeList = function() { return this.literalService.getLiteralTypeList(); };
 
+    proto.getDeviceTypeList = function() { return this.literalService.getDeviceTypeList(); };
+
     proto.isNew = function(literal) { return literal == null || literal.Id == null; };
 
 

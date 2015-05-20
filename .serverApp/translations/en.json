@@ -223,5 +223,36 @@
         }
       }
     }
+  },
+  "Literal": {
+    "List": {
+      "Create_label": "Create literal",
+      "Title": "Literals",
+      "Table": {
+        "Header": "Literals table",
+        "Edit_label": "Edit",
+        "Delete_label": "Delete",
+        "Delete_Confirm_Message": "Are you sure you want to delete literal with id '__literalId__'?"
+      }
+    },
+    "Detail": {
+      "Title": "Literal",
+      "Header": {
+        "Create": "Create literal",
+        "Edit": "Edit literal",
+        "Form": "Form"
+      },
+      "Form": {
+        "Literal_Key": "Key",
+        "Literal_Key_Placeholder": "Key",
+        "Literal_Type": "Literal Type",
+        "Select_Literal_Type": "Select Literal Type",
+        "Device_Type": "Device Type",
+        "Select_Device_Type": "Select Device Type",
+        "ListEmpty": "The list is empty",
+        "Submit": "Submit",
+        "Cancel": "Cancel"
+      }
+    }
   }
 }

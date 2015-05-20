@@ -33,6 +33,8 @@ app.registerPresenter(function (container) {
 
     proto.onInit = function () {
         var self = this;
+        self.model.getLiteralDictionary();
+
         self.model.getLanguageList()
             .then(
             self.view.onGetLanguageList.bind(self.view),

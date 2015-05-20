@@ -8,6 +8,7 @@ app.registerView(function (container) {
     var LiteralListModel = container.getModel('models/literal/LiteralListModel');
     var DataTableService = container.getService("services/DataTableService");
     var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
+    var TranslatorService = container.getService("services/TranslatorService");
 
 
     function LiteralListView($scope, $model, $presenter, dataTableService, templateParser, $compile) {
@@ -16,6 +17,7 @@ app.registerView(function (container) {
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
         this.$compile = $compile;
+        this.translator = TranslatorService.newInstance();
 
         this.data.tableColumns = null;
         this.data.literals = null;
@@ -53,7 +55,12 @@ app.registerView(function (container) {
 
 
     proto.deleteLiteralPrompt = function (literalId) {
-        if( confirm("Delete Literal with Id: " + literalId) ) {
+        var msg = this.translator.translate(
+                "Literal.List.Table.Delete_Confirm_Message",
+                {literalId: literalId}
+        );
+
+        if( confirm(msg) ) {
             this.event.onDelete(literalId);
         }
     };
