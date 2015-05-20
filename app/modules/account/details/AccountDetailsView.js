@@ -112,10 +112,6 @@ define([
             $event.stopPropagation();
         };
 
-        self.fn.openEditDialog = function () {
-            self.openEditDialog();
-        };
-
         self.fn.bindDocumentDomEvents = function () {
             $(document).on("click", function (e) {
                 if (!$('.popover').find(e.target).length && !$(e.target).is('a.popover-contact-info') && !$(e.target).closest('a.popover-contact-info').length) {
@@ -134,30 +130,6 @@ define([
         var self = this;
         BaseView.prototype.show.call(this);
         self.fn.loadAccountData();
-    };
-
-    AccountDetailsView.prototype.openEditDialog = function () {
-        var self = this;
-
-        self.modalDialogAdapter.createDialog(
-            '/templates/accountDetails/accountEdit.html',
-            'AccountEditController',
-            null,
-            {
-                accountId: function () {
-                    return self.accountId;
-                }
-            },
-            self.onEditAccountSubmit.bind(self),
-            self.onEditAccountDismissed.bind(self));
-    };
-
-    AccountDetailsView.prototype.onEditAccountSubmit = function (accountId) {
-        alert("Edit dialog closed with account Id: " + accountId);
-    };
-
-    AccountDetailsView.prototype.onEditAccountDismissed = function () {
-
     };
 
     AccountDetailsView.prototype.getPopoverTemplate = function () {

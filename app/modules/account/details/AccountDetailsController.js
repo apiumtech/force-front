@@ -5,14 +5,8 @@ define([
     'app',
     'modules/account/details/AccountDetailsView'
 ], function (app, AccountDetailsView) {
+    'use strict';
 
-    /**
-     * Create instance of AccountDetailsController
-     * @param $scope The Angular Scope
-     * @param $modal The Angular Bootstrap Modal service
-     * @param $routeParams The routeParams on Angular Route
-     * @constructor
-     */
     function AccountDetailsController($scope, $modal, $routeParams) {
         var account_id = $routeParams.account_id;
         $scope.accountId = account_id;

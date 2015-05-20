@@ -1,7 +1,8 @@
 /**
  * Created by justin on 3/9/15.
  */
-app.registerPresenter(function () {
+define([], function () {
+
     function AccountDetailsPresenter() {
 
     }
