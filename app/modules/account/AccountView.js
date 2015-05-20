@@ -2,19 +2,23 @@
  * Created by kevin on 10/22/14.
  */
 
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-    var AccountPresenter = container.getPresenter('presenters/account/AccountPresenter');
-    var AccountModel = container.getModel('models/account/AccountModel');
-    var GoogleMapService = container.getService("services/GoogleMapService");
-    var PopoverAdapter = container.getService("services/PopoverAdapter");
-    var DataTableService = container.getService("services/DataTableService");
-    var Configuration = container.getService('Configuration');
-    var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
-    var _ = container.getFunction("underscore");
-    var $ = container.getFunction("jquery");
-    var moment = container.getFunction("moment");
-    var ScrollEventBus = container.getService('services/bus/ScrollEventBus').getInstance();
+define([
+    'shared/BaseView',
+    'modules/account/AccountPresenter',
+    'modules/account/AccountModel',
+    'shared/services/GoogleMapService',
+    'shared/services/PopoverAdapter',
+    'shared/services/DataTableService',
+    'config',
+    'shared/services/SimpleTemplateParser',
+    'underscore',
+    'jquery',
+    'moment',
+    'shared/services/bus/ScrollEventBus'
+], function (BaseView, AccountPresenter, AccountModel, GoogleMapService, PopoverAdapter,
+             DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus) {
+
+    ScrollEventBus = ScrollEventBus.getInstance();
 
     function AccountView($scope, $model, $presenter, mapService, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);

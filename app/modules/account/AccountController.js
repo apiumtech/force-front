@@ -1,8 +1,10 @@
 /**
  * Created by kevin on 10/22/14.
  */
-app.registerController(function (container) {
-    var AccountView = container.getView("views/account/AccountView");
+define([
+    'app',
+    'modules/account/AccountView'
+], function (app, AccountView) {
 
     function AccountController($scope) {
         AccountController.configureView($scope);
@@ -13,5 +15,5 @@ app.registerController(function (container) {
         this.view.show();
     };
 
-    return AccountController;
+    app.register.controller('AccountController', ['$scope', AccountController]);
 });

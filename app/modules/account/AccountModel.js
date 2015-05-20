@@ -1,11 +1,12 @@
 /**
  * Created by justin on 3/4/15.
  */
-app.registerModel(function (container) {
-    var Configuration = container.getService('Configuration');
-    var AjaxService = container.getService("services/AjaxService");
-    var FakeAjaxService = container.getService("services/FakeAjaxService");
-    var DataTableDataProvider = container.getService("services/DataTableDataProvider");
+define([
+    'config',
+    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/FakeAjaxService',
+    'shared/services/DataTableDataProvider'
+], function (Configuration, AjaxService, FakeAjaxService, DataTableDataProvider) {
 
     function AccountModel(ajaxService, dataTableDataProvider) {
         this.ajaxService = ajaxService;

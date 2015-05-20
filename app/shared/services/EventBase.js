@@ -1,8 +1,9 @@
 /**
  * Created by justin on 3/27/15.
  */
-app.registerService(function (container) {
-    var SignalService = container.getService('services/SignalService');
+define([
+    'shared/services/SignalService'
+], function (SignalService) {
 
     function EventBase() {
         this.signalService = SignalService.newInstance();

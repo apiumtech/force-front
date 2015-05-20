@@ -1,8 +1,9 @@
 /**
  * Created by justin on 12/18/14.
  */
-app.registerController(function (container) {
-    var WidgetWrapperView = container.getView('views/WidgetWrapperView');
+define([
+    'modules/account/WidgetWrapperView'
+], function (WidgetWrapperView) {
 
     function WidgetWrapperController($scope, $element) {
         WidgetWrapperController.configureView($scope, $element);

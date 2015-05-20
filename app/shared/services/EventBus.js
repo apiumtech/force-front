@@ -1,8 +1,9 @@
 /**
  * Created by kevin on 10/24/14.
  */
-app.register(function (container) {
-    var postal = container.getObject('postal');
+define([
+    'postal'
+], function (postal) {
 
     function EventBus() {
 
