@@ -1,8 +1,11 @@
 /**
  * Created by justin on 12/17/14.
  */
-app.registerController(function (container) {
-    var IntensityView = container.getView("views/IntensityView");
+define([
+    'app',
+    'modules/saleAnalytics/intensity/IntensityView'
+], function (app, IntensityView) {
+    'use strict';
 
     function IntensityController($scope) {
         IntensityController.configureView($scope);
@@ -12,6 +15,8 @@ app.registerController(function (container) {
         this.view = IntensityView.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('IntensityController', ['$scope', IntensityController]);
 
     return IntensityController;
 });

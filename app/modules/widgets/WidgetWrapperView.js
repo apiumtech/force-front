@@ -1,8 +1,12 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
+
+define([
+    'shared/BaseView',
+    'jquery'
+], function (BaseView, $) {
+    'use strict';
 
     function WidgetWrapperView($scope, $element) {
         $scope = $scope || {

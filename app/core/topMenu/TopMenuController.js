@@ -3,9 +3,9 @@
  */
 
 define([
-        ''
-],function () {
-    var TopMenuView = container.getView("views/TopMenuView");
+    'app',
+    'core/topMenu/TopMenuView'
+], function (app, TopMenuView) {
 
     function TopMenuController($scope, $window) {
         TopMenuController.configureView($scope, $window);
@@ -15,6 +15,8 @@ define([
         this.view = TopMenuView.newInstance($scope, $window);
         this.view.show();
     };
+
+    app.register.controller('TopMenuController', ['$scope', '$window', TopMenuController]);
 
     return TopMenuController;
 });

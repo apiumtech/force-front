@@ -4,16 +4,13 @@
 /**
  * Downloaded from Github
  */
-app.registerDirective(function (container) {
+define([
+    'app',
+    'moment'
+], function (app, moment) {
+    'use strict';
 
-    var moment = container.getFunction("moment");
-
-    function ForceDatePickerDirective() {
-    }
-
-    ForceDatePickerDirective.prototype = Object.create(Object.prototype, {});
-
-    return ['$window', '$compile', '$locale', '$filter', function ($window, $compile, $locale, $filter) {
+    function ForceDatePickerDirective($window, $compile, $locale, $filter) {
 
         var A_DAY_IN_MILLISECONDS = 86400000;
         return {
@@ -480,5 +477,11 @@ app.registerDirective(function (container) {
                 $scope.setDaysInMonth($scope.monthNumber, $scope.year);
             }
         };
-    }];
+    }
+
+    ForceDatePickerDirective.prototype = Object.create(Object.prototype, {});
+
+    app.register.directive('forceDatePicker', ['$window', '$compile', '$locale', '$filter', ForceDatePickerDirective]);
+
+    return ForceDatePickerDirective;
 });

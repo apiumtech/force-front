@@ -2,14 +2,12 @@
  * Created by joanllenas on 4/21/15.
  */
 
-app.registerView(function(container) {
-    var TopMenuWeb2View = container.getView('views/topMenu/TopMenuWeb2View');
-    var TopMenuWeb3View = container.getView('views/topMenu/TopMenuWeb3View');
+define([
+    'core/topMenu/TopMenuWeb2View',
+    'core/topMenu/TopMenuWeb3View'
+], function (TopMenuWeb2View, TopMenuWeb3View) {
+    'use strict';
 
-
-    /**
-     * @constructor
-     */
     function TopMenuView($window) {
         this.$window = $window;
 
@@ -22,10 +20,9 @@ app.registerView(function(container) {
 
     TopMenuView.prototype = Object.create(Object.prototype, {});
 
-
     TopMenuView.prototype.inWeb3 = function () {
         var self = this;
-        var isWeb3 = this.web3Urls.filter(function(item){
+        var isWeb3 = this.web3Urls.filter(function (item) {
                 var found = self.$window.location.href.indexOf(item) > -1;
                 return found;
             }).length > 0;
@@ -33,11 +30,11 @@ app.registerView(function(container) {
     };
 
     TopMenuView.prototype.getViewImpl = function (scope) {
-        return this.inWeb3() ? TopMenuWeb3View.newInstance(scope)  : TopMenuWeb2View.newInstance(scope, null, null, this.$window);
+        return this.inWeb3() ? TopMenuWeb3View.newInstance(scope) : TopMenuWeb2View.newInstance(scope, null, null, this.$window);
     };
 
 
-    TopMenuView.newInstance = function($scope, $window) {
+    TopMenuView.newInstance = function ($scope, $window) {
         var scope = $scope || {};
         var proxy = new TopMenuView($window);
         var viewImpl = proxy.getViewImpl(scope);

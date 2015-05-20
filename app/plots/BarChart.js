@@ -1,7 +1,10 @@
 /**
  * Created by justin on 1/26/15.
  */
-app.registerService(function () {
+define([
+    'jquery'
+], function ($) {
+
     function BarChart(plotData, tickLabels, configuration, plotImpl) {
         this.plotData = plotData;
         this.tickLabels = tickLabels;
@@ -77,7 +80,7 @@ app.registerService(function () {
 
     BarChart.newInstance = function (plotData, tickLabels, cfg, plotImpl) {
         return new BarChart(plotData, tickLabels, cfg, plotImpl || $.plot || function () {
-        });
+            });
     };
 
     return BarChart;

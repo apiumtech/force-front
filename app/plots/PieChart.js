@@ -1,7 +1,9 @@
 /**
  * Created by justin on 1/26/15.
  */
-app.registerService(function () {
+define([
+    'jquery'
+], function ($) {
     function PieChart(plotData, configuration, plotImpl) {
         this.plotData = plotData;
         this.configuration = configuration;

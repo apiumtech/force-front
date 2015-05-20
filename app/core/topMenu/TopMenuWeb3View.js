@@ -2,13 +2,12 @@
  * Created by joanllenas on 4/27/15.
  */
 
-app.registerView(function(container) {
-    var BaseView = container.getView('views/BaseView');
 
+define([
+    'shared/BaseView'
+], function (BaseView) {
+    'use strict';
 
-    /**
-     * @constructor
-     */
     function TopMenuWeb3View($scope) {
         BaseView.call(this, $scope);
 
@@ -31,7 +30,7 @@ app.registerView(function(container) {
         return 'topMenuWeb3';
     };
 
-    TopMenuWeb3View.newInstance = function($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    TopMenuWeb3View.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var view = new TopMenuWeb3View(scope);
 

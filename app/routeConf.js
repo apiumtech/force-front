@@ -5,7 +5,9 @@ define([
     'app',
     'shared/services/RouteChangedEventHandlers',
 
+    // route configurations
     'modules/login/route',
+    'modules/saleAnalytics/routes',
     'modules/account/route'
 ], function (app, RouteChangedEventHandlers) {
     'use strict';

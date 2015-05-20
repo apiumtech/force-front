@@ -1,9 +1,12 @@
 /**
  * Created by justin on 4/16/15.
  */
-app.registerDirective(function (container) {
-    var $ = container.getFunction("jquery");
-    var ScrollEventBus = container.getService('services/bus/ScrollEventBus').getInstance();
+define([
+    'app',
+    'jquery',
+    'shared/services/bus/ScrollEventBus'
+], function (app, $, ScrollEventBus) {
+    'use strict';
 
     function ScrollTopButtonDirective() {
         return {
@@ -34,6 +37,8 @@ app.registerDirective(function (container) {
             }
         };
     }
+
+    app.register.directive('scrollTopButton', [ScrollTopButtonDirective]);
 
     return ScrollTopButtonDirective;
 });

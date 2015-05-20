@@ -170,7 +170,6 @@ requirejs.config({
         'crypto.SHA1', 'fullcalendar',
 
         // app dependencies
-
         'Configuration',
         'AppsAdapter',
         'directives/ScrollTopButtonDirective',
@@ -448,7 +447,7 @@ requirejs.config({
 
         // main application
 
-        'main',
+        'main'
 
     ]
 });

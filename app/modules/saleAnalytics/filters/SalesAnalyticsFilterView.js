@@ -2,18 +2,21 @@
  * Created by justin on 2/3/15.
  */
 
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var SalesAnalyticsFilterChannel = container.getService("services/bus/SalesAnalyticsFilterChannel");
-    var SalesAnalyticsFilterModel = container.getModel('models/filters/SalesAnalyticsFilterModel');
-    var AwaitHelper = container.getService('services/AwaitHelper');
-    var ArrayHelper = container.getService("services/ArrayHelper");
+define([
+    'shared/BaseView',
+    'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
+    'modules/saleAnalytics/filters/SalesAnalyticsFilterModel',
+    'modules/saleAnalytics/filters/SalesAnalyticsFilterPresenter',
+    'shared/services/AwaitHelper',
+    'shared/services/ArrayHelper',
+    'modules/saleAnalytics/eventBus/UserTreeListEventBus',
 
-    var SalesAnalyticsFilterPresenter = container.getModel('presenters/filters/SalesAnalyticsFilterPresenter');
-    var moment = container.getFunction('moment');
-    var UserTreeListEventBus = container.getService('services/UserTreeListEventBus').getInstance();
-
-    var _ = container.getFunction("underscore");
+    'jquery',
+    'moment',
+    'underscore'
+], function (BaseView, SalesAnalyticsFilterChannel, SalesAnalyticsFilterModel, SalesAnalyticsFilterPresenter, AwaitHelper, ArrayHelper, UserTreeListEventBus,
+             $, moment, _) {
+    'use strict';
 
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

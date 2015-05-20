@@ -1,7 +1,9 @@
 /**
  * Created by kevin on 1/13/15.
  */
-app.registerService(function () {
+define([
+    'jquery'
+], function ($) {
     function LineGraphPlot(label, data, hidden, filled, color) {
         this.label = label;
         this.plotData = data;

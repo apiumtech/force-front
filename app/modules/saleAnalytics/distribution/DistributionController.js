@@ -1,5 +1,8 @@
-app.registerController(function (container) {
-    var DistributionView = container.getView("views/DistributionView");
+define([
+    'app',
+    'modules/saleAnalytics/distribution/DistributionView'
+], function (app, DistributionView) {
+    'use strict';
 
     function DistributionController($scope) {
         DistributionController.configureView($scope);
@@ -9,6 +12,8 @@ app.registerController(function (container) {
         this.view = DistributionView.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('DistributionController', ['$scope', DistributionController]);
 
     return DistributionController;
 });

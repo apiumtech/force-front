@@ -1,8 +1,12 @@
 /**
  * Created by justin on 3/30/15.
  */
-app.registerService(function (container) {
-    var EventBase = container.getService("services/EventBase");
+
+define([
+    'app',
+    'shared/services/EventBase'
+], function (app, EventBase) {
+    'use strict';
 
     function UserTreeListEventBus() {
         EventBase.call(this);
@@ -23,5 +27,5 @@ app.registerService(function (container) {
         return app._____UserTreeListEventBusInstance || (app._____UserTreeListEventBusInstance = new UserTreeListEventBus());
     };
 
-    return UserTreeListEventBus;
+    return UserTreeListEventBus.getInstance();
 });

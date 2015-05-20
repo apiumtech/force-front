@@ -2,7 +2,8 @@
  * Created by justin on 12/22/14.
  */
 
-app.registerPresenter(function (container) {
+define([], function () {
+    'use strict';
 
     function SalesAnalyticsFilterPresenter() {
     }
@@ -29,7 +30,7 @@ app.registerPresenter(function (container) {
             view.event.onFilterInitializing();
         };
 
-        view.event.onFilteringUsers = function(usersList, currentUserFilterGroup, searchQuery){
+        view.event.onFilteringUsers = function (usersList, currentUserFilterGroup, searchQuery) {
             var data = model.getFilteredData(usersList, currentUserFilterGroup, searchQuery);
             view.setFilteredData(data);
         }

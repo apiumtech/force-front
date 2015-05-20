@@ -2,11 +2,11 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerView(function (container) {
-    var WidgetDecoratedPageView = container.getView('views/WidgetDecoratedPageView');
-
-    var IntensityPresenter = container.getPresenter('presenters/IntensityPresenter');
-    var IntensityModel = container.getModel('models/IntensityModel');
+define([
+    'modules/saleAnalytics/base/WidgetDecoratedPageView',
+    'modules/saleAnalytics/intensity/IntensityModel',
+    'modules/saleAnalytics/intensity/IntensityPresenter'
+], function (WidgetDecoratedPageView, IntensityModel, IntensityPresenter) {
 
     function IntensityView($scope, $model, $presenter) {
         WidgetDecoratedPageView.call(this, $scope, $model, $presenter);

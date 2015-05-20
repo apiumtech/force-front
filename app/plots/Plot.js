@@ -1,7 +1,9 @@
 /**
  * Created by kevin on 1/13/15.
  */
-app.registerService(function () {
+define([
+    'jquery'
+], function ($) {
     function Plot(labels, plots, configuration, plotImpl) {
         this.labels = labels;
         this.plots = plots;

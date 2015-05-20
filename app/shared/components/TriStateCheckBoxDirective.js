@@ -1,9 +1,12 @@
 /**
  * Created by justin on 4/2/15.
  */
-app.registerDirective(function (container) {
-    //var BooleanTypeFilterController = container.getController("controllers/filters/BooleanTypeFilterController");
-    var $ = container.getFunction("jquery"); // recheck to see if this is $ or jquery
+define([
+    'app',
+    'jquery'
+], function (app, $) {
+    'use strict';
+
     function TriStateCheckBoxDirective() {
         return {
             restrict: "A",
@@ -30,7 +33,8 @@ app.registerDirective(function (container) {
                         case null:
                             $(checkbox).prop('indeterminate', true);
                             break;
-                        default: break;
+                        default:
+                            break;
                     }
                 };
 
@@ -40,6 +44,8 @@ app.registerDirective(function (container) {
             }
         };
     }
+
+    app.register.directive('triStateCheckBox', [TriStateCheckBoxDirective]);
 
     return TriStateCheckBoxDirective;
 });

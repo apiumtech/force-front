@@ -1,5 +1,6 @@
-app.registerModel(function (container) {
-    var Q = container.getFunction('q');
+define([
+    'q'
+], function (Q) {
 
     function WidgetDecoratedPageModel(widgetService, storageService) {
         this.widgetService = widgetService;

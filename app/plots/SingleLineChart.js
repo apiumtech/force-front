@@ -1,7 +1,9 @@
 /**
  * Created by justin on 2/2/15.
  */
-app.registerService(function () {
+define([
+    'jquery'
+], function ($) {
     function SingleLineChart(plotData, tickLabels, configuration, plotImpl) {
         this.plotData = plotData;
         this.tickLabels = tickLabels;

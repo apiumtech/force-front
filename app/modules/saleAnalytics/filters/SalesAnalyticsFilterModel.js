@@ -2,13 +2,15 @@
  * Created by Justin on 2/5/2015.
  */
 
-app.registerModel(function (container) {
-    var Q = container.getFunction('q');
-    var AjaxService = container.getService("services/ajax/AuthAjaxService");
-    var StorageService = container.getService("services/StorageService");
-    var Configuration = container.getService("Configuration");
-    var _ = container.getFunction("underscore");
-    var ArrayHelper = container.getService("services/ArrayHelper");
+define([
+    'shared/services/ajax/AuthAjaxService',
+    'q',
+    'underscore',
+    'config',
+    'shared/services/StorageService',
+    'shared/services/ArrayHelper'
+], function (AjaxService, Q, _, Configuration, StorageService, ArrayHelper) {
+    'use strict';
 
     var ENVIRONMENT = 'Environment', TEAM = 'Hierarqhy';
 
@@ -107,5 +109,4 @@ app.registerModel(function (container) {
     };
 
     return SalesAnalyticsFilterModel;
-})
-;
+});

@@ -1,9 +1,12 @@
 /**
  * Created by Justin on 1/5/2015.
  */
-app.registerView(function (container) {
-//define(['views/BaseView'], function (BaseView) {
-    var BaseView = container.getView("views/BaseView");
+
+define([
+    'shared/BaseView',
+    'modules/widgets/WidgetWrapperDirective',
+    'modules/saleAnalytics/filters/SalesAnalyticsFilterController'
+], function (BaseView) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -30,7 +33,7 @@ app.registerView(function (container) {
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
         var self = this;
         widgetsData.forEach(function (widget) {
-            widget.template = '/templates/widgets/' + self.pageName + '/' + widget.type + '.html';
+            widget.template = 'app/modules/saleAnalytics/' + self.pageName + '/' + widget.type + '.html';
         });
     };
 

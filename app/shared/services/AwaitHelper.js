@@ -2,6 +2,8 @@
  * Created by Justin on 4/6/2015.
  */
 define([], function () {
+    'use strict';
+
     function AwaitHelper() {
 
     }

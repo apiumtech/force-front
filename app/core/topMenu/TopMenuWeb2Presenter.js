@@ -2,12 +2,14 @@
  * Created by joanllenas on 4/21/15.
  */
 
-app.registerPresenter(function(container) {
+define([], function () {
+    'use strict';
 
-    function TopMenuWeb2Presenter() {}
+    function TopMenuWeb2Presenter() {
+    }
 
 
-    TopMenuWeb2Presenter.prototype.show = function(view, model) {
+    TopMenuWeb2Presenter.prototype.show = function (view, model) {
         this.view = view;
         this.model = model;
     };
@@ -42,7 +44,7 @@ app.registerPresenter(function(container) {
     };
 
 
-    TopMenuWeb2Presenter.newInstance = function() {
+    TopMenuWeb2Presenter.newInstance = function () {
         return new TopMenuWeb2Presenter();
     };
 

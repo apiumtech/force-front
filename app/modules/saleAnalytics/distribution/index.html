@@ -17,8 +17,8 @@
 <div class="submenu-analytics">
     <ul class="list-inline">
         <li><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}}</a></li>
-        <li><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</a></li>
-        <li class="active"><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</a></li>
+        <li class="active"><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</a></li>
+        <li><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</a></li>
         <li><a href="helper_css.html">{{'LeftMenu.Reports' | i18next}}</a></li>
     </ul>
 </div>
@@ -27,8 +27,12 @@
 <ng-include src="'templates/analytics/analyticsFilter.html'"></ng-include>
 <!-- end filters-->
 
+<div class="row fixedarea" as-sortable
+     widget-hover="fn.makeFullSize($ui, $widget)"
+     widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
+</div>
 <div class="row">
-    <ng-include src="'templates/analytics/noWidgetAlert.html'"></ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html'"></ng-include>
     <div class="widgets-container"
          as-sortable
          widget-drag-start="fn.highlightDroppableZones()"
@@ -37,11 +41,7 @@
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">
-            <ng-include src="'templates/widgets/widgetWrapper.html'"></ng-include>
+            <ng-include src="widget.template"></ng-include>
         </div>
     </div>
-</div>
-<div class="row fixedarea" as-sortable
-     widget-hover="fn.makeFullSize($ui, $widget)"
-     widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
 </div>

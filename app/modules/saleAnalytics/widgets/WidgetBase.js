@@ -2,10 +2,11 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerService(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
-    var moment = container.getFunction("moment");
-    var Configuration = container.getService('Configuration');
+define([
+    'shared/services/ajax/AjaxService',
+    'moment',
+    'config'
+], function (AjaxService, moment, Configuration) {
 
     function WidgetBase(ajaxService) {
         this.ajaxService = ajaxService || AjaxService.newInstance();

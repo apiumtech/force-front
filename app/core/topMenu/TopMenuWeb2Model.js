@@ -2,12 +2,13 @@
  * Created by joanllenas on 4/21/15.
  */
 
-app.registerModel(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
-    var StorageService = container.getService("services/StorageService");
-    var Configuration = container.getService("Configuration");
-    var Q = container.getFunction('q');
-
+define([
+    'shared/services/ajax/AjaxService',
+    'shared/services/StorageService',
+    'config',
+    'q'
+], function (AjaxService, StorageService, Configuration, Q) {
+    'use strict';
 
     function TopMenuWeb2Model(ajaxService, storageService, configuration) {
         this.ajaxService = ajaxService;
@@ -65,19 +66,21 @@ app.registerModel(function (container) {
         };
 
         this.ajaxService.rawAjaxRequest(params).then(
-            function(data) {
+            function (data) {
                 var userData = JSON.parse(data.d);
                 self.storeUserData(userData);
                 deferred.resolve();
             },
-            function(error) {deferred.reject(error);}
+            function (error) {
+                deferred.reject(error);
+            }
         );
 
         return deferred.promise;
     };
 
 
-    TopMenuWeb2Model.prototype.storeUserData = function(userData) {
+    TopMenuWeb2Model.prototype.storeUserData = function (userData) {
         this.storageService.store(TopMenuWeb2Model.USER_DATA_KEY, userData);
     };
 
@@ -91,7 +94,5 @@ app.registerModel(function (container) {
     };
 
 
-    return {
-        newInstance: TopMenuWeb2Model.newInstance
-    };
+    return TopMenuWeb2Model;
 });
