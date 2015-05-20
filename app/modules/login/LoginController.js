@@ -17,4 +17,6 @@ define([
     };
 
     app.register.controller('LoginController', ['$scope', '$location', LoginController]);
+
+    return LoginController;
 });
