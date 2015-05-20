@@ -1,8 +1,11 @@
 /**
  * Created by apium on 5/8/15.
  */
-app.registerService(function (container) {
-    var SignalService = container.getService('services/SignalService');
+define([
+    'shared/services/SignalService'
+], function (SignalService) {
+    'use strict';
+
 
     function BaseWidgetEventBus(signalService) {
         this.signalService = signalService;

@@ -2,12 +2,14 @@
  * Created by justin on 12/17/14.
  */
 
-app.registerModel(function (container) {
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-    var WidgetBase = container.getService('services/WidgetBase');
-    var Configuration = container.getService('Configuration');
-    var moment = container.getFunction("moment");
-    var Q = container.getFunction('q');
+define([
+    'shared/services/ajax/AuthAjaxService',
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'config',
+    'moment',
+    'q'
+], function (AuthAjaxService, WidgetBase, Configuration, moment, Q) {
+    'use strict';
 
     function TableWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);

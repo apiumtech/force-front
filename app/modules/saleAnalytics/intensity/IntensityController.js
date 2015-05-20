@@ -3,7 +3,9 @@
  */
 define([
     'app',
-    'modules/saleAnalytics/intensity/IntensityView'
+    'modules/saleAnalytics/intensity/IntensityView',
+
+    'modules/saleAnalytics/intensity/rankingChart/IntensityRankingWidgetDirective'
 ], function (app, IntensityView) {
     'use strict';
 
