@@ -1,8 +1,10 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerController(function (container) {
-    var OpportunityWidgetView = container.getView("views/accountDetails/OpportunityWidgetView");
+define([
+    'app',
+    'modules/account/widgets/opportunity/OpportunityWidgetView'
+], function (app, OpportunityWidgetView) {
 
     function OpportunityWidgetController($scope, $element) {
         OpportunityWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = OpportunityWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('OpportunityWidgetController', ['$scope', '$element', OpportunityWidgetController]);
 
     return OpportunityWidgetController;
 });

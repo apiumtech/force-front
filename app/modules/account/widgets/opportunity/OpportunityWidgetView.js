@@ -1,11 +1,12 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
-        OpportunityWidgetModel = container.getModel('models/accountDetails/OpportunityWidgetModel'),
-        OpportunityWidgetPresenter = container.getPresenter('presenters/accountDetails/OpportunityWidgetPresenter');
+define([
+    'shared/BaseView',
+    'shared/services/bus/AccountDetailWidgetEventBus',
+    'modules/account/widgets/opportunity/OpportunityWidgetModel',
+    'modules/account/widgets/opportunity/OpportunityWidgetPresenter'
+], function (BaseView, AccountDetailWidgetEventBus, OpportunityWidgetModel, OpportunityWidgetPresenter) {
 
     function OpportunityWidgetView($scope, $element, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

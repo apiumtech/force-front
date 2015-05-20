@@ -1,19 +1,24 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerDirective(function (container) {
-    var OpportunityWidgetController = container.getController('controllers/accountDetails/OpportunityWidgetController');
+define([
+    'app',
+    'modules/account/widgets/opportunity/OpportunityWidgetController',
+    'modules/widgets/WidgetWrapperDirective'
+], function (app, OpportunityWidgetController) {
 
-    function AccountDetailActivityDirective() {
+    function AccountDetailOpportunityDirective() {
         return {
             restrict: "EA",
             controller: OpportunityWidgetController,
             scope: {
                 accountId: "="
             },
-            templateUrl: "templates/accountDetails/directives/opportunityWidget.html"
+            templateUrl: "app/modules/account/widgets/opportunity/opportunityWidget.html"
         };
     }
 
-    return AccountDetailActivityDirective;
+    app.register.directive('accountDetailOpportunity', [AccountDetailOpportunityDirective]);
+
+    return AccountDetailOpportunityDirective;
 });

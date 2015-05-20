@@ -4,7 +4,6 @@
 define([
     'app',
     'modules/account/widgets/activity/ActivityWidgetController',
-
     'modules/widgets/WidgetWrapperDirective'
 ], function (app, ActivityWidgetController) {
 

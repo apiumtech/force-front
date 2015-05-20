@@ -1,8 +1,10 @@
 /**
  * Created by justin on 3/18/15.
  */
-app.registerController(function (container) {
-    var AgendaWidgetView = container.getView("views/accountDetails/AgendaWidgetView");
+define([
+    'app',
+    'modules/account/widgets/agenda/AgendaWidgetView'
+], function (app, AgendaWidgetView) {
 
     function AgendaWidgetController($scope, $element) {
         AgendaWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ app.registerController(function (container) {
         this.view = AgendaWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('AgendaWidgetController', ['$scope', '$element', AgendaWidgetController]);
 
     return AgendaWidgetController;
 });

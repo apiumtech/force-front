@@ -1,19 +1,24 @@
 /**
  * Created by justin on 3/18/15.
  */
-app.registerDirective(function (container) {
-    var AgendaWidgetController = container.getController('controllers/accountDetails/AgendaWidgetController');
+define([
+    'app',
+    'modules/account/widgets/agenda/AgendaWidgetController',
+    'modules/widgets/WidgetWrapperDirective'
+], function (app, AgendaWidgetController) {
 
-    function AccountDetailActivityDirective() {
+    function AccountDetailAgendaDirective() {
         return {
             restrict: "EA",
             controller: AgendaWidgetController,
             scope: {
                 accountId: "="
             },
-            templateUrl: "templates/accountDetails/directives/agendaWidget.html"
+            templateUrl: "app/modules/account/widgets/agenda/agendaWidget.html"
         };
     }
 
-    return AccountDetailActivityDirective;
+    app.register.directive('accountDetailAgenda', [AccountDetailAgendaDirective]);
+
+    return AccountDetailAgendaDirective;
 });

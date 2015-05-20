@@ -1,11 +1,12 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
-        AgendaWidgetModel = container.getModel('models/accountDetails/AgendaWidgetModel'),
-        AgendaWidgetPresenter = container.getPresenter('presenters/accountDetails/AgendaWidgetPresenter');
+define([
+    'shared/BaseView',
+    'shared/services/bus/AccountDetailWidgetEventBus',
+    'modules/account/widgets/agenda/AgendaWidgetModel',
+    'modules/account/widgets/agenda/AgendaWidgetPresenter'
+], function (BaseView, AccountDetailWidgetEventBus, AgendaWidgetModel, AgendaWidgetPresenter) {
 
     function AgendaWidgetView($scope, $element, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);

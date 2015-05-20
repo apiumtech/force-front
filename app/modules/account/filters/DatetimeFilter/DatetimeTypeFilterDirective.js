@@ -14,7 +14,7 @@ define([
                 onClose: "&"
             },
             controller: DatetimeTypeFilterController,
-            templateUrl: '/templates/filters/datetimeTypeFilter.html'
+            templateUrl: 'app/modules/account/filters/DatetimeFilter/datetimeTypeFilter.html'
         };
     }
 

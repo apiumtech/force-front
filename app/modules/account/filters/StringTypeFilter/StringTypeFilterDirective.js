@@ -14,7 +14,7 @@ define([
                 onClose: "&"
             },
             controller: StringTypeFilterController,
-            templateUrl: '/templates/filters/stringTypeFilter.html'
+            templateUrl: 'app/modules/account/filters/StringTypeFilter/stringTypeFilter.html'
         };
     }
 

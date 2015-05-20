@@ -2,7 +2,7 @@
  * Created by Justin on 3/16/2015.
  */
 
-app.registerPresenter(function () {
+define([], function () {
     function OpportunityWidgetPresenter() {
 
     }

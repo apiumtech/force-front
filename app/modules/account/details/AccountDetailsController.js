@@ -4,8 +4,12 @@
 define([
     'app',
     'modules/account/details/AccountDetailsView',
-    'modules/account/widgets/activity/ActivityWidgetController',
-    'modules/account/widgets/activity/AccountDetailActivityDirective'
+
+
+    'modules/account/widgets/activity/AccountDetailActivityDirective',
+    'modules/account/widgets/opportunity/AccountDetailOpportunityDirective',
+    'modules/account/widgets/agenda/AccountDetailAgendaDirective'
+
 ], function (app, AccountDetailsView) {
     'use strict';
 
