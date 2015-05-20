@@ -20,7 +20,7 @@ app.registerService(function (container) {
         return target;
     };
 
-    var findParents = function (flattenedArray, parentKey, elementIdentifier, parentValue, rootValue, output) {
+    var findParents = function (flattenedArray, parentKey, elementIdentifier, parentValue, rootValue, output, notRecursive) {
         if (!output) output = [];
 
         if (parentValue == rootValue) {
@@ -39,9 +39,11 @@ app.registerService(function (container) {
 
         output = filtered.concat(output);
 
-        filtered.forEach(function (node) {
-            output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
-        });
+        if (!notRecursive) {
+            filtered.forEach(function (node) {
+                output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
+            });
+        }
 
         return output;
     };
@@ -71,7 +73,6 @@ app.registerService(function (container) {
     };
 
     var clone = function (array) {
-        console.log(JSON.stringify(array));
         return JSON.parse(JSON.stringify(array));
     };
 

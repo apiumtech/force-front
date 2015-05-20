@@ -58,8 +58,6 @@ describe("SalesAnalyticsFilterView", function () {
         }, {
             method: "resetDate", test: resetDateTest
         }, {
-            method: "allUserSelectionChanged", test: allUserSelectionChangedTest
-        }, {
             method: "userSelectionChanged", test: userSelectionChangedTest
         }, {
             method: "__applyUserFilter", test: __applyUserFilterTest
@@ -269,32 +267,6 @@ describe("SalesAnalyticsFilterView", function () {
                 spyOn(sut.fn, 'getDatePlaceholder');
                 sut.fn.resetDate();
                 expect(sut.fn.getDatePlaceholder).toHaveBeenCalled();
-            });
-        }
-
-        function allUserSelectionChangedTest() {
-            var event = {
-                stopPropagation: jasmine.createSpy()
-            };
-
-            beforeEach(function () {
-                spyOn(sut, 'toggleSelectAllUsers');
-                spyOn(sut.fn, 'applyUserFilter');
-            });
-
-            it("should call stopPropagation on event", function () {
-                sut.fn.allUserSelectionChanged(event);
-                expect(event.stopPropagation).toHaveBeenCalled();
-            });
-
-            it("should call toggleSelectAllUsers to check/uncheck all boxes", function () {
-                sut.fn.allUserSelectionChanged(event);
-                expect(sut.toggleSelectAllUsers).toHaveBeenCalledWith(sut.allUsersSelected);
-            });
-
-            it("should fire applyUserFilter event", function () {
-                sut.fn.allUserSelectionChanged(event);
-                expect(sut.fn.applyUserFilter).toHaveBeenCalled();
             });
         }
 
@@ -601,130 +573,10 @@ describe("SalesAnalyticsFilterView", function () {
                         _sut.checkSelectAllState();
                     });
 
-                    it("should be false if any user is unselected", function () {
-                        expect(_sut.allUsersSelected).toEqual(false);
-                    });
-
                     it("should decorate filtered users to correct states", function () {
                         expect(_sut.userFiltered).toEqual(test.output);
                     });
                 });
-        });
-
-        describe("All users are selected", function () {
-            it("should be true if all users is selected", function () {
-                sut.userFiltered = [{
-                    group: "groupA",
-                    checked: true,
-                    children: [{
-                        name: "groupa-1",
-                        checked: true
-                    }, {
-                        name: "groupa-2",
-                        checked: true
-                    }]
-                }, {
-                    group: "groupB",
-                    checked: true,
-                    children: [{
-                        name: "groupb-1",
-                        checked: true
-                    }, {
-                        name: "groupb-2",
-                        checked: true
-                    }, {
-                        name: "groupb-3",
-                        checked: true
-                    }]
-                }];
-                sut.checkSelectAllState();
-                expect(sut.allUsersSelected).toEqual(true);
-            });
-        });
-    });
-
-    describe("toggleSelectAllUsers", function () {
-
-        beforeEach(function () {
-
-            sut.userFiltered = [{
-                group: "groupA",
-                children: [{
-                    name: "groupa-1",
-                    checked: false
-                }, {
-                    name: "groupa-2",
-                    checked: true
-                }]
-            }, {
-                group: "groupB",
-                children: [{
-                    name: "groupb-1",
-                    checked: false
-                }, {
-                    name: "groupb-2",
-                    checked: false
-                }, {
-                    name: "groupb-3",
-                    checked: true
-                }]
-            }];
-        });
-
-        it("should select all data", function () {
-            sut.toggleSelectAllUsers(true);
-            expect(sut.userFiltered).toEqual([{
-                group: "groupA",
-                checked: true,
-                children: [{
-                    name: "groupa-1",
-                    checked: true
-                }, {
-                    name: "groupa-2",
-                    checked: true
-                }]
-            }, {
-                group: "groupB",
-                checked: true,
-                children: [{
-                    name: "groupb-1",
-                    checked: true
-                }, {
-                    name: "groupb-2",
-                    checked: true
-                }, {
-                    name: "groupb-3",
-                    checked: true
-                }]
-            }]);
-        });
-
-        it("should select none", function () {
-            sut.toggleSelectAllUsers(false);
-            expect(sut.userFiltered).toEqual([{
-                group: "groupA",
-                checked: false,
-                children: [{
-                    name: "groupa-1",
-                    checked: false
-                }, {
-                    name: "groupa-2",
-                    checked: false
-                }]
-            }, {
-                group: "groupB",
-                checked: false,
-                children: [{
-                    name: "groupb-1",
-                    checked: false
-                }, {
-                    name: "groupb-2",
-                    checked: false
-                }, {
-                    name: "groupb-3",
-                    checked: false
-                }]
-            }]);
         });
     });
 
@@ -853,5 +705,209 @@ describe("SalesAnalyticsFilterView", function () {
                 expect(sut.userFiltered).toEqual(filteredData);
             });
         });
+    });
+
+    describe('checkStateForTeamList', function () {
+        [
+            {
+                input: [
+                    {
+                        id: 1,
+                        checked: false,
+                        idParent: -1,
+                        children: [{
+                            id: 2,
+                            idParent: 1,
+                            checked: true
+                        }, {
+                            id: 3,
+                            idParent: 1,
+                            checked: false,
+                            children: [
+                                {
+                                    id: 5,
+                                    idParent: 3,
+                                    checked: true
+                                },
+                                {
+                                    id: 6,
+                                    idParent: 3,
+                                    checked: true
+                                }
+                            ]
+                        }]
+                    }
+                ],
+
+                expectedOutput: [
+                    {
+                        id: 1,
+                        checked: true,
+                        idParent: -1,
+                        children: [{
+                            id: 2,
+                            idParent: 1,
+                            checked: true
+                        }, {
+                            id: 3,
+                            idParent: 1,
+                            checked: true,
+                            children: [
+                                {
+                                    id: 5,
+                                    idParent: 3,
+                                    checked: true
+                                },
+                                {
+                                    id: 6,
+                                    idParent: 3,
+                                    checked: true
+                                }
+                            ]
+                        }]
+                    }
+                ],
+                testNode: {
+                    id: 5,
+                    idParent: 3,
+                    checked: true
+                }
+            },
+            {
+                input: [
+                    {
+                        id: 1,
+                        idParent: -1,
+                        checked: false,
+                        children: [{
+                            id: 2,
+                            idParent: 1,
+                            checked: true
+                        }, {
+                            id: 3,
+                            idParent: 1,
+                            checked: false,
+                            children: [
+                                {
+                                    id: 5,
+                                    idParent: 3,
+                                    checked: true
+                                },
+                                {
+                                    id: 6,
+                                    idParent: 3,
+                                    checked: true
+                                }
+                            ]
+                        }]
+                    },
+                    {
+                        id: 4,
+                        checked: true,
+                        idParent: -1,
+                        children: [{
+                            id: 7,
+                            idParent: 4,
+                            checked: true
+                        }, {
+                            id: 8,
+                            idParent: 4,
+                            checked: false,
+                            children: [
+                                {
+                                    id: 9,
+                                    idParent: 8,
+                                    checked: true
+                                },
+                                {
+                                    id: 10,
+                                    idParent: 8,
+                                    checked: false
+                                }
+                            ]
+                        }]
+                    }
+                ],
+
+                expectedOutput: [
+                    {
+                        id: 1,
+                        checked: true,
+                        idParent: -1,
+                        children: [{
+                            id: 2,
+                            idParent: 1,
+                            checked: true
+                        }, {
+                            id: 3,
+                            idParent: 1,
+                            checked: true,
+                            children: [
+                                {
+                                    id: 5,
+                                    idParent: 3,
+                                    checked: true
+                                },
+                                {
+                                    id: 6,
+                                    idParent: 3,
+                                    checked: true
+                                }
+                            ]
+                        }]
+                    },
+                    {
+                        id: 4,
+                        checked: null,
+                        idParent: -1,
+                        children: [{
+                            id: 7,
+                            idParent: 4,
+                            checked: true
+                        }, {
+                            id: 8,
+                            idParent: 4,
+                            checked: null,
+                            children: [
+                                {
+                                    id: 9,
+                                    idParent: 8,
+                                    checked: true
+                                },
+                                {
+                                    id: 10,
+                                    idParent: 8,
+                                    checked: false
+                                }
+                            ]
+                        }]
+                    }
+                ],
+                testNode: [{
+                    id: 9,
+                    idParent: 8,
+                    checked: true
+                }, {
+                    id: 5,
+                    idParent: 3,
+                    checked: true
+                }]
+            }
+        ].forEach(function (test) {
+                describe('Having input value', function () {
+                    it("should turn into correct output", function () {
+                        sut.userFiltered = test.input;
+
+                        if (test.testNode.map) {
+                            test.testNode.forEach(function (t) {
+                                sut.checkStateForTeamList(t);
+                            });
+                        } else {
+                            sut.checkStateForTeamList(test.testNode);
+                        }
+                        expect(sut.userFiltered).toEqual(test.expectedOutput);
+                    });
+                });
+            });
     });
 });

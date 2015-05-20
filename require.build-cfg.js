@@ -179,6 +179,7 @@ requirejs.config({
         'aspects/ViewRepaintAspect', 'aspects/LogErrorAspect',
         // Channels
         'services/bus/FilterChannel',
+        'services/ArrayHelper',
 
         'services/bus/BaseWidgetEventBus',
         // plots
@@ -195,7 +196,9 @@ requirejs.config({
         'directives/TriStateCheckBoxDirective',
         'directives/ForceDatePickerDirective',
 
-
+        //Tree
+        'directives/tree/TreeListDirective',
+        'services/UserTreeListEventBus',
 
         // TODO: to be removed in production
         'services/FakeAjaxService',
@@ -246,7 +249,6 @@ requirejs.config({
         'views/literal/LiteralView',
         'presenters/literal/LiteralPresenter',
         'models/literal/LiteralModel',
-
 
 
 
@@ -357,7 +359,6 @@ requirejs.config({
         'controllers/filters/SalesAnalyticsFilterController',
         'views/filters/SalesAnalyticsFilterView',
         'models/filters/SalesAnalyticsFilterModel',
-        'models/filters/SalesAnalyticsFilterPresentationModel',
         'presenters/filters/SalesAnalyticsFilterPresenter',
 
         // Graph widget
@@ -365,19 +366,36 @@ requirejs.config({
         'controllers/widgets/IntensityGraphWidgetController', 'views/widgets/GraphWidgetView', 'models/widgets/GraphWidgetModel', 'presenters/widgets/GraphWidgetPresenter',
 
         // Map chart widget
+        'directives/widgets/DistributionGeographicalWidgetDirective',
         'controllers/widgets/DistributionGeographicalWidgetController', 'views/widgets/MapChartWidgetView', 'presenters/widgets/MapChartWidgetPresenter', 'models/widgets/MapChartWidgetModel',
 
         // Pie chart widget
-        'controllers/widgets/DistributionSegmentPieWidgetController', 'views/widgets/SegmentPieChartWidgetView', 'presenters/widgets/PieChartWidgetPresenter', 'models/widgets/PieChartWidgetModel',
+        'presenters/widgets/PieChartWidgetPresenter',
+        'views/widgets/PieChartWidgetView',
+        'models/widgets/PieChartWidgetModel',
+        // Distribution Segment Pie Chart
+        'directives/widgets/DistributionSegmentPieWidgetDirective',
+        'models/widgets/SegmentPieChartWidgetModel',
+        'controllers/widgets/DistributionSegmentPieWidgetController',
+        'views/widgets/SegmentPieChartWidgetView',
+        // Distribution Hour Pie Chart
+        'directives/widgets/DistributionHourPieWidgetDirective',
+        'models/widgets/HourPieChartWidgetModel',
+        'controllers/widgets/DistributionHourPieWidgetController',
+        'views/widgets/HourPieChartWidgetView',
 
         // Bar chart widget
+        'directives/widgets/BarChartWidgetDirective',
         'controllers/widgets/BarChartWidgetController', 'views/widgets/BarChartWidgetView', 'presenters/widgets/BarChartWidgetPresenter', 'models/widgets/BarChartWidgetModel',
 
         // SingleLine chart widget
-        'controllers/SingleLineChartWidgetController', 'views/widgets/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
+        'directives/widgets/DistributionHourLineWidgetDirective',
+        'controllers/widgets/DistributionHourLineWidgetController',
+        'views/widgets/SingleLineChartWidgetView', 'presenters/widgets/SingleLineChartWidgetPresenter', 'models/widgets/SingleLineChartWidgetModel',
 
         // Table widget
         'directives/widgets/IntensityRankingWidgetDirective',
+        'controllers/widgets/IntensityRankingWidgetController', 'views/widgets/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
         'controllers/widgets/IntensityRankingWidgetController', 'views/widgets/TableWidgetView', 'models/widgets/TableWidgetModel', 'presenters/widgets/TableWidgetPresenter',
 
         'controllers/TopMenuController', 'views/TopMenuView',
@@ -388,6 +406,7 @@ requirejs.config({
 
         //Design Prove Controller
         'controllers/DesignProveController',
+
         // Contacts Page
         'controllers/contact/ContactController',
         'models/contact/ContactModel',

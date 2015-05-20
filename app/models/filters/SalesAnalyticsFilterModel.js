@@ -87,24 +87,10 @@ app.registerModel(function (container) {
     };
 
     SalesAnalyticsFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        //    var filteredData = data.map(function (record) {
-        //        if (!record.children) return record;
-        //
-        //        // 2nd level
-        //        var filteredChildren = _.filter(record.children, function (child) {
-        //            return child.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-        //        });
-        //
-        //        record.children = filteredChildren;
-        //        return record;
-        //    });
-        //    return filteredData;
-
         return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
     };
 
     SalesAnalyticsFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-
         return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
 
     };

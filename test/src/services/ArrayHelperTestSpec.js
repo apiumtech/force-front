@@ -255,8 +255,9 @@ describe("ArrayHelper", function () {
     });
 
     describe("findParents", function () {
-        it("should return correct list of parents", function () {
-            var input = [
+        var input = [];
+        beforeEach(function () {
+            input = [
                 {
                     "id": 1,
                     "name": "A",
@@ -324,6 +325,9 @@ describe("ArrayHelper", function () {
                     "isEnvironment": false
                 }];
 
+        });
+        it("should return correct list of parents", function () {
+
             var expectedOutput = [
                 {
                     "id": 4,
@@ -347,6 +351,21 @@ describe("ArrayHelper", function () {
             var actual = ArrayHelper.findParents(input, 'idParent', 'id', 10, -1);
             expect(actual).toEqual(expectedOutput);
         });
+
+        describe('notRecursive is set to true', function () {
+            it("should return the immediate parent", function () {
+                var expectedOutput = [{
+                    "id": 9,
+                    "name": "Child of D 2",
+                    "idParent": 4,
+                    "isEnvironment": false
+                }];
+
+                var actual = ArrayHelper.findParents(input, 'idParent', 'id', 9, -1, null, true);
+                expect(actual).toEqual(expectedOutput);
+            });
+        });
+
     });
 
     describe("queryTree", function () {

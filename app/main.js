@@ -218,6 +218,7 @@ function main() {
 
             //Tree
             'directives/tree/TreeListDirective',
+            'services/UserTreeListEventBus',
 
             // TODO: to be removed in production
             'services/FakeAjaxService',
