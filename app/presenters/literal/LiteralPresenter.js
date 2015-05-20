@@ -1,6 +1,3 @@
-/**
- * Created by joanllenas 5/14/15
- */
 
 app.registerPresenter(function (container) {
 

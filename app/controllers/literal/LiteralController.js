@@ -1,7 +1,4 @@
-/**
- * Created by kevin on 10/22/14.
- * Updated by trung.dang on 02/12/2015
- */
+
 app.registerController(function (container) {
     var LiteralView = container.getView("views/literal/LiteralView");
 
@@ -10,7 +7,7 @@ app.registerController(function (container) {
     }
 
     LiteralController.configureView = function ($routeParams, $scope) {
-        this.view = LiteralView.newInstance($routeParams, $scope);
+        this.view = LiteralView.newInstance($scope, null, null, $routeParams);
         this.view.show();
     };
 

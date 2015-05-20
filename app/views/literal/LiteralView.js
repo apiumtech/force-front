@@ -1,6 +1,3 @@
-/**
- * Created by kevin on 10/22/14.
- */
 
 app.registerView(function (container) {
     var BaseView = container.getView("views/BaseView");
@@ -9,7 +6,7 @@ app.registerView(function (container) {
     var TranslatorService = container.getService("services/TranslatorService");
 
 
-    function LiteralView($routeParams, $scope, $model, $presenter, $window) {
+    function LiteralView($scope, $model, $presenter, $routeParams, $window) {
         BaseView.call(this, $scope, $model, $presenter);
         this.$window = $window;
         this.routeParams = $routeParams;
@@ -39,6 +36,8 @@ app.registerView(function (container) {
         this.fn.onSave = this._onSave.bind(this);
         this.fn.isNew = this.isNew.bind(this);
         this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
+
+        this.event.isNew = function(){};
     };
 
 
@@ -106,14 +105,14 @@ app.registerView(function (container) {
     };
 
 
-    LiteralView.newInstance = function ($routeParams, $scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
+    LiteralView.newInstance = function ($scope, $model, $presenter, $routeParams, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var routeParams = $routeParams;
         var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
         var presenter = $presenter || LiteralPresenter.newInstance().getOrElse(throwInstantiateException(LiteralPresenter));
         $window = $window || window;
 
-        var view = new LiteralView(routeParams, scope, model, presenter, $window);
+        var view = new LiteralView(scope, model, presenter, routeParams, $window);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
