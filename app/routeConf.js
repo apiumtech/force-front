@@ -24,11 +24,9 @@ define([
             //Define routes - controllers will be loaded dynamically
             var route = routeResolverSvcProvider.route;
 
-            $routeProvider.routeResolve = route.resolve;
-
             for (var i in routeConfigurations) {
                 var routeRegister = routeConfigurations[i];
-                routeRegister.register($routeProvider);
+                routeRegister.register($routeProvider, route.resolve);
             }
 
             $routeProvider

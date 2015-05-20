@@ -2,10 +2,9 @@
  * Created by joanllenas on 4/8/15.
  */
 
-app.registerService(function () {
-    var StorageService = app.getService('services/StorageService');
-
-
+define([
+    'shared/services/StorageService'
+], function (StorageService) {
     /**
      * @constructor
      */
@@ -30,11 +29,11 @@ app.registerService(function () {
      *
      * @method storeEntities()
      */
-    EntityService.prototype.storeEntities = function(configObj){
-        if( !configObj.entities ){
+    EntityService.prototype.storeEntities = function (configObj) {
+        if (!configObj.entities) {
             throw new Error('This Config Object does not have entities');
         }
-        this.storage.store(EntityService.STORAGE_KEY, configObj.entities );
+        this.storage.store(EntityService.STORAGE_KEY, configObj.entities);
     };
 
 
@@ -43,8 +42,8 @@ app.registerService(function () {
      *
      * @method getEntityByName()
      */
-    EntityService.prototype.getEntityByName = function(entityName){
-        if(!entityName){
+    EntityService.prototype.getEntityByName = function (entityName) {
+        if (!entityName) {
             throw new Error("No entity name was specified");
         }
         var entitiesObj = this.storage.retrieve(EntityService.STORAGE_KEY);
@@ -57,29 +56,31 @@ app.registerService(function () {
      *
      * @method getEntityColumns()
      */
-    EntityService.prototype.getEntityColumns = function(entityName){
-        if(!entityName){
+    EntityService.prototype.getEntityColumns = function (entityName) {
+        if (!entityName) {
             throw new Error("No entity name was specified");
         }
 
-        var resolveColumnType = function(type) {
-            return  type === "int"  ? EntityService.COLUMN_TYPE_INT  :
-                    type === "text" ? EntityService.COLUMN_TYPE_TEXT :
+        var resolveColumnType = function (type) {
+            return type === "int" ? EntityService.COLUMN_TYPE_INT :
+                type === "text" ? EntityService.COLUMN_TYPE_TEXT :
                     type === "date" ? EntityService.COLUMN_TYPE_DATE :
-                    EntityService.COLUMN_TYPE_TEXT;
+                        EntityService.COLUMN_TYPE_TEXT;
         };
 
         // column spec resolver
-        var fieldToColumn = function(field) {
+        var fieldToColumn = function (field) {
             var list = field.list;
             var struct = field.struct;
             return {
                 data: field.name,
                 title: list.label || EntityService.COLUMN_DEFAULT_LABEL,
                 type: resolveColumnType(struct.type),
-                visible: list.isAlwaysVisible ||  list.isDefaultVisible,
+                visible: list.isAlwaysVisible || list.isDefaultVisible,
                 sortable: list.isSortable || EntityService.COLUMN_DEFAULT_SORTABLE,
-                isAlwaysVisible: function(){ return list.isAlwaysVisible; }
+                isAlwaysVisible: function () {
+                    return list.isAlwaysVisible;
+                }
             };
         };
 
@@ -88,13 +89,13 @@ app.registerService(function () {
         return columns;
     };
 
-    EntityService.prototype.getEntityFilters = function(entityName){
-        if(!entityName){
+    EntityService.prototype.getEntityFilters = function (entityName) {
+        if (!entityName) {
             throw new Error("No entity name was specified");
         }
 
         // filter spec resolver
-        var fieldToFilter = function(field) {
+        var fieldToFilter = function (field) {
             var list = field.list;
             var struct = field.struct;
             return {
@@ -109,9 +110,9 @@ app.registerService(function () {
         var len = entity.fields.length;
         var field;
         var filters = [];
-        for ( var i=0; i<len; i++ ) {
+        for (var i = 0; i < len; i++) {
             field = entity.fields[i];
-            if(field.list.isFilter === true) {
+            if (field.list.isFilter === true) {
                 filters.push(fieldToFilter(field));
             }
         }

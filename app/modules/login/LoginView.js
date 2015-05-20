@@ -8,7 +8,7 @@ define([
     'modules/login/LoginPresenter'
 ], function (BaseView, LoginModel, LoginPresenter) {
 
-    function LoginView($scope, $model, $presenter, $location) {
+    function LoginView($scope, $location, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.$location = $location;
         this.configureEvents();
@@ -54,10 +54,10 @@ define([
 
         self.fn.login = function () {
             self.errorMessage = null;
-            self.presenter.onLogin();
+            self.onLoggingIn();
+            self.event.onLogIn(self.loginUser, self.loginPassword);
         };
     };
-
 
     LoginView.prototype.onLoggingIn = function () {
         this.isLoggingIn = true;
@@ -80,11 +80,10 @@ define([
     };
 
 
-    LoginView.newInstance = function ($scope, $model, $presenter, $location, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
+    LoginView.newInstance = function ($scope, $location, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || LoginModel.newInstance();
         var presenter = $presenter || LoginPresenter.newInstance();
-        var view = new LoginView(scope, model, presenter, $location);
+        var view = new LoginView($scope, $location, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

@@ -2,7 +2,7 @@
  * Created by joanllenas on 03/16/15.
  */
 
-define([], function (container) {
+define([], function () {
 
     function LoginPresenter() {
     }
@@ -10,17 +10,12 @@ define([], function (container) {
     LoginPresenter.prototype.show = function (view, model) {
         this.view = view;
         this.model = model;
-    };
+        var self = this;
 
-
-    LoginPresenter.prototype.onLogin = function () {
-        this.view.onLoggingIn();
-
-        this.model.login(this.view.loginUser, this.view.loginPassword)
-            .then(
-            this.view.onLoggedIn.bind(this.view),
-            this.onLoggingInError.bind(this)
-        );
+        view.event.onLogIn = function(username, password) {
+            model.login(username, password)
+                .then(view.onLoggedIn.bind(view), self.onLoggingInError.bind(self));
+        };
     };
 
     LoginPresenter.prototype.onLoggingInError = function (jqXHR) {

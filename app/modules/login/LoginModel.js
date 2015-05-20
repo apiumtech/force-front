@@ -3,11 +3,11 @@
  */
 
 define([
-    'shared/services/ajax/ajaxService',
+    'shared/services/ajax/AjaxService',
     'shared/services/config/EntityService',
     'shared/services/StorageService',
     'config',
-    'cryto.SHA1',
+    'crypto.SHA1',
     'q'
 ], function (AjaxService, EntityService, StorageService, Configuration, sha1, Q) {
 

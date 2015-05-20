@@ -3,18 +3,18 @@
  */
 
 define([
+    'app',
     'modules/login/LoginView'
-], function (LoginView) {
+], function (app, LoginView) {
 
     function LoginController($scope, $location) {
         LoginController.configureView($scope, $location);
     }
 
     LoginController.configureView = function ($scope, $location) {
-        this.view = LoginView.newInstance($scope, undefined, undefined, $location);
+        this.view = LoginView.newInstance($scope, $location);
         this.view.show();
     };
 
-
-    return LoginController;
+    app.register.controller('LoginController', ['$scope', '$location', LoginController]);
 });

@@ -2,7 +2,7 @@
  * Created by justin on 3/20/15.
  */
 define([
-    '$',
+    'jquery',
     'angular',
     'config',
 
