@@ -897,6 +897,7 @@ describe("SalesAnalyticsFilterView", function () {
                 describe('Having input value', function () {
                     it("should turn into correct output", function () {
                         sut.userFiltered = test.input;
+                        sut.usersList = test.input;
 
                         if (test.testNode.map) {
                             test.testNode.forEach(function (t) {
