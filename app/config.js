@@ -75,14 +75,6 @@ define(function () {
 
     };
 
-    var jasmineMock = function (constr, name) {
-        var keys = [];
-        for (var key in constr.prototype) {
-            keys.push(key);
-        }
-        return keys.length > 0 ? jasmine.createSpyObj(name || "mock", keys) : {};
-    };
-
     return {
         appName: "force_manager_crm",
         api: api,
@@ -96,7 +88,6 @@ define(function () {
         defaultDateSubtraction: 30,
         tokenStorageKey: "token",
         defaultLiteralLang: "en",
-        i18nextOptions: i18nextOptions,
-        jasmineMock: jasmineMock
+        i18nextOptions: i18nextOptions
     };
 });
