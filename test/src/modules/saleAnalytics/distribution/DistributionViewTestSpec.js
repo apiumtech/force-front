@@ -3,13 +3,14 @@ define([
 ], function (DistributionView) {
     'use strict';
     describe("DistributionView", function () {
+
         var view, model, presenter;
 
         function exerciseCreateView(_model, _presenter) {
             return DistributionView.newInstance({}, _model, _presenter || {
-                    show: function () {
-                    }
-                }, false, false);
+                show: function () {
+                }
+            }, false, false);
         }
 
         describe("show() method", function () {
@@ -78,4 +79,5 @@ define([
             }
         });
     });
+
 });

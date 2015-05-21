@@ -1,8 +1,10 @@
 /**
  * Created by justin on 5/9/15.
  */
-define([], function(){
-    var BarChartWidgetController = container.getController("controllers/widgets/BarChartWidgetController");
+define([
+    'app',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetController'
+], function (app, BarChartWidgetController) {
 
     function BarChartWidgetDirective() {
         return {
@@ -11,9 +13,11 @@ define([], function(){
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/bar.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/barChart/bar.html'
         };
     }
+
+    app.register.directive('barChartWidget', [BarChartWidgetController]);
 
     return BarChartWidgetDirective;
 });

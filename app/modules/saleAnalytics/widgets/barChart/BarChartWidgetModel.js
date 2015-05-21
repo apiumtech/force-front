@@ -2,18 +2,14 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var WidgetBase = container.getService('services/WidgetBase');
-    var AjaxService = container.getService("services/ajax/AuthAjaxService");
-    var Configuration = container.getService('Configuration');
-    // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-    var FakeAjaxService = container.getService("services/FakeAjaxService");
+define([
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'shared/services/ajax/AuthAjaxService',
+    'config'
+], function(WidgetBase, AjaxService, Configuration){
 
     function BarChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        // TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-        this.fakeAjaxService = FakeAjaxService.newInstance();
-
         this.currentFilter = 'AccountType';
         this.filters = [{
             name: "Account Type",
@@ -73,113 +69,6 @@ define([], function(){
 
     BarChartWidgetModel.prototype._reload = function () {
         return this._baseReload()
-
-// TODO: REMOVE WHEN HAVE CORRECT CONTRACT
-//        var request = {
-//            url: '',
-//            type: '',
-//            result: {
-//                "Series": [
-//                    {
-//                        "Name": "A",
-//                        "Points": [
-//                            {
-//                                "Y": "17,79"
-//                            },
-//                            {
-//                                "Y": "26,92"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "B",
-//                        "Points": [
-//                            {
-//                                "Y": "17,02"
-//                            },
-//                            {
-//                                "Y": "23,40"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "C",
-//                        "Points": [
-//                            {
-//                                "Y": "40,00"
-//                            },
-//                            {
-//                                "Y": "54,00"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "CA",
-//                        "Points": [
-//                            {
-//                                "Y": "6,25"
-//                            },
-//                            {
-//                                "Y": "12,50"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "D",
-//                        "Points": [
-//                            {
-//                                "Y": "32,26"
-//                            },
-//                            {
-//                                "Y": "41,94"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "E",
-//                        "Points": [
-//                            {
-//                                "Y": "55,56"
-//                            },
-//                            {
-//                                "Y": "55,56"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "F",
-//                        "Points": [
-//                            {
-//                                "Y": "12,82"
-//                            },
-//                            {
-//                                "Y": "15,38"
-//                            }
-//                        ]
-//                    },
-//                    {
-//                        "Name": "-",
-//                        "Points": [
-//                            {
-//                                "Y": "10,99"
-//                            },
-//                            {
-//                                "Y": "14,45"
-//                            }
-//                        ]
-//                    }
-//                ],
-//                "Labels": [
-//                    [
-//                        "hard",
-//                        "soft"
-//                    ]
-//                ]
-//            }
-//        };
-//
-//        return this.fakeAjaxService.rawAjaxRequest(request)
-// TODO: END OF TODO
             .then(this.decorateServerData.bind(this));
     };
 

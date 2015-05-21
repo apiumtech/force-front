@@ -12,4 +12,5 @@ define([
             expect(DistributionController.configureView).toHaveBeenCalledWith(scope);
         });
     });
+
 });

@@ -2,8 +2,10 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+define([
+    'modules/saleAnalytics/eventBus/WidgetEventBus'
+], function(WidgetEventBus){
+
     var widgetName = "intensityWidgetA";
 
     function BarChartWidgetPresenter(widgetEventChannel) {

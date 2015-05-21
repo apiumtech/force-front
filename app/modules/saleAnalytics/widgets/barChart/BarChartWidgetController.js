@@ -1,8 +1,10 @@
 /**
  * Created by justin on 1/28/15.
  */
-define([], function(){
-    var BarChartWidgetView = container.getView("views/widgets/BarChartWidgetView");
+define([
+    'app',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetView'
+], function(app, BarChartWidgetView){
 
     function BarChartWidgetController($scope, $element) {
         BarChartWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ define([], function(){
         this.view = BarChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('BarChartWidgetController', ['$scope', '$element', BarChartWidgetController]);
 
     return BarChartWidgetController;
 });

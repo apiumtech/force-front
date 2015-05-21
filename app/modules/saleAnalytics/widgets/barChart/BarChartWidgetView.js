@@ -2,15 +2,14 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var BarChartWidgetModel = container.getModel('models/widgets/BarChartWidgetModel');
-    var BarChartWidgetPresenter = container.getPresenter('presenters/widgets/BarChartWidgetPresenter');
-
-    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
-
-    var BarChart = container.getService('plots/BarChart');
+define([
+    'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/eventBus/WidgetEventBus',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
+    'modules/widgets/BaseWidgetEventBus',
+    'plots/BarChart'
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetModel, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
 
     function BarChartWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);

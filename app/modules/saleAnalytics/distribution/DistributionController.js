@@ -1,6 +1,8 @@
 define([
     'app',
-    'modules/saleAnalytics/distribution/DistributionView'
+    'modules/saleAnalytics/distribution/DistributionView',
+
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective'
 ], function (app, DistributionView) {
     'use strict';
 
