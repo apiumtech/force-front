@@ -2,8 +2,9 @@
  * Created by justin on 2/2/15.
  */
 
-define([], function(){
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
+define([
+    'modules/saleAnalytics/eventBus/WidgetEventBus'
+], function (WidgetEventBus) {
     var widgetName = "LineChart";
 
     function SingleLineChartWidgetPresenter(widgetEventChannel) {

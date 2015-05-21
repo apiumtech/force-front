@@ -1,8 +1,9 @@
 /**
  * Created by justin on 12/22/14.
  */
-define([], function(){
-    var HourLineChartWidgetView = container.getView("views/widgets/SingleLineChartWidgetView");
+define([
+    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetView'
+], function (HourLineChartWidgetView) {
 
     function DistributionHourLineWidgetController($scope, $element) {
         DistributionHourLineWidgetController.configureView($scope, $element);
