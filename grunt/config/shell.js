@@ -12,6 +12,11 @@ module.exports = function (grunt) {
             command: 'cp -R force-design/assets/ ./assets && ' +
             'cp -Rf force-design/assets/plugins ./build/ && ' +
             'cp -Rf force-design/assets/css/fonts ./build/fonts'
+        },
+        'addFileToGit': {
+            command: function (filePath) {
+                return 'git add ' + filePath;
+            }
         }
     };
 };

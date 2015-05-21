@@ -30,6 +30,7 @@ module.exports = function (grunt) {
                 '\treturn ' + className + ';\n' +
                 '});';
             grunt.file.write(appClass, defineScript);
+            grunt.task.run(['shell:addFileToGit:' + appClass]);
             console.log("File ", appClass, " doesn't exist and is created successfully");
         }
 
@@ -43,6 +44,7 @@ module.exports = function (grunt) {
             '\t});\n' +
             '});';
         grunt.file.write(testClass, defineTestScript);
+        grunt.task.run(['shell:addFileToGit:' + testClass]);
         console.log("File ", testClass, " created successfully");
     });
 };
