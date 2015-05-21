@@ -2,8 +2,9 @@
  * Created by justin on 3/13/15.
  */
 
-app.registerPresenter(function (container) {
-    var AccountEditingSharedPresenter = container.getPresenter('presenters/accountDetails/AccountEditingSharedPresenter');
+define([
+    'modules/account/AccountEditingSharedPresenter'
+], function (AccountEditingSharedPresenter) {
 
     function AccountCreatePresenter() {
         AccountEditingSharedPresenter.call(this);

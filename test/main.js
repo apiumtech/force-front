@@ -296,7 +296,8 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
-var jasmineMock = function (constr, name) {
+function jasmineMock (constr, name) {
+    console.log("mocking: ", name);
     var keys = [];
     for (var key in constr.prototype) {
         keys.push(key);

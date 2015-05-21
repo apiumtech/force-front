@@ -1,13 +1,15 @@
 /**
  * Created by justin on 3/16/15.
  */
-app.registerModel(function (container) {
-    var Configuration = container.getService('Configuration');
-
-    var AjaxService = container.getService("services/FakeAjaxService");
+define([
+    'config',
     // TODO: Change to this in production code
-    // var AjaxService = container.getService("services/AjaxService");
-    var _ = container.getFunction("underscore");
+    //'shared/services/ajax/AjaxService',
+    'shared/services/ajax/FakeAjaxService',
+    'underscore'
+], function (Configuration, AjaxService, _) {
+
+    'use strict';
 
     // TODO: Remove in production code
     var hardcodedData = [{

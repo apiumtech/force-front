@@ -1,11 +1,12 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView("views/BaseView");
-    var ModalDialogAdapter = container.getService('services/ModalDialogAdapter');
-    var AccountEditingModel = container.getModel("models/accountDetails/AccountEditingModel");
-    var AccountEditPresenter = container.getPresenter("presenters/accountDetails/AccountEditPresenter");
+define([
+    'shared/BaseView',
+    'shared/services/ModalDialogAdapter',
+    'modules/account/edit/AccountEditingModel',
+    'modules/account/edit/AccountEditPresenter'
+], function (BaseView, ModalDialogAdapter, AccountEditingModel, AccountEditPresenter) {
 
     function doNothing() {
     }

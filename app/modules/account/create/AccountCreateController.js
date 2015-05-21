@@ -1,8 +1,10 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-app.registerController(function (container) {
-    var AccountCreateView = container.getView("views/accountDetails/AccountCreateView");
+define([
+    'app',
+    'modules/account/create/AccountCreateView'
+], function (app, AccountCreateView) {
 
     function AccountCreateController($scope, $injector) {
         $scope.$injector = $injector;
@@ -15,6 +17,8 @@ app.registerController(function (container) {
         this.view = AccountCreateView.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('AccountCreateController', ['$scope', '$injector', AccountCreateController]);
 
     return AccountCreateController;
 });

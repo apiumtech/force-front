@@ -1,8 +1,10 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-app.registerController(function (container) {
-    var AccountEditView = container.getView("views/accountDetails/AccountEditView");
+define([
+    'app',
+    'modules/account/edit/AccountEditView'
+], function (app, AccountEditView) {
 
     function AccountEditController($scope, $routeParams, $injector) {
         $scope.accountId = $routeParams.account_id;
@@ -16,6 +18,8 @@ app.registerController(function (container) {
         this.view = AccountEditView.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('AccountEditController', ['$scope', '$element', AccountEditController]);
 
     return AccountEditController;
 });

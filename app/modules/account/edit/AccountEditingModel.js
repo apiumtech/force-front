@@ -1,11 +1,11 @@
 /**
  * Created by justin on 3/20/15.
  */
-app.registerModel(function (container) {
-    var AjaxService = container.getService("services/AjaxService");
-    var AccountService = container.getService("services/AccountService");
-    var Configuration = app.getService('Configuration');
-
+define([
+    'shared/services/ajax/AjaxService',
+    'shared/services/AccountService',
+    'config'
+], function (AjaxService, AccountService, Configuration) {
 
     function AccountEditingModel(ajaxService, uploadService) {
         AccountService.call(this, ajaxService);

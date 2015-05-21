@@ -1,14 +1,17 @@
 /**
  * Created by justin on 4/14/15.
  */
-app.registerView(function (container) {
-    var BaseView = container.getView('views/BaseView');
-    var ModalDialogAdapter = container.getService("services/ModalDialogAdapter");
-    var TranslatorService = container.getService("services/TranslatorService");
+define([
+    'shared/BaseView',
+    'shared/services/ModalDialogAdapter',
+    'shared/services/TranslatorService',
 
-    var AccountDetailWidgetEventBus = container.getService('services/bus/AccountDetailWidgetEventBus'),
-        DocumentsWidgetModel = container.getModel('models/accountDetails/DocumentsWidgetModel');
-    var DocumentsWidgetPresenter = container.getPresenter('presenters/accountDetails/DocumentsWidgetPresenter');
+    'shared/services/bus/AccountDetailWidgetEventBus',
+    'modules/account/widgets/documents/DocumentsWidgetModel',
+    'modules/account/widgets/documents/DocumentsWidgetPresenter'
+], function (BaseView, ModalDialogAdapter, TranslatorService, AccountDetailWidgetEventBus, DocumentsWidgetModel, DocumentsWidgetPresenter) {
+
+    'use strict';
 
     function DocumentsWidgetView($scope, model, presenter, modalDialogService) {
         BaseView.call(this, $scope, model, presenter);

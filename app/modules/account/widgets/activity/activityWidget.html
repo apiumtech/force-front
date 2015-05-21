@@ -6,8 +6,8 @@
         >
     <ul class="timeline">
         <li ng-repeat="activityEntry in activitiesList">
-            <ng-include src="'templates/accountDetails/activityDelimiterEntry.html'" ng-if="activityEntry.isDelimiter"></ng-include>
-            <ng-include src="'templates/accountDetails/activityRecord.html'" ng-if="!activityEntry.isDelimiter"></ng-include>
+            <ng-include src="'app/modules/account/widgets/activity/activityDelimiterEntry.html'" ng-if="activityEntry.isDelimiter"></ng-include>
+            <ng-include src="'app/modules/account/widgets/activity/activityRecord.html'" ng-if="!activityEntry.isDelimiter"></ng-include>
         </li>
     </ul>
 </widget-wrapper>

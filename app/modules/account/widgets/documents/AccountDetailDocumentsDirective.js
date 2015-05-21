@@ -1,8 +1,12 @@
 /**
  * Created by justin on 3/13/15.
  */
-app.registerDirective(function (container) {
-    var DocumentsController = container.getController('controllers/accountDetails/DocumentsController');
+define([
+    'app',
+    'modules/account/widgets/documents/DocumentsController'
+], function (app, DocumentsController) {
+
+    'use strict';
 
     function AccountDetailDocumentsDirective() {
         return {
@@ -11,10 +15,12 @@ app.registerDirective(function (container) {
             scope: {
                 accountId: "="
             },
-            templateUrl: "templates/accountDetails/directives/documentsWidget.html"
+            templateUrl: "app/modules/account/widgets/documents/documentsWidget.html"
         };
 
     }
+
+    app.register.directive('accountDetailDocuments', [AccountDetailDocumentsDirective]);
 
     return AccountDetailDocumentsDirective;
 });

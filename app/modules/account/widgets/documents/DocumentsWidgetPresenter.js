@@ -1,10 +1,11 @@
 /**
  * Created by justin on 4/15/15.
  */
-app.registerPresenter(function (container) {
+define([], function () {
+
+    'use strict';
 
     function DocumentsWidgetPresenter() {
-
     }
 
     DocumentsWidgetPresenter.prototype.show = function (view, model) {

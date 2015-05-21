@@ -161,7 +161,7 @@ define([
         //console.log(this.data);
         //console.log(this.data.map);
         //console.log(this.data.map.setCenter);
-        //this.data.map.setCenter(latLng);
+        this.data.map.setCenter(latLng);
     };
 
     AccountDetailsView.prototype.onFollowToggled = function () {

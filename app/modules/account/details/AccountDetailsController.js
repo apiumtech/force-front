@@ -5,10 +5,10 @@ define([
     'app',
     'modules/account/details/AccountDetailsView',
 
-
     'modules/account/widgets/activity/AccountDetailActivityDirective',
     'modules/account/widgets/opportunity/AccountDetailOpportunityDirective',
-    'modules/account/widgets/agenda/AccountDetailAgendaDirective'
+    'modules/account/widgets/agenda/AccountDetailAgendaDirective',
+    'modules/account/widgets/documents/AccountDetailDocumentsDirective'
 
 ], function (app, AccountDetailsView) {
     'use strict';

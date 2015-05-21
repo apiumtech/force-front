@@ -9,7 +9,11 @@ define([], function () {
 
                 .when('/accounts', resolveRoute('modules/account/AccountController', 'modules/account/account'))
 
-                .when('/accounts/:account_id', resolveRoute('modules/account/details/AccountDetailsController', 'modules/account/details/accountDetails'))
+                .when('/accounts/:account_id', resolveRoute('modules/account/details/AccountDetailsController',
+                    'modules/account/details/accountDetails'))
+
+                .when('/account/create', resolveRoute('modules/account/create/AccountCreateController',
+                    'modules/account/create/accountCreate'))
 
             ;
         }
