@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 
-app.registerView(function (container) {
+define([], function(){
     var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
     var BarChartWidgetModel = container.getModel('models/widgets/BarChartWidgetModel');

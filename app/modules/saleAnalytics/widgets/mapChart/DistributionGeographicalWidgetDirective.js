@@ -1,7 +1,7 @@
 /**
  * Created by justin on 5/9/15.
  */
-app.registerDirective(function (container) {
+define([], function(){
     var GeographicalWidgetController = container.getController("controllers/widgets/DistributionGeographicalWidgetController");
 
     function DistributionGeographicalWidgetDirective() {

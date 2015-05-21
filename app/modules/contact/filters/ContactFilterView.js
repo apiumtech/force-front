@@ -2,7 +2,7 @@
  * Created by joanllenas on 03/31/15.
  */
 
-app.registerView(function (container) {
+define([], function(){
     var BaseView = container.getView("views/BaseView");
     var ContactFilterPresenter = container.getPresenter('presenters/contact/ContactFilterPresenter');
     var ContactFilterModel = container.getModel('models/contact/ContactFilterModel');

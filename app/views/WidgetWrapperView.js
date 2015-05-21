@@ -1,7 +1,7 @@
 /**
  * Created by justin on 12/18/14.
  */
-app.registerView(function (container) {
+define([], function(){
     var BaseView = container.getView('views/BaseView');
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
 

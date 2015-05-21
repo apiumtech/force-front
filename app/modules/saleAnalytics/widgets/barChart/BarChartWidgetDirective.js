@@ -1,7 +1,7 @@
 /**
  * Created by justin on 5/9/15.
  */
-app.registerDirective(function (container) {
+define([], function(){
     var BarChartWidgetController = container.getController("controllers/widgets/BarChartWidgetController");
 
     function BarChartWidgetDirective() {

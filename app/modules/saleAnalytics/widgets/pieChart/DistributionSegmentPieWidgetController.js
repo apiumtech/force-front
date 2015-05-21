@@ -1,7 +1,7 @@
 /**
  * Created by justin on 12/22/14.
  */
-app.registerController(function (container) {
+define([], function(){
     var SegmentPieChartWidgetView = container.getView("views/widgets/SegmentPieChartWidgetView");
 
     function DistributionSegmentPieWidgetController($scope, $element) {

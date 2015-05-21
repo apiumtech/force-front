@@ -1,7 +1,7 @@
 /**
  * Created by justin on 3/27/15.
  */
-app.registerService(function (container) {
+define([], function(){
     var AjaxService = container.getService("services/FakeAjaxService");
 
     function DataTableDataProvider(ajaxService) {

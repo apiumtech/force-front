@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 
-app.registerModel(function (container) {
+define([], function(){
     var WidgetBase = container.getService('services/WidgetBase');
     var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
 

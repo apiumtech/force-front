@@ -2,7 +2,7 @@
  * Created by kevin on 10/22/14.
  * Updated by trung.dang on 02/12/2015
  */
-app.registerController(function (container) {
+define([], function(){
     var LiteralListView = container.getView("views/literal/LiteralListView");
 
     function LiteralListController($scope, $compile) {

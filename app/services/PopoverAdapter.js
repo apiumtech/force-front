@@ -2,7 +2,7 @@
  * Created by justin on 3/12/15.
  */
 
-app.registerService(function () {
+define([], function(){
     function DefaultPopoverImpl(target, options) {
         $(target).popover(options);
     }

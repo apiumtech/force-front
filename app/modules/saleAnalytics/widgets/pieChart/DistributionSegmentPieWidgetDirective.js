@@ -1,7 +1,7 @@
 /**
  * Created by justin on 5/9/15.
  */
-app.registerDirective(function (container) {
+define([], function(){
     var SegmentPieWidgetController = container.getController("controllers/widgets/DistributionSegmentPieWidgetController");
 
     function DistributionSegmentPieWidgetDirective() {

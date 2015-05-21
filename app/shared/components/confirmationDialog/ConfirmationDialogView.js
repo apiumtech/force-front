@@ -1,7 +1,7 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-app.registerView(function (container) {
+define([], function(){
     var BaseView = container.getView("views/BaseView");
 
     function ConfirmationDialogView($scope, $modalInstance) {

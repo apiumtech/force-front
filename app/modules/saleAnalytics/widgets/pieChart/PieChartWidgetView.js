@@ -1,7 +1,7 @@
 /**
  * Created by apium on 5/12/15.
  */
-app.registerView(function (container) {
+define([], function(){
     var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
     var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');

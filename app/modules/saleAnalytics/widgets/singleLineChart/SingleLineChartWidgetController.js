@@ -1,7 +1,7 @@
 /**
  * Created by justin on 2/2/15.
  */
-app.registerController(function (container) {
+define([], function(){
     var SingleLineChartWidgetView = container.getView("views/widgets/SingleLineChartWidgetView");
 
     function SingleLineChartWidgetController($scope, $element) {

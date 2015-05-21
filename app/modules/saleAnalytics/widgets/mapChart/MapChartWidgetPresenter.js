@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 
-app.registerPresenter(function (container) {
+define([], function(){
     var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
 
     function MapChartWidgetPresenter(widgetEventChannel) {

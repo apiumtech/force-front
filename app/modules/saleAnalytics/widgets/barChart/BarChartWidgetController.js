@@ -1,7 +1,7 @@
 /**
  * Created by justin on 1/28/15.
  */
-app.registerController(function (container) {
+define([], function(){
     var BarChartWidgetView = container.getView("views/widgets/BarChartWidgetView");
 
     function BarChartWidgetController($scope, $element) {

@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 
-app.registerView(function (container) {
+define([], function(){
     var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
     var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
     var HourPieChartWidgetModel = container.getModel('models/widgets/HourPieChartWidgetModel');

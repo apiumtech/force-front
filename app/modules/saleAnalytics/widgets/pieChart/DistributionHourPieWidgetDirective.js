@@ -1,7 +1,7 @@
 /**
  * Created by justin on 5/9/15.
  */
-app.registerDirective(function (container) {
+define([], function(){
     var HourPieWidgetController = container.getController("controllers/widgets/DistributionHourPieWidgetController");
 
     function DistributionHourPieWidgetDirective() {

@@ -1,7 +1,7 @@
 /**
  * Created by justin on 02/11/15.
  */
-app.registerController(function (container) {
+define([], function(){
     var MapChartWidgetView = container.getView("views/widgets/MapChartWidgetView");
 
     function DistributionGeographicalWidgetController($scope, $element) {

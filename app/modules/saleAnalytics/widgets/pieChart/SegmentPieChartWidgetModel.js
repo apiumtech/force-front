@@ -2,7 +2,7 @@
  * Created by justin on 1/26/15.
  */
 
-app.registerModel(function (container) {
+define([], function(){
     var PieChartWidgetModel = container.getModel("models/widgets/PieChartWidgetModel");
     var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
     var Configuration = container.getService('Configuration');

@@ -1,7 +1,7 @@
 /**
  * Created by justin on 1/27/15.
  */
-app.registerService(function () {
+define([], function(){
 
     function StorageService(storage) {
         this.storage = storage;

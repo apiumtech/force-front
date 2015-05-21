@@ -1,7 +1,7 @@
 /**
  * Created by justin on 12/23/14.
  */
-app.registerService(function (container) {
+define([], function(){
 
     function Base64Encoder(base64String) {
         if (base64String && this._validateInput(base64String)) {

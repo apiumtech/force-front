@@ -2,7 +2,7 @@
  * Created by kevin on 10/22/14.
  */
 
-app.registerView(function (container) {
+define([], function(){
     var BaseView = container.getView("views/BaseView");
     var LiteralPresenter = container.getPresenter('presenters/literal/LiteralPresenter');
     var LiteralModel = container.getModel('models/literal/LiteralModel');

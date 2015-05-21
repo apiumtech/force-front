@@ -1,7 +1,7 @@
 /**
  * Created by justin on 3/30/15.
  */
-app.registerService(function (container) {
+define([], function(){
     var EventBase = container.getService("services/EventBase");
 
     function AccountEventBus() {

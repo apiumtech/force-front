@@ -1,7 +1,7 @@
 /**
  * Created by kevin on 10/30/14.
  */
-app.registerService(function (container) {
+define([], function(){
     function ObjectMerger() {
 
     }

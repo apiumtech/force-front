@@ -2,7 +2,7 @@
  * Created by joanllenas 5/14/15
  */
 
-app.registerService(function (container) {
+define([], function(){
     var Configuration = container.getService('Configuration');
     var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
     var StorageService = container.getService("services/StorageService");

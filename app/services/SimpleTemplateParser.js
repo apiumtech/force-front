@@ -2,7 +2,7 @@
  * Created by justin on 3/6/15.
  */
 
-app.registerService(function () {
+define([], function(){
 
     function SimpleTemplateParser() {
 

@@ -2,7 +2,7 @@
  * Created by joanllenas 5/14/15
  */
 
-app.registerModel(function (container) {
+define([], function(){
     var Q = container.getFunction('q');
     var LiteralService = container.getService('services/LiteralService');
 

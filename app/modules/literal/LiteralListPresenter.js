@@ -2,7 +2,7 @@
  * Created by joanllenas 5/14/15
  */
 
-app.registerPresenter(function (container) {
+define([], function(){
     var LiteralModel = container.getModel('models/literal/LiteralModel');
 
 
