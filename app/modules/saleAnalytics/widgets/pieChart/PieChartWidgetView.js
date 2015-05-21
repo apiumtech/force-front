@@ -1,14 +1,12 @@
 /**
  * Created by apium on 5/12/15.
  */
-define([], function(){
-    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
-
-    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
-
-    var PieChart = container.getService('plots/PieChart');
+define([
+    'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'modules/widgets/BaseWidgetEventBus',
+    'plots/PieChart'
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
 
     function PieChartWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);

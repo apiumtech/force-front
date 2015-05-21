@@ -2,10 +2,11 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var WidgetBase = container.getService('services/WidgetBase');
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-
+define([
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'shared/services/ajax/AuthAjaxService'
+], function (WidgetBase, AuthAjaxService) {
+    
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
     }
