@@ -2,9 +2,7 @@
  * Created by joanllenas 5/14/15
  */
 
-define([], function(){
-    var LiteralModel = container.getModel('models/literal/LiteralModel');
-
+define([], function () {
 
     function LiteralListPresenter() {
     }
@@ -56,16 +54,16 @@ define([], function(){
         var self = this;
         self.model.deleteLiteral(id)
             .then(
-                self.getLiteralList.bind(self),
-                self.view.showError.bind(self.view)
-            );
+            self.getLiteralList.bind(self),
+            self.view.showError.bind(self.view)
+        );
     };
 
 
     LiteralListPresenter.newInstance = function () {
-        return Some(new LiteralListPresenter());
+        return new LiteralListPresenter();
     };
 
-    return {newInstance: LiteralListPresenter.newInstance};
+    return LiteralListPresenter;
 });
 

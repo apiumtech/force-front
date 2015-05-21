@@ -2,17 +2,19 @@
  * Created by joanllenas 5/14/15
  */
 
-define([], function(){
-    var Configuration = container.getService('Configuration');
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-    var StorageService = container.getService("services/StorageService");
-    var Q = container.getFunction('q');
+define([
+    'config',
+    'shared/services/ajax/AuthAjaxService',
+    'shared/services/StorageService',
+    'q'
+], function (Configuration, AuthAjaxService, StorageService, Q) {
+    'use strict';
 
 
     // TODO: remove when getting rid of OK KO results
-    var okKoDataFilter = function(data, type){
+    var okKoDataFilter = function (data, type) {
         if (type == "json" && data == "OK" || data == "KO") {
-            return JSON.stringify({result:data});
+            return JSON.stringify({result: data});
         }
     };
 
@@ -31,17 +33,16 @@ define([], function(){
     var proto = LiteralService.prototype = Object.create(Object.prototype, {});
 
 
-
     // ----------------------------------------
     //
     //  MANIPULATE LITERALS
     //
     // ----------------------------------------
 
-    proto._createLiteralBody = function(literal){
+    proto._createLiteralBody = function (literal) {
         var body = {
-            key : literal.Key,
-            values : {},
+            key: literal.Key,
+            values: {},
             deviceCategoryIds: [],
             deviceTypeIds: [],
             literalTypeId: null
@@ -113,7 +114,6 @@ define([], function(){
     };
 
 
-
     // ----------------------------------------
     //
     //  RETRIEVE LIST OF LITERALS
@@ -121,9 +121,9 @@ define([], function(){
     // ----------------------------------------
 
     proto.getLiteralList = function (searchTerm, skip, limit) {
-        var body = "search="+ encodeURIComponent(searchTerm) +
-            "&skip="+ skip +
-            "&limit="+ limit;
+        var body = "search=" + encodeURIComponent(searchTerm) +
+            "&skip=" + skip +
+            "&limit=" + limit;
 
         return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.literalListBySearch,
@@ -142,7 +142,7 @@ define([], function(){
             url: Configuration.api.literalValueDictionaryByLanguageAndImplementationCode,
             type: 'GET',
             dataType: 'json',
-            data: "language="+ lang +"&implementationCode=" + implementationCode
+            data: "language=" + lang + "&implementationCode=" + implementationCode
         });
     };
 
@@ -154,34 +154,36 @@ define([], function(){
     // ----------------------------------------
 
 
-    proto._mergeLanguagesWithLiteral = function(literal) {
+    proto._mergeLanguagesWithLiteral = function (literal) {
         var deferred = Q.defer();
 
         literal.LanguageValues = literal.LanguageValues || [];
 
         var languagesToAdd = [];
         this.getLanguageList().then(
-            function(languageList) {
+            function (languageList) {
                 var langListLen = languageList.length;
                 var langValuesLen = literal.LanguageValues.length;
-                for( var i=0; i<langListLen; i++ ) {
+                for (var i = 0; i < langListLen; i++) {
                     var languageIsFound = false;
                     var langListItemName = languageList[i].Name;
-                    for( var j=0; j<langValuesLen; j++ ) {
+                    for (var j = 0; j < langValuesLen; j++) {
                         var langValueKey = literal.LanguageValues[j].Key;
-                        if( langListItemName == langValueKey ) {
+                        if (langListItemName == langValueKey) {
                             languageIsFound = true;
                             break;
                         }
                     }
-                    if(!languageIsFound) {
-                        languagesToAdd.push({ Key: langListItemName, Value: "" });
+                    if (!languageIsFound) {
+                        languagesToAdd.push({Key: langListItemName, Value: ""});
                     }
                 }
                 literal.LanguageValues = literal.LanguageValues.concat(languagesToAdd);
                 deferred.resolve(literal);
             },
-            function(err){ deferred.reject(err); }
+            function (err) {
+                deferred.reject(err);
+            }
         );
 
         return deferred.promise;
@@ -199,14 +201,16 @@ define([], function(){
             type: 'GET',
             dataType: 'json'
         }).then(
-            function(literal) {
+            function (literal) {
                 self._mergeLanguagesWithLiteral(literal).then(
-                    function(mergedLiteral){
+                    function (mergedLiteral) {
                         deferred.resolve(mergedLiteral);
                     }
                 )
             },
-            function(err){ deferred.reject(err); }
+            function (err) {
+                deferred.reject(err);
+            }
         );
 
         return deferred.promise;
@@ -221,20 +225,19 @@ define([], function(){
             DeviceTypes: [],
             Id: null,
             Key: "",
-            LanguageValues:[],
+            LanguageValues: [],
             LiteralType: null,
-            OldKey:""
+            OldKey: ""
         };
 
         this._mergeLanguagesWithLiteral(nullLiteral).then(
-            function(mergedLiteral){
+            function (mergedLiteral) {
                 deferred.resolve(mergedLiteral);
             }
         );
 
         return deferred.promise;
     };
-
 
 
     // ----------------------------------------
@@ -267,7 +270,6 @@ define([], function(){
             dataType: 'json'
         });
     };
-
 
 
     // ----------------------------------------

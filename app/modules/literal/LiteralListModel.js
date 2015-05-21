@@ -2,10 +2,11 @@
  * Created by joanllenas 5/14/15
  */
 
-define([], function(){
-    var Configuration = container.getService('Configuration');
-    var LiteralService = container.getService('services/LiteralService');
-
+define([
+    'config',
+    'modules/literal/LiteralService'
+], function (Configuration, LiteralService) {
+    'use strict';
 
     function LiteralListModel(literalService) {
         this.literalService = literalService;
@@ -27,22 +28,22 @@ define([], function(){
     };
 
 
-    proto.deleteLiteral = function(id) {
+    proto.deleteLiteral = function (id) {
         assertNotNull("id", id);
         return this.literalService.deleteLiteral(id);
     };
 
 
-    proto.getLiteralDictionary = function() {
+    proto.getLiteralDictionary = function () {
         return this.literalService.getLiteralDictionary("en", null);
     };
 
 
     LiteralListModel.newInstance = function (literalService) {
         literalService = literalService || LiteralService.newInstance();
-        return Some(new LiteralListModel(literalService));
+        return new LiteralListModel(literalService);
     };
 
-    return { newInstance: LiteralListModel.newInstance };
+    return LiteralListModel;
 });
 

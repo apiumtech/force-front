@@ -2,16 +2,17 @@
  * Created by joanllenas 5/14/15
  */
 
-define([], function(){
-    var BaseView = container.getView("views/BaseView");
-    var LiteralListPresenter = container.getPresenter('presenters/literal/LiteralListPresenter');
-    var LiteralListModel = container.getModel('models/literal/LiteralListModel');
-    var DataTableService = container.getService("services/DataTableService");
-    var SimpleTemplateParser = container.getService("services/SimpleTemplateParser");
-    var TranslatorService = container.getService("services/TranslatorService");
+define([
+    'shared/BaseView',
+    'modules/literal/LiteralListPresenter',
+    'modules/literal/LiteralListModel',
+    'shared/services/DataTableService',
+    'shared/services/SimpleTemplateParser',
+    'shared/services/TranslatorService'
+], function (BaseView, LiteralListPresenter, LiteralListModel, DataTableService, SimpleTemplateParser, TranslatorService) {
+    'use strict';
 
-
-    function LiteralListView($scope, $model, $presenter, dataTableService, templateParser, $compile) {
+    function LiteralListView($scope, $compile, $model, $presenter, dataTableService, templateParser) {
         BaseView.call(this, $scope, $model, $presenter);
 
         this.dataTableService = dataTableService;
@@ -39,8 +40,10 @@ define([], function(){
         this.fn.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
 
         // Events defined in Presenter
-        this.event.onInit = function(){};
-        this.event.onDelete = function () {};
+        this.event.onInit = function () {
+        };
+        this.event.onDelete = function () {
+        };
     };
 
 
@@ -56,11 +59,11 @@ define([], function(){
 
     proto.deleteLiteralPrompt = function (literalId) {
         var msg = this.translator.translate(
-                "Literal.List.Table.Delete_Confirm_Message",
-                {literalId: literalId}
+            "Literal.List.Table.Delete_Confirm_Message",
+            {literalId: literalId}
         );
 
-        if( confirm(msg) ) {
+        if (confirm(msg)) {
             this.event.onDelete(literalId);
         }
     };
@@ -108,21 +111,21 @@ define([], function(){
             });
         });
 
-        var requestRow = function(obj){
+        var requestRow = function (obj) {
             var row = {};
             row.$ref = obj;
             row.Id = obj.Id;
             row.Key = obj.Key;
-            languages.forEach(function(lang, index){
+            languages.forEach(function (lang, index) {
                 row[lang.data] = obj.LanguageValues[index].Value;
             });
             return row;
         };
-        data = data.map(function(row){
+        data = data.map(function (row) {
             return requestRow(row);
         });
 
-        if(this.data.table){
+        if (this.data.table) {
             this.data.table
                 .clear()
                 .rows.add(data)
@@ -135,7 +138,7 @@ define([], function(){
                     {
                         targets: 0,
                         render: self.renderKeyColumn.bind(self),
-                        createdCell: function(cell, cellData, rowData, rowIndex, colIndex){
+                        createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
                             self.$compile(cell)(self.$scope);
                         }
                     }
@@ -164,16 +167,14 @@ define([], function(){
     };
 
 
-
-    LiteralListView.newInstance = function ($scope, $model, $presenter, $dataTableService, $templateParser, $compile, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
-        var model = $model || LiteralListModel.newInstance().getOrElse(throwInstantiateException(LiteralListModel));
-        var presenter = $presenter || LiteralListPresenter.newInstance().getOrElse(throwInstantiateException(LiteralListPresenter));
+    LiteralListView.newInstance = function ($scope, $compile, $model, $presenter, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
+        var model = $model || LiteralListModel.newInstance();
+        var presenter = $presenter || LiteralListPresenter.newInstance();
         var dataTableService = $dataTableService || DataTableService.newInstance();
         var templateParser = $templateParser || SimpleTemplateParser.newInstance();
-        var view = new LiteralListView(scope, model, presenter, dataTableService, templateParser, $compile);
+        var view = new LiteralListView($scope, $compile, model, presenter, dataTableService, templateParser);
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    return {newInstance: LiteralListView.newInstance};
+    return LiteralListView;
 });
