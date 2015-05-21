@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                 mainConfigFile: 'require.cfg.js',
                 name: '../assets/main.build',
                 out: 'build/application.min.js',
-                optimize: 'none'
+                optimize: 'uglify'
             }
         }
     };

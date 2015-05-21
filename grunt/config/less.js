@@ -17,7 +17,7 @@ module.exports = function (grunt) {
                 'report': 'min'
             },
             'files': {
-                'build/css/force-manager.min.css': 'assets/main.less'
+                'build/css/force-manager.min.css': 'assets/main.build.less'
             }
         }
     };
