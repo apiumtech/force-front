@@ -2,7 +2,11 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
+define([
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieChartWidgetModel'
+], function(PieChartWidgetPresenter, PieChartWidgetView){
     var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
     var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
     var HourPieChartWidgetModel = container.getModel('models/widgets/HourPieChartWidgetModel');

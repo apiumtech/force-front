@@ -1,8 +1,9 @@
 /**
  * Created by justin on 5/9/15.
  */
-define([], function(){
-    var HourPieWidgetController = container.getController("controllers/widgets/DistributionHourPieWidgetController");
+define([
+    'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieWidgetController'
+], function(HourPieWidgetController){
 
     function DistributionHourPieWidgetDirective() {
         return {
@@ -14,6 +15,8 @@ define([], function(){
             templateUrl: 'templates/widgets/distributionPieWidget.html'
         };
     }
+
+    app.register.directive('distributionHourPieWidget', [DistributionHourPieWidgetDirective]);
 
     return DistributionHourPieWidgetDirective;
 });
