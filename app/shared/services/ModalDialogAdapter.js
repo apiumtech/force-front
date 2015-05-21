@@ -44,7 +44,7 @@ define([
         });
 
         var modalInstance = this.modalService.open({
-            templateUrl: '/templates/confirmationDialog.html',
+            templateUrl: 'app/shared/components/confirmationDialog/confirmationDialog.html',
             backdrop: 'static',
             keyboard: false,
             controller: 'ConfirmationDialogController',
@@ -72,7 +72,7 @@ define([
         });
 
         var modalInstance = this.modalService.open({
-            templateUrl: '/templates/notifyDialog.html',
+            templateUrl: 'app/shared/components/confirmationDialog/notifyDialog.html',
             backdrop: 'static',
             keyboard: false,
             controller: 'NotificationDialogController',

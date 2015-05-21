@@ -6,11 +6,11 @@ define([
     'modules/account/edit/AccountEditView'
 ], function (app, AccountEditView) {
 
-    function AccountEditController($scope, $routeParams, $injector) {
+    function AccountEditController($scope, $routeParams, $upload, $validation, $injector) {
         $scope.accountId = $routeParams.account_id;
         $scope.$injector = $injector;
-        $scope.$upload = $injector.get('$upload');
-        $scope.$validation = $injector.get('$validation');
+        $scope.$upload = $upload;
+        $scope.$validation = $validation;
         AccountEditController.configureView($scope);
     }
 
@@ -19,7 +19,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('AccountEditController', ['$scope', '$element', AccountEditController]);
+    app.register.controller('AccountEditController', ['$scope', '$routeParams', '$upload', '$validation', '$injector', AccountEditController]);
 
     return AccountEditController;
 });

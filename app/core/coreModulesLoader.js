@@ -7,7 +7,10 @@ define([
     'shared/components/TriStateCheckBoxDirective',
     'shared/components/ScrollTopButtonDirective',
     'shared/components/ForceDatePickerDirective',
-    'shared/components/HighLightResultDirective'
+    'shared/components/HighLightResultDirective',
+
+    'shared/components/confirmationDialog/ConfirmationDialogController',
+    'shared/components/confirmationDialog/NotificationDialogController'
 ], function () {
     'use strict';
 

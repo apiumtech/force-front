@@ -2,8 +2,9 @@
  * Created by Justin on 3/19/2015.
  */
 define([
+    'app',
     'shared/components/confirmationDialog/ConfirmationDialogView'
-], function(ConfirmationDialogView){
+], function(app, ConfirmationDialogView){
 
     function ConfirmationDialogController($scope, $modalInstance, title, message, okButtonTitle, cancelButtonTitle) {
         $scope.modalTitle = title;
@@ -17,6 +18,8 @@ define([
         this.view = ConfirmationDialogView.newInstance($scope, $modalInstance);
         this.view.show();
     };
+
+    app.register.controller('ConfirmationDialogController', ConfirmationDialogController);
 
     return ConfirmationDialogController;
 });
