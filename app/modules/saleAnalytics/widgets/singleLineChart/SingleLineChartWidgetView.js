@@ -2,16 +2,14 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var WidgetBaseView = container.getView("views/widgets/WidgetBaseView");
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var SingleLineChartWidgetModel = container.getModel('models/widgets/SingleLineChartWidgetModel');
-    var SingleLineChartWidgetPresenter = container.getPresenter('presenters/widgets/SingleLineChartWidgetPresenter');
-
-    var BaseWidgetEventBus = container.getService('services/bus/BaseWidgetEventBus');
-
-    var SingleLineChart = container.getService('plots/SingleLineChart');
-    var LineGraphPlot = container.getService('plots/LineGraphPlot');
+define([
+    'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetModel',
+    'modules/widgets/BaseWidgetEventBus',
+    'plots/SingleLineChart',
+    'plots/LineGraphPlot'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, SingleLineChart, LineGraphPlot) {
 
     function SingleLineChartWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);

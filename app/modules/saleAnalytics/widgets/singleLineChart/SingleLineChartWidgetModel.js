@@ -2,10 +2,12 @@
  * Created by justin on 2/2/15.
  */
 
-define([], function(){
-    var WidgetBase = container.getService('services/WidgetBase');
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-    var Configuration = container.getService('Configuration');
+define([
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'shared/services/ajax/AuthAjaxService',
+    'config'
+], function (WidgetBase, AuthAjaxService, Configuration) {
+    'use strict';
 
     function SingleLineChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
