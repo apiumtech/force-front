@@ -1,6 +1,3 @@
-/**
- * Created by joanllenas 5/14/15
- */
 
 define([], function(){
     var Q = container.getFunction('q');
@@ -41,6 +38,8 @@ define([], function(){
     proto.getLanguageList = function() { return this.literalService.getLanguageList(); };
 
     proto.getLiteralTypeList = function() { return this.literalService.getLiteralTypeList(); };
+
+    proto.getDeviceTypeList = function() { return this.literalService.getDeviceTypeList(); };
 
     proto.isNew = function(literal) { return literal == null || literal.Id == null; };
 

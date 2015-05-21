@@ -14,7 +14,7 @@
                    data-original-title="" title=""><i class="fa fa-times"></i></a>
             </div>
             <h4 class="panel-title">
-                {{'Literals.Table.Header' | i18next}}
+                {{'Literal.List.Table.Header' | i18next}}
             </h4>
         </div>
 
@@ -52,8 +52,8 @@
         {Key}
         <div>
             <div class="edit-delete-div">
-                <a href="#/literal/{Id}/edit"><i class="fa ic-edit"></i>Edit</a> |
-                <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>Delete</a>
+                <a href="#/literal/{Id}/edit"><i class="fa ic-edit"></i>{{'Literal.List.Table.Edit_label' | i18next}}</a> |
+                <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>{{'Literal.List.Table.Delete_label' | i18next}}</a>
             </div>
         </div>
     </div>

@@ -1,6 +1,3 @@
-/**
- * Created by joanllenas 5/14/15
- */
 
 define([], function(){
 
@@ -24,6 +21,15 @@ define([], function(){
         var view = this.view;
         this.model.getLiteralTypeList().then(
             view.onGetLiteralTypeList.bind(view),
+            view.showError.bind(view)
+        );
+    };
+
+
+    proto.getDeviceTypeList = function () {
+        var view = this.view;
+        this.model.getDeviceTypeList().then(
+            view.onGetDeviceTypeList.bind(view),
             view.showError.bind(view)
         );
     };

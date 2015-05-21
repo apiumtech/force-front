@@ -17,7 +17,7 @@ define([], function(){
 
     proto.getLiteralList = function (searchTerm) {
         var skip = this.page;
-        var limit = 1000;//Configuration.pageSize;
+        var limit = 9000;//Configuration.pageSize;
         return this.literalService.getLiteralList(searchTerm, skip, limit);
     };
 
@@ -30,6 +30,11 @@ define([], function(){
     proto.deleteLiteral = function(id) {
         assertNotNull("id", id);
         return this.literalService.deleteLiteral(id);
+    };
+
+
+    proto.getLiteralDictionary = function() {
+        return this.literalService.getLiteralDictionary("en", null);
     };
 
 

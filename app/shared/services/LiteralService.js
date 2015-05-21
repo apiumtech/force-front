@@ -260,6 +260,14 @@ define([], function(){
         });
     };
 
+    proto.getDeviceTypeList = function () {
+        return this.ajaxService.rawAjaxRequest({
+            url: Configuration.api.deviceTypeList,
+            type: 'GET',
+            dataType: 'json'
+        });
+    };
+
 
 
     // ----------------------------------------

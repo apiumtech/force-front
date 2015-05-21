@@ -10,7 +10,7 @@ define([], function(){
     }
 
     LiteralController.configureView = function ($routeParams, $scope) {
-        this.view = LiteralView.newInstance($routeParams, $scope);
+        this.view = LiteralView.newInstance($scope, null, null, $routeParams);
         this.view.show();
     };
 
