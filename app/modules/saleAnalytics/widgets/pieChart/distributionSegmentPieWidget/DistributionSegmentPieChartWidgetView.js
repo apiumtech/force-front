@@ -2,10 +2,11 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
-    var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
-    var SegmentPieChartWidgetModel = container.getModel('models/widgets/SegmentPieChartWidgetModel');
+define([
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetView',
+    'modules/saleAnalytics/widgets/pieChart/distributionSegmentPieWidget/DistributionSegmentPieChartWidgetModel'
+], function(PieChartWidgetPresenter, PieChartWidgetView, SegmentPieChartWidgetModel){
 
     function SegmentPieChartWidgetView(scope, element, model, presenter) {
         PieChartWidgetView.call(this, scope, element, model, presenter);

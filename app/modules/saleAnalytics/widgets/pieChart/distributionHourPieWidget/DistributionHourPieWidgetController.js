@@ -2,8 +2,9 @@
  * Created by justin on 12/22/14.
  */
 define([
+    'app',
     'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieChartWidgetView'
-], function(DistributionHourPieChartWidgetView){
+], function (app, DistributionHourPieChartWidgetView) {
 
     function DistributionHourPieWidgetController($scope, $element) {
         DistributionHourPieWidgetController.configureView($scope, $element);

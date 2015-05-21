@@ -4,12 +4,9 @@
 
 define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
-    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetView',
     'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieChartWidgetModel'
-], function(PieChartWidgetPresenter, PieChartWidgetView){
-    var PieChartWidgetPresenter = container.getPresenter('presenters/widgets/PieChartWidgetPresenter');
-    var PieChartWidgetView = container.getView("views/widgets/PieChartWidgetView");
-    var HourPieChartWidgetModel = container.getModel('models/widgets/HourPieChartWidgetModel');
+], function(PieChartWidgetPresenter, PieChartWidgetView, DistributionHourPieChartWidgetModel){
 
     function HourPieChartWidgetView(scope, element, model, presenter) {
         PieChartWidgetView.call(this, scope, element, model, presenter);
@@ -18,7 +15,7 @@ define([
     HourPieChartWidgetView.prototype = Object.create(PieChartWidgetView.prototype, {});
 
     HourPieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || HourPieChartWidgetModel.newInstance();
+        var model = $model || DistributionHourPieChartWidgetModel.newInstance();
         var presenter = $presenter || PieChartWidgetPresenter.newInstance();
 
         var view = new HourPieChartWidgetView($scope, $element, model, presenter);

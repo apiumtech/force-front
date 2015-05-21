@@ -2,8 +2,7 @@
  * Created by kevin on 10/29/14.
  */
 define(function () {
-
-
+    
     var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "http://websta.forcemanager.net/ASMX/Proxy.asmx";
 

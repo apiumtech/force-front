@@ -2,8 +2,9 @@
  * Created by justin on 5/9/15.
  */
 define([
+    'app',
     'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieWidgetController'
-], function(HourPieWidgetController){
+], function (app, HourPieWidgetController) {
 
     function DistributionHourPieWidgetDirective() {
         return {
@@ -12,7 +13,7 @@ define([
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/distributionPieWidget.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/pieChart/distributionPieWidget.html'
         };
     }
 

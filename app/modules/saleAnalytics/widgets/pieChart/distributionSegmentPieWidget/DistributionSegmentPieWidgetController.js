@@ -1,8 +1,10 @@
 /**
  * Created by justin on 12/22/14.
  */
-define([], function(){
-    var SegmentPieChartWidgetView = container.getView("views/widgets/SegmentPieChartWidgetView");
+define([
+    'app',
+    'modules/saleAnalytics/widgets/pieChart/distributionSegmentPieWidget/DistributionSegmentPieChartWidgetView'
+], function(app, SegmentPieChartWidgetView){
 
     function DistributionSegmentPieWidgetController($scope, $element) {
         DistributionSegmentPieWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ define([], function(){
         this.view = SegmentPieChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('DistributionSegmentPieWidgetController', ['$scope', '$element', DistributionSegmentPieWidgetController]);
 
     return DistributionSegmentPieWidgetController;
 });

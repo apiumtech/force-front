@@ -1,15 +1,20 @@
 /**
  * Created by justin on 12/30/14.
  */
-describe("DistributionSegmentPieWidgetController", function () {
-    var DistributionSegmentPieWidgetController = app.getController('controllers/widgets/DistributionSegmentPieWidgetController');
+define([
+    'modules/saleAnalytics/widgets/pieChart/distributionSegmentPieWidget/DistributionSegmentPieWidgetController'
+], function (DistributionSegmentPieWidgetController) {
+    'use strict';
+    describe("DistributionSegmentPieWidgetController", function () {
 
-    it("should call DistributionSegmentPieWidgetController.configureView global method", function () {
-        var scope = {someScope: true},
-            element = {};
+        it("should call DistributionSegmentPieWidgetController.configureView global method", function () {
+            var scope = {someScope: true},
+                element = {};
 
-        DistributionSegmentPieWidgetController.configureView = jasmine.createSpy();
-        var ctrl = new DistributionSegmentPieWidgetController(scope, element);
-        expect(DistributionSegmentPieWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+            DistributionSegmentPieWidgetController.configureView = jasmine.createSpy();
+            var ctrl = new DistributionSegmentPieWidgetController(scope, element);
+            expect(DistributionSegmentPieWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+        });
     });
+
 });
