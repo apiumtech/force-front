@@ -3,31 +3,12 @@
  */
 
 define([], function(){
-    var WidgetEventBus = container.getService('services/bus/WidgetEventBus');
-    var widgetName = "intensityWidgetA";
 
-    function PieChartWidgetPresenter(widgetEventChannel) {
-        this.widgetEventChannel = widgetEventChannel;
+    function PieChartWidgetPresenter() {
     }
 
     PieChartWidgetPresenter.prototype = Object.create(Object.prototype, {
-        widgetEventChannel: {
-            get: function () {
-                return this._widgetEventChannel;
-            },
-            set: function (value) {
-                this._widgetEventChannel = value;
-                this.rebindChannelListener();
-            }
-        }
     });
-
-    PieChartWidgetPresenter.prototype.rebindChannelListener = function () {
-        var self = this;
-        self.widgetEventChannel.onReloadSignalReceived(function () {
-            self._executeLoadWidget();
-        });
-    };
 
     PieChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
@@ -46,8 +27,6 @@ define([], function(){
         var self = this;
         self.$view = view;
         self.$model = model;
-
-        self.rebindChannelListener();
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -75,9 +54,8 @@ define([], function(){
         };
     };
 
-    PieChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new PieChartWidgetPresenter(_widgetEventChannel);
+    PieChartWidgetPresenter.newInstance = function () {
+        return new PieChartWidgetPresenter();
     };
 
     return PieChartWidgetPresenter;
