@@ -16,5 +16,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "ng-i18next": "~0.4.1"
+  }
 }

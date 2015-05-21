@@ -14,7 +14,7 @@ requirejs.config({
         'ng-sortable': '../assets/js/vendor/ng-sortable',
         'angular-moment': '../node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
-        'ng-i18next': '../assets/js/vendor/ng-i18next',
+        'ng-i18next': '../bower_components/ng-i18next/dist/ng-i18next',
 
         // jquery & stuffs
         'jquery': '../node_modules/jquery/dist/jquery.min',
@@ -37,7 +37,7 @@ requirejs.config({
         'postal': '../node_modules/postal/lib/postal.min',
         'q': '../node_modules/q/q',
         'meld': '../node_modules/meld/meld',
-        'i18next': '../node_modules/i18next/lib/dep/i18next.min',
+        'i18next': '../bower_components/i18next/i18next.min',
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
         'moment': '../node_modules/moment/min/moment.min',
