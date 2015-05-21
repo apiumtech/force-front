@@ -2,7 +2,7 @@
  * Created by joanllenas on 03/31/15.
  */
 
-app.registerController(function (container) {
+define([], function(){
     var ContactFilterView = container.getView("views/contact/ContactFilterView");
 
     function ContactFilterController($scope) {

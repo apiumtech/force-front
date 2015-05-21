@@ -65,17 +65,17 @@ requirejs.config({
 
         'angular-validation': {
             deps: ['angular'],
-            exports: 'angular-validation'
+            exports: 'angular_validation'
         },
 
         'angular-validation-rule': {
             deps: ['angular', 'angular-validation'],
-            exports: 'angular-validation-rule'
+            exports: 'angular_validation_rule'
         },
 
         'angular-route': {
             deps: ['angular'],
-            exports: 'angular-route'
+            exports: 'angular_route'
         },
 
         'ngFileUpload': {
@@ -85,17 +85,17 @@ requirejs.config({
 
         'angular-draganddrop': {
             deps: ['angular'],
-            exports: 'angular-draganddrop'
+            exports: 'angular_draganddrop'
         },
 
         'angular-moment': {
             deps: ['angular', 'moment'],
-            exports: 'angular-moment'
+            exports: 'angular_moment'
         },
 
         'angular-bootstrap': {
             deps: ['angular'],
-            exports: 'angular-bootstrap'
+            exports: 'angular_bootstrap'
         },
 
         'angularRecursion': {
@@ -105,24 +105,24 @@ requirejs.config({
 
         'ng-i18next': {
             deps: ['angular', 'i18next'],
-            exports: 'ng-i18next'
+            exports: 'ng_i18next'
         },
 
         'ng-sortable': {
             deps: ['angular', 'jquery', 'signals'],
-            exports: 'ng-sortable'
+            exports: 'ng_sortable'
         },
 
         'infinite-scroll': {
             deps: ['angular'],
-            exports: 'infinite-scroll'
+            exports: 'infinite_scroll'
         },
 
         //endregion
 
         //region Jquery & stuffs
         'jquery': {
-            exports: '$'
+            exports: 'jquery'
         },
 
         'jquery_migrate': {
@@ -170,12 +170,12 @@ requirejs.config({
 
         'flot-resize': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-resize'
+            exports: 'flot_resize'
         },
 
         'flot-stack': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-stack'
+            exports: 'flot_stack'
         },
 
         'flot-pie': {
@@ -199,6 +199,9 @@ requirejs.config({
             deps: ['crypto'],
             exports: 'cryptoSha1'
         },
+        'crypto': {
+            exports: 'crypto'
+        },
         'signals': {
             exports: 'signals'
         },
@@ -207,6 +210,15 @@ requirejs.config({
         },
         'i18next': {
             exports: 'i18next'
+        },
+        'q': {
+            exports: 'q'
+        },
+        'postal': {
+            exports: 'postal'
+        },
+        'underscore': {
+            exports: 'underscore'
         }
         //endregion
     },
@@ -237,11 +249,12 @@ requirejs.config({
         'underscore', 'signals',
 
         /* Flot & stuffs */
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
-        'crypto.SHA1'
-    ],
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
+        'crypto.SHA1',
+        'main'
+    ]//,
 
-    callback: function () {
-        require(['main']);
-    }
+    //callback: function () {
+    //    require(['main']);
+    //}
 });

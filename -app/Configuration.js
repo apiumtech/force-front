@@ -1,7 +1,7 @@
 /**
  * Created by kevin on 10/29/14.
  */
-app.registerService(function (container) {
+define([], function (container) {
 
     var baseLocation = getLocation();
 

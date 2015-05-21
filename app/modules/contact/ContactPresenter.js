@@ -2,7 +2,7 @@
  * Created by joanllenas on 3/31/15
  */
 
-app.registerPresenter(function (container) {
+define([], function(){
 
     function ContactPresenter() {
     }

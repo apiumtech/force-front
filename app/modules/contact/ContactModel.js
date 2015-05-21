@@ -1,7 +1,7 @@
 /**
  * Created by joanllenas on 3/31/15.
  */
-app.registerModel(function (container) {
+define([], function(){
     var Configuration = container.getService('Configuration');
     var AjaxService = container.getService("services/AjaxService");
     var EntityService = container.getService("services/config/EntityService");

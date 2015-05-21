@@ -2,7 +2,7 @@
  * Created by evgenypredein on 17/12/14.
  */
 
-app.registerService(function(container){
+define([], function(){
 
         var $ = container.getObject('jquery');
 

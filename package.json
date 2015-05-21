@@ -25,7 +25,7 @@
     "ng-infinite-scroll": ">= 1.1.2",
     "postal": "= 0.12.4",
     "q": ">= 1.0.1",
-    "require": "*",
+    "requirejs": "^2.1.17",
     "signals": "^1.0.0",
     "underscore": "^1.7.0"
   },
@@ -45,6 +45,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express": "^1.4.1",
+    "grunt-html-build": "^0.5.0",
     "grunt-http-server": "^1.1.0",
     "grunt-karma": "^0.9.0",
     "grunt-open": "^0.2.3",

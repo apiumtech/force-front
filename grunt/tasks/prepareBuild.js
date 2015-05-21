@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     grunt.registerTask('prepareLessBuild', function () {
         var defineScript = '';
         var requirePaths = [];
-        requirePaths.push('@import "bootstrap_import.less";');
+        requirePaths.push('@import "main.less";');
         grunt.file.expand('app/**/*.less').forEach(function (path) {
             requirePaths.push('@import "../' + path + '";');
         });
