@@ -1,6 +1,12 @@
 force-front
 ===========
 
+### Add test file
+> grunt gentest:<path_to_implementation_class>
+
+this command will generate a test class for the implement class if the test class doesn't exist. If the implement class doesn't exist it will create both files
+
+
 ### May 8 2015
 * Installed bower for some front-end dependencies
 * Run
