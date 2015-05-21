@@ -17,7 +17,7 @@ define([
         };
     }
 
-    app.register.directive('barChartWidget', [BarChartWidgetController]);
+    app.register.directive('barChartWidget', [BarChartWidgetDirective]);
 
     return BarChartWidgetDirective;
 });

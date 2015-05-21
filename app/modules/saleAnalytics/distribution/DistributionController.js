@@ -2,7 +2,11 @@ define([
     'app',
     'modules/saleAnalytics/distribution/DistributionView',
 
-    'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective'
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
+    'modules/saleAnalytics/widgets/mapChart/DistributionGeographicalWidgetDirective',
+    'modules/saleAnalytics/widgets/pieChart/distributionHourPieWidget/DistributionHourPieWidgetDirective',
+    'modules/saleAnalytics/widgets/pieChart/distributionSegmentPieWidget/DistributionSegmentPieWidgetDirective',
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetDirective'
 ], function (app, DistributionView) {
     'use strict';
 
