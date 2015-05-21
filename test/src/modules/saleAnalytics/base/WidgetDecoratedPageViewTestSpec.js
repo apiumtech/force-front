@@ -29,7 +29,7 @@ define([
                 view.decorateWidget(widgetData);
                 expect(widgetData[0].template).not.toBeNull();
 
-                expect(widgetData[0].template).toEqual('/templates/widgets/page_name_fake/' + widgetData[0].type + '.html');
+                expect(widgetData[0].template).toEqual('app/modules/saleAnalytics/page_name_fake/' + widgetData[0].type + '.html');
             });
         });
 

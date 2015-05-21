@@ -6,6 +6,7 @@ define([
 ], function (GraphWidgetPresenter) {
     'use strict';
     describe("GraphWidgetPresenter", function () {
+
         var sut;
 
         beforeEach(function () {
@@ -14,7 +15,7 @@ define([
 
         describe("Connect view to model", function () {
             //region test should declare methods
-            var view, ___model;
+            var ___view, ___model, view;
             [
                 {
                     viewEvent: "onReloading", test: onReloadingTest
@@ -202,4 +203,5 @@ define([
             //endregion
         });
     });
+
 });

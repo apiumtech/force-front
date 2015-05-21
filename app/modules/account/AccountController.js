@@ -4,7 +4,7 @@
 define([
     'app',
     'modules/account/AccountView',
-    'modules/account/filters/AccountFilter/AccountFilterController'
+    'modules/account/filters/accountFilter/AccountFilterController'
 ], function (app, AccountView) {
 
     function AccountController($scope) {
