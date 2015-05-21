@@ -6,4 +6,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['karma:ci']);
     grunt.registerTask('coverage', ['jshint:jenkins']);
+    grunt.registerTask('e2e', ['e2e:protractor']);
 };
