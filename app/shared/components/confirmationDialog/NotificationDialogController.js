@@ -1,8 +1,9 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-define([], function(){
-    var ConfirmationDialogView = container.getView("views/ConfirmationDialogView");
+define([
+    'shared/components/confirmationDialog/ConfirmationDialogView'
+], function(ConfirmationDialogView){
 
     function NotificationDialogController($scope, $modalInstance, title, message) {
         $scope.modalTitle = title;

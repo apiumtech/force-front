@@ -1,8 +1,10 @@
 /**
  * Created by justin on 5/9/15.
  */
-define([], function(){
-    var GeographicalWidgetController = container.getController("controllers/widgets/DistributionGeographicalWidgetController");
+define([
+    'app',
+    'modules/saleAnalytics/widgets/mapChart/DistributionGeographicalWidgetController'
+], function(app, GeographicalWidgetController){
 
     function DistributionGeographicalWidgetDirective() {
         return {
@@ -11,9 +13,11 @@ define([], function(){
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/distributionGeographicalWidget.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/mapChart/distributionGeographicalWidget.html'
         };
     }
+
+    app.register.directive('distributionGeographicalWidget', [DistributionGeographicalWidgetDirective]);
 
     return DistributionGeographicalWidgetDirective;
 });

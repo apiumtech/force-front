@@ -2,11 +2,12 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
-    var AuthAjaxService = container.getService('services/ajax/AuthAjaxService');
-    var WidgetBase = container.getService('services/WidgetBase');
-    var Configuration = container.getService('Configuration');
-    var moment = container.getFunction("moment");
+define([
+    'shared/services/ajax/AuthAjaxService',
+    'modules/saleAnalytics/widgets/WidgetBase',
+    'config',
+    'moment',
+], function(AuthAjaxService, WidgetBase, Configuration, moment){
 
     function MapChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
