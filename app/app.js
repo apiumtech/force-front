@@ -4,8 +4,8 @@
 define([
     'angular',
     'config',
-
-    'routeResolverSvc'
+    'routeResolverSvc',
+    'ng-i18next'
 ], function (angular, config) {
     var $i18nextProviderOptions = config.i18nextOptions;
 

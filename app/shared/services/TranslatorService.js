@@ -1,7 +1,11 @@
 /**
  * Created by Justin on 3/17/2015.
  */
-define([], function () {
+define([
+    'i18next'
+], function (i18n) {
+
+    console.log(i18n);
 
     function TranslatorService(translator) {
         this.translator = translator;
