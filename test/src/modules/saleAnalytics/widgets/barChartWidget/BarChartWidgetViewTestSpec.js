@@ -7,7 +7,7 @@ define([
 ], function (BarChartWidgetView) {
     'use strict';
     describe("BarChartWidgetView", function () {
-        var BarChartWidgetView = app.getView('views/widgets/BarChartWidgetView');
+
         var sut, scope;
 
         function initSut() {

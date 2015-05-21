@@ -1,8 +1,10 @@
 /**
  * Created by justin on 02/11/15.
  */
-define([], function(){
-    var MapChartWidgetView = container.getView("views/widgets/MapChartWidgetView");
+define([
+    'app',
+    'modules/saleAnalytics/widgets/mapChart/MapChartWidgetView'
+], function(app, MapChartWidgetView){
 
     function DistributionGeographicalWidgetController($scope, $element) {
         DistributionGeographicalWidgetController.configureView($scope, $element);
@@ -12,6 +14,8 @@ define([], function(){
         this.view = MapChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
+
+    app.register.controller('DistributionGeographicalWidgetController', ['$scope', '$element', DistributionGeographicalWidgetController]);
 
     return DistributionGeographicalWidgetController;
 });

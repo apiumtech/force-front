@@ -1,8 +1,9 @@
 /**
  * Created by Justin on 3/19/2015.
  */
-define([], function(){
-    var BaseView = container.getView("views/BaseView");
+define([
+    'shared/BaseView'
+], function(BaseView){
 
     function ConfirmationDialogView($scope, $modalInstance) {
         BaseView.call(this, $scope);
