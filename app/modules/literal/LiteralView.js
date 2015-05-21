@@ -1,11 +1,10 @@
-
-define([], function(){
-    var BaseView = container.getView("views/BaseView");
-    var LiteralPresenter = container.getPresenter('presenters/literal/LiteralPresenter');
-    var LiteralModel = container.getModel('models/literal/LiteralModel');
-    var TranslatorService = container.getService("services/TranslatorService");
-
-
+define([
+    'shared/BaseView',
+    'modules/literal/LiteralPresenter',
+    'modules/literal/LiteralModel',
+    'shared/services/TranslatorService'
+], function (BaseView, LiteralPresenter, LiteralModel, TranslatorService) {
+    
     function LiteralView($scope, $model, $presenter, $routeParams, $window) {
         BaseView.call(this, $scope, $model, $presenter);
         this.$window = $window;
@@ -37,7 +36,8 @@ define([], function(){
         this.fn.isNew = this.isNew.bind(this);
         this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
 
-        this.event.isNew = function(){};
+        this.event.isNew = function () {
+        };
     };
 
 
@@ -47,35 +47,40 @@ define([], function(){
     };
 
 
-    proto.onGetLiteralTypeList = function(data){
+    proto.onGetLiteralTypeList = function (data) {
         this.data.literalTypeList = data;
         this.getLiteralById();
     };
 
 
-    proto.onGetDeviceTypeList = function(data){
+    proto.onGetDeviceTypeList = function (data) {
         this.data.deviceTypeList = data;
         this.getLiteralById();
     };
 
 
-    proto.getLiteralById = function() {
-        if( this.data.deviceTypeList && this.data.literalTypeList ) {
+    proto.getLiteralById = function () {
+        if (this.data.deviceTypeList && this.data.literalTypeList) {
             this.presenter.getLiteralById(this.routeParams.literalId);
         }
     };
 
 
-
-    proto._onCancel = function () { this._goBack(); };
+    proto._onCancel = function () {
+        this._goBack();
+    };
 
     proto._goBack = function () {
         this.$window.history.back();
     };
 
-    proto.isNew = function () { return this.event.isNew(this.data.literal); };
+    proto.isNew = function () {
+        return this.event.isNew(this.data.literal);
+    };
 
-    proto.showForm = function (literal) { this.data.literal = literal; };
+    proto.showForm = function (literal) {
+        this.data.literal = literal;
+    };
 
     proto.showError = function (err) {
         this.data.currentError = err;
@@ -83,22 +88,22 @@ define([], function(){
 
     proto._onSave = function () {
         this.data.literal.DeviceTypes = this.data.selectedDeviceTypes;
-        if( this.isNew() ){
+        if (this.isNew()) {
             this.presenter.createLiteral(this.data.literal);
         } else {
             this.presenter.updateLiteral(this.data.literal);
         }
     };
 
-    proto.onToggleDeviceType = function(deviceType) {
+    proto.onToggleDeviceType = function (deviceType) {
         deviceType.selected = !deviceType.selected;
-        if( deviceType.selected ) {
+        if (deviceType.selected) {
             this.data.selectedDeviceTypes.push(deviceType);
         } else {
             var index = this.data.selectedDeviceTypes.indexOf(deviceType);
             this.data.selectedDeviceTypes.splice(index, 1);
         }
-        var names = this.data.selectedDeviceTypes.map(function(currentDeviceType){
+        var names = this.data.selectedDeviceTypes.map(function (currentDeviceType) {
             return currentDeviceType.Name;
         });
         this.data.deviceTypeListPrompt = names.length > 0 ? names.join(", ") : this.translator.translate("Literal.Detail.Form.Select_Device_Type");
