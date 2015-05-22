@@ -1,5 +1,6 @@
 requirejs.config({
     'baseUrl': 'app/',
+    'waitSeconds': 0,
     'paths': {
         // angular & stuffs
         'angular': '../bower_components/angular/angular.min',

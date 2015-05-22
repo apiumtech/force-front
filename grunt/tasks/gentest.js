@@ -2,6 +2,8 @@
  * Created by justin on 5/21/15.
  */
 module.exports = function (grunt) {
+    'use strict';
+
     grunt.registerTask('gentest', function (classPath) {
         if (!classPath)
             throw new Error("Class object must be specified");
