@@ -2,17 +2,19 @@
  * Created by evgenypredein on 17/12/14.
  */
 
-define([], function(){
+define([
+        'jquery',
+        'slimscroll'
+    ], function ($) {
 
-        var $ = container.getObject('jquery');
 
-        var handleSlimScroll = function() {
+        var handleSlimScroll = function () {
             "use strict";
-            $('[data-scrollbar=true]').each( function() {
+            $('[data-scrollbar=true]').each(function () {
                 generateSlimScroll($(this));
             });
         };
-        var generateSlimScroll = function(element) {
+        var generateSlimScroll = function (element) {
             var dataHeight = $(element).attr('data-height');
             dataHeight = (!dataHeight) ? $(element).height() : dataHeight;
 
@@ -20,7 +22,7 @@ define([], function(){
                 height: dataHeight,
                 alwaysVisible: true
             };
-            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 scrollBarOption.wheelStep = 1;
                 scrollBarOption.touchScrollStep = 100;
             }
@@ -30,9 +32,9 @@ define([], function(){
 
         /* 02. Handle Sidebar - Menu
          ------------------------------------------------ */
-        var handleSidebarMenu = function() {
+        var handleSidebarMenu = function () {
             "use strict";
-            $('.sidebar .nav > .has-sub > a').click(function() {
+            $('.sidebar .nav > .has-sub > a').click(function () {
                 var target = $(this).next('.sub-menu');
                 var otherMenu = '.sidebar .nav > li.has-sub > .sub-menu';
 
@@ -41,7 +43,7 @@ define([], function(){
                     $(target).slideToggle(250);
                 }
             });
-            $('.sidebar .nav > .has-sub .sub-menu li.has-sub > a').click(function() {
+            $('.sidebar .nav > .has-sub .sub-menu li.has-sub > a').click(function () {
                 if ($('.page-sidebar-minified').length === 0) {
                     var target = $(this).next('.sub-menu');
                     $(target).slideToggle(250);
@@ -52,9 +54,9 @@ define([], function(){
 
         /* 03. Handle Sidebar - Mobile View Toggle
          ------------------------------------------------ */
-        var handleMobileSidebarToggle = function() {
+        var handleMobileSidebarToggle = function () {
             var sidebarProgress = false;
-            $('.sidebar').on('click touchstart', function(e) {
+            $('.sidebar').on('click touchstart', function (e) {
                 if ($(e.target).closest('.sidebar').length !== 0) {
                     sidebarProgress = true;
                 } else {
@@ -62,7 +64,7 @@ define([], function(){
                     e.stopPropagation();
                 }
             });
-            $(document).on('click touchstart', function(e) {
+            $(document).on('click touchstart', function (e) {
                 if ($(e.target).closest('.sidebar').length === 0) {
                     sidebarProgress = false;
                 }
@@ -77,7 +79,7 @@ define([], function(){
                     }
                 }
             });
-            $('[data-click=right-sidebar-toggled]').click(function(e) {
+            $('[data-click=right-sidebar-toggled]').click(function (e) {
                 e.stopPropagation();
                 var targetContainer = '#page-container';
                 var targetClass = 'page-right-sidebar-collapsed';
@@ -91,7 +93,7 @@ define([], function(){
                     $('#page-container').removeClass('page-sidebar-toggled');
                 }
             });
-            $('[data-click=sidebar-toggled]').click(function(e) {
+            $('[data-click=sidebar-toggled]').click(function (e) {
                 e.stopPropagation();
                 var sidebarClass = 'page-sidebar-toggled';
                 var targetContainer = '#page-container';
@@ -109,8 +111,8 @@ define([], function(){
 
         /* 04. Handle Sidebar - Minify / Expand
          ------------------------------------------------ */
-        var handleSidebarMinify = function() {
-            $('[data-click=sidebar-minify]').click(function(e) {
+        var handleSidebarMinify = function () {
+            $('[data-click=sidebar-minify]').click(function (e) {
                 e.preventDefault();
                 var sidebarClass = 'page-sidebar-minified';
                 var targetContainer = '#page-container';
@@ -135,9 +137,9 @@ define([], function(){
 
         /* 05. Handle Page Load - Fade in
          ------------------------------------------------ */
-        var handlePageContentView = function() {
+        var handlePageContentView = function () {
             "use strict";
-            $.when($('#page-loader').addClass('hide')).done(function() {
+            $.when($('#page-loader').addClass('hide')).done(function () {
                 $('#page-container').addClass('in');
             });
         };
@@ -145,11 +147,11 @@ define([], function(){
 
         /* 06. Handle Panel - Remove / Reload / Collapse / Expand
          ------------------------------------------------ */
-        var handlePanelAction = function() {
+        var handlePanelAction = function () {
             "use strict";
 
             // remove
-            $('[data-click=panel-remove]').hover(function() {
+            $('[data-click=panel-remove]').hover(function () {
                 $(this).tooltip({
                     title: 'Remove',
                     placement: 'bottom',
@@ -158,14 +160,14 @@ define([], function(){
                 });
                 $(this).tooltip('show');
             });
-            $('[data-click=panel-remove]').click(function(e) {
+            $('[data-click=panel-remove]').click(function (e) {
                 e.preventDefault();
                 $(this).tooltip('destroy');
                 $(this).closest('.panel').remove();
             });
 
             // collapse
-            $('[data-click=panel-collapse]').hover(function() {
+            $('[data-click=panel-collapse]').hover(function () {
                 $(this).tooltip({
                     title: 'Collapse / Expand',
                     placement: 'bottom',
@@ -174,13 +176,13 @@ define([], function(){
                 });
                 $(this).tooltip('show');
             });
-            $('[data-click=panel-collapse]').click(function(e) {
+            $('[data-click=panel-collapse]').click(function (e) {
                 e.preventDefault();
                 $(this).closest('.panel').find('.panel-body').slideToggle();
             });
 
             // reload
-            $('[data-click=panel-reload]').hover(function() {
+            $('[data-click=panel-reload]').hover(function () {
                 $(this).tooltip({
                     title: 'Reload',
                     placement: 'bottom',
@@ -189,7 +191,7 @@ define([], function(){
                 });
                 $(this).tooltip('show');
             });
-            $('[data-click=panel-reload]').click(function(e) {
+            $('[data-click=panel-reload]').click(function (e) {
                 e.preventDefault();
                 var target = $(this).closest('.panel');
                 if (!$(target).hasClass('panel-loading')) {
@@ -197,7 +199,7 @@ define([], function(){
                     var spinnerHtml = '<div class="panel-loader"><span class="spinner-small"></span></div>';
                     $(target).addClass('panel-loading');
                     $(targetBody).prepend(spinnerHtml);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $(target).removeClass('panel-loading');
                         $(target).find('.panel-loader').remove();
                     }, 2000);
@@ -205,7 +207,7 @@ define([], function(){
             });
 
             // expand
-            $('[data-click=panel-expand]').hover(function() {
+            $('[data-click=panel-expand]').hover(function () {
                 $(this).tooltip({
                     title: 'Expand / Compress',
                     placement: 'bottom',
@@ -214,7 +216,7 @@ define([], function(){
                 });
                 $(this).tooltip('show');
             });
-            $('[data-click=panel-expand]').click(function(e) {
+            $('[data-click=panel-expand]').click(function (e) {
                 e.preventDefault();
                 var target = $(this).closest('.panel');
 
@@ -234,7 +236,7 @@ define([], function(){
 
         /* 07. Handle Panel - Draggable
          ------------------------------------------------ */
-        var handleDraggablePanel = function() {
+        var handleDraggablePanel = function () {
             "use strict";
             var target = '[class*=drag-target]';
             var targetHandle = '.panel-heading';
@@ -249,7 +251,7 @@ define([], function(){
 
         /* 08. Handle Tooltip & Popover Activation
          ------------------------------------------------ */
-        var handelTooltipPopoverActivation = function() {
+        var handelTooltipPopoverActivation = function () {
             "use strict";
             $('[data-toggle=tooltip]').tooltip();
             $('[data-toggle=popover]').popover();
@@ -258,9 +260,9 @@ define([], function(){
 
         /* 09. Handle Scroll to Top Button Activation
          ------------------------------------------------ */
-        var handleScrollToTopButton = function() {
+        var handleScrollToTopButton = function () {
             "use strict";
-            $(document).scroll( function() {
+            $(document).scroll(function () {
                 var totalScroll = $(document).scrollTop();
 
                 if (totalScroll >= 200) {
@@ -270,7 +272,7 @@ define([], function(){
                 }
             });
 
-            $('[data-click=scroll-top]').click(function(e) {
+            $('[data-click=scroll-top]').click(function (e) {
                 e.preventDefault();
                 $('html, body').animate({
                     scrollTop: $("body").offset().top
@@ -281,12 +283,12 @@ define([], function(){
 
         /* 10. Handle Theme & Page Structure Configuration - added in V1.2
          ------------------------------------------------ */
-        var handleThemePageStructureControl = function() {
+        var handleThemePageStructureControl = function () {
             // COOKIE - Theme File Setting
             if ($.cookie && $.cookie('theme')) {
                 if ($('.theme-list').length !== 0) {
                     $('.theme-list [data-theme]').closest('li').removeClass('active');
-                    $('.theme-list [data-theme="'+ $.cookie('theme') +'"]').closest('li').addClass('active');
+                    $('.theme-list [data-theme="' + $.cookie('theme') + '"]').closest('li').addClass('active');
                 }
                 var cssFileSrc = 'assets/css/theme/' + $.cookie('theme') + '.css';
                 $('#theme').attr('href', cssFileSrc);
@@ -309,7 +311,7 @@ define([], function(){
             }
 
             // THEME - theme selection
-            $('.theme-list [data-theme]').live('click', function() {
+            $('.theme-list [data-theme]').live('click', function () {
                 var cssFileSrc = 'assets/css/theme/' + $(this).attr('data-theme') + '.css';
                 $('#theme').attr('href', cssFileSrc);
                 $('.theme-list [data-theme]').not(this).closest('li').removeClass('active');
@@ -318,15 +320,15 @@ define([], function(){
             });
 
             // HEADER - inverse or default
-            $('.theme-panel [name=header-styling]').live('change', function() {
+            $('.theme-panel [name=header-styling]').live('change', function () {
                 var targetClassAdd = ($(this).val() == 1) ? 'navbar-default' : 'navbar-inverse';
                 var targetClassRemove = ($(this).val() == 1) ? 'navbar-inverse' : 'navbar-default';
                 $('#header').removeClass(targetClassRemove).addClass(targetClassAdd);
-                $.cookie('header-styling',targetClassAdd);
+                $.cookie('header-styling', targetClassAdd);
             });
 
             // SIDEBAR - grid or default
-            $('.theme-panel [name=sidebar-styling]').live('change', function() {
+            $('.theme-panel [name=sidebar-styling]').live('change', function () {
                 if ($(this).val() == 2) {
                     $('#sidebar').addClass('sidebar-grid');
                     $.cookie('sidebar-styling', 'grid');
@@ -337,7 +339,7 @@ define([], function(){
             });
 
             // SIDEBAR - fixed or default
-            $('.theme-panel [name=sidebar-fixed]').live('change', function() {
+            $('.theme-panel [name=sidebar-fixed]').live('change', function () {
                 if ($(this).val() == 1) {
                     if ($('.theme-panel [name=header-fixed]').val() == 2) {
                         alert('Default Header with Fixed Sidebar option is not supported. Proceed with Fixed Header with Fixed Sidebar.');
@@ -353,7 +355,7 @@ define([], function(){
                     $('#page-container').removeClass('page-sidebar-fixed');
                     if ($('.sidebar .slimScrollDiv').length !== 0) {
                         if ($(window).width() <= 979) {
-                            $('.sidebar').each(function() {
+                            $('.sidebar').each(function () {
                                 if (!($('#page-container').hasClass('page-with-two-sidebar') && $(this).hasClass('sidebar-right'))) {
                                     $(this).find('.slimScrollBar').remove();
                                     $(this).find('.slimScrollRail').remove();
@@ -375,7 +377,7 @@ define([], function(){
             });
 
             // HEADER - fixed or default
-            $('.theme-panel [name=header-fixed]').live('change', function() {
+            $('.theme-panel [name=header-fixed]').live('change', function () {
                 if ($(this).val() == 1) {
                     $('#header').addClass('navbar-fixed-top');
                     $('#page-container').addClass('page-header-fixed');
@@ -399,8 +401,8 @@ define([], function(){
 
         /* 11. Handle Theme Panel Expand - added in V1.2
          ------------------------------------------------ */
-        var handleThemePanelExpand = function() {
-            $('[data-click="theme-panel-expand"]').live('click', function() {
+        var handleThemePanelExpand = function () {
+            $('[data-click="theme-panel-expand"]').live('click', function () {
                 var targetContainer = '.theme-panel';
                 var targetClass = 'active';
                 if ($(targetContainer).hasClass(targetClass)) {
@@ -414,10 +416,10 @@ define([], function(){
 
         /* 12. Handle After Page Load Add Class Function - added in V1.2
          ------------------------------------------------ */
-        var handleAfterPageLoadAddClass = function() {
+        var handleAfterPageLoadAddClass = function () {
             if ($('[data-pageload-addclass]').length !== 0) {
-                $(window).load(function() {
-                    $('[data-pageload-addclass]').each(function() {
+                $(window).load(function () {
+                    $('[data-pageload-addclass]').each(function () {
                         var targetClass = $(this).attr('data-pageload-addclass');
                         $(this).addClass(targetClass);
                     });
@@ -444,11 +446,11 @@ define([], function(){
             };
         }();
 
-        function AppsAdapter(){
+        function AppsAdapter() {
 
         }
 
-        AppsAdapter.initSideBar = function(){
+        AppsAdapter.initSideBar = function () {
             return App.initSideBar();
         };
         return AppsAdapter;
