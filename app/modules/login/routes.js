@@ -5,7 +5,7 @@
 define([], function () {
     return {
         register: function ($routeProvider, resolveRoute) {
-            $routeProvider.when('/', resolveRoute('modules/login/LoginController', 'modules/login/login'));
+            $routeProvider.when('/login', resolveRoute('modules/login/LoginController', 'modules/login/login'));
         }
     };
 });

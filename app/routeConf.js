@@ -36,7 +36,7 @@ define([
 
             $routeProvider
                 .otherwise({
-                    redirectTo: '/'
+                    redirectTo: '/analytics/intensity'
                 });
         }
     ]);
