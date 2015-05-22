@@ -16,9 +16,9 @@ module.exports = function (grunt) {
 
         grunt.task.run(['less:dev']);
 
-        grunt.task.run(['delete.mainBuild']);
-
         grunt.task.run(['copy:assets']);
+
+        grunt.task.run(['delete.mainBuild']);
     });
 
     grunt.registerTask('build', function () {
@@ -27,12 +27,12 @@ module.exports = function (grunt) {
 
         grunt.task.run(['less:dev', 'requirejs:newCompile']);
 
-        grunt.task.run(['delete.mainBuild']);
-
         grunt.task.run(['copy:assets']);
         grunt.task.run(['copy:productionBuild']);
 
         grunt.task.run(['htmlbuild']);
+
+        grunt.task.run(['delete.mainBuild']);
     });
 
     grunt.registerTask('testAndBuild', ['karma:ci', 'build']);
@@ -41,6 +41,4 @@ module.exports = function (grunt) {
         grunt.file.delete('assets/main.build.js');
         grunt.file.delete('assets/main.build.less');
     });
-
-    //grunt.registerTask('build', ['less:dev', 'requirejs:newCompile', 'copy:assets']);
 };

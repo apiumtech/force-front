@@ -2,6 +2,8 @@
  * Created by justin on 5/21/15.
  */
 module.exports = function (grunt) {
+    'use strict';
+
     grunt.registerTask('genroute', function (moduleName) {
         if (!moduleName)
             throw new Error("Module name must be specified");

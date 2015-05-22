@@ -53,7 +53,7 @@ module.exports = function (grunt) {
                 {
                     expand: true,
                     cwd: 'assets',
-                    src: ['js/**', 'images/**', 'img/**'],
+                    src: ['crossbrowserjs/**', 'js/**', 'images/**', 'img/**'],
                     dest: buildPath + '/assets'
                 }
             ]
