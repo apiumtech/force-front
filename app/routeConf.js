@@ -9,6 +9,8 @@ define([
     'modules/login/routes',
     'modules/saleAnalytics/routes',
     'modules/account/routes'
+    , 'modules/agenda/routes'
+	// ==more---routes---config---here==
 ], function (app, RouteChangedEventHandlers) {
     'use strict';
 

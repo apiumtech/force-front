@@ -14,27 +14,28 @@ requirejs.config({
     'baseUrl': '/base/app',
     'paths': {
         // angular & stuffs
-        'angular': '/base/node_modules/angular/angular.min',
-        'angular-route': '/base/node_modules/angular-route/angular-route.min',
-        'angular-draganddrop': '/base/node_modules/angular-draganddrop/angular-draganddrop.min',
-        'angular-validation': '/base/node_modules/angular-validation/dist/angular-validation.min',
-        'angular-validation-rule': '/base/node_modules/angular-validation/dist/angular-validation-rule.min',
-        'angular-bootstrap': '/base/node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
-        'angularRecursion': "/base/node_modules/angular-recursion/angular-recursion.min",
-        'ngSanitize': '/base/node_modules/angular-sanitize/angular-sanitize.min',
-        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-        'angular-moment': '/base/node_modules/angular-moment/angular-moment.min',
-        'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min',
+        'angular': '/base/bower_components/angular/angular.min',
+        'angular-route': '/base/bower_components/angular-route/angular-route.min',
+        'angular-validation': '/base/bower_components/angular-validation/dist/angular-validation.min',
+        'angular-validation-rule': '/base/bower_components/angular-validation/dist/angular-validation-rule.min',
+        'angular-bootstrap': '/base/bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
+        'angularRecursion': "../bower_components/angular-recursion/angular-recursion.min",
+
+        'ngSanitize': '/base/bower_components/angular-sanitize/angular-sanitize.min',
+        'angular-moment': '/base/bower_components/angular-moment/angular-moment.min',
         'ng-i18next': '/base/bower_components/ng-i18next/dist/ng-i18next',
 
+        'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
+        'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min',
+
         // jquery & stuffs
-        'jquery': '/base/node_modules/jquery/dist/jquery.min',
-        'jquery_migrate': '/base/bower_components/jquery-migrate/jquery-migrate.min',
-        'jquery_ui': '/base/node_modules/jquery-ui/jquery-ui',
+        'jquery': '/base/bower_components/jquery/dist/jquery.min',
+        'jquery_migrate': '/base/bower_components/jquery-migrate/jquery-migrate',
+        'jquery_ui': '/base/bower_components/jqueryui/jquery-ui.min',
         'bootstrap': '/base/bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '/base/bower_components/jquery-slimscroll/jquery.slimscroll.min',
+
         'datatables': '/base/node_modules/datatables/media/js/jquery.dataTables',
-        'datatables_scroller': '/base/assets/js/vendor/dataTables.scroller.min',
 
         // flot & stuffs
         'flot': '/base/node_modules/flot/jquery.flot',
@@ -49,6 +50,7 @@ requirejs.config({
         'q': '/base/node_modules/q/q',
         'meld': '/base/node_modules/meld/meld',
         'i18next': '/base/bower_components/i18next/i18next.min',
+
         'signals': '/base/node_modules/signals/dist/signals.min',
         'underscore': '/base/node_modules/underscore/underscore-min',
         'moment': '/base/node_modules/moment/min/moment.min',
@@ -60,7 +62,7 @@ requirejs.config({
         'framework': '/base/framework/ApplicationFactory',
         'AppsAdapter': '/base/assets/js/AppsAdapter',
         'lodash': '/base/node_modules/postal/node_modules/lodash/dist/lodash.min',
-        'conduitjs': '/base/node_modules/postal/node_modules/conduitjs/lib/conduit.min',
+        'conduitjs': '/base/node_modules/postal/node_modules/conduitjs/lib/conduit.min'
     },
 
     'shim': {
@@ -76,17 +78,17 @@ requirejs.config({
 
         'angular-validation': {
             deps: ['angular'],
-            exports: 'angular-validation'
+            exports: 'angular_validation'
         },
 
         'angular-validation-rule': {
             deps: ['angular', 'angular-validation'],
-            exports: 'angular-validation-rule'
+            exports: 'angular_validation_rule'
         },
 
         'angular-route': {
             deps: ['angular'],
-            exports: 'angular-route'
+            exports: 'angular_route'
         },
 
         'ngFileUpload': {
@@ -94,19 +96,14 @@ requirejs.config({
             exports: 'ngFileUpload'
         },
 
-        'angular-draganddrop': {
-            deps: ['angular'],
-            exports: 'angular-draganddrop'
-        },
-
         'angular-moment': {
             deps: ['angular', 'moment'],
-            exports: 'angular-moment'
+            exports: 'angular_moment'
         },
 
         'angular-bootstrap': {
             deps: ['angular'],
-            exports: 'angular-bootstrap'
+            exports: 'angular_bootstrap'
         },
 
         'angularRecursion': {
@@ -116,19 +113,19 @@ requirejs.config({
 
         'ng-i18next': {
             deps: ['angular', 'i18next'],
-            exports: 'ng-i18next'
+            exports: 'ng_i18next'
         },
 
         'infinite-scroll': {
             deps: ['angular'],
-            exports: 'infinite-scroll'
+            exports: 'infinite_scroll'
         },
 
         //endregion
 
         //region Jquery & stuffs
         'jquery': {
-            exports: '$'
+            exports: 'jquery'
         },
 
         'jquery_migrate': {
@@ -149,10 +146,6 @@ requirejs.config({
 
         'datatables': {
             deps: ['jquery']
-        },
-
-        'datatables_scroller': {
-            deps: ['jquery', 'datatables']
         },
 
         //endregion
@@ -176,17 +169,17 @@ requirejs.config({
 
         'flot-resize': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-resize'
+            exports: 'flot_resize'
         },
 
         'flot-stack': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-stack'
+            exports: 'flot_stack'
         },
 
         'flot-pie': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-pie'
+            exports: 'flot_pie'
         },
 
         'flot-categories': {
@@ -205,6 +198,9 @@ requirejs.config({
             deps: ['crypto'],
             exports: 'cryptoSha1'
         },
+        'crypto': {
+            exports: 'crypto'
+        },
         'signals': {
             exports: 'signals'
         },
@@ -213,6 +209,15 @@ requirejs.config({
         },
         'i18next': {
             exports: 'i18next'
+        },
+        'q': {
+            exports: 'q'
+        },
+        'postal': {
+            exports: 'postal'
+        },
+        'underscore': {
+            exports: 'underscore'
         }
         //endregion
     },
@@ -225,7 +230,7 @@ requirejs.config({
 
         /* Angular & Its plugins */
         'angular', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
-        'angular-draganddrop',
+
         'angular-bootstrap',
         'angular-moment', 'ng-i18next', 'infinite-scroll',
 
@@ -243,8 +248,9 @@ requirejs.config({
         'underscore', 'signals',
 
         /* Flot & stuffs */
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack',
-        'crypto.SHA1'
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
+        'crypto.SHA1',
+        'main'
     ],
 
     callback: test_main
