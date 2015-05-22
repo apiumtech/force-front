@@ -332,6 +332,7 @@ define([
     };
 
     SalesAnalyticsFilterView.prototype.checkStateForTeamList = function (selectedNode, flattened, notRoot) {
+        if (!selectedNode) return;
         var self = this;
         var arrayHelper = self.arrayHelper;
         if (!flattened) {

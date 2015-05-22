@@ -2,18 +2,14 @@
  * Created by joanllenas on 03/31/15.
  */
 
-define([], function(){
-    var BaseView = container.getView("views/BaseView");
-    var ContactPresenter = container.getPresenter('presenters/contact/ContactPresenter');
-    var ContactModel = container.getModel('models/contact/ContactModel');
-    var DataTableService = container.getService("services/DataTableService");
+define([
+    'shared/BaseView',
+    'modules/contact/ContactPresenter',
+    'modules/contact/ContactModel',
+    'shared/services/DataTableService'
+], function (BaseView, ContactPresenter, ContactModel, DataTableService) {
+    'use strict';
 
-
-    /**
-     * ContactView
-     *
-     * @constructor
-     */
     function ContactView($scope, $model, $presenter, dataTableService) {
         BaseView.call(this, $scope, $model, $presenter);
 
@@ -48,7 +44,8 @@ define([], function(){
         this.fn.onToggleColumn = this.onToggleColumn.bind(this);
 
         // Method stubs, actually implemented in presenter.
-        this.event.onFieldsRestoreDefault = function () {};
+        this.event.onFieldsRestoreDefault = function () {
+        };
     };
 
 
@@ -77,7 +74,7 @@ define([], function(){
     };
 
     ContactView.prototype.renderTable = function () {
-        if( this.data.tableColumns && this.data.contacts ){
+        if (this.data.tableColumns && this.data.contacts) {
             var dataTableConfig = {
                 data: this.data.contacts,
                 columns: this.data.tableColumns
@@ -127,7 +124,7 @@ define([], function(){
         var i, column;
         for (i = 0; i < len; i++) {
             column = this.data.table.column(i);
-            column.visible( this.data.tableColumns[i].visible );
+            column.visible(this.data.tableColumns[i].visible);
         }
     };
 

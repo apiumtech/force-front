@@ -5,12 +5,6 @@ module.exports = function (grunt) {
     'use strict';
 
     return {
-        compile: {
-            options: {
-                mainConfigFile: 'require.build-cfg.js',
-                optimize: 'none'
-            }
-        },
         newCompile: {
             options: {
                 mainConfigFile: 'require.cfg.js',

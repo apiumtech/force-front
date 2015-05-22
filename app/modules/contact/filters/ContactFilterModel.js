@@ -1,10 +1,12 @@
 /**
  * Created by joanllenas on 3/31/15.
  */
-define([], function(){
-    var Configuration = container.getService('Configuration');
-    var AjaxService = container.getService("services/AjaxService");
-    var DataTableDataProvider = container.getService("services/DataTableDataProvider");
+define([
+    'config',
+    'shared/services/ajax/AjaxService',
+    'shared/services/DataTableDataProvider'
+], function (Configuration, AjaxService, DataTableDataProvider) {
+    'use strict';
 
     function ContactFilterModel(ajaxService, dataTableDataProvider) {
         this.ajaxService = ajaxService;

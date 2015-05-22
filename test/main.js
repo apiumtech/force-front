@@ -23,7 +23,6 @@ requirejs.config({
         'angularRecursion': "/base/node_modules/angular-recursion/angular-recursion.min",
         'ngSanitize': '/base/node_modules/angular-sanitize/angular-sanitize.min',
         'infinite-scroll': '/base/node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-        'ng-sortable': '/base/assets/js/vendor/ng-sortable',
         'angular-moment': '/base/node_modules/angular-moment/angular-moment.min',
         'ngFileUpload': '/base/node_modules/angular-file-upload/dist/angular-file-upload.min',
         'ng-i18next': '/base/bower_components/ng-i18next/dist/ng-i18next',
@@ -118,11 +117,6 @@ requirejs.config({
         'ng-i18next': {
             deps: ['angular', 'i18next'],
             exports: 'ng-i18next'
-        },
-
-        'ng-sortable': {
-            deps: ['angular', 'jquery', 'signals'],
-            exports: 'ng-sortable'
         },
 
         'infinite-scroll': {
@@ -233,7 +227,7 @@ requirejs.config({
         'angular', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
         'angular-draganddrop',
         'angular-bootstrap',
-        'ng-sortable', 'angular-moment', 'ng-i18next', 'infinite-scroll',
+        'angular-moment', 'ng-i18next', 'infinite-scroll',
 
         'angularRecursion',
 
@@ -257,13 +251,6 @@ requirejs.config({
 });
 
 function test_main() {
-    // initialize the base application
-    //main();
-    // run tests
-    //require(app.manifest.src, function () {
-    //    require(tests, window.__karma__.start);
-    //});
-
     require(tests, window.__karma__.start);
 }
 

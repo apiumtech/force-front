@@ -1,7 +1,7 @@
 /**
  * Created by kevin on 10/30/14.
  */
-define([], function(){
+define([], function () {
     function ObjectMerger() {
 
     }
@@ -34,9 +34,10 @@ define([], function(){
     };
 
     var instance = new ObjectMerger();
-    return {
-        getInstance: function () {
-            return instance;
-        }
+
+    ObjectMerger.getInstance = function () {
+        return instance;
     };
+
+    return ObjectMerger;
 });

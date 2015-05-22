@@ -65,6 +65,7 @@ define([
 
     LoginView.prototype.onLoggedIn = function () {
         this.isLoggingIn = false;
+
         this.$location.path("/accounts");
     };
 

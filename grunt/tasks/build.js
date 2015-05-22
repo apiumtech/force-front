@@ -46,16 +46,35 @@ module.exports = function (grunt) {
             grunt.file.delete(buildPath);
     });
 
-    grunt.registerTask('build', function () {
-        grunt.task.run(['karma:ci']);
+    grunt.registerTask('buildCss', function () {
+        grunt.task.run(['prepareBuild']);
 
+        grunt.task.run(['less:dev']);
+
+        grunt.task.run(['delete.mainBuild']);
+
+        grunt.task.run(['copy:assets']);
+    });
+
+    grunt.registerTask('build', function () {
         grunt.task.run(['prepareBuild']);
         grunt.task.run(['remove-old-build']);
 
         grunt.task.run(['less:dev', 'requirejs:newCompile']);
+
+        grunt.task.run(['delete.mainBuild']);
+
+        grunt.task.run(['copy:assets']);
         grunt.task.run(['copy:productionBuild']);
 
         grunt.task.run(['htmlbuild']);
+    });
+
+    grunt.registerTask('testAndBuild', ['karma:ci', 'build']);
+
+    grunt.registerTask('delete.mainBuild', function () {
+        grunt.file.delete('assets/main.build.js');
+        grunt.file.delete('assets/main.build.less');
     });
 
     //grunt.registerTask('build', ['less:dev', 'requirejs:newCompile', 'copy:assets']);

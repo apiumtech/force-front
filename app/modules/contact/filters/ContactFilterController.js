@@ -2,8 +2,10 @@
  * Created by joanllenas on 03/31/15.
  */
 
-define([], function(){
-    var ContactFilterView = container.getView("views/contact/ContactFilterView");
+define([
+    'modules/contact/filters/ContactFilterView'
+], function (ContactFilterView) {
+    'use strict';
 
     function ContactFilterController($scope) {
         ContactFilterController.configureView($scope);

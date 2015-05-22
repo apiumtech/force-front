@@ -1,19 +1,20 @@
 /**
  * Created by joanllenas on 3/31/15.
  */
-define([], function(){
-    var Configuration = container.getService('Configuration');
-    var AjaxService = container.getService("services/AjaxService");
-    var EntityService = container.getService("services/config/EntityService");
-    var StorageService = container.getService("services/StorageService");
-    var Q = container.getFunction("q");
+define([
+    'config',
+    'shared/services/ajax/AjaxService',
+    'shared/services/config/EntityService',
+    'shared/services/StorageService',
+    'q'
+], function (Configuration, AjaxService, EntityService, StorageService, Q) {
+    'use strict';
 
-
-    function ContactModel(ajaxService, entityService, storageService, configuration) {
+    function ContactModel(ajaxService, entityService, storageService) {
         this.ajaxService = ajaxService;
         this.entityService = entityService;
         this.storageService = storageService;
-        this.configuration = configuration;
+        this.configuration = Configuration;
     }
 
     ContactModel.prototype.loadContactFilters = function () {
@@ -21,9 +22,9 @@ define([], function(){
 
         try {
             var filters = this.entityService.getEntityFilters("contact");
-            setTimeout(deferred.resolve, 10, filters );
-        } catch(err) {
-            setTimeout(deferred.reject, 10, "Error loading contacts" );
+            setTimeout(deferred.resolve, 10, filters);
+        } catch (err) {
+            setTimeout(deferred.reject, 10, "Error loading contacts");
         }
 
         return deferred.promise;
@@ -35,9 +36,9 @@ define([], function(){
 
         try {
             var columns = this.entityService.getEntityColumns("contact");
-            setTimeout(deferred.resolve, 10, columns );
-        } catch(err) {
-            setTimeout(deferred.reject, 10, "Error loading contacts" );
+            setTimeout(deferred.resolve, 10, columns);
+        } catch (err) {
+            setTimeout(deferred.reject, 10, "Error loading contacts");
         }
 
         return deferred.promise;
@@ -60,13 +61,12 @@ define([], function(){
     };
 
 
-    ContactModel.newInstance = function (ajaxService, entityService, storageService, configuration) {
+    ContactModel.newInstance = function (ajaxService, entityService, storageService) {
         ajaxService = ajaxService || AjaxService.newInstance();
         entityService = entityService || EntityService.newInstance();
         storageService = storageService || StorageService.newInstance();
-        configuration = configuration || Configuration;
 
-        return new ContactModel(ajaxService, entityService, storageService, configuration);
+        return new ContactModel(ajaxService, entityService, storageService);
     };
 
     return ContactModel;

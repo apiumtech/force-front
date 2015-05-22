@@ -5,7 +5,8 @@ define([
     'angular',
     'config',
     'routeResolverSvc',
-    'ng-i18next'
+    'ng-i18next',
+    'shared/components/sortableComponent/ng-sortable'
 ], function (angular, config) {
     var $i18nextProviderOptions = config.i18nextOptions;
 

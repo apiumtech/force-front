@@ -6,7 +6,7 @@ define([
 
     'shared/components/TriStateCheckBoxDirective',
     'shared/components/ScrollTopButtonDirective',
-    'shared/components/ForceDatePickerDirective',
+    'shared/components/datePicker/ForceDatePickerDirective',
     'shared/components/HighLightResultDirective',
 
     'shared/components/confirmationDialog/ConfirmationDialogController',

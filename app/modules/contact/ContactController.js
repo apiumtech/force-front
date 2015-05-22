@@ -2,8 +2,10 @@
  * Created by joanllenas on 03/31/15.
  */
 
-define([], function(){
-    var ContactView = container.getView("views/contact/ContactView");
+define([
+    'modules/contact/ContactView'
+], function(ContactView){
+    'use strict';
 
     function ContactController($scope) {
         ContactController.configureView($scope);

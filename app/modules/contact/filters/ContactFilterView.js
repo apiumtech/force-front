@@ -2,10 +2,12 @@
  * Created by joanllenas on 03/31/15.
  */
 
-define([], function(){
-    var BaseView = container.getView("views/BaseView");
-    var ContactFilterPresenter = container.getPresenter('presenters/contact/ContactFilterPresenter');
-    var ContactFilterModel = container.getModel('models/contact/ContactFilterModel');
+define([
+    'shared/BaseView',
+    'modules/contact/filters/ContactFilterPresenter',
+    'modules/contact/filters/ContactFilterModel'
+], function (BaseView, ContactFilterPresenter, ContactFilterModel) {
+    'use strict';
 
     function ContactFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -18,11 +20,11 @@ define([], function(){
         this.fn.onLoaded = this._onLoaded.bind(this);
     };
 
-    ContactFilterView.prototype._onLoaded = function(){
+    ContactFilterView.prototype._onLoaded = function () {
         this.presenter.loadContactFilters();
     };
 
-    ContactFilterView.prototype.onLoadContactFilters = function(filters){
+    ContactFilterView.prototype.onLoadContactFilters = function (filters) {
         this.data.filters = filters;
     };
 
