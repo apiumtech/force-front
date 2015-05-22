@@ -143,9 +143,6 @@
 .ic-ic-account-checkin:before {
   content: "O";
 }
-.ic-ic-folder-opened:before {
-  content: "P";
-}
 .ic-ic-lost:before {
   content: "Q";
 }
@@ -185,9 +182,6 @@
 .ic-notes:before {
   content: "2";
 }
-.ic-notifications:before {
-  content: "3";
-}
 .ic-phone-settings:before {
   content: "6";
 }
@@ -217,9 +211,6 @@
 }
 .ic-saleanalytics:before {
   content: "(";
-}
-.ic-salesforce:before {
-  content: ")";
 }
 .ic-search:before {
   content: "*";
@@ -281,9 +272,6 @@
 .ic-trophy:before {
   content: "|";
 }
-.ic-reports:before {
-  content: "~";
-}
 .ic-accounts:before {
   content: "&";
 }
@@ -310,4 +298,16 @@
 }
 .ic-products:before {
   content: "}";
+}
+.ic-folder-opened:before {
+  content: "d";
+}
+.ic-salesforce:before {
+  content: "x";
+}
+.ic-reports:before {
+  content: "P";
+}
+.ic-notifications:before {
+  content: "3";
 }

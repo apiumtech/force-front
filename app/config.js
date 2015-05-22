@@ -4,7 +4,7 @@
 define(function () {
     
     var baseUrl = "https://backenddev.forcemanager.net";
-    var baseProxy = "http://websta.forcemanager.net/ASMX/Proxy.asmx";
+    var baseProxy = "https://webpre.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
 
