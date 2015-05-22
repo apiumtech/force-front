@@ -14,7 +14,7 @@ define([
                 onClose: "&"
             },
             controller: BooleanTypeFilterController,
-            templateUrl: '/app/modules/account/filters/booleanTypeFilter/booleanTypeFilter.html'
+            templateUrl: 'app/modules/account/filters/booleanTypeFilter/booleanTypeFilter.html'
         };
     }
 
