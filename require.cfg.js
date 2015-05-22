@@ -246,9 +246,5 @@ requirejs.config({
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
         'crypto.SHA1',
         'main'
-    ]//,
-
-    //callback: function () {
-    //    require(['main']);
-    //}
+    ]
 });

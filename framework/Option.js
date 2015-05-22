@@ -86,12 +86,6 @@
         };
     };
 
-    jsScope.throwInstantiateException = function (classObj) {
-        if (!isFunction(classObj)) return;
-        var className = classObj.name;
-        return throwException(i18n.t("Errors.CannotInstantiateClass", {class: className}));
-    };
-
     jsScope.assertNotNull = function (paramName, paramValue) {
         if (paramValue === null || paramValue === undefined) {
             throw new Error(paramName + " cannot be null");
