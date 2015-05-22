@@ -113,8 +113,8 @@ define([
     LiteralView.newInstance = function ($scope, $model, $presenter, $routeParams, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var routeParams = $routeParams;
-        var model = $model || LiteralModel.newInstance().getOrElse(throwInstantiateException(LiteralModel));
-        var presenter = $presenter || LiteralPresenter.newInstance().getOrElse(throwInstantiateException(LiteralPresenter));
+        var model = $model || LiteralModel.newInstance();
+        var presenter = $presenter || LiteralPresenter.newInstance();
         $window = $window || window;
 
         var view = new LiteralView(scope, model, presenter, routeParams, $window);

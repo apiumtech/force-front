@@ -13,7 +13,7 @@ define([
             scope: {
                 widget: "="
             },
-            templateUrl: 'templates/widgets/singleline.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/singleLineChart/distributionHourLineWidget.html'
         };
     }
 

@@ -1,0 +1,15 @@
+<widget-wrapper body-class="height-md"
+                title="{{widget.widgetName}}"
+                event-bus-channel="eventChannel">
+    <div class="clearfix m-b-20 ">
+        <div class="btn-group pull-right">
+            <select class="form-control pull left"
+                    ng-model="selectedFilter"
+                    ng-change="fn.changeFilter(selectedFilter)">
+                <option ng-repeat="filter in tabs" value="{{filter.key}}">{{filter.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="chart-place-holder height-sm"></div>
+
+</widget-wrapper>

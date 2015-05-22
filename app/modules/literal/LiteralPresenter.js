@@ -68,9 +68,9 @@ define([], function(){
 
     LiteralPresenter.newInstance = function ($window) {
         $window = $window || window;
-        return Some(new LiteralPresenter($window));
+        return new LiteralPresenter($window);
     };
 
-    return {newInstance: LiteralPresenter.newInstance};
+    return LiteralPresenter;
 });
 

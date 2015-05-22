@@ -55,9 +55,9 @@ define([
 
     LiteralModel.newInstance = function (literalService) {
         literalService = literalService || LiteralService.newInstance();
-        return Some(new LiteralModel(literalService));
+        return new LiteralModel(literalService);
     };
 
-    return {newInstance: LiteralModel.newInstance};
+    return LiteralModel;
 });
 

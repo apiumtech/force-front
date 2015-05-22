@@ -37,7 +37,8 @@
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              as-sortable-item sortable-widget="widget">
-            <ng-include src="'templates/widgets/widgetWrapper.html'"></ng-include>
+            {{widget}}
+            <ng-include src="widget.template"></ng-include>
         </div>
     </div>
 </div>
