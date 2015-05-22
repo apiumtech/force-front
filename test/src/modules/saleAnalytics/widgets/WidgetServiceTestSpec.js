@@ -12,7 +12,8 @@ define([
 
         beforeEach(function () {
             ajaxService = {
-                ajax: jasmine.createSpy()
+                ajax: jasmine.createSpy(),
+                rawAjaxRequest: jasmine.createSpy()
             };
             sut = WidgetService.newInstance(ajaxService);
         });
@@ -26,20 +27,19 @@ define([
 
             it("should call ajax from its ajaxService with correct fetch url", function () {
                 var pageName = "ABC";
+
+                //TODO: update when having real API
                 sut.getWidgetsForPage(pageName);
-                expect(ajaxService.ajax).toHaveBeenCalled();
-                expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual('/api/widgets/' + pageName);
+                expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
             });
         });
 
         describe("updatePageWidgets", function () {
             it("should call ajax from its ajaxService with correct params", function () {
+                //TODO: update when having real API
                 var updateData = {};
                 sut.updatePageWidgets(updateData);
-                expect(ajaxService.ajax).toHaveBeenCalled();
-                expect(ajaxService.ajax.calls.mostRecent().args[0].url).toEqual('/api/widgets');
-                expect(ajaxService.ajax.calls.mostRecent().args[0].type.toLowerCase()).toEqual('put');
-                expect(ajaxService.ajax.calls.mostRecent().args[0].data).toEqual(updateData);
+                expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
             });
         });
     });

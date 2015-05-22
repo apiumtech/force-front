@@ -29,10 +29,10 @@ requirejs.config({
 
         // jquery & stuffs
         'jquery': '/base/node_modules/jquery/dist/jquery.min',
-        'jquery_migrate': '/base/assets/js/vendor/jquery-migrate-1.2.1.min',
+        'jquery_migrate': '/base/bower_components/jquery-migrate/jquery-migrate.min',
         'jquery_ui': '/base/node_modules/jquery-ui/jquery-ui',
-        'bootstrap': '/base/assets/js/bootstrap.min',
-        'slimscroll': '/base/assets/js/jquery.slimscroll.min',
+        'bootstrap': '/base/bower_components/bootstrap/dist/js/bootstrap.min',
+        'slimscroll': '/base/bower_components/jquery-slimscroll/jquery.slimscroll.min',
         'datatables': '/base/node_modules/datatables/media/js/jquery.dataTables',
         'datatables_scroller': '/base/assets/js/vendor/dataTables.scroller.min',
 
