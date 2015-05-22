@@ -18,6 +18,7 @@ define([
     'validationConfig'
 ], function ($, angular, config) {
     'use strict';
+    $.migrateMute = true;
     $(document).ready(function () {
         angular.bootstrap(document, [config.appName]);
     });

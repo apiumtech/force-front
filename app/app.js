@@ -6,7 +6,9 @@ define([
     'config',
     'routeResolverSvc',
     'ng-i18next',
-    'shared/components/sortableComponent/ng-sortable'
+    'shared/components/sortableComponent/ng-sortable',
+    'angular-validation',
+    'angular-validation-rule'
 ], function (angular, config) {
     var $i18nextProviderOptions = config.i18nextOptions;
 

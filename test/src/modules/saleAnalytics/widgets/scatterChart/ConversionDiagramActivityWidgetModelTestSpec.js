@@ -114,12 +114,17 @@ define([
                             tooltip
                         ],
                         rows: [
+                            [-2, -5, "tooltipHTML01", null, null, null, null],
+                            [-5, 2, "tooltipHTML01", null, null, null, null],
+                            [3, null, null, 1.55, "tooltipHTML01", null, null],
+                            [-5, null, null, null, null, 4, "tooltipHTML01"]
                         ]
                     }
                 };
-
+                spyOn(sut, 'generateTooltip').and.returnValue('tooltipHTML01');
                 var output = sut.decorateServerData(serverInput);
-                expect(output).not.toEqual(expectedOutput);
+                expect(output).toEqual(expectedOutput);
+                expect(sut.generateTooltip).toHaveBeenCalled();
             });
         });
     });
