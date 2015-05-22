@@ -16,9 +16,9 @@ define([
         });
 
         describe('getUrl', function () {
-            it("should format the Api with the current filter", function(){
+            it("should format the Api with the current filter", function () {
 
-                sut.currentFilter="fake_filter";
+                sut.currentFilter = "fake_filter";
                 var expectedUrl = Configuration.api.activityWidgetConversionDataApi;
                 spyOn(String.prototype, 'format').and.callThrough();
 
@@ -43,15 +43,83 @@ define([
             it("should return correct decorated format", function () {
 
                 var serverInput = {
-                    data: []
+                    "Series": [
+                        {
+                            "Name": "",
+                            "Points": [
+                                {
+                                    "X": -2,
+                                    "Y": -5,
+                                    "UserId": 1083,
+                                    "Name": "Salvador",
+                                    "Surname": "Subarroca",
+                                    "Description": "AUTOMOCION"
+                                },
+                                {
+                                    "X": -5,
+                                    "Y": 2,
+                                    "UserId": 1083,
+                                    "Name": "Salvador",
+                                    "Surname": "Subarroca",
+                                    "Description": "AUTOMOCION"
+                                },
+                                {
+                                    "X": 3,
+                                    "Y": 1.55,
+                                    "UserId": 1078,
+                                    "Name": "test",
+                                    "Surname": "iOS",
+                                    "Description": "AUTOMOCION"
+                                },
+                                {
+                                    "X": -5,
+                                    "Y": 4,
+                                    "UserId": 1077,
+                                    "Name": "userpruebasupdate",
+                                    "Surname": "userpruebasupdate",
+                                    "Description": "AUTOMOCION"
+                                }
+                            ]
+                        }
+                    ],
+                    "Labels": [
+                        []
+                    ]
                 };
 
+                var tooltip = {'type': 'string', 'role': 'tooltip', 'p': {'html': true}};
+
                 var expectedOutput = {
-                    data: []
+                    data: {
+                        columns: [
+                            // The first column will always be x
+                            {type: 'number', name: 'x'},
+                            //
+                            {
+                                type: 'number',
+                                name: 'Salvador'
+                            },
+                            tooltip,
+                            //
+                            {
+                                type: 'number',
+                                name: 'test'
+                            },
+                            tooltip,
+                            //
+                            {
+                                type: 'number',
+                                name: 'userpruebasupdate'
+                            },
+                            tooltip
+                        ],
+                        rows: [
+                        ]
+                    }
                 };
 
                 var output = sut.decorateServerData(serverInput);
-                expect(output).toEqual(expectedOutput);
+                expect(output).not.toEqual(expectedOutput);
             });
         });
     });
