@@ -3,7 +3,7 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetView'
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetView'
 ], function (SingleLineChartWidgetView) {
     'use strict';
     describe("SingleLineChartWidgetView", function () {

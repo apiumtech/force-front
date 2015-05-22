@@ -1,6 +1,8 @@
 define([
     'app',
-    'modules/saleAnalytics/conversion/ConversionView'
+    'modules/saleAnalytics/conversion/ConversionView',
+
+    'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetDirective'
 ], function (app, ConversionView) {
     'use strict';
 

@@ -4,20 +4,18 @@
 
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
-    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetPresenter',
-    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetModel',
-    'modules/widgets/BaseWidgetEventBus',
-    'plots/SingleLineChart',
-    'plots/LineGraphPlot'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, SingleLineChart, LineGraphPlot) {
+    'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetPresenter',
+    'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetModel',
+    'modules/widgets/BaseWidgetEventBus'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus) {
 
-    function SingleLineChartWidgetView(scope, element, model, presenter) {
+    function ConversionDiagramActivityWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         var self = this;
         self.configureEvents();
     }
 
-    SingleLineChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    ConversionDiagramActivityWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
         filters: {
             get: function () {
                 return this.$scope.filters;
@@ -52,7 +50,7 @@ define([
         }
     });
 
-    SingleLineChartWidgetView.prototype.configureEvents = function () {
+    ConversionDiagramActivityWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
         var eventChannel = self.eventChannel,
@@ -75,14 +73,14 @@ define([
         };
     };
 
-    SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
+    ConversionDiagramActivityWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData.data.params;
         self.extractFilters();
         self.refreshChart();
     };
 
-    SingleLineChartWidgetView.prototype.extractFilters = function () {
+    ConversionDiagramActivityWidgetView.prototype.extractFilters = function () {
         var self = this;
         self.filters = self.data.filters;
         var filterList = self.filters,
@@ -96,7 +94,7 @@ define([
                 self.filters[0].key;
     };
 
-    SingleLineChartWidgetView.prototype.refreshChart = function () {
+    ConversionDiagramActivityWidgetView.prototype.refreshChart = function () {
         var self = this,
             data = self.data;
 
@@ -105,18 +103,18 @@ define([
         var chartFields = [];
 
         data.fields.forEach(function (field) {
-            var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field);
+            var lineGraph = ConversionDiagramActivityWidgetView.getLineGraphInstance(field);
             chartFields.push(lineGraph);
         });
 
         self.paintChart(self.element.find('.chart-place-holder'), chartFields);
     };
 
-    SingleLineChartWidgetView.getLineGraphInstance = function (field) {
+    ConversionDiagramActivityWidgetView.getLineGraphInstance = function (field) {
         return LineGraphPlot.newInstance(field.name, field.data, false, false);
     };
 
-    SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
+    ConversionDiagramActivityWidgetView.prototype.paintChart = function (element, chartFields) {
         var plot = SingleLineChart.basic(chartFields, []);
         plot.paint($(element));
         plot.onHover(this.onPlotHover.bind(this));
@@ -124,7 +122,7 @@ define([
 
     var previousPoint = null;
 
-    SingleLineChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
+    ConversionDiagramActivityWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
         function showTooltip(x, y, contents) {
             $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
                 top: y - 45,
@@ -148,14 +146,14 @@ define([
         event.preventDefault();
     };
 
-    SingleLineChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    ConversionDiagramActivityWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || SingleLineChartWidgetModel.newInstance();
         var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance();
 
-        var view = new SingleLineChartWidgetView($scope, $element, model, presenter);
+        var view = new ConversionDiagramActivityWidgetView($scope, $element, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    return SingleLineChartWidgetView;
+    return ConversionDiagramActivityWidgetView;
 });

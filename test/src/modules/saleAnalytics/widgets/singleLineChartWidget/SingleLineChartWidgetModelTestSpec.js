@@ -2,7 +2,7 @@
  * Created by justin on 2/2/15.
  */
 define([
-    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetModel',
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel',
     'config'
 ], function (SingleLineChartWidgetModel, Configuration) {
     'use strict';

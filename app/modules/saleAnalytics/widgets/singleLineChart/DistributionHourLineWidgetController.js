@@ -2,7 +2,7 @@
  * Created by justin on 12/22/14.
  */
 define([
-    'modules/saleAnalytics/widgets/singleLineChart/SingleLineChartWidgetView'
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetView'
 ], function (HourLineChartWidgetView) {
 
     function DistributionHourLineWidgetController($scope, $element) {

@@ -58,6 +58,11 @@ define(function () {
         hourWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
         coverageWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
 
+        //conversion activity/sales
+        activityWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/activitySalesConversionByUsersAndPeriod',
+
+        //conversion visits/sales
+        visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',

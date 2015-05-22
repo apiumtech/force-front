@@ -80,8 +80,8 @@ var widgetList = [
     },
     {
         page: "conversion",
-        widgetType: "pie",
-        widgetName: "IAGRAMA ACTIVIDAD / VENTAS",
+        widgetType: "scatter",
+        widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
         widgetId: 9,
         order: 0,
         size: 6,
@@ -89,7 +89,7 @@ var widgetList = [
     },
     {
         page: "conversion",
-        widgetType: "pie",
+        widgetType: "scatter",
         widgetName: "Efectividad visitas/venta",
         widgetId: 10,
         order: 1,
