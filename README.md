@@ -1,43 +1,50 @@
 force-front
 ===========
 
-### Add test file
+### Add Dependencies
+Make sure you have bower and npm installed, then run 
+
+> npm install && bower install
+
+to install all dependencies
+
+
+### Add new class & its test
+To generate the class and its test class, run the following command
 > grunt gentest:<path_to_implementation_class>
 
-this command will generate a test class for the implement class if the test class doesn't exist. If the implement class doesn't exist it will create both files
+it will generate a test class for the implement class if the test class doesn't exist. If the implement class doesn't exist it will create both files. The file will be added to GIT automatically.
+
+### Adding route for a module
+
+Run the following command to generate routes.js class:
+
+> grunt genroute:<module_name>
+
+It will generate a routes.js file in /app/modules/<module_name>/ folder
 
 
-### May 8 2015
-* Installed bower for some front-end dependencies
-* Run
-  
-  > npm i
-  > bower install
-  
-  before doing anything
+### LESS files
 
-### March 26 2015
-* Removed dependencies to force-design
+LESS files in all modules will be compiled automatically when 
 
-### March 9 2015
-* Added LinQ JS for NodeJS (https://github.com/mihaifm/linq)
+> grunt build 
 
-### March 6 2015
-* Please remove the content of /__server/fakeDb.json before doing functional test.
-* If running grunt dev-server gets any issue because fakeDb.json doesn't exist please just run grunt dev-server again.
+or 
 
-### March 2 2015
-* Added Jquery Datatables JS library (https://datatables.net) for client side
-* Added Node-datatable (https://github.com/jpravetz/node-datatable) library for server side processing of Datatables
-* Please run npm install to ensure having all dependencies installed.
+> grunt testAndBuild
+
+or 
+
+> grunt buildCss
+
+is run
 
 
-### Feb 17 2015
-* To run on server, use: grunt dev-server express-keepalive &
+### Run project
 
-### Feb 10 2015
-* Latest LESS file is built when run the fake server
-* If font is missing, please copy 'fonts' folder in /assets/css folder to /build folder
+> grunt dev-server
+
 
 ### Feb 09 2015
 * jQuery version 1.8.x getting issue with drag and drop. The error can be fixed by the installed jquery using npm install (already in package.json)
