@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     return {
         "less": {
             "files": ['**/*.less'],
-            "tasks": ['less:dev']
+            "tasks": ['buildCss']
         }
     };
 };
