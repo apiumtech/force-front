@@ -11,15 +11,38 @@ to install all dependencies
 
 ### Add new class & its test
 To generate the class and its test class, run the following command
-> grunt gentest:<path_to_implementation_class>
+> grunt gentest:[path_to_implementation_class]
 
 it will generate a test class for the implement class if the test class doesn't exist. If the implement class doesn't exist it will create both files. The file will be added to GIT automatically.
+
+### Adding new module
+
+To generate CMVP for a module, run following command
+
+> grunt genModule:[path_to_module]:[feature_name]
+
+for example:
+
+> grunt genModule:documents/filter:DocumentFilter
+
+will generate the following files:
+
+> app/modules/documents/filter/DocumentFilterController
+> app/modules/documents/filter/DocumentFilterModel
+> app/modules/documents/filter/DocumentFilterView
+> app/modules/documents/filter/DocumentFilterPresenter
+> test/src/modules/documents/filter/DocumentFilterControllerTestSpec
+> test/src/modules/documents/filter/DocumentFilterModelTestSpec
+> test/src/modules/documents/filter/DocumentFilterViewTestSpec
+> test/src/modules/documents/filter/DocumentFilterPresenterTestSpec
+
+
 
 ### Adding route for a module
 
 Run the following command to generate routes.js class:
 
-> grunt genroute:<module_name>
+> grunt genroute:[module_name]
 
 It will generate a routes.js file in /app/modules/<module_name>/ folder
 

@@ -39,8 +39,11 @@ module.exports = function (grunt) {
             '\t\'' + classPath + '\'\n' +
             '], function(' + className + ') {\n' +
             '\t\'use strict\';\n' +
-            '\tthrow new Error("No test defined for class ' + className + '");' +
+            '\n' +
             '\tdescribe(\'' + className + '\', function() {\n' +
+            '\t\tit(\'First test for ' + className + '\', function() {\n' +
+            '\t\t\tthrow new Error("No test defined for class ' + className + '");\n' +
+            '\t\t});\n' +
             '\t\t\n' +
             '\t});\n' +
             '});';
