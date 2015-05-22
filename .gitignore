@@ -1,6 +1,7 @@
 _*
 fakeDb.json
 .idea/
+bower_components/
 node_modules/
 lib/
 *.log

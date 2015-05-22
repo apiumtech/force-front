@@ -2,27 +2,28 @@ requirejs.config({
     'baseUrl': 'app/',
     'paths': {
         // angular & stuffs
-        'angular': '../node_modules/angular/angular.min',
-        'angular-route': '../node_modules/angular-route/angular-route.min',
-        'angular-draganddrop': '../node_modules/angular-draganddrop/angular-draganddrop.min',
-        'angular-validation': '../node_modules/angular-validation/dist/angular-validation.min',
-        'angular-validation-rule': '../node_modules/angular-validation/dist/angular-validation-rule.min',
-        'angular-bootstrap': '../node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min',
-        'angularRecursion': "../node_modules/angular-recursion/angular-recursion.min",
-        'ngSanitize': '../node_modules/angular-sanitize/angular-sanitize.min',
-        'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-        'angular-moment': '../node_modules/angular-moment/angular-moment.min',
-        'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
+        'angular': '../bower_components/angular/angular.min',
+        'angular-route': '../bower_components/angular-route/angular-route.min',
+        'angular-validation': '../bower_components/angular-validation/dist/angular-validation.min',
+        'angular-validation-rule': '../bower_components/angular-validation/dist/angular-validation-rule.min',
+        'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
+        'angularRecursion': "../bower_components/angular-recursion/angular-recursion.min",
+
+        'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
+        'angular-moment': '../bower_components/angular-moment/angular-moment.min',
         'ng-i18next': '../bower_components/ng-i18next/dist/ng-i18next',
 
+        'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
+        'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
+
         // jquery & stuffs
-        'jquery': '../node_modules/jquery/dist/jquery.min',
-        'jquery_migrate': '../assets/js/vendor/jquery-migrate-1.2.1.min',
-        'jquery_ui': '../node_modules/jquery-ui/jquery-ui',
-        'bootstrap': '../assets/js/bootstrap.min',
-        'slimscroll': '../assets/js/jquery.slimscroll.min',
+        'jquery': '../bower_components/jquery/dist/jquery.min',
+        'jquery_migrate': '../bower_components/jquery-migrate/jquery-migrate',
+        'jquery_ui': '../bower_components/jqueryui/jquery-ui.min',
+        'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
+        'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
+
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
-        'datatables_scroller': '../assets/js/vendor/dataTables.scroller.min',
 
         // flot & stuffs
         'flot': '../node_modules/flot/jquery.flot',
@@ -37,6 +38,7 @@ requirejs.config({
         'q': '../node_modules/q/q',
         'meld': '../node_modules/meld/meld',
         'i18next': '../bower_components/i18next/i18next.min',
+
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
         'moment': '../node_modules/moment/min/moment.min',
@@ -48,7 +50,7 @@ requirejs.config({
         'framework': '../framework/ApplicationFactory',
         'AppsAdapter': '../assets/js/AppsAdapter',
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
-        'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
+        'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min'
     },
 
     'shim': {
@@ -80,11 +82,6 @@ requirejs.config({
         'ngFileUpload': {
             deps: ['angular'],
             exports: 'ngFileUpload'
-        },
-
-        'angular-draganddrop': {
-            deps: ['angular'],
-            exports: 'angular_draganddrop'
         },
 
         'angular-moment': {
@@ -139,10 +136,6 @@ requirejs.config({
             deps: ['jquery']
         },
 
-        'datatables_scroller': {
-            deps: ['jquery', 'datatables']
-        },
-
         //endregion
 
         //region TODO: delete or not ??
@@ -174,7 +167,7 @@ requirejs.config({
 
         'flot-pie': {
             deps: ['jquery', 'flot'],
-            exports: 'flot-pie'
+            exports: 'flot_pie'
         },
 
         'flot-categories': {
@@ -225,7 +218,7 @@ requirejs.config({
 
         /* Angular & Its plugins */
         'angular', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
-        'angular-draganddrop',
+
         'angular-bootstrap',
         'angular-moment', 'ng-i18next', 'infinite-scroll',
 
