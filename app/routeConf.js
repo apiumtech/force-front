@@ -6,10 +6,11 @@ define([
     'shared/services/RouteChangedEventHandlers',
 
     // route configurations
-    'modules/login/routes',
-    'modules/saleAnalytics/routes',
-    'modules/account/routes'
-    , 'modules/agenda/routes'
+    'modules/login/routes'
+    ,'modules/saleAnalytics/routes'
+    ,'modules/account/routes'
+    ,'modules/agenda/routes'
+    ,'modules/literal/routes'
 	// ==more---routes---config---here==
 ], function (app, RouteChangedEventHandlers) {
     'use strict';
