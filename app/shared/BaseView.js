@@ -23,6 +23,16 @@ define([
         this.model = $model;
         this.presenter = $presenter;
         this.$scope.config = Configuration;
+
+        /*this.show = function () {
+            if (presenter)
+                presenter.show(this, model);
+        };
+
+        this.showError = function (error) {
+            if (presenter)
+                presenter.showError(error);
+        };*/
     }
 
     BaseView.prototype = Object.create(Object.prototype, {

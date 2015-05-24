@@ -19,15 +19,13 @@ define([
         });
 
         it('should configureEvents on instantiation', function () {
-            spyOn(TopMenuWeb2View.prototype, "configureEvents");
             var view = exerciseCreateView();
-            expect(view.configureEvents).toHaveBeenCalled();
+            expect(view.fn.getMenuTemplateName).toBeDefined();
         });
 
         it('should configureData on instantiation', function () {
-            spyOn(TopMenuWeb2View.prototype, "configureData");
             var view = exerciseCreateView();
-            expect(view.configureData).toHaveBeenCalled();
+            expect(view.data.unreadNotifications).toBe(0);
         });
 
 
@@ -84,30 +82,28 @@ define([
         it('should call getUserDataInfo onInit', function () {
             var view = exerciseCreateView();
 
-            spyOn(view.presenter, "getUserDataInfo");
+            spyOn(view.event, "getUserDataInfo");
             view.onInit();
 
-            expect(view.presenter.getUserDataInfo).toHaveBeenCalled();
+            expect(view.event.getUserDataInfo).toHaveBeenCalled();
         });
 
         it('should set user data onGetUserDataInfo', function () {
-            presenter = {};
-            presenter.getUserSections = jasmine.createSpy();
-            presenter.getUserOptions = jasmine.createSpy();
-            presenter.getUserData = jasmine.createSpy();
-            presenter.getUserNotifications = jasmine.createSpy().and.returnValue({
+            var view = exerciseCreateView();
+            spyOn(view.event, 'getUserSections');
+            spyOn(view.event, 'getUserOptions');
+            spyOn(view.event, 'getUserData');
+            spyOn(view.event, 'getUserNotifications').and.returnValue({
                 notifications: 1,
                 tasks: 2,
                 events: 3
             });
-
-            var view = exerciseCreateView();
             view.onGetUserDataInfo();
 
-            expect(presenter.getUserSections).toHaveBeenCalled();
-            expect(presenter.getUserOptions).toHaveBeenCalled();
-            expect(presenter.getUserData).toHaveBeenCalled();
-            expect(presenter.getUserNotifications).toHaveBeenCalled();
+            expect(view.event.getUserSections).toHaveBeenCalled();
+            expect(view.event.getUserOptions).toHaveBeenCalled();
+            expect(view.event.getUserData).toHaveBeenCalled();
+            expect(view.event.getUserNotifications).toHaveBeenCalled();
             expect(view.data.unreadNotifications).toBe(1);
             expect(view.data.tasksForToday).toBe(2);
             expect(view.data.eventsForToday).toBe(3);
@@ -120,9 +116,9 @@ define([
 
         it('should call logout on doProfileMenuAction when id is "logout"', function () {
             var view = exerciseCreateView();
-            spyOn(view.presenter, "logout");
+            spyOn(view.event, "logout");
             view.doProfileMenuAction("logout")
-            expect(view.presenter.logout).toHaveBeenCalled();
+            expect(view.event.logout).toHaveBeenCalled();
         });
 
         describe('doProfileMenuAction when id is not "logout"', function () {

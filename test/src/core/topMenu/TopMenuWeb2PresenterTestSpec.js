@@ -9,37 +9,28 @@ define([
             return TopMenuWeb2Presenter.newInstance();
         }
 
-        it("should set view and model refs on show()", function () {
-            var view = "i'm view";
-            var model = "i'm model";
-            var presenter = exerciseCreatePresenter();
-
-            presenter.show(view, model);
-
-            expect(presenter.view).toBe(view);
-            expect(presenter.model).toBe(model);
-        });
-
         describe('getUserDataInfo', function () {
             var presenter, view;
             beforeEach(function () {
                 presenter = exerciseCreatePresenter();
                 view = {
+                    event: {},
                     onGetUserDataInfo: jasmine.createSpy(),
                     onGetUserDataInfoError: jasmine.createSpy()
                 };
-                presenter.view = view;
             });
             it("should call view's onGetUserDataInfo on success", function () {
                 var result = "the result";
-                presenter.model = {getUserDataInfo: jasmine.createSpy().and.returnValue(exerciseFakeOkPromiseWithArg(result))};
-                presenter.getUserDataInfo();
-                expect(presenter.view.onGetUserDataInfo).toHaveBeenCalledWith(result);
+                var model = {getUserDataInfo: jasmine.createSpy().and.returnValue(exerciseFakeOkPromiseWithArg(result))};
+                presenter.show(view, model);
+                view.event.getUserDataInfo();
+                expect(view.onGetUserDataInfo).toHaveBeenCalledWith(result);
             });
             it("should call view's onGetUserDataInfoError on error", function () {
-                presenter.model = {getUserDataInfo: jasmine.createSpy().and.returnValue(exerciseFakeKoPromise())};
-                presenter.getUserDataInfo();
-                expect(presenter.view.onGetUserDataInfoError).toHaveBeenCalled();
+                var model = {getUserDataInfo: jasmine.createSpy().and.returnValue(exerciseFakeKoPromise())};
+                presenter.show(view, model);
+                view.event.getUserDataInfo();
+                expect(view.onGetUserDataInfoError).toHaveBeenCalled();
             });
         });
 
@@ -48,29 +39,31 @@ define([
             beforeEach(function () {
                 presenter = exerciseCreatePresenter();
                 view = {
+                    event: {},
                     onLogout: jasmine.createSpy(),
                     onLogoutError: jasmine.createSpy()
                 };
-                presenter.view = view;
             });
             it("should call view's onLogout on success", function () {
                 var result = "the result";
-                presenter.model = {logout: jasmine.createSpy().and.returnValue(exerciseFakeOkPromiseWithArg(result))};
-                presenter.logout();
-                expect(presenter.view.onLogout).toHaveBeenCalledWith(result);
+                var model = {logout: jasmine.createSpy().and.returnValue(exerciseFakeOkPromiseWithArg(result))};
+                presenter.show(view, model);
+                view.event.logout();
+                expect(view.onLogout).toHaveBeenCalledWith(result);
             });
             it("should call view's onLogoutError on error", function () {
-                presenter.model = {logout: jasmine.createSpy().and.returnValue(exerciseFakeKoPromise())};
-                presenter.logout();
-                expect(presenter.view.onLogoutError).toHaveBeenCalled();
+                var model = {logout: jasmine.createSpy().and.returnValue(exerciseFakeKoPromise())};
+                presenter.show(view, model);
+                view.event.logout();
+                expect(view.onLogoutError).toHaveBeenCalled();
             });
         });
 
         describe("get model data sync", function () {
-            var presenter;
+            var presenter, model;
             beforeEach(function () {
                 presenter = exerciseCreatePresenter();
-                presenter.model = {};
+                model = {};
             });
             [
                 {functName: "getUserSections", returnVal: "aa"},
@@ -79,8 +72,10 @@ define([
                 {functName: "getUserNotifications", returnVal: "dd"}
             ].forEach(function (testCase) {
                     it("should return '" + testCase.returnVal + "' when '" + testCase.functName + "' called", function () {
-                        presenter.model[testCase.functName] = jasmine.createSpy().and.returnValue(testCase.returnVal);
-                        expect(presenter.model[testCase.functName]()).toBe(testCase.returnVal);
+
+                        model[testCase.functName] = jasmine.createSpy().and.returnValue(testCase.returnVal);
+                        presenter.show({event:{}}, model);
+                        expect(model[testCase.functName]()).toBe(testCase.returnVal);
                     });
                 });
         });

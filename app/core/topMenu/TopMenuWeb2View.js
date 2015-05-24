@@ -37,11 +37,17 @@ define([
         this.fn.onInit = this.onInit.bind(this);
         this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
         this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
-
         this.fn.hasEventsOrTasksForToday = this.hasEventsOrTasksForToday.bind(this);
         this.fn.hasTasksForToday = this.hasTasksForToday.bind(this);
         this.fn.hasEventsForToday = this.hasEventsForToday.bind(this);
         this.fn.hasUnreadNotifications = this.hasUnreadNotifications.bind(this);
+
+        this.event.getUserDataInfo = function () {};
+        this.event.getUserSections = function () {};
+        this.event.getUserOptions = function () {};
+        this.event.getUserData = function () {};
+        this.event.getUserNotifications = function () {};
+        this.event.logout = function () {};
     };
 
 
@@ -61,7 +67,7 @@ define([
 
     TopMenuWeb2View.prototype.onInit = function () {
         $('.content').addClass('with-web2-menu');
-        this.presenter.getUserDataInfo();
+        this.event.getUserDataInfo();
     };
 
 
@@ -74,11 +80,11 @@ define([
 
 
     TopMenuWeb2View.prototype.onGetUserDataInfo = function () {
-        this.data.userSections = this.presenter.getUserSections();
-        this.data.userOptions = this.presenter.getUserOptions();
-        this.data.userData = this.presenter.getUserData();
+        this.data.userSections = this.event.getUserSections();
+        this.data.userOptions = this.event.getUserOptions();
+        this.data.userData = this.event.getUserData();
 
-        var unreadNotifications = this.presenter.getUserNotifications();
+        var unreadNotifications = this.event.getUserNotifications();
         this.data.unreadNotifications = unreadNotifications.notifications;
         this.data.tasksForToday = unreadNotifications.tasks;
         this.data.eventsForToday = unreadNotifications.events;
@@ -90,7 +96,7 @@ define([
 
     TopMenuWeb2View.prototype.doProfileMenuAction = function (id, linkToGo, target) {
         if (id == "logout") {
-            this.presenter.logout();
+            this.event.logout();
         } else {
             if (target == "_blank") {
                 this.$window.open(linkToGo, target);
@@ -121,5 +127,5 @@ define([
     };
 
 
-    return TopMenuWeb2View;
+    return {newInstance: TopMenuWeb2View.newInstance};
 });

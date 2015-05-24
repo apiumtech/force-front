@@ -5,42 +5,38 @@
 define([], function () {
     'use strict';
 
-    function TopMenuWeb2Presenter() {
-    }
-
+    function TopMenuWeb2Presenter() {}
 
     TopMenuWeb2Presenter.prototype.show = function (view, model) {
-        this.view = view;
-        this.model = model;
-    };
+        view.event.getUserDataInfo = function () {
+            model.getUserDataInfo().then(
+                view.onGetUserDataInfo.bind(view),
+                view.onGetUserDataInfoError.bind(view)
+            );
+        };
 
+        view.event.getUserSections = function () {
+            return model.getUserSections();
+        };
 
-    TopMenuWeb2Presenter.prototype.getUserDataInfo = function () {
-        this.model.getUserDataInfo().then(
-            this.view.onGetUserDataInfo.bind(this.view),
-            this.view.onGetUserDataInfoError.bind(this.view)
-        );
-    };
+        view.event.getUserOptions = function () {
+            return model.getUserOptions();
+        };
 
-    TopMenuWeb2Presenter.prototype.logout = function () {
-        this.model.logout().then(
-            this.view.onLogout.bind(this.view),
-            this.view.onLogoutError.bind(this.view)
-        );
-    };
+        view.event.getUserData = function () {
+            return model.getUserData();
+        };
 
+        view.event.getUserNotifications = function () {
+            return model.getUserNotifications();
+        };
 
-    TopMenuWeb2Presenter.prototype.getUserSections = function () {
-        return this.model.getUserSections();
-    };
-    TopMenuWeb2Presenter.prototype.getUserOptions = function () {
-        return this.model.getUserOptions();
-    };
-    TopMenuWeb2Presenter.prototype.getUserData = function () {
-        return this.model.getUserData();
-    };
-    TopMenuWeb2Presenter.prototype.getUserNotifications = function () {
-        return this.model.getUserNotifications();
+        view.event.logout = function () {
+            model.logout().then(
+                view.onLogout.bind(view),
+                view.onLogoutError.bind(view)
+            );
+        };
     };
 
 
@@ -48,8 +44,5 @@ define([], function () {
         return new TopMenuWeb2Presenter();
     };
 
-
-    return {
-        newInstance: TopMenuWeb2Presenter.newInstance
-    };
+    return {newInstance: TopMenuWeb2Presenter.newInstance};
 });
