@@ -167,14 +167,15 @@ define([
     };
 
 
-    LiteralListView.newInstance = function ($scope, $compile, $model, $presenter, $dataTableService, $templateParser, $viewRepAspect, $logErrorAspect) {
-        var model = $model || LiteralListModel.newInstance();
-        var presenter = $presenter || LiteralListPresenter.newInstance();
-        var dataTableService = $dataTableService || DataTableService.newInstance();
-        var templateParser = $templateParser || SimpleTemplateParser.newInstance();
-        var view = new LiteralListView($scope, $compile, model, presenter, dataTableService, templateParser);
-        return view._injectAspects($viewRepAspect, $logErrorAspect);
+    LiteralListView.newInstance = function (namedParams) {
+        var scope = namedParams.scope || {};
+        var model = namedParams.model || LiteralListModel.newInstance();
+        var presenter = namedParams.presenter || LiteralListPresenter.newInstance();
+        var dataTableService = namedParams.dataTableService || DataTableService.newInstance();
+        var templateParser = namedParams.templateParser || SimpleTemplateParser.newInstance();
+        var view = new LiteralListView(scope, namedParams.compile, model, presenter, dataTableService, templateParser);
+        return view._injectAspects(namedParams.viewRepAspect, namedParams.logErrorAspect);
     };
 
-    return LiteralListView;
+    return {newInstance: LiteralListView.newInstance};
 });

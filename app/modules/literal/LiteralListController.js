@@ -12,7 +12,7 @@ define([
     }
 
     LiteralListController.configureView = function ($scope, $compile) {
-        this.view = LiteralListView.newInstance($scope, $compile);
+        this.view = LiteralListView.newInstance({scope:$scope, compile:$compile});
         this.view.show();
     };
 

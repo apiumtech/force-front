@@ -7,7 +7,7 @@ define([
 
         function exerciseCreateView(scope) {
             scope = scope || {};
-            return LiteralView.newInstance(scope, null, null, null, window, false, false);
+            return LiteralView.newInstance({scope:scope, window:document.window, viewRepAspect:false, logErrorAspect:false});
         }
 
         it('should configureEvents on instantiation', function () {

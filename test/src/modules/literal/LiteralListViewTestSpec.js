@@ -6,11 +6,13 @@ define([
     describe('LiteralListView', function () {
 
         function exerciseCreateView(scope, model, presenter) {
-            var $compileFake = function () {
-                return function () {
-                }
+            var compileFake = function () {
+                return function () {};
             };
-            return LiteralListView.newInstance(scope, $compileFake, model, presenter, null, null, false, false);
+            return LiteralListView.newInstance({
+                    scope:scope, model:model, presenter:presenter, compiler:compileFake,
+                    viewRepAspect:false, logErrorAspect:false
+            });
         }
 
         it('should configureEvents on instantiation', function () {

@@ -110,17 +110,17 @@ define([
     };
 
 
-    LiteralView.newInstance = function ($scope, $model, $presenter, $routeParams, $window, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
-        var routeParams = $routeParams;
-        var model = $model || LiteralModel.newInstance();
-        var presenter = $presenter || LiteralPresenter.newInstance();
-        $window = $window || window;
+    LiteralView.newInstance = function (namedParams) {
+        var scope = namedParams.scope || {};
+        var model = namedParams.model || LiteralModel.newInstance();
+        var presenter = namedParams.presenter || LiteralPresenter.newInstance();
+        var $window = namedParams.window || window;
+        var routeParams = namedParams.routeParams;
 
         var view = new LiteralView(scope, model, presenter, routeParams, $window);
 
-        return view._injectAspects($viewRepAspect, $logErrorAspect);
+        return view._injectAspects(namedParams.viewRepAspect, namedParams.logErrorAspect);
     };
 
-    return LiteralView;
+    return {newInstance: LiteralView.newInstance};
 });
