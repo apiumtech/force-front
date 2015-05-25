@@ -6,12 +6,24 @@ define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/ajax/AuthAjaxService'
 ], function (WidgetBase, AuthAjaxService) {
-    
+
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
+        this.currentFilter = 'allActivities';
+        this.filters = [{
+            name: "Total Activities",
+            key: "allActivities"
+        }, {
+            name: "Visits",
+            key: "visits"
+        }];
     }
 
     PieChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+
+    PieChartWidgetModel.prototype.getUrl = function () {
+        return this.fetchPoint.format(this.currentFilter);
+    };
 
     PieChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
 

@@ -50,10 +50,8 @@ define([
             {
                 page: "intensity",
                 widgetType: "graph",
-                endPoint: "todo--put-url--here",
+                endPoint: Configuration.api.graphWidgetIntensityDataApi,
                 widgetName: "Widget A",
-                data: {},
-                widgetId: 1,
                 order: 0,
                 size: 12
             },
@@ -61,18 +59,15 @@ define([
                 page: "intensity",
                 widgetType: "table",
                 widgetName: "Ranking",
-                endPoint: "todo--put-url--here",
-                widgetId: 2,
+                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
                 order: 1,
-                size: 12,
-                data: {}
+                size: 12
             },
             {
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
-                endPoint: "todo--put-url--here",
-                widgetId: 3,
+                endPoint: Configuration.api.geographicalWidgetDistributionDataApi,
                 order: 1,
                 size: 12
             },
@@ -80,29 +75,23 @@ define([
                 page: "distribution",
                 widgetType: "segment_distribution",
                 widgetName: "Distribucion por segmento",
-                endPoint: "todo--put-url--here",
-                widgetId: 1029,
+                endPoint: Configuration.api.segmentWidgetDistributionDataApi,
                 order: 3,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "distribution",
                 widgetType: "hour_distribution",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: "todo--put-url--here",
-                widgetId: 5,
+                endPoint: Configuration.api.hourWidgetDistributionDataApi,
                 order: 3,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: "todo--put-url--here",
-                data: {},
-                widgetId: 2002,
+                endPoint:  Configuration.api.hourWidgetDistributionDataApi,
                 order: 4,
                 size: 6
             },
@@ -112,20 +101,16 @@ define([
                 widgetOption: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
                 endPoint: Configuration.api.coverageWidgetDistributionDataApi,
-                widgetId: 2003,
                 order: 5,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
                 widgetType: "scatter",
                 widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
-                endPoint: "todo--put-url--here",
-                widgetId: 9,
+                endPoint: Configuration.api.activityWidgetConversionDataApi,
                 order: 0,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
@@ -133,22 +118,20 @@ define([
                 widgetOption: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
                 endPoint: Configuration.api.visitWidgetConversionDataApi,
-                widgetId: 10,
                 order: 1,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
                 widgetType: "table",
                 widgetName: "Ranking",
-                endPoint: "todo--put-url--here",
-                widgetId: 12,
+                // TODO: change to conversion api
+                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
                 order: 1,
-                size: 12,
-                data: {}
+                size: 12
             }
         ];
+
         var pageWidgets = _.clone(_.filter(widgetList, function (widget) {
             return widget.page === page;
         }));
@@ -162,7 +145,6 @@ define([
             var w = {
                 type: widget.widgetType,
                 widgetName: widget.widgetName,
-                widgetId: widget.widgetId,
                 position: {
                     size: widget.size
                 },

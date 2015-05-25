@@ -290,7 +290,6 @@ if (!Function.prototype.bind) {
 }
 /*************************************/
 function jasmineMock (constr, name) {
-    console.log("mocking: ", name);
     var keys = [];
     for (var key in constr.prototype) {
         keys.push(key);

@@ -3,10 +3,11 @@
  */
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/PieChart'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
+], function (WidgetBaseView, PieChartWidgetModel, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
 
     function PieChartWidgetView(scope, element, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
