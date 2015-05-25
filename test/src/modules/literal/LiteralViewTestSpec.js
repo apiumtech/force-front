@@ -17,11 +17,11 @@ define([
 
         it('should call get LiteralType List and DeviceType List _onInit', function () {
             var view = exerciseCreateView();
-            spyOn(view.presenter, "getLiteralTypeList");
-            spyOn(view.presenter, "getDeviceTypeList");
+            spyOn(view.event, "getLiteralTypeList");
+            spyOn(view.event, "getDeviceTypeList");
             view._onInit();
-            expect(view.presenter.getLiteralTypeList).toHaveBeenCalled();
-            expect(view.presenter.getDeviceTypeList).toHaveBeenCalled();
+            expect(view.event.getLiteralTypeList).toHaveBeenCalled();
+            expect(view.event.getDeviceTypeList).toHaveBeenCalled();
         });
 
         it('should set literalTypeList on get LiteralType List', function () {
@@ -42,18 +42,18 @@ define([
             var view = exerciseCreateView();
             var literalId = 2;
             view.routeParams = {literalId: literalId};
-            spyOn(view.presenter, "getLiteralById");
+            spyOn(view.event, "getLiteralById");
 
             view.getLiteralById();
-            expect(view.presenter.getLiteralById).not.toHaveBeenCalled();
+            expect(view.event.getLiteralById).not.toHaveBeenCalled();
 
             view.data.deviceTypeList = [];
             view.getLiteralById();
-            expect(view.presenter.getLiteralById).not.toHaveBeenCalled();
+            expect(view.event.getLiteralById).not.toHaveBeenCalled();
 
             view.data.literalTypeList = [];
             view.getLiteralById();
-            expect(view.presenter.getLiteralById).toHaveBeenCalledWith(literalId);
+            expect(view.event.getLiteralById).toHaveBeenCalledWith(literalId);
         });
 
         it('should goBack on cancel', function () {
@@ -97,8 +97,8 @@ define([
                 view = exerciseCreateView();
                 view.data.literal = {};
                 view.data.selectedDeviceTypes = "some device types";
-                spyOn(view.presenter, "createLiteral");
-                spyOn(view.presenter, "updateLiteral");
+                spyOn(view.event, "createLiteral");
+                spyOn(view.event, "updateLiteral");
             });
 
             it('should set assign the selected DeviceTypes to the literal', function () {
@@ -106,16 +106,16 @@ define([
                 expect(view.data.literal.DeviceTypes).toBe("some device types");
             });
 
-            it('should call presenter createLiteral if literal is new', function () {
+            it('should call createLiteral if literal is new', function () {
                 spyOn(view, "isNew").and.returnValue(true);
                 view._onSave();
-                expect(view.presenter.createLiteral).toHaveBeenCalledWith(view.data.literal);
+                expect(view.event.createLiteral).toHaveBeenCalledWith(view.data.literal);
             });
 
-            it('should call presenter updateLiteral if literal is not new', function () {
+            it('should call updateLiteral if literal is not new', function () {
                 spyOn(view, "isNew").and.returnValue(false);
                 view._onSave();
-                expect(view.presenter.updateLiteral).toHaveBeenCalledWith(view.data.literal);
+                expect(view.event.updateLiteral).toHaveBeenCalledWith(view.data.literal);
             });
         });
 

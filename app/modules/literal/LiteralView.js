@@ -36,14 +36,18 @@ define([
         this.fn.isNew = this.isNew.bind(this);
         this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
 
-        this.event.isNew = function () {
-        };
+        this.event.isNew = function () {};
+        this.event.getLiteralTypeList = function () {};
+        this.event.getDeviceTypeList = function () {};
+        this.event.getLiteralById = function () {};
+        this.event.createLiteral = function () {};
+        this.event.updateLiteral = function () {};
     };
 
 
     proto._onInit = function () {
-        this.presenter.getLiteralTypeList();
-        this.presenter.getDeviceTypeList();
+        this.event.getLiteralTypeList();
+        this.event.getDeviceTypeList();
     };
 
 
@@ -61,7 +65,7 @@ define([
 
     proto.getLiteralById = function () {
         if (this.data.deviceTypeList && this.data.literalTypeList) {
-            this.presenter.getLiteralById(this.routeParams.literalId);
+            this.event.getLiteralById(this.routeParams.literalId);
         }
     };
 
@@ -89,9 +93,9 @@ define([
     proto._onSave = function () {
         this.data.literal.DeviceTypes = this.data.selectedDeviceTypes;
         if (this.isNew()) {
-            this.presenter.createLiteral(this.data.literal);
+            this.event.createLiteral(this.data.literal);
         } else {
-            this.presenter.updateLiteral(this.data.literal);
+            this.event.updateLiteral(this.data.literal);
         }
     };
 
