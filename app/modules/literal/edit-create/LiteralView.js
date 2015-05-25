@@ -1,7 +1,7 @@
 define([
     'shared/BaseView',
-    'modules/literal/LiteralPresenter',
-    'modules/literal/LiteralModel',
+    'modules/literal/edit-create/LiteralPresenter',
+    'modules/literal/edit-create/LiteralModel',
     'shared/services/TranslatorService'
 ], function (BaseView, LiteralPresenter, LiteralModel, TranslatorService) {
     

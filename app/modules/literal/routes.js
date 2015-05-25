@@ -9,9 +9,9 @@ define([], function () {
 
                 .when('/literal-list', resolveRoute('modules/literal/LiteralListController', 'modules/literal/literalList'))
 
-                .when('/literal/:literalId/edit', resolveRoute('modules/literal/LiteralController', 'modules/literal/literal'))
+                .when('/literal/:literalId/edit', resolveRoute('modules/literal/edit-create/LiteralController', 'modules/literal/edit-create/literal'))
 
-                .when('/literal', resolveRoute('modules/literal/LiteralController', 'modules/literal/literal'))
+                .when('/literal', resolveRoute('modules/literal/edit-create/LiteralController', 'modules/literal/edit-create/literal'))
             ;
         }
     };
