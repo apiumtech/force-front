@@ -44,8 +44,9 @@ define([
         this.fn.onToggleColumn = this.onToggleColumn.bind(this);
 
         // Method stubs, actually implemented in presenter.
-        this.event.onFieldsRestoreDefault = function () {
-        };
+        this.event.onFieldsRestoreDefault = function () {};
+        this.event.loadContactColumns = function () {};
+        this.event.loadContacts = function () {};
     };
 
 
@@ -55,8 +56,8 @@ define([
      * @method initializeTable()
      */
     ContactView.prototype.initializeTable = function () {
-        this.presenter.loadContactColumns();
-        this.presenter.loadContacts();
+        this.event.loadContactColumns();
+        this.event.loadContacts();
     };
 
     ContactView.prototype.onLoadContactColumnsComplete = function (columns) {

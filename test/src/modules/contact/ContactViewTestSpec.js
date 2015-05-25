@@ -27,11 +27,11 @@ define([
 
         it('should loadContactColumns and loadContats on initializeMap()', function () {
             var view = exerciseCreateView();
-            spyOn(view.presenter, 'loadContactColumns');
-            spyOn(view.presenter, 'loadContacts');
+            spyOn(view.event, 'loadContactColumns');
+            spyOn(view.event, 'loadContacts');
             view.initializeTable();
-            expect(view.presenter.loadContactColumns).toHaveBeenCalled();
-            expect(view.presenter.loadContacts).toHaveBeenCalled();
+            expect(view.event.loadContactColumns).toHaveBeenCalled();
+            expect(view.event.loadContacts).toHaveBeenCalled();
         });
 
         it('should resolve column visibility', function () {
