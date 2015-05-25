@@ -4,7 +4,7 @@
 
 define([
     'modules/saleAnalytics/eventBus/WidgetEventBus'
-], function(WidgetEventBus){
+], function (WidgetEventBus) {
 
     var widgetName = "intensityWidgetA";
 

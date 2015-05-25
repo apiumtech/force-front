@@ -50,13 +50,11 @@ define([
             it("should format the Api with the current filter", function () {
 
                 sut.currentFilter = "fake_filter";
-                var expectedUrl = Configuration.api.coverageWidgetDistributionDataApi.format(sut.currentFilter);
                 spyOn(String.prototype, 'format').and.callThrough();
-
+                sut.fetchPoint = "fetch point url";
                 var result = sut.getUrl();
 
-                expect(Configuration.api.coverageWidgetDistributionDataApi.format).toHaveBeenCalledWith(sut.currentFilter);
-                expect(result).toEqual(expectedUrl);
+                expect(sut.fetchPoint.format).toHaveBeenCalledWith(sut.currentFilter);
             });
         });
 
@@ -64,6 +62,7 @@ define([
             it('should call decoration method to decorate data from server', function (done) {
                 spyOn(sut, 'decorateServerData');
                 spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+                sut.fetchPoint = "fake_url";
                 sut._reload().then(function () {
                     expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
                     expect(sut.decorateServerData).toHaveBeenCalled();

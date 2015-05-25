@@ -2,7 +2,9 @@ define([
     'app',
     'modules/saleAnalytics/conversion/ConversionView',
 
-    'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetDirective'
+    'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetDirective',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective'
+
 ], function (app, ConversionView) {
     'use strict';
 

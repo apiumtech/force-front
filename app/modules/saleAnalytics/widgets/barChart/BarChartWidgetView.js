@@ -128,6 +128,20 @@ define([
         }
     };
 
+    BarChartWidgetView.prototype.extractFilters = function () {
+        var self = this;
+        self.filters = self.data.filters;
+        var filterList = self.filters,
+            currentSelectedFilter = self.selectedFilter;
+
+        self.selectedFilter =
+            currentSelectedFilter && filterList.map(function (f) {
+                return f.key;
+            }).indexOf(currentSelectedFilter) !== -1 ?
+                currentSelectedFilter :
+                self.filters[0].key;
+    };
+
     BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
         console.log("Widget moved to new position");
     };

@@ -4,9 +4,10 @@
 
 define([
     //TODO: replace by real AjaxService when having real data from server
-    'shared/services/ajax/FakeAjaxService'
+    'shared/services/ajax/FakeAjaxService',
     //'shared/services/ajax/AjaxService'
-], function (AjaxService) {
+    'config'
+], function (AjaxService, Configuration) {
     'use strict';
 
     function WidgetService(ajaxService) {
@@ -49,8 +50,8 @@ define([
             {
                 page: "intensity",
                 widgetType: "graph",
+                endPoint: "todo--put-url--here",
                 widgetName: "Widget A",
-                imgUrl: 'chart-1.jpg',
                 data: {},
                 widgetId: 1,
                 order: 0,
@@ -60,6 +61,7 @@ define([
                 page: "intensity",
                 widgetType: "table",
                 widgetName: "Ranking",
+                endPoint: "todo--put-url--here",
                 widgetId: 2,
                 order: 1,
                 size: 12,
@@ -69,6 +71,7 @@ define([
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
+                endPoint: "todo--put-url--here",
                 widgetId: 3,
                 order: 1,
                 size: 12
@@ -77,6 +80,7 @@ define([
                 page: "distribution",
                 widgetType: "segment_distribution",
                 widgetName: "Distribucion por segmento",
+                endPoint: "todo--put-url--here",
                 widgetId: 1029,
                 order: 3,
                 size: 6,
@@ -86,6 +90,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution",
                 widgetName: "DISTRIBUCION HORARIA",
+                endPoint: "todo--put-url--here",
                 widgetId: 5,
                 order: 3,
                 size: 6,
@@ -95,6 +100,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
+                endPoint: "todo--put-url--here",
                 data: {},
                 widgetId: 2002,
                 order: 4,
@@ -103,7 +109,9 @@ define([
             {
                 page: "distribution",
                 widgetType: "bar",
+                widgetOption: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
+                endPoint: Configuration.api.coverageWidgetDistributionDataApi,
                 widgetId: 2003,
                 order: 5,
                 size: 6,
@@ -113,6 +121,7 @@ define([
                 page: "conversion",
                 widgetType: "scatter",
                 widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
+                endPoint: "todo--put-url--here",
                 widgetId: 9,
                 order: 0,
                 size: 6,
@@ -121,7 +130,9 @@ define([
             {
                 page: "conversion",
                 widgetType: "bar",
+                widgetOption: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
+                endPoint: Configuration.api.visitWidgetConversionDataApi,
                 widgetId: 10,
                 order: 1,
                 size: 6,
@@ -131,6 +142,7 @@ define([
                 page: "conversion",
                 widgetType: "table",
                 widgetName: "Ranking",
+                endPoint: "todo--put-url--here",
                 widgetId: 12,
                 order: 1,
                 size: 12,
@@ -154,7 +166,8 @@ define([
                 position: {
                     size: widget.size
                 },
-                dataEndpoint: widget.widgetId
+                dataEndpoint: widget.endPoint,
+                option: widget.widgetOption
             };
             list.push(w);
         });

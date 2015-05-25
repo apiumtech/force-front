@@ -38,7 +38,6 @@ define([
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
-        console.log('wd-view', widgetsData);
         this.decorateWidget.call(this, widgetsData.body);
         this.widgets = widgetsData.body;
     };
