@@ -5,14 +5,14 @@ define([
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetView'
 ], function (HourLineChartWidgetView) {
 
-    function DistributionHourLineWidgetController($scope, $element) {
-        DistributionHourLineWidgetController.configureView($scope, $element);
+    function ConversionDiagramActivityWidgetController($scope, $element) {
+        ConversionDiagramActivityWidgetController.configureView($scope, $element);
     }
 
-    DistributionHourLineWidgetController.configureView = function ($scope, $element) {
+    ConversionDiagramActivityWidgetController.configureView = function ($scope, $element) {
         this.view = HourLineChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
 
-    return DistributionHourLineWidgetController;
+    return ConversionDiagramActivityWidgetController;
 });

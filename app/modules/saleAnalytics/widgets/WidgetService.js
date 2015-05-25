@@ -4,9 +4,10 @@
 
 define([
     //TODO: replace by real AjaxService when having real data from server
-    'shared/services/ajax/FakeAjaxService'
+    'shared/services/ajax/FakeAjaxService',
     //'shared/services/ajax/AjaxService'
-], function (AjaxService) {
+    'config'
+], function (AjaxService, Configuration) {
     'use strict';
 
     function WidgetService(ajaxService) {
@@ -49,10 +50,8 @@ define([
             {
                 page: "intensity",
                 widgetType: "graph",
+                endPoint: Configuration.api.graphWidgetIntensityDataApi,
                 widgetName: "Widget A",
-                imgUrl: 'chart-1.jpg',
-                data: {},
-                widgetId: 1,
                 order: 0,
                 size: 12
             },
@@ -60,16 +59,15 @@ define([
                 page: "intensity",
                 widgetType: "table",
                 widgetName: "Ranking",
-                widgetId: 2,
+                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
                 order: 1,
-                size: 12,
-                data: {}
+                size: 12
             },
             {
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
-                widgetId: 3,
+                endPoint: Configuration.api.geographicalWidgetDistributionDataApi,
                 order: 1,
                 size: 12
             },
@@ -77,66 +75,63 @@ define([
                 page: "distribution",
                 widgetType: "segment_distribution",
                 widgetName: "Distribucion por segmento",
-                widgetId: 1029,
+                endPoint: Configuration.api.segmentWidgetDistributionDataApi,
                 order: 3,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "distribution",
                 widgetType: "hour_distribution",
                 widgetName: "DISTRIBUCION HORARIA",
-                widgetId: 5,
+                endPoint: Configuration.api.hourWidgetDistributionDataApi,
                 order: 3,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
-                data: {},
-                widgetId: 2002,
+                endPoint:  Configuration.api.hourWidgetDistributionDataApi,
                 order: 4,
                 size: 6
             },
             {
                 page: "distribution",
                 widgetType: "bar",
+                widgetOption: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
-                widgetId: 2003,
+                endPoint: Configuration.api.coverageWidgetDistributionDataApi,
                 order: 5,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
                 widgetType: "scatter",
                 widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
-                widgetId: 9,
+                endPoint: Configuration.api.activityWidgetConversionDataApi,
                 order: 0,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
-                widgetType: "scatter",
+                widgetType: "bar",
+                widgetOption: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
-                widgetId: 10,
+                endPoint: Configuration.api.visitWidgetConversionDataApi,
                 order: 1,
-                size: 6,
-                data: {}
+                size: 6
             },
             {
                 page: "conversion",
                 widgetType: "table",
                 widgetName: "Ranking",
-                widgetId: 12,
+                // TODO: change to conversion api
+                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
                 order: 1,
-                size: 12,
-                data: {}
+                size: 12
             }
         ];
+
         var pageWidgets = _.clone(_.filter(widgetList, function (widget) {
             return widget.page === page;
         }));
@@ -150,11 +145,11 @@ define([
             var w = {
                 type: widget.widgetType,
                 widgetName: widget.widgetName,
-                widgetId: widget.widgetId,
                 position: {
                     size: widget.size
                 },
-                dataEndpoint: widget.widgetId
+                dataEndpoint: widget.endPoint,
+                option: widget.widgetOption
             };
             list.push(w);
         });

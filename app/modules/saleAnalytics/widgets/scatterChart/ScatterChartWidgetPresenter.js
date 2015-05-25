@@ -1,18 +1,17 @@
 /**
- * Created by justin on 1/26/15.
+ * Created by justin on 2/2/15.
  */
 
 define([
     'modules/saleAnalytics/eventBus/WidgetEventBus'
 ], function (WidgetEventBus) {
+    var widgetName = "Scatter";
 
-    var widgetName = "intensityWidgetA";
-
-    function BarChartWidgetPresenter(widgetEventChannel) {
+    function ScatterChartWidgetPresenter(widgetEventChannel) {
         this.widgetEventChannel = widgetEventChannel;
     }
 
-    BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    ScatterChartWidgetPresenter.prototype = Object.create(Object.prototype, {
         widgetEventChannel: {
             get: function () {
                 return this._widgetEventChannel;
@@ -24,27 +23,27 @@ define([
         }
     });
 
-    BarChartWidgetPresenter.prototype.rebindChannelListener = function () {
+    ScatterChartWidgetPresenter.prototype.rebindChannelListener = function () {
         var self = this;
         self.widgetEventChannel.onReloadSignalReceived(function () {
             self._executeLoadWidget();
         });
     };
 
-    BarChartWidgetPresenter.prototype._executeLoadWidget = function () {
+    ScatterChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
             $model = self.$model;
 
-        $model.reloadWidget()
+        $model._reload($view.generateTooltip.bind($view))
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
-    BarChartWidgetPresenter.prototype.showError = function (error) {
+    ScatterChartWidgetPresenter.prototype.showError = function (error) {
 
     };
 
-    BarChartWidgetPresenter.prototype.show = function (view, model) {
+    ScatterChartWidgetPresenter.prototype.show = function (view, model) {
         var self = this;
         self.$view = view;
         self.$model = model;
@@ -57,7 +56,7 @@ define([
             self._executeLoadWidget();
         };
 
-        view.event.onTabChanged = function () {
+        view.event.onFilterChanged = function () {
             model.changeQueryFilter(view.selectedFilter);
             view.sendReloadCommandToChannel();
         };
@@ -71,13 +70,12 @@ define([
             model.addUserFilter(filterValue);
             view.sendReloadCommandToChannel();
         };
-
     };
 
-    BarChartWidgetPresenter.newInstance = function (widgetEventChannel) {
+    ScatterChartWidgetPresenter.newInstance = function (widgetEventChannel) {
         var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new BarChartWidgetPresenter(_widgetEventChannel);
+        return new ScatterChartWidgetPresenter(_widgetEventChannel);
     };
 
-    return BarChartWidgetPresenter;
+    return ScatterChartWidgetPresenter;
 });

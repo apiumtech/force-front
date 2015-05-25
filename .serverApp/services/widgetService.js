@@ -89,7 +89,7 @@ var widgetList = [
     },
     {
         page: "conversion",
-        widgetType: "scatter",
+        widgetType: "bar",
         widgetName: "Efectividad visitas/venta",
         widgetId: 10,
         order: 1,

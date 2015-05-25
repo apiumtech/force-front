@@ -33,7 +33,7 @@ define([
     };
 
     BarChartWidgetModel.prototype.getUrl = function () {
-        return Configuration.api.coverageWidgetDistributionDataApi.format(this.currentFilter);
+        return this.fetchPoint.format(this.currentFilter);
     };
 
     BarChartWidgetModel.prototype.decorateServerData = function (data) {

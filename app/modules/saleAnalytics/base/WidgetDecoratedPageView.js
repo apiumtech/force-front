@@ -4,8 +4,14 @@
 
 define([
     'shared/BaseView',
+
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
+
+    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetDirective',
+    'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
+    'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective'
 ], function (BaseView) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
@@ -38,7 +44,6 @@ define([
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
-        console.log('wd-view', widgetsData);
         this.decorateWidget.call(this, widgetsData.body);
         this.widgets = widgetsData.body;
     };

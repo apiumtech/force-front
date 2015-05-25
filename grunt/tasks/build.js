@@ -17,8 +17,6 @@ module.exports = function (grunt) {
         grunt.task.run(['less:dev']);
 
         grunt.task.run(['copy:assets']);
-
-        grunt.task.run(['delete.mainBuild']);
     });
 
     grunt.registerTask('build', function () {

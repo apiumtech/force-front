@@ -3,11 +3,18 @@
                 event-bus-channel="eventChannel">
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
-            <button class="btn btn-white btn-sm" ng-repeat="filter in tabs"
+            <button ng-if="widget.option == 'tab'" class="btn btn-white btn-sm" ng-repeat="filter in tabs"
                     ng-click="fn.changeFilter(filter.key)"
                     ng-class="{'active':selectedFilter==filter.key}">
                 {{filter.name}}
             </button>
+
+            <select ng-if="widget.option == 'dropdown'" class="form-control pull left"
+                    ng-model="selectedFilter"
+                    ng-change="fn.changeFilter(selectedFilter)">
+                <option ng-repeat="filter in tabs" value="{{filter.key}}">{{filter.name}}</option>
+            </select>
+
         </div>
     </div>
     <div class="chart-place-holder height-sm"></div>
