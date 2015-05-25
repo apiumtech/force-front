@@ -1,5 +1,5 @@
 define([
-    'modules/literal/LiteralView'
+    'modules/literal/edit-create/LiteralView'
 ], function (LiteralView) {
     'use strict';
 
