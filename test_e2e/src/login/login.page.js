@@ -1,5 +1,11 @@
 var LoginPage = function(){
     var EC = protractor.ExpectedConditions;
+    var LoginServer = require('./login.server');
+
+    var mockServer = new LoginServer();
+    mockServer.start();
+
+
     browser.get('#/login');
 
     var usernameField = element(by.model('data.loginUser'));
