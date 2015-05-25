@@ -13,11 +13,11 @@ define([
 			var view = {event:{}, showError: function(){}};
 			var model = { deleteLiteral: exerciseFakeOkPromise };
 			presenter.show(view, model);
-			spyOn(presenter, "getLiteralList");
+			spyOn(view.event, "getLiteralList");
 
-			presenter.onDelete(1);
+			view.event.onDelete(1);
 
-			expect(presenter.getLiteralList).toHaveBeenCalled();
+			expect(view.event.getLiteralList).toHaveBeenCalled();
 		});
 	});
 });

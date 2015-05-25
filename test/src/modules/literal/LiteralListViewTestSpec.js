@@ -30,8 +30,6 @@ define([
 
         it('should createColumns onGetLanguageList', function () {
             var view = exerciseCreateView();
-            view.presenter.getLiteralList = function () {
-            };
             expect(view.data.tableColumns).toBe(null);
             view.onGetLanguageList([]);
             expect(view.data.tableColumns).not.toBe(null);
@@ -39,9 +37,9 @@ define([
 
         it('should getLiteralList on onGetLanguageList', function () {
             var view = exerciseCreateView();
-            spyOn(view.presenter, "getLiteralList");
+            spyOn(view.event, "getLiteralList");
             view.onGetLanguageList([]);
-            expect(view.presenter.getLiteralList).toHaveBeenCalled();
+            expect(view.event.getLiteralList).toHaveBeenCalled();
         });
 
         it('should create columns on createColumns', function () {

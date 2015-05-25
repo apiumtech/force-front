@@ -4,59 +4,42 @@
 
 define([], function () {
 
-    function LiteralListPresenter() {
-    }
+    function LiteralListPresenter() {}
 
-    var proto = LiteralListPresenter.prototype;
-
-
-    proto.show = function (view, model) {
-        this.model = model;
-        this.view = view;
-
-        view.event.onDelete = this.onDelete.bind(this);
-        view.event.onInit = this.onInit.bind(this);
-    };
-
-
-    proto.getLiteralList = function () {
+    LiteralListPresenter.prototype.show = function (view, model) {
         var self = this;
-        self.model.getLiteralList("")
-            .then(
-            self.view.showTableData.bind(self.view),
-            self.view.showError.bind(self.view)
-        );
-    };
 
+        view.event.onDelete = function (id) {
+            model.deleteLiteral(id)
+                .then(
+                view.event.getLiteralList.bind(view.event),
+                view.showError.bind(view)
+            );
+        };
 
-    proto.onInit = function () {
-        var self = this;
-        self.model.getLiteralDictionary();
+        view.event.getLiteralList = function () {
+            model.getLiteralList("")
+                .then(
+                view.showTableData.bind(view),
+                view.showError.bind(view)
+            );
+        };
 
-        self.model.getLanguageList()
-            .then(
-            self.view.onGetLanguageList.bind(self.view),
-            self.view.showError.bind(self.view)
-        );
-    };
+        view.event.onInit = onInit = function () {
+            model.getLiteralDictionary();
+            model.getLanguageList()
+                .then(
+                view.onGetLanguageList.bind(view),
+                view.showError.bind(view)
+            );
+        };
 
-
-    proto.onSearchTextFilterChanged = function (searchQuery) {
-        var self = this;
-        self.model.getLiteralList(searchQuery).then(
-            self.view.showTableData.bind(self.view),
-            self.view.showError.bind(self.view)
-        );
-    };
-
-
-    proto.onDelete = function (id) {
-        var self = this;
-        self.model.deleteLiteral(id)
-            .then(
-            self.getLiteralList.bind(self),
-            self.view.showError.bind(self.view)
-        );
+        view.event.onSearchTextFilterChanged = function (searchQuery) {
+            model.getLiteralList(searchQuery).then(
+                view.showTableData.bind(view),
+                view.showError.bind(view)
+            );
+        };
     };
 
 
@@ -64,6 +47,6 @@ define([], function () {
         return new LiteralListPresenter();
     };
 
-    return LiteralListPresenter;
+    return {newInstance: LiteralListPresenter.newInstance};
 });
 

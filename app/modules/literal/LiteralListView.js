@@ -40,17 +40,17 @@ define([
         this.fn.onSearchTextFilterChanged = this.onSearchTextFilterChanged.bind(this);
 
         // Events defined in Presenter
-        this.event.onInit = function () {
-        };
-        this.event.onDelete = function () {
-        };
+        this.event.onInit = function () {};
+        this.event.onDelete = function () {};
+        this.event.onSearchTextFilterChanged = function () {};
+        this.event.getLiteralList = function () {};
     };
 
 
     proto.onSearchTextFilterChanged = function (searchQuery) {
         clearTimeout(this.onSearchTimeout);
         this.onSearchTimeout = setTimeout(
-            this.presenter.onSearchTextFilterChanged.bind(this.presenter),
+            this.event.onSearchTextFilterChanged,
             1000,
             searchQuery
         );
@@ -71,7 +71,7 @@ define([
 
     proto.onGetLanguageList = function (data) {
         this.createColumns(data);
-        this.presenter.getLiteralList();
+        this.event.getLiteralList();
     };
 
 
