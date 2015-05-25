@@ -6,12 +6,14 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetPresenter',
     'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetModel',
-    'modules/widgets/BaseWidgetEventBus'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus) {
+    'modules/widgets/BaseWidgetEventBus',
+    'shared/services/GoogleChartService'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, GoogleChartService) {
 
-    function ConversionDiagramActivityWidgetView(scope, element, model, presenter) {
+    function ConversionDiagramActivityWidgetView(scope, element, chartService, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         var self = this;
+        self.chartService = chartService;
         self.configureEvents();
     }
 
@@ -75,8 +77,7 @@ define([
 
     ConversionDiagramActivityWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
-        self.data = responseData.data.params;
-        self.extractFilters();
+        self.data = responseData.data;
         self.refreshChart();
     };
 
@@ -98,26 +99,21 @@ define([
         var self = this,
             data = self.data;
 
-        if (!data || data === null) return;
-
-        var chartFields = [];
-
-        data.fields.forEach(function (field) {
-            var lineGraph = ConversionDiagramActivityWidgetView.getLineGraphInstance(field);
-            chartFields.push(lineGraph);
-        });
-
-        self.paintChart(self.element.find('.chart-place-holder'), chartFields);
+        self.paintChart(self.element.find('.chart-place-holder'), data);
     };
 
-    ConversionDiagramActivityWidgetView.getLineGraphInstance = function (field) {
-        return LineGraphPlot.newInstance(field.name, field.data, false, false);
-    };
+    ConversionDiagramActivityWidgetView.prototype.paintChart = function (element, data) {
+        var self = this;
+        var chartService = self.chartService;
 
-    ConversionDiagramActivityWidgetView.prototype.paintChart = function (element, chartFields) {
-        var plot = SingleLineChart.basic(chartFields, []);
-        plot.paint($(element));
-        plot.onHover(this.onPlotHover.bind(this));
+        //var plot = SingleLineChart.basic(chartFields, []);
+        //plot.paint($(element));
+        //plot.onHover(this.onPlotHover.bind(this));
+
+        var data = chartService.createDataTable(self.data);
+
+        this.chart = chartService.createChart(element[0], 'scatter');
+        chartService.drawChart(this.chart, data);
     };
 
     var previousPoint = null;
@@ -146,11 +142,12 @@ define([
         event.preventDefault();
     };
 
-    ConversionDiagramActivityWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
+    ConversionDiagramActivityWidgetView.newInstance = function ($scope, $element, $chartService, $model, $presenter, $viewRepAspect, $logErrorAspect) {
         var model = $model || SingleLineChartWidgetModel.newInstance();
         var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance();
+        var chartService = $chartService || GoogleChartService.newInstance();
 
-        var view = new ConversionDiagramActivityWidgetView($scope, $element, model, presenter);
+        var view = new ConversionDiagramActivityWidgetView($scope, $element, chartService, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

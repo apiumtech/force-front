@@ -52,8 +52,6 @@ define([
 
             var index = returnData.data.columns.indexOf(groupData) -1;
 
-            console.log(index);
-
             // insert row data
             _.each(groupElems, function (elem) {
                 var row = [];
