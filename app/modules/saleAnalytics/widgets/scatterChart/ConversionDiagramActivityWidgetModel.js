@@ -21,14 +21,17 @@ define([
         return Configuration.api.activityWidgetConversionDataApi;
     };
 
-    ConversionDiagramActivityWidgetModel.prototype.decorateServerData = function (data) {
+    ConversionDiagramActivityWidgetModel.prototype.decorateServerData = function (tooltipGenerator, data) {
         var self = this;
         var returnData = {
+            name: "",
             data: {
                 columns: [],
                 rows: []
             }
         };
+
+        returnData.name = data.Series[0].Name;
 
         var serverData = data.Series[0].Points;
 
@@ -58,7 +61,7 @@ define([
                 row.push(elem.X);
                 for(var i = 0; i < numOfColumns; i++){
                     if(i == index) row.push(elem.Y);
-                    else if(i == (index+1) ) row.push(self.generateTooltip(elem));
+                    else if(i == (index+1) ) row.push(tooltipGenerator(elem));
                     else row.push(null);
                 }
                 returnData.data.rows.push(row);
@@ -75,9 +78,9 @@ define([
 
     ConversionDiagramActivityWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
 
-    ConversionDiagramActivityWidgetModel.prototype._reload = function () {
+    ConversionDiagramActivityWidgetModel.prototype._reload = function (tooltipGenerator) {
         return this._baseReload()
-            .then(this.decorateServerData.bind(this));
+            .then(this.decorateServerData.bind(this, tooltipGenerator));
     };
 
     ConversionDiagramActivityWidgetModel.newInstance = function (ajaxService) {

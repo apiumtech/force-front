@@ -7,14 +7,19 @@ define([
     'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetPresenter',
     'modules/saleAnalytics/widgets/scatterChart/ConversionDiagramActivityWidgetModel',
     'modules/widgets/BaseWidgetEventBus',
-    'shared/services/GoogleChartService'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, GoogleChartService) {
+    'shared/services/GoogleChartService',
+    'shared/services/SimpleTemplateParser'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser) {
 
     function ConversionDiagramActivityWidgetView(scope, element, chartService, model, presenter) {
         WidgetBaseView.call(this, scope, element, model, presenter);
         var self = this;
         self.chartService = chartService;
+        self.templateParser = SimpleTemplateParser.newInstance();
         self.configureEvents();
+        self.widgetName = '';
+        self.axisXTitle = 'Sales';
+        self.axisYTitle = 'Activity Scores';
     }
 
     ConversionDiagramActivityWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
@@ -78,6 +83,7 @@ define([
     ConversionDiagramActivityWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData.data;
+        self.widgetName = responseData.name;
         self.refreshChart();
     };
 
@@ -99,7 +105,15 @@ define([
         var self = this,
             data = self.data;
 
-        self.paintChart(self.element.find('.chart-place-holder'), data);
+        if (data && (Object.getOwnPropertyNames(data) && Object.getOwnPropertyNames(data).length !== 0))
+            self.paintChart(self.element.find('.chart-place-holder'), data);
+    };
+
+
+    ConversionDiagramActivityWidgetView.prototype.generateTooltip = function (element) {
+        var toolTipTemplate = $('#popup_tooltip').html();
+
+        return this.templateParser.parseTemplate(toolTipTemplate, element);
     };
 
     ConversionDiagramActivityWidgetView.prototype.paintChart = function (element, data) {
@@ -113,7 +127,27 @@ define([
         var data = chartService.createDataTable(self.data);
 
         this.chart = chartService.createChart(element[0], 'scatter');
-        chartService.drawChart(this.chart, data);
+
+        var options = {
+            title: self.widgetName,
+            selectionMode: 'none',
+            aggregationTarget: 'category',
+            tooltip: {isHtml: false, trigger: 'selection'},
+            series: {
+                0: {axis: self.axisXTitle},
+                1: {axis: self.axisYTitle}
+            },
+            axes: {
+                y: {
+                    'sales': {label: self.axisXTitle},
+                    'activity scores': {label: self.axisYTitle}
+                }
+            },
+
+            hAxis: {title: self.axisYTitle},
+            vAxis: {title: self.axisXTitle}
+        };
+        chartService.drawChart(this.chart, data, options);
     };
 
     var previousPoint = null;

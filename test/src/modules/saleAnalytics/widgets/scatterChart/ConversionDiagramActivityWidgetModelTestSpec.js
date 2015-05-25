@@ -45,7 +45,7 @@ define([
                 var serverInput = {
                     "Series": [
                         {
-                            "Name": "",
+                            "Name": "WidgetName",
                             "Points": [
                                 {
                                     "X": -2,
@@ -90,6 +90,7 @@ define([
                 var tooltip = {'type': 'string', 'role': 'tooltip', 'p': {'html': true}};
 
                 var expectedOutput = {
+                    name: "WidgetName",
                     data: {
                         columns: [
                             // The first column will always be x
@@ -121,12 +122,19 @@ define([
                         ]
                     }
                 };
-                spyOn(sut, 'generateTooltip').and.returnValue('tooltipHTML01');
-                var output = sut.decorateServerData(serverInput);
+                //spyOn(sut, 'generateTooltip').and.returnValue('tooltipHTML01');
+                var spyObj = {
+                    spy: function () {
+                    }
+                };
+                spyOn(spyObj, 'spy').and.returnValue('tooltipHTML01');
+                var output = sut.decorateServerData(spyObj.spy, serverInput);
                 expect(output).toEqual(expectedOutput);
-                expect(sut.generateTooltip).toHaveBeenCalled();
+                expect(spyObj.spy).toHaveBeenCalled();
             });
         });
+
+
     });
 
 });

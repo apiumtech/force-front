@@ -35,7 +35,7 @@ define([
             $view = self.$view,
             $model = self.$model;
 
-        $model.reloadWidget()
+        $model._reload($view.generateTooltip.bind($view))
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
