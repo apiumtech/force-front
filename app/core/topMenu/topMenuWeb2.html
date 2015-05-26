@@ -1,6 +1,9 @@
 <div id="header-web2" class="navbar navbar-default navbar-fixed-top" ng-init="fn.onInit()">
     <div class="container-fluid">
 
+
+
+        <!-- BRAND -->
         <div class="navbar-header">
             <div class="navbar-brand">
                 <a href="{{ data.userData.defaultAccessPage }}">
@@ -8,53 +11,45 @@
                 </a>
             </div>
         </div>
+        <!-- END BRAND -->
 
+
+
+        <!-- MENU SECTION -->
         <ul class="nav navbar-nav section-nav">
-            <li ng-class="{ active: item.section == 'sfm' }" ng-repeat="item in data.userSections">
-                <a id="{{ item.id }}"
+            <li ng-class="{ active: item.section == 'sfm' }" ng-repeat="userSection in data.userSections">
+                <a id="{{ userSection.id }}"
                    tooltip-placement="bottom"
-                   tooltip="{{ item.name }}"
-                   href="{{ fn.adjustLinkToParentFolder(item.url) }}">
-                    <i class="ic-{{ item.icon }}"></i>
+                   tooltip="{{ userSection.name }}"
+                   href="{{ fn.adjustLinkToParentFolder(userSection.url) }}">
+                    <i class="ic-{{ userSection.icon }}"></i>
                 </a>
             </li>
         </ul>
+        <!-- END MENU SECTION -->
+
 
 
         <!-- RIGHT MENU -->
         <ul class="nav navbar-nav user-section-nav pull-right">
-
-            <!-- SEPARATOR -->
-            <li class="upgrade"></li>
-
             <!-- AGENDA -->
             <li class="agenda-notifications" ng-show="fn.hasEventsOrTasksForToday()">
-                <i class="icon-agenda-notify"></i>
-                <span id="events-top-menu">
-                    <a href="{{ fn.adjustLinkToParentFolder('calendar.aspx') }}">
-                        <span class="notification">
-                            <div ng-show="fn.hasEventsForToday()">{{ data.eventsForToday }} events</div>
-                            <div ng-show="fn.hasTasksForToday()">{{ data.tasksForToday }} task</div>
-                        </span>
-                    </a>
-                </span>
-            </li>
-
-            <!-- NOTIFICATIONS -->
-            <!--<li id="unreadNotifications" class="user-notifications">
-                <a href="#">
-                    <i class="icon-alert-notify"></i>
-                    <span class="badge" ng-show="fn.hasUnreadNotifications()">{{ data.unreadNotifications }}</span>
+                <a href="{{ fn.adjustLinkToParentFolder('calendar.aspx') }}">
+                    <i class="ic-agenda"></i>
+                    <span class="badge" ng-show="fn.hasEventsForToday()">
+                        {{ data.eventsForToday + data.tasksForToday }}
+                    </span>
                 </a>
-            </li>-->
-
+            </li>
+            <!-- END AGENDA -->
             <!-- PROFILE -->
             <li class="dropdown profile-meu-dropdown" dropdown>
                 <a href="#" class="dropdown-toggle h" data-toggle="dropdown">
-                    <div class="profile-pic" data-placement="bottom" data-original-title="{{ data.userData.userName }}">
-                        <img width="40" height="40" src="{{ data.userData.userImg }}" alt="">
+                    <div class="profile-pic"
+                         ng-style="{'background-image':'url(data:image/png;base64,'+data.userData.userPhoto+')'}"
+                         data-placement="bottom"
+                         data-original-title="{{ data.userData.userName }}">
                     </div>
-                    <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li ng-repeat="item in data.userOptions" ng-class="{ 'with-divider': $last }">
@@ -65,7 +60,9 @@
                     </li>
                 </ul>
             </li>
+            <!-- END PROFILE -->
         </ul>
+        <!-- END RIGHT MENU -->
 
 
 

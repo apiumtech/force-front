@@ -10,17 +10,26 @@
 #header-web2 .container-fluid {
   padding-right: 20px;
 }
-.tooltip .tooltip-inner {
+/*.tooltip .tooltip-inner {
   background-color: #ED8B00;
   font-weight: 400;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
-  margin-left: -5px;
+  margin-left: -25px;
   border-bottom-color: #ED8B00;
-  border-width: 0 5px 5px;
-}
+  border-width: 0 25px 25px;
+}*/
+.tooltip>.tooltip-inner{background-color:#86ad20;font:Roboto;font-weight:300;font-size:14px;color:#fff;padding:10px 30px}
+.tooltip.top
+.tooltip-arrow{border-top-color:#86ad20}
+.tooltip.right
+.tooltip-arrow{border-right-color:#86ad20}
+.tooltip.bottom
+.tooltip-arrow{border-bottom-color:#86ad20}
+.tooltip.left
+.tooltip-arrow{border-left-color:#86ad20}
 
 
 /* BRAND */
@@ -28,14 +37,15 @@
 #header-web2 .navbar-brand {
   padding-top: 0;
   padding-bottom: 0;
-  width: 323px;
+  width: 228px;
   height: 60px;
   line-height: 56px;
   margin-right: 0;
 }
 
 #header-web2 .navbar-brand img {
-  width: 285px;
+  width: 188px;
+  height: 30px;
 }
 
 
@@ -57,7 +67,7 @@ MENU ITEMS
   color: #fff;
 
   display: inline-block;
-  width: 54px;
+  width: 60px;
   height: 60px;
   line-height: 60px;
 }
@@ -102,34 +112,27 @@ RIGHT MENU ITEMS
 }
 
 
-/* PROFILE DROPDOWN */
 
-#header-web2 li.profile-meu-dropdown {
-  /*margin-left: 30px;*/
-}
+/* PROFILE DROPDOWN */
 #header-web2 li.profile-meu-dropdown a[data-toggle]:hover {
   background-color: transparent;
 }
 #header-web2 li.profile-meu-dropdown .profile-pic {
-  float: left;
-  margin-top: 10px;
-  width: 40px;
-  height: 40px;
-  background: #FFF;
+  display: inline-block;
+  vertical-align: middle;
+  width: 35px; height: 35px;
+  background-color: #FFF;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-background-size: 100%;
+  background-size: 100%;
   border: none;
-  -webkit-border-radius: 40px;
-  -moz-border-radius: 40px;
-  border-radius: 40px;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
   overflow: hidden;
 }
-#header-web2 li.profile-meu-dropdown .profile-pic img {
-  vertical-align: top;
-}
-#header-web2 li.profile-meu-dropdown .caret {
-  margin-top: -6px;
-  border-top-color: #CCC;
-  border-bottom-color: #CCC;
-}
+
 #header-web2 li.profile-meu-dropdown>ul.dropdown-menu {
   left: auto;
   right: 0;
@@ -192,82 +195,28 @@ RIGHT MENU ITEMS
   padding-left: 15px;
 }
 
-
-/* NOTIFICATIONS MENU ITEM */
-
-#header-web2 .nav>li.user-notifications {
-  width: 60px;
-  margin-left: 30px;
+/*Agenda*/
+#header-web2 li.agenda-notifications {
+  width: 50px;
 }
-#header-web2 .nav>li.user-notifications {
-  width: 60px;
-  margin-left: 30px;
-}
-#header-web2 .nav>li.user-notifications>a>.badge {
-  position: absolute;
+#header-web2 li.agenda-notifications span.badge {
   display: inline-block;
-  font-size: 11.8400001525879px;
-
+  vertical-align: top;
   background-color: #f08d00;
-  top: 7px;
-  left: 10px;
-
-  padding: 1px 9px 2px;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  border-radius: 9px;
-
-  vertical-align: baseline;
-  white-space: nowrap;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-}
-
-#header-web2 .icon-alert-notify {
-  position: relative;
-  display: inline-block;
-  background-image: url(https://fmassets.s3-eu-west-1.amazonaws.com/pro/2127/img/icon_alert.png);
-  background-position: -21px 0;
-  height: 24px;
-  margin-top: 18px;
-  width: 20px;
-}
-
-
-/* AGENDA MENU ITEM */
-
-#header-web2 .nav>li.agenda-notifications {
-  margin-right: 30px;
-  margin-left: 10px;
-  padding: 0;
-  line-height: 60px;
-  font-weight: 400;
-  white-space: nowrap;
-}
-#header-web2 .nav>li.agenda-notifications .icon-agenda-notify {
-  position: relative;
-  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 15px;
   width: 20px;
   height: 20px;
-  background: url(https://fmassets.s3-eu-west-1.amazonaws.com/pro/2127/img/icon_agenda.png) no-repeat;
+  padding: 0;
   line-height: 20px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
+  text-align: center;
+  margin-top: -13px;
+  border-radius: 9px;
 
-#header-web2 .nav>li.agenda-notifications #events-top-menu {
-  position: relative;
-  display: inline-block;
-  height: 44px;
-  vertical-align: middle;
-}
-#header-web2 .nav>li.agenda-notifications #events-top-menu a {
-  height: inherit;
-  line-height: normal;
-  text-decoration: none;
-}
-#header-web2 .nav>li.agenda-notifications span.notification {
-  color: #f08d00;
-  text-align: left;
-  font-size: 13px;
-  line-height: 16.8999996185303px;
+  font-size: 11.84px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 }
