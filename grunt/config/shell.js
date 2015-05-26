@@ -17,6 +17,11 @@ module.exports = function (grunt) {
             command: function (filePath) {
                 return 'git add ' + filePath;
             }
+        },
+        'e2e': {
+            // needs a webdriver already running:
+            // $ webdriver-manager update && webdriver-manager start
+            command: 'protractor test_e2e/protractor.conf.js'
         }
     };
 };

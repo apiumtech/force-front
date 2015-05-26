@@ -7,7 +7,10 @@ exports.config = {
     //Says in which browsers the tests should run
     multiCapabilities: [
         {
-            'browserName' : 'chrome'
+            'browserName' : 'chrome',
+            'chromeOptions': {
+                'args': ['--disable-web-security']// to avoid CORS issues
+            }
         }
     ],
 

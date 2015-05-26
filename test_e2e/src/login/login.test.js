@@ -1,18 +1,35 @@
 var LoginPage = require('./login.page');
-var LoginServer = require('./login.server');
 
-describe('angularjs login page', function() {
-
+describe('Login page', function() {
     var page;
 
     beforeEach(function(){
         page = new LoginPage();
-        browser.driver.executeScript(LoginServer.mock);
     });
 
-    it('should redirect to /login', function() {
-        //expect(browser.driver.executeScript( 'return FakeXMLHttpRequest.LOADING;' )).toBe('3');
+    it('should be in /login', function() {
         expect(browser.getCurrentUrl()).toMatch(/#\/login/);
+    });
+
+    it('should redirect to another url after successful login', function() {
+        page.clearFields();
+        page.typeUsername('bruno_test@gmail.com');
+        page.typePassword('dimarts1*');
+        page.login();
+        page.waitForUrlToChange("#/login", 5000);
+
+        expect(browser.getCurrentUrl()).not.toMatch(/#\/login/);
+    });
+
+    // now the login call always return a good result, wait until works
+    xit('should show an error message after failing to login', function(){
+        page.clearFields();
+        page.typeUsername('xxx@xxx.xxx');
+        page.typePassword('0123abcd');
+        page.login();
+        page.waitForErrorMessageToBeShown(3000);
+
+        expect(page.getErrorMessageElementContent().length).toBeGreaterThan(1);
     });
 
 

@@ -15,7 +15,8 @@
 							class="form-control"
 							placeholder="Password"
 							required>
-					<button ng-disabled="data.isLoggingIn || !data.loginUser || !data.loginPassword"
+					<button id="loginButton"
+							ng-disabled="data.isLoggingIn || !data.loginUser || !data.loginPassword"
 							ng-click="fn.login()"
 							class="btn btn-lg btn-primary btn-block">
 						Sign in
