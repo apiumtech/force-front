@@ -4,17 +4,21 @@
 --------------------------
 */
 
+@force_report_dark_grey: #54585a;
+
+@force_report_light_grey: rgba(0, 0, 0, .1);
+
 .sale-analytics-reports {
 
-  border: 1px solid #54585a;
+  border: 1px solid @force_report_dark_grey;
 
   ul.nav.nav-tabs {
-    background: #54585a;
+    background: @force_report_dark_grey;
     text-transform: uppercase;
     border-radius: 0;
 
     > li {
-      border-bottom: 1px solid #54585a;
+      border-bottom: 1px solid @force_report_dark_grey;
       > a {
         color: #fff !important;
         border-radius: 0;
@@ -28,8 +32,98 @@
     }
   }
 
+  .all-report {
+    border: 1px solid @force_report_light_grey;
+  }
+
   .tab-content {
     margin-bottom: 0 !important;
     padding: 20px;
   }
+
+  .report-directory {
+
+    > .accordion-tree-group.panel {
+    }
+
+    //:not(.accordion-tree-group).panel {
+    //  border: none;
+    //}
+
+    .panel-heading {
+      padding: 2px;
+      background: #fff;
+
+      h4 {
+
+      }
+
+      a {
+        color: rgba(0, 0, 0, .8);
+        div {
+          padding: 2px 0 4px 0;
+        }
+
+        &.accordion-toggle {
+
+          overflow: hidden;
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+
+    .panel-body {
+      padding: 0 !important;
+      ul {
+        padding: 4px 0 8px 15px;
+        background-color: rgba(0, 0, 0, .05);
+      }
+    }
+
+    .panel-collapse {
+      margin-top: -3px;
+    }
+
+    .panel-group {
+      background: #FFFFFF !important;
+      margin-bottom: 0 !important;
+
+      .panel-heading {
+        border-bottom: 1px solid @force_report_light_grey;
+        .btn-group .btn {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  .inline {
+    display: inline-block;
+
+    > i {
+      margin-top: 10px;
+    }
+  }
+
+  .name-form, .description-form {
+    .edit-btn:not(.ng-hide) {
+      display: none;
+    }
+    :hover {
+      .edit-btn:not(.ng-hide) {
+        display: block;
+        margin-top: -24px;
+      }
+    }
+  }
 }
+
+.createAccordionLevel(@level) when (@level >= 0) {
+  .createAccordionLevel((@level - 1));
+
+  .accordion-level-@{level} {
+    @value: (25+(25*@level));
+    padding-left: ~'@{value}px' !important;
+  }
+}
+
+.createAccordionLevel(5);
