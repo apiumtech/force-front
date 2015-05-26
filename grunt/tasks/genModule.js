@@ -19,4 +19,12 @@ module.exports = function (grunt) {
                 grunt.task.run(['gentest:' + classPath]);
             });
     });
+
+    grunt.registerTask('genclass', function (path) {
+        if (!path) throw new Error("Class path must be specified");
+
+        var classSegments = path.split('/');
+        var className = classSegments[classSegments.length - 1];
+
+    });
 };
