@@ -4,7 +4,7 @@
 module.exports = function (grunt) {
     'use strict';
 
-    grunt.registerTask('gentest', function (classPath) {
+    grunt.registerTask('gentest', function (classPath, defineScript) {
         if (!classPath)
             throw new Error("Class object must be specified");
 
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 
         var appClass = 'app/' + classPath + '.js';
         if (!grunt.file.exists(appClass)) {
-            var defineScript = '' +
+            defineScript = defineScript || '' +
                 'define([\n' +
                 '\t\n' +
                 '], function() {\n' +
