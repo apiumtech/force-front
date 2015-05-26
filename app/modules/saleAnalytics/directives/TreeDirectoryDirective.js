@@ -12,13 +12,16 @@ define([
             restrict: 'AE',
             scope: {
                 treeList: '=treeDirectory',
+                treeLevel: "=treeLevel",
                 groupSelectionChanged: "&",
                 selectionChanged: "&"
             },
-            templateUrl: 'app/modules/saleAnalytics/reports/directive/treeDirectory.html',
+            templateUrl: 'app/modules/saleAnalytics/directives/treeDirectory.html',
             compile: function (element) {
                 return RecursionHelper.compile(element, function (scope, iElement, iAttrs, controller, transcludeFn) {
-                    //
+                    if (!scope.treeLevel) {
+                        scope.treeLevel = 0;
+                    }
                 });
             }
         };

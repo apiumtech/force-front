@@ -1,7 +1,7 @@
 define([
     'app',
     'modules/saleAnalytics/reports/allReport/AllReportView',
-    'modules/saleAnalytics/directives/TreeListDirective'
+    'modules/saleAnalytics/directives/TreeDirectoryDirective'
 ], function (app, AllReportView) {
     'use strict';
 
@@ -14,7 +14,7 @@ define([
         this.view.show();
     }
 
-    app.register.controller('AllReportController', ['$scope', AllReportController]);
+    app.register.controller('AllReportController', ['$scope', '$compile', AllReportController]);
 
     return AllReportController;
 });

@@ -1,8 +1,5 @@
-<div ng-controller="AllReportController" ng-init="fn.loadReports()">
-    <accordion class="all-report-directory clearfix" close-others="false">
-
-        <div tree-directory="reports"></div>
-
+<div class="all-report" ng-controller="AllReportController" ng-init="fn.loadReports()">
+    <accordion class="report-directory clearfix" close-others="false">
+        <div tree-directory="reports" tree-level="0"></div>
     </accordion>
-
 </div>
