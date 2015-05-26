@@ -53,10 +53,6 @@ define([], function () {
         chart.draw(data, options);
     };
 
-    GoogleChartService.prototype.addEvent = function (chart, event, eventHandler) {
-        this.googleChart.events.addListener(chart, event, eventHandler);
-    };
-
     GoogleChartService.newInstance = function (googleChartService) {
         if (!googleChartService) {
             google.setOnLoadCallback(function () {

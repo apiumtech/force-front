@@ -30,6 +30,14 @@ define([
             set: function (value) {
                 this.$scope.widgets = value;
             }
+        },
+        pageName: {
+            get: function () {
+                return this.$scope.pageName;
+            },
+            set: function (value) {
+                this.$scope.pageName = value;
+            }
         }
     });
 
