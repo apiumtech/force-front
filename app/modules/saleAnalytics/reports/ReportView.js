@@ -1,12 +1,14 @@
 define([
-    'modules/saleAnalytics/base/WidgetDecoratedPageView'
-], function (WidgetDecoratedPageView) {
+    'modules/saleAnalytics/base/WidgetDecoratedPageView',
+    'modules/saleAnalytics/reports/ReportEventBus'
+], function (WidgetDecoratedPageView, ReportEventBus) {
     'use strict';
 
-    function ReportView($scope, $model, $presenter) {
-        WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+    function ReportView($scope, $presenter) {
+        WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'reports';
         this.displaySearch = false;
+        this.reportEventBus = ReportEventBus.getInstance();
     }
 
     ReportView.prototype = Object.create(WidgetDecoratedPageView.prototype, {
@@ -20,10 +22,17 @@ define([
         }
     });
 
+    ReportView.prototype.show = function () {
+        WidgetDecoratedPageView.prototype.show.call(this);
+        var self = this;
+        self.fn.allReportSelected();
+    };
+
     ReportView.prototype.configureEvents = function () {
         var self = this;
 
         self.fn.allReportSelected = function () {
+            self.reportEventBus.fireAllReportTabSelected();
         };
         self.fn.favReportSelected = function () {
         };
@@ -31,8 +40,8 @@ define([
         };
     };
 
-    ReportView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var view = new ReportView($scope, $model, $presenter);
+    ReportView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {
+        var view = new ReportView($scope, $presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
