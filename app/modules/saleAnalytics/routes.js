@@ -16,6 +16,8 @@ define([], function () {
 
                 .when('/analytics/intensity', resolveRoute(modulePath + 'intensity/IntensityController', modulePath + 'intensity/index'))
 
+                .when('/analytics/reports', resolveRoute(modulePath + 'reports/ReportController', modulePath + 'reports/index'))
+
             ;
         }
     };

@@ -6,7 +6,7 @@ define([
 ], function (Q, $, _, Configuration) {
 
     function AjaxService(ajaxImpl) {
-        this.ajaxImpl = ajaxImpl;
+        this.ajaxImpl = ajaxImpl || $.ajax;
     }
 
     AjaxService.prototype.ensureSuccess = function (result) {

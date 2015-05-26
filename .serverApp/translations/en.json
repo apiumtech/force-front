@@ -193,6 +193,11 @@
   },
   "Intensity": {
   },
+  "Reports": {
+    "AllReports": "All Reports",
+    "FavouriteReports": "Favourite Reports",
+    "SearchReports": "Search Reports"
+  },
   "Contact": {
     "ContactTitle": "Contacts",
     "CreateContact": "Create Contact",
