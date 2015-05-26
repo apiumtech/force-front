@@ -10,17 +10,8 @@
 #header-web2 .container-fluid {
   padding-right: 20px;
 }
-/*.tooltip .tooltip-inner {
-  background-color: #ED8B00;
-  font-weight: 400;
-}
-.tooltip.bottom .tooltip-arrow {
-  top: 0;
-  left: 50%;
-  margin-left: -25px;
-  border-bottom-color: #ED8B00;
-  border-width: 0 25px 25px;
-}*/
+
+
 .tooltip>.tooltip-inner{background-color:#86ad20;font:Roboto;font-weight:300;font-size:14px;color:#fff;padding:10px 30px}
 .tooltip.top
 .tooltip-arrow{border-top-color:#86ad20}
@@ -80,6 +71,21 @@ MENU ITEMS
   background-color: #ED8B00;
 }
 
+
+/* Section menu breakpoints */
+@media (min-width: 851px) and (max-width: 1050px) {
+  #header-web2 ul.navbar-nav.section-nav li a { width: 45px; }
+}
+@media (min-width: 769px) and (max-width: 850px) {
+  #header-web2 ul.navbar-nav.section-nav li a { width: 40px; }
+}
+@media (max-width: 768px) {
+  #header-web2 ul.navbar-nav.section-nav li a { width: 30px; }
+}
+@media (max-width: 800px) {
+  // when it falls, pull it left.
+  #header-web2 ul.navbar-nav.user-section-nav.pull-right { float: left!important; }
+}
 
 
 /*
