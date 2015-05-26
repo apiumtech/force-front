@@ -4,7 +4,7 @@
  */
 define([
     'app',
-    'modules/literal/LiteralView'
+    'modules/literal/edit-create/LiteralView'
 ], function(app, LiteralView) {
 
     function LiteralController($routeParams, $scope) {
