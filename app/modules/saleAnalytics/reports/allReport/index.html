@@ -1,5 +1,11 @@
-<div class="all-report" ng-controller="AllReportController" ng-init="fn.loadReports()">
+<div class="all-report panel"
+     ng-controller="AllReportController" ng-init="fn.loadReports()"
+     ng-class="{'panel-loading': isLoading}">
+
+    <div class="panel-loader" ng-show="isLoading">
+        <span class="spinner-small"></span>
+    </div>
     <accordion class="report-directory clearfix" close-others="false">
-        <div tree-directory="reports" tree-level="0"></div>
+        <div tree-directory="reports" tree-level="0" ng-show="reports"></div>
     </accordion>
 </div>

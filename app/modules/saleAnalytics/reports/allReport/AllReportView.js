@@ -8,9 +8,6 @@ define([
     function AllReportView($scope, $presenter) {
         BaseView.call(this, $scope, null, $presenter);
         this.reportEventBus = ReportEventBus.getInstance();
-        this.reports = [{
-            "data": "init"
-        }];
         this.configureEvents();
     }
 
@@ -23,6 +20,14 @@ define([
                 this.$scope.reports = value;
             }
         },
+        isLoading: {
+            get: function () {
+                return this.$scope.isLoading;
+            },
+            set: function (value) {
+                this.$scope.isLoading = value;
+            }
+        }
     });
 
     AllReportView.prototype.configureEvents = function () {

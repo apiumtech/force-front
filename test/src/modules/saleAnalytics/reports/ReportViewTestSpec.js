@@ -43,7 +43,10 @@ define([
                 });
             });
             describe('fn.favReportSelected', function () {
-
+                it("should fire event FavReportSelected to the eventbus", function () {
+                    sut.fn.favReportSelected();
+                    expect(sut.reportEventBus.fireFavReportTabSelected).toHaveBeenCalled();
+                });
             });
             describe('fn.searchReportSelected', function () {
 

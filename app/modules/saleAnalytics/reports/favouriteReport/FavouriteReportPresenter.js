@@ -10,12 +10,14 @@ define([
 	}
 
 	FavouriteReportPresenter.prototype.show = function(view){
+		var self = this;
 		this.view = view;
-		this.reportEventBus.onFavReportTabSelected(this.favouriteTabSelected.bind(this));
-	}
 
-	FavouriteReportPresenter.prototype.favouriteTabSelected = function(){
-
+		view.event.onLoadReports = function () {
+			console.log("loading reports");
+			self.model._getReports()
+				.then(view.onReportsLoaded.bind(view), view.showError.bind(view));
+		}
 	}
 
 	return FavouriteReportPresenter;

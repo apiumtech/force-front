@@ -8,9 +8,18 @@
 
 @force_report_light_grey: rgba(0, 0, 0, .1);
 
+@force_report_light_blue: #F0F3F5;
+
 @force_report_medium_grey: rgba(0, 0, 0, .5);
 
+@white: #FFF;
+
 .sale-analytics-reports {
+
+  .favourite-icon{
+    font-size: 1.2em;
+    margin-right: 8px;
+  }
 
   border: 1px solid @force_report_dark_grey;
 
@@ -22,7 +31,8 @@
     > li {
       border-bottom: 1px solid @force_report_dark_grey;
       > a {
-        color: #fff !important;
+        margin: 0;
+        color: @white !important;
         border-radius: 0;
       }
       &.active, :hover {
@@ -34,7 +44,7 @@
     }
   }
 
-  .all-report {
+  .all-report, .favourite-report {
     border: 1px solid @force_report_light_grey;
   }
 
@@ -43,92 +53,156 @@
     padding: 20px;
   }
 
-  .report-directory {
+  .all-report {
 
-    .panel-heading {
-      padding: 2px;
-      background: #fff;
-      text-transform: none !important;
+    .report-directory {
 
-      .item-box {
-        font-size: 1.1em;
-        > i {
-          padding-top: 15px;
-          font-size: 1.6em;
-          &.folder {
-            color: @force_report_medium_grey
-          }
-        }
-
-        > div {
-          font-size: 1.1em;
-          padding-top: 20px;
-        }
+      > div.panel-group > div > div > div.panel-heading{
+        border-top: 0;
+        border-bottom: 1px solid @force_report_light_grey;
+        background: @white;
       }
 
-      h5, .panel-title {
+      .panel{
+        margin-top: 0;
+      }
+
+      div.panel .panel-heading {
+        border-top: 1px solid @force_report_light_grey;
+        padding: 2px;
+        background: @force_report_light_blue;
         text-transform: none !important;
-      }
 
-      a {
-        color: rgba(0, 0, 0, .8);
-        div {
-          padding: 2px 0 4px 0;
-
-          &.inline {
-            padding: 0 !important;
+        .item-box {
+          font-size: 1.1em;
+          > i {
+            padding-top: 15px;
+            font-size: 1.6em;
+            &.folder {
+              color: @force_report_medium_grey
+            }
           }
 
-          &.name-form, &.description-form {
-            .help {
-              font-size: .85em;
-              padding-left: 4px;
-              &.help-danger{
-                color: #FF0000;
+          > div {
+            font-size: 1.1em;
+            padding-top: 20px;
+          }
+
+          .report-item{
+            padding-top: 10px;
+          }
+
+        }
+
+        h5, .panel-title {
+          text-transform: none !important;
+        }
+
+        a {
+          color: rgba(0, 0, 0, .8);
+          div {
+            padding: 2px 0 4px 0;
+
+            &.inline {
+              padding: 0 !important;
+              p{
+                margin-bottom: 3px;
               }
             }
-            padding-left: 30px;
-          }
 
-          &.name-form {
-            i.bullet {
-              margin-left: -30px;
-              margin-top: 10px;
-              margin-right: 15px;
-              font-size: 1.1em;
-              color: @force_report_medium_grey;
+            &.form-inline{
+              padding-bottom: 0 !important;
             }
+
+          }
+
+          &.accordion-toggle {
+            overflow: hidden;
+            margin-bottom: 0 !important;
+            padding: 0 20px;
           }
         }
+      }
 
-        &.accordion-toggle {
-          overflow: hidden;
-          margin-bottom: 0 !important;
+      //div.panel.accordion-heading-level-0 .panel-heading{
+      //  background: @white;
+      //}
+
+      .panel-body {
+        padding: 0 !important;
+        ul {
+          padding: 4px 0 8px 15px;
+          background-color: rgba(0, 0, 0, .05);
         }
+      }
+
+      .panel-collapse {
+        margin-top: -3px;
+      }
+
+      .panel-group {
+        background: @white !important;
+        margin-bottom: 0 !important;
+
+        .panel-heading {
+          .btn-group .btn {
+            margin-top: 0;
+          }
+        }
+      }
+
+    }
+  }
+
+  .favourite-report {
+
+    div.report-item-box {
+      padding: 5px 20px;
+      border-bottom: 1px solid @force_report_light_grey;
+      &:nth-child(odd) {
+        background: @force_report_light_blue;
+      }
+
+      i.bullet {
+        margin-top: 9px;
+        margin-right: 15px;
+        font-size: 1.1em;
+        color: #ED8B00;
+      }
+
+    }
+  }
+
+  .panel-heading a div, div {
+
+    h5{
+      margin-bottom: 2px;
+    }
+
+    .inline{
+      &.button-group{
+        margin: 0;
       }
     }
 
-    .panel-body {
-      padding: 0 !important;
-      ul {
-        padding: 4px 0 8px 15px;
-        background-color: rgba(0, 0, 0, .05);
-      }
-    }
-
-    .panel-collapse {
-      margin-top: -3px;
-    }
-
-    .panel-group {
-      background: #FFFFFF !important;
-      margin-bottom: 0 !important;
-
-      .panel-heading {
-        border-bottom: 1px solid @force_report_light_grey;
-        .btn-group .btn {
-          margin-top: 0;
+    .name-form, .description-form {
+      .help {
+        font-size: .85em;
+        padding-left: 4px;
+        &.help-danger {
+          color: #FF0000;
         }
+      }
+      padding-left: 30px !important;
+    }
+
+    .name-form {
+      i.bullet {
+        margin-left: -32px;
+        margin-top: 10px;
+        margin-right: 15px;
+        font-size: 1.1em;
+        color: @force_report_medium_grey;
       }
     }
   }
@@ -154,8 +228,8 @@
     :hover {
       .edit-btn:not(.ng-hide) {
         display: block;
-        margin: 0 0;
-        padding: 0 15px;
+        margin: 5px 0 0 15px;
+        padding: 0 0 0 15px;
         color: rgba(0, 0, 0, .5);
       }
     }
@@ -164,14 +238,14 @@
   .name-form {
     :hover {
       .edit-btn:not(.ng-hide) {
-        margin: 5px 0 0;
+        //margin: 5px 0 0;
       }
     }
   }
   .description-form {
     :hover {
       .edit-btn:not(.ng-hide) {
-        margin: -5px 0 0;
+        margin: -7px 0 0;
       }
     }
   }

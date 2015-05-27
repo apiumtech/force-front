@@ -12,5 +12,16 @@ define([
                 expect(AllReportView.prototype.configureEvents).toHaveBeenCalled();
             });
         });
+
+        var sut, presenter, scope;
+        beforeEach(function () {
+
+        });
+
+        describe('configureEvents', function () {
+            describe('fn.loadReports', function () {
+                
+            });
+        });
     });
 });

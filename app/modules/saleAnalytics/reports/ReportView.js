@@ -35,6 +35,7 @@ define([
             self.reportEventBus.fireAllReportTabSelected();
         };
         self.fn.favReportSelected = function () {
+            self.reportEventBus.fireFavReportTabSelected();
         };
         self.fn.searchReportSelected = function () {
         };

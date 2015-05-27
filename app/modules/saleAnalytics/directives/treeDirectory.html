@@ -1,6 +1,6 @@
 <accordion-group ng-repeat="item in treeList"
                  is-open="item.isOpen" is-disabled="!item.children"
-                 class="clearfix accordion-tree-group">
+                 class="clearfix accordion-tree-group accordion-heading-level-{{treeLevel}}">
     <accordion-heading class="clearfix">
         <div class="item-container accordion-level-{{treeLevel}}">
 
