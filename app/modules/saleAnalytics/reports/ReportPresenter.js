@@ -1,10 +1,13 @@
-define([
-], function() {
-	'use strict';
+define([], function () {
+    'use strict';
 
-	function ReportPresenter() {
-		
-	}
+    function ReportPresenter() {
 
-	return ReportPresenter;
+    }
+
+    ReportPresenter.prototype.show = function (view) {
+
+    };
+
+    return ReportPresenter;
 });

@@ -23,7 +23,8 @@ module.exports = function (grunt) {
         grunt.task.run(['prepareBuild']);
         grunt.task.run(['remove-old-build']);
 
-        grunt.task.run(['less:dev', 'requirejs:newCompile']);
+        grunt.task.run(['less:dev']);
+        grunt.task.run(['requirejs:newCompile']);
 
         grunt.task.run(['copy:assets']);
         grunt.task.run(['copy:productionBuild']);
@@ -38,5 +39,6 @@ module.exports = function (grunt) {
     grunt.registerTask('delete.mainBuild', function () {
         grunt.file.delete('assets/main.build.js');
         grunt.file.delete('assets/main.build.less');
+        grunt.file.delete('requireConf.build.js');
     });
 };

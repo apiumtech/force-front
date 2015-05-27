@@ -9,7 +9,7 @@ define([
         var sut, mockModel, view;
 
         beforeEach(function () {
-            view = jasmineMock(ReportItemView);
+            view = mock(ReportItemView);
             view.event = {};
             view.fn = {};
             mockModel = {

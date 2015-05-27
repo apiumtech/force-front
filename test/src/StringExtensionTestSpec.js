@@ -2,6 +2,7 @@
  * Created by justin on 4/10/15.
  */
 describe("String object extension", function () {
+
     describe("format", function () {
         it("should return new formatted string", function () {
             var input = "Hello {0}, my name is {1}";

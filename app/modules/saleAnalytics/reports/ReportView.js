@@ -5,8 +5,8 @@ define([
 ], function (WidgetDecoratedPageView, ReportEventBus, AwaitHelper) {
     'use strict';
 
-    function ReportView($scope, $presenter) {
-        this.reportEventBus = ReportEventBus.getInstance();
+    function ReportView($scope, $presenter, eventBus) {
+        this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.awaitHelper = AwaitHelper.getInstance();
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'reports';

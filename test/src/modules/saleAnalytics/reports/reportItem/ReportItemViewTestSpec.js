@@ -10,7 +10,7 @@ define([
                 spyOn(ReportItemView.prototype, 'configureEvents').and.callThrough();
                 var scope = {},
                     element = {},
-                    presenter = jasmineMock(ReportItemPresenter);
+                    presenter = mock(ReportItemPresenter);
                 var sut = new ReportItemView(scope, element, presenter);
                 expect(ReportItemView.prototype.configureEvents).toHaveBeenCalled();
             })
@@ -21,7 +21,7 @@ define([
         beforeEach(function () {
             scope = {};
             element = {};
-            presenter = jasmineMock(ReportItemPresenter);
+            presenter = mock(ReportItemPresenter);
             sut = new ReportItemView(scope, element, presenter);
         });
         describe('configureEvents', function () {

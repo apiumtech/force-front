@@ -14,15 +14,10 @@ define([
         var sut, $scope, model, presenter, modalDialogService;
 
         beforeEach(function () {
-            $scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
+            $scope = mockAngularScope();
 
-            model = jasmineMock(DocumentsWidgetModel);
-            presenter = jasmineMock(DocumentsWidgetPresenter);
+            model = mock(DocumentsWidgetModel);
+            presenter = mock(DocumentsWidgetPresenter);
 
             modalDialogService = {
                 confirm: function () {
@@ -34,13 +29,13 @@ define([
 
         describe("baseview inheritance", function () {
             it("should call presenter's show method on show()", function () {
-                var view = new DocumentsWidgetView($scope, model, {show: jasmine.createSpy()});
+                var view = new DocumentsWidgetView($scope, model, presenter);
                 view.show();
                 expect(view.presenter.show).toHaveBeenCalledWith(view, model);
             });
 
             it("should call presenter's showError method on showError()", function () {
-                var view = new DocumentsWidgetView($scope, model, {showError: jasmine.createSpy()});
+                var view = new DocumentsWidgetView($scope, model, presenter);
                 view.showError("some error");
                 expect(view.presenter.showError).toHaveBeenCalledWith("some error");
             });

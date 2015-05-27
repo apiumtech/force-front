@@ -1,47 +1,47 @@
 define([
-    'modules/saleAnalytics/reports/ReportView'
-], function (ReportView) {
+    'modules/saleAnalytics/reports/ReportView',
+    'modules/saleAnalytics/reports/ReportPresenter',
+    'modules/saleAnalytics/reports/ReportEventBus'
+], function (ReportView, ReportPresenter, ReportEventBus) {
     'use strict';
 
     describe('ReportView', function () {
-        var sut, $scope, presenter;
+        var sut, $scope,
+            presenter = mock(ReportPresenter),
+            eventBus = mock(ReportEventBus);
 
         describe('construct', function () {
+            beforeEach(function () {
+                sinon.stub(ReportView.prototype, 'configureEvents');
+            });
+            afterEach(function () {
+                ReportView.prototype.configureEvents.restore();
+            });
             it("should call configureEvents", function () {
-                spyOn(ReportView.prototype, 'configureEvents').and.callThrough();
                 new ReportView({}, {});
                 expect(ReportView.prototype.configureEvents).toHaveBeenCalled();
             });
         });
 
         beforeEach(function () {
-            $scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            presenter = {
-                show: function () {
-                }
-            };
-
-            sut = new ReportView($scope, presenter);
+            $scope = mockAngularScope();
+            sut = new ReportView($scope, presenter, eventBus);
         });
 
+        describe("show", function () {
+            it("should call show on presenter", function () {
+                sut.show();
+                expect(presenter.show).toHaveBeenCalled();
+            });
+        });
 
         describe('configureEvents', function () {
-            beforeEach(function () {
-                spyOn(sut.reportEventBus, 'fireAllReportTabSelected');
-                spyOn(sut.reportEventBus, 'fireFavReportTabSelected');
-                spyOn(sut.reportEventBus, 'fireSearchReportTabSelected');
-            });
             describe('fn.allReportSelected', function () {
                 beforeEach(function () {
                     sut.fn.allReportSelected();
                 });
                 it("should fire event AllReportSelected to the eventbus", function () {
-                    expect(sut.reportEventBus.fireAllReportTabSelected).toHaveBeenCalled();
+                    expect(eventBus.fireAllReportTabSelected).toHaveBeenCalled();
                 });
             });
             describe('fn.favReportSelected', function () {
@@ -49,7 +49,7 @@ define([
                     sut.fn.favReportSelected();
                 });
                 it("should fire event FavReportSelected to the eventbus", function () {
-                    expect(sut.reportEventBus.fireFavReportTabSelected).toHaveBeenCalled();
+                    expect(eventBus.fireFavReportTabSelected).toHaveBeenCalled();
                 });
             });
             describe('fn.searchReportSelected', function () {
@@ -64,7 +64,7 @@ define([
                     expect(sut.firstTabActivated).toBeFalsy();
                 });
                 it("should fire event AllReportTabSelected to the eventbus", function () {
-                    expect(sut.reportEventBus.fireSearchReportTabSelected).toHaveBeenCalled();
+                    expect(eventBus.fireSearchReportTabSelected).toHaveBeenCalled();
                 });
             });
 

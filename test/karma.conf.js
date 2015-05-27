@@ -4,7 +4,7 @@ module.exports = function(config) {
         // base path, that will be used to resolve files and exclude
         basePath: '../',
         urlRoot: '/',
-        frameworks: ['jasmine', 'requirejs'],
+        frameworks: ['jasmine', 'requirejs', 'sinon'],
 
         // list of files / patterns to load in the browser
         files: [
@@ -14,6 +14,8 @@ module.exports = function(config) {
             {pattern: 'app/**/*.js', included: false},
 
             {pattern: 'test/src/**/*.js', included: false},
+
+            {pattern: 'requireConf.js', included: false},
 
             /** Load Tests **/
             'test/main.js'

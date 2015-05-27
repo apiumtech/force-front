@@ -44,11 +44,6 @@ define([
             }].forEach(function (test) {
                     var viewEvent = test.viewEvent;
 
-                    it("should declared '" + viewEvent + "' event for View", function () {
-                        sut.show(___view, ___model);
-                        testDeclareMethod(___view.event, viewEvent);
-                    });
-
                     describe("when event '" + viewEvent + "' fired", function () {
                         beforeEach(function () {
                             sut.show(___view, ___model);

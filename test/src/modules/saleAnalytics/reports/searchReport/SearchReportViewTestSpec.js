@@ -18,7 +18,7 @@ define([
 
         beforeEach(function () {
             scope = {};
-            presenter = jasmineMock(SearchReportPresenter);
+            presenter = mock(SearchReportPresenter);
             sut = new SearchReportView({}, presenter);
             sut.event = {};
             sut.event.onLoadReports = jasmine.createSpy();

@@ -16,7 +16,7 @@ define([
 
         beforeEach(function () {
             scope = {};
-            presenter = jasmineMock(ReportFilterPresenter);
+            presenter = mock(ReportFilterPresenter);
             sut = new ReportFilterView({}, presenter);
         });
 
