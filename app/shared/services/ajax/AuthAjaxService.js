@@ -18,7 +18,7 @@ define([
     AuthAjaxService.prototype.mapRequest = function (params) {
         var request = AjaxService.prototype.mapRequest.call(this, params);
 
-        var token = this.storageService.retrieve(Configuration.tokenStorageKey);
+        var token = this.storageService.retrieve(Configuration.tokenStorageKey, true);
 
         // TODO: get rid of it when proper login is implemented
         var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";

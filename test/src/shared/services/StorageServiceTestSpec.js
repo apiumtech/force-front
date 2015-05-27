@@ -9,7 +9,15 @@ define([
         var sut;
 
         beforeEach(function () {
+            window.localStorage.clear();
+            window.sessionStorage.clear();
             sut = StorageService.newInstance();
+        });
+
+
+        it('should get the correct storage', function(){
+            expect(sut.getStorage(false)).toBe(window.localStorage);
+            expect(sut.getStorage(true)).toBe(window.sessionStorage);
         });
 
         describe("retrieve", function () {
@@ -75,6 +83,44 @@ define([
                         expect(sut.retrieve(storeName)).toBe(null);
                     });
                 });
+        });
+
+        describe('clear', function() {
+            it('should remove all keys', function(){
+                window.localStorage.setItem("key1", "value1");
+                window.localStorage.setItem("key2", "value2");
+                expect(window.localStorage.length).toBe(2);
+                sut.clear();
+                expect(window.localStorage.length).toBe(0);
+            });
+        });
+
+        describe('session storage', function(){
+            it('should store in the session storage when inSession is true', function(){
+                sut.store("sessionKey","sessionValue", true);
+                expect(window.sessionStorage.getItem("sessionKey")).toBe("sessionValue");
+            });
+
+            it('should retrieve from the session storage when inSession is true', function(){
+                window.sessionStorage.setItem("sessionKey", "someSessionValue");
+                expect(sut.retrieve("sessionKey", true)).toBe("someSessionValue");
+            });
+
+            it('should remove from the session storage when inSession is true', function(){
+                var key = "anotherSessionKey";
+                var value = "anotherSessionValue";
+                window.sessionStorage.setItem(key, value);
+                sut.remove(key, true);
+                expect(window.sessionStorage.getItem(key)).toBe(null);
+            });
+
+            it('should remove all keys from storage when inSession is true', function(){
+                window.sessionStorage.setItem("key1", "value1");
+                window.sessionStorage.setItem("key2", "value2");
+                expect(window.sessionStorage.length).toBe(2);
+                sut.clear(true);
+                expect(window.sessionStorage.length).toBe(0);
+            });
         });
 
 
