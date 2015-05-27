@@ -1,24 +1,23 @@
 define([
-    'shared/BaseView',
-    'modules/saleAnalytics/reports/allReport/AllReportPresenter',
-    'modules/saleAnalytics/reports/ReportEventBus'
-], function (BaseView, AllReportPresenter, ReportEventBus) {
+    'modules/saleAnalytics/reports/ReportTabBaseView',
+    'modules/saleAnalytics/reports/allReport/AllReportPresenter'
+], function (ReportTabBaseView, AllReportPresenter) {
     'use strict';
 
     function AllReportView($scope, $presenter) {
-        BaseView.call(this, $scope, null, $presenter);
-        this.reportEventBus = ReportEventBus.getInstance();
+        ReportTabBaseView.call(this, $scope, $presenter);
+        this.reports = [];
         this.configureEvents();
     }
 
-    AllReportView.prototype = Object.create(BaseView.prototype, {
-        reports: {
+    AllReportView.prototype = Object.create(ReportTabBaseView.prototype, {
+        searchQuery: {
             get: function () {
-                return this.$scope.reports;
+                return this.$scope.searchQuery;
             },
             set: function (value) {
-                this.$scope.reports = value;
-            }
+                this.$scope.searchQuery = value;
+            }        
         },
         isLoading: {
             get: function () {
@@ -37,6 +36,10 @@ define([
             self.event.onLoadReports();
         };
 
+        self.fn.activeSearch = function () {
+            self.reportEventBus.fireSearchReportTabSelected(self.searchQuery);
+        };
+
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
     };
 
@@ -44,8 +47,6 @@ define([
         this.reports = reports;
         console.log("view", reports);
     };
-
-
 
     AllReportView.prototype.showError = function (error) {
         console.error(error);

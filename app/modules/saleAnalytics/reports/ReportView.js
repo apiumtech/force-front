@@ -8,6 +8,7 @@ define([
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'reports';
         this.displaySearch = false;
+        this.queryString = "";
         this.reportEventBus = ReportEventBus.getInstance();
     }
 
@@ -18,6 +19,14 @@ define([
             },
             set: function (value) {
                 this.$scope.displaySearch = value;
+            }
+        },
+        queryString: {
+            get: function () {
+                return this.$scope.queryString;
+            },
+            set: function (value) {
+                this.$scope.queryString = value;
             }
         }
     });

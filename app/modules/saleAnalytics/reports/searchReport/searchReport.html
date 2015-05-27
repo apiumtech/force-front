@@ -1,0 +1,5 @@
+<div ng-controller="SearchReportController" ng-init="fn.loadReports(queryString)">
+    <div class="search-report-result">
+        <report-item report="item" ng-repeat="item in reports"></report-item>
+    </div>
+</div>
