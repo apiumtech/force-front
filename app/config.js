@@ -8,14 +8,6 @@ define(function () {
 
     var baseApi = '';
 
-    var i18nextOptions = {
-        lng: 'en',
-        useCookie: false,
-        useLocalStorage: false,
-        fallbackLng: 'en',
-        resGetPath: '/api/translations/__lng__'
-    };
-
     var api = {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
         getAvailableOwners: baseApi + '/api/accounts/availableOwners',
@@ -91,7 +83,6 @@ define(function () {
         pageSize: 10,
         defaultDateSubtraction: 30,
         tokenStorageKey: "fm_token",
-        defaultLiteralLang: "en",
-        i18nextOptions: i18nextOptions
+        defaultLiteralLang: "en"
     };
 });
