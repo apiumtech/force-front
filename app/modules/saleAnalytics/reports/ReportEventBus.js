@@ -5,8 +5,6 @@ define([
 
     function ReportEventBus() {
         EventBase.call(this);
-        this.dateCreated = new Date().getTime();
-        console.log("Report event bus created: ", this.dateCreated);
     }
 
     ReportEventBus.prototype = Object.create(EventBase.prototype);
@@ -16,6 +14,13 @@ define([
     ReportEventBus.prototype.fireAllReportTabSelected = function () {
     };
     ReportEventBus.prototype.unsubscribeAllReportTabSelected = function () {
+    };
+
+    ReportEventBus.prototype.onFolderReportSelected = function () {
+    };
+    ReportEventBus.prototype.fireFolderReportSelected = function () {
+    };
+    ReportEventBus.prototype.unsubscribeFolderReportSelected = function () {
     };
 
     ReportEventBus.prototype.onFavReportTabSelected = function () {
@@ -34,7 +39,6 @@ define([
 
     ReportEventBus.getInstance = function () {
         if (ReportEventBus.__instance) {
-            console.log("getting singleton");
             return ReportEventBus.__instance;
         }
 
