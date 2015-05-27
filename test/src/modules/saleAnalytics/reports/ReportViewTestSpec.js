@@ -54,11 +54,14 @@ define([
             });
             describe('fn.searchReportSelected', function () {
                 beforeEach(function () {
+                    sut.firstTabActivated = true;
                     sut.fn.searchReportSelected();
-
                 });
                 it("should display the search report tab", function () {
                     expect(sut.displaySearch).toBeTruthy();
+                });
+                it("should display the search report tab", function () {
+                    expect(sut.firstTabActivated).toBeFalsy();
                 });
                 it("should fire event AllReportTabSelected to the eventbus", function () {
                     expect(sut.reportEventBus.fireSearchReportTabSelected).toHaveBeenCalled();
@@ -70,6 +73,11 @@ define([
                     sut.searchTabActivated = true;
                     sut.fn.removeSearchTab();
                     expect(sut.searchTabActivated).toBeFalsy();
+                });
+                it("should activate the first tab", function () {
+                    sut.firstTabActivated = false;
+                    sut.fn.removeSearchTab();
+                    expect(sut.firstTabActivated).toBeTruthy();
                 });
 
                 it("should hide the search tab ", function () {

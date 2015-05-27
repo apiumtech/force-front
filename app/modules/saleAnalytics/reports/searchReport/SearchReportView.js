@@ -1,12 +1,13 @@
 define([
     'modules/saleAnalytics/reports/ReportTabBaseView',
-    'modules/saleAnalytics/reports/searchReport/SearchReportPresenter'
-], function (ReportTabBaseView, SearchReportPresenter) {
+    'modules/saleAnalytics/reports/searchReport/SearchReportPresenter',
+    'shared/services/AwaitHelper'
+], function (ReportTabBaseView, SearchReportPresenter, AwaitHelper) {
     'use strict';
 
     function SearchReportView($scope, $presenter) {
         ReportTabBaseView.call(this, $scope, $presenter);
-
+        this.awaitHelper = AwaitHelper.getInstance();
         this.currentQueryString = "";
         this.configureEvents();
     }
@@ -21,7 +22,11 @@ define([
             self.event.onLoadReports(queryString || "");
         };
 
-        self.reportEventBus.onSearchReportTabSelected(self.startSearching.bind(self));
+        self.fn.delaySearch = function (searchQuery) {
+            self.awaitHelper.await(self.startSearching.bind(self, searchQuery), 10);
+        };
+
+        self.reportEventBus.onSearchReportTabSelected(self.fn.delaySearch);
     };
 
     SearchReportView.prototype.startSearching = function (queryString) {

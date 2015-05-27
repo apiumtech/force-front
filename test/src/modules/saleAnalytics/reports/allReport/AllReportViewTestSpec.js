@@ -34,28 +34,6 @@ define([
                 });
             });
 
-            describe("fn.activateSearch", function () {
-                it("should fire SearchActivated event to event bus", function () {
-                    spyOn(sut.reportEventBus, 'fireSearchActivated');
-                    sut.searchQuery = "search_string";
-                    sut.fn.activateSearch();
-                    expect(sut.reportEventBus.fireSearchActivated).toHaveBeenCalledWith(sut.searchQuery);
-                });
-            });
-
-            describe("fn.deactivateSearch", function () {
-                beforeEach(function () {
-                    sut.searchQuery = "hasValue";
-                    spyOn(sut.reportEventBus, 'fireSearchDeactivated');
-                    sut.fn.deactivateSearch();
-                });
-                it("should remove searchQuery value", function () {
-                    expect(sut.searchQuery).toEqual("");
-                });
-                it("should fire SearchActivated event to event bus", function () {
-                    expect(sut.reportEventBus.fireSearchDeactivated).toHaveBeenCalled();
-                });
-            });
         });
 
         describe('onReportsLoaded', function () {

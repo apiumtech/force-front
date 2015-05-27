@@ -1,8 +1,10 @@
 <ng-include src="'app/modules/saleAnalytics/header.html'"></ng-include>
 
+<ng-include src="'app/modules/saleAnalytics/reports/reportFilter/index.html'"></ng-include>
+
 <div class="sale-analytics-reports m-t-20">
     <tabset>
-        <tab select="fn.allReportSelected()">
+        <tab select="fn.allReportSelected()" active="firstTabActivated">
             <tab-heading>
                 {{'Reports.AllReports' | i18next}}
             </tab-heading>

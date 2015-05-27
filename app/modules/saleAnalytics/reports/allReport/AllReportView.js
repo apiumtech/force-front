@@ -30,15 +30,6 @@ define([
             self.event.onLoadReports();
         };
 
-        self.fn.activateSearch = function () {
-            self.reportEventBus.fireSearchActivated(self.searchQuery);
-        };
-
-        self.fn.deactivateSearch = function () {
-            self.searchQuery = "";
-            self.reportEventBus.fireSearchDeactivated();
-        };
-
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
     };
 

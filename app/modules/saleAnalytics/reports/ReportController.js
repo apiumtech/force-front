@@ -5,6 +5,8 @@ define([
     'modules/saleAnalytics/reports/allReport/AllReportController',
     'modules/saleAnalytics/reports/favouriteReport/FavouriteReportController',
     'modules/saleAnalytics/reports/searchReport/SearchReportController',
+    'modules/saleAnalytics/reports/reportFilter/ReportFilterController',
+
     'modules/saleAnalytics/reports/reportItem/ReportItemDirective'
 ], function (app, ReportView) {
     'use strict';

@@ -12,6 +12,7 @@ define([
         this.pageName = 'reports';
         this.displaySearch = false;
         this.searchTabActivated = false;
+        this.firstTabActivated = true;
         this.queryString = "";
     }
 
@@ -39,6 +40,14 @@ define([
             set: function (value) {
                 this.$scope.searchTabActivated = value;
             }
+        },
+        firstTabActivated: {
+            get: function () {
+                return this.$scope.firstTabActivated;
+            },
+            set: function (value) {
+                this.$scope.firstTabActivated = value;
+            }
         }
     });
 
@@ -61,22 +70,20 @@ define([
             self.reportEventBus.fireFavReportTabSelected();
         };
 
-        self.fn.delaySearch = function (searchQuery) {
-            self.awaitHelper.await(self.fn.searchReportSelected.bind(self, searchQuery), 10);
-        };
-
         self.fn.searchReportSelected = function (searchQuery) {
             self.searchTabActivated = true;
+            self.firstTabActivated = false;
             self.displaySearch = true;
             self.reportEventBus.fireSearchReportTabSelected(searchQuery);
         };
 
         self.fn.removeSearchTab = function () {
+            self.firstTabActivated = true;
             self.searchTabActivated = false;
             self.displaySearch = false;
         };
 
-        self.reportEventBus.onSearchActivated(self.fn.delaySearch);
+        self.reportEventBus.onSearchActivated(self.fn.searchReportSelected);
         self.reportEventBus.onSearchDeactivated(self.fn.removeSearchTab);
     };
 
