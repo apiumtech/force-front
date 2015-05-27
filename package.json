@@ -40,13 +40,16 @@
     "grunt-open": "^0.2.3",
     "grunt-shell": "^1.1.1",
     "jasmine": ">= 2.0",
+    "jasmine-sinon": "^0.4.0",
     "karma": ">= 0.12.24",
     "karma-coverage": ">=0.1",
     "karma-jasmine": "~0.2.0",
     "karma-junit-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-requirejs": "^0.2.2",
+    "karma-sinon": "^1.0.4",
     "load-grunt-tasks": "^1.0.0",
-    "lokijs": "=1.2.0"
+    "lokijs": "=1.2.0",
+    "sinon": "^1.14.1"
   }
 }

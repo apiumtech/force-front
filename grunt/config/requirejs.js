@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     return {
         newCompile: {
             options: {
-                mainConfigFile: 'require.cfg.js',
+                mainConfigFile: 'requireConf.build.js',
                 name: '../assets/main.build',
                 out: 'build/application.min.js',
                 optimize: 'none'

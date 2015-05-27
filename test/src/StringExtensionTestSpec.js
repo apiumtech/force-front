@@ -2,6 +2,27 @@
  * Created by justin on 4/10/15.
  */
 describe("String object extension", function () {
+
+    function Stub() {
+        return {
+            method1: function () {
+                return 123;
+            }
+        };
+    }
+
+    describe("test ch?i", function () {
+        it("should return 456", function(){
+            var sut = new Stub();
+            console.log(sut);
+            var stub = sinon.stub(sut, 'method1');
+            stub.withArgs().returns(456);
+            var output = sut.method1();
+            expect(output).toEqual(456);
+            expect(stub).toHaveBeenCalled();
+        });
+    });
+
     describe("format", function () {
         it("should return new formatted string", function () {
             var input = "Hello {0}, my name is {1}";

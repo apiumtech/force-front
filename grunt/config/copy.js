@@ -39,6 +39,10 @@ module.exports = function (grunt) {
                     dest: buildPath + '/require.cfg.js'
                 },
                 {
+                    src: 'requireConf.js',
+                    dest: buildPath + '/requireConf.js'
+                },
+                {
                     expand: true,
                     cwd: 'app',
                     src: ['**/*.html'],
