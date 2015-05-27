@@ -12,8 +12,8 @@ define([
         var accountEventBus, sut, view, model;
 
         beforeEach(function () {
-            accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
-            view = jasmineMock(DatetimeTypeFilterView, 'DatetimeTypeFilterView');
+            accountEventBus = mock(AccountEventBus, 'AccountEventBus');
+            view = mock(DatetimeTypeFilterView, 'DatetimeTypeFilterView');
             model = {};
             sut = DatetimeTypeFilterPresenter.newInstance(accountEventBus);
         });

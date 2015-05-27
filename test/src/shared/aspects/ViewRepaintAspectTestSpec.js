@@ -29,7 +29,7 @@ define([
             expect(spy).toHaveBeenCalled();
         });
 
-        it("should call the $apply function on a constructor", function () {
+        it("should not call the $apply function on a constructor", function () {
             var spy = jasmine.createSpy();
 
             function SomeObject() {

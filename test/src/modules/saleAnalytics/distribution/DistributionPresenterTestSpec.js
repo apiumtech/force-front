@@ -24,9 +24,6 @@ define([
                 viewEvent: "onWidgetMoved", test: onWidgetMovedTest
             }].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent;
-                    it("should define event." + viewEvent + " on View", function () {
-                        testDeclareMethod(view.event, viewEvent);
-                    });
 
                     describe("when view.event." + viewEvent + " is fired", testCase.test);
                 });

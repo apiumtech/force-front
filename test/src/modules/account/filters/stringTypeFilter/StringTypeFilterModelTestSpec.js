@@ -11,7 +11,7 @@ define([
         var sut, ajaxService;
 
         beforeEach(function () {
-            ajaxService = jasmineMock(AjaxService, 'ajaxService');
+            ajaxService = mock(AjaxService, 'ajaxService');
 
             sut = StringTypeFilterModel.newInstance(ajaxService);
         });

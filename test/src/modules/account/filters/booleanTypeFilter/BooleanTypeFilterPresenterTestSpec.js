@@ -12,8 +12,8 @@ define([
         var accountEventBus, sut, view, model;
 
         beforeEach(function () {
-            accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
-            view = jasmineMock(BooleanTypeFilterView, 'BooleanTypeFilterView');
+            accountEventBus = mock(AccountEventBus);
+            view = mock(BooleanTypeFilterView);
             model = {};
             sut = BooleanTypeFilterPresenter.newInstance(accountEventBus);
         });

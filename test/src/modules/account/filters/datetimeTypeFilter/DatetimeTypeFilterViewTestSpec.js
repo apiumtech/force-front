@@ -51,9 +51,6 @@ define([
                 method: "resetDate", test: resetDateTest
             }].forEach(function (test) {
                     var method = test.method;
-                    it("should declare method fn." + method, function () {
-                        testDeclareMethod(sut.fn, method);
-                    });
 
                     describe("calling fn." + method, test.test);
                 });

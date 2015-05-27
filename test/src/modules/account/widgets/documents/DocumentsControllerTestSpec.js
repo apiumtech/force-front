@@ -10,7 +10,7 @@ define([
         describe("construct", function () {
             it("should call configureView", function () {
                 spyOn(DocumentControllers, 'configureView');
-                var $scope = {};
+                var $scope = mockAngularScope();
                 new DocumentControllers($scope);
                 expect(DocumentControllers.configureView).toHaveBeenCalled();
             });

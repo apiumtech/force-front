@@ -4,8 +4,8 @@ define([
 ], function (ReportTabBaseView, AllReportPresenter) {
     'use strict';
 
-    function AllReportView($scope, $presenter) {
-        ReportTabBaseView.call(this, $scope, $presenter);
+    function AllReportView($scope, $presenter, eventBus) {
+        ReportTabBaseView.call(this, $scope, $presenter, eventBus);
         this.reports = [];
         this.isLoading = false;
         this.configureEvents();

@@ -13,9 +13,9 @@ define([
         var accountEventBus, sut, view, model;
 
         beforeEach(function () {
-            accountEventBus = jasmineMock(AccountEventBus, 'AccountEventBus');
-            view = jasmineMock(StringTypeFilterView, 'StringTypeFilterView');
-            model = jasmineMock(StringTypeFilterModel, 'StringTypeFilterModel');
+            accountEventBus = mock(AccountEventBus, 'AccountEventBus');
+            view = mock(StringTypeFilterView, 'StringTypeFilterView');
+            model = mock(StringTypeFilterModel, 'StringTypeFilterModel');
             sut = StringTypeFilterPresenter.newInstance(accountEventBus);
         });
 

@@ -19,6 +19,13 @@ require(['/base/requireConf.js'], function (requireConf) {
     // including Jasmine-Sinon Matcher
     requireConfig.paths.jasminesinon = '../node_modules/jasmine-sinon/lib/jasmine-sinon';
     requireConfig.deps.push('jasminesinon');
+    // include Angular Mocks
+    requireConfig.paths.angularMock = '../node_modules/angular-mocks/angular-mocks';
+    requireConfig.shim.angularMock = {
+        deps: ['angular'],
+        exports: 'angularMock'
+    };
+    requireConfig.deps.push('angularMock');
 
     // define the callback
     requireConfig.callback = test_main;
@@ -59,22 +66,50 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
-function jasmineMock(constr, name) {
-    var keys = [];
+//function jasmineMock(constr) {
+//    var keys = [];
+//
+//    for (var key in constr.prototype) {
+//        keys.push(key);
+//    }
+//    var mockObject = keys.length > 0 ? jasmine.createSpyObj(constr.name, keys) : {};
+//
+//    return mockObject;
+//}
+
+function mockAngularScope() {
+    var mock = {
+        $on: function () {
+        },
+        $watch: function () {
+        },
+        $apply: function () {
+        }
+    };
+
+    sinon.stub(mock, '$on');
+    sinon.stub(mock, '$watch');
+    sinon.stub(mock, '$apply');
+
+    return mock;
+}
+
+function mock(constr) {
+    var mockObj = {
+        _stubs: {}
+    };
     for (var key in constr.prototype) {
-        keys.push(key);
+        mockObj[key] = function () {
+        };
+        var stub = sinon.stub(mockObj, key);
+        mockObj[key].whenCalledWith = stub.withArgs;
     }
-    return keys.length > 0 ? jasmine.createSpyObj(name || "mock", keys) : {};
-};
+    return mockObj;
+}
 
 var isFunction = function (obj) {
     return Object.prototype.toString.call(obj) === "[object Function]";
 };
-
-function testDeclareMethod(sut, method) {
-    expect(sut[method]).not.toBeNull();
-    expect(isFunction(sut[method])).toEqual(true);
-}
 
 function exerciseFakePromise() {
     return {

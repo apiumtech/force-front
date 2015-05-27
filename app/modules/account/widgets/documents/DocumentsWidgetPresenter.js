@@ -30,6 +30,10 @@ define([], function () {
         };
     };
 
+    DocumentsWidgetPresenter.prototype.showError = function (error) {
+
+    };
+
     DocumentsWidgetPresenter.newInstance = function () {
         return new DocumentsWidgetPresenter();
     };

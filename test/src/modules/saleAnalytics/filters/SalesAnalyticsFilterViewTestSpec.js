@@ -10,10 +10,7 @@ define([
         var sut, $scope;
 
         beforeEach(function () {
-            $scope = {
-                $watch: function () {
-                }
-            };
+            $scope = mockAngularScope();
             sut = new SalesAnalyticsFilterView($scope);
         });
 
@@ -30,10 +27,7 @@ define([
             var sut, $scope;
 
             beforeEach(function () {
-                $scope = {
-                    $watch: function () {
-                    }
-                };
+                $scope = mockAngularScope();
                 sut = new SalesAnalyticsFilterView($scope);
             });
 
@@ -384,10 +378,7 @@ define([
             var sut, $scope;
 
             beforeEach(function () {
-                $scope = {
-                    $watch: function () {
-                    }
-                };
+                $scope = mockAngularScope();
                 sut = new SalesAnalyticsFilterView($scope);
                 sut.fn.getFilteredUsersList = jasmine.createSpy();
             });
@@ -568,10 +559,7 @@ define([
                 ].forEach(function (test) {
                         var _sut, $scope;
                         beforeEach(function () {
-                            $scope = {
-                                $watch: function () {
-                                }
-                            };
+                            $scope = mockAngularScope();
                             _sut = new SalesAnalyticsFilterView($scope);
                             _sut.userFiltered = test.input;
                             _sut.checkSelectAllState();

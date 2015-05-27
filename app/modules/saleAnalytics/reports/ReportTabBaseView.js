@@ -4,9 +4,9 @@ define([
 ], function (BaseView, ReportEventBus) {
     'use strict';
 
-    function ReportTabBaseView(scope, presenter) {
+    function ReportTabBaseView(scope, presenter, eventBus) {
         BaseView.call(this, scope, null, presenter);
-        this.reportEventBus = ReportEventBus.getInstance();
+        this.reportEventBus = eventBus || ReportEventBus.getInstance();
     }
 
     ReportTabBaseView.prototype = Object.create(BaseView.prototype, {
