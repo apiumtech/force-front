@@ -4,7 +4,7 @@
 define([], function () {
 
     function StorageService(storage) {
-        this.storage = storage;
+        this.storage = storage || window.localStorage;
     }
 
     StorageService.prototype = Object.create(Object.prototype, {});

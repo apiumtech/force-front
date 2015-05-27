@@ -8,6 +8,8 @@
 
 @force_report_light_grey: rgba(0, 0, 0, .1);
 
+@force_report_medium_grey: rgba(0, 0, 0, .5);
+
 .sale-analytics-reports {
 
   border: 1px solid @force_report_dark_grey;
@@ -43,29 +45,63 @@
 
   .report-directory {
 
-    > .accordion-tree-group.panel {
-    }
-
-    //:not(.accordion-tree-group).panel {
-    //  border: none;
-    //}
-
     .panel-heading {
       padding: 2px;
       background: #fff;
+      text-transform: none !important;
 
-      h4 {
+      .item-box {
+        font-size: 1.1em;
+        > i {
+          padding-top: 15px;
+          font-size: 1.6em;
+          &.folder {
+            color: @force_report_medium_grey
+          }
+        }
 
+        > div {
+          font-size: 1.1em;
+          padding-top: 20px;
+        }
+      }
+
+      h5, .panel-title {
+        text-transform: none !important;
       }
 
       a {
         color: rgba(0, 0, 0, .8);
         div {
           padding: 2px 0 4px 0;
+
+          &.inline {
+            padding: 0 !important;
+          }
+
+          &.name-form, &.description-form {
+            .help {
+              font-size: .85em;
+              padding-left: 4px;
+              &.help-danger{
+                color: #FF0000;
+              }
+            }
+            padding-left: 30px;
+          }
+
+          &.name-form {
+            i.bullet {
+              margin-left: -30px;
+              margin-top: 10px;
+              margin-right: 15px;
+              font-size: 1.1em;
+              color: @force_report_medium_grey;
+            }
+          }
         }
 
         &.accordion-toggle {
-
           overflow: hidden;
           margin-bottom: 0 !important;
         }
@@ -96,12 +132,19 @@
       }
     }
   }
+
+  input.inline {
+    width: 75%;
+  }
+
   .inline {
+    margin: 3px;
     display: inline-block;
 
-    > i {
-      margin-top: 10px;
+    &:not(input) {
+      padding: 0;
     }
+
   }
 
   .name-form, .description-form {
@@ -111,7 +154,24 @@
     :hover {
       .edit-btn:not(.ng-hide) {
         display: block;
-        margin-top: -24px;
+        margin: 0 0;
+        padding: 0 15px;
+        color: rgba(0, 0, 0, .5);
+      }
+    }
+  }
+
+  .name-form {
+    :hover {
+      .edit-btn:not(.ng-hide) {
+        margin: 5px 0 0;
+      }
+    }
+  }
+  .description-form {
+    :hover {
+      .edit-btn:not(.ng-hide) {
+        margin: -5px 0 0;
       }
     }
   }

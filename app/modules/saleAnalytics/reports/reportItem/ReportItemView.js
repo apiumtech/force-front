@@ -18,6 +18,22 @@ define([
                 return this.$scope.report;
             }
         },
+        nameError: {
+            get: function () {
+                return this.$scope.nameError;
+            },
+            set: function (value) {
+                this.$scope.nameError = value;
+            }
+        },
+        descriptionError: {
+            get: function () {
+                return this.$scope.descriptionError;
+            },
+            set: function (value) {
+                this.$scope.descriptionError = value;
+            }
+        },
         editingName: {
             get: function () {
                 return this.$scope.editingName;
@@ -45,10 +61,16 @@ define([
         };
 
         self.fn.saveName = function () {
-            self.event.onSaveName(self.report.id, self.report.name);
+            if (!self.report.name) {
+                self.nameError = "Name cannot be empty";
+            } else {
+                self.nameError = "";
+                self.event.onSaveName(self.report.id, self.report.name);
+            }
         };
 
         self.fn.cancelEditingName = function () {
+            self.nameError = "";
             self.report.name = self.originalName;
             self.editingName = false;
         };
@@ -59,13 +81,36 @@ define([
         };
 
         self.fn.saveDescription = function () {
-            self.event.onSaveDescription(self.report.id, self.report.description);
+            if (!self.report.description) {
+                self.descriptionError = "Description cannot be empty";
+            } else {
+                self.descriptionError = "";
+                self.event.onSaveDescription(self.report.id, self.report.description);
+            }
         };
 
         self.fn.cancelEditingDescription = function () {
+            self.descriptionError = "";
             self.report.description = self.originalDescription;
             self.editingDescription = false;
         };
+    };
+
+    ReportItemView.prototype.onSaveNameSuccess = function (data) {
+        this.report.name = data.name;
+        this.editingName = false;
+    };
+
+    ReportItemView.prototype.onSaveNameError = function (data) {
+    };
+
+    ReportItemView.prototype.onSaveDescriptionSuccess = function (data) {
+        this.report.description = data.description;
+        this.editingDescription = false;
+    };
+
+    ReportItemView.prototype.onSaveDescriptionError = function (data) {
+
     };
 
     ReportItemView.newInstance = function ($scope, $element, $presenter, $viewRepaintAspect, $logErrorAspect) {

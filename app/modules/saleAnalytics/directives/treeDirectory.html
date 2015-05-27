@@ -4,13 +4,13 @@
     <accordion-heading class="clearfix">
         <div class="item-container accordion-level-{{treeLevel}}">
 
-            <div class="item-box col-xs-8" ng-class="{'checked': item.checked}">
+            <div class="item-box">
 
                 <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
-                <i class="pull-left m-t-2 m-r-10"
-                   ng-class="{'fa fa-folder-o  m-l-10': item.children}"
+                <i class="pull-left m-t-2 m-r-10 folder fa"
+                   ng-class="{'fa-folder-o m-l-10': item.children, 'fa-folder-open-o': item.isOpen}"
                         ></i>
 
                 <div class="m-l-10" ng-if="item.children">

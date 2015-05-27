@@ -6,11 +6,11 @@ define([
     'shared/services/StorageService',
     'config',
     'jquery'
-],function (AjaxService,StorageService, Configuration, $) {
+], function (AjaxService, StorageService, Configuration, $) {
 
     function AuthAjaxService(ajaxImpl, storageService) {
-        AjaxService.call(this, ajaxImpl);
-        this.storageService = storageService;
+        AjaxService.call(this, ajaxImpl || $.ajax);
+        this.storageService = storageService || new StorageService();
     }
 
     AuthAjaxService.prototype = Object.create(AjaxService.prototype, {});
@@ -22,7 +22,7 @@ define([
 
         // TODO: get rid of it when proper login is implemented
         var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
-        
+
         token = token || dev_token;
         request.headers = request.headers || {};
         request.headers.token = token;
