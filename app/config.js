@@ -75,7 +75,7 @@ define(function () {
         literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
         deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
 
-        literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
+        literalsObject: 'https://commons-queries.forcemanager.net/literals/literalValue/literalsObject.ashx'
 
     };
 

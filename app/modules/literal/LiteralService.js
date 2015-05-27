@@ -134,19 +134,6 @@ define([
     };
 
 
-    proto.getLiteralDictionary = function (lang, implementationCode) {
-        lang = lang || Configuration.defaultLiteralLang;
-        implementationCode = implementationCode || "";
-
-        return this.ajaxService.rawAjaxRequest({
-            url: Configuration.api.literalValueDictionaryByLanguageAndImplementationCode,
-            type: 'GET',
-            dataType: 'json',
-            data: "language=" + lang + "&implementationCode=" + implementationCode
-        });
-    };
-
-
     // ----------------------------------------
     //
     //  RETRIEVE ONE LITERAL

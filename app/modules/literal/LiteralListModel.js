@@ -34,11 +34,6 @@ define([
     };
 
 
-    proto.getLiteralDictionary = function () {
-        return this.literalService.getLiteralDictionary("en", null);
-    };
-
-
     LiteralListModel.newInstance = function (literalService) {
         literalService = literalService || LiteralService.newInstance();
         return new LiteralListModel(literalService);
