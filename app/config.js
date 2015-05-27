@@ -90,7 +90,7 @@ define(function () {
         corsEnabled: true,
         pageSize: 10,
         defaultDateSubtraction: 30,
-        tokenStorageKey: "token",
+        tokenStorageKey: "fm_token",
         defaultLiteralLang: "en",
         i18nextOptions: i18nextOptions
     };
