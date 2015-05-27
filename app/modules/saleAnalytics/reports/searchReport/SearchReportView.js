@@ -6,6 +6,8 @@ define([
 
     function SearchReportView($scope, $presenter) {
         ReportTabBaseView.call(this, $scope, $presenter);
+
+        this.currentQueryString = "";
         this.configureEvents();
     }
 
@@ -15,6 +17,7 @@ define([
         var self = this;
 
         self.fn.loadReports = function (queryString) {
+            self.isLoading = true;
             self.event.onLoadReports(queryString || "");
         };
 
@@ -23,8 +26,17 @@ define([
 
     SearchReportView.prototype.startSearching = function (queryString) {
         var self = this;
-        console.log(self.event);
-        self.fn.loadReports(queryString);
+        self.currentQueryString = queryString || self.currentQueryString;
+        self.fn.loadReports(self.currentQueryString);
+    };
+
+    SearchReportView.prototype.onReportsLoaded = function (reports) {
+        this.reports = reports;
+        this.isLoading = false;
+    };
+
+    SearchReportView.prototype.showError = function (error) {
+        console.error(error);
     };
 
     SearchReportView.newInstance = function ($scope, $presenter, viewRepaintAspect, logErrorAspect) {

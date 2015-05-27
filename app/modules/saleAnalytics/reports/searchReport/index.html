@@ -1,7 +1,7 @@
-<div class="favourite-report panel"
+<div class="search-report favourite-report panel"
      ng-class="{'panel-loading': isLoading}"
-     ng-controller="FavouriteReportController"
-     ng-init="fn.loadReports()">
+     ng-controller="SearchReportController"
+     ng-init="fn.loadReports(queryString)">
     <div class="panel-body">
         <div class="panel-loader" ng-show="isLoading">
             <span class="spinner-small"></span>

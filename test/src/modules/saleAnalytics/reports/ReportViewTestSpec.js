@@ -37,18 +37,46 @@ define([
                 spyOn(sut.reportEventBus, 'fireSearchReportTabSelected');
             });
             describe('fn.allReportSelected', function () {
-                it("should fire event AllReportSelected to the eventbus", function () {
+                beforeEach(function () {
                     sut.fn.allReportSelected();
+                });
+                it("should fire event AllReportSelected to the eventbus", function () {
                     expect(sut.reportEventBus.fireAllReportTabSelected).toHaveBeenCalled();
                 });
             });
             describe('fn.favReportSelected', function () {
-                it("should fire event FavReportSelected to the eventbus", function () {
+                beforeEach(function () {
                     sut.fn.favReportSelected();
+                });
+                it("should fire event FavReportSelected to the eventbus", function () {
                     expect(sut.reportEventBus.fireFavReportTabSelected).toHaveBeenCalled();
                 });
             });
             describe('fn.searchReportSelected', function () {
+                beforeEach(function () {
+                    sut.fn.searchReportSelected();
+
+                });
+                it("should display the search report tab", function () {
+                    expect(sut.displaySearch).toBeTruthy();
+                });
+                it("should fire event AllReportTabSelected to the eventbus", function () {
+                    expect(sut.reportEventBus.fireSearchReportTabSelected).toHaveBeenCalled();
+                });
+            });
+
+            describe('fn.removeSearchTab', function () {
+                it("should deactivate the search tab", function () {
+                    sut.searchTabActivated = true;
+                    sut.fn.removeSearchTab();
+                    expect(sut.searchTabActivated).toBeFalsy();
+                });
+
+                it("should hide the search tab ", function () {
+                    sut.displaySearch = true;
+                    sut.fn.removeSearchTab();
+                    expect(sut.displaySearch).toBeFalsy();
+                });
 
             });
         });

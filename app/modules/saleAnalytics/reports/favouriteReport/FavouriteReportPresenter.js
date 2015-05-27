@@ -17,7 +17,7 @@ define([
 			console.log("loading reports");
 			self.model._getReports()
 				.then(view.onReportsLoaded.bind(view), view.showError.bind(view));
-		}
+		};
 	}
 
 	return FavouriteReportPresenter;

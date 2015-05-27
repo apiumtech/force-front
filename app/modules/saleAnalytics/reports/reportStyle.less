@@ -15,8 +15,21 @@
 @white: #FFF;
 
 .sale-analytics-reports {
+  .removeTextBoxBtn {
+    right: 50px;
+    top: 11px;
+    z-index: 10;
+  }
 
-  .favourite-icon{
+  .panel {
+    position: relative;
+    &.panel-loading .panel-loader {
+      margin: 0 !important;
+      z-index: 999;
+    }
+  }
+
+  .favourite-icon {
     font-size: 1.2em;
     margin-right: 8px;
   }
@@ -53,17 +66,21 @@
     padding: 20px;
   }
 
+  .panel-body {
+    padding: 0 !important;
+  }
+
   .all-report {
 
     .report-directory {
 
-      > div.panel-group > div > div > div.panel-heading{
+      > div.panel-group > div > div > div.panel-heading {
         border-top: 0;
         border-bottom: 1px solid @force_report_light_grey;
         background: @white;
       }
 
-      .panel{
+      .panel {
         margin-top: 0;
       }
 
@@ -88,7 +105,7 @@
             padding-top: 20px;
           }
 
-          .report-item{
+          .report-item {
             padding-top: 10px;
           }
 
@@ -105,12 +122,12 @@
 
             &.inline {
               padding: 0 !important;
-              p{
+              p {
                 margin-bottom: 3px;
               }
             }
 
-            &.form-inline{
+            &.form-inline {
               padding-bottom: 0 !important;
             }
 
@@ -129,7 +146,6 @@
       //}
 
       .panel-body {
-        padding: 0 !important;
         ul {
           padding: 4px 0 8px 15px;
           background-color: rgba(0, 0, 0, .05);
@@ -159,7 +175,7 @@
     div.report-item-box {
       padding: 5px 20px;
       border-bottom: 1px solid @force_report_light_grey;
-      &:nth-child(odd) {
+      &:nth-child(even) {
         background: @force_report_light_blue;
       }
 
@@ -175,12 +191,12 @@
 
   .panel-heading a div, div {
 
-    h5{
+    h5 {
       margin-bottom: 2px;
     }
 
-    .inline{
-      &.button-group{
+    .inline {
+      &.button-group {
         margin: 0;
       }
     }

@@ -30,6 +30,20 @@ define([
     ReportEventBus.prototype.unsubscribeFavReportTabSelected = function () {
     };
 
+    ReportEventBus.prototype.onSearchActivated = function () {
+    };
+    ReportEventBus.prototype.fireSearchActivated = function () {
+    };
+    ReportEventBus.prototype.unsubscribeSearchActivated = function () {
+    };
+
+    ReportEventBus.prototype.onSearchDeactivated = function () {
+    };
+    ReportEventBus.prototype.fireSearchDeactivated = function () {
+    };
+    ReportEventBus.prototype.unsubscribeSearchDeactivated = function () {
+    };
+
     ReportEventBus.prototype.onSearchReportTabSelected = function () {
     };
     ReportEventBus.prototype.fireSearchReportTabSelected = function () {

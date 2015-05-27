@@ -14,11 +14,11 @@
             </tab-heading>
             <ng-include src="'app/modules/saleAnalytics/reports/favouriteReport/index.html'"></ng-include>
         </tab>
-        <tab ng-show="displaySearch" select="fn.searchReportSelected()">
+        <tab ng-show="displaySearch" select="fn.searchReportSelected()" active="searchTabActivated">
             <tab-heading>
                 {{'Reports.SearchReports' | i18next}}
             </tab-heading>
-            <ng-include src="''"></ng-include>
+            <ng-include src="'app/modules/saleAnalytics/reports/searchReport/index.html'"></ng-include>
         </tab>
     </tabset>
 </div>

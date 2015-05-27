@@ -22,6 +22,8 @@ define([
                 "AllReportTabSelected",
                 "SearchReportTabSelected",
                 "FavReportTabSelected",
+                "SearchActivated",
+                "SearchDeactivated",
                 "FolderReportSelected"
             ];
 

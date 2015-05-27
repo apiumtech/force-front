@@ -38,10 +38,18 @@ define([
         });
 
         describe("startSearching", function () {
+            it("should only assign value if queryString is defined", function () {
+                sut.currentQueryString = "old_query";
+                sut.startSearching();
+                expect(sut.currentQueryString).toEqual("old_query");
+                sut.startSearching("newQuery");
+                expect(sut.currentQueryString).toEqual("newQuery");
+            });
+
             it("should call loadReports", function () {
                 spyOn(sut.fn, 'loadReports');
                 sut.startSearching();
-                expect(sut.fn.loadReports).toHaveBeenCalled();
+                expect(sut.fn.loadReports).toHaveBeenCalledWith(sut.currentQueryString);
             });
         });
     });

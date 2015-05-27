@@ -7,6 +7,7 @@ define([
     function AllReportView($scope, $presenter) {
         ReportTabBaseView.call(this, $scope, $presenter);
         this.reports = [];
+        this.isLoading = false;
         this.configureEvents();
     }
 
@@ -17,14 +18,6 @@ define([
             },
             set: function (value) {
                 this.$scope.searchQuery = value;
-            }        
-        },
-        isLoading: {
-            get: function () {
-                return this.$scope.isLoading;
-            },
-            set: function (value) {
-                this.$scope.isLoading = value;
             }
         }
     });
@@ -33,11 +26,17 @@ define([
         var self = this;
 
         self.fn.loadReports = function () {
+            self.isLoading = true;
             self.event.onLoadReports();
         };
 
-        self.fn.activeSearch = function () {
-            self.reportEventBus.fireSearchReportTabSelected(self.searchQuery);
+        self.fn.activateSearch = function () {
+            self.reportEventBus.fireSearchActivated(self.searchQuery);
+        };
+
+        self.fn.deactivateSearch = function () {
+            self.searchQuery = "";
+            self.reportEventBus.fireSearchDeactivated();
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
@@ -45,7 +44,7 @@ define([
 
     AllReportView.prototype.onReportsLoaded = function (reports) {
         this.reports = reports;
-        console.log("view", reports);
+        this.isLoading = false;
     };
 
     AllReportView.prototype.showError = function (error) {

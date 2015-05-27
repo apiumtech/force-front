@@ -1,31 +1,23 @@
 define([
-    'shared/BaseView',
+    'modules/saleAnalytics/reports/ReportTabBaseView',
     'modules/saleAnalytics/reports/favouriteReport/FavouriteReportPresenter',
     'modules/saleAnalytics/reports/ReportEventBus'
-], function (BaseView, FavouriteReportPresenter, ReportEventBus) {
+], function (ReportTabBaseView, FavouriteReportPresenter, ReportEventBus) {
     'use strict';
 
     function FavouriteReportView($scope, $presenter) {
-        BaseView.call(this, $scope, null, $presenter);
+        ReportTabBaseView.call(this, $scope, $presenter);
         this.reportEventBus = ReportEventBus.getInstance();
         this.configureEvents();
     }
 
-    FavouriteReportView.prototype = Object.create(BaseView.prototype, {
-        reports: {
-            get: function () {
-                return this.$scope.reports;
-            },
-            set: function (value) {
-                this.$scope.reports = value;
-            }
-        }
-    });
+    FavouriteReportView.prototype = Object.create(ReportTabBaseView.prototype, {});
 
     FavouriteReportView.prototype.configureEvents = function () {
         var self = this;
 
         self.fn.loadReports = function () {
+            self.isLoading = true;
             self.event.onLoadReports();
         };
 
@@ -34,7 +26,7 @@ define([
 
     FavouriteReportView.prototype.onReportsLoaded = function (reports) {
         this.reports = reports;
-        console.log("favouriteview", reports);
+        this.isLoading = false;
     };
 
     FavouriteReportView.prototype.showError = function (error) {

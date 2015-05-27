@@ -22,5 +22,13 @@ define([], function () {
         return new AwaitHelper();
     };
 
+    AwaitHelper.getInstance = function () {
+        if (AwaitHelper.__instance) {
+            return AwaitHelper.__instance;
+        }
+
+        return (AwaitHelper.__instance = new AwaitHelper());
+    };
+
     return AwaitHelper;
 });
