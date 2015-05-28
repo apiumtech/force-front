@@ -62,7 +62,8 @@ define([
 
         self.fn.allReportSelected = function () {
             self.searchTabActivated = false;
-            self.reportEventBus.fireAllReportTabSelected();
+            if (self.openingFolder == false)
+                self.reportEventBus.fireAllReportTabSelected();
         };
 
         self.fn.favReportSelected = function () {
@@ -83,8 +84,19 @@ define([
             self.displaySearch = false;
         };
 
+        self.fn._delayOpeningFolder = function () {
+            self.awaitHelper.await(self.fn.openFirstTabForOpeningFolder, 20);
+        };
+
+        self.fn.openFirstTabForOpeningFolder = function () {
+            self.openingFolder = true;
+            self.firstTabActivated = true;
+            self.searchTabActivated = false;
+        };
+
         self.reportEventBus.onSearchActivated(self.fn.searchReportSelected);
         self.reportEventBus.onSearchDeactivated(self.fn.removeSearchTab);
+        self.reportEventBus.onFolderReportSelected(self.fn.openFirstTabForOpeningFolder);
     };
 
     ReportView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {

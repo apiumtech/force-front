@@ -17,7 +17,8 @@ define([
             scope: {
                 treeList: '=treeList',
                 groupSelectionChanged: "&",
-                selectionChanged: "&"
+                selectionChanged: "&",
+                multipleSelection: "="
             },
             templateUrl: 'app/modules/saleAnalytics/directives/treeList.html',
             compile: function (element) {
@@ -25,6 +26,7 @@ define([
 
                     scope.toggleSelectGroupItems = function (parentItem, event, notFireEvent) {
                         event.stopPropagation();
+
                         var selectState = parentItem.checked;
                         parentItem.checked = !selectState;
                         parentItem.children.forEach(function (n) {
@@ -36,12 +38,12 @@ define([
                         });
 
                         if (!notFireEvent)
-                            UserTreeListEventBus.fireNodeSelected();
+                            UserTreeListEventBus.fireNodeSelected(item);
                     };
 
                     scope.toggleNode = function (item) {
                         item.checked = !item.checked;
-                        if (item.children) return;
+                        if (item.children && scope.multipleSelection) return;
                         UserTreeListEventBus.fireNodeSelected(item);
                     };
                 });

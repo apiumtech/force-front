@@ -37,10 +37,14 @@ define([
 
         describe('configureEvents', function () {
             describe('fn.allReportSelected', function () {
-                beforeEach(function () {
+                it("should fire event AllReportSelected to the eventbus if not opening folder", function () {
+                    sut.openingFolder = true;
                     sut.fn.allReportSelected();
+                    expect(eventBus.fireAllReportTabSelected).not.toHaveBeenCalled();
                 });
                 it("should fire event AllReportSelected to the eventbus", function () {
+                    sut.openingFolder = false;
+                    sut.fn.allReportSelected();
                     expect(eventBus.fireAllReportTabSelected).toHaveBeenCalled();
                 });
             });

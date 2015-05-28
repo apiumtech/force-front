@@ -46,6 +46,10 @@ define([
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
     };
 
+    ReportTabBaseView.prototype.reloadReports = function () {
+        this.fn.loadReports();
+    };
+
     ReportTabBaseView.prototype.onReloadWidgetSuccess = function (data) {
         console.log("logging data", data);
         var self = this;

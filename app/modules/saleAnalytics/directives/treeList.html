@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="select-box text-center pull-right">
+            <div class="select-box text-center pull-right" ng-if="multipleSelection">
                 <a ng-if="item.children && item.children.length"
                    href="#" class="clearfix"
                    ng-click="toggleSelectGroupItems(item, $event)"
@@ -37,6 +37,6 @@
     </accordion-heading>
 
     <accordion>
-        <div tree-list="item.children"></div>
+        <div tree-list="item.children" multiple-selection="multipleSelection"></div>
     </accordion>
 </accordion-group>

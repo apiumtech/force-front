@@ -1,14 +1,17 @@
 define([
     'shared/services/ajax/FakeAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
+    'modules/saleAnalytics/reports/ReportFakeData',
+    'shared/services/ArrayHelper',
     'config',
     'moment'
-], function (AjaxService, WidgetBase, Configuration, moment) {
+], function (AjaxService, WidgetBase, ReportFakeData, ArrayHelper, Configuration, moment) {
     'use strict';
 
     function AllReportModel(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        WidgetBase.call(this, this.ajaxService);
+        ajaxService = ajaxService || new AjaxService();
+        WidgetBase.call(this, ajaxService);
+        this.arrayHelper = ArrayHelper;
         this.queries = {
             user: "",
             permission: ""
@@ -19,98 +22,20 @@ define([
 
     AllReportModel.prototype = Object.create(WidgetBase.prototype, {});
 
-    AllReportModel.prototype.reloadWidget = function(){
+    AllReportModel.prototype.reloadWidget = function () {
         return this._reload();
-    }
+    };
 
     AllReportModel.prototype._reload = function () {
         return this.ajaxService.rawAjaxRequest({
-            result: [{
-                id: 1,
-                name: 'Folder',
-                description: '',
-                children: [
-                    {
-                        id: 2,
-                        name: "Longtail",
-                        description: '',
-                        children: [
-                            {
-                                id: 3,
-                                name: "Alalisis Oportunidades",
-                                description: "Imforme que muestra riesgo por bajo uso por cliente",
-                            },
-                            {
-                                id: 4,
-                                name: "Analisis Oportunidades IN/OUT",
-                                description: "Imforme que muestra riesgo por bajo uso por cliente",
-                            },
-                            {
-                                id: 5,
-                                name: "Analisis Oportunidades OUT",
-                                description: "Imforme que muestra riesgo por bajo uso por cliente",
-                            }
-                        ]
-                    }
-                ]
-            },
-                {
-                    id: 1,
-                    name: 'Folder',
-                    description: '',
-                    children: [
-                        {
-                            id: 2,
-                            name: "Longtail",
-                            description: '',
-                            children: [
-                                {
-                                    id: 3,
-                                    name: "Alalisis Oportunidades",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                },
-                                {
-                                    id: 4,
-                                    name: "Analisis Oportunidades IN/OUT",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                },
-                                {
-                                    id: 5,
-                                    name: "Analisis Oportunidades OUT",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            name: "Longtail",
-                            description: '',
-                            children: [
-                                {
-                                    id: 3,
-                                    name: "Alalisis Oportunidades",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                },
-                                {
-                                    id: 4,
-                                    name: "Analisis Oportunidades IN/OUT",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                },
-                                {
-                                    id: 5,
-                                    name: "Analisis Oportunidades OUT",
-                                    description: "Imforme que muestra riesgo por bajo uso por cliente",
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            result: ReportFakeData
         }).then(this.decorateServerData.bind(this));
     };
 
-    AllReportModel.prototype.decorateServerData = function (serverData) {
-        return serverData;
+    AllReportModel.prototype.decorateServerData = function (data) {
+        if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
+        console.log(JSON.stringify(this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1)));
+        return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
     };
 
     return AllReportModel;

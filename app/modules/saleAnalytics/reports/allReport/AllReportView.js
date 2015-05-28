@@ -1,13 +1,15 @@
 define([
     'modules/saleAnalytics/reports/ReportTabBaseView',
-    'modules/saleAnalytics/reports/allReport/AllReportPresenter'
-], function (ReportTabBaseView, AllReportPresenter) {
+    'modules/saleAnalytics/reports/allReport/AllReportPresenter',
+    'shared/services/ArrayHelper'
+], function (ReportTabBaseView, AllReportPresenter, ArrayHelper) {
     'use strict';
 
     function AllReportView($scope, $presenter, eventBus) {
         ReportTabBaseView.call(this, $scope, $presenter, eventBus);
         this.reports = [];
         this.isLoading = false;
+        this.arrayHelper = ArrayHelper;
         this.configureEvents();
     }
 
@@ -23,6 +25,8 @@ define([
     });
 
     AllReportView.prototype.configureEvents = function () {
+        ReportTabBaseView.prototype.configureEvents.call(this);
+
         var self = this;
 
         self.fn.loadReports = function () {
@@ -31,15 +35,35 @@ define([
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
-    };
-
-    AllReportView.prototype.reloadReports = function () {
-        this.fn.loadReports();
+        self.reportEventBus.onFolderReportSelected(self.openReportFolder.bind(self));
     };
 
     AllReportView.prototype.onReportsLoaded = function (reports) {
         this.reports = reports;
         this.isLoading = false;
+    };
+
+    AllReportView.prototype.openReportFolder = function (selectedFolder) {
+        console.log("Opening report folder:", selectedFolder);
+
+        if (!selectedFolder) return;
+        var self = this;
+        var arrayHelper = self.arrayHelper;
+
+        var cloned = arrayHelper.clone(self.reports);
+        var flattened = arrayHelper.flatten(cloned, 'children');
+
+        var nodeToCheck = _.find(flattened, function (n) {
+            return n.id === selectedFolder
+        });
+
+        var parents = arrayHelper.findParents(flattened, "idParent", "id", selectedFolder, -1);
+
+        parents.forEach(function (p) {
+            p.isOpen = true;
+        });
+
+        self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
     };
 
     AllReportView.prototype.showError = function (error) {

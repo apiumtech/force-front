@@ -59,7 +59,8 @@ define(function () {
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
-        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
+
+        literalListBySearch: baseUrl + 'api/queries/commons/literals/literalList',
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
 
         languageList: baseUrl + '/api/queries/commons/languages/languageList',
@@ -67,8 +68,8 @@ define(function () {
         literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
         deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
 
-        literalsObject: 'https://commons-queries.forcemanager.net/literals/literalValue/literalsObject.ashx'
 
+        literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueDictionary'
     };
 
     return {

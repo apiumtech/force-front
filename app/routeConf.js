@@ -11,6 +11,7 @@ define([
     ,'modules/account/routes'
     ,'modules/agenda/routes'
     ,'modules/literal/routes'
+	,'modules/literals/routes'
 	// ==more---routes---config---here==
 ], function (app, RouteChangedEventHandlers) {
     'use strict';
