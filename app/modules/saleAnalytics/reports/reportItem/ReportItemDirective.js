@@ -8,7 +8,8 @@ define([
         return {
             restrict: "EA",
             scope: {
-                report: "="
+                report: "=",
+                fireOpenFolder: "="
             },
             controller: ['$scope', '$element', ReportItemController],
             templateUrl: 'app/modules/saleAnalytics/reports/reportItem/reportItem.html'

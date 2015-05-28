@@ -1,7 +1,8 @@
 define([
     'shared/BaseView',
-    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter'
-], function (BaseView, ReportItemPresenter) {
+    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter',
+    'modules/saleAnalytics/reports/ReportEventBus'
+], function (BaseView, ReportItemPresenter, ReportEventBus) {
     'use strict';
 
     function ReportItemView($scope, $element, $presenter) {
@@ -9,6 +10,7 @@ define([
         this.element = $element;
         this.originalName = "";
         this.originalDescription = "";
+        this.reportEventBus = ReportEventBus.getInstance();
         this.configureEvents();
     }
 
@@ -49,6 +51,14 @@ define([
             set: function (value) {
                 this.$scope.editingDescription = value;
             }
+        },
+        fireOpenFolder: {
+            get: function () {
+                return this.$scope.fireOpenFolder;
+            },
+            set: function (value) {
+                this.$scope.fireOpenFolder = value;
+            }
         }
     });
 
@@ -67,6 +77,13 @@ define([
                 self.nameError = "";
                 self.event.onSaveName(self.report.id, self.report.name);
             }
+        };
+
+        self.fn.sendFolderReportOpenCommand = function (item) {
+            if (!self.fireOpenFolder || item.type !== 'folder') return;
+            var folderId = item.id;
+            console.log("sending open folder command", item);
+            self.reportEventBus.fireFolderReportSelected(folderId);
         };
 
         self.fn.cancelEditingName = function () {
