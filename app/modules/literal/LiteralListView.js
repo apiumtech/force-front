@@ -75,7 +75,8 @@ define([
     };
 
 
-    proto.createColumns = function (data) {
+    proto.createColumns = function (res) {
+        var data = res.data;
         var languages = [];
         data.forEach(function (lang) {
             languages.push({
@@ -97,7 +98,8 @@ define([
     };
 
 
-    proto.showTableData = function (data) {
+    proto.showTableData = function (res) {
+        var data = res.data;
         var self = this;
         var languages = [];
 

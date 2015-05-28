@@ -1,16 +1,16 @@
 define([
-	'modules/literals/shared/SharedLiteralsChannel'
-], function(SharedLiteralsChannel) {
+	'modules/literals/shared/LiteralsEventBus'
+], function(LiteralsEventBus) {
 	'use strict';
 
-	describe('SharedLiteralsChannel', function() {
+	describe('LiteralsEventBus', function() {
 		describe("getInstance", function () {
 			it("should get only one instance", function () {
 				var currentDateTime = new Date().getTime();
-				var instance = SharedLiteralsChannel.getInstance();
+				var instance = LiteralsEventBus.getInstance();
 				instance._____currentDateTime = currentDateTime;
 
-				var anotherSingleInstance = SharedLiteralsChannel.getInstance();
+				var anotherSingleInstance = LiteralsEventBus.getInstance();
 				expect(anotherSingleInstance._____currentDateTime).not.toBeUndefined();
 				expect(anotherSingleInstance._____currentDateTime).toEqual(currentDateTime);
 				expect(instance).toBe(anotherSingleInstance);
@@ -19,12 +19,14 @@ define([
 
 		describe("construct", function () {
 			var events = [
-				"SearchQuery"
+				"ColumnsRequest",
+				"ColumnsRequestSuccess",
+				"ColumnsRequestError"
 			];
 
 			var sut;
 			beforeEach(function () {
-				sut = new SharedLiteralsChannel.getInstance();
+				sut = new LiteralsEventBus.getInstance();
 			});
 
 			describe("when creating new instance", function () {

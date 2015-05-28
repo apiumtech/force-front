@@ -9,7 +9,7 @@ define([
 	}
 
 	LiteralsController.configureView = function ($scope) {
-		var view = LiteralsView.newInstance($scope);
+		var view = LiteralsView.newInstance({scope: $scope});
 		view.show();
 	};
 

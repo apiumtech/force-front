@@ -1,6 +1,7 @@
 force-front
 ===========
 
+
 ### Add Dependencies
 Make sure you have bower and npm installed, then run 
 
@@ -11,9 +12,22 @@ to install all dependencies
 
 ### Add new class & its test
 To generate the class and its test class, run the following command
+
 > grunt gentest:[path_to_implementation_class]
 
+for example:
+
+> grunt gentest:modules/literals/custom/CustomLiteralsService
+
+will generate the following files:
+
+> app/modules/literals/custom/CustomLiteralsService.js
+
+> test/src/modules/literals/custom/CustomLiteralsServiceTestSpec.js
+
+
 it will generate a test class for the implement class if the test class doesn't exist. If the implement class doesn't exist it will create both files. The file will be added to GIT automatically.
+
 
 ### Adding new module
 
@@ -27,15 +41,21 @@ for example:
 
 will generate the following files:
 
-> app/modules/documents/filter/DocumentFilterController
-> app/modules/documents/filter/DocumentFilterModel
-> app/modules/documents/filter/DocumentFilterView
-> app/modules/documents/filter/DocumentFilterPresenter
-> test/src/modules/documents/filter/DocumentFilterControllerTestSpec
-> test/src/modules/documents/filter/DocumentFilterModelTestSpec
-> test/src/modules/documents/filter/DocumentFilterViewTestSpec
-> test/src/modules/documents/filter/DocumentFilterPresenterTestSpec
+> app/modules/documents/filter/DocumentFilterController.js
 
+> app/modules/documents/filter/DocumentFilterModel.js
+
+> app/modules/documents/filter/DocumentFilterView.js
+
+> app/modules/documents/filter/DocumentFilterPresenter.js
+
+> test/src/modules/documents/filter/DocumentFilterControllerTestSpec.js
+
+> test/src/modules/documents/filter/DocumentFilterModelTestSpec.js
+
+> test/src/modules/documents/filter/DocumentFilterViewTestSpec.js
+
+> test/src/modules/documents/filter/DocumentFilterPresenterTestSpec.js
 
 
 ### Adding route for a module
@@ -43,6 +63,14 @@ will generate the following files:
 Run the following command to generate routes.js class:
 
 > grunt genroute:[module_name]
+
+for example:
+
+> grunt genroute:literals
+
+will generate the following file:
+
+> app/modules/literals/routes.js
 
 It will generate a routes.js file in /app/modules/<module_name>/ folder
 

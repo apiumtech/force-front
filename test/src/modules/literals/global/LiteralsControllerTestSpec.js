@@ -5,7 +5,7 @@ define([
 
 	describe('LiteralsController', function() {
 		it("should call configureView method", function () {
-			var scope = {someScope: true};
+			var scope = {someScope:"some scope"};
 
 			LiteralsController.configureView = jasmine.createSpy();
 			var ctrl = new LiteralsController(scope);

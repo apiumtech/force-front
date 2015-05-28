@@ -59,7 +59,8 @@ define(function () {
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
-        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalListBySearch',
+
+        literalListBySearch: baseUrl + 'api/queries/commons/literals/literalList',
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
 
         languageList: baseUrl + '/api/queries/commons/languages/languageList',

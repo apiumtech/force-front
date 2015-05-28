@@ -31,20 +31,20 @@ define([
         it('should createColumns onGetLanguageList', function () {
             var view = exerciseCreateView();
             expect(view.data.tableColumns).toBe(null);
-            view.onGetLanguageList([]);
+            view.onGetLanguageList({data:[]});
             expect(view.data.tableColumns).not.toBe(null);
         });
 
         it('should getLiteralList on onGetLanguageList', function () {
             var view = exerciseCreateView();
             spyOn(view.event, "getLiteralList");
-            view.onGetLanguageList([]);
+            view.onGetLanguageList({data:[]});
             expect(view.event.getLiteralList).toHaveBeenCalled();
         });
 
         it('should create columns on createColumns', function () {
             var view = exerciseCreateView();
-            view.createColumns([{Name: "es-es"}]);
+            view.createColumns({data:[{Name: "es-es"}]});
             expect(view.data.tableColumns.length).toBe(2);
             expect(view.data.tableColumns[0].title).toBe("Key");
             expect(view.data.tableColumns[1].title).toBe("es-es");
@@ -55,11 +55,11 @@ define([
             spyOn(view.dataTableService, "createDatatable");
             expect(view.data.table).toBe(null);
 
-            view.showTableData([{
+            view.showTableData({data:[{
                 LanguageValues: [{Key: "es-es", Value: "the value"}],
                 Id: "1",
                 Key: "the_key"
-            }]);
+            }]});
 
             expect(view.data.table).not.toBe(null);
             expect(view.dataTableService.createDatatable).toHaveBeenCalled();
