@@ -668,5 +668,206 @@ define([
                 });
         });
 
+        describe('selectSingle', function () {
+            [
+                {
+                    input: [
+                        {
+                            id: 1,
+                            checked: false,
+                            idParent: -1,
+                            children: [{
+                                id: 2,
+                                idParent: 1,
+                                checked: false
+                            }, {
+                                id: 3,
+                                idParent: 1,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 5,
+                                        idParent: 3,
+                                        checked: false
+                                    },
+                                    {
+                                        id: 6,
+                                        idParent: 3,
+                                        checked: false
+                                    }
+                                ]
+                            }]
+                        }
+                    ],
+
+                    expectedOutput: [
+                        {
+                            id: 1,
+                            checked: false,
+                            idParent: -1,
+                            children: [{
+                                id: 2,
+                                idParent: 1,
+                                checked: false
+                            }, {
+                                id: 3,
+                                idParent: 1,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 5,
+                                        idParent: 3,
+                                        checked: true
+                                    },
+                                    {
+                                        id: 6,
+                                        idParent: 3,
+                                        checked: false
+                                    }
+                                ]
+                            }]
+                        }
+                    ],
+                    testNode: {
+                        id: 5,
+                        idParent: 3,
+                        checked: true
+                    }
+                },
+                {
+                    input: [
+                        {
+                            id: 1,
+                            idParent: -1,
+                            checked: false,
+                            children: [{
+                                id: 2,
+                                idParent: 1,
+                                checked: true
+                            }, {
+                                id: 3,
+                                idParent: 1,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 5,
+                                        idParent: 3,
+                                        checked: true
+                                    },
+                                    {
+                                        id: 6,
+                                        idParent: 3,
+                                        checked: true
+                                    }
+                                ]
+                            }]
+                        },
+                        {
+                            id: 4,
+                            checked: true,
+                            idParent: -1,
+                            children: [{
+                                id: 7,
+                                idParent: 4,
+                                checked: true
+                            }, {
+                                id: 8,
+                                idParent: 4,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 9,
+                                        idParent: 8,
+                                        checked: true
+                                    },
+                                    {
+                                        id: 10,
+                                        idParent: 8,
+                                        checked: false
+                                    }
+                                ]
+                            }]
+                        }
+                    ],
+
+                    expectedOutput: [
+                        {
+                            id: 1,
+                            checked: true,
+                            idParent: -1,
+                            children: [{
+                                id: 2,
+                                idParent: 1,
+                                checked: false
+                            }, {
+                                id: 3,
+                                idParent: 1,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 5,
+                                        idParent: 3,
+                                        checked: false
+                                    },
+                                    {
+                                        id: 6,
+                                        idParent: 3,
+                                        checked: false
+                                    }
+                                ]
+                            }]
+                        },
+                        {
+                            id: 4,
+                            checked: false,
+                            idParent: -1,
+                            children: [{
+                                id: 7,
+                                idParent: 4,
+                                checked: false
+                            }, {
+                                id: 8,
+                                idParent: 4,
+                                checked: false,
+                                children: [
+                                    {
+                                        id: 9,
+                                        idParent: 8,
+                                        checked: false
+                                    },
+                                    {
+                                        id: 10,
+                                        idParent: 8,
+                                        checked: false
+                                    }
+                                ]
+                            }]
+                        }
+                    ],
+                    testNode: [{
+                        id: 1,
+                        idParent: -1,
+                        checked: true
+                    }]
+                }
+            ].forEach(function (test) {
+                    describe('Having input value', function () {
+                        it("should turn into correct output", function () {
+                            sut.userFiltered = test.input;
+                            sut.usersList = test.input;
+
+                            if (test.testNode.map) {
+                                test.testNode.forEach(function (t) {
+                                    sut.singleSelect(t);
+                                });
+                            } else {
+                                sut.singleSelect(test.testNode);
+                            }
+                            expect(sut.userFiltered).toEqual(test.expectedOutput);
+                        });
+                    });
+                });
+        });
+
     });
 });

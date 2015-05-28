@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav row row m-t-10"
     ng-controller="UserFilterController"
-    ng-init="fn.initializeFilters()">
+    ng-init="fn.initializeFilters(multipleSelection)">
     <li class="dropdown" dropdown is-open="userFilterOpened">
         <a id="drop1"
            href="javascript:"
@@ -65,8 +65,13 @@
                     </div>
                 </div>
 
-                <ng-include
-                        src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html'"></ng-include>
+                <ng-include ng-if="multipleSelection"
+                            src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html'"></ng-include>
+
+                <ng-include ng-if="!multipleSelection"
+                            src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html'"></ng-include>
+
+
             </li>
             <!-- END users tree -->
         </ul>

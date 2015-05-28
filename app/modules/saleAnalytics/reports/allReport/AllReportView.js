@@ -23,6 +23,8 @@ define([
     });
 
     AllReportView.prototype.configureEvents = function () {
+        ReportTabBaseView.prototype.configureEvents.call(this);
+
         var self = this;
 
         self.fn.loadReports = function () {
@@ -31,10 +33,6 @@ define([
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
-    };
-
-    AllReportView.prototype.reloadReports = function () {
-        this.fn.loadReports();
     };
 
     AllReportView.prototype.onReportsLoaded = function (reports) {

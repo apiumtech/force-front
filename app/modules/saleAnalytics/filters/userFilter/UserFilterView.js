@@ -68,6 +68,14 @@ define([
             set: function (value) {
                 this.$scope.searchingUser = value;
             }
+        },
+        multipleSelection: {
+            get: function () {
+                return this.$scope.multipleSelection;
+            },
+            set: function (value) {
+                this.$scope.multipleSelection = value;
+            }
         }
     });
 
@@ -93,7 +101,8 @@ define([
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
-        self.fn.initializeFilters = function () {
+        self.fn.initializeFilters = function (multipleSelection) {
+            self.multipleSelection = multipleSelection || false;
             self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
@@ -126,7 +135,10 @@ define([
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;
-        self.checkStateForTeamList(selectedItem);
+        if (this.multipleSelection)
+            self.checkStateForTeamList(selectedItem);
+        else
+            self.singleSelect(selectedItem);
         self.fn.applyUserFilter();
     };
 
@@ -135,6 +147,23 @@ define([
         var self = this;
         self.userFiltered = data;
         self.userFiltered[0].isOpen = true;
+    };
+
+    UserFilterView.prototype.singleSelect = function (selectedNode) {
+        if (!selectedNode) return;
+
+        var self = this;
+        var arrayHelper = self.arrayHelper;
+        var cloned = arrayHelper.clone(self.userFiltered);
+        var flattened = arrayHelper.flatten(cloned, 'children');
+
+        flattened.forEach(function (node) {
+            if (node.id == selectedNode.id) node.checked = true;
+            else node.checked = false;
+        });
+
+        self.userFiltered = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+
     };
 
     UserFilterView.prototype.checkStateForTeamList = function (selectedNode, flattened, notRoot) {

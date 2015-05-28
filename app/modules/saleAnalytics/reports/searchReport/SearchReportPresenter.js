@@ -14,13 +14,12 @@ define([
         view.event.onLoadReports = function (queryString) {
             self.model._getReports(queryString)
                 .then(view.onReportsLoaded.bind(view), view.showError.bind(view));
-        }
+        };
+
+        view.event.onUsersFilterApplied = function (filterValue) {
+            // does nothing
+        };
     };
-
-    SearchReportPresenter.prototype.searchTabSelected = function () {
-
-    };
-
 
     return SearchReportPresenter;
 });
