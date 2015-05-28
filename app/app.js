@@ -4,19 +4,16 @@
 define([
     'angular',
     'config',
+    'jquery',
+    'core/i18nextOptions',
     'routeResolverSvc',
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular-validation',
     'angular-validation-rule'
-], function (angular, config) {
-    var $i18nextProviderOptions = config.i18nextOptions;
-
-    // make sure i18n configuration is loaded before the other controllers and apps
-    i18n.init($i18nextProviderOptions);
-
+], function (angular, config, $, i18nextOptions) {
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
-        $i18nextProvider.options = $i18nextProviderOptions;
+        $i18nextProvider.options = i18nextOptions.dev;
     }]);
 
     var app = angular.module(config.appName, [

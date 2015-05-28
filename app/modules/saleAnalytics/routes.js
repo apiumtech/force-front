@@ -3,7 +3,8 @@
  */
 
 
-define([], function () {
+define([
+], function () {
     return {
         register: function ($routeProvider, resolveRoute) {
             var modulePath = 'modules/saleAnalytics/';

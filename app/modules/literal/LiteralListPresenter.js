@@ -26,7 +26,6 @@ define([], function () {
         };
 
         view.event.onInit = onInit = function () {
-            model.getLiteralDictionary();
             model.getLanguageList()
                 .then(
                 view.onGetLanguageList.bind(view),

@@ -4,8 +4,9 @@
  */
 
 define([
-    'modules/login/LoginModel'
-], function (LoginModel) {
+    'modules/login/LoginModel',
+    'config'
+], function (LoginModel, config) {
     'use strict';
 
 
@@ -82,7 +83,7 @@ define([
 
         it("should store token on storeToken()", function () {
             model.storeToken("the token");
-            expect(model.storage.retrieve('token')).toBe("the token");
+            expect(model.storage.retrieve(config.tokenStorageKey)).toBe("the token");
 
             window.localStorage.clear();
         });

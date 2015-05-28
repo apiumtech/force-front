@@ -8,14 +8,6 @@ define(function () {
 
     var baseApi = '';
 
-    var i18nextOptions = {
-        lng: 'en',
-        useCookie: false,
-        useLocalStorage: false,
-        fallbackLng: 'en',
-        resGetPath: '/api/translations/__lng__'
-    };
-
     var api = {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
         getAvailableOwners: baseApi + '/api/accounts/availableOwners',
@@ -75,7 +67,7 @@ define(function () {
         literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
         deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
 
-        literalValueDictionaryByLanguageAndImplementationCode: baseUrl + '/api/queries/commons/literalValues/literalValueDictionaryByLanguageAndImplementationCode'
+        literalsObject: 'https://commons-queries.forcemanager.net/literals/literalValue/literalsObject.ashx'
 
     };
 
@@ -90,8 +82,7 @@ define(function () {
         corsEnabled: true,
         pageSize: 10,
         defaultDateSubtraction: 30,
-        tokenStorageKey: "token",
-        defaultLiteralLang: "en",
-        i18nextOptions: i18nextOptions
+        tokenStorageKey: "fm_token",
+        defaultLiteralLang: "en"
     };
 });
