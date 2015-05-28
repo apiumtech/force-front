@@ -11,15 +11,15 @@ define([
         describe('construct', function () {
             it("should call configureEvents", function () {
                 spyOn(SearchReportView.prototype, 'configureEvents').and.callThrough();
-                new SearchReportView({}, {});
+                new SearchReportView(scope, presenter);
                 expect(SearchReportView.prototype.configureEvents).toHaveBeenCalled();
             });
         });
 
         beforeEach(function () {
-            scope = {};
+            scope = mockAngularScope();
             presenter = mock(SearchReportPresenter);
-            sut = new SearchReportView({}, presenter);
+            sut = new SearchReportView(scope, presenter);
             sut.event = {};
             sut.event.onLoadReports = jasmine.createSpy();
         });

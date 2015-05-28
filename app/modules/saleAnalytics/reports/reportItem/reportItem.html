@@ -7,7 +7,9 @@
                 ng-click="fn.startEditingName();">{{report.name}}</h5>
             <input ng-show="editingName" ng-model="report.name"
                    class="form-control inline"
-                   type="text"/>
+                   type="text"
+                   ng-keyup="$event.keyCode == 13 ? fn.saveName() : null"
+                    />
             <div class="inline button-group">
                 <button class="btn btn-link edit-btn" type="button"
                         ng-show="!editingName"
@@ -15,7 +17,6 @@
                     <i class="glyphicon glyphicon-pencil"></i>
                 </button>
                 <button class="btn btn-default"
-
                         ng-show="editingName" type="button" data-ng-click="fn.saveName();">
                     <i class="fa ic-accept"></i>
                 </button>
@@ -33,7 +34,9 @@
                ng-click="fn.startEditingDescription();">{{report.description}}</p>
             <input ng-show="editingDescription" ng-model="report.description"
                    class="form-control inline"
-                   type="text"/>
+                   type="text"
+                   ng-keyup="$event.keyCode == 13 ? fn.saveDescription() : null"
+                    />
 
             <div class="inline button-group">
                 <button class="btn btn-link edit-btn" type="button"

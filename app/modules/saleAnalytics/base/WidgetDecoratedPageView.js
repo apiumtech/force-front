@@ -8,6 +8,7 @@ define([
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
 
+    'modules/saleAnalytics/filters/userFilter/UserFilterController',
     'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetDirective',
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',

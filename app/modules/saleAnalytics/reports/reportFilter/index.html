@@ -1,7 +1,14 @@
-<div class="m-b-20 row report-filter" ng-controller="ReportFilterController">
-    <div class="col-md-3 pull-right">
-        <div class="input-group">
-            <input class="form-control" ng-model="searchQuery" placeholder="Search"/>
+<div class="m-b-20 row report-filter filters-div sales-filters-div" ng-controller="ReportFilterController">
+
+    <div class="col-md-12">
+        <div class="row">
+            <h6>
+                {{'Filters.FilterBy' | i18next}}</h6>
+
+            <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>
+            <div class="col-md-3 pull-right">
+                <div class="input-group">
+                    <input class="form-control" ng-model="searchQuery" placeholder="Search"/>
                     <span class="fa fa-remove removeTextBoxBtn"
                           ng-show="searchQuery"
                           ng-click="fn.deactivateSearch();$event.stopPropagation()"></span>
@@ -10,6 +17,10 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </span>
+                </div>
+            </div>
+            <!-- end filters-div -->
         </div>
+
     </div>
 </div>
