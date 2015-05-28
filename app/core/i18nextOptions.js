@@ -2,6 +2,8 @@ define([
     'jquery',
     'config'
 ], function ($, config) {
+    // FIXME: (joanllenas) for some reason prod's customLoad is being called three times. This is a hack to avoid it meanwhile.
+    var isFetching = false;
     return {
         dev: {
             lng: 'en',
@@ -14,29 +16,31 @@ define([
             useCookie: false,
             useLocalStorage: false,
             customLoad: function (lng, ns, options, loadComplete) {
-                var params = {
-                    url: config.api.literalsObject,
-                    data: JSON.stringify({
-                        credentials: {
-                            keys: {key: '', user: '', userkey: '', localTime: ''}
+                if (!isFetching) {
+                    isFetching = true;
+                    var params = {
+                        url: config.api.literalValueDictionary,
+                        data: {
+                            language: 'en',
+                            implementationCode: '-1',
+                            deviceType: ''
                         },
-                        language: 'en',
-                        idImplementation: '-1'
-                    }),
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json'
-                };
-                $.ajax(params).then(
-                    function (data) {
-                        loadComplete(null, data);
-                    },
-                    function (err) {
-                        var msg = 'Error loading literals: ' + err;
-                        console.error(msg);
-                        loadComplete(msg);
-                    }
-                );
+                        type: 'GET',
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        dataType: 'json'
+                    };
+                    $.ajax(params).then(
+                        function (data) {
+                            console.log(data);
+                            loadComplete(null, data);
+                        },
+                        function (err) {
+                            var msg = 'Error loading literals: ' + err;
+                            console.error(msg);
+                            loadComplete(msg);
+                        }
+                    );
+                }
             }
         }
     };
