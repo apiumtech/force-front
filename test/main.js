@@ -66,17 +66,6 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
-//function jasmineMock(constr) {
-//    var keys = [];
-//
-//    for (var key in constr.prototype) {
-//        keys.push(key);
-//    }
-//    var mockObject = keys.length > 0 ? jasmine.createSpyObj(constr.name, keys) : {};
-//
-//    return mockObject;
-//}
-
 function mockAngularScope() {
     var mock = {
         $on: function () {
@@ -95,10 +84,11 @@ function mockAngularScope() {
 }
 
 function mock(constr) {
-    var mockObj = {
-        _stubs: {}
-    };
+    var mockObj = {};
     for (var key in constr.prototype) {
+        if (!isFunction(constr.prototype[key]))
+            continue;
+        
         mockObj[key] = function () {
         };
         var stub = sinon.stub(mockObj, key);
