@@ -76,6 +76,14 @@ define([
             set: function (value) {
                 this.$scope.multipleSelection = value;
             }
+        },
+        currentSelectedUser: {
+            get: function () {
+                return this.$scope.currentSelectedUser;
+            },
+            set: function (value) {
+                this.$scope.currentSelectedUser = value;
+            }
         }
     });
 
@@ -152,13 +160,19 @@ define([
     UserFilterView.prototype.singleSelect = function (selectedNode) {
         if (!selectedNode) return;
 
+        var node_state = selectedNode.checked;
+
         var self = this;
+        this.currentSelectedUser = undefined;
         var arrayHelper = self.arrayHelper;
         var cloned = arrayHelper.clone(self.userFiltered);
         var flattened = arrayHelper.flatten(cloned, 'children');
 
         flattened.forEach(function (node) {
-            if (node.id == selectedNode.id) node.checked = true;
+            if (node.id == selectedNode.id) {
+                node.checked = node_state;
+                self.currentSelectedUser = node.checked ? node.name : undefined;
+            }
             else node.checked = false;
         });
 

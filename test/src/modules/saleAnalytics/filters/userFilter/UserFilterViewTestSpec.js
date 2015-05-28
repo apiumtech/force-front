@@ -793,7 +793,7 @@ define([
                     expectedOutput: [
                         {
                             id: 1,
-                            checked: true,
+                            checked: false,
                             idParent: -1,
                             children: [{
                                 id: 2,
@@ -847,7 +847,7 @@ define([
                     testNode: [{
                         id: 1,
                         idParent: -1,
-                        checked: true
+                        checked: false
                     }]
                 }
             ].forEach(function (test) {
