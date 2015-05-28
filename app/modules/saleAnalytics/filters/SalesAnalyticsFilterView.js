@@ -7,23 +7,19 @@ define([
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterModel',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterPresenter',
-    'shared/services/AwaitHelper',
-    'shared/services/ArrayHelper',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
 
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, SalesAnalyticsFilterModel, SalesAnalyticsFilterPresenter, AwaitHelper, ArrayHelper, UserTreeListEventBus,
+], function (BaseView, SalesAnalyticsFilterChannel, SalesAnalyticsFilterModel, SalesAnalyticsFilterPresenter, UserTreeListEventBusClass,
              $, moment, _) {
     'use strict';
 
     function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.arrayHelper = ArrayHelper;
         this.filter = $filter;
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
-        this.awaitHelper = AwaitHelper.newInstance();
         var self = this;
         self.resetDate = true;
         self.defaultPreviousDay = 30;
@@ -51,8 +47,6 @@ define([
             return new Date(date).toString();
         };
 
-        this.data.isLoadingUsers = false;
-
         SalesAnalyticsFilterView.configureEvents(this);
     }
 
@@ -73,14 +67,7 @@ define([
                 this.$scope.userFilterOpened = value;
             }
         },
-        currentUserFilterGroup: {
-            get: function () {
-                return this.$scope.currentUserFilterGroup;
-            },
-            set: function (value) {
-                this.$scope.currentUserFilterGroup = value;
-            }
-        },
+
         dateRangeStart: {
             get: function () {
                 return this.$scope.dateRangeStart;
@@ -120,37 +107,11 @@ define([
             set: function (value) {
                 this.$scope.displayDateEnd = value;
             }
-        },
-        usersList: {
-            get: function () {
-                return this.$scope.usersList || (this.$scope.usersList = []);
-            },
-            set: function (value) {
-                this.$scope.usersList = value;
-            }
-        },
-        userFiltered: {
-            get: function () {
-                return this.$scope.userFiltered || (this.$scope.userFiltered = []);
-            },
-            set: function (value) {
-                this.$scope.userFiltered = value;
-            }
-        },
-        searchingUser: {
-            get: function () {
-                return this.$scope.searchingUser || (this.$scope.searchingUser = "");
-            },
-            set: function (value) {
-                this.$scope.searchingUser = value;
-            }
         }
     });
 
     SalesAnalyticsFilterView.configureEvents = function (instance) {
         var self = instance;
-
-        UserTreeListEventBus.onNodeSelected(self.onNodeSelected.bind(self));
 
         self.$scope.$watch('displayDateStart', function (value) {
             var _date = moment(value, self.momentFormat);
@@ -239,27 +200,8 @@ define([
             return moment(date).format(self.momentFormat);
         };
 
-        self.fn.getFilteredUsersList = function () {
-            var clonedUserList = _.clone(self.usersList);
-            self.event.onFilteringUsers(clonedUserList, self.currentUserFilterGroup, self.searchingUser);
-        };
-
-        self.fn.searchUsersByTeam = function (event) {
-            event.stopPropagation();
-            self.currentUserFilterGroup = SalesAnalyticsFilterModel.ENVIRONMENT;
-            self.event.onFilterByGroup(self.currentUserFilterGroup);
-        };
-
-        self.fn.searchUsersByHierarchy = function (event) {
-            event.stopPropagation();
-            self.currentUserFilterGroup = SalesAnalyticsFilterModel.TEAM;
-            self.event.onFilterByGroup(self.currentUserFilterGroup);
-        };
-
         self.fn.initializeFilters = function () {
-            self.currentUserFilterGroup = SalesAnalyticsFilterModel.ENVIRONMENT;
             self.fn.resetDate();
-            self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.applyDateFilter = function () {
@@ -285,29 +227,6 @@ define([
             self.fn.getDatePlaceholder();
         };
 
-        self.fn.userSelectionChanged = function () {
-            self.checkSelectAllState();
-            self.fn.applyUserFilter();
-        };
-
-        self.fn.groupSelectAllChanged = function (group) {
-            group.children.forEach(function (user) {
-                user.checked = group.checked;
-            });
-
-            self.checkSelectAllState();
-            self.fn.applyUserFilter();
-        };
-
-        self.fn.applyUserFilter = function () {
-            self.awaitHelper.await(self.fn.__applyUserFilter, 2000);
-        };
-
-        self.fn.__applyUserFilter = function () {
-            var filteredIds = self.getFilteredUserIdsList();
-            self.filterChannel.sendUserFilterApplySignal(filteredIds);
-        };
-
     };
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {
@@ -316,126 +235,6 @@ define([
             self.dateRangeEnd = new Date(self.dateRangeStart.toString());
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
         }
-    };
-
-    SalesAnalyticsFilterView.prototype.onNodeSelected = function (selectedItem) {
-        var self = this;
-        self.checkStateForTeamList(selectedItem);
-        self.fn.applyUserFilter();
-    };
-
-    SalesAnalyticsFilterView.prototype.setFilteredData = function (data) {
-        if (!data || data.length <= 0) throw new Error('Filtered data is empty, no change will be made');
-        var self = this;
-        self.userFiltered = data;
-        self.userFiltered[0].isOpen = true;
-    };
-
-    SalesAnalyticsFilterView.prototype.checkStateForTeamList = function (selectedNode, flattened, notRoot) {
-        if (!selectedNode) return;
-        var self = this;
-        var arrayHelper = self.arrayHelper;
-        if (!flattened) {
-            var cloned = arrayHelper.clone(self.userFiltered);
-            flattened = arrayHelper.flatten(cloned, 'children');
-        }
-
-        var nodeToCheck = _.find(flattened, function (n) {
-            return n.id === selectedNode.id
-        });
-        if (!nodeToCheck || nodeToCheck.idParent == -1) return;
-
-        var siblings = _.filter(flattened, function (n) {
-            return n.idParent == nodeToCheck.idParent
-        });
-        if (!siblings || siblings.length == 0) return;
-
-        var unselectedData = _.filter(siblings, function (node) {
-            return !node.checked;
-        }).length;
-
-        var parentNode = _.find(flattened, function (n) {
-            return n.id == nodeToCheck.idParent;
-        });
-
-        parentNode.checked = (unselectedData == siblings.length) ? false : ( (unselectedData === 0) ? true : null );
-
-        self.checkStateForTeamList(parentNode, flattened, true);
-
-        if (!notRoot)
-            self.userFiltered = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
-    };
-
-    SalesAnalyticsFilterView.prototype.checkSelectAllState = function () {
-        var self = this;
-
-        self.userFiltered.forEach(function (group) {
-            var unselectedData = _.filter(group.children, function (user) {
-                return !user.checked;
-            }).length;
-
-            group.checked = (unselectedData == group.children.length) ? false : ( (unselectedData === 0) ? true : null );
-        });
-    };
-
-    SalesAnalyticsFilterView.prototype.getFilteredUserIdsList = function () {
-        var self = this;
-        var result = [];
-
-        var cloned = this.arrayHelper.clone(self.userFiltered);
-        var flattened = this.arrayHelper.flatten(cloned, 'children');
-
-        result = _.pluck(flattened.filter(function (node) {
-            return node.checked === true;
-        }), 'id');
-
-        return result;
-    };
-
-    SalesAnalyticsFilterView.prototype._getFilteredUsers = function (inputList, queryString) {
-        var result = [];
-
-        inputList.forEach(function (dataRecord) {
-            var group = _.find(result, function (item) {
-                return item.group === dataRecord.group;
-            });
-
-
-            if (group === undefined) {
-                group = {
-                    id: dataRecord.id,
-                    group: dataRecord.group,
-                    children: []
-                };
-                result.push(group);
-            }
-
-            dataRecord.children.forEach(function (record) {
-                if (record.name.toLowerCase().indexOf(queryString.toLowerCase()) != -1)
-                    group.children.push(record);
-            });
-        });
-
-        return result;
-    };
-
-    SalesAnalyticsFilterView.prototype.onUsersLoadedSuccess = function (data) {
-        var self = this;
-        self.usersList = data;
-        self.fn.getFilteredUsersList();
-        self.hideLoadingUsers();
-    };
-
-    SalesAnalyticsFilterView.prototype.showLoadingUsers = function () {
-        this.data.isLoadingUsers = true;
-    };
-
-    SalesAnalyticsFilterView.prototype.hideLoadingUsers = function () {
-        this.data.isLoadingUsers = false;
-    };
-
-    SalesAnalyticsFilterView.prototype.onUsersLoadedFail = function (error) {
-        this.showError(error);
     };
 
     SalesAnalyticsFilterView.prototype.showError = function (error) {

@@ -6,8 +6,10 @@ define([
     'app',
     'underscore',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus'
-], function (app, _, UserTreeListEventBus) {
+], function (app, _, UserTreeListEventBusClass) {
     'use strict';
+
+    var UserTreeListEventBus = UserTreeListEventBusClass.getInstance();
 
     function TreeListDirective(RecursionHelper) {
         return {

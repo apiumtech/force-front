@@ -19,6 +19,7 @@ require(['/base/requireConf.js'], function (requireConf) {
     // including Jasmine-Sinon Matcher
     requireConfig.paths.jasminesinon = '../node_modules/jasmine-sinon/lib/jasmine-sinon';
     requireConfig.deps.push('jasminesinon');
+
     // include Angular Mocks
     requireConfig.paths.angularMock = '../node_modules/angular-mocks/angular-mocks';
     requireConfig.shim.angularMock = {

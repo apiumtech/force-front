@@ -21,11 +21,14 @@ define([
     UserTreeListEventBus.prototype.unsubscribeNodeSelected = function () {
     };
 
-    app._____UserTreeListEventBusInstance = app._____UserTreeListEventBusInstance || null;
 
     UserTreeListEventBus.getInstance = function () {
-        return app._____UserTreeListEventBusInstance || (app._____UserTreeListEventBusInstance = new UserTreeListEventBus());
+        if (UserTreeListEventBus.__instance) {
+            return UserTreeListEventBus.__instance;
+        }
+
+        return (UserTreeListEventBus.__instance = new UserTreeListEventBus());
     };
 
-    return UserTreeListEventBus.getInstance();
+    return UserTreeListEventBus;
 });
