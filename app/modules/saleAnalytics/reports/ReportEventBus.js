@@ -23,6 +23,13 @@ define([
     ReportEventBus.prototype.unsubscribeFolderReportSelected = function () {
     };
 
+    ReportEventBus.prototype.onFolderReportOpenRequested = function () {
+    };
+    ReportEventBus.prototype.fireFolderReportOpenRequested = function () {
+    };
+    ReportEventBus.prototype.unsubscribeFolderReportOpenRequested = function () {
+    };
+
     ReportEventBus.prototype.onFavReportTabSelected = function () {
     };
     ReportEventBus.prototype.fireFavReportTabSelected = function () {
