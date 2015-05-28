@@ -117,6 +117,7 @@ define([
         };
 
         self.fn.__applyUserFilter = function () {
+            console.log("sending command");
             var filteredIds = self.getFilteredUserIdsList();
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };
@@ -185,41 +186,13 @@ define([
 
     UserFilterView.prototype.getFilteredUserIdsList = function () {
         var self = this;
-        var result = [];
 
         var cloned = this.arrayHelper.clone(self.userFiltered);
         var flattened = this.arrayHelper.flatten(cloned, 'children');
 
-        result = _.pluck(flattened.filter(function (node) {
+        var result = _.pluck(flattened.filter(function (node) {
             return node.checked === true;
         }), 'id');
-
-        return result;
-    };
-
-    UserFilterView.prototype._getFilteredUsers = function (inputList, queryString) {
-        var result = [];
-
-        inputList.forEach(function (dataRecord) {
-            var group = _.find(result, function (item) {
-                return item.group === dataRecord.group;
-            });
-
-
-            if (group === undefined) {
-                group = {
-                    id: dataRecord.id,
-                    group: dataRecord.group,
-                    children: []
-                };
-                result.push(group);
-            }
-
-            dataRecord.children.forEach(function (record) {
-                if (record.name.toLowerCase().indexOf(queryString.toLowerCase()) != -1)
-                    group.children.push(record);
-            });
-        });
 
         return result;
     };
@@ -241,6 +214,12 @@ define([
 
     UserFilterView.prototype.onUsersLoadedFail = function (error) {
         this.showError(error);
+    };
+
+    UserFilterView.newInstance = function ($scope, $presenter, viewRepaintAspect, logErrorAspect) {
+        var view = new UserFilterView($scope, $presenter);
+
+        return view._injectAspects(viewRepaintAspect, logErrorAspect);
     };
 
     return UserFilterView;

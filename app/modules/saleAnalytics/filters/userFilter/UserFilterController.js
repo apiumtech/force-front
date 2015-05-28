@@ -9,7 +9,7 @@ define([
 	}
 
 	UserFilterController.configureView = function($scope){
-		this.view = new UserFilterView($scope);
+		this.view = new UserFilterView.newInstance($scope);
 		this.view.show();
 	};
 

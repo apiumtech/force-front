@@ -33,6 +33,10 @@ define([
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
     };
 
+    AllReportView.prototype.reloadReports = function () {
+        this.fn.loadReports();
+    };
+
     AllReportView.prototype.onReportsLoaded = function (reports) {
         this.reports = reports;
         this.isLoading = false;

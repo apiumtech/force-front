@@ -9,15 +9,15 @@ define([
         describe('construct', function () {
             it("should call configureEvents", function () {
                 spyOn(AllReportView.prototype, 'configureEvents').and.callThrough();
-                new AllReportView({}, {});
+                new AllReportView(mockAngularScope(), {});
                 expect(AllReportView.prototype.configureEvents).toHaveBeenCalled();
             });
         });
 
         beforeEach(function () {
-            scope = {};
+            scope = mockAngularScope();
             presenter = mock(AllReportPresenter);
-            sut = new AllReportView({}, presenter);
+            sut = new AllReportView(scope, presenter);
         });
 
         describe("configureEvents", function () {
@@ -59,5 +59,14 @@ define([
                 expect(sut.reports).toEqual(data);
             });
         });
+
+        describe('reloadReports', function () {
+            it("should call the loadReports function", function () {
+                spyOn(sut.fn, "loadReports");
+                sut.reloadReports();
+                expect(sut.fn.loadReports).toHaveBeenCalled();
+            });
+        });
+
     });
 });
