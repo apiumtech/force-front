@@ -8,7 +8,7 @@ define([
 ], function (WidgetDecoratedPageView, IntensityPresenter) {
 
     function IntensityView($scope, $presenter) {
-
+        $presenter = $presenter || new IntensityPresenter();
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'intensity';
     }
