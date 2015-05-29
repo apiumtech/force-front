@@ -1,31 +1,26 @@
 define([
-    'modules/saleAnalytics/distribution/DistributionView'
-], function (DistributionView) {
+    'modules/saleAnalytics/distribution/DistributionView',
+    'modules/saleAnalytics/distribution/DistributionPresenter'
+], function (DistributionView, DistributionPresenter) {
     'use strict';
     describe("DistributionView", function () {
 
-        var view, model, presenter;
+        var view, presenter;
 
-        function exerciseCreateView(_model, _presenter) {
-            return DistributionView.newInstance({}, _model, _presenter || {
-                show: function () {
-                }
-            }, false, false);
+        function exerciseCreateView(_presenter) {
+            return DistributionView.newInstance({}, _presenter || mock(DistributionPresenter), false, false);
         }
 
         describe("show() method", function () {
             beforeEach(function () {
-                model = {};
-                presenter = {
-                    show: jasmine.createSpy()
-                };
-                view = exerciseCreateView(model, presenter);
+                presenter = mock(DistributionPresenter);
+                view = exerciseCreateView(presenter);
                 view.event.onLoaded = jasmine.createSpy();
                 view.show();
             });
 
             it("should call presenter's show method on show()", function () {
-                expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+                expect(presenter.show).toHaveBeenCalledWith(view);
             });
 
             it("should fire event onLoaded", function () {
