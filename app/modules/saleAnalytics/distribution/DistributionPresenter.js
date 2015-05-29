@@ -1,16 +1,18 @@
 /**
  * Created by justin on 12/17/14.
  */
-define([], function () {
+define([
+    'modules/saleAnalytics/distribution/DistributionModel'
+], function (DistributionModel) {
     'use strict';
 
-    function DistributionPresenter() {
-
+    function DistributionPresenter(model) {
+        this.model = model || new DistributionModel();
     }
 
-    DistributionPresenter.prototype.show = function ($view, $model) {
+    DistributionPresenter.prototype.show = function ($view) {
         var view = $view,
-            model = $model;
+            model = this.model;
 
         view.event.onLoaded = function () {
             model.getWidgets()

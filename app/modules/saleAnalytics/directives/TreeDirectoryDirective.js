@@ -12,9 +12,7 @@ define([
             restrict: 'AE',
             scope: {
                 treeList: '=treeDirectory',
-                treeLevel: "=treeLevel",
-                groupSelectionChanged: "&",
-                selectionChanged: "&"
+                treeLevel: "=treeLevel"
             },
             templateUrl: 'app/modules/saleAnalytics/directives/treeDirectory.html',
             compile: function (element) {

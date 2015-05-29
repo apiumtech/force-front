@@ -2,21 +2,23 @@
  * Created by justin on 12/26/14.
  */
 define([
-    'modules/saleAnalytics/intensity/IntensityPresenter'
-], function (IntensityPresenter) {
+    'modules/saleAnalytics/intensity/IntensityPresenter',
+    'modules/saleAnalytics/intensity/IntensityView',
+    'modules/saleAnalytics/intensity/IntensityModel'
+], function (IntensityPresenter, IntensityView, IntensityModel) {
     'use strict';
     describe("IntensityPresenter", function () {
         var sut, view, model;
 
         beforeEach(function () {
-            view = {data: {}, event: {}, fn: {}};
-            model = {};
-            sut = IntensityPresenter.newInstance();
+            view = mock(IntensityView);
+            model = mock(IntensityModel);
+            sut = new IntensityPresenter(model);
         });
 
         describe("show() ", function () {
             beforeEach(function () {
-                sut.show(view, model);
+                sut.show(view);
             });
 
             [{

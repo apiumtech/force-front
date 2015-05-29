@@ -4,14 +4,14 @@
 
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
-    'modules/saleAnalytics/conversion/ConversionModel',
     'modules/saleAnalytics/conversion/ConversionPresenter',
     'jquery'
-], function (WidgetDecoratedPageView, ConversionModel, ConversionPresenter, $) {
+], function (WidgetDecoratedPageView, ConversionPresenter, $) {
     'use strict';
 
-    function ConversionView($scope, $model, $presenter) {
-        WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+    function ConversionView($scope, $presenter) {
+        $presenter = $presenter || new ConversionPresenter();
+        WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'conversion';
     }
 
@@ -68,11 +68,11 @@ define([
         this.showError(error);
     };
 
-    ConversionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || ConversionModel.newInstance();
-        var presenter = $presenter || ConversionPresenter.newInstance();
+    ConversionView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {
 
-        var view = new ConversionView($scope, model, presenter);
+        var presenter = $presenter || new ConversionPresenter();
+
+        var view = new ConversionView($scope, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

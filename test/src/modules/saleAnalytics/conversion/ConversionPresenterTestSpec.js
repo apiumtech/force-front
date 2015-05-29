@@ -1,20 +1,22 @@
 define([
-    'modules/saleAnalytics/conversion/ConversionPresenter'
-], function (ConversionPresenter) {
+    'modules/saleAnalytics/conversion/ConversionPresenter',
+    'modules/saleAnalytics/conversion/ConversionModel',
+    'modules/saleAnalytics/conversion/ConversionView'
+], function (ConversionPresenter, ConversionModel, ConversionView) {
     'use strict';
     describe("ConversionPresenter", function () {
 
         var sut, view, model;
 
         beforeEach(function () {
-            view = {data: {}, event: {}, fn: {}};
-            model = {};
-            sut = ConversionPresenter.newInstance();
+            view = mock(ConversionView);
+            model = mock(ConversionModel);
+            sut = new ConversionPresenter(model);
         });
 
         describe("show() ", function () {
             beforeEach(function () {
-                sut.show(view, model);
+                sut.show(view);
             });
 
             [{
@@ -52,9 +54,6 @@ define([
                     onError = "onWidgetsUpdatedFail";
 
                 beforeEach(function () {
-                    model.updateWidgets = function () {
-                    };
-                    model.moveWidget = jasmine.createSpy();
                     view[onSuccess] = jasmine.createSpy();
                     view[onError] = jasmine.createSpy();
                 });
@@ -73,8 +72,6 @@ define([
 
             function exerciseAjaxCallMapping(modelMethod, onSuccess, onError, viewEvent) {
                 beforeEach(function () {
-                    model[modelMethod] = function () {
-                    };
                     view[onSuccess] = jasmine.createSpy();
                     view[onError] = jasmine.createSpy();
                 });

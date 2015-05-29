@@ -11,7 +11,7 @@ define([
     'use strict';
 
     function WidgetService(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.ajaxService = ajaxService || new AjaxService();
     }
 
     WidgetService.prototype = Object.create(Object.prototype, {});
@@ -91,7 +91,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint:  Configuration.api.hourWidgetDistributionDataApi,
+                endPoint: Configuration.api.hourWidgetDistributionDataApi,
                 order: 4,
                 size: 6
             },

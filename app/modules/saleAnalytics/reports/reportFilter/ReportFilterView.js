@@ -34,6 +34,15 @@ define([
             self.searchQuery = "";
             self.reportEventBus.fireSearchDeactivated();
         };
+
+        self.fn.searchQueryKeyUp = function ($event) {
+            if(self.searchQuery == "")
+                self.fn.deactivateSearch();
+            else{
+                if($event.keyCode===13)
+                self.fn.activateSearch();
+            }
+        };
     };
 
     ReportFilterView.newInstance = function ($scope, $presenter, $viewRepaintAspect, $logErrorAspect) {

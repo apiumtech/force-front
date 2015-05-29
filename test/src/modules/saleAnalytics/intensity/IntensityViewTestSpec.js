@@ -2,30 +2,29 @@
  * Created by xavi on 12/19/14.
  */
 define([
-    'modules/saleAnalytics/intensity/IntensityView'
-], function (IntensityView) {
+    'modules/saleAnalytics/intensity/IntensityView',
+    'modules/saleAnalytics/intensity/IntensityPresenter'
+], function (IntensityView, IntensityPresenter) {
     'use strict';
     describe("IntensityView", function () {
-        function exerciseCreateView(model, presenter) {
-            return IntensityView.newInstance({}, model, presenter || {
-                    show: function () {
-                    }
-                }, false, false);
+        var presenter = mock(IntensityPresenter);
+
+        function exerciseCreateView() {
+            return new IntensityView({}, presenter);
         }
 
         describe("show() method", function () {
-            var view, model;
+            var view;
 
             function exerciseExecShowMethod() {
-                model = {};
-                view = exerciseCreateView(model, {show: jasmine.createSpy()});
+                view = exerciseCreateView();
                 view.event.onLoaded = jasmine.createSpy();
                 view.show();
             }
 
             it("should call presenter's show method on show()", function () {
                 exerciseExecShowMethod();
-                expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+                expect(view.presenter.show).toHaveBeenCalledWith(view);
             });
 
             it("should fire event onLoaded", function () {
