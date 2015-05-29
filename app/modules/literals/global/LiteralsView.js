@@ -14,7 +14,6 @@ define([
 
     proto.configureEvents = function () {
         var self = this;
-
         this.event.onInit = function () {};
     };
 
