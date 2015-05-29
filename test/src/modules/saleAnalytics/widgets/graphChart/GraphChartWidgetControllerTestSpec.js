@@ -7,13 +7,15 @@ define([
     'use strict';
     describe("GraphChartWidgetController", function () {
 
-        it("should call GraphChartWidgetController.configureView global method", function () {
-            var scope = {someScope: true},
-                element = {};
+        describe('construct', function () {
+            it("should call GraphChartWidgetController.configureView global method", function () {
+                var scope = {someScope: true},
+                    element = {};
 
-            GraphChartWidgetController.configureView = jasmine.createSpy();
-            var ctrl = new GraphChartWidgetController(scope, element);
-            expect(GraphChartWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+                GraphChartWidgetController.configureView = jasmine.createSpy();
+                var ctrl = new GraphChartWidgetController(scope, element);
+                expect(GraphChartWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+            });
         });
     });
 });
