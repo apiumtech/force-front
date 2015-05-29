@@ -69,6 +69,9 @@ define([
         });
 
         describe('openReportFolder', function () {
+            it("", function () {
+
+            });
             it("should correctly set the new data to reports", function () {
                 var input = [{
                     "id": 1,

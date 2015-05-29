@@ -44,6 +44,34 @@ define([
                     expect(sut.reportEventBus.fireSearchDeactivated).toHaveBeenCalled();
                 });
             });
+
+            describe("fn.searchQueryKeyUp", function () {
+                describe('searchQuery is empty', function () {
+                    it("should fire fn.deactivateSearch", function () {
+                        spyOn(sut.fn, 'deactivateSearch');
+                        sut.searchQuery = "";
+                        sut.fn.searchQueryKeyUp({keyCode: 3});
+                        expect(sut.fn.deactivateSearch).toHaveBeenCalled();
+                    });
+                });
+
+                describe('searchQuery is not empty', function () {
+                    it("should not fire fn.deactivateSearch", function () {
+                        spyOn(sut.fn, 'deactivateSearch');
+                        sut.searchQuery = "not-an-empty-query";
+                        sut.fn.searchQueryKeyUp({keyCode: 3});
+                        expect(sut.fn.deactivateSearch).not.toHaveBeenCalled();
+                    });
+
+                    it("should fire fn.activateSearch when press enter", function () {
+                        spyOn(sut.fn, 'activateSearch');
+                        sut.searchQuery = "not-an-empty-query";
+                        sut.fn.searchQueryKeyUp({keyCode: 13});
+                        expect(sut.fn.activateSearch).toHaveBeenCalled();
+                    });
+                });
+            });
+
         });
 
     });

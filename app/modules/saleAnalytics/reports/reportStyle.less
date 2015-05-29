@@ -83,6 +83,10 @@
         border-top: 0;
         border-bottom: 1px solid @force_report_light_grey;
         background: @white;
+
+        &:hover {
+          background: #fff;
+        }
       }
 
       .panel {
@@ -94,7 +98,9 @@
         padding: 2px;
         background: @force_report_light_blue;
         text-transform: none !important;
-
+        &:hover {
+          background: #fff;
+        }
         .item-box {
           font-size: 1.1em;
           > i {
@@ -185,7 +191,7 @@
     }
   }
 
-  .favourite-report {
+  .favourite-report, .search-report {
 
     div.report-item-box {
       padding: 5px 20px;
@@ -201,6 +207,23 @@
         color: #ED8B00;
       }
 
+    }
+  }
+
+  i.bullet {
+
+    + h5 {
+      cursor: pointer;
+    }
+  }
+
+  .search-report {
+    i.bullet {
+      color: @force_report_medium_grey !important;
+
+      + h5 {
+        cursor: pointer;
+      }
     }
   }
 
@@ -293,6 +316,7 @@
   }
   .action-form {
     padding-top: 5px;
+    padding-right: 0 important;
   }
 }
 
