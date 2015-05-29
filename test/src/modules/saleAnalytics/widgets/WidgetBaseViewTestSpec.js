@@ -7,9 +7,7 @@ define([
     'use strict';
     describe("WidgetBaseView", function () {
 
-        var sut, scope;
-        var presenter;
-
+        var sut, scope, presenter;
 
         beforeEach(function () {
             presenter = {
@@ -37,7 +35,7 @@ define([
             beforeEach(function () {
                 WidgetBaseView.prototype.___onReloadWidgetSuccess = WidgetBaseView.prototype.onReloadWidgetSuccess;
                 WidgetBaseView.prototype.onReloadWidgetSuccess = function () {
-                    console.log("nothing to do here :D")
+                    console.log("nothing to do here")
                 }
             });
             afterEach(function () {

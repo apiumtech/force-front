@@ -9,8 +9,8 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus'
 ], function (BaseView, meld, SalesAnalyticsFilterChannel, /*TODO: this is deprecated*/WidgetEventBus) {
 
-    function WidgetBaseView(scope, element, model, presenter) {
-        BaseView.call(this, scope, model, presenter);
+    function WidgetBaseView(scope, element, presenter) {
+        BaseView.call(this, scope, null, presenter);
         this.element = element || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
@@ -39,9 +39,9 @@ define([
             },
             set: function (value) {
                 this.$scope.widget = value;
-                this.model.widgetId = value.widgetId;
-                this.model.order = value.order;
-                this.model.column = value.column;
+                //this.model.widgetId = value.widgetId;
+                //this.model.order = value.order;
+                //this.model.column = value.column;
             }
         }
     });

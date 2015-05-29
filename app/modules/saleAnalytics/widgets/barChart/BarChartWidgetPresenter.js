@@ -3,13 +3,15 @@
  */
 
 define([
-    'modules/saleAnalytics/eventBus/WidgetEventBus'
-], function (WidgetEventBus) {
+    'modules/saleAnalytics/eventBus/WidgetEventBus',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel'
+], function (WidgetEventBus, BarChartWidgetModel) {
 
     var widgetName = "intensityWidgetA";
 
-    function BarChartWidgetPresenter(widgetEventChannel) {
-        this.widgetEventChannel = widgetEventChannel;
+    function BarChartWidgetPresenter(model, widgetEventChannel) {
+        this._widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+        this.model = model || new BarChartWidgetModel();
     }
 
     BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
@@ -32,11 +34,11 @@ define([
     };
 
     BarChartWidgetPresenter.prototype._executeLoadWidget = function () {
-        var self = this,
-            $view = self.$view,
-            $model = self.$model;
+        var self = this;
+        var $view = self.$view;
+        var model = self.model;
 
-        $model.reloadWidget()
+        model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
@@ -46,6 +48,7 @@ define([
 
     BarChartWidgetPresenter.prototype.show = function (view, model) {
         var self = this;
+        model = this.model;
         self.$view = view;
         self.$model = model;
 
@@ -74,9 +77,9 @@ define([
 
     };
 
-    BarChartWidgetPresenter.newInstance = function (widgetEventChannel) {
+    BarChartWidgetPresenter.newInstance = function (model, widgetEventChannel) {
         var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new BarChartWidgetPresenter(_widgetEventChannel);
+        return new BarChartWidgetPresenter(model, _widgetEventChannel);
     };
 
     return BarChartWidgetPresenter;
