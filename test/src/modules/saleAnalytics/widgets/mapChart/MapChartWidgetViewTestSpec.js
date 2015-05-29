@@ -3,26 +3,25 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/mapChart/MapChartWidgetView'
-], function (MapChartWidgetView) {
+    'angular',
+    'modules/saleAnalytics/widgets/mapChart/MapChartWidgetView',
+    'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
+    'plots/MapChart'
+], function (angular, MapChartWidgetView, MapChartWidgetPresenter, MapChart) {
     'use strict';
     describe("MapChartWidgetView", function () {
 
-        var sut, scope;
+        var sut, scope, presenter, element, mapChart;
 
-        function initSut() {
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            sut = MapChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        }
+        beforeEach(inject(function (_$rootScope_) {
+            scope = _$rootScope_.$new();
+            presenter = mock(MapChartWidgetPresenter);
+            element = angular.element("<div />");
+            mapChart = mock(MapChart);
+            sut = new MapChartWidgetView(scope, element, mapChart, presenter);
+        }));
 
         describe("configureEvents", function () {
-            beforeEach(initSut);
-
             [
                 {method: 'changeFilter', exercise: changeFilterTestExercise},
                 {method: 'refreshChart', exercise: refreshChartTestExercise}
@@ -102,24 +101,6 @@ define([
         });
 
         describe("refreshChart", function () {
-            var element, mapChart;
-            beforeEach(function () {
-                element = {};
-                mapChart = {
-                    clearHeatMap: jasmine.createSpy(),
-                    clearPointMap: jasmine.createSpy(),
-                    applyHeatLayer: jasmine.createSpy(),
-                    createUserMap: jasmine.createSpy(),
-                    createPointMap: jasmine.createSpy()
-                };
-                sut = MapChartWidgetView.newInstance(scope, element, mapChart, {}, {}, false, false);
-
-                sut.element = {
-                    find: function () {
-                    }
-                };
-
-            });
 
             it("should call paintChart()", function () {
                 spyOn(sut, 'paintChart');
@@ -131,7 +112,6 @@ define([
 
             it("should call clearHeatMap and clearPointMap from mapchart()", function () {
                 spyOn(sut, 'paintChart');
-                var fakeElement = {};
                 sut.refreshChart();
                 expect(mapChart.clearHeatMap).toHaveBeenCalled();
                 expect(mapChart.clearPointMap).toHaveBeenCalled();

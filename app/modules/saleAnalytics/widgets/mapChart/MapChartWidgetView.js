@@ -5,14 +5,13 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/eventBus/WidgetEventBus',
-    'modules/saleAnalytics/widgets/mapChart/MapChartWidgetModel',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/MapChart'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetModel, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart){
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart){
 
-    function MapChartWidgetView(scope, element, mapChart, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function MapChartWidgetView(scope, element, mapChart, presenter) {
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.mapChart = mapChart;
         self.selectedFilter = 'checkins';
@@ -42,8 +41,7 @@ define([
         var self = this;
         self.isAssigned = false;
 
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -87,12 +85,11 @@ define([
         this.mapChart.createMap($(element)[0]);
     };
 
-    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || MapChartWidgetModel.newInstance();
+    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $presenter, $viewRepAspect, $logErrorAspect) {
         var mapChart = $mapChart || MapChart.newInstance();
         var presenter = $presenter || MapChartWidgetPresenter.newInstance();
 
-        var view = new MapChartWidgetView($scope, $element, mapChart, model, presenter);
+        var view = new MapChartWidgetView($scope, $element, mapChart, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
