@@ -2,26 +2,18 @@
  * Created by Justin on 1/5/2015.
  */
 define([
-    'modules/saleAnalytics/conversion/ConversionModel'
-], function (ConversionModel) {
+    'modules/saleAnalytics/conversion/ConversionModel',
+    'modules/saleAnalytics/widgets/WidgetService',
+    'shared/services/StorageService'
+], function (ConversionModel, WidgetService, StorageService) {
     'use strict';
     describe("ConversionModel", function () {
         var sut,
-            widgetService = {
-                getWidgetsForPage: function () {
-                }
-            },
-            storageService = {
-                store: function () {
-                },
-                retrieve: function () {
-                },
-                remove: function () {
-                }
-            };
+            widgetService = mock(WidgetService),
+            storageService = mock(StorageService);
 
         beforeEach(function () {
-            sut = ConversionModel.newInstance(widgetService, storageService);
+            sut = new ConversionModel(widgetService, storageService);
         });
         function fakeAjax() {
             return {
