@@ -4,7 +4,5 @@ define([
 	'use strict';
 
 	describe('LiteralsTablePresenter', function() {
-
-		
 	});
 });

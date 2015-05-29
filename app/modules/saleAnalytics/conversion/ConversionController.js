@@ -1,7 +1,6 @@
 define([
     'app',
-    'modules/saleAnalytics/conversion/ConversionView',
-
+    'modules/saleAnalytics/conversion/ConversionView'
 
 ], function (app, ConversionView) {
     'use strict';

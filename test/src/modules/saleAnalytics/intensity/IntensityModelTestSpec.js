@@ -2,26 +2,19 @@
  * Created by Justin on 1/5/2015.
  */
 define([
-    'modules/saleAnalytics/intensity/IntensityModel'
-], function (IntensityModel) {
+    'modules/saleAnalytics/intensity/IntensityModel',
+    'modules/saleAnalytics/widgets/WidgetService',
+    'shared/services/StorageService'
+], function (IntensityModel, WidgetService, StorageService) {
     'use strict';
+
     describe("IntensityModel", function () {
         var sut,
-            widgetService = {
-                getWidgetsForPage: function () {
-                }
-            },
-            storageService = {
-                store: function () {
-                },
-                retrieve: function () {
-                },
-                remove: function () {
-                }
-            };
+            widgetService = mock(WidgetService),
+            storageService = mock(StorageService);
 
         beforeEach(function () {
-            sut = IntensityModel.newInstance(widgetService, storageService);
+            sut = new IntensityModel(widgetService, storageService);
         });
         function fakeAjax() {
             return {

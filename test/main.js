@@ -100,11 +100,15 @@ function mock(constr) {
     var mockObj = {
         _stubs: {}
     };
+
     for (var key in constr.prototype) {
+        if (!isFunction(constr.prototype[key])) {
+            mockObj[key] = constr.prototype[key];
+            continue;
+        }
         mockObj[key] = function () {
         };
-        var stub = sinon.stub(mockObj, key);
-        mockObj[key].whenCalledWith = stub.withArgs;
+        sinon.stub(mockObj, key);
     }
     return mockObj;
 }
