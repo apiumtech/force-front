@@ -32,7 +32,7 @@ define([
                 DistributionController.configureView.restore();
             });
             it("should call DistributionController.configureView global method", function () {
-                var ctrl = new DistributionController(scope);
+                new DistributionController(scope);
                 expect(DistributionController.configureView).toHaveBeenCalledWith(scope);
             });
         });
