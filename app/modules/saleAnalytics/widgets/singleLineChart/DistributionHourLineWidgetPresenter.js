@@ -3,39 +3,21 @@
  */
 
 define([
-    'modules/saleAnalytics/eventBus/WidgetEventBus'
-], function (WidgetEventBus) {
-    var widgetName = "LineChart";
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel'
+], function (DistributionHourLineWidgetModel) {
 
-    function SingleLineChartWidgetPresenter(widgetEventChannel) {
-        this.widgetEventChannel = widgetEventChannel;
+    function SingleLineChartWidgetPresenter(model) {
+        this.model = model || new DistributionHourLineWidgetModel();
     }
 
-    SingleLineChartWidgetPresenter.prototype = Object.create(Object.prototype, {
-        widgetEventChannel: {
-            get: function () {
-                return this._widgetEventChannel;
-            },
-            set: function (value) {
-                this._widgetEventChannel = value;
-                this.rebindChannelListener();
-            }
-        }
-    });
-
-    SingleLineChartWidgetPresenter.prototype.rebindChannelListener = function () {
-        var self = this;
-        self.widgetEventChannel.onReloadSignalReceived(function () {
-            self._executeLoadWidget();
-        });
-    };
+    SingleLineChartWidgetPresenter.prototype = Object.create(Object.prototype, {});
 
     SingleLineChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
-            $model = self.$model;
+            model = self.model;
 
-        $model.reloadWidget()
+        model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
@@ -43,12 +25,12 @@ define([
 
     };
 
-    SingleLineChartWidgetPresenter.prototype.show = function (view, model) {
+    SingleLineChartWidgetPresenter.prototype.show = function (view) {
         var self = this;
         self.$view = view;
-        self.$model = model;
+        var model = self.model;
 
-        self.rebindChannelListener();
+        view.event = view.event || {};
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -70,11 +52,6 @@ define([
             model.addUserFilter(filterValue);
             view.sendReloadCommandToChannel();
         };
-    };
-
-    SingleLineChartWidgetPresenter.newInstance = function (widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new SingleLineChartWidgetPresenter(_widgetEventChannel);
     };
 
     return SingleLineChartWidgetPresenter;

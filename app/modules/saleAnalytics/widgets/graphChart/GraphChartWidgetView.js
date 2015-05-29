@@ -14,6 +14,7 @@ define([
     var LINE = 'line', FILLED = 'filled';
 
     function GraphChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new GraphWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         scope.filters = [];
         scope.selectedFilter = "visits";
@@ -195,10 +196,8 @@ define([
         self.availableFields = fieldsToMerge;
     };
 
-    GraphChartWidgetView.newInstance = function ($scope, $element, $presenter, $viewRepAspect, $logErrorAspect) {
-        var presenter = $presenter || GraphWidgetPresenter.newInstance();
-
-        var view = new GraphChartWidgetView($scope, $element, presenter);
+    GraphChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
+        var view = new GraphChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

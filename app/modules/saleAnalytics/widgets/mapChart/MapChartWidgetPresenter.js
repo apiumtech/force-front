@@ -52,9 +52,5 @@ define([
         };
     };
 
-    MapChartWidgetPresenter.newInstance = function () {
-        return new MapChartWidgetPresenter();
-    };
-
     return MapChartWidgetPresenter;
 });

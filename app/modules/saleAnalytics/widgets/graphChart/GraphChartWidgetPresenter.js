@@ -57,9 +57,5 @@ define([
         };
     };
 
-    GraphChartWidgetPresenter.newInstance = function () {
-        return new GraphChartWidgetPresenter();
-    };
-
     return GraphChartWidgetPresenter;
 });

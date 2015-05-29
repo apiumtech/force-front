@@ -11,6 +11,7 @@ define([
 ], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
 
     function BarChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new BarChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.configureEvents();
@@ -148,11 +149,9 @@ define([
         this.showError(error);
     };
 
-    BarChartWidgetView.newInstance = function ($scope, $element, $presenter, $viewRepAspect, $logErrorAspect) {
+    BarChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
 
-        var presenter = $presenter || BarChartWidgetPresenter.newInstance();
-
-        var view = new BarChartWidgetView($scope, $element, presenter);
+        var view = new BarChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

@@ -9,8 +9,9 @@ define([
 ], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus) {
     'use strict';
 
-    function TableWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function TableWidgetView(scope, element, presenter) {
+        presenter = presenter || new TableWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         this.dataSource = [];
         var self = this;
         self.configureEvents();
@@ -177,11 +178,9 @@ define([
         this.showError(error);
     };
 
-    TableWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || TableWidgetModel.newInstance();
-        var presenter = $presenter || TableWidgetPresenter.newInstance();
+    TableWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
 
-        var view = new TableWidgetView($scope, $element, model, presenter);
+        var view = new TableWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

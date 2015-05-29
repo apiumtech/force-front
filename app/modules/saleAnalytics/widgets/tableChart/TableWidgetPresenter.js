@@ -2,10 +2,13 @@
  * Created by justin on 12/22/14.
  */
 
-define([], function () {
+define([
+    'modules/saleAnalytics/widgets/tableChart/TableWidgetModel'
+], function (TableWidgetModel) {
     'use strict';
 
-    function TableWidgetPresenter() {
+    function TableWidgetPresenter(model) {
+        this.model = model || new TableWidgetModel();
     }
 
     TableWidgetPresenter.prototype = Object.create(Object.prototype, {});
@@ -13,9 +16,9 @@ define([], function () {
     TableWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
-            $model = self.$model;
+            model = self.model;
 
-        $model.reloadWidget()
+        model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
@@ -23,10 +26,10 @@ define([], function () {
         console.log(error);
     };
 
-    TableWidgetPresenter.prototype.show = function (view, model) {
+    TableWidgetPresenter.prototype.show = function (view) {
         var self = this;
         self.$view = view;
-        self.$model = model;
+        var model = self.model;
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -43,10 +46,6 @@ define([], function () {
             model.addUserFilter(filterValue);
             view.sendReloadCommandToChannel();
         };
-    };
-
-    TableWidgetPresenter.newInstance = function () {
-        return new TableWidgetPresenter();
     };
 
     return TableWidgetPresenter;

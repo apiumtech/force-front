@@ -11,6 +11,7 @@ define([
 ], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart){
 
     function MapChartWidgetView(scope, element, mapChart, presenter) {
+        presenter = presenter || new MapChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.mapChart = mapChart;
@@ -85,11 +86,10 @@ define([
         this.mapChart.createMap($(element)[0]);
     };
 
-    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $presenter, $viewRepAspect, $logErrorAspect) {
+    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $viewRepAspect, $logErrorAspect) {
         var mapChart = $mapChart || MapChart.newInstance();
-        var presenter = $presenter || MapChartWidgetPresenter.newInstance();
 
-        var view = new MapChartWidgetView($scope, $element, mapChart, presenter);
+        var view = new MapChartWidgetView($scope, $element, mapChart);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
