@@ -33,6 +33,7 @@ require(['/base/requireConf.js'], function (requireConf) {
 
     requirejs.config(requireConfig);
     function test_main() {
+
         require(tests, window.__karma__.start);
     }
 });

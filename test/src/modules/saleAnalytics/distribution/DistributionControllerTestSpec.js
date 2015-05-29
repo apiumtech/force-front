@@ -6,6 +6,7 @@ define([
     describe("DistributionController", function () {
         var DistributionController;
         describe("loading asynchronously", function () {
+
             beforeEach(function (done) {
                 sinon.stub(app.register, 'controller');
 
@@ -14,9 +15,11 @@ define([
                     done();
                 });
             });
+
             afterEach(function () {
                 app.register.controller.restore();
             });
+
             it("should register the controller to app", function () {
                 expect(app.register.controller).toHaveBeenCalledWith('DistributionController', ['$scope', DistributionController]);
             });

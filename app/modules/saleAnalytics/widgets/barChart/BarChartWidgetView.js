@@ -5,14 +5,13 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/eventBus/WidgetEventBus',
-    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/BarChart'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetModel, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
 
-    function BarChartWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function BarChartWidgetView(scope, element, presenter) {
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.configureEvents();
     }
@@ -55,8 +54,7 @@ define([
     BarChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -150,11 +148,11 @@ define([
         this.showError(error);
     };
 
-    BarChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || BarChartWidgetModel.newInstance();
+    BarChartWidgetView.newInstance = function ($scope, $element, $presenter, $viewRepAspect, $logErrorAspect) {
+
         var presenter = $presenter || BarChartWidgetPresenter.newInstance();
 
-        var view = new BarChartWidgetView($scope, $element, model, presenter);
+        var view = new BarChartWidgetView($scope, $element, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

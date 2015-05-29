@@ -9,19 +9,16 @@ define([
 
         var sut, scope, presenter;
 
-        beforeEach(function () {
+
+
+        beforeEach(inject(function (_$rootScope_) {
             presenter = {
                 show: jasmine.createSpy()
             };
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
+            scope = _$rootScope_.$new();
             sut = new WidgetBaseView(scope, {}, {}, presenter);
             sut.event.onReloadWidgetStart = jasmine.createSpy();
-        });
+        }));
 
         describe("on show()", function () {
             it("should call show() on parent class", function () {

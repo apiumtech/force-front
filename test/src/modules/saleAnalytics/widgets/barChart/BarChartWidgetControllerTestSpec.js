@@ -4,17 +4,21 @@
 define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetController'
 ], function (BarChartWidgetController) {
+
     'use strict';
     describe("BarChartWidgetController", function () {
 
-        it("should call BarChartWidgetController.configureView global method", function () {
-            var scope = {someScope: true},
-                element = {};
-
-            BarChartWidgetController.configureView = jasmine.createSpy();
-            var ctrl = new BarChartWidgetController(scope, element);
-            expect(BarChartWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+        describe('construct', function () {
+            it("should call BarChartWidgetController.configureView global method", function () {
+                var scope = {someScope: true},
+                    element = {};
+                sinon.stub(BarChartWidgetController, 'configureView');
+                new BarChartWidgetController(scope, element);
+                expect(BarChartWidgetController.configureView).toHaveBeenCalledWith(scope, element);
+                BarChartWidgetController.configureView.restore();
+            });
         });
+
     });
 
 });

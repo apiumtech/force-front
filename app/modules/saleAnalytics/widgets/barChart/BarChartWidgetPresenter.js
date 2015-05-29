@@ -3,35 +3,15 @@
  */
 
 define([
-    'modules/saleAnalytics/eventBus/WidgetEventBus',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel'
-], function (WidgetEventBus, BarChartWidgetModel) {
+], function (BarChartWidgetModel) {
 
-    var widgetName = "intensityWidgetA";
-
-    function BarChartWidgetPresenter(model, widgetEventChannel) {
-        this._widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
+    function BarChartWidgetPresenter(model) {
         this.model = model || new BarChartWidgetModel();
     }
 
     BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
-        widgetEventChannel: {
-            get: function () {
-                return this._widgetEventChannel;
-            },
-            set: function (value) {
-                this._widgetEventChannel = value;
-                this.rebindChannelListener();
-            }
-        }
     });
-
-    BarChartWidgetPresenter.prototype.rebindChannelListener = function () {
-        var self = this;
-        self.widgetEventChannel.onReloadSignalReceived(function () {
-            self._executeLoadWidget();
-        });
-    };
 
     BarChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this;
@@ -46,13 +26,10 @@ define([
 
     };
 
-    BarChartWidgetPresenter.prototype.show = function (view, model) {
+    BarChartWidgetPresenter.prototype.show = function (view) {
         var self = this;
-        model = this.model;
         self.$view = view;
-        self.$model = model;
-
-        self.rebindChannelListener();
+        var model = this.model;
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -77,9 +54,8 @@ define([
 
     };
 
-    BarChartWidgetPresenter.newInstance = function (model, widgetEventChannel) {
-        var _widgetEventChannel = widgetEventChannel || WidgetEventBus.newInstance(widgetName);
-        return new BarChartWidgetPresenter(model, _widgetEventChannel);
+    BarChartWidgetPresenter.newInstance = function (model) {
+        return new BarChartWidgetPresenter(model);
     };
 
     return BarChartWidgetPresenter;
