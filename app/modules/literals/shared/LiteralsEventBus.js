@@ -28,6 +28,24 @@ define([
     proto.fireColumnsRequestError = function () {};
     proto.unsubscribeColumnsRequestError = function () {};
 
+    // ----------------------------------------------
+    //
+    //  Literals Request
+    //
+    // ----------------------------------------------
+
+    proto.onLiteralsRequest = function (callback) {};
+    proto.fireLiteralsRequest = function () {};
+    proto.unsubscribeLiteralsRequest = function () {};
+
+    proto.onLiteralsRequestSuccess = function (callback) {};
+    proto.fireLiteralsRequestSuccess = function () {};
+    proto.unsubscribeLiteralsRequestSuccess = function () {};
+
+    proto.onLiteralsRequestError = function (callback) {};
+    proto.fireLiteralsRequestError = function () {};
+    proto.unsubscribeLiteralsRequestError = function () {};
+
 
 
     LiteralsEventBus.getInstance = function () {

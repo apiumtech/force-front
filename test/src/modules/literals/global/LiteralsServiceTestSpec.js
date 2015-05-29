@@ -10,6 +10,7 @@ define([
 	describe('LiteralsService', function() {
 		[
 			'getLanguageList'
+            ,'getLiteralsList'
 		].forEach(function(methodName){
 				it('should define ' + methodName, function(){
 					var sut = exerciseCreateService();

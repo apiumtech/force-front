@@ -11,6 +11,6 @@ define([
 			var ctrl = new LiteralsController(scope);
 			expect(LiteralsController.configureView).toHaveBeenCalledWith(scope);
 		});
-		
 	});
+
 });

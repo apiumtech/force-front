@@ -2,19 +2,30 @@ define([
     'config',
     'shared/services/ajax/AuthAjaxService',
     'shared/services/StorageService',
-    'q'
-], function(Configuration, AuthAjaxService, StorageService, Q) {
+    'q',
+    'shared/services/ajax/FakeAjaxService'
+], function(Configuration, AuthAjaxService, StorageService, Q, FakeAjaxService) {
     'use strict';
 
     function LiteralsSharedService(ajaxService) {
         this.ajaxService = ajaxService;
+        this.fakeAjaxService = FakeAjaxService.newInstance();
     }
 
     LiteralsSharedService.prototype.getLanguageList = function () {
-        return this.ajaxService.rawAjaxRequest({
+        /*return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.languageList,
             type: 'GET',
             dataType: 'json'
+        });*/
+        console.log("Fake getLanguageList");
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: {data:[
+                {Key:"es-es", Value:"es-es"}
+                ,{Key:"en-us", Value:"en-us"}
+                ,{Key:"ca-es", Value:"ca-es"}
+            ]}
+
         });
     };
 
