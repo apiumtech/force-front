@@ -1,14 +1,15 @@
 define([
-    'modules/saleAnalytics/distribution/DistributionPresenter'
-], function (DistributionPresenter) {
+    'modules/saleAnalytics/distribution/DistributionPresenter',
+    'modules/saleAnalytics/distribution/DistributionModel'
+], function (DistributionPresenter, DistributionModel) {
     'use strict';
     describe("DistributionPresenter", function () {
         var sut, view, model;
 
         beforeEach(function () {
             view = {data: {}, event: {}, fn: {}};
-            model = {};
-            sut = DistributionPresenter.newInstance();
+            model = mock(DistributionModel);
+            sut = new DistributionPresenter(model);
         });
 
         describe("show() ", function () {

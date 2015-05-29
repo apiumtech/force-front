@@ -4,13 +4,13 @@
 
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
-    'modules/saleAnalytics/distribution/DistributionModel',
     'modules/saleAnalytics/distribution/DistributionPresenter',
     'jquery'
-], function (WidgetDecoratedPageView, DistributionModel, DistributionPresenter, $) {
+], function (WidgetDecoratedPageView, DistributionPresenter, $) {
 
-    function DistributionView($scope, $model, $presenter) {
-        WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+    function DistributionView($scope, $presenter) {
+        $presenter = $presenter || new DistributionPresenter();
+        WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'distribution';
     }
 
@@ -67,11 +67,10 @@ define([
         self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };
 
-    DistributionView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || DistributionModel.newInstance();
-        var presenter = $presenter || DistributionPresenter.newInstance();
+    DistributionView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {
+        var presenter = $presenter || new DistributionPresenter();
 
-        var view = new DistributionView($scope, model, presenter);
+        var view = new DistributionView($scope, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
