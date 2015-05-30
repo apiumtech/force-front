@@ -12,13 +12,12 @@ define([
         '$filterProvider',
         '$provide',
         function ($controllerProvider, $compileProvider, $filterProvider, $provide) {
-            app.register = {
-                controller: $controllerProvider.register,
-                directive: $compileProvider.directive,
-                filter: $filterProvider.register,
-                factory: $provide.factory,
-                service: $provide.service
-            };
+            // register the providers to support asynchronously loading controllers & directives
+            app.register.controller = $controllerProvider.register;
+            app.register.directive = $compileProvider.directive;
+            app.register.filter = $filterProvider.register;
+            app.register.factory = $provide.factory;
+            app.register.service = $provide.service;
         }
     ]);
 });

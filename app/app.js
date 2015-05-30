@@ -12,6 +12,7 @@ define([
     'angular-validation',
     'angular-validation-rule'
 ], function (angular, config, $, i18nextOptions) {
+
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = i18nextOptions.dev;
     }]);
@@ -31,7 +32,14 @@ define([
         'RecursionHelper'
     ]);
 
-    app.register = app;
+    app.register = {};
+
+    app.register.controller = app.controller;
+    app.register.directive = app.directive;
+    app.register.filter = app.filter;
+    app.register.factory = app.factory;
+    app.register.service = app.service;
+
 
     return app;
 });
