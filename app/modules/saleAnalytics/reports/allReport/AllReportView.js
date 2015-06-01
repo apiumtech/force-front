@@ -32,7 +32,7 @@ define([
         self.fn.loadReports = function (isOpeningFolder) {
             if (isOpeningFolder) return;
             self.isLoading = true;
-            self.event.onLoadReports();
+            self.event.onReloading();
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);

@@ -17,10 +17,6 @@ define([
             self._executeLoadWidget();
         };
 
-        view.event.onLoadReports = function () {
-            self._executeLoadWidget();
-        };
-
         view.event.onUsersFilterApplied = function (filterValue) {
             self.model.addUserFilter(filterValue);
             view.reloadReports();
