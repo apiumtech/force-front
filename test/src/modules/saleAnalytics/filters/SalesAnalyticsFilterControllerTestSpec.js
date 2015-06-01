@@ -7,9 +7,10 @@ define([
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController'
 ], function (app, SalesAnalyticsFilterView, SalesAnalyticsFilterController) {
     'use strict';
-    var appName = app.name;
-    beforeEach(module(appName));
+
     describe("SalesAnalyticsFilterController", function () {
+        var appName = app.name;
+        beforeEach(module(appName));
 
         var $controller;
         var scope;

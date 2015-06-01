@@ -1,33 +1,30 @@
 define([
 	'app',
-	'modules/saleAnalytics/reports/ReportView'
-], function (app, ReportView) {
+	'modules/saleAnalytics/reports/ReportView',
+	'modules/saleAnalytics/reports/ReportController'
+], function (app, ReportView, ReportController) {
 	'use strict';
 
 	describe("ReportController", function () {
-		var ReportController;
-		describe("loading asynchronously", function () {
-			beforeEach(function (done) {
-				sinon.stub(app.register, 'controller');
+		var appName = app.name;
+		beforeEach(module(appName));
 
-				require(['modules/saleAnalytics/reports/ReportController'], function (DC) {
-					ReportController = DC;
-					done();
-				});
-			});
-			afterEach(function () {
-				app.register.controller.restore();
-			});
+		var $controller;
+		var scope;
+
+		beforeEach(inject(function (_$controller_, _$rootScope_) {
+			$controller = _$controller_;
+			scope = _$rootScope_.$new();
+		}));
+
+		describe("loading asynchronously", function () {
 			it("should register the controller to app", function () {
-				expect(app.register.controller).toHaveBeenCalledWith('ReportController', ['$scope', ReportController]);
+				var ctrl = $controller('ReportController', {$scope: scope});
+				expect(ctrl).not.toBeNull();
+				expect(ctrl).not.toBeUndefined();
 			});
 		});
 
-
-		var scope;
-		beforeEach(inject(function (_$rootScope_) {
-			scope = _$rootScope_.$new();
-		}));
 		describe("construct", function () {
 			var scope;
 			beforeEach(inject(function () {

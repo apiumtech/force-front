@@ -5,9 +5,10 @@ define([
 ], function (app, ConversionView, ConversionController) {
     'use strict';
 
-    var appName = app.name;
-    beforeEach(module(appName));
     describe("ConversionController", function () {
+        var appName = app.name;
+        beforeEach(module(appName));
+
         var $controller;
         var scope;
 

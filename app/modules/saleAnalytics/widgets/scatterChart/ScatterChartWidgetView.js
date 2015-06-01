@@ -169,7 +169,7 @@ define([
             hAxis: {title: self.axisYTitle},
             vAxis: {title: self.axisXTitle}
         };
-        
+
         chartService.drawChart(self.chart, self.chartData, options);
     };
 

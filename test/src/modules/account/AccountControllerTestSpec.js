@@ -9,9 +9,10 @@ define([
 
     'use strict';
 
-    var appName = app.name;
-    beforeEach(module(appName));
     describe("AccountController", function () {
+        var appName = app.name;
+        beforeEach(module(appName));
+
         var $controller;
         var scope;
 

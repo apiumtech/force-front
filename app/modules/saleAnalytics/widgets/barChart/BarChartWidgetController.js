@@ -16,7 +16,5 @@ define([
         this.view.show();
     };
 
-    app.register.controller('BarChartWidgetController', ['$scope', '$element', BarChartWidgetController]);
-
     return BarChartWidgetController;
 });

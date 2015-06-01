@@ -8,9 +8,10 @@ define([
 ], function (app, AccountCreateView, AccountCreateController) {
     'use strict';
 
-    var appName = app.name;
-    beforeEach(module(appName));
     describe("AccountCreateController", function () {
+        var appName = app.name;
+        beforeEach(module(appName));
+
         var $controller;
         var scope, $injector;
 
@@ -18,11 +19,6 @@ define([
             $controller = _$controller_;
             scope = _$rootScope_.$new();
             $injector = _$injector_;
-            //{
-            //    get: function () {
-            //        return {}
-            //    }
-            //};
         }));
         describe("loading asynchronously", function () {
             it("should register the controller to app", function () {

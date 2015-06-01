@@ -248,6 +248,7 @@ var requireConf = {
         /* Flot & stuffs */
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
         'crypto.SHA1'
+
     ],
     callback: function () {
         require(['main']);
