@@ -134,7 +134,6 @@ define([
         };
 
         self.fn.__applyUserFilter = function () {
-            console.log("sending command");
             var filteredIds = self.getFilteredUserIdsList();
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };

@@ -15,9 +15,8 @@ define([
 
     IntensityView.inherits(WidgetDecoratedPageView, {});
 
-    IntensityView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     IntensityView.prototype.show = function () {
-        this.__show.call(this);
+        this.__base__.show.call(this);
         this.event.onLoaded();
     };
 
