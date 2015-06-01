@@ -6,7 +6,7 @@ define([
     'use strict';
 
     function ReportTabBaseView(scope, presenter, eventBus) {
-        WidgetBaseView.call(this, scope, null, null, presenter);
+        WidgetBaseView.call(this, scope, null, presenter);
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.configureEvents();
     }
