@@ -5,20 +5,17 @@
 define([
     'shared/BaseView',
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
-    'modules/saleAnalytics/filters/SalesAnalyticsFilterModel',
-    'modules/saleAnalytics/filters/SalesAnalyticsFilterPresenter',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
 
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, SalesAnalyticsFilterModel, SalesAnalyticsFilterPresenter, UserTreeListEventBusClass,
+], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass,
              $, moment, _) {
     'use strict';
 
-    function SalesAnalyticsFilterView($scope, $filter, $model, $presenter) {
-        BaseView.call(this, $scope, $model, $presenter);
-        this.filter = $filter;
+    function SalesAnalyticsFilterView($scope) {
+        BaseView.call(this, $scope, null, null);
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         var self = this;
         self.resetDate = true;
@@ -243,11 +240,8 @@ define([
         console.error(error);
     };
 
-    SalesAnalyticsFilterView.newInstance = function ($scope, $filter, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SalesAnalyticsFilterModel.newInstance();
-        var presenter = $presenter || SalesAnalyticsFilterPresenter.newInstance();
-
-        var view = new SalesAnalyticsFilterView($scope, $filter, model, presenter);
+    SalesAnalyticsFilterView.newInstance = function ($scope, $viewRepAspect, $logErrorAspect) {
+        var view = new SalesAnalyticsFilterView($scope);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

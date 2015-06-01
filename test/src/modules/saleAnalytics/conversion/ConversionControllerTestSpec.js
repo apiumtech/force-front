@@ -25,7 +25,6 @@ define([
 
 
         describe("construct", function () {
-            var scope;
             beforeEach(inject(function () {
                 sinon.stub(ConversionController, 'configureView');
             }));
