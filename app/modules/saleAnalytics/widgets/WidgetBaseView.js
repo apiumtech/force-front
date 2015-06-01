@@ -14,12 +14,16 @@ define([
         this.element = element || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
+        var self = this;
         this.event.onDateFilterApplied = function (filterValue) {
+            console.log(self);
             throw new Error("NotImplementedException");
         };
         this.event.onUsersFilterApplied = function (filterValue) {
+            console.log(self);
             throw new Error("NotImplementedException");
         };
+
         this.channelInitialized = false;
 
         // TODO: This is deprecated
@@ -32,7 +36,7 @@ define([
         });
     }
 
-    WidgetBaseView.prototype = Object.create(BaseView.prototype, {
+    WidgetBaseView.inherits(BaseView, {
         widget: {
             get: function () {
                 return this.$scope.widget;

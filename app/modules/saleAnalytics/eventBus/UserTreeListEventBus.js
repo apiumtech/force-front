@@ -12,7 +12,7 @@ define([
         EventBase.call(this);
     }
 
-    UserTreeListEventBus.prototype = Object.create(EventBase.prototype, {});
+    UserTreeListEventBus.inherits(EventBase, {});
 
     UserTreeListEventBus.prototype.onNodeSelected = function () {
     };

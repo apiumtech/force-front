@@ -25,7 +25,7 @@ define([
         self.configureEvents();
     }
 
-    GraphChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    GraphChartWidgetView.inherits(WidgetBaseView, {
         availableFields: {
             get: function () {
                 return this.$scope.availableFields || (this.$scope.availableFields = []);

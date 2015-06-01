@@ -14,7 +14,7 @@ define([
         this.configureEvents();
     }
 
-    ContactFilterView.prototype = Object.create(BaseView.prototype, {});
+    ContactFilterView.inherits(BaseView, {});
 
     ContactFilterView.prototype.configureEvents = function () {
         this.fn.onLoaded = this._onLoaded.bind(this);

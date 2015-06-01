@@ -7,7 +7,7 @@ define([
         EventBase.call(this);
     }
 
-    ReportEventBus.prototype = Object.create(EventBase.prototype);
+    ReportEventBus.inherits(EventBase);
 
     ReportEventBus.prototype.onAllReportTabSelected = function () {
     };

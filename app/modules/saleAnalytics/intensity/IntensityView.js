@@ -13,7 +13,7 @@ define([
         this.pageName = 'intensity';
     }
 
-    IntensityView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
+    IntensityView.inherits(WidgetDecoratedPageView, {});
 
     IntensityView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     IntensityView.prototype.show = function () {

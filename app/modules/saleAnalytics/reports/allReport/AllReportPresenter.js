@@ -7,7 +7,7 @@ define([
         this.model = model || new AllReportModel();
     }
 
-    AllReportPresenter.prototype = Object.create(Object.prototype, {});
+    AllReportPresenter.inherits(Object, {});
 
     AllReportPresenter.prototype.show = function (view) {
         var self = this;

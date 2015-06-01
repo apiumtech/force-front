@@ -479,7 +479,7 @@ define([
         };
     }
 
-    ForceDatePickerDirective.prototype = Object.create(Object.prototype, {});
+    ForceDatePickerDirective.inherits(Object, {});
 
     app.register.directive('forceDatePicker', ['$window', '$compile', '$locale', '$filter', ForceDatePickerDirective]);
 

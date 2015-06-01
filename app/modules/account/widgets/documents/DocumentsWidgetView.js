@@ -20,7 +20,7 @@ define([
         this.translator = TranslatorService.newInstance();
     }
 
-    DocumentsWidgetView.prototype = Object.create(BaseView.prototype, {
+    DocumentsWidgetView.inherits(BaseView, {
         eventChannel: {
             get: function () {
                 return this.$scope.eventChannel || (this.$scope.eventChannel = AccountDetailWidgetEventBus.newInstance());

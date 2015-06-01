@@ -28,7 +28,7 @@ define([
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
-    MapChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    MapChartWidgetModel.inherits(WidgetBase, {});
 
     MapChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {

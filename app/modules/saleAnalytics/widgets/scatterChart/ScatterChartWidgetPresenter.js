@@ -10,7 +10,7 @@ define([
         this.model = model || new ScatterChartWidgetModel();
     }
 
-    ScatterChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    ScatterChartWidgetPresenter.inherits(Object, {
     });
 
     ScatterChartWidgetPresenter.prototype._executeLoadWidget = function () {

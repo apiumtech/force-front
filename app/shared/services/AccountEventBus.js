@@ -10,7 +10,7 @@ define([
         EventBase.call(this);
     }
 
-    AccountEventBus.prototype = Object.create(EventBase.prototype, {});
+    AccountEventBus.inherits(EventBase, {});
 
     AccountEventBus.prototype.onTableFieldsLoaded = function () {
     };

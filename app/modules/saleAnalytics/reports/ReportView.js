@@ -16,7 +16,7 @@ define([
         this.queryString = "";
     }
 
-    ReportView.prototype = Object.create(WidgetDecoratedPageView.prototype, {
+    ReportView.inherits(WidgetDecoratedPageView, {
         displaySearch: {
             get: function () {
                 return this.$scope.displaySearch;

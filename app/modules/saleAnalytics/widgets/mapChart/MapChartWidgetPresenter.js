@@ -10,7 +10,7 @@ define([
         this.model = model || new MapChartWidgetModel();
     }
 
-    MapChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    MapChartWidgetPresenter.inherits(Object, {
     });
 
     MapChartWidgetPresenter.prototype._executeLoadWidget = function () {

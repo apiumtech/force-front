@@ -8,7 +8,7 @@ define([], function () {
         this.sessionStorage = sessionStorage || window.sessionStorage;
     }
 
-    StorageService.prototype = Object.create(Object.prototype, {});
+    StorageService.inherits(Object, {});
 
     StorageService.prototype.retrieve = function (storageName, retrieveFromSession) {
         var value = this.getStorage(retrieveFromSession).getItem(storageName);

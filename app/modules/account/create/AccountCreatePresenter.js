@@ -10,7 +10,8 @@ define([
         AccountEditingSharedPresenter.call(this);
     }
 
-    AccountCreatePresenter.prototype = Object.create(AccountEditingSharedPresenter.prototype, {});
+    //AccountCreatePresenter.inherits(AccountEditingSharedPresenter, {});
+    AccountCreatePresenter.inherits(AccountEditingSharedPresenter);
 
     AccountCreatePresenter.prototype.show = function (view, model) {
         AccountEditingSharedPresenter.prototype.show.call(this, view, model);

@@ -23,7 +23,7 @@ define([
         this.configureEvents();
     }
 
-    WidgetDecoratePageView.prototype = Object.create(BaseView.prototype, {
+    WidgetDecoratePageView.inherits(BaseView, {
         widgets: {
             get: function () {
                 return this.$scope.widgets;

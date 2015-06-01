@@ -10,7 +10,7 @@ define([
         this.ajaxService = ajaxService;
     }
 
-    AccountDetailsModel.prototype = Object.create(Object.prototype);
+    AccountDetailsModel.inherits(Object);
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
         var self = this;

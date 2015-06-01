@@ -88,8 +88,7 @@ function mockAngularScope() {
 
 function mock(constr) {
     var mockObj = {};
-
-    var component = new constr();
+    var component = Object.create(constr.prototype);
     var proto = component.__proto__;
 
     while (proto) {

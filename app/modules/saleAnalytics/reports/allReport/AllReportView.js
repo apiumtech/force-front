@@ -13,7 +13,7 @@ define([
         this.configureEvents();
     }
 
-    AllReportView.prototype = Object.create(ReportTabBaseView.prototype, {
+    AllReportView.inherits(ReportTabBaseView, {
         searchQuery: {
             get: function () {
                 return this.$scope.searchQuery;
@@ -25,7 +25,7 @@ define([
     });
 
     AllReportView.prototype.configureEvents = function () {
-        ReportTabBaseView.prototype.configureEvents.call(this);
+        this.__base__.configureEvents.call(this);
 
         var self = this;
 

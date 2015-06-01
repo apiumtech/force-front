@@ -10,7 +10,7 @@ define([
         this.model = model || new BarChartWidgetModel();
     }
 
-    BarChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    BarChartWidgetPresenter.inherits(Object, {
     });
 
     BarChartWidgetPresenter.prototype._executeLoadWidget = function () {

@@ -14,7 +14,7 @@ define([
         this.configureEvents();
     }
 
-    ReportItemView.prototype = Object.create(BaseView.prototype, {
+    ReportItemView.inherits(BaseView, {
         report: {
             get: function () {
                 return this.$scope.report;

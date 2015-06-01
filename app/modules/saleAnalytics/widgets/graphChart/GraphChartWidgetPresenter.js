@@ -10,7 +10,7 @@ define([
         this.model = model || new GraphChartWidgetModel();
     }
 
-    GraphChartWidgetPresenter.prototype = Object.create(Object.prototype, {});
+    GraphChartWidgetPresenter.inherits(Object, {});
 
     GraphChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,

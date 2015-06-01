@@ -7,7 +7,8 @@ define([
         EventBase.call(this);
 	}
 
-    var proto = LiteralsEventBus.prototype = Object.create(EventBase.prototype);
+    LiteralsEventBus.inherits(EventBase);
+    var proto = LiteralsEventBus.prototype;
 
 
     // ----------------------------------------------

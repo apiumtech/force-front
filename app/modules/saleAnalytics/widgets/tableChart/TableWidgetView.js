@@ -17,7 +17,7 @@ define([
         self.configureEvents();
     }
 
-    TableWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    TableWidgetView.inherits(WidgetBaseView, {
         columns: {
             get: function () {
                 return this.$scope.columns || (this.$scope.columns = []);

@@ -7,23 +7,25 @@ define([
     'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'shared/services/GoogleChartService',
-    'shared/services/SimpleTemplateParser'
-], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser) {
+    'shared/services/SimpleTemplateParser',
+    'jquery'
+], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser, $) {
 
     function ScatterChartWidgetView(scope, element, chartService, presenter) {
         presenter = presenter || new ScatterChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.chartService = chartService || GoogleChartService.newInstance();
-        console.log("chart service", chartService)
         self.templateParser = SimpleTemplateParser.newInstance();
         self.configureEvents();
         self.widgetName = '';
         self.axisXTitle = 'Sales';
         self.axisYTitle = 'Activity Scores';
+        self.chart = null;
+        self.chartData = null;
     }
 
-    ScatterChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    ScatterChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
                 return this.$scope.filters;
@@ -78,6 +80,20 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        $(window).on('resize', self.onWindowResize.bind(self));
+
+        self.$scope.$on('destroy', function () {
+            $(window).unbind('resize', self.onWindowResize.bind(self));
+        });
+    };
+
+    ScatterChartWidgetView.prototype.onWindowResize = function () {
+        // call refresh the chart
+        var self = this;
+        setTimeout(function () {
+            self.refreshChart();
+        }, 0);
     };
 
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -116,13 +132,23 @@ define([
         return this.templateParser.parseTemplate(toolTipTemplate, element);
     };
 
+    ScatterChartWidgetView.prototype.updateChart = function (element) {
+
+
+    };
+
     ScatterChartWidgetView.prototype.paintChart = function (element, data) {
+
         var self = this;
+
         var chartService = self.chartService;
 
-        var data = chartService.createDataTable(self.data);
+        if (!self.chart || !self.chartData) {
 
-        this.chart = chartService.createChart(element[0], 'scatter');
+            self.chartData = chartService.createDataTable(self.data);
+
+            self.chart = chartService.createChart(element[0], 'scatter');
+        }
 
         var options = {
             title: self.widgetName,
@@ -143,7 +169,8 @@ define([
             hAxis: {title: self.axisYTitle},
             vAxis: {title: self.axisXTitle}
         };
-        chartService.drawChart(this.chart, data, options);
+        
+        chartService.drawChart(self.chart, self.chartData, options);
     };
 
     var previousPoint = null;

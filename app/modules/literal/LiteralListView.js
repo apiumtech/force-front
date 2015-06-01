@@ -32,7 +32,8 @@ define([
         this.configureEvents();
     }
 
-    var proto = LiteralListView.prototype = Object.create(BaseView.prototype, {});
+    LiteralListView.inherits(BaseView, {});
+    var proto = LiteralListView.prototype;
 
 
     proto.configureEvents = function () {

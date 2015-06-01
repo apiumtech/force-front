@@ -48,7 +48,7 @@ define([
         SalesAnalyticsFilterView.configureEvents(this);
     }
 
-    SalesAnalyticsFilterView.prototype = Object.create(BaseView.prototype, {
+    SalesAnalyticsFilterView.inherits(BaseView, {
         dateRangeFilterOpened: {
             get: function () {
                 return this.$scope.dateRangeFilterOpened || (this.$scope.dateRangeFilterOpened = false);

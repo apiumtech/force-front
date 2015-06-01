@@ -15,7 +15,7 @@ define([
         self.configureEvents();
     }
 
-    PieChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    PieChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
             get: function () {
                 return this.$scope.tabs;

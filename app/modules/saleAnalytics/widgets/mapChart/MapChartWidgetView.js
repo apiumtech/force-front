@@ -19,7 +19,7 @@ define([
         self.configureEvents();
     }
 
-    MapChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    MapChartWidgetView.inherits(WidgetBaseView, {
         selectedFilter: {
             get: function () {
                 return this.$scope.selectedFilter;

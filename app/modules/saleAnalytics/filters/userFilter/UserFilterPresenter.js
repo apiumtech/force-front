@@ -7,7 +7,7 @@ define([
         this.model = $model || new UserFilterModel();
     }
 
-    UserFilterPresenter.prototype = Object.create(Object.prototype, {});
+    UserFilterPresenter.inherits(Object, {});
 
     UserFilterPresenter.prototype.showError = function (error) {
         console.log(error);

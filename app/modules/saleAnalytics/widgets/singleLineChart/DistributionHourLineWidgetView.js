@@ -17,7 +17,7 @@ define([
         self.configureEvents();
     }
 
-    SingleLineChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    SingleLineChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
                 return this.$scope.filters;

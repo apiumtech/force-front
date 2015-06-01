@@ -10,7 +10,7 @@ define([
         this.model = model || new DistributionHourLineWidgetModel();
     }
 
-    SingleLineChartWidgetPresenter.prototype = Object.create(Object.prototype, {});
+    SingleLineChartWidgetPresenter.inherits(Object, {});
 
     SingleLineChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,

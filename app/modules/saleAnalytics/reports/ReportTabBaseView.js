@@ -11,7 +11,7 @@ define([
         this.configureEvents();
     }
 
-    ReportTabBaseView.prototype = Object.create(WidgetBaseView.prototype, {
+    ReportTabBaseView.inherits(WidgetBaseView, {
         reports: {
             get: function () {
                 return this.$scope.reports;
@@ -42,6 +42,10 @@ define([
         var self = this;
         self.isAssigned = false;
         var eventChannel = self.eventChannel;
+
+        self.event.onDateFilterApplied = function (filterValue) {
+
+        };
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
     };

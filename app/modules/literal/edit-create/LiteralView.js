@@ -26,7 +26,8 @@ define([
         this.configureEvents();
     }
 
-    var proto = LiteralView.prototype = Object.create(BaseView.prototype, {});
+    LiteralView.inherits(BaseView, {});
+    var proto = LiteralView.prototype;
 
 
     proto.configureEvents = function () {

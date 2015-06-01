@@ -15,7 +15,7 @@ define([
         this.pageName = 'conversion';
     }
 
-    ConversionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
+    ConversionView.inherits(WidgetDecoratedPageView, {});
 
     ConversionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     ConversionView.prototype.show = function () {

@@ -17,7 +17,7 @@ define([
         self.configureEvents();
     }
 
-    BarChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    BarChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
             get: function () {
                 return this.$scope.tabs;

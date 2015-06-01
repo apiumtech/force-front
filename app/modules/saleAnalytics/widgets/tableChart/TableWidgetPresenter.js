@@ -11,7 +11,7 @@ define([
         this.model = model || new TableWidgetModel();
     }
 
-    TableWidgetPresenter.prototype = Object.create(Object.prototype, {});
+    TableWidgetPresenter.inherits(Object, {});
 
     TableWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,

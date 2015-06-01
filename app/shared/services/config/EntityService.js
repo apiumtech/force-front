@@ -13,7 +13,7 @@ define([
     }
 
 
-    EntityService.prototype = Object.create(Object.prototype, {});
+    EntityService.inherits(Object, {});
 
 
     EntityService.STORAGE_KEY = "fmConfigEntities";

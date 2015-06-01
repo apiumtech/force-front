@@ -13,7 +13,7 @@ define([
         this.pageName = "conversion";
     }
 
-    ConversionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
+    ConversionModel.inherits(WidgetDecoratedPageModel, {});
 
     return ConversionModel;
 });

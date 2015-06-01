@@ -8,7 +8,7 @@ define([], function(){
 
     }
 
-    DateTimePickerAdapter.prototype = Object.create(Object.prototype, {});
+    DateTimePickerAdapter.inherits(Object, {});
 
     return DateTimePickerAdapter;
 });

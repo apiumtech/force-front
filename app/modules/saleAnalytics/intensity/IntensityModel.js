@@ -16,7 +16,7 @@ define([
         this.pageName = "intensity";
     }
 
-    IntensityModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
+    IntensityModel.inherits(WidgetDecoratedPageModel, {});
 
     return IntensityModel;
 });

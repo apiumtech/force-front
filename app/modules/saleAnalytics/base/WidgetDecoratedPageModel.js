@@ -8,7 +8,7 @@ define([
         this.pageName = null;
     }
 
-    WidgetDecoratedPageModel.prototype = Object.create(Object.prototype, {
+    WidgetDecoratedPageModel.inherits(Object, {
         modelData: {
             get: function () {
                 return this._modelData || (this._modelData = {});

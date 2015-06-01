@@ -10,7 +10,7 @@ define([
         EventBase.call(this);
     }
 
-    ScrollEventBus.prototype = Object.create(EventBase.prototype, {});
+    ScrollEventBus.inherits(EventBase, {});
 
     ScrollEventBus.prototype.fireScrolledToBottom = function () {
     };

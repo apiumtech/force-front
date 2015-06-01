@@ -10,7 +10,7 @@ define([
         this.model = model || new PieChartWidgetModel();
     }
 
-    PieChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    PieChartWidgetPresenter.inherits(Object, {
     });
 
     PieChartWidgetPresenter.prototype._executeLoadWidget = function () {
