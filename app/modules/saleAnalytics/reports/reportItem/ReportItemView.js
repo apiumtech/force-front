@@ -129,6 +129,12 @@ define([
         self.fn.preview = function () {
             self.reportEventBus.firePreviewReport(self.report);
         };
+
+        self.fn.toggleFavouriteReport = function(){
+            self.report.favourite = !self.report.favourite;
+            self.event.toggleFavouriteReport(self.report.id);
+        };
+
     };
 
     ReportItemView.prototype.onSaveNameSuccess = function (data) {

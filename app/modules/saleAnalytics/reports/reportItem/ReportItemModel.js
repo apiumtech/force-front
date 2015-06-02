@@ -1,11 +1,17 @@
 define([
-    'shared/services/ajax/FakeAjaxService'
-], function (AjaxService) {
+    'shared/services/ajax/FakeAjaxService',
+    'modules/saleAnalytics/reports/ReportService'
+], function (AjaxService, ReportService) {
     'use strict';
 
-    function ReportItemModel(ajaxService) {
+    function ReportItemModel(ajaxService, reportService) {
         this.ajaxService = ajaxService || new AjaxService();
+        this.reportService = reportService || new ReportService();
     }
+
+    ReportItemModel.prototype.toggleFavouriteReport = function(reportId){
+        this.reportService.toggleFavouriteReport(reportId);
+    };
 
     ReportItemModel.prototype.saveName = function (id, newName) {
         return this.ajaxService.rawAjaxRequest({

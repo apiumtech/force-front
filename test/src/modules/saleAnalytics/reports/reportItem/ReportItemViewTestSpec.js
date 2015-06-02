@@ -11,7 +11,7 @@ define([
                 var scope = {},
                     element = {},
                     presenter = mock(ReportItemPresenter);
-                var sut = new ReportItemView(scope, element, presenter);
+                new ReportItemView(scope, element, presenter);
                 expect(ReportItemView.prototype.configureEvents).toHaveBeenCalled();
             })
         });
@@ -170,7 +170,27 @@ define([
                     sut.fn.changeReportType(newValue);
                     expect(sut.selectedReportType).toEqual(newValue);
                 });
-            })
+            });
+
+            describe('fn.toggleFavouriteReport', function () {
+
+                beforeEach(function () {
+                    sut.$scope.report.favourite = false;
+                    sut.event = {
+                        toggleFavouriteReport: sinon.spy()
+                    };
+                    sut.fn.toggleFavouriteReport();
+                });
+
+                it("should set toggle the state of report.favourite", function () {
+                    expect(sut.$scope.report.favourite).toBeTruthy();
+                });
+
+                it("should call event.toggleFavouriteReport function", function () {
+                    expect(sut.event.toggleFavouriteReport).toHaveBeenCalledWith(123);
+                });
+
+            });
 
         });
 

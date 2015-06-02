@@ -24,7 +24,9 @@ define([
         });
 
         beforeEach(function () {
-            $scope = mockAngularScope();
+            inject(function($rootScope){
+                $scope = $rootScope.$new();
+            });
             sut = new ReportView($scope, presenter, eventBus);
         });
 

@@ -20,6 +20,10 @@ define([
             self.model.saveDescription(reportId, reportDescription)
                 .then(view.onSaveDescriptionSuccess.bind(view), view.onSaveDescriptionError.bind(view));
         };
+
+        view.event.toggleFavouriteReport = function(reportId){
+            self.model.toggleFavouriteReport(reportId);
+        };
     };
 
     return ReportItemPresenter;
