@@ -22,6 +22,10 @@ define([
             self.event.onLoadReports();
         };
 
+        self.fn.isFavourite = function (element, index) {
+            return element.favourite;
+        };
+
         self.event.onDateFilterApplied = function (filterValue) {
 
         };

@@ -58,6 +58,20 @@ define([
     ReportEventBus.prototype.unsubscribeSearchReportTabSelected = function () {
     };
 
+    ReportEventBus.prototype.onToggleFavourite = function () {
+    };
+    ReportEventBus.prototype.fireToggleFavourite = function () {
+    };
+    ReportEventBus.prototype.unsubscribeToggleFavourite = function () {
+    };
+
+    ReportEventBus.prototype.onPreviewReport = function () {
+    };
+    ReportEventBus.prototype.firePreviewReport = function () {
+    };
+    ReportEventBus.prototype.unsubscribePreviewReport = function () {
+    };
+
     ReportEventBus.getInstance = function () {
         if (ReportEventBus.__instance) {
             return ReportEventBus.__instance;

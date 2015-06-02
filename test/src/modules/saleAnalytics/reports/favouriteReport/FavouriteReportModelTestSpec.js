@@ -38,13 +38,13 @@ define([
 			});
 
 			describe('has value in server response', function () {
-				it("should decorate the data into tree", function () {
+				it("should decorate the data into tree, return only reports with favourite equal true and sort report by name", function () {
 					var input = [
 						{
 							id: 1,
 							name: 'Folder',
 							type: 'folder',
-							idParent: -1
+							idParent: -1,
 						},
 						{
 							id: 2,
@@ -66,104 +66,86 @@ define([
 						},
 						{
 							id: 5,
-							name: "Analisis Oportunidades IN/OUT 5",
+							name: "Analisis Oportunidades IN/OUT 05",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 3,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						},
 						{
 							id: 6,
 							name: "Analisis Oportunidades IN/OUT 6",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 4,
-							type: 'report'
+							type: 'report',
+							favourite: false
 						},
 						{
 							id: 7,
-							name: "Analisis Oportunidades IN/OUT 7",
+							name: "Analisis Oportunidades IN/OUT 07",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 4,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						},
 						{
 							id: 8,
 							name: "Analisis Oportunidades IN/OUT 8",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 4,
-							type: 'report'
+							type: 'report',
+							favourite: false
 						},
 						{
 							id: 9,
 							name: "Analisis Oportunidades IN/OUT 9",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 4,
-							type: 'report'
+							type: 'report',
+							favourite: false
 						},
 						{
 							id: 10,
 							name: "Analisis Oportunidades IN/OUT 10",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 2,
-							type: 'report'
+							type: 'report',
+							favourite: false
 						},
 						{
 							id: 11,
 							name: "Analisis Oportunidades IN/OUT 11",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 2,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						}
 					];
 
 					var expectedOutput = [
 						{
 							id: 5,
-							name: "Analisis Oportunidades IN/OUT 5",
+							name: "Analisis Oportunidades IN/OUT 05",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 3,
-							type: 'report'
-						},
-						{
-							id: 6,
-							name: "Analisis Oportunidades IN/OUT 6",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 4,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						},
 						{
 							id: 7,
-							name: "Analisis Oportunidades IN/OUT 7",
+							name: "Analisis Oportunidades IN/OUT 07",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 4,
-							type: 'report'
-						},
-						{
-							id: 8,
-							name: "Analisis Oportunidades IN/OUT 8",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 4,
-							type: 'report'
-						},
-						{
-							id: 9,
-							name: "Analisis Oportunidades IN/OUT 9",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 4,
-							type: 'report'
-						},
-						{
-							id: 10,
-							name: "Analisis Oportunidades IN/OUT 10",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 2,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						},
 						{
 							id: 11,
 							name: "Analisis Oportunidades IN/OUT 11",
 							description: "Imforme que muestra riesgo por bajo uso por cliente",
 							idParent: 2,
-							type: 'report'
+							type: 'report',
+							favourite: true
 						}
 					];
 

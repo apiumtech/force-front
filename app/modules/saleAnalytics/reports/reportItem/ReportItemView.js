@@ -59,11 +59,21 @@ define([
             set: function (value) {
                 this.$scope.fireOpenFolder = value;
             }
+        },
+        selectedReportType: {
+            get: function () {
+                return this.$scope.selectedReportType;
+            },
+            set: function (value) {
+                this.$scope.selectedReportType = value;
+            }
         }
     });
 
     ReportItemView.prototype.configureEvents = function () {
         var self = this;
+
+        this.selectedReportType = this.report && this.report.reportType ? this.report.reportType[0] : '';
 
         self.fn.startEditingName = function () {
             self.originalName = self.report.name;
@@ -110,6 +120,14 @@ define([
             self.descriptionError = "";
             self.report.description = self.originalDescription;
             self.editingDescription = false;
+        };
+
+        self.fn.changeReportType = function (selectedReportType) {
+            self.selectedReportType = selectedReportType;
+        };
+
+        self.fn.preview = function () {
+            self.reportEventBus.firePreviewReport(self.report);
         };
     };
 
