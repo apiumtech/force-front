@@ -13,20 +13,20 @@ define([
     }
 
     LiteralsSharedService.prototype.getLanguageList = function () {
-        /*return this.ajaxService.rawAjaxRequest({
+        return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.languageList,
             type: 'GET',
             dataType: 'json'
-        });*/
-        console.log("Fake getLanguageList");
+        });
+        /*
+         console.log("Fake getLanguageList");
         return this.fakeAjaxService.rawAjaxRequest({
             result: {data:[
-                {Key:"es-es", Value:"es-es"}
-                ,{Key:"en-us", Value:"en-us"}
-                ,{Key:"ca-es", Value:"ca-es"}
+                {Id:"aksjdh796asfjhbasfog", Name:"es-es"}
+                ,{Id:"aksjdh796asfjhbasfog", Name:"en-us"}
+                ,{Id:"aksjdh796asfjhbasfog", Name:"fr-fr"}
             ]}
-
-        });
+        });*/
     };
 
     LiteralsSharedService.newInstance = function (ajaxService, storageService) {

@@ -5,10 +5,23 @@ define([
 
 	function LiteralsModel(service) {
         this.service = service;
+        this.searchObject = {
+            searchTerms:"",
+            skip:0,
+            limit:100
+        };
 	}
 
     LiteralsModel.prototype.onColumnsRequest = function() {
       return this.service.getLanguageList();
+    };
+
+    LiteralsModel.prototype.onLiteralsRequest = function() {
+        return this.service.getLiteralsList({
+            searchTerms: this.searchObject.searchTerms,
+            skip: this.searchObject.skip,
+            limit: this.searchObject.limit
+        });
     };
 
 

@@ -13,7 +13,7 @@ define([
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
 
-        this.literals = [];
+        this.languages = [];
         this.table = null;
 
 		this.configureEvents();
@@ -37,9 +37,8 @@ define([
     proto.onColumnsRequestSuccess = function(res) {
         var self = this;
         var data = res.data;
-        var languages = [];
         data.forEach(function (lang) {
-            languages.push({
+            self.languages.push({
                 data: lang.Name,
                 title: lang.Name,
                 type: "string",
@@ -54,16 +53,18 @@ define([
             visible: true,
             sortable: false
         }];
-        columns = columns.concat(languages);
+        columns = columns.concat(this.languages.slice());
         var dataTableConfig = {
-            data: this.literals,
+            data: [],
+            paging: false,
+            info: false,
             columns: columns,
             columnDefs: [
                 {
                     targets: 0,
                     render: self.renderKeyColumn.bind(self),
                     createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
-                        self.$compile(cell)(self.$scope);
+                        self.compile(cell)(self.$scope);
                     }
                 }
             ]
@@ -78,8 +79,26 @@ define([
 
     // Literals Request callbacks
     proto.onLiteralsRequestSuccess = function(res) {
-        this.literals = this.literals.concat(res.data);
-        this.table.draw();
+        var self = this;
+        var requestRow = function (obj) {
+            var row = {};
+            row.$ref = obj;
+            row.Id = obj.Id;
+            row.Key = obj.Key;
+            self.languages.forEach(function (lang, index) {
+                var langData = "";
+                if( obj.LanguageValues[index] !== undefined ) {
+                    langData = obj.LanguageValues[index].Value;
+                }
+                row[lang.data] = langData;
+            });
+            return row;
+        };
+        var data = res.data.map(function (row) {
+            return requestRow(row);
+        });
+
+        this.table.rows.add(data).draw();
     };
     proto.onLiteralsRequestError = function(err) {
         console.log("onLiteralsRequestError " + err);
