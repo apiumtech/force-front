@@ -10,13 +10,12 @@ define([
 ], function (app, SalesAnalyticsFilterView) {
     'use strict';
 
-    function SalesAnalyticsFilterController($scope, $filter, $compile) {
-        SalesAnalyticsFilterController.configureView($scope, $filter, $compile);
+    function SalesAnalyticsFilterController($scope) {
+        SalesAnalyticsFilterController.configureView($scope);
     }
 
-    SalesAnalyticsFilterController.configureView = function ($scope, $filter, $compile) {
-        $scope.$compile = $compile;
-        this.view = SalesAnalyticsFilterView.newInstance($scope, $filter);
+    SalesAnalyticsFilterController.configureView = function ($scope) {
+        this.view = SalesAnalyticsFilterView.newInstance($scope);
         this.view.show();
     };
 

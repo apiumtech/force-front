@@ -3,25 +3,23 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetView'
-], function (PieChartWidgetView) {
+    'angular',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetView',
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
+    'plots/PieChart'
+], function (angular, PieChartWidgetView, PieChartPresenter, PieChart) {
     'use strict';
     describe("PieChartWidgetView", function () {
-        var sut, scope;
+        var sut, scope, presenter, element, pieChart;
 
-        function initSut() {
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            sut = PieChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        }
+        beforeEach(inject(function(_$rootScope_){
+            scope = _$rootScope_.$new();
+            presenter = mock(PieChartPresenter);
+            element = angular.element('<div />');
+            sut = new PieChartWidgetView(scope, element, presenter);
+        }));
 
         describe("configureEvents", function () {
-            beforeEach(initSut);
-
             [
                 {method: 'assignWidget', exercise: assignWidgetTestExercise},
                 {method: 'changeFilter', exercise: changeTabTestExercise},
@@ -172,13 +170,6 @@ define([
         });
 
         describe("refreshChart", function () {
-            beforeEach(initSut);
-
-            beforeEach(function () {
-                sut.element = {
-                    find: jasmine.createSpy()
-                };
-            });
 
             describe("data is invalid", function () {
 

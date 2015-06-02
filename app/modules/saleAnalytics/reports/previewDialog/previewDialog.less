@@ -1,0 +1,91 @@
+.preview-dialog {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+
+  .modal-header {
+    background: #000;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .close {
+      opacity: .7;
+      color: #fff;
+    }
+
+    .modal-title {
+      i {
+        &:hover, &.favourite {
+          color: #ED8B00;
+        }
+      }
+      h5 {
+        color: #F0F0F0;
+      }
+      color: #F0F0F0;
+
+      .button-group {
+        i {
+          font-size: 35px;
+          color: #fff !important;
+          &.download {
+            margin-top: 6px !important;
+          }
+        }
+        .right-separator {
+          border-right: 1px solid rgba(255, 255, 255, .08);
+        }
+      }
+
+    }
+
+  }
+
+  .modal-body {
+    background: rgba(0, 0, 0, .7);
+    .carousel-inner {
+      .item {
+        height: initial !important;
+        background: none;
+        img {
+          max-width: 70%;
+          height: auto;
+          margin: 0 auto;
+        }
+      }
+    }
+    .carousel-indicators {
+      display: none;
+    }
+    .carousel-control {
+      border: 1px solid rgba(255, 255, 255, .7);
+      color: #fff;
+      background: transparent !important;
+      background-image: none;
+      position: fixed;
+      height: 50px;
+      line-height: 50px;
+      top: 50%;
+      width: 65px;
+
+      span {
+        margin-top: -20px !important;
+        &:before {
+          font-size: 24px;
+        }
+      }
+
+      &.left {
+        left: 40px;
+      }
+      &.right {
+        right: 40px;
+      }
+    }
+
+  }
+
+}
+

@@ -38,7 +38,7 @@ define([
                         });
 
                         if (!notFireEvent)
-                            UserTreeListEventBus.fireNodeSelected(item);
+                            UserTreeListEventBus.fireNodeSelected();
                     };
 
                     scope.toggleNode = function (item) {

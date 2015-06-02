@@ -2,14 +2,15 @@
  * Created by justin on 12/22/14.
  */
 define([
+    'angular',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetView',
-    'modules/saleAnalytics/widgets/WidgetBaseView'
-], function (TableWidgetView, WidgetBaseView) {
+    'modules/saleAnalytics/widgets/tableChart/TableWidgetPresenter'
+], function (angular, TableWidgetView, TableWidgetPresenter) {
     'use strict';
 
     describe("TableWidgetView", function () {
 
-        var sut, scope;
+        var sut, scope, element, presenter;
 
         var fakeResponseData = {
             data: {
@@ -27,15 +28,12 @@ define([
             }
         };
 
-        beforeEach(function () {
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            sut = TableWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        });
+        beforeEach(inject(function(_$rootScope_){
+            scope = _$rootScope_.$new();
+            element = angular.element('<div />');
+            presenter = mock(TableWidgetPresenter);
+            sut = new TableWidgetView(scope, element, presenter);
+        }));
 
         describe("configureEvents", function () {
             var outerWidgetScope = {
@@ -51,7 +49,6 @@ define([
                 method: "isImage", test: isImageTestExercise
             }].forEach(function (test) {
                     var method = test.method;
-
                     describe("calling fn." + method, test.test);
                 });
 
@@ -91,26 +88,7 @@ define([
                             });
                         });
                     });
-            }
-
-            function assignWidgetTestExercise() {
-                function spyEvent() {
-                    sut.event.onReloadWidgetStart = jasmine.createSpy();
-                }
-
-                it("should assign outer scope to current instance", function () {
-                    spyEvent();
-                    sut.fn.assignWidget(outerWidgetScope);
-                    expect(sut.widget).toEqual(outerWidgetScope);
-                });
-
-                it("should fire event 'onReloadWidgetStart'", function () {
-                    spyEvent();
-                    sut.fn.assignWidget(outerWidgetScope);
-                    expect(sut.event.onReloadWidgetStart).toHaveBeenCalled();
-                });
-
-            }
+            };
 
             function toggleColumnTestExercise() {
                 var event;
@@ -185,7 +163,6 @@ define([
 
         describe("onReloadWidgetSuccess", function () {
             beforeEach(function () {
-                sut = new TableWidgetView(scope, {});
                 sut.event = {};
                 sut.event.onReloadWidgetDone = function () {
                 };
@@ -226,9 +203,6 @@ define([
         });
 
         describe("getDisplayColumnIndices", function () {
-            beforeEach(function () {
-                sut = new TableWidgetView(scope, {}, {}, {});
-            });
 
             describe("input is not valid", function () {
                 [{

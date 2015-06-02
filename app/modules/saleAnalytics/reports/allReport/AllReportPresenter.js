@@ -7,17 +7,13 @@ define([
         this.model = model || new AllReportModel();
     }
 
-    AllReportPresenter.prototype = Object.create(Object.prototype, {});
+    AllReportPresenter.inherits(Object, {});
 
     AllReportPresenter.prototype.show = function (view) {
         var self = this;
         this.view = view;
 
         view.event.onReloading = function () {
-            self._executeLoadWidget();
-        };
-
-        view.event.onLoadReports = function () {
             self._executeLoadWidget();
         };
 

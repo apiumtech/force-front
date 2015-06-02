@@ -161,6 +161,17 @@ define([
                     expect(sut.editingDescription).toEqual(false);
                 });
             });
+
+            describe('fn.saveName', function () {
+                it("should assign new value to selectedReportType", function () {
+                    sut.$scope.report.reportType = ['PDF', 'DOC', 'XSL'];
+                    sut.selectedReportType = 'PDF';
+                    var newValue = 'DOC';
+                    sut.fn.changeReportType(newValue);
+                    expect(sut.selectedReportType).toEqual(newValue);
+                });
+            })
+
         });
 
         describe('onSaveNameSuccess', function () {

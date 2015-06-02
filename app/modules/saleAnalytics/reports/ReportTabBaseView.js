@@ -6,12 +6,12 @@ define([
     'use strict';
 
     function ReportTabBaseView(scope, presenter, eventBus) {
-        WidgetBaseView.call(this, scope, null, null, presenter);
+        WidgetBaseView.call(this, scope, null, presenter);
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.configureEvents();
     }
 
-    ReportTabBaseView.prototype = Object.create(WidgetBaseView.prototype, {
+    ReportTabBaseView.inherits(WidgetBaseView, {
         reports: {
             get: function () {
                 return this.$scope.reports;
@@ -42,6 +42,10 @@ define([
         var self = this;
         self.isAssigned = false;
         var eventChannel = self.eventChannel;
+
+        self.event.onDateFilterApplied = function (filterValue) {
+
+        };
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
     };

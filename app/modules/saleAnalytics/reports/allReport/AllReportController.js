@@ -14,7 +14,7 @@ define([
         this.view.show();
     }
 
-    app.register.controller('AllReportController', ['$scope', '$compile', AllReportController]);
+    app.register.controller('AllReportController', ['$scope', AllReportController]);
 
     return AllReportController;
 });

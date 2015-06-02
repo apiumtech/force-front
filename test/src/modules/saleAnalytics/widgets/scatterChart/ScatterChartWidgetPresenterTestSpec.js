@@ -3,19 +3,22 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetPresenter'
-], function (ScatterChartWidgetPresenter) {
+    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetPresenter',
+    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetModel'
+], function (ScatterChartWidgetPresenter, ScatterChartWidgetModel) {
     'use strict';
     describe("ScatterChartWidgetPresenter", function () {
-        var sut;
+        var sut, model;
 
         beforeEach(function () {
-            sut = ScatterChartWidgetPresenter.newInstance();
+            model = mock(ScatterChartWidgetModel);
+            console.log("init model", model);
+            sut = new ScatterChartWidgetPresenter(model);
         });
 
         describe("Connect view to model", function () {
             //region test should declare methods
-            var view, ___model;
+            var view;
             [
                 {
                     viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
@@ -25,9 +28,6 @@ define([
                 },
                 {
                     viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
-                },
-                {
-                    viewEvent: "onFilterChanged", test: onFilterChangedTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -40,16 +40,14 @@ define([
                             generateTooltip: function(){},
                             event: {}
                         };
-                        ___model = {
-                            setFetchEndPoint: jasmine.createSpy()
-                        };
-                        sut.show(view, ___model);
+                        sut.show(view);
                     });
 
                     describe("when event '" + viewEvent + "' fired", test);
                 });
 
             function onReloadWidgetStartTest() {
+                console.log("widgetStart", model);
                 beforeEach(function () {
                     view.widget = {
                         dataEndpoint: "/test/end/point"
@@ -58,7 +56,7 @@ define([
                 });
                 it("should add endpoint to model", function () {
                     view.event.onReloading();
-                    expect(___model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
+                    expect(model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
                 });
                 it("should call '_executeLoadWidget' method", function () {
                     view.event.onReloading();
@@ -69,14 +67,12 @@ define([
             function onUsersFilterAppliedTest() {
                 var filterValue = [1, 2, 3, 4, 5];
                 beforeEach(function () {
-                    ___model.addUserFilter = jasmine.createSpy();
-
                     spyOn(view, 'sendReloadCommandToChannel');
                     view.event.onUsersFilterApplied(filterValue);
                 });
 
                 it("should call 'addUserFilter' on the model", function () {
-                    expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+                    expect(model.addUserFilter).toHaveBeenCalledWith(filterValue);
                 });
 
                 it("should call 'sendReloadCommandToChannel' on the channel", function () {
@@ -90,32 +86,12 @@ define([
                     dateEnd: new Date()
                 };
                 beforeEach(function () {
-
-                    ___model.addDateFilter = jasmine.createSpy();
-
                     spyOn(view, 'sendReloadCommandToChannel');
                     view.event.onDateFilterApplied(filterValue);
                 });
 
                 it("should call 'addDateFilter' on the model", function () {
-                    expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
-                });
-
-                it("should call 'sendReloadCommandToChannel' on the channel", function () {
-                    expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
-                });
-            }
-
-            function onFilterChangedTest() {
-                beforeEach(function () {
-                    view.selectedFilter = "tab1";
-                    ___model.changeQueryFilter = jasmine.createSpy();
-                    spyOn(view, 'sendReloadCommandToChannel');
-                    view.event.onFilterChanged();
-                });
-
-                it("should call addQuery with new value", function () {
-                    expect(___model.changeQueryFilter).toHaveBeenCalledWith("tab1");
+                    expect(model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
                 });
 
                 it("should call 'sendReloadCommandToChannel' on the channel", function () {
@@ -133,37 +109,29 @@ define([
                 onSuccess: "onReloadWidgetSuccess"
             }].forEach(function (item) {
                     describe("Calling '" + item.method + "' ", function () {
-                        var model = createModel();
                         var view = createView();
 
                         it("should call '" + item.modelMethod + "' on model", function () {
                             spyOn(model, item.modelMethod).and.returnValue(exerciseFakePromise());
-                            sut.show(view, model);
+                            sut.show(view);
                             sut[item.method]();
                             expect(model[item.modelMethod]).toHaveBeenCalled();
                         });
 
                         it("should call '" + item.onSuccess + "' when model returns success", function () {
                             spyOn(model, item.modelMethod).and.returnValue(exerciseFakeOkPromise());
-                            sut.show(view, model);
+                            sut.show(view);
                             sut[item.method]();
                             expect(view[item.onSuccess]).toHaveBeenCalled();
                         });
 
                         it("should call '" + item.onError + "' when model returns fail", function () {
                             spyOn(model, item.modelMethod).and.returnValue(exerciseFakeKoPromise());
-                            sut.show(view, model);
+                            sut.show(view);
                             sut[item.method]();
                             expect(view[item.onError]).toHaveBeenCalled();
                         });
                     });
-
-                    function createModel() {
-                        var model = {};
-                        model[item.modelMethod] = function () {
-                        };
-                        return model;
-                    }
 
                     function createView() {
                         var v = {event: {}, generateTooltip: function(){}};

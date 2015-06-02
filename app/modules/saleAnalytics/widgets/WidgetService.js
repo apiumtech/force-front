@@ -14,7 +14,7 @@ define([
         this.ajaxService = ajaxService || new AjaxService();
     }
 
-    WidgetService.prototype = Object.create(Object.prototype, {});
+    WidgetService.inherits(Object, {});
 
     WidgetService.prototype.getWidgetsForPage = function (page) {
         assertNotNull("Page name", page);

@@ -10,7 +10,9 @@ define([
         BaseAccountFilterModel.call(this, ajaxService);
     }
 
-    StringFilterModel.prototype = Object.create(BaseAccountFilterModel.prototype, {});
+    //StringFilterModel.inherits(BaseAccountFilterModel, {});
+
+    StringFilterModel.inherits(BaseAccountFilterModel);
 
     StringFilterModel.prototype._getFilterValues = BaseAccountFilterModel.prototype.getFilterValues;
     StringFilterModel.prototype.getFilterValues = function (fieldName, queryString) {

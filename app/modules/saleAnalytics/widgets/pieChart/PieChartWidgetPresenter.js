@@ -2,20 +2,23 @@
  * Created by justin on 1/26/15.
  */
 
-define([], function(){
+define([
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
+], function(PieChartWidgetModel){
 
-    function PieChartWidgetPresenter() {
+    function PieChartWidgetPresenter(model) {
+        this.model = model || new PieChartWidgetModel();
     }
 
-    PieChartWidgetPresenter.prototype = Object.create(Object.prototype, {
+    PieChartWidgetPresenter.inherits(Object, {
     });
 
     PieChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
-            $model = self.$model;
+            model = self.model;
 
-        $model.reloadWidget()
+        model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
@@ -23,10 +26,10 @@ define([], function(){
 
     };
 
-    PieChartWidgetPresenter.prototype.show = function (view, model) {
+    PieChartWidgetPresenter.prototype.show = function (view) {
         var self = this;
         self.$view = view;
-        self.$model = model;
+        var model = self.model;
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -52,10 +55,6 @@ define([], function(){
         view.event.onReloadWidgetDone = function (errMsg) {
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
-    };
-
-    PieChartWidgetPresenter.newInstance = function () {
-        return new PieChartWidgetPresenter();
     };
 
     return PieChartWidgetPresenter;

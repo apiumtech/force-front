@@ -13,7 +13,7 @@ define([
         this.configureEvents();
     }
 
-    AllReportView.prototype = Object.create(ReportTabBaseView.prototype, {
+    AllReportView.inherits(ReportTabBaseView, {
         searchQuery: {
             get: function () {
                 return this.$scope.searchQuery;
@@ -25,14 +25,14 @@ define([
     });
 
     AllReportView.prototype.configureEvents = function () {
-        ReportTabBaseView.prototype.configureEvents.call(this);
+        this.__base__.configureEvents.call(this);
 
         var self = this;
 
         self.fn.loadReports = function (isOpeningFolder) {
             if (isOpeningFolder) return;
             self.isLoading = true;
-            self.event.onLoadReports();
+            self.event.onReloading();
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);

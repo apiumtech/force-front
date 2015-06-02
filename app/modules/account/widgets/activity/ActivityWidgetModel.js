@@ -10,7 +10,7 @@ define([
         this.ajaxService = ajaxService;
     }
 
-    ActivityWidgetModel.prototype = Object.create(Object.prototype);
+    ActivityWidgetModel.inherits(Object);
 
     ActivityWidgetModel.prototype.loadActivity = function (id, pageIndex) {
         var self = this;

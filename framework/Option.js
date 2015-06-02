@@ -92,7 +92,7 @@
         }
     };
 
-    jsScope.isset = function(value) {
+    jsScope.isset = function (value) {
         return value !== undefined && value !== null;
     };
 
@@ -129,4 +129,16 @@
             return -1 !== String.prototype.indexOf.call(this, str, startIndex);
         };
     }
+
+
+    if (!('inherits' in Function.prototype)) {
+        Function.prototype.inherits = function (parentClass, options) {
+            var child = this;
+            child.prototype = Object.create(parentClass.prototype, options);
+            child.prototype.__base__ = parentClass.prototype;
+            child.prototype.__isInherited__ = true;
+            return child;
+        };
+    }
+
 })(window);

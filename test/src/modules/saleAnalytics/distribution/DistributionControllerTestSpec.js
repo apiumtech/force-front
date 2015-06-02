@@ -1,32 +1,30 @@
 define([
     'app',
-    'modules/saleAnalytics/distribution/DistributionView'
-], function (app, DistributionView) {
+    'modules/saleAnalytics/distribution/DistributionView',
+    'modules/saleAnalytics/distribution/DistributionController'
+], function (app, DistributionView, DistributionController) {
     'use strict';
 
     describe("DistributionController", function () {
-        var DistributionController;
-        describe("loading asynchronously", function () {
-            beforeEach(function (done) {
-                sinon.stub(app.register, 'controller');
+        var appName = app.name;
+        beforeEach(module(appName));
 
-                require(['modules/saleAnalytics/distribution/DistributionController'], function (DC) {
-                    DistributionController = DC;
-                    done();
-                });
-            });
-            afterEach(function () {
-                app.register.controller.restore();
-            });
+        var $controller;
+        var scope;
+
+        beforeEach(inject(function (_$controller_, _$rootScope_) {
+            $controller = _$controller_;
+            scope = _$rootScope_.$new();
+        }));
+
+        describe("loading asynchronously", function () {
             it("should register the controller to app", function () {
-                expect(app.register.controller).toHaveBeenCalledWith('DistributionController', ['$scope', DistributionController]);
+                var ctrl = $controller('DistributionController', {$scope: scope});
+                expect(ctrl).not.toBeNull();
+                expect(ctrl).not.toBeUndefined();
             });
         });
 
-        var scope;
-        beforeEach(inject(function (_$rootScope_) {
-            scope = _$rootScope_.$new();
-        }));
         describe("construct", function () {
             beforeEach(inject(function () {
                 sinon.stub(DistributionController, 'configureView');

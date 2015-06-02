@@ -17,7 +17,12 @@ define([
     FavouriteReportModel.prototype.decorateServerData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
         var returnData = data.filter(function(item){
-            return item.type == "report";
+            return item.type === "report" && item.favourite === true;
+        });
+        returnData.sort(function(a, b){
+            if(a.name > b.name) return 1;
+            if(a.name < b.name) return -1;
+            return 0;
         });
         return returnData;
     };

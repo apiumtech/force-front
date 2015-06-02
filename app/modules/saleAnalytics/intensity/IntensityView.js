@@ -8,16 +8,15 @@ define([
 ], function (WidgetDecoratedPageView, IntensityPresenter) {
 
     function IntensityView($scope, $presenter) {
-
+        $presenter = $presenter || new IntensityPresenter();
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'intensity';
     }
 
-    IntensityView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
+    IntensityView.inherits(WidgetDecoratedPageView, {});
 
-    IntensityView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     IntensityView.prototype.show = function () {
-        this.__show.call(this);
+        this.__base__.show.call(this);
         this.event.onLoaded();
     };
 

@@ -19,7 +19,7 @@ define([
         this.dateTimeDecoratorService = DateTimeDecoratorService.newInstance();
     }
 
-    ActivityWidgetView.prototype = Object.create(BaseView.prototype, {
+    ActivityWidgetView.inherits(BaseView, {
         accountId: {
             get: function () {
                 return this.$scope.accountId;

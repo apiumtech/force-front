@@ -1,7 +1,8 @@
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
     'modules/saleAnalytics/reports/ReportEventBus',
-    'shared/services/AwaitHelper'
+    'shared/services/AwaitHelper',
+    'modules/saleAnalytics/reports/previewDialog/PreviewDialogController'
 ], function (WidgetDecoratedPageView, ReportEventBus, AwaitHelper) {
     'use strict';
 
@@ -9,6 +10,10 @@ define([
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.awaitHelper = AwaitHelper.getInstance();
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
+        var modalService = $scope.$modal;
+        if (modalService) {
+            this.modalService = modalService;
+        }
         this.pageName = 'reports';
         this.displaySearch = false;
         this.searchTabActivated = false;
@@ -16,7 +21,7 @@ define([
         this.queryString = "";
     }
 
-    ReportView.prototype = Object.create(WidgetDecoratedPageView.prototype, {
+    ReportView.inherits(WidgetDecoratedPageView, {
         displaySearch: {
             get: function () {
                 return this.$scope.displaySearch;
@@ -91,11 +96,28 @@ define([
             self.awaitHelper.await(self.fn.openFirstTabForOpeningFolder, 20);
         };
 
+        self.fn.openPreviewDialog = function (report) {
+            console.log(report);
+            self.modalService.open({
+                templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html',
+                windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'PreviewDialogController',
+                resolve: {
+                    report: function () {
+                        return report;
+                    }
+                }
+            });
+        };
+
         self.fn.openFirstTabForOpeningFolder = self.openFirstTabForOpeningFolder.bind(self);
 
         self.reportEventBus.onSearchActivated(self.fn.searchReportSelected);
         self.reportEventBus.onSearchDeactivated(self.fn.removeSearchTab);
         self.reportEventBus.onFolderReportSelected(self.fn.openFirstTabForOpeningFolder);
+        self.reportEventBus.onPreviewReport(self.fn.openPreviewDialog);
     };
 
     ReportView.prototype.openFirstTabForOpeningFolder = function () {

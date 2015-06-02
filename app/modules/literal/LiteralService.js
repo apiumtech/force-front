@@ -30,10 +30,12 @@ define([
         this.storageService = storageService;
     }
 
-    var proto = LiteralService.prototype = Object.create(Object.prototype, {});
+    LiteralService.inherits(Object, {});
+
+    var proto = LiteralService.prototype;
 
 
-    // ----------------------------------------
+        // ----------------------------------------
     //
     //  MANIPULATE LITERALS
     //

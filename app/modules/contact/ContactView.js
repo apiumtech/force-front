@@ -28,7 +28,7 @@ define([
     /**
      * Extend BaseView
      */
-    ContactView.prototype = Object.create(BaseView.prototype, {});
+    ContactView.inherits(BaseView, {});
 
 
     /**

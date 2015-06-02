@@ -2,26 +2,31 @@
  * Created by justin on 12/22/14.
  */
 define([
-    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetView'
-], function (GraphChartWidgetView) {
+    'angular',
+    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetView',
+    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter'
+], function (angular, GraphChartWidgetView, GraphChartWidgetPresenter) {
     'use strict';
     describe("GraphChartWidgetView", function () {
 
-        var sut, scope;
+        var sut, scope, presenter, element;
 
-        function initSut() {
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            sut = GraphChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        }
+        beforeEach(inject(function (_$rootScope_) {
+            scope = _$rootScope_.$new();
+            presenter = mock(GraphChartWidgetPresenter);
+            element = angular.element("<div />");
+            sut = new GraphChartWidgetView(scope, element, presenter);
+        }));
+
+        describe('construct', function () {
+            it("should call configureEvents methods", function () {
+                spyOn(GraphChartWidgetView.prototype, "configureEvents").and.callThrough();
+                new GraphChartWidgetView(scope, element, presenter);
+                expect(GraphChartWidgetView.prototype.configureEvents).toHaveBeenCalled();
+            });
+        });
 
         describe("configureEvents", function () {
-            beforeEach(initSut);
-
             [
                 {method: 'changeFilterRange', exercise: changeFilterRangeTestExercise},
                 {method: 'changeFilter', exercise: changeFilterTestExercise},
@@ -175,7 +180,6 @@ define([
         });
 
         describe("extractDisplayFields", function () {
-            beforeEach(initSut);
 
             var fields = [{
                 name: 'field1', data: []
@@ -239,9 +243,7 @@ define([
             });
         });
 
-
         describe("extractFilters", function () {
-            beforeEach(initSut);
 
             it("should assign filters from data", function () {
                 sut.data.filters = ['filter1', 'filter2'];
@@ -297,7 +299,6 @@ define([
         });
 
         describe("refreshChart", function () {
-            beforeEach(initSut);
 
             beforeEach(function () {
                 sut.element = {
@@ -364,7 +365,6 @@ define([
         });
 
         describe("getLineGraph", function () {
-            beforeEach(initSut);
 
             var displayFields = [{
                 name: "field1",

@@ -20,7 +20,7 @@ define([
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
-    AllReportModel.prototype = Object.create(WidgetBase.prototype, {});
+    AllReportModel.inherits(WidgetBase, {});
 
     AllReportModel.prototype.reloadWidget = function () {
         return this._reload();

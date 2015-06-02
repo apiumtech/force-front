@@ -22,7 +22,7 @@ define([
         }];
     }
 
-    SingleLineChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    SingleLineChartWidgetModel.inherits(WidgetBase, {});
 
     SingleLineChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {

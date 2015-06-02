@@ -3,46 +3,43 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetView'
-], function (SingleLineChartWidgetView) {
+    'angular',
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetView',
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter'
+], function (angular, DistributionHourLineWidgetView, DistributionHourLineWidgetPresenter) {
     'use strict';
-    describe("SingleLineChartWidgetView", function () {
-        var sut, scope;
+    describe("DistributionHourLineWidgetView", function () {
+        var sut, scope, presenter, element;
 
-        function initSut() {
-            scope = {
-                $on: function () {
-                },
-                $watch: function () {
-                }
-            };
-            sut = SingleLineChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        }
+        beforeEach(inject(function (_$rootScope_) {
+            scope = _$rootScope_.$new();
+            presenter = mock(DistributionHourLineWidgetPresenter);
+            element = angular.element('<div />');
+            sut = new DistributionHourLineWidgetView(scope, element, presenter);
+        }));
+
+        describe('construct', function () {
+            beforeEach(function () {
+                sinon.stub(DistributionHourLineWidgetView.prototype, 'configureEvents');
+            });
+            afterEach(function () {
+                DistributionHourLineWidgetView.prototype.configureEvents.restore();
+            });
+
+            it("should call configureEvents", function () {
+                new DistributionHourLineWidgetView(scope, element);
+                expect(DistributionHourLineWidgetView.prototype.configureEvents).toHaveBeenCalled();
+            });
+        });
 
         describe("configureEvents", function () {
-            beforeEach(initSut);
-
             [
-                {method: 'assignWidget', exercise: assignWidgetTestExercise},
-                {method: 'changeFilter', exercise: changeFilterTestExercise},
-                {method: 'refreshChart', exercise: refreshChartTestExercise}
-            ].forEach(function (testCase) {
-                    var method = testCase.method,
-                        exercise = testCase.exercise;
-
-                    it("should declare method fn." + method, function () {
-                        expect(sut.fn[method]).not.toBeNull();
-                        expect(isFunction(sut.fn[method])).toEqual(true);
-                    });
-
-                    if (exercise)
-                        describe("calling fn." + method, function () {
-                            beforeEach(function () {
-                                spyOn(sut, 'refreshChart');
-                            });
-
-                            exercise();
-                        });
+                {method: 'assignWidget', test: assignWidgetTestExercise},
+                {method: 'changeFilter', test: changeFilterTestExercise},
+                {method: 'refreshChart', test: refreshChartTestExercise}
+            ].forEach(function (test) {
+                    var method = test.method;
+                    describe("calling fn." + method, test.test);
                 });
 
             function assignWidgetTestExercise() {
@@ -93,17 +90,13 @@ define([
 
 
             function refreshChartTestExercise() {
-                assertCallRefreshChart(function () {
+                it("should call refresh chart function", function () {
+                    spyOn(sut, 'refreshChart');
                     sut.fn.refreshChart();
-                });
-            }
-
-            function assertCallRefreshChart(exercise) {
-                it("should call refreshChart", function () {
-                    exercise();
                     expect(sut.refreshChart).toHaveBeenCalled();
                 });
             }
+
         });
 
         describe("onReloadWidgetSuccess", function () {
@@ -126,7 +119,7 @@ define([
             };
 
             beforeEach(function () {
-                sut = new SingleLineChartWidgetView(scope, {});
+                sut = new DistributionHourLineWidgetView(scope, {});
                 sut.event = {};
                 sut.event.onReloadWidgetDone = function () {
                 };
@@ -160,7 +153,6 @@ define([
         });
 
         describe("extractFilters", function () {
-            beforeEach(initSut);
 
             it("should assign filters from data", function () {
                 sut.data.filters = [{name: "name1", key: "key1"}, {name: "name2", key: "key2"}];
@@ -198,7 +190,6 @@ define([
         });
 
         describe("refreshChart", function () {
-            beforeEach(initSut);
 
             beforeEach(function () {
                 sut.element = {

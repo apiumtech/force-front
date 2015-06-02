@@ -19,7 +19,7 @@ define([
         this.configureEvents();
     }
 
-    BooleanFilterView.prototype = Object.create(BaseView.prototype, {});
+    BooleanFilterView.inherits(BaseView, {});
 
     BooleanFilterView.prototype.configureEvents = function () {
         var self = this;

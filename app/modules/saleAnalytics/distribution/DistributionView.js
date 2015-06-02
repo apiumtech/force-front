@@ -14,7 +14,7 @@ define([
         this.pageName = 'distribution';
     }
 
-    DistributionView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
+    DistributionView.inherits(WidgetDecoratedPageView, {});
 
     DistributionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     DistributionView.prototype.show = function () {

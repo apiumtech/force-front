@@ -12,7 +12,7 @@ define([
         this.pageName = "distribution";
     }
 
-    DistributionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
+    DistributionModel.inherits(WidgetDecoratedPageModel, {});
 
     DistributionModel.newInstance = function (widgetService, storageService) {
         var _widgetService = widgetService || WidgetService.newInstance();

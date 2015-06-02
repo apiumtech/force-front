@@ -13,7 +13,7 @@ define([
         this.$element = $element;
     }
 
-    AgendaWidgetView.prototype = Object.create(BaseView.prototype, {
+    AgendaWidgetView.inherits(BaseView, {
         accountId: {
             get: function () {
                 return this.$scope.accountId;

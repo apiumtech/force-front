@@ -11,9 +11,10 @@ define([
         this.configureEvents();
     }
 
-    FavouriteReportView.prototype = Object.create(ReportTabBaseView.prototype, {});
+    FavouriteReportView.inherits(ReportTabBaseView, {});
 
     FavouriteReportView.prototype.configureEvents = function () {
+        this.__base__.configureEvents.call(this);
         var self = this;
 
         self.fn.loadReports = function () {
@@ -21,6 +22,13 @@ define([
             self.event.onLoadReports();
         };
 
+        self.fn.isFavourite = function (element, index) {
+            return element.favourite;
+        };
+
+        self.event.onDateFilterApplied = function (filterValue) {
+
+        };
         self.reportEventBus.onFavReportTabSelected(self.fn.loadReports);
     };
 

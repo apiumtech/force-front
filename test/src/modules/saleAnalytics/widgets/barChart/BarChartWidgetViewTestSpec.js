@@ -3,24 +3,31 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/barChart/BarChartWidgetView'
-], function (BarChartWidgetView) {
+    'angular',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetView',
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter'
+], function (angular, BarChartWidgetView, BarChartPresenter) {
     'use strict';
     describe("BarChartWidgetView", function () {
 
-        var sut, scope;
+        var sut, scope, presenter;
 
-        function initSut() {
-            scope={
-                $on:function(){},
-                $watch:function(){}
-            };
-            sut = BarChartWidgetView.newInstance(scope, {}, {}, {}, false, false);
-        }
+        beforeEach(inject(function (_$rootScope_) {
+            scope = _$rootScope_.$new();
+            presenter = mock(BarChartPresenter);
+            var element = angular.element("<div />");
+            sut = new BarChartWidgetView(scope, element, presenter);
+        }));
+
+        describe('construct', function () {
+            it("should call configureEvents", function () {
+                spyOn(BarChartWidgetView.prototype, 'configureEvents').and.callThrough();
+                new BarChartWidgetView(scope);
+                expect(BarChartWidgetView.prototype.configureEvents).toHaveBeenCalled();
+            });
+        });
 
         describe("configureEvents", function () {
-            beforeEach(initSut);
-
             [
                 {method: 'assignWidget', exercise: assignWidgetTestExercise},
                 {method: 'changeFilter', exercise: changeTabTestExercise},
@@ -90,7 +97,6 @@ define([
                 });
             }
 
-
             function refreshChartTestExercise() {
                 assertCallRefreshChart(function () {
                     sut.fn.refreshChart();
@@ -131,7 +137,6 @@ define([
             };
 
             beforeEach(function(){
-                initSut();
                 sut.event.onReloadWidgetDone=function(){};
                 sut.refreshChart = jasmine.createSpy();
                 spyOn(sut, '_onReloadWidgetSuccess');
@@ -182,13 +187,6 @@ define([
         });
 
         describe("refreshChart", function () {
-            beforeEach(initSut);
-
-            beforeEach(function () {
-                sut.element = {
-                    find: jasmine.createSpy()
-                };
-            });
 
             describe("data is invalid", function () {
 

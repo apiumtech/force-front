@@ -33,6 +33,7 @@ require(['/base/requireConf.js'], function (requireConf) {
 
     requirejs.config(requireConfig);
     function test_main() {
+
         require(tests, window.__karma__.start);
     }
 });
@@ -67,16 +68,6 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
-//function jasmineMock(constr) {
-//    var keys = [];
-//
-//    for (var key in constr.prototype) {
-//        keys.push(key);
-//    }
-//    var mockObject = keys.length > 0 ? jasmine.createSpyObj(constr.name, keys) : {};
-//
-//    return mockObject;
-//}
 
 function mockAngularScope() {
     var mock = {
@@ -96,19 +87,22 @@ function mockAngularScope() {
 }
 
 function mock(constr) {
-    var mockObj = {
-        _stubs: {}
-    };
+    var mockObj = {};
+    var component = Object.create(constr.prototype);
+    var proto = component.__proto__;
 
-    for (var key in constr.prototype) {
-        if (!isFunction(constr.prototype[key])) {
-            mockObj[key] = constr.prototype[key];
-            continue;
-        }
-        mockObj[key] = function () {
-        };
-        sinon.stub(mockObj, key);
+    while (proto) {
+        var prototypeMethods = Object.keys(proto);
+
+        prototypeMethods.forEach(function (method) {
+            mockObj[method] = function () {
+            };
+            sinon.stub(mockObj, method);
+        });
+
+        proto = proto.__proto__;
     }
+
     return mockObj;
 }
 

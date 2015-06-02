@@ -1,35 +1,31 @@
 define([
     'app',
-    'modules/saleAnalytics/conversion/ConversionView'
-], function (app, ConversionView) {
+    'modules/saleAnalytics/conversion/ConversionView',
+    'modules/saleAnalytics/conversion/ConversionController'
+], function (app, ConversionView, ConversionController) {
     'use strict';
 
     describe("ConversionController", function () {
-        var ConversionController;
-        describe("loading asynchronously", function () {
-            beforeEach(function (done) {
-                sinon.stub(app.register, 'controller');
+        var appName = app.name;
+        beforeEach(module(appName));
 
-                require(['modules/saleAnalytics/conversion/ConversionController'], function (DC) {
-                    ConversionController = DC;
-                    done();
-                });
-            });
-            afterEach(function () {
-                app.register.controller.restore();
-            });
+        var $controller;
+        var scope;
+
+        beforeEach(inject(function (_$controller_, _$rootScope_) {
+            $controller = _$controller_;
+            scope = _$rootScope_.$new();
+        }));
+        describe("loading asynchronously", function () {
             it("should register the controller to app", function () {
-                expect(app.register.controller).toHaveBeenCalledWith('ConversionController', ['$scope', ConversionController]);
+                var ctrl = $controller('ConversionController', {$scope: scope});
+                expect(ctrl).not.toBeNull();
+                expect(ctrl).not.toBeUndefined();
             });
         });
 
 
-        var scope;
-        beforeEach(inject(function (_$rootScope_) {
-            scope = _$rootScope_.$new();
-        }));
         describe("construct", function () {
-            var scope;
             beforeEach(inject(function () {
                 sinon.stub(ConversionController, 'configureView');
             }));

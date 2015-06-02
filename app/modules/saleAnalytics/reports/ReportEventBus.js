@@ -7,7 +7,7 @@ define([
         EventBase.call(this);
     }
 
-    ReportEventBus.prototype = Object.create(EventBase.prototype);
+    ReportEventBus.inherits(EventBase);
 
     ReportEventBus.prototype.onAllReportTabSelected = function () {
     };
@@ -56,6 +56,20 @@ define([
     ReportEventBus.prototype.fireSearchReportTabSelected = function () {
     };
     ReportEventBus.prototype.unsubscribeSearchReportTabSelected = function () {
+    };
+
+    ReportEventBus.prototype.onToggleFavourite = function () {
+    };
+    ReportEventBus.prototype.fireToggleFavourite = function () {
+    };
+    ReportEventBus.prototype.unsubscribeToggleFavourite = function () {
+    };
+
+    ReportEventBus.prototype.onPreviewReport = function () {
+    };
+    ReportEventBus.prototype.firePreviewReport = function () {
+    };
+    ReportEventBus.prototype.unsubscribePreviewReport = function () {
     };
 
     ReportEventBus.getInstance = function () {

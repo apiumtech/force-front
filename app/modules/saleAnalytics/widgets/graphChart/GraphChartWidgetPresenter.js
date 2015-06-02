@@ -1,21 +1,23 @@
 /**
  * Created by justin on 12/22/14.
  */
-define([], function () {
+define([
+    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel'
+], function (GraphChartWidgetModel) {
     'use strict';
 
-    function GraphChartWidgetPresenter(widgetEventChannel) {
-        this.widgetEventChannel = widgetEventChannel;
+    function GraphChartWidgetPresenter(model) {
+        this.model = model || new GraphChartWidgetModel();
     }
 
-    GraphChartWidgetPresenter.prototype = Object.create(Object.prototype, {});
+    GraphChartWidgetPresenter.inherits(Object, {});
 
     GraphChartWidgetPresenter.prototype._executeLoadWidget = function () {
         var self = this,
             $view = self.$view,
-            $model = self.$model;
+            model = self.model;
 
-        $model.reloadWidget()
+        model.reloadWidget()
             .then($view.onReloadWidgetSuccess.bind($view), $view.onReloadWidgetError.bind($view));
     };
 
@@ -23,10 +25,10 @@ define([], function () {
 
     };
 
-    GraphChartWidgetPresenter.prototype.show = function (view, model) {
+    GraphChartWidgetPresenter.prototype.show = function (view) {
         var self = this;
         self.$view = view;
-        self.$model = model;
+        var model = self.model;
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
@@ -53,10 +55,6 @@ define([], function () {
             model.addQuery('grouping', view.$scope.selectedRangeOption);
             view.sendReloadCommandToChannel();
         };
-    };
-
-    GraphChartWidgetPresenter.newInstance = function () {
-        return new GraphChartWidgetPresenter();
     };
 
     return GraphChartWidgetPresenter;

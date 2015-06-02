@@ -10,7 +10,7 @@ define([
         this.ajaxService = ajaxService;
     }
 
-    AgendaWidgetModel.prototype = Object.create(Object.prototype);
+    AgendaWidgetModel.inherits(Object);
 
     AgendaWidgetModel.prototype.loadAgendaData = function (id) {
         var self = this;

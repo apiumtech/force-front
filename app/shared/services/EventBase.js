@@ -38,7 +38,7 @@ define([
         });
     }
 
-    EventBase.prototype = Object.create(Object.prototype, {});
+    EventBase.inherits(Object, {});
 
     EventBase.prototype.dispose = function () {
         var self = this;

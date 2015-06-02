@@ -10,7 +10,7 @@ define([
         this.ajaxService = ajaxService;
     }
 
-    OpportunityWidgetModel.prototype = Object.create(Object.prototype);
+    OpportunityWidgetModel.inherits(Object);
 
     OpportunityWidgetModel.prototype.loadOpportunities = function (id) {
         var self = this;

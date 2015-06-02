@@ -8,7 +8,7 @@ define([], function () {
 
     }
 
-    SimpleTemplateParser.prototype = Object.create(Object.prototype, {});
+    SimpleTemplateParser.inherits(Object, {});
 
     SimpleTemplateParser.prototype.getKeysFromTemplate = function (templateString) {
         var regex = /\{\{|\}\}|\{((\w|\.)+)\}/g;

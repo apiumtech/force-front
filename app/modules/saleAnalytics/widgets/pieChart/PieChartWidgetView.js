@@ -3,19 +3,19 @@
  */
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
-    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/PieChart'
-], function (WidgetBaseView, PieChartWidgetModel, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
 
-    function PieChartWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function PieChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new PieChartWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.configureEvents();
     }
 
-    PieChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    PieChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
             get: function () {
                 return this.$scope.tabs;
@@ -45,8 +45,7 @@ define([
     PieChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -88,11 +87,9 @@ define([
         plot.paint($(element));
     };
 
-    PieChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || PieChartWidgetModel.newInstance();
-        var presenter = $presenter || PieChartWidgetPresenter.newInstance();
+    PieChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
 
-        var view = new PieChartWidgetView($scope, $element, model, presenter);
+        var view = new PieChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

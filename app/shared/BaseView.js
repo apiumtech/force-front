@@ -25,7 +25,7 @@ define([
         this.$scope.config = Configuration;
     }
 
-    BaseView.prototype = Object.create(Object.prototype, {
+    BaseView.inherits(Object, {
         $scope: {
             get: function () {
                 return this._scope;

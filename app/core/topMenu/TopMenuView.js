@@ -18,7 +18,7 @@ define([
         ];
     }
 
-    TopMenuView.prototype = Object.create(Object.prototype, {});
+    TopMenuView.inherits(Object, {});
 
     TopMenuView.prototype.inWeb3 = function () {
         var self = this;

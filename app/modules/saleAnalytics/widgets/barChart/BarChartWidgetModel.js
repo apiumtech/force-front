@@ -20,7 +20,7 @@ define([
         }];
     }
 
-    BarChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    BarChartWidgetModel.inherits(WidgetBase, {});
 
     BarChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {

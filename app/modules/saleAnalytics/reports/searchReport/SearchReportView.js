@@ -12,9 +12,10 @@ define([
         this.configureEvents();
     }
 
-    SearchReportView.prototype = Object.create(ReportTabBaseView.prototype, {});
+    SearchReportView.inherits(ReportTabBaseView, {});
 
     SearchReportView.prototype.configureEvents = function () {
+        this.__base__.configureEvents.call(this);
         var self = this;
 
         self.fn.loadReports = function (queryString) {

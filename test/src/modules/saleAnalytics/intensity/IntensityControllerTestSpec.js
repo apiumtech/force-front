@@ -1,33 +1,30 @@
 define([
     'app',
-    'modules/saleAnalytics/intensity/IntensityView'
-], function (app, IntensityView) {
+    'modules/saleAnalytics/intensity/IntensityView',
+    'modules/saleAnalytics/intensity/IntensityController'
+], function (app, IntensityView, IntensityController) {
     'use strict';
 
     describe("IntensityController", function () {
-        var IntensityController;
-        describe("loading asynchronously", function () {
-            beforeEach(function (done) {
-                sinon.stub(app.register, 'controller');
+        var appName = app.name;
+        beforeEach(module(appName));
 
-                require(['modules/saleAnalytics/intensity/IntensityController'], function (DC) {
-                    IntensityController = DC;
-                    done();
-                });
-            });
-            afterEach(function () {
-                app.register.controller.restore();
-            });
+        var $controller;
+        var scope;
+
+        beforeEach(inject(function (_$controller_, _$rootScope_) {
+            $controller = _$controller_;
+            scope = _$rootScope_.$new();
+        }));
+
+        describe("loading asynchronously", function () {
             it("should register the controller to app", function () {
-                expect(app.register.controller).toHaveBeenCalledWith('IntensityController', ['$scope', IntensityController]);
+                var ctrl = $controller('IntensityController', {$scope: scope});
+                expect(ctrl).not.toBeNull();
+                expect(ctrl).not.toBeUndefined();
             });
         });
 
-
-        var scope;
-        beforeEach(inject(function (_$rootScope_) {
-            scope = _$rootScope_.$new();
-        }));
         describe("construct", function () {
             var scope;
             beforeEach(inject(function () {

@@ -5,19 +5,19 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter',
-    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel',
     'modules/widgets/BaseWidgetEventBus',
     'plots/SingleLineChart',
     'plots/LineGraphPlot'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, SingleLineChartWidgetModel, BaseWidgetEventBus, SingleLineChart, LineGraphPlot) {
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, SingleLineChart, LineGraphPlot) {
 
-    function SingleLineChartWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function SingleLineChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new SingleLineChartWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.configureEvents();
     }
 
-    SingleLineChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    SingleLineChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
                 return this.$scope.filters;
@@ -55,8 +55,7 @@ define([
     SingleLineChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -148,11 +147,9 @@ define([
         event.preventDefault();
     };
 
-    SingleLineChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || SingleLineChartWidgetModel.newInstance();
-        var presenter = $presenter || SingleLineChartWidgetPresenter.newInstance();
+    SingleLineChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
 
-        var view = new SingleLineChartWidgetView($scope, $element, model, presenter);
+        var view = new SingleLineChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

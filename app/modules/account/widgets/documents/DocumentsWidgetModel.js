@@ -34,7 +34,7 @@ define([
         this.ajaxService = ajaxService;
     }
 
-    DocumentsWidgetModel.prototype = Object.create(Object.prototype, {});
+    DocumentsWidgetModel.inherits(Object, {});
 
     DocumentsWidgetModel.prototype.loadDocumentsData = function (accountId) {
         var self = this;
