@@ -18,5 +18,23 @@ define([
             });
         });
 
+        describe('onLiteralsRequest', function(){
+    		it('should call LiteralsService literalsListBySearch', function(){
+                var sut = exerciseCreateModel();
+                spyOn(sut.service, "getLiteralsList");
+                sut.searchObject = {
+                    searchTerms:"hola",
+                    skip:0,
+                    limit:100
+                };
+                sut.onLiteralsRequest();
+                expect(sut.service.getLiteralsList).toHaveBeenCalledWith({
+                    searchTerms:"hola",
+                    skip:0,
+                    limit:100
+                });
+            });
+        });
+
 	});
 });

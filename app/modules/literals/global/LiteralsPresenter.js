@@ -11,17 +11,16 @@ define([
 	LiteralsPresenter.prototype.show = function (view, model) {
 		this.view = view;
 		this.model = model;
-        var self = this;
 
         view.event.onInit = function() {
             console.log("LiteralPresenter ready");
         };
 
         // comes from LiteralsTableView.fireColumnsRequest
-        this.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
+        this.eventBus.onColumnsRequest(this.onColumnsRequest.bind(this));
 
         // comes from LiteralsTableView.fireLiteralsRequest
-        this.eventBus.onLiteralsRequest(self.onLiteralsRequest.bind(self));
+        this.eventBus.onLiteralsRequest(this.onLiteralsRequest.bind(this));
 	};
 
 
