@@ -24,6 +24,14 @@ define([
         view.event.toggleFavouriteReport = function(reportId){
             self.model.toggleFavouriteReport(reportId);
         };
+
+        view.event.getParameters = function(reportId, callback){
+            self.model.getParameters(reportId).then(callback);
+        };
+
+        view.event.getReportURL = function(reportId, callback){
+            self.model.getReportURL(reportId, callback);
+        }
     };
 
     return ReportItemPresenter;

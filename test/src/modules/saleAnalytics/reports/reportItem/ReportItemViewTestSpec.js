@@ -81,7 +81,6 @@ define([
             describe('fn.cancelEditingName', function () {
 
 
-
                 beforeEach(function () {
                     sut.originalName = 'backed-up-name';
                     sut.$scope.report.name = "new_name_entered";
@@ -192,6 +191,40 @@ define([
 
             });
 
+            describe('fn.send', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForSend');
+                    sut.fn.send();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForSend).toHaveBeenCalledWith(response);
+                });
+            });
+
+            describe('fn.download', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForDownload');
+                    sut.fn.download();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForDownload).toHaveBeenCalledWith(response);
+                })
+            });
+
         });
 
         describe('onSaveNameSuccess', function () {
@@ -251,5 +284,98 @@ define([
         describe('onSaveDescriptionError', function () {
 
         });
+
+        describe('onParameterLoadedForSend', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+            });
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: [
+                        {
+                            p1: 1234
+                        },
+                        {
+                            p2: "abcd"
+                        }
+                    ]
+                };
+                sut.onParameterLoadedForSend(data);
+                expect(sut.$scope.report.params).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should call getReportURL function", function () {
+                    var response = {URL: 'http://this.is/the/url'};
+                    sut.event = {
+                        getReportURL: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onReportURLLoadedForSend');
+
+                    var data = {
+                        params: []
+                    };
+                    sut.onParameterLoadedForSend(data);
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
+                });
+            });
+
+        });
+
+        describe('onParameterLoadedForDownload', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+            });
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: [
+                        {
+                            p1: 1234
+                        },
+                        {
+                            p2: "abcd"
+                        }
+                    ]
+                };
+                sut.onParameterLoadedForDownload(data);
+                expect(sut.$scope.report.params).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should call getReportURL function", function () {
+                    var response = {URL: 'http://this.is/the/url'};
+                    sut.event = {
+                        getReportURL: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onReportURLLoadedForDownload');
+
+                    var data = {
+                        params: []
+                    };
+                    sut.onParameterLoadedForDownload(data);
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
+                });
+            });
+
+        });
+
     });
 });

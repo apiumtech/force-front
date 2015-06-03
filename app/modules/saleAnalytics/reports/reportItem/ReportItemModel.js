@@ -22,7 +22,6 @@ define([
         });
     };
 
-
     ReportItemModel.prototype.saveDescription = function (id, newDescription) {
         return this.ajaxService.rawAjaxRequest({
             result: {
@@ -30,6 +29,19 @@ define([
                 id: id
             }
         });
+    };
+
+    ReportItemModel.prototype.getParameters = function(reportId){
+        return this.ajaxService.rawAjaxRequest({
+            result: {
+                params: []
+
+            }
+        });
+    };
+
+    ReportItemModel.prototype.getReportURL = function(reportId, callback){
+        return this.reportService.getReportURL(reportId).then(callback);
     };
 
     return ReportItemModel;

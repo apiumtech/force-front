@@ -71,8 +71,8 @@
                   ng-if="report.reportType && report.reportType.length == 1">{{selectedReportType}}</span>
 
             <button class="btn btn-default" ng-click="fn.preview()">View</button>
-            <button class="btn btn-default"><i class="glyphicon glyphicon-download-alt"></i></button>
-            <button class="btn btn-default"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-default" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>
+            <button class="btn btn-default" ng-click="fn.send()"><i class="fa fa-paper-plane"></i></button>
 
         </div>
     </div>

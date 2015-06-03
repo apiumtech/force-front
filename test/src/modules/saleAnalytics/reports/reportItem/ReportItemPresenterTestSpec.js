@@ -81,6 +81,26 @@ define([
                 });
             });
 
+            describe('view.event.getParameters', function () {
+                it("should call getParameters from model", function () {
+                    var reportId = 123;
+                    var response={};
+                    var callback = sinon.stub();
+                    mockModel.getParameters.returns(exerciseFakeOkPromiseWithArg(response));
+                    view.event.getParameters(reportId, callback);
+                    expect(callback).toHaveBeenCalledWith(response);
+                });
+            });
+
+            describe('view.event.getReportURL', function () {
+                it("should call getReportURL from model", function () {
+                    var reportId = 123;
+                    var callback = sinon.stub();
+                    view.event.getReportURL(reportId, callback);
+                    expect(mockModel.getReportURL).toHaveBeenCalledWith(reportId, callback);
+                });
+            });
+
         });
     });
 });

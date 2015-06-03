@@ -130,11 +130,59 @@ define([
             self.reportEventBus.firePreviewReport(self.report);
         };
 
-        self.fn.toggleFavouriteReport = function(){
+        self.fn.toggleFavouriteReport = function () {
             self.report.favourite = !self.report.favourite;
             self.event.toggleFavouriteReport(self.report.id);
         };
 
+        self.fn.send = function () {
+            self.event.getParameters(self.report.id, self.onParameterLoadedForSend.bind(self));
+        };
+
+        self.fn.download = function () {
+            self.event.getParameters(self.report.id, self.onParameterLoadedForDownload.bind(self));
+        };
+
+    };
+
+    ReportItemView.prototype.onParameterLoadedForSend = function (data) {
+        var self = this;
+        self.report.params = data.params;
+        if (!self.report.params || self.report.params.length <= 0) {
+            self.event.getReportURL(self.report.id, self.onReportURLLoadedForSend.bind(self));
+        }
+        else {
+            // call modal
+        }
+    };
+
+    ReportItemView.prototype.onReportURLLoadedForSend = function (data) {
+        var self = this;
+        self.report.url = data.url;
+        var a = document.createElement("A");
+        var subject = "Report from Force Manager";
+        var body = encodeURIComponent(self.report.url);
+        a.href = "mailto:?subject=" + subject + "&body=" + body + "&html=true";
+        a.click();
+    };
+
+    ReportItemView.prototype.onParameterLoadedForDownload = function (data) {
+        var self = this;
+        self.report.params = data.params;
+        if (!self.report.params || self.report.params.length <= 0) {
+            self.event.getReportURL(self.report.id, self.onReportURLLoadedForDownload.bind(self));
+        }
+        else {
+            // call modal
+        }
+    };
+
+    ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
+        var self = this;
+        self.report.url = data.url;
+        var a = document.createElement("A");
+        a.href = self.report.url;
+        a.click();
     };
 
     ReportItemView.prototype.onSaveNameSuccess = function (data) {
