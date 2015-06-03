@@ -29,8 +29,8 @@ define([
             self.model.getParameters(reportId).then(callback);
         };
 
-        view.event.getReportURL = function(reportId, callback){
-            self.model.getReportURL(reportId, callback);
+        view.event.getReportURL = function(report, callback){
+            self.model.getReportURL(report, callback);
         }
     };
 

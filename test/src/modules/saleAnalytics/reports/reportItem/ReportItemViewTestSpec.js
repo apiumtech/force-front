@@ -341,7 +341,7 @@ define([
                         getReportURL: function () {
                         }
                     };
-                    spyOn(sut.event, 'getReportURL').and.callFake(function (reportId, callback) {
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
                         callback(response);
                     });
                     sinon.stub(sut, 'onReportURLLoadedForSend');
@@ -350,7 +350,7 @@ define([
                         params: []
                     };
                     sut.onParameterLoadedForSend(data);
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
                     expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
                 });
             });
@@ -388,7 +388,7 @@ define([
                         getReportURL: function () {
                         }
                     };
-                    spyOn(sut.event, 'getReportURL').and.callFake(function (reportId, callback) {
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
                         callback(response);
                     });
                     sinon.stub(sut, 'onReportURLLoadedForDownload');
@@ -397,7 +397,7 @@ define([
                         params: []
                     };
                     sut.onParameterLoadedForDownload(data);
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
                     expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
                 });
             });

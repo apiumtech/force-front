@@ -148,7 +148,7 @@ define([
             self.event.getParameters(self.report.id, self.onParameterLoadedForDownload.bind(self));
         };
 
-        self.fn.openPreviewDialog = function (data) {
+        self.fn.openPreviewDialog = function () {
             self.modalService.open({
                 templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html',
                 windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html',
@@ -200,7 +200,7 @@ define([
         var self = this;
         self.report.paramConfig = data.params;
         if (!self.report.paramConfig || self.report.paramConfig.length <= 0) {
-            self.event.getReportURL(self.report.id, self.onReportURLLoadedForSend.bind(self));
+            self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self));
         }
         else {
             // call modal of parameters
@@ -211,7 +211,7 @@ define([
         var self = this;
         self.report.paramConfig = data.params;
         if (!self.report.paramConfig || self.report.paramConfig.length <= 0) {
-            self.event.getReportURL(self.report.id, self.onReportURLLoadedForDownload.bind(self));
+            self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self));
         }
         else {
             // call modal of parameters

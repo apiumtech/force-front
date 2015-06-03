@@ -94,10 +94,10 @@ define([
 
             describe('view.event.getReportURL', function () {
                 it("should call getReportURL from model", function () {
-                    var reportId = 123;
+                    var report = {};
                     var callback = sinon.stub();
-                    view.event.getReportURL(reportId, callback);
-                    expect(mockModel.getReportURL).toHaveBeenCalledWith(reportId, callback);
+                    view.event.getReportURL(report, callback);
+                    expect(mockModel.getReportURL).toHaveBeenCalledWith(report, callback);
                 });
             });
 

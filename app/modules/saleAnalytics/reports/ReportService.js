@@ -13,7 +13,7 @@ define([
 		//TODO: implement when having server's contract
 	};
 
-	ReportService.prototype.getReportURL = function(reportId, namedParameters){
+	ReportService.prototype.getReportURL = function(report){
 		//TODO: implement when having server's contract
 		return this.ajaxService.rawAjaxRequest({
 			result: {
@@ -23,7 +23,7 @@ define([
 		});
 	};
 
-	ReportService.prototype.getReportParameters = function (reportId) {
+	ReportService.prototype.getReportParametersConf = function (reportId) {
 		//TODO: implement when having server's contract
 	};
 

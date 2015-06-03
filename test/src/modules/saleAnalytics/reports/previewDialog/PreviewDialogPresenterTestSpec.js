@@ -28,6 +28,15 @@ define([
 				});
 			});
 
+			describe('view.event.getReportURL', function () {
+				it("should call getReportURL from model", function () {
+					var report = {};
+					var callback = sinon.stub();
+					view.event.getReportURL(report, callback);
+					expect(model.getReportURL).toHaveBeenCalledWith(report, callback);
+				});
+			});
+
 		});
 		
 	});
