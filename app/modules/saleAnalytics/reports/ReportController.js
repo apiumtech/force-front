@@ -11,8 +11,7 @@ define([
 ], function (app, ReportView) {
     'use strict';
 
-    function ReportController($scope, $modal) {
-        $scope.$modal = $modal;
+    function ReportController($scope) {
         ReportController.configureView($scope);
     }
 
@@ -21,7 +20,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('ReportController', ['$scope', '$modal', ReportController]);
+    app.register.controller('ReportController', ['$scope', ReportController]);
 
     return ReportController;
 });

@@ -11,7 +11,7 @@ define([
                 report: "=",
                 fireOpenFolder: "="
             },
-            controller: ['$scope', '$element', ReportItemController],
+            controller: 'ReportItemController',
             templateUrl: 'app/modules/saleAnalytics/reports/reportItem/reportItem.html'
         }
     }

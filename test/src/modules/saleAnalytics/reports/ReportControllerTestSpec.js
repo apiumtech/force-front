@@ -10,17 +10,16 @@ define([
         beforeEach(module(appName));
 
         var $controller;
-        var scope, modal;
+        var scope;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$modal_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_) {
             $controller = _$controller_;
             scope = _$rootScope_.$new();
-            modal = _$modal_;
         }));
 
         describe("loading asynchronously", function () {
             it("should register the controller to app", function () {
-                var ctrl = $controller('ReportController', {$scope: scope, $modal: modal});
+                var ctrl = $controller('ReportController', {$scope: scope});
                 expect(ctrl).not.toBeNull();
                 expect(ctrl).not.toBeUndefined();
             });
@@ -34,7 +33,7 @@ define([
                 ReportController.configureView.restore();
             });
             it("should call ReportController.configureView global method", function () {
-                new ReportController(scope, modal);
+                new ReportController(scope);
                 expect(ReportController.configureView).toHaveBeenCalledWith(scope);
             });
         });

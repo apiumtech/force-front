@@ -20,6 +20,18 @@ define([
             self.model.saveDescription(reportId, reportDescription)
                 .then(view.onSaveDescriptionSuccess.bind(view), view.onSaveDescriptionError.bind(view));
         };
+
+        view.event.toggleFavouriteReport = function(reportId){
+            self.model.toggleFavouriteReport(reportId);
+        };
+
+        view.event.getParameters = function(reportId, callback){
+            self.model.getParameters(reportId).then(callback);
+        };
+
+        view.event.getReportURL = function(report, callback){
+            self.model.getReportURL(report, callback);
+        }
     };
 
     return ReportItemPresenter;

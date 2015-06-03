@@ -17,7 +17,7 @@ define([
             });
 
             it("should link the ReportItemDirective to its controller", function () {
-                expect(directiveObj.controller).toEqual(['$scope', '$element', ReportItemController]);
+                expect(directiveObj.controller).toEqual('ReportItemController');
             });
 
             it("should assign correct templateUrl", function () {

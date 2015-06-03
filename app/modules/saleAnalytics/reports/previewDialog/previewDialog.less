@@ -17,8 +17,12 @@
 
     .modal-title {
       i {
+        cursor: pointer;
         &:hover, &.favourite {
           color: #ED8B00;
+        }
+        &.not-favourite{
+          color: rgba(255, 255, 255, .5) !important;
         }
       }
       h5 {

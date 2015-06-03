@@ -1,16 +1,21 @@
 define([
     'shared/BaseView',
     'modules/saleAnalytics/reports/reportItem/ReportItemPresenter',
-    'modules/saleAnalytics/reports/ReportEventBus'
-], function (BaseView, ReportItemPresenter, ReportEventBus) {
+    'modules/saleAnalytics/reports/ReportEventBus',
+    'shared/services/ArrayHelper'
+], function (BaseView, ReportItemPresenter, ReportEventBus, ArrayHelper) {
     'use strict';
 
-    function ReportItemView($scope, $element, $presenter) {
+    function ReportItemView($scope, $element, $presenter, eventBus) {
+        $presenter = $presenter || new ReportItemPresenter();
         BaseView.call(this, $scope, null, $presenter);
         this.element = $element;
         this.originalName = "";
         this.originalDescription = "";
-        this.reportEventBus = ReportEventBus.getInstance();
+        this.reportEventBus = eventBus || ReportEventBus.getInstance();
+        var modalService = $scope.$modal;
+
+        this.modalService = modalService;
         this.configureEvents();
     }
 
@@ -126,9 +131,118 @@ define([
             self.selectedReportType = selectedReportType;
         };
 
-        self.fn.preview = function () {
-            self.reportEventBus.firePreviewReport(self.report);
+        self.fn.toggleFavouriteReport = function () {
+            self.report.favourite = !self.report.favourite;
+            self.event.toggleFavouriteReport(self.report.id);
         };
+
+        self.fn.preview = function () {
+            self.event.getParameters(self.report.id, self.onParameterLoadedForPreview.bind(self));
+        };
+
+        self.fn.send = function () {
+            self.event.getParameters(self.report.id, self.onParameterLoadedForSend.bind(self));
+        };
+
+        self.fn.download = function () {
+            self.event.getParameters(self.report.id, self.onParameterLoadedForDownload.bind(self));
+        };
+
+        self.fn.openPreviewDialog = function () {
+            self.modalService.open({
+                templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html',
+                windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'PreviewDialogController',
+                resolve: {
+                    report: function () {
+                        return self.report;
+                    }
+                }
+            });
+        };
+
+        self.fn.openParamsDialog = function (callback) {
+            console.log('opening param dialog');
+            var paramDialog = self.modalService.open({
+                templateUrl: 'app/modules/saleAnalytics/reports/reportParamsDialog/reportParamDialog.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'ReportParamsDialogController',
+                resolve: {
+                    report: function () {
+                        return ArrayHelper.clone(self.report);
+                    },
+                    paramConfig: function (){
+                        return self.report.paramConfig
+                    }
+                }
+            });
+
+            paramDialog.result.then(callback, function(){});
+        };
+
+    };
+
+    ReportItemView.prototype.onParameterLoadedForPreview = function (data) {
+        var self = this;
+        self.report.paramConfig = data.params;
+        if (!self.report.paramConfig || self.report.paramConfig.length <= 0) {
+            self.fn.openPreviewDialog();
+        }
+        else {
+            self.fn.openParamsDialog(self.onParameterSetForPreview.bind(self));
+        }
+    };
+
+    ReportItemView.prototype.onParameterLoadedForSend = function (data) {
+        var self = this;
+        self.report.paramConfig = data.params;
+        if (!self.report.paramConfig || self.report.paramConfig.length <= 0) {
+            self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self));
+        }
+        else {
+            // call modal of parameters
+        }
+    };
+
+    ReportItemView.prototype.onParameterLoadedForDownload = function (data) {
+        var self = this;
+        self.report.paramConfig = data.params;
+        if (!self.report.paramConfig || self.report.paramConfig.length <= 0) {
+            self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self));
+        }
+        else {
+            // call modal of parameters
+            // close modal -> call sth
+        }
+    };
+
+    ReportItemView.prototype.onReportURLLoadedForSend = function (data) {
+        var self = this;
+        self.report.url = data.url;
+        var a = document.createElement("A");
+        var subject = "Report from Force Manager";
+        var body = encodeURIComponent(self.report.url);
+        a.href = "mailto:?subject=" + subject + "&body=" + body + "&html=true";
+        a.click();
+    };
+
+
+    ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
+        var self = this;
+        self.report.url = data.url;
+        var a = document.createElement("A");
+        a.href = self.report.url;
+        a.click();
+    };
+
+    ReportItemView.prototype.onParameterSetForPreview = function(data){
+        var self = this;
+        console.log(data);
+        self.report.params = data.params;
+        self.fn.openPreviewDialog();
     };
 
     ReportItemView.prototype.onSaveNameSuccess = function (data) {
@@ -148,10 +262,9 @@ define([
 
     };
 
-    ReportItemView.newInstance = function ($scope, $element, $presenter, $viewRepaintAspect, $logErrorAspect) {
-        $presenter = $presenter || new ReportItemPresenter();
+    ReportItemView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {
 
-        var view = new ReportItemView($scope, $element, $presenter);
+        var view = new ReportItemView($scope, $element);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);
     };
 

@@ -5,7 +5,7 @@
     <div class="modal-title">
         <div class="row">
             <div class="pull-left m-t-6">
-                <i class="fa fa-star" ng-class="{'favourite': report.favourite }"></i>
+                <i class="fa fa-star" ng-class="{'favourite': report.favourite, 'not-favourite' : !report.favourite }" data-ng-click="fn.toggleFavouriteReport()"></i>
             </div>
             <div class="col-md-5">
                 <h5>{{report.name}}</h5>
@@ -13,10 +13,10 @@
                 <p>{{report.description}}</p>
             </div>
             <div class="text-center col-md-2 button-group">
-                <button class="btn btn-link right-separator">
+                <button class="btn btn-link right-separator" ng-click="fn.download()">
                     <i class="fa fa-download download"></i>
                 </button>
-                <button class="btn btn-link">
+                <button class="btn btn-link" ng-click="fn.send()">
                     <i class="fa fa-envelope"></i>
                 </button>
             </div>
