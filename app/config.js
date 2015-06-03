@@ -64,7 +64,6 @@ define(function () {
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
 
         languageList: baseUrl + '/api/queries/commons/languages/languageList',
-        deviceCategoryList: baseUrl + '/api/queries/commons/devices/deviceCategoryList',
         literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
         deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
 

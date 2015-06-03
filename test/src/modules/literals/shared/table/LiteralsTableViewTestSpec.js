@@ -50,7 +50,7 @@ define([
         });
 
 
-        xdescribe('onLiteralsRequestSuccess', function () {
+        describe('onLiteralsRequestSuccess', function () {
             var sut;
             beforeEach(function () {
                 sut = exerciseCreateView();
@@ -60,15 +60,11 @@ define([
                     {data: "ca-es"},
                     {data: "pt-pt"}
                 ];
-
-                $("<div id='data-table'></div>").appendTo('body');
-                sut.table = sut.dataTableService.createDatatable("#data-table", {});
             });
             it('should add literals', function () {
                 var data = [
                     {
-                        Id: "id1",
-                        Key: "key1",
+                        Id: "id1", Key: "key1",
                         LanguageValues: [
                             {Value: "es1"},
                             {Value: "enus1"},
@@ -77,8 +73,7 @@ define([
                         ]
                     },
                     {
-                        Id: "id2",
-                        Key: "key2",
+                        Id: "id2", Key: "key2",
                         LanguageValues: [
                             {Value: "es2"},
                             {Value: "enus2"},
@@ -87,15 +82,18 @@ define([
                         ]
                     }
                 ];
-
-                spyOn(sut.table.rows, "add");
+                sut.table = {rows: {
+                    add: jasmine.createSpy().and.returnValue({
+                        draw:function(){}
+                    })
+                }};
                 sut.onLiteralsRequestSuccess({data: data});
 
                 expect(sut.table.rows.add).toHaveBeenCalled();
-                var add_args = sut.table.rows.add.calls.mostRecent().args;
+                var add_args = sut.table.rows.add.calls.mostRecent().args[0];
                 expect(add_args[0].Id).toBe("id1");
                 expect(add_args[1].Key).toBe("key2");
-                expect(add_args[1].LanguageValues[3]).toBe({Value:"pt2"});
+                expect(add_args[0]["es-es"]).toBe("es1");
             });
             /*it('should fill the language gaps when there are less values than languages', function () {
                 var data = [
