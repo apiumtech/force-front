@@ -1,7 +1,8 @@
 define([
     'modules/saleAnalytics/reports/reportItem/ReportItemView',
-    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter'
-], function (ReportItemView, ReportItemPresenter) {
+    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter',
+    'modules/saleAnalytics/reports/ReportEventBus'
+], function (ReportItemView, ReportItemPresenter, ReportEventBus) {
     'use strict';
 
     describe('ReportItemView', function () {
@@ -11,18 +12,26 @@ define([
                 var scope = {},
                     element = {},
                     presenter = mock(ReportItemPresenter);
-                var sut = new ReportItemView(scope, element, presenter);
+                new ReportItemView(scope, element, presenter);
                 expect(ReportItemView.prototype.configureEvents).toHaveBeenCalled();
             })
         });
 
-        var sut, scope, element, presenter;
+        var sut, scope, element, presenter, eventBus;
 
         beforeEach(function () {
-            scope = {};
+            inject(function ($rootScope) {
+                scope = $rootScope.$new();
+                scope.$modal = {
+                    open: function () {
+                    }
+                };
+                sinon.stub(scope.$modal, 'open');
+            });
             element = {};
             presenter = mock(ReportItemPresenter);
-            sut = new ReportItemView(scope, element, presenter);
+            eventBus = mock(ReportEventBus);
+            sut = new ReportItemView(scope, element, presenter, eventBus);
         });
         describe('configureEvents', function () {
             beforeEach(function () {
@@ -79,7 +88,6 @@ define([
             });
 
             describe('fn.cancelEditingName', function () {
-
 
 
                 beforeEach(function () {
@@ -161,6 +169,88 @@ define([
                     expect(sut.editingDescription).toEqual(false);
                 });
             });
+
+            describe('fn.saveName', function () {
+                it("should assign new value to selectedReportType", function () {
+                    sut.$scope.report.reportType = ['PDF', 'DOC', 'XSL'];
+                    sut.selectedReportType = 'PDF';
+                    var newValue = 'DOC';
+                    sut.fn.changeReportType(newValue);
+                    expect(sut.selectedReportType).toEqual(newValue);
+                });
+            });
+
+            describe('fn.toggleFavouriteReport', function () {
+
+                beforeEach(function () {
+                    sut.$scope.report.favourite = false;
+                    sut.event = {
+                        toggleFavouriteReport: sinon.spy()
+                    };
+                    sut.fn.toggleFavouriteReport();
+                });
+
+                it("should set toggle the state of report.favourite", function () {
+                    expect(sut.$scope.report.favourite).toBeTruthy();
+                });
+
+                it("should call event.toggleFavouriteReport function", function () {
+                    expect(sut.event.toggleFavouriteReport).toHaveBeenCalledWith(123);
+                });
+
+            });
+
+            describe('fn.send', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForSend');
+                    sut.fn.send();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForSend).toHaveBeenCalledWith(response);
+                });
+            });
+
+            describe('fn.download', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForDownload');
+                    sut.fn.download();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForDownload).toHaveBeenCalledWith(response);
+                })
+            });
+
+            describe('fn.preview', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForPreview');
+                    sut.fn.preview();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForPreview).toHaveBeenCalledWith(response);
+                })
+            });
+
         });
 
         describe('onSaveNameSuccess', function () {
@@ -220,5 +310,166 @@ define([
         describe('onSaveDescriptionError', function () {
 
         });
+
+        describe('onParameterLoadedForSend', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+            });
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: [
+                        {
+                            p1: 1234
+                        },
+                        {
+                            p2: "abcd"
+                        }
+                    ]
+                };
+                sut.onParameterLoadedForSend(data);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should call getReportURL function", function () {
+                    var response = {URL: 'http://this.is/the/url'};
+                    sut.event = {
+                        getReportURL: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onReportURLLoadedForSend');
+
+                    var data = {
+                        params: []
+                    };
+                    sut.onParameterLoadedForSend(data);
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                    expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
+                });
+            });
+
+        });
+
+        describe('onParameterLoadedForDownload', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+            });
+
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: [
+                        {
+                            p1: 1234
+                        },
+                        {
+                            p2: "abcd"
+                        }
+                    ]
+                };
+                sut.onParameterLoadedForDownload(data);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should call getReportURL function", function () {
+                    var response = {URL: 'http://this.is/the/url'};
+                    sut.event = {
+                        getReportURL: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onReportURLLoadedForDownload');
+
+                    var data = {
+                        params: []
+                    };
+                    sut.onParameterLoadedForDownload(data);
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                    expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
+                });
+            });
+
+        });
+
+        describe('onParameterLoadedForPreview', function () {
+            var promise;
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+
+                promise = {
+                    "obj" : 1
+                };
+
+                var paramDialog = {
+                    result: {
+                        then: function(b){
+                            b(promise);
+                        }
+                    }
+                };
+
+                scope.$modal.open.returns(paramDialog);
+            });
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: []
+                };
+                sut.onParameterLoadedForPreview(data);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should open preview", function () {
+                    var data = {
+                        params: []
+                    };
+                    sinon.stub(sut.fn, 'openPreviewDialog');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.fn.openPreviewDialog).toHaveBeenCalled();
+                });
+            });
+
+            describe("there are params passed", function () {
+                var data = {
+                    params: [
+                        'a', 'b', 'c'
+                    ]
+                };
+                it("should open params dialog", function () {
+                    sinon.stub(sut.fn, 'openParamsDialog');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.fn.openParamsDialog).toHaveBeenCalled();
+                });
+
+                it("saving params from param dialog should call onParameterSetForPreview with the right param(s)", function () {
+                    spyOn(sut.fn, 'openParamsDialog').and.callFake(function(b){
+                        b(promise);
+                    });
+                    sinon.stub(sut, 'onParameterSetForPreview');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.onParameterSetForPreview).toHaveBeenCalledWith(promise);
+                });
+
+            });
+
+        });
+
     });
 });

@@ -5,19 +5,19 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/eventBus/WidgetEventBus',
-    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/BarChart'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetModel, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
 
-    function BarChartWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function BarChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new BarChartWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.configureEvents();
     }
 
-    BarChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    BarChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
             get: function () {
                 return this.$scope.tabs;
@@ -55,8 +55,7 @@ define([
     BarChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -150,11 +149,9 @@ define([
         this.showError(error);
     };
 
-    BarChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || BarChartWidgetModel.newInstance();
-        var presenter = $presenter || BarChartWidgetPresenter.newInstance();
+    BarChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
 
-        var view = new BarChartWidgetView($scope, $element, model, presenter);
+        var view = new BarChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

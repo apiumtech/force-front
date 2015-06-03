@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
 
         <div class="form-inline name-form clearfix">
-            <i class="fa pull-left bullet"
-               ng-class="{'fa-star-o' : !report.favourite, 'fa-star' : report.favourite}"></i>
+            <i class="fa pull-left bullet fa-star-o" ng-click="fn.toggleFavouriteReport()"
+               ng-class="{'favourite' : report.favourite}"></i>
 
             <h5 ng-show="!editingName" class="pull-left"
                 ng-click="fn.startEditingName();">{{report.name}}</h5>
@@ -60,17 +60,19 @@
     </div>
 
 
-    <div class="col-md-3 pull-right">
+    <div class="col-md-4 pull-right">
         <div class="form-inline action-form clearfix pull-right">
-            <select class="form-control">
-                <option>PDF</option>
-                <option>XSL (MS-Excel)</option>
-                <option>DOC (MS-Word)</option>
+            <select ng-if="report.reportType && report.reportType.length > 1" class="form-control"
+                    ng-model="selectedReportType" ng-change="fn.changeReportType(selectedReportType)">
+                <option ng-repeat="type in report.reportType" value="{{type}}">{{type}}</option>
             </select>
 
-            <button class="btn btn-default">View</button>
-            <button class="btn btn-default"><i class="glyphicon glyphicon-download-alt"></i></button>
-            <button class="btn btn-default"><i class="fa fa-paper-plane"></i></button>
+            <span class="reportType m-r-4"
+                  ng-if="report.reportType && report.reportType.length == 1">{{selectedReportType}}</span>
+
+            <button class="btn btn-default" ng-click="fn.preview()">View</button>
+            <button class="btn btn-default" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>
+            <button class="btn btn-default" ng-click="fn.send()"><i class="fa fa-paper-plane"></i></button>
 
         </div>
     </div>

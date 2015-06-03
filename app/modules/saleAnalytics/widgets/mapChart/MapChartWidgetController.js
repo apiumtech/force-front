@@ -15,7 +15,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('MapChartWidgetController', ['$scope', '$element', MapChartWidgetController]);
+    //app.register.controller('MapChartWidgetController', ['$scope', '$element', MapChartWidgetController]);
 
     return MapChartWidgetController;
 });

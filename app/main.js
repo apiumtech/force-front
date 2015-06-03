@@ -8,6 +8,9 @@ define([
 
     'app',
 
+    // loading controllers & directives asynchronously
+    'asyncModuleLoaderConf',
+
     // default controllers
     'core/coreModulesLoader',
 

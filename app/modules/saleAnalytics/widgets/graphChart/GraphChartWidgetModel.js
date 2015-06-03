@@ -40,7 +40,7 @@ define([
         this.queries.grouping = "hour";
     }
 
-    GraphChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    GraphChartWidgetModel.inherits(WidgetBase, {});
 
     GraphChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         console.log("Setting filter: ", filter);

@@ -196,7 +196,10 @@
   "Reports": {
     "AllReports": "All Reports",
     "FavouriteReports": "Favourite Reports",
-    "SearchReports": "Search Reports"
+    "SearchReports": "Search Reports",
+    "Dialog": {
+      "ReportParameterTitle" : "Report Parameters"
+    }
   },
   "Contact": {
     "ContactTitle": "Contacts",

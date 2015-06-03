@@ -5,11 +5,14 @@ define([
 ], function (WidgetDecoratedPageModel, WidgetService, StorageService) {
 
     function DistributionModel(widgetService, storageService) {
-        WidgetDecoratedPageModel.call(this, widgetService, storageService);
+        var _widgetService = widgetService || new WidgetService();
+        var _storageService = storageService || new StorageService();
+
+        WidgetDecoratedPageModel.call(this, _widgetService, _storageService);
         this.pageName = "distribution";
     }
 
-    DistributionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
+    DistributionModel.inherits(WidgetDecoratedPageModel, {});
 
     DistributionModel.newInstance = function (widgetService, storageService) {
         var _widgetService = widgetService || WidgetService.newInstance();

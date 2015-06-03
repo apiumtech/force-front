@@ -11,7 +11,7 @@ define([
         this.reloadCompleteSignal = this.signalService.newSignal();
     }
 
-    AccountDetailWidgetEventBus.prototype = Object.create(Object.prototype, {});
+    AccountDetailWidgetEventBus.inherits(Object, {});
 
     AccountDetailWidgetEventBus.prototype.onReloadCommandReceived = function (callback) {
         this.reloadSignal.add(callback);

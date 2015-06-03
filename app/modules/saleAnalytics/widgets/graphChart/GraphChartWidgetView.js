@@ -3,19 +3,19 @@
  */
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
-    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel',
     'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'plots/Plot',
     'plots/LineGraphPlot',
     'jquery'
-], function (WidgetBaseView, GraphWidgetModel, GraphWidgetPresenter, BaseWidgetEventBus, Plot, LineGraphPlot, $) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, Plot, LineGraphPlot, $) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
 
-    function GraphChartWidgetView(scope, element, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function GraphChartWidgetView(scope, element, presenter) {
+        presenter = presenter || new GraphWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         scope.filters = [];
         scope.selectedFilter = "visits";
         scope.selectedRangeOption = "hour";
@@ -25,7 +25,7 @@ define([
         self.configureEvents();
     }
 
-    GraphChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    GraphChartWidgetView.inherits(WidgetBaseView, {
         availableFields: {
             get: function () {
                 return this.$scope.availableFields || (this.$scope.availableFields = []);
@@ -47,8 +47,7 @@ define([
     GraphChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -197,11 +196,8 @@ define([
         self.availableFields = fieldsToMerge;
     };
 
-    GraphChartWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || GraphWidgetModel.newInstance();
-        var presenter = $presenter || GraphWidgetPresenter.newInstance();
-
-        var view = new GraphChartWidgetView($scope, $element, model, presenter);
+    GraphChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
+        var view = new GraphChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

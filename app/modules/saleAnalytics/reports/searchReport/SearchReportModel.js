@@ -10,7 +10,7 @@ define([
 
 	SearchReportModel.prototype._getReports = function () {
 		return this.ajaxService.rawAjaxRequest({
-			result: ReportFakeData
+			result: ReportFakeData()
 		}).then(this.decorateServerData.bind(this));
 	};
 

@@ -12,7 +12,7 @@ define([
         this.uploadService = uploadService;
     }
 
-    AccountEditingModel.prototype = Object.create(AccountService.prototype, {});
+    AccountEditingModel.inherits(AccountService, {});
 
     AccountEditingModel.prototype.uploadFile = function (file) {
         var $upload = this.uploadService;

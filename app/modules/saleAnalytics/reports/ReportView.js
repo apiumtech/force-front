@@ -1,7 +1,9 @@
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
     'modules/saleAnalytics/reports/ReportEventBus',
-    'shared/services/AwaitHelper'
+    'shared/services/AwaitHelper',
+    'modules/saleAnalytics/reports/previewDialog/PreviewDialogController',
+    'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogController'
 ], function (WidgetDecoratedPageView, ReportEventBus, AwaitHelper) {
     'use strict';
 
@@ -16,7 +18,7 @@ define([
         this.queryString = "";
     }
 
-    ReportView.prototype = Object.create(WidgetDecoratedPageView.prototype, {
+    ReportView.inherits(WidgetDecoratedPageView, {
         displaySearch: {
             get: function () {
                 return this.$scope.displaySearch;
@@ -35,18 +37,18 @@ define([
         },
         searchTabActivated: {
             get: function () {
-                return this.$scope.searchTabActivated;
+                return this.data.searchTabActivated;
             },
             set: function (value) {
-                this.$scope.searchTabActivated = value;
+                this.data.searchTabActivated = value;
             }
         },
         firstTabActivated: {
             get: function () {
-                return this.$scope.firstTabActivated;
+                return this.data.firstTabActivated;
             },
             set: function (value) {
-                this.$scope.firstTabActivated = value;
+                this.data.firstTabActivated = value;
             }
         }
     });
@@ -68,6 +70,8 @@ define([
 
         self.fn.favReportSelected = function () {
             self.searchTabActivated = false;
+            self.firstTabActivated = false;
+            self.openingFolder = false;
             self.reportEventBus.fireFavReportTabSelected();
         };
 
@@ -75,6 +79,7 @@ define([
             self.searchTabActivated = true;
             self.firstTabActivated = false;
             self.displaySearch = true;
+            self.openingFolder = false;
             self.reportEventBus.fireSearchReportTabSelected(searchQuery);
         };
 
@@ -88,15 +93,19 @@ define([
             self.awaitHelper.await(self.fn.openFirstTabForOpeningFolder, 20);
         };
 
-        self.fn.openFirstTabForOpeningFolder = function () {
-            self.openingFolder = true;
-            self.firstTabActivated = true;
-            self.searchTabActivated = false;
-        };
+        self.fn.openFirstTabForOpeningFolder = self.openFirstTabForOpeningFolder.bind(self);
 
         self.reportEventBus.onSearchActivated(self.fn.searchReportSelected);
         self.reportEventBus.onSearchDeactivated(self.fn.removeSearchTab);
         self.reportEventBus.onFolderReportSelected(self.fn.openFirstTabForOpeningFolder);
+    };
+
+    ReportView.prototype.openFirstTabForOpeningFolder = function () {
+        console.log("open folder command received");
+        var self = this;
+        self.openingFolder = true;
+        self.firstTabActivated = true;
+        self.searchTabActivated = false;
     };
 
     ReportView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {

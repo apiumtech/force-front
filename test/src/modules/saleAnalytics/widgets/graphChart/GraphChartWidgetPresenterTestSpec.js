@@ -2,20 +2,22 @@
  * Created by justin on 12/22/14.
  */
 define([
-    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter'
-], function (GraphChartWidgetPresenter) {
+    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter',
+    "modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel"
+], function (GraphChartWidgetPresenter, GraphChartWidgetModel) {
     'use strict';
     describe("GraphChartWidgetPresenter", function () {
 
-        var sut;
+        var sut, model;
 
         beforeEach(function () {
-            sut = GraphChartWidgetPresenter.newInstance();
+            model = mock(GraphChartWidgetModel);
+            sut = new GraphChartWidgetPresenter(model);
         });
 
         describe("Connect view to model", function () {
             //region test should declare methods
-            var ___view, ___model, view;
+            var view;
             [
                 {
                     viewEvent: "onReloading", test: onReloadingTest
@@ -42,10 +44,7 @@ define([
                             },
                             event: {}
                         };
-                        ___model = {
-                            setFetchEndPoint: jasmine.createSpy()
-                        };
-                        sut.show(view, ___model);
+                        sut.show(view);
                     });
 
                     describe("when event '" + viewEvent + "' fired", test);
@@ -70,14 +69,13 @@ define([
                     dateEnd: new Date()
                 };
                 beforeEach(function () {
-                    ___model.addDateFilter = jasmine.createSpy();
 
                     spyOn(view, 'sendReloadCommandToChannel');
                     view.event.onDateFilterApplied(filterValue);
                 });
 
                 it("should call 'addDateFilter' on the model", function () {
-                    expect(___model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
+                    expect(model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
                 });
 
                 it("should call 'sendReloadCommandToChannel' on the view", function () {
@@ -88,14 +86,13 @@ define([
             function onUsersFilterAppliedTest() {
                 var filterValue = [1, 2, 3, 4, 5];
                 beforeEach(function () {
-                    ___model.addUserFilter = jasmine.createSpy();
 
                     spyOn(view, 'sendReloadCommandToChannel');
                     view.event.onUsersFilterApplied(filterValue);
                 });
 
                 it("should call 'addUserFilter' on the model", function () {
-                    expect(___model.addUserFilter).toHaveBeenCalledWith(filterValue);
+                    expect(model.addUserFilter).toHaveBeenCalledWith(filterValue);
                 });
 
                 it("should call 'sendReloadCommandToChannel' on the view", function () {
@@ -105,14 +102,13 @@ define([
 
             function onFilterChangedTest() {
                 beforeEach(function () {
-                    ___model.changeQueryFilter = jasmine.createSpy();
                     spyOn(view, 'sendReloadCommandToChannel');
                     view.selectedFilter = "abcdef";
                     view.event.onFilterChanged();
                 });
 
                 it("should call addQuery on model", function () {
-                    expect(___model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
+                    expect(model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
                 });
 
                 it("should fire sendReloadCommandToChannel signal on view", function () {
@@ -121,9 +117,6 @@ define([
             }
 
             function onFilterRangeChangedTest() {
-                beforeEach(function () {
-                    ___model.addQuery = jasmine.createSpy();
-                });
 
                 function exercisePrepareFilterChangeCall() {
                     view.$scope = {selectedRangeOption: "date"};
@@ -133,7 +126,7 @@ define([
 
                 it("should call addQuery on model", function () {
                     exercisePrepareFilterChangeCall();
-                    expect(___model.addQuery).toHaveBeenCalledWith('grouping', 'date');
+                    expect(model.addQuery).toHaveBeenCalledWith('grouping', 'date');
                 });
 
                 it("should fire sendReloadSignal signal on channel", function () {
@@ -158,7 +151,7 @@ define([
                 onSuccess: "onReloadWidgetSuccess"
             }].forEach(function (item) {
                     describe("Calling '" + item.method + "' ", function () {
-                        var model = createModel();
+
                         var view = createView();
 
                         it("should call '" + item.modelMethod + "' on model", function () {
@@ -182,13 +175,6 @@ define([
                             expect(view[item.onError]).toHaveBeenCalled();
                         });
                     });
-
-                    function createModel() {
-                        var model = {};
-                        model[item.modelMethod] = function () {
-                        };
-                        return model;
-                    }
 
                     function createView() {
                         var v = {event: {}};

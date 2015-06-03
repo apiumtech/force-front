@@ -17,7 +17,7 @@ define([
         this.configureEvents();
     }
 
-    StringTypeFilterView.prototype = Object.create(BaseView.prototype, {});
+    StringTypeFilterView.inherits(BaseView, {});
 
     StringTypeFilterView.prototype.configureEvents = function () {
         var self = this;

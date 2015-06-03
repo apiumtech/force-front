@@ -4,20 +4,19 @@
 
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
-    'modules/saleAnalytics/intensity/IntensityModel',
     'modules/saleAnalytics/intensity/IntensityPresenter'
-], function (WidgetDecoratedPageView, IntensityModel, IntensityPresenter) {
+], function (WidgetDecoratedPageView, IntensityPresenter) {
 
-    function IntensityView($scope, $model, $presenter) {
-        WidgetDecoratedPageView.call(this, $scope, $model, $presenter);
+    function IntensityView($scope, $presenter) {
+        $presenter = $presenter || new IntensityPresenter();
+        WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'intensity';
     }
 
-    IntensityView.prototype = Object.create(WidgetDecoratedPageView.prototype, {});
+    IntensityView.inherits(WidgetDecoratedPageView, {});
 
-    IntensityView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     IntensityView.prototype.show = function () {
-        this.__show.call(this);
+        this.__base__.show.call(this);
         this.event.onLoaded();
     };
 
@@ -39,11 +38,8 @@ define([
         this.showError(error);
     };
 
-    IntensityView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || IntensityModel.newInstance();
-        var presenter = $presenter || IntensityPresenter.newInstance();
-
-        var view = new IntensityView($scope, model, presenter);
+    IntensityView.newInstance = function ($scope, $viewRepAspect, $logErrorAspect) {
+        var view = new IntensityView($scope);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

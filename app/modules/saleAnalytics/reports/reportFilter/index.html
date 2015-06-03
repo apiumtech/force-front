@@ -5,10 +5,12 @@
             <h6>
                 {{'Filters.FilterBy' | i18next}}</h6>
 
-            <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>
+            <!--<ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>-->
             <div class="col-md-3 pull-right">
                 <div class="input-group">
-                    <input class="form-control" ng-model="searchQuery" placeholder="Search"/>
+                    <input class="form-control" ng-model="searchQuery" placeholder="Search"
+                            ng-keyup="fn.searchQueryKeyUp($event)"
+                            />
                     <span class="fa fa-remove removeTextBoxBtn"
                           ng-show="searchQuery"
                           ng-click="fn.deactivateSearch();$event.stopPropagation()"></span>

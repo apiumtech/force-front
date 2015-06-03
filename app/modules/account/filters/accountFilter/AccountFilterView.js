@@ -21,7 +21,7 @@ define([
         this.data.availableFields = [];
     }
 
-    AccountFilterView.prototype = Object.create(BaseView.prototype, {});
+    AccountFilterView.inherits(BaseView, {});
 
     AccountFilterView.prototype.show = function () {
         this.configureEvents();

@@ -19,7 +19,8 @@ define([
     }
 
 
-    TopMenuWeb2View.prototype = Object.create(BaseView.prototype, {});
+    //TopMenuWeb2View.inherits(BaseView, {});
+    TopMenuWeb2View.inherits(BaseView);
 
 
     TopMenuWeb2View.prototype.configureData = function () {

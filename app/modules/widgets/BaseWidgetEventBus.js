@@ -13,7 +13,7 @@ define([
         this.reloadCompleteSignal = this.signalService.newSignal();
     }
 
-    BaseWidgetEventBus.prototype = Object.create(Object.prototype, {});
+    BaseWidgetEventBus.inherits(Object, {});
 
     BaseWidgetEventBus.prototype.onReloadCommandReceived = function (callback) {
         this.reloadSignal.add(callback);

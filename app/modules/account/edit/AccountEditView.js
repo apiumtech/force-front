@@ -45,7 +45,7 @@ define([
         this.data.isPosting = false;
     }
 
-    AccountEditView.prototype = Object.create(BaseView.prototype, {
+    AccountEditView.inherits(BaseView, {
         accountData: {
             get: function () {
                 return this.$scope.accountData;

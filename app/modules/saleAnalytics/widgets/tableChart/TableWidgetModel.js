@@ -22,7 +22,7 @@ define([
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
-    TableWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    TableWidgetModel.inherits(WidgetBase, {});
 
     TableWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
     TableWidgetModel.prototype._reload = function () {

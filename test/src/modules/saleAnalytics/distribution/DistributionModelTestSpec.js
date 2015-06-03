@@ -2,26 +2,18 @@
  * Created by Justin on 1/5/2015.
  */
 define([
-    'modules/saleAnalytics/distribution/DistributionModel'
-], function (DistributionModel) {
+    'modules/saleAnalytics/distribution/DistributionModel',
+    'modules/saleAnalytics/widgets/WidgetService',
+    'shared/services/StorageService'
+], function (DistributionModel, WidgetService, StorageService) {
     'use strict';
     describe("DistributionModel", function () {
         var sut,
-            widgetService = {
-                getWidgetsForPage: function () {
-                }
-            },
-            storageService = {
-                store: function () {
-                },
-                retrieve: function () {
-                },
-                remove: function () {
-                }
-            };
+            widgetService = mock(WidgetService),
+            storageService = mock(StorageService);
 
         beforeEach(function () {
-            sut = DistributionModel.newInstance(widgetService, storageService);
+            sut = new DistributionModel(widgetService, storageService);
         });
         function fakeAjax() {
             return {

@@ -21,7 +21,7 @@ define([
         this.arrayHelper = ArrayHelper;
     }
 
-    UserFilterModel.prototype = Object.create(Object.prototype, {});
+    UserFilterModel.inherits(Object, {});
 
     UserFilterModel.prototype.addQuery = function (value) {
         this.currentQuery = value;

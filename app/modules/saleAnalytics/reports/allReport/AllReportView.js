@@ -13,7 +13,7 @@ define([
         this.configureEvents();
     }
 
-    AllReportView.prototype = Object.create(ReportTabBaseView.prototype, {
+    AllReportView.inherits(ReportTabBaseView, {
         searchQuery: {
             get: function () {
                 return this.$scope.searchQuery;
@@ -25,13 +25,14 @@ define([
     });
 
     AllReportView.prototype.configureEvents = function () {
-        ReportTabBaseView.prototype.configureEvents.call(this);
+        this.__base__.configureEvents.call(this);
 
         var self = this;
 
-        self.fn.loadReports = function () {
+        self.fn.loadReports = function (isOpeningFolder) {
+            if (isOpeningFolder) return;
             self.isLoading = true;
-            self.event.onLoadReports();
+            self.event.onReloading();
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
@@ -44,18 +45,14 @@ define([
     };
 
     AllReportView.prototype.openReportFolder = function (selectedFolder) {
-        console.log("Opening report folder:", selectedFolder);
+        if (!selectedFolder)
+            return;
 
-        if (!selectedFolder) return;
         var self = this;
         var arrayHelper = self.arrayHelper;
 
         var cloned = arrayHelper.clone(self.reports);
         var flattened = arrayHelper.flatten(cloned, 'children');
-
-        var nodeToCheck = _.find(flattened, function (n) {
-            return n.id === selectedFolder
-        });
 
         var parents = arrayHelper.findParents(flattened, "idParent", "id", selectedFolder, -1);
 
@@ -64,6 +61,7 @@ define([
         });
 
         self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+        console.log("Opened folder. New tree: ", self.reports);
     };
 
     AllReportView.prototype.showError = function (error) {

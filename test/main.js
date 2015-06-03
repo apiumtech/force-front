@@ -33,6 +33,7 @@ require(['/base/requireConf.js'], function (requireConf) {
 
     requirejs.config(requireConfig);
     function test_main() {
+
         require(tests, window.__karma__.start);
     }
 });
@@ -67,6 +68,7 @@ if (!Function.prototype.bind) {
     };
 }
 /*************************************/
+
 function mockAngularScope() {
     var mock = {
         $on: function () {
@@ -86,15 +88,21 @@ function mockAngularScope() {
 
 function mock(constr) {
     var mockObj = {};
-    for (var key in constr.prototype) {
-        if (!isFunction(constr.prototype[key]))
-            continue;
-        
-        mockObj[key] = function () {
-        };
-        var stub = sinon.stub(mockObj, key);
-        mockObj[key].whenCalledWith = stub.withArgs;
+    var component = Object.create(constr.prototype);
+    var proto = component.__proto__;
+
+    while (proto) {
+        var prototypeMethods = Object.keys(proto);
+
+        prototypeMethods.forEach(function (method) {
+            mockObj[method] = function () {
+            };
+            sinon.stub(mockObj, method);
+        });
+
+        proto = proto.__proto__;
     }
+
     return mockObj;
 }
 

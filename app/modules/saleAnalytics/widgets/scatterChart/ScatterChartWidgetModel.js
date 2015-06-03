@@ -15,7 +15,7 @@ define([
 
     }
 
-    ScatterChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    ScatterChartWidgetModel.inherits(WidgetBase, {});
 
     ScatterChartWidgetModel.prototype.decorateServerData = function (tooltipGenerator, data) {
         var self = this;

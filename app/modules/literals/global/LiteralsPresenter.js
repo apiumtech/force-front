@@ -11,18 +11,30 @@ define([
 	LiteralsPresenter.prototype.show = function (view, model) {
 		this.view = view;
 		this.model = model;
-        var self = this;
+
+        view.event.onInit = function() {
+            console.log("LiteralPresenter ready");
+        };
 
         // comes from LiteralsTableView.fireColumnsRequest
-        this.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
+        this.eventBus.onColumnsRequest(this.onColumnsRequest.bind(this));
+
+        // comes from LiteralsTableView.fireLiteralsRequest
+        this.eventBus.onLiteralsRequest(this.onLiteralsRequest.bind(this));
 	};
 
 
     LiteralsPresenter.prototype.onColumnsRequest = function() {
-        console.log(this.model);
-        this.model.onColumnsRequest.then(
+        this.model.onColumnsRequest().then(
             this.eventBus.fireColumnsRequestSuccess.bind(this.eventBus),
             this.eventBus.fireColumnsRequestError.bind(this.eventBus)
+        );
+    };
+
+    LiteralsPresenter.prototype.onLiteralsRequest = function() {
+        this.model.onLiteralsRequest().then(
+            this.eventBus.fireLiteralsRequestSuccess.bind(this.eventBus),
+            this.eventBus.fireLiteralsRequestError.bind(this.eventBus)
         );
     };
 

@@ -2,17 +2,19 @@
  * Created by justin on 12/17/14.
  */
 define([
-
-], function () {
+    'modules/saleAnalytics/conversion/ConversionModel'
+], function (ConversionModel) {
     'use strict';
-    function ConversionPresenter() {
 
+    function ConversionPresenter(model) {
+        this.model = model || new ConversionModel();
     }
 
-    ConversionPresenter.prototype.show = function ($view, $model) {
+    ConversionPresenter.prototype.show = function ($view) {
         var view = $view,
-            model = $model;
+            model = this.model;
 
+        if (!view.event) view.event = {};
         view.event.onLoaded = function () {
             model.getWidgets()
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
@@ -27,10 +29,6 @@ define([
             model.updateWidgets()
                 .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
         };
-    };
-
-    ConversionPresenter.newInstance = function () {
-        return new ConversionPresenter();
     };
 
     return ConversionPresenter;

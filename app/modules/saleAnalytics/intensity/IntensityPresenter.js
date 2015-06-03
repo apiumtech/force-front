@@ -1,16 +1,20 @@
 /**
  * Created by justin on 12/17/14.
  */
-define([], function () {
+define([
+    'modules/saleAnalytics/intensity/IntensityModel'
+], function (IntensityModel) {
     'use strict';
 
-    function IntensityPresenter() {
-
+    function IntensityPresenter(model) {
+        this.model = model || new IntensityModel();
     }
 
-    IntensityPresenter.prototype.show = function ($view, $model) {
+    IntensityPresenter.prototype.show = function ($view) {
         var view = $view,
-            model = $model;
+            model = this.model;
+
+        view.event = view.event || {};
 
         view.event.onLoaded = function () {
             model.getWidgets()
@@ -26,10 +30,6 @@ define([], function () {
             model.updateWidgets()
                 .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
         };
-    };
-
-    IntensityPresenter.newInstance = function () {
-        return new IntensityPresenter();
     };
 
     return IntensityPresenter;

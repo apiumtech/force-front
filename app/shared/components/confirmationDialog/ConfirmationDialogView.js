@@ -11,7 +11,7 @@ define([
         this.modalInstance = $modalInstance;
     }
 
-    ConfirmationDialogView.prototype = Object.create(BaseView.prototype, {});
+    ConfirmationDialogView.inherits(BaseView, {});
 
     ConfirmationDialogView.prototype.show = function () {
         this.configureEvents();

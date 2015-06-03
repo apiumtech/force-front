@@ -10,11 +10,11 @@ define([
         this.configureEvents();
 	}
 
-    var proto = LiteralsView.prototype = Object.create(BaseView.prototype, {});
+    LiteralsView.inherits(BaseView, {});
+    var proto = LiteralsView.prototype;
 
     proto.configureEvents = function () {
         var self = this;
-
         this.event.onInit = function () {};
     };
 

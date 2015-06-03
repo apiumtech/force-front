@@ -24,7 +24,9 @@ define([
                 "FavReportTabSelected",
                 "SearchActivated",
                 "SearchDeactivated",
-                "FolderReportSelected"
+                "FolderReportSelected",
+                "PreviewReport",
+                "ToggleFavourite"
             ];
 
             var sut;

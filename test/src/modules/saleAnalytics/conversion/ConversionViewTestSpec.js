@@ -1,31 +1,26 @@
 define([
-    'modules/saleAnalytics/conversion/ConversionView'
-], function (ConversionView) {
+    'modules/saleAnalytics/conversion/ConversionView',
+    'modules/saleAnalytics/conversion/ConversionPresenter'
+], function (ConversionView, ConversionPresenter) {
     'use strict';
     describe("ConversionView", function () {
 
         var view;
 
-        function exerciseCreateView(model, presenter) {
-            return ConversionView.newInstance({}, model, presenter || {
-                show: function () {
-                }
-            }, false, false);
+        function exerciseCreateView(presenter) {
+            return ConversionView.newInstance({}, presenter || mock(ConversionPresenter), false, false);
         }
 
         describe("show() method", function () {
-            var view, model;
-
             function exerciseExecShowMethod() {
-                model = {};
-                view = exerciseCreateView(model, {show: jasmine.createSpy()});
+                view = exerciseCreateView();
                 view.event.onLoaded = jasmine.createSpy();
                 view.show();
             }
 
             it("should call presenter's show method on show()", function () {
                 exerciseExecShowMethod();
-                expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+                expect(view.presenter.show).toHaveBeenCalledWith(view);
             });
 
             it("should fire event onLoaded", function () {

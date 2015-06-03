@@ -14,7 +14,7 @@ define([
         this.configureEvents();
     }
 
-    LoginView.prototype = Object.create(BaseView.prototype, {
+    LoginView.inherits(BaseView, {
         isLoggingIn: {
             get: function () {
                 return this.$scope.data.isLoggingIn || (this.$scope.data.isLoggingIn = false);

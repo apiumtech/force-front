@@ -6,18 +6,14 @@ define([
     'use strict';
 
     function ConversionModel(widgetService, storageService) {
+        widgetService = widgetService || new WidgetService();
+        storageService = storageService || new StorageService();
+
         WidgetDecoratedPageModel.call(this, widgetService, storageService);
         this.pageName = "conversion";
     }
 
-    ConversionModel.prototype = Object.create(WidgetDecoratedPageModel.prototype, {});
-
-    ConversionModel.newInstance = function (widgetService, storageService) {
-        var _widgetService = widgetService || WidgetService.newInstance();
-        var _storageService = storageService || StorageService.newInstance();
-
-        return new ConversionModel(_widgetService, _storageService);
-    };
+    ConversionModel.inherits(WidgetDecoratedPageModel, {});
 
     return ConversionModel;
 });

@@ -28,7 +28,7 @@ define([
     UserFilterView.ENVIRONMENT = 'Environment';
     UserFilterView.TEAM = 'Hierarqhy';
 
-    UserFilterView.prototype = Object.create(BaseView.prototype, {
+    UserFilterView.inherits(BaseView, {
         userFilterOpened: {
             get: function () {
                 return this.$scope.userFilterOpened || (this.$scope.userFilterOpened = false);
@@ -134,7 +134,6 @@ define([
         };
 
         self.fn.__applyUserFilter = function () {
-            console.log("sending command");
             var filteredIds = self.getFilteredUserIdsList();
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };

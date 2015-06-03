@@ -5,24 +5,27 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetPresenter',
-    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetModel',
     'modules/widgets/BaseWidgetEventBus',
     'shared/services/GoogleChartService',
-    'shared/services/SimpleTemplateParser'
-], function (WidgetBaseView, ScatterChartWidgetPresenter, ScatterChartWidgetModel, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser) {
+    'shared/services/SimpleTemplateParser',
+    'jquery'
+], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser, $) {
 
-    function ScatterChartWidgetView(scope, element, chartService, model, presenter) {
-        WidgetBaseView.call(this, scope, element, model, presenter);
+    function ScatterChartWidgetView(scope, element, chartService, presenter) {
+        presenter = presenter || new ScatterChartWidgetPresenter();
+        WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
-        self.chartService = chartService;
+        self.chartService = chartService || GoogleChartService.newInstance();
         self.templateParser = SimpleTemplateParser.newInstance();
         self.configureEvents();
         self.widgetName = '';
         self.axisXTitle = 'Sales';
         self.axisYTitle = 'Activity Scores';
+        self.chart = null;
+        self.chartData = null;
     }
 
-    ScatterChartWidgetView.prototype = Object.create(WidgetBaseView.prototype, {
+    ScatterChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
                 return this.$scope.filters;
@@ -60,8 +63,7 @@ define([
     ScatterChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
-        var eventChannel = self.eventChannel,
-            scope = self.$scope;
+        var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
@@ -78,6 +80,20 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        $(window).on('resize', self.onWindowResize.bind(self));
+
+        self.$scope.$on('destroy', function () {
+            $(window).unbind('resize', self.onWindowResize.bind(self));
+        });
+    };
+
+    ScatterChartWidgetView.prototype.onWindowResize = function () {
+        // call refresh the chart
+        var self = this;
+        setTimeout(function () {
+            self.refreshChart();
+        }, 0);
     };
 
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -116,17 +132,23 @@ define([
         return this.templateParser.parseTemplate(toolTipTemplate, element);
     };
 
+    ScatterChartWidgetView.prototype.updateChart = function (element) {
+
+
+    };
+
     ScatterChartWidgetView.prototype.paintChart = function (element, data) {
+
         var self = this;
+
         var chartService = self.chartService;
 
-        //var plot = SingleLineChart.basic(chartFields, []);
-        //plot.paint($(element));
-        //plot.onHover(this.onPlotHover.bind(this));
+        if (!self.chart || !self.chartData) {
 
-        var data = chartService.createDataTable(self.data);
+            self.chartData = chartService.createDataTable(self.data);
 
-        this.chart = chartService.createChart(element[0], 'scatter');
+            self.chart = chartService.createChart(element[0], 'scatter');
+        }
 
         var options = {
             title: self.widgetName,
@@ -147,7 +169,8 @@ define([
             hAxis: {title: self.axisYTitle},
             vAxis: {title: self.axisXTitle}
         };
-        chartService.drawChart(this.chart, data, options);
+
+        chartService.drawChart(self.chart, self.chartData, options);
     };
 
     var previousPoint = null;
@@ -176,12 +199,9 @@ define([
         event.preventDefault();
     };
 
-    ScatterChartWidgetView.newInstance = function ($scope, $element, $chartService, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var model = $model || ScatterChartWidgetModel.newInstance();
-        var presenter = $presenter || ScatterChartWidgetPresenter.newInstance();
-        var chartService = $chartService || GoogleChartService.newInstance();
+    ScatterChartWidgetView.newInstance = function ($scope, $element, $chartService, $viewRepAspect, $logErrorAspect) {
 
-        var view = new ScatterChartWidgetView($scope, $element, chartService, model, presenter);
+        var view = new ScatterChartWidgetView($scope, $element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

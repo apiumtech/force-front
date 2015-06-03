@@ -20,7 +20,7 @@ define([
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
-    AllReportModel.prototype = Object.create(WidgetBase.prototype, {});
+    AllReportModel.inherits(WidgetBase, {});
 
     AllReportModel.prototype.reloadWidget = function () {
         return this._reload();
@@ -28,13 +28,12 @@ define([
 
     AllReportModel.prototype._reload = function () {
         return this.ajaxService.rawAjaxRequest({
-            result: ReportFakeData
+            result: ReportFakeData()
         }).then(this.decorateServerData.bind(this));
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        console.log(JSON.stringify(this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1)));
         return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
     };
 

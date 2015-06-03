@@ -8,7 +8,7 @@ define([
         AccountService.call(this, ajaxService);
     }
 
-    AccountFilterModel.prototype = Object.create(AccountService.prototype, {});
+    AccountFilterModel.inherits(AccountService, {});
 
     AccountFilterModel.prototype.decorateAvailableOwners = function (result) {
         var self = this;

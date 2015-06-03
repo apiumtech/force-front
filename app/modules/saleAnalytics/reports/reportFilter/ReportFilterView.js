@@ -12,7 +12,7 @@ define([
         this.configureEvents();
     }
 
-    ReportFilterView.prototype = Object.create(BaseView.prototype, {
+    ReportFilterView.inherits(BaseView, {
         searchQuery: {
             get: function () {
                 return this.$scope.searchQuery;
@@ -27,12 +27,22 @@ define([
         var self = this;
 
         self.fn.activateSearch = function () {
+            if (!self.searchQuery) return;
             self.reportEventBus.fireSearchActivated(self.searchQuery);
         };
 
         self.fn.deactivateSearch = function () {
             self.searchQuery = "";
             self.reportEventBus.fireSearchDeactivated();
+        };
+
+        self.fn.searchQueryKeyUp = function ($event) {
+            if (self.searchQuery == "")
+                self.fn.deactivateSearch();
+            else {
+                if ($event.keyCode === 13)
+                    self.fn.activateSearch();
+            }
         };
     };
 

@@ -17,7 +17,7 @@ define([
         this.configureEvents();
     }
 
-    DatetimeTypeFilterView.prototype = Object.create(BaseView.prototype, {
+    DatetimeTypeFilterView.inherits(BaseView, {
         dateRangeStart: {
             get: function () {
                 return this.$scope.dateRangeStart;

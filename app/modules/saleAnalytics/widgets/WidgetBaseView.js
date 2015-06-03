@@ -9,17 +9,21 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus'
 ], function (BaseView, meld, SalesAnalyticsFilterChannel, /*TODO: this is deprecated*/WidgetEventBus) {
 
-    function WidgetBaseView(scope, element, model, presenter) {
-        BaseView.call(this, scope, model, presenter);
+    function WidgetBaseView(scope, element, presenter) {
+        BaseView.call(this, scope, null, presenter);
         this.element = element || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
+        var self = this;
         this.event.onDateFilterApplied = function (filterValue) {
+            console.log(self);
             throw new Error("NotImplementedException");
         };
         this.event.onUsersFilterApplied = function (filterValue) {
+            console.log(self);
             throw new Error("NotImplementedException");
         };
+
         this.channelInitialized = false;
 
         // TODO: This is deprecated
@@ -32,16 +36,16 @@ define([
         });
     }
 
-    WidgetBaseView.prototype = Object.create(BaseView.prototype, {
+    WidgetBaseView.inherits(BaseView, {
         widget: {
             get: function () {
                 return this.$scope.widget;
             },
             set: function (value) {
                 this.$scope.widget = value;
-                this.model.widgetId = value.widgetId;
-                this.model.order = value.order;
-                this.model.column = value.column;
+                //this.model.widgetId = value.widgetId;
+                //this.model.order = value.order;
+                //this.model.column = value.column;
             }
         }
     });

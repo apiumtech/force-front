@@ -67,7 +67,7 @@ define([
         this.configureEvents();
     }
 
-    AccountView.prototype = Object.create(BaseView.prototype, {
+    AccountView.inherits(BaseView, {
         isLoading: {
             get: function () {
                 return this.$scope.isLoading || (this.$scope.isLoading = false);

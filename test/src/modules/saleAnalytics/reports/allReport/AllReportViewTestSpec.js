@@ -23,14 +23,14 @@ define([
         describe("configureEvents", function () {
             describe("fn.loadReports", function () {
                 beforeEach(function () {
-                    sut.event.onLoadReports = jasmine.createSpy();
+                    sut.event.onReloading = jasmine.createSpy();
                     sut.fn.loadReports();
                 });
                 it("should turn on isLoading", function () {
                     expect(sut.isLoading).toBeTruthy();
                 });
                 it("should fire onLoadReports event", function () {
-                    expect(sut.event.onLoadReports).toHaveBeenCalled();
+                    expect(sut.event.onReloading).toHaveBeenCalled();
                 });
             });
 
@@ -69,6 +69,9 @@ define([
         });
 
         describe('openReportFolder', function () {
+            it("", function () {
+
+            });
             it("should correctly set the new data to reports", function () {
                 var input = [{
                     "id": 1,

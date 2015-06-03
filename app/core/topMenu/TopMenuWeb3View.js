@@ -15,8 +15,8 @@ define([
     }
 
 
-    TopMenuWeb3View.prototype = Object.create(BaseView.prototype, {});
-
+    //TopMenuWeb3View.inherits(BaseView, {});
+    TopMenuWeb3View.inherits(BaseView);
 
     TopMenuWeb3View.prototype.configureEvents = function () {
         this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);

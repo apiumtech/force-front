@@ -24,8 +24,28 @@ define([
         });
 
         beforeEach(function () {
-            $scope = mockAngularScope();
+            inject(function($rootScope){
+                $scope = $rootScope.$new();
+            });
             sut = new ReportView($scope, presenter, eventBus);
+        });
+
+        describe('firstTabActivated', function () {
+            describe('getter', function () {
+                it("should return data.firstTabActivated value when get", function () {
+                    sut.firstTabActivated = true;
+                    sut.data.firstTabActivated = false;
+                    var actual = sut.firstTabActivated;
+                    expect(actual).toBe(false);
+                });
+            });
+            describe('setter', function () {
+                it("should assign to data.firstTabActivated when set", function () {
+                    sut.data.firstTabActivated = false;
+                    sut.firstTabActivated = true;
+                    expect(sut.data.firstTabActivated).toBe(true);
+                });
+            });
         });
 
         describe("show", function () {
@@ -55,6 +75,12 @@ define([
                 it("should fire event FavReportSelected to the eventbus", function () {
                     expect(eventBus.fireFavReportTabSelected).toHaveBeenCalled();
                 });
+
+                it("should set openingFolder to false", function () {
+                    sut.openingFolder = true;
+                    sut.fn.favReportSelected();
+                    expect(sut.openingFolder).toBeFalsy();
+                });
             });
             describe('fn.searchReportSelected', function () {
                 beforeEach(function () {
@@ -69,6 +95,11 @@ define([
                 });
                 it("should fire event AllReportTabSelected to the eventbus", function () {
                     expect(eventBus.fireSearchReportTabSelected).toHaveBeenCalled();
+                });
+                it("should set openingFolder to false", function () {
+                    sut.openingFolder = true;
+                    sut.fn.searchReportSelected();
+                    expect(sut.openingFolder).toBeFalsy();
                 });
             });
 

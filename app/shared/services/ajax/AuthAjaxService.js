@@ -13,7 +13,7 @@ define([
         this.storageService = storageService || new StorageService();
     }
 
-    AuthAjaxService.prototype = Object.create(AjaxService.prototype, {});
+    AuthAjaxService.inherits(AjaxService, {});
 
     AuthAjaxService.prototype.mapRequest = function (params) {
         var request = AjaxService.prototype.mapRequest.call(this, params);

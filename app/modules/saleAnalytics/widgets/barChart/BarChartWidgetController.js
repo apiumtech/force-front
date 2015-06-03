@@ -4,7 +4,8 @@
 define([
     'app',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetView'
-], function(app, BarChartWidgetView){
+], function (app, BarChartWidgetView) {
+    'use strict';
 
     function BarChartWidgetController($scope, $element) {
         BarChartWidgetController.configureView($scope, $element);
@@ -14,8 +15,6 @@ define([
         this.view = BarChartWidgetView.newInstance($scope, $element);
         this.view.show();
     };
-
-    app.register.controller('BarChartWidgetController', ['$scope', '$element', BarChartWidgetController]);
 
     return BarChartWidgetController;
 });

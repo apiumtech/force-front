@@ -12,12 +12,7 @@ define([
             view = mock(ReportItemView);
             view.event = {};
             view.fn = {};
-            mockModel = {
-                saveName: function () {
-                },
-                saveDescription: function () {
-                }
-            };
+            mockModel = mock(ReportItemModel);
             sut = new ReportItemPresenter(mockModel);
         });
 
@@ -28,7 +23,7 @@ define([
 
             describe('view.event.onSaveName', function () {
                 it("should call saveName method on model", function () {
-                    spyOn(mockModel, 'saveName').and.returnValue(exerciseFakeOkPromise());
+                    mockModel.saveName.returns(exerciseFakeOkPromise());
                     var name = "newNameOftheStupidReport";
                     var id = 10000;
                     view.event.onSaveName(id, name);
@@ -36,7 +31,7 @@ define([
                 });
 
                 it("should fallback to onSaveNameSuccess on view", function (done) {
-                    spyOn(mockModel, 'saveName').and.returnValue(exerciseFakeOkPromise());
+                    mockModel.saveName.returns(exerciseFakeOkPromise());
 
                     view.event.onSaveName();
                     expect(view.onSaveNameSuccess).toHaveBeenCalled();
@@ -44,7 +39,7 @@ define([
                 });
 
                 it("should fallback to onSaveNameError on view", function (done) {
-                    spyOn(mockModel, 'saveName').and.returnValue(exerciseFakeKoPromise());
+                    mockModel.saveName.returns(exerciseFakeKoPromise());
 
                     view.event.onSaveName();
                     expect(view.onSaveNameError).toHaveBeenCalled();
@@ -56,13 +51,13 @@ define([
                 var description = "newNameOftheStupidReport";
                 var id = 10000;
                 it("should call saveDescription method on model", function () {
-                    spyOn(mockModel, 'saveDescription').and.returnValue(exerciseFakeOkPromise());
+                    mockModel.saveDescription.returns(exerciseFakeOkPromise());
                     view.event.onSaveDescription(id, description);
                     expect(mockModel.saveDescription).toHaveBeenCalledWith(id, description);
                 });
 
                 it("should fallback to onSaveDescriptionSuccess on view", function (done) {
-                    spyOn(mockModel, 'saveDescription').and.returnValue(exerciseFakeOkPromise());
+                    mockModel.saveDescription.returns(exerciseFakeOkPromise());
 
                     view.event.onSaveDescription(id, description);
                     expect(view.onSaveDescriptionSuccess).toHaveBeenCalled();
@@ -70,13 +65,42 @@ define([
                 });
 
                 it("should fallback to onSaveDescriptionError on view", function (done) {
-                    spyOn(mockModel, 'saveDescription').and.returnValue(exerciseFakeKoPromise());
+                    mockModel.saveDescription.returns(exerciseFakeKoPromise());
 
                     view.event.onSaveDescription(id, description);
                     expect(view.onSaveDescriptionError).toHaveBeenCalled();
                     done();
                 });
             });
+
+            describe('view.event.toggleFavouriteReport', function () {
+                it("should call toggleFavouriteReport function from model", function () {
+                    var reportId = 123;
+                    view.event.toggleFavouriteReport(reportId);
+                    expect(mockModel.toggleFavouriteReport).toHaveBeenCalledWith(reportId);
+                });
+            });
+
+            describe('view.event.getParameters', function () {
+                it("should call getParameters from model", function () {
+                    var reportId = 123;
+                    var response={};
+                    var callback = sinon.stub();
+                    mockModel.getParameters.returns(exerciseFakeOkPromiseWithArg(response));
+                    view.event.getParameters(reportId, callback);
+                    expect(callback).toHaveBeenCalledWith(response);
+                });
+            });
+
+            describe('view.event.getReportURL', function () {
+                it("should call getReportURL from model", function () {
+                    var report = {};
+                    var callback = sinon.stub();
+                    view.event.getReportURL(report, callback);
+                    expect(mockModel.getReportURL).toHaveBeenCalledWith(report, callback);
+                });
+            });
+
         });
     });
 });

@@ -13,7 +13,7 @@ define([
         this.$element = $element;
     }
 
-    OpportunityWidgetView.prototype = Object.create(BaseView.prototype, {
+    OpportunityWidgetView.inherits(BaseView, {
         accountId: {
             get: function () {
                 return this.$scope.accountId;

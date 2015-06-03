@@ -23,7 +23,7 @@ define([
         this.configureEvents.call(this);
     }
 
-    WidgetWrapperView.prototype = Object.create(BaseView.prototype, {
+    WidgetWrapperView.inherits(BaseView, {
         isExpanded: {
             get: function () {
                 return this.$scope.isExpanded || (this.$scope.isExpanded = false);

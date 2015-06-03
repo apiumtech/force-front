@@ -19,7 +19,7 @@ define([
         }];
     }
 
-    PieChartWidgetModel.prototype = Object.create(WidgetBase.prototype, {});
+    PieChartWidgetModel.inherits(WidgetBase, {});
 
     PieChartWidgetModel.prototype.getUrl = function () {
         return this.fetchPoint.format(this.currentFilter);

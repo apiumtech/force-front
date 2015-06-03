@@ -19,7 +19,7 @@ define([
         this.configureEvents(this);
     }
 
-    AccountDetailsView.prototype = Object.create(BaseView.prototype, {
+    AccountDetailsView.inherits(BaseView, {
         accountId: {
             get: function () {
                 return this.$scope.accountId;
