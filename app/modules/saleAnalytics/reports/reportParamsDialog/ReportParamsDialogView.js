@@ -25,15 +25,16 @@ define([
 	PreviewDialogView.prototype.configureEvents = function () {
 		var self = this;
 
-		self.fn.closePreview = function () {
+		self.fn.close = function () {
 			self.$modalInstance.dismiss();
 		};
 
-		self.fn.toggleFavouriteReport = function(){
-			self.report.favourite = !self.report.favourite;
-			self.event.toggleFavouriteReport(self.report.id);
-		}
-
+		self.fn.submit = function(){
+			self.report.params = [{
+				"new" : "params"
+			}];
+			self.$modalInstance.close(self.report);
+		};
 	};
 
 	PreviewDialogView.newInstance = function ($scope, $modalInstance, $viewRepaintAspect, $logErrorAspect) {

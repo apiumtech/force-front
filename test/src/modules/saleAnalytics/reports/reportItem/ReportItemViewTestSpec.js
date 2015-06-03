@@ -1,7 +1,8 @@
 define([
     'modules/saleAnalytics/reports/reportItem/ReportItemView',
-    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter'
-], function (ReportItemView, ReportItemPresenter) {
+    'modules/saleAnalytics/reports/reportItem/ReportItemPresenter',
+    'modules/saleAnalytics/reports/ReportEventBus'
+], function (ReportItemView, ReportItemPresenter, ReportEventBus) {
     'use strict';
 
     describe('ReportItemView', function () {
@@ -16,13 +17,21 @@ define([
             })
         });
 
-        var sut, scope, element, presenter;
+        var sut, scope, element, presenter, eventBus;
 
         beforeEach(function () {
-            scope = {};
+            inject(function ($rootScope) {
+                scope = $rootScope.$new();
+                scope.$modal = {
+                    open: function () {
+                    }
+                };
+                sinon.stub(scope.$modal, 'open');
+            });
             element = {};
             presenter = mock(ReportItemPresenter);
-            sut = new ReportItemView(scope, element, presenter);
+            eventBus = mock(ReportEventBus);
+            sut = new ReportItemView(scope, element, presenter, eventBus);
         });
         describe('configureEvents', function () {
             beforeEach(function () {
@@ -225,6 +234,23 @@ define([
                 })
             });
 
+            describe('fn.preview', function () {
+                it("should call getParameters function", function () {
+                    var response = {someFakeParameters: 123};
+                    sut.event = {
+                        getParameters: function () {
+                        }
+                    };
+                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
+                        callback(response);
+                    });
+                    sinon.stub(sut, 'onParameterLoadedForPreview');
+                    sut.fn.preview();
+                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
+                    expect(sut.onParameterLoadedForPreview).toHaveBeenCalledWith(response);
+                })
+            });
+
         });
 
         describe('onSaveNameSuccess', function () {
@@ -305,7 +331,7 @@ define([
                     ]
                 };
                 sut.onParameterLoadedForSend(data);
-                expect(sut.$scope.report.params).toEqual(data.params);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
             });
 
             describe("there is no params passed", function () {
@@ -339,6 +365,7 @@ define([
                     description: "description_blahblah"
                 };
             });
+
             it("should set the passed params to report's params", function () {
                 var data = {
                     params: [
@@ -351,7 +378,7 @@ define([
                     ]
                 };
                 sut.onParameterLoadedForDownload(data);
-                expect(sut.$scope.report.params).toEqual(data.params);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
             });
 
             describe("there is no params passed", function () {
@@ -373,6 +400,73 @@ define([
                     expect(sut.event.getReportURL).toHaveBeenCalledWith(123, jasmine.any(Function));
                     expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
                 });
+            });
+
+        });
+
+        describe('onParameterLoadedForPreview', function () {
+            var promise;
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+
+                promise = {
+                    "obj" : 1
+                };
+
+                var paramDialog = {
+                    result: {
+                        then: function(b){
+                            b(promise);
+                        }
+                    }
+                };
+
+                scope.$modal.open.returns(paramDialog);
+            });
+            it("should set the passed params to report's params", function () {
+                var data = {
+                    params: []
+                };
+                sut.onParameterLoadedForPreview(data);
+                expect(sut.$scope.report.paramConfig).toEqual(data.params);
+            });
+
+            describe("there is no params passed", function () {
+                it("should open preview", function () {
+                    var data = {
+                        params: []
+                    };
+                    sinon.stub(sut.fn, 'openPreviewDialog');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.fn.openPreviewDialog).toHaveBeenCalled();
+                });
+            });
+
+            describe("there are params passed", function () {
+                var data = {
+                    params: [
+                        'a', 'b', 'c'
+                    ]
+                };
+                it("should open params dialog", function () {
+                    sinon.stub(sut.fn, 'openParamsDialog');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.fn.openParamsDialog).toHaveBeenCalled();
+                });
+
+                it("saving params from param dialog should call onParameterSetForPreview with the right param(s)", function () {
+                    spyOn(sut.fn, 'openParamsDialog').and.callFake(function(b){
+                        b(promise);
+                    });
+                    sinon.stub(sut, 'onParameterSetForPreview');
+                    sut.onParameterLoadedForPreview(data);
+                    expect(sut.onParameterSetForPreview).toHaveBeenCalledWith(promise);
+                });
+
             });
 
         });

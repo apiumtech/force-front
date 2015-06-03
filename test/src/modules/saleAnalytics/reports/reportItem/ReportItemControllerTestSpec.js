@@ -11,17 +11,18 @@ define([
         beforeEach(module(appName));
 
         var $controller;
-        var scope, element;
+        var scope, element, modal;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$modal_) {
             $controller = _$controller_;
             scope = _$rootScope_.$new();
             element = angular.element("<div/>");
+            modal = _$modal_;
         }));
 
         describe("loading asynchronously", function () {
             it("should register the controller to app", function () {
-                var ctrl = $controller('ReportItemController', {$scope: scope, $element: element});
+                var ctrl = $controller('ReportItemController', {$scope: scope, $element: element, $modal: modal});
                 expect(ctrl).not.toBeNull();
                 expect(ctrl).not.toBeUndefined();
             });
@@ -30,12 +31,15 @@ define([
         describe("construct", function () {
             beforeEach(inject(function () {
                 sinon.stub(ReportItemController, 'configureView');
+                $controller('ReportItemController', {$scope: scope, $element: element, $modal: modal});
             }));
             afterEach(function () {
                 ReportItemController.configureView.restore();
             });
+            it("should assign modal service into scope", function () {
+                expect(scope.$modal).toEqual(modal);
+            });
             it("should call ReportItemController.configureView global method", function () {
-                new ReportItemController(scope, element);
                 expect(ReportItemController.configureView).toHaveBeenCalledWith(scope, element);
             });
         });
