@@ -19,6 +19,7 @@ define([
 
         var sut, scope, element, presenter, eventBus;
 
+        // init params
         beforeEach(function () {
             inject(function ($rootScope) {
                 scope = $rootScope.$new();
@@ -33,7 +34,9 @@ define([
             eventBus = mock(ReportEventBus);
             sut = new ReportItemView(scope, element, presenter, eventBus);
         });
+
         describe('configureEvents', function () {
+
             beforeEach(function () {
                 sut.$scope.report = {
                     id: 123,
@@ -41,6 +44,7 @@ define([
                     description: "description_blahblah"
                 };
             });
+
             describe('fn.startEditingName', function () {
                 beforeEach(function () {
                     sut.fn.startEditingName();
@@ -109,7 +113,6 @@ define([
                     expect(sut.editingName).toEqual(false);
                 });
             });
-
 
             describe('fn.startEditingDescription', function () {
 
@@ -200,55 +203,55 @@ define([
 
             });
 
-            describe('fn.send', function () {
-                it("should call getParameters function", function () {
-                    var response = {someFakeParameters: 123};
+            describe('item actions fn: preview, send, download', function () {
+                beforeEach(function () {
                     sut.event = {
-                        getParameters: function () {
+                        getReportURL: function () {
+                        },
+                        getParameterConfiguration: function () {
                         }
                     };
-                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
-                        callback(response);
-                    });
-                    sinon.stub(sut, 'onParameterLoadedForSend');
-                    sut.fn.send();
-                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
-                    expect(sut.onParameterLoadedForSend).toHaveBeenCalledWith(response);
                 });
-            });
 
-            describe('fn.download', function () {
-                it("should call getParameters function", function () {
-                    var response = {someFakeParameters: 123};
-                    sut.event = {
-                        getParameters: function () {
-                        }
-                    };
-                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
-                        callback(response);
-                    });
-                    sinon.stub(sut, 'onParameterLoadedForDownload');
-                    sut.fn.download();
-                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
-                    expect(sut.onParameterLoadedForDownload).toHaveBeenCalledWith(response);
-                })
-            });
+                [
+                    {
+                        method: 'send',
+                        haveNoParameterMethod: 'sendReport'
+                    },
+                    {
+                        method: 'download',
+                        haveNoParameterMethod: 'downloadReport'
+                    },
+                    {
+                        method: 'preview',
+                        haveNoParameterMethod: 'previewReport'
+                    }
+                ].forEach(function (test) {
+                        describe('fn.' + test.method, function () {
+                            it("should set currentActionForEmptyParameters to ", function () {
+                                spyOn(sut, test.haveNoParameterMethod);
+                                sut.fn[test.method]();
+                                sut.currentActionForEmptyOrAssignedParameters();
+                                expect(sut[test.haveNoParameterMethod]).toHaveBeenCalled();
+                            });
 
-            describe('fn.preview', function () {
-                it("should call getParameters function", function () {
-                    var response = {someFakeParameters: 123};
-                    sut.event = {
-                        getParameters: function () {
-                        }
-                    };
-                    spyOn(sut.event, 'getParameters').and.callFake(function (reportId, callback) {
-                        callback(response);
+                            it("should set currentActionForParameters to ", function () {
+                                var params = {
+                                    "p1": "b"
+                                };
+                                spyOn(sut, 'configureParameters');
+                                sut.fn[test.method]();
+                                sut.currentActionForParameters(params);
+                                expect(sut.configureParameters).toHaveBeenCalledWith(params);
+                            });
+
+                            it("should call getParameterConfiguration", function () {
+                                spyOn(sut, 'getParameterConfiguration');
+                                sut.fn[test.method]();
+                                expect(sut.getParameterConfiguration).toHaveBeenCalled();
+                            });
+                        });
                     });
-                    sinon.stub(sut, 'onParameterLoadedForPreview');
-                    sut.fn.preview();
-                    expect(sut.event.getParameters).toHaveBeenCalledWith(123, jasmine.any(Function));
-                    expect(sut.onParameterLoadedForPreview).toHaveBeenCalledWith(response);
-                })
             });
 
         });
@@ -303,172 +306,151 @@ define([
             });
         });
 
-        describe('onSaveNameError', function () {
-
-        });
-
-        describe('onSaveDescriptionError', function () {
-
-        });
-
-        describe('onParameterLoadedForSend', function () {
-            beforeEach(function () {
+        describe('getParameterConfiguration', function () {
+            it("should call view.event.getParameterConfiguration function and return the result to onParameterConfigurationLoaded", function () {
                 sut.$scope.report = {
                     id: 123,
                     name: "123456",
                     description: "description_blahblah"
                 };
-            });
-            it("should set the passed params to report's params", function () {
-                var data = {
-                    params: [
-                        {
-                            p1: 1234
-                        },
-                        {
-                            p2: "abcd"
-                        }
-                    ]
-                };
-                sut.onParameterLoadedForSend(data);
-                expect(sut.$scope.report.paramConfig).toEqual(data.params);
-            });
-
-            describe("there is no params passed", function () {
-                it("should call getReportURL function", function () {
-                    var response = {URL: 'http://this.is/the/url'};
-                    sut.event = {
-                        getReportURL: function () {
-                        }
-                    };
-                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
-                        callback(response);
-                    });
-                    sinon.stub(sut, 'onReportURLLoadedForSend');
-
-                    var data = {
-                        params: []
-                    };
-                    sut.onParameterLoadedForSend(data);
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
-                    expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
-                });
-            });
-
-        });
-
-        describe('onParameterLoadedForDownload', function () {
-            beforeEach(function () {
-                sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
-                };
-            });
-
-            it("should set the passed params to report's params", function () {
-                var data = {
-                    params: [
-                        {
-                            p1: 1234
-                        },
-                        {
-                            p2: "abcd"
-                        }
-                    ]
-                };
-                sut.onParameterLoadedForDownload(data);
-                expect(sut.$scope.report.paramConfig).toEqual(data.params);
-            });
-
-            describe("there is no params passed", function () {
-                it("should call getReportURL function", function () {
-                    var response = {URL: 'http://this.is/the/url'};
-                    sut.event = {
-                        getReportURL: function () {
-                        }
-                    };
-                    spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
-                        callback(response);
-                    });
-                    sinon.stub(sut, 'onReportURLLoadedForDownload');
-
-                    var data = {
-                        params: []
-                    };
-                    sut.onParameterLoadedForDownload(data);
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
-                    expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
-                });
-            });
-
-        });
-
-        describe('onParameterLoadedForPreview', function () {
-            var promise;
-            beforeEach(function () {
-                sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
-                };
-
-                promise = {
-                    "obj" : 1
-                };
-
-                var paramDialog = {
-                    result: {
-                        then: function(b){
-                            b(promise);
-                        }
+                var response = {someFakeParameters: 123};
+                sut.event = {
+                    getParameterConfiguration: function () {
                     }
                 };
-
-                scope.$modal.open.returns(paramDialog);
+                spyOn(sut.event, 'getParameterConfiguration').and.callFake(function (reportId, callback) {
+                    callback(response);
+                });
+                sinon.stub(sut, 'onParameterConfigurationLoaded');
+                sut.getParameterConfiguration();
+                expect(sut.event.getParameterConfiguration).toHaveBeenCalledWith(123, jasmine.any(Function));
+                expect(sut.onParameterConfigurationLoaded).toHaveBeenCalledWith(response);
             });
+        });
+
+        describe('onParameterConfigurationLoaded', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 123,
+                    name: "123456",
+                    description: "description_blahblah"
+                };
+                sut.currentActionForEmptyOrAssignedParameters = sinon.stub();
+                sut.currentActionForParameters = sinon.stub();
+            });
+
             it("should set the passed params to report's params", function () {
                 var data = {
-                    params: []
+                    params: [
+                        {
+                            p1: 1234
+                        },
+                        {
+                            p2: "abcd"
+                        }
+                    ]
                 };
-                sut.onParameterLoadedForPreview(data);
-                expect(sut.$scope.report.paramConfig).toEqual(data.params);
+                sut.onParameterConfigurationLoaded(data);
+                expect(sut.$scope.report.parameterConfigurations).toEqual(data.params);
             });
 
             describe("there is no params passed", function () {
-                it("should open preview", function () {
+                it("should call currentActionForEmptyParameters function", function () {
                     var data = {
                         params: []
                     };
-                    sinon.stub(sut.fn, 'openPreviewDialog');
-                    sut.onParameterLoadedForPreview(data);
-                    expect(sut.fn.openPreviewDialog).toHaveBeenCalled();
+                    sut.onParameterConfigurationLoaded(data);
+                    expect(sut.currentActionForEmptyOrAssignedParameters).toHaveBeenCalled();
                 });
             });
 
             describe("there are params passed", function () {
-                var data = {
-                    params: [
-                        'a', 'b', 'c'
-                    ]
-                };
-                it("should open params dialog", function () {
-                    sinon.stub(sut.fn, 'openParamsDialog');
-                    sut.onParameterLoadedForPreview(data);
-                    expect(sut.fn.openParamsDialog).toHaveBeenCalled();
+                it("should call currentActionForParameters function", function () {
+                    var data = {
+                        params: [
+                            {'p1': 123456}
+                        ]
+                    };
+                    sut.onParameterConfigurationLoaded(data);
+                    expect(sut.currentActionForParameters).toHaveBeenCalledWith(data.params);
                 });
-
-                it("saving params from param dialog should call onParameterSetForPreview with the right param(s)", function () {
-                    spyOn(sut.fn, 'openParamsDialog').and.callFake(function(b){
-                        b(promise);
-                    });
-                    sinon.stub(sut, 'onParameterSetForPreview');
-                    sut.onParameterLoadedForPreview(data);
-                    expect(sut.onParameterSetForPreview).toHaveBeenCalledWith(promise);
-                });
-
             });
 
+        });
+
+        describe('configureParameters', function () {
+            var params = {
+                this: 'params'
+            };
+            var promise = {
+                "obj": 1
+            };
+            beforeEach(function () {
+                scope.report = {
+                    id: 123,
+                    name: "the report"
+                };
+                var paramDialog = {
+                    result: {
+                        then: function (b) {
+                            b(promise);
+                        }
+                    }
+                };
+                scope.$modal.open.returns(paramDialog);
+                spyOn(sut, 'openParamsDialog').and.callFake(function(b){
+                    b(promise);
+                });
+                spyOn(sut, 'onParameterSet');
+                sut.configureParameters(params);
+            });
+
+            it("should assign report.parameterConfigurations", function () {
+                expect(sut.report.parameterConfigurations).toEqual(params);
+            });
+
+            it("should call openParamsDialog function", function () {
+                expect(sut.openParamsDialog).toHaveBeenCalledWith(jasmine.any(Function));
+            });
+
+            it("should call openParamsDialog function", function () {
+                expect(sut.onParameterSet).toHaveBeenCalledWith(promise);
+            });
+
+        });
+
+        describe('sendReport', function () {
+            it("should call getReportURL function", function () {
+                var response = {URL: 'http://this.is/the/url'};
+                sut.event = {
+                    getReportURL: function () {
+                    }
+                };
+                spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
+                    callback(response);
+                });
+                sinon.stub(sut, 'onReportURLLoadedForSend');
+                sut.sendReport();
+                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
+            });
+        });
+
+        describe('downloadReport', function () {
+            it("should call getReportURL function", function () {
+                var response = {URL: 'http://this.is/the/url'};
+                sut.event = {
+                    getReportURL: function () {
+                    }
+                };
+                spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
+                    callback(response);
+                });
+                sinon.stub(sut, 'onReportURLLoadedForDownload');
+                sut.downloadReport();
+                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
+            });
         });
 
     });

@@ -31,38 +31,8 @@ define([
         });
     };
 
-    ReportItemModel.prototype.getParameters = function (reportId) {
-        return this.ajaxService.rawAjaxRequest({
-            result: {
-                params: [
-                    //{
-                    //    id: 'account_filter',
-                    //    type: 'textbox',
-                    //    label: 'Account',
-                    //    value: ['Stephanie', 'Julien', 'Daniel', 'Victoria']
-                    //},
-                    //{
-                    //    id: 'age_filter',
-                    //    type: 'number-range',
-                    //    label: 'Age',
-                    //    value: "20-50"
-                    //},
-                    //{
-                    //    id: 'signup_date_filter',
-                    //    type: 'date',
-                    //    label: 'Signed up date',
-                    //    value: ""
-                    //},
-                    //{
-                    //    id: 'range_date_filter',
-                    //    label: 'A range of date',
-                    //    type: 'date',
-                    //    value: "05/20/2014, 05/20/2015"
-                    //}
-                ]
-
-            }
-        });
+    ReportItemModel.prototype.getParameterConfiguration = function (reportId, callback) {
+        return this.reportService.getParameterConfiguration(reportId).then(callback);
     };
 
     ReportItemModel.prototype.getReportURL = function (report, callback) {

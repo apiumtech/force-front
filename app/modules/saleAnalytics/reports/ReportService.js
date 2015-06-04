@@ -17,14 +17,22 @@ define([
 		//TODO: implement when having server's contract
 		return this.ajaxService.rawAjaxRequest({
 			result: {
-				url: "http://this.is/theURL/we/want"
+				url: "http://this.is/theURL/we/want/" + report.id
 
 			}
 		});
 	};
 
-	ReportService.prototype.getReportParametersConf = function (reportId) {
+	ReportService.prototype.getParameterConfiguration = function (reportId) {
 		//TODO: implement when having server's contract
+		return this.ajaxService.rawAjaxRequest({
+			result: {
+				params: [
+					{'p1': 123},
+					{'p2': "aaaa"}
+				]
+			}
+		});
 	};
 
 	ReportService.prototype.getPreviewReportPhotos = function (reportId) {
