@@ -18,15 +18,6 @@ define([
             type: 'GET',
             dataType: 'json'
         });
-        /*
-         console.log("Fake getLanguageList");
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {data:[
-                {Id:"aksjdh796asfjhbasfog", Name:"es-es"}
-                ,{Id:"aksjdh796asfjhbasfog", Name:"en-us"}
-                ,{Id:"aksjdh796asfjhbasfog", Name:"fr-fr"}
-            ]}
-        });*/
     };
 
     LiteralsSharedService.newInstance = function (ajaxService, storageService) {

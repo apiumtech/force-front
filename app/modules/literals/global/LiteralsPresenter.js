@@ -13,7 +13,7 @@ define([
 		this.model = model;
 
         view.event.onInit = function() {
-            console.log("LiteralPresenter ready");
+            console.log("LiteralsPresenter ready");
         };
 
         // comes from LiteralsTableView.fireColumnsRequest

@@ -1,4 +1,6 @@
-<div class="col-md-12 ui-sortable" ng-init="event.onInit()" ng-controller="LiteralsTableController">
+<div class="col-md-12 ui-sortable"
+     ng-init="event.onInit()"
+     ng-controller="LiteralsTableController">
     <div class="panel panel-inverse">
 
         <!-- Panel header -->
@@ -23,12 +25,7 @@
 
             <!-- Top stuff  -->
             <div class="row columnFields searchInput dataTables_filter">
-                <div class="btn-group m-r-5 m-b-5  pull-right">
-                    <label class="pull-none">{{'commonText.Search' | i18next}}:
-                        <input type="text" ng-change="fn.onSearchTextFilterChanged(data.currentSearchQuery)"
-                               ng-model="data.currentSearchQuery" />
-                    </label>
-                </div>
+                <div ng-include="'app/modules/literals/shared/search/search.html'"></div>
             </div>
 
             <!-- Table -->
@@ -51,7 +48,7 @@
         {Key}
         <div>
             <div class="edit-delete-div">
-                <a href="#/literal/{Id}/edit"><i class="fa ic-edit"></i>{{'Literal.List.Table.Edit_label' | i18next}}</a> |
+                <a href="#/literals/{Id}/edit"><i class="fa ic-edit"></i>{{'Literal.List.Table.Edit_label' | i18next}}</a> |
                 <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>{{'Literal.List.Table.Delete_label' | i18next}}</a>
             </div>
         </div>

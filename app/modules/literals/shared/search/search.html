@@ -1,0 +1,8 @@
+<div class="btn-group m-r-5 m-b-5  pull-right"
+     ng-init="event.onInit()"
+     ng-controller="LiteralsSearchController">
+    <label class="pull-none">{{'commonText.Search' | i18next}}:
+        <input type="text" ng-change="fn.onSearchTextFilterChanged(data.currentSearchQuery)"
+               ng-model="data.currentSearchQuery" />
+    </label>
+</div>

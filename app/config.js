@@ -60,7 +60,7 @@ define(function () {
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
 
-        literalListBySearch: baseUrl + 'api/queries/commons/literals/literalList',
+        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalList',
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
 
         languageList: baseUrl + '/api/queries/commons/languages/languageList',

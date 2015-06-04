@@ -1,6 +1,7 @@
 define([
-    'modules/literals/shared/table/LiteralsTableView'
-], function (LiteralsTableView) {
+    'modules/literals/shared/table/LiteralsTableView',
+    'jquery'
+], function (LiteralsTableView, $) {
     'use strict';
 
     function exerciseCreateView(namedParams) {
@@ -22,6 +23,17 @@ define([
                 var sut = exerciseCreateView();
                 expect(sut.configureEvents).toHaveBeenCalled();
                 expect(sut.event.onInit).toBeDefined();
+            });
+        });
+
+        describe('renderKeyColumn', function () {
+            it('should render key Column', function () {
+                var view = exerciseCreateView();
+                spyOn(view.templateParser, "parseTemplate");
+                var row = {row:"a row"};
+                var col = view.renderKeyColumn(null, null, row);
+                expect(view.templateParser.parseTemplate).toHaveBeenCalled();
+                expect(view.templateParser.parseTemplate.calls.argsFor(0)[1]).toBe(row);
             });
         });
 
@@ -51,7 +63,7 @@ define([
 
 
         describe('onLiteralsRequestSuccess', function () {
-            var sut;
+            var sut, data;
             beforeEach(function () {
                 sut = exerciseCreateView();
                 sut.languages = [
@@ -60,26 +72,23 @@ define([
                     {data: "ca-es"},
                     {data: "pt-pt"}
                 ];
-            });
-            it('should add literals', function () {
-                var data = [
+                data = [
                     {
                         Id: "id1", Key: "key1",
-                        LanguageValues: [
-                            {Value: "es1"},
-                            {Value: "enus1"},
-                            {Value: "caes1"},
-                            {Value: "pt1"}
-                        ]
+                        LanguageValues: {
+                            "es-es": "es1",
+                            "en-us": "enus1",
+                            "ca-es": "caes1"
+                        }
                     },
                     {
                         Id: "id2", Key: "key2",
-                        LanguageValues: [
-                            {Value: "es2"},
-                            {Value: "enus2"},
-                            {Value: "caes2"},
-                            {Value: "pt2"}
-                        ]
+                        LanguageValues: {
+                            "es-es": "es2",
+                            "en-us": "enus2",
+                            "ca-es": "caes2",
+                            "pt-pt": "pt2"
+                        }
                     }
                 ];
                 sut.table = {rows: {
@@ -87,32 +96,22 @@ define([
                         draw:function(){}
                     })
                 }};
+            });
+            it('should add literals', function () {
                 sut.onLiteralsRequestSuccess({data: data});
-
                 expect(sut.table.rows.add).toHaveBeenCalled();
                 var add_args = sut.table.rows.add.calls.mostRecent().args[0];
                 expect(add_args[0].Id).toBe("id1");
                 expect(add_args[1].Key).toBe("key2");
                 expect(add_args[0]["es-es"]).toBe("es1");
             });
-            /*it('should fill the language gaps when there are less values than languages', function () {
-                var data = [
-                    {
-                        Id: "id1",
-                        Key: "key1",
-                        LanguageValues: [
-                            {Value: "es1"},
-                            {Value: "enus1"}
-                        ]
-                    }
-                ];
-
-                spyOn(sut.table.rows, "add");
+            it('should fill the language gaps when there are less values than languages', function () {
                 sut.onLiteralsRequestSuccess({data: data});
-
-                var add_args = sut.table.rows.add.calls.mostRecent().args;
-                expect(add_args[0].LanguageValues[3]).toBe({Value:"pt2"});
-            });*/
+                expect(sut.table.rows.add).toHaveBeenCalled();
+                var add_args = sut.table.rows.add.calls.mostRecent().args[0];
+                expect(add_args[0]["pt-pt"]).toBeDefined();
+                expect(add_args[0]["pt-pt"]).toBe("");
+            });
         });
 
         describe('onLiteralsRequestError', function () {

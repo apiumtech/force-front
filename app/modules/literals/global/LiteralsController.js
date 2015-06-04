@@ -1,7 +1,8 @@
 define([
 	'app',
 	'modules/literals/global/LiteralsView',
-	'modules/literals/shared/table/LiteralsTableController'
+	'modules/literals/shared/table/LiteralsTableController',
+	'modules/literals/shared/search/LiteralsSearchController'
 ], function(app, LiteralsView) {
 	'use strict';
 

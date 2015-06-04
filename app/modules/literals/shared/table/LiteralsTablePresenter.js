@@ -17,7 +17,7 @@ define([
 			self.eventBus.fireColumnsRequest();
 		};
 
-        view.event.fireLiteralsRequest= function() {
+        view.event.fireLiteralsRequest = function() {
 			self.eventBus.fireLiteralsRequest();
 		};
 

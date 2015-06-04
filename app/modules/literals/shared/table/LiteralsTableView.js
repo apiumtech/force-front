@@ -3,8 +3,9 @@ define([
 	,'modules/literals/shared/table/LiteralsTablePresenter'
 	,'modules/literals/shared/table/LiteralsTableModel'
 	,'shared/services/DataTableService'
-	,'shared/services/SimpleTemplateParser'
-], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser) {
+	,'shared/services/SimpleTemplateParser',
+    'jquery'
+], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $) {
 	'use strict';
 
 	function LiteralsTableView(scope, model, presenter, compile, dataTableService, templateParser) {
@@ -85,10 +86,10 @@ define([
             row.$ref = obj;
             row.Id = obj.Id;
             row.Key = obj.Key;
-            self.languages.forEach(function (lang, index) {
+            self.languages.forEach(function (lang) {
                 var langData = "";
-                if( obj.LanguageValues[index] !== undefined ) {
-                    langData = obj.LanguageValues[index].Value;
+                if( obj.LanguageValues[lang.data] !== undefined ) {
+                    langData = obj.LanguageValues[lang.data];
                 }
                 row[lang.data] = langData;
             });
@@ -101,7 +102,6 @@ define([
         this.table.rows.add(data).draw();
     };
     proto.onLiteralsRequestError = function(err) {
-        console.log("onLiteralsRequestError " + err);
         this.data.currentError = err;
     };
 
