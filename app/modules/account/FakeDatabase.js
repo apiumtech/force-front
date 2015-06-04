@@ -211,8 +211,8 @@ define([], function () {
             }
         });
 
-        console.log(this.currentEnvironment);
-        console.log(env);
+
+
     };
 
     FakeDatabase.prototype.getAvailableEnvironment = function (nameFilter) {

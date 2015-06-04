@@ -101,7 +101,7 @@ define([
     };
 
     ReportView.prototype.openFirstTabForOpeningFolder = function () {
-        console.log("open folder command received");
+
         var self = this;
         self.openingFolder = true;
         self.firstTabActivated = true;

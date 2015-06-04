@@ -123,7 +123,7 @@ var requireConf = {
 
         //region Jquery & stuffs
         'jquery': {
-            exports: 'jquery'
+            exports: 'jquery',
         },
 
         'jquery_migrate': {
@@ -131,7 +131,8 @@ var requireConf = {
         },
 
         'jquery_ui': {
-            deps: ['jquery', 'jquery_migrate']
+            deps: ['jquery', 'jquery_migrate'],
+            exports: 'jquery_ui'
         },
 
         'slimscroll': {
@@ -139,7 +140,8 @@ var requireConf = {
         },
 
         'bootstrap': {
-            deps: ['jquery', 'jquery_migrate', 'jquery_ui']
+            deps: ['jquery', 'jquery_migrate', 'jquery_ui'],
+            exports: 'bootstrap'
         },
 
         'datatables': {

@@ -61,12 +61,12 @@ define([
     });
 
     BaseView.prototype.show = function () {
-        if (this.presenter)
+        if (this.presenter && this.presenter.show)
             this.presenter.show(this, this.model);
     };
 
     BaseView.prototype.showError = function (error) {
-        if (this.presenter)
+        if (this.presenter && this.presenter.showError)
             this.presenter.showError(error);
     };
 

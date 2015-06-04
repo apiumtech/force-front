@@ -81,14 +81,12 @@ define([
                 });
             });
 
-            describe('view.event.getParameters', function () {
-                it("should call getParameters from model", function () {
+            describe('view.event.getParameterConfiguration', function () {
+                it("should call getParameterConfiguration from model", function () {
                     var reportId = 123;
-                    var response={};
                     var callback = sinon.stub();
-                    mockModel.getParameters.returns(exerciseFakeOkPromiseWithArg(response));
-                    view.event.getParameters(reportId, callback);
-                    expect(callback).toHaveBeenCalledWith(response);
+                    view.event.getParameterConfiguration(reportId, callback);
+                    expect(mockModel.getParameterConfiguration).toHaveBeenCalledWith(reportId, callback);
                 });
             });
 

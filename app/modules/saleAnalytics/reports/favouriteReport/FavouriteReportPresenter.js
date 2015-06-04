@@ -14,7 +14,7 @@ define([
 		this.view = view;
 
 		view.event.onLoadReports = function () {
-			console.log("loading reports");
+
 			self.model._getReports()
 				.then(view.onReportsLoaded.bind(view), view.showError.bind(view));
 		};

@@ -23,7 +23,7 @@ define([
     };
 
     TableWidgetPresenter.prototype.showError = function (error) {
-        console.log(error);
+
     };
 
     TableWidgetPresenter.prototype.show = function (view) {

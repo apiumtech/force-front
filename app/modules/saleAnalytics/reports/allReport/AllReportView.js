@@ -61,7 +61,6 @@ define([
         });
 
         self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
-        console.log("Opened folder. New tree: ", self.reports);
     };
 
     AllReportView.prototype.showError = function (error) {

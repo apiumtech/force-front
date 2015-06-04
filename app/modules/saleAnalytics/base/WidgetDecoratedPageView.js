@@ -62,7 +62,7 @@ define([
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoadFail = function (error) {
-        console.log(error);
+
     };
 
     return WidgetDecoratePageView;

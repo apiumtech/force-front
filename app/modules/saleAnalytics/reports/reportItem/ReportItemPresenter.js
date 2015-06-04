@@ -25,8 +25,8 @@ define([
             self.model.toggleFavouriteReport(reportId);
         };
 
-        view.event.getParameters = function(reportId, callback){
-            self.model.getParameters(reportId).then(callback);
+        view.event.getParameterConfiguration = function(reportId, callback){
+            self.model.getParameterConfiguration(reportId, callback);
         };
 
         view.event.getReportURL = function(report, callback){

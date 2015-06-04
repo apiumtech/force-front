@@ -22,7 +22,30 @@ define([
 			});
 		});
 
+		describe('getParameterConfiguration', function () {
+			it("should call getParameterConfiguration from ReportService", function () {
+				var reportId = 123;
+				var response = {};
+				var callback = sinon.stub();
+				reportService.getParameterConfiguration.returns(exerciseFakeOkPromiseWithArg(response));
+				sut.getParameterConfiguration(reportId, callback);
+				expect(callback).toHaveBeenCalledWith(response);
+			});
+		});
 
+		describe('getReportURL', function () {
+			it("should call getReportURL from ReportService", function () {
+				var report = {
+					id: 123,
+					name: "report 01"
+				};
+				var response = {};
+				var callback = sinon.stub();
+				reportService.getReportURL.returns(exerciseFakeOkPromiseWithArg(response));
+				sut.getReportURL(report, callback);
+				expect(callback).toHaveBeenCalledWith(response);
+			});
+		});
 
 	});
 });

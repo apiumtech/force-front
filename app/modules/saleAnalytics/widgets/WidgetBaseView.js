@@ -16,11 +16,11 @@ define([
 
         var self = this;
         this.event.onDateFilterApplied = function (filterValue) {
-            console.log(self);
+
             throw new Error("NotImplementedException");
         };
         this.event.onUsersFilterApplied = function (filterValue) {
-            console.log(self);
+
             throw new Error("NotImplementedException");
         };
 

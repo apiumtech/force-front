@@ -29,37 +29,44 @@
             <!-- end col-8 -->
 
             <!-- begin activity panel -->
-            <div class="col-md-12 drag-and-drop">
-                <account-detail-activity account-id="accountData.id">
-                </account-detail-activity>
+            <div class="col-md-12 drag-and-drop" as-sortable>
+                <div as-sortable-item>
+                    <account-detail-activity account-id="accountData.id">
+                    </account-detail-activity>
+                </div>
             </div>
 
             <!-- end activity panel -->
 
 
             <!-- begin col-4 -->
-            <div class="col-md-6 drag-and-drop">
+            <div class="col-md-6 drag-and-drop" as-sortable>
                 <!-- begin calendar-->
-
-                <account-detail-agenda account-id="accountData.id">
-                </account-detail-agenda>
+                <div as-sortable-item>
+                    <account-detail-agenda account-id="accountData.id">
+                    </account-detail-agenda>
+                </div>
 
                 <!-- end calendar-->
             </div>
 
 
             <!-- begin col-4 -->
-            <div class="col-md-6 drag-and-drop">
-                <account-detail-opportunity account-id="accountData.id">
-                </account-detail-opportunity>
+            <div class="col-md-6 drag-and-drop" as-sortable>
+                <div as-sortable-item>
+                    <account-detail-opportunity account-id="accountData.id">
+                    </account-detail-opportunity>
+                </div>
             </div>
             <!-- end col-4 -->
 
             <!-- begin documents -->
             <!-- begin documents panel -->
-            <div class="col-md-12 drag-and-drop">
-                <account-detail-documents account-id="accountData.id">
-                </account-detail-documents>
+            <div class="col-md-12 drag-and-drop" as-sortable>
+                <div as-sortable-item>
+                    <account-detail-documents account-id="accountData.id">
+                    </account-detail-documents>
+                </div>
             </div>
 
             <!-- end documents panel -->

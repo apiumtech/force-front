@@ -37,6 +37,10 @@ define([
 		};
 	};
 
+	PreviewDialogView.prototype.validateParameterInput = function(){
+
+	};
+
 	PreviewDialogView.newInstance = function ($scope, $modalInstance, $viewRepaintAspect, $logErrorAspect) {
 		var previewDialogView = new PreviewDialogView($scope, $modalInstance);
 		return previewDialogView._injectAspects($viewRepaintAspect, $logErrorAspect);

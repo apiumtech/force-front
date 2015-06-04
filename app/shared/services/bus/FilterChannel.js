@@ -30,7 +30,6 @@ define([
     };
 
     FilterChannel.prototype.sendViewChangedSignal = function (view) {
-        console.log("signal", view);
         this.send({
             viewChanged: true,
             value: view
