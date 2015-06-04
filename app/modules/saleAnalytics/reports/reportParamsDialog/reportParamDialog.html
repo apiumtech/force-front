@@ -15,67 +15,72 @@
             <label class="col-md-2 control-label">{{paramConfig.label}}</label>
 
             <div class="col-md-10 ui-widget">
-            <input class="form-control"
-                   ng-model="report.params[paramConfig.id]"
-                   autocomplete="http://somewhere.api/backend/api/whatever"/>
+                <input class="form-control"
+                       ng-model="report.params[paramConfig.id]"
+                       autocomplete="http://somewhere.api/backend/api/whatever"/>
+            </div>
         </div>
+
+        <div class="form-group" ng-if="paramConfig.type == 'selectbox'">
+            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+
+            <div class="col-md-10">
+                <select class="form-control" ng-model="report.params[paramConfig.id]"
+                        ng-init="report.params[paramConfig.id] = paramConfig.value[0].key">
+                    <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="paramConfig.type == 'range'">
+            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+
+            <div class="col-md-10">
+                <div class="col-md-12"
+                     value-range min="10"
+                     max="100"
+                     ng-model="report.params[paramConfig.id]"
+                     min-value="from" max-value="to"></div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-md-5 col-md-push-2">
+                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.id].from"/>
+            </div>
+            <div class="col-md-5 col-md-push-2">
+                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.id].to"/>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="paramConfig.type == 'date'">
+            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+
+            <div class="col-md-10">
+                <force-date-picker year-range="150" date-format="{{config.shortDateFormat.default}}">
+                    <input type="text" class="form-control"
+                           ng-model="report.params[paramConfig.id]"/>
+                </force-date-picker>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="paramConfig.type == 'date_range'">
+            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+
+            <div class="col-md-5">
+                <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
+                    <input type="text" class="form-control"
+                           ng-model="report.params[paramConfig.id].from"/>
+                </force-date-picker>
+            </div>
+            <div class="col-md-5">
+                <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
+                    <input type="text" class="form-control"
+                           ng-model="report.params[paramConfig.id].to"/>
+                </force-date-picker>
+            </div>
+        </div>
+
     </div>
-
-    <div class="form-group" ng-if="paramConfig.type == 'selectbox'">
-        <label class="col-md-2 control-label">{{paramConfig.label}}</label>
-
-        <div class="col-md-10">
-            <select class="form-control" ng-model="report.params[paramConfig.id]"
-                    ng-init="report.params[paramConfig.id] = paramConfig.value[0].key">
-                <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.name}}</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group" ng-if="paramConfig.type == 'range'">
-        <label class="col-md-2 control-label">{{paramConfig.label}}</label>
-
-        <div class="col-md-5">
-            <input class="form-control"
-                   ng-model="report.params[paramConfig.id].from"
-                   autocomplete="http://somewhere.api/backend/api/whatever"/>
-        </div>
-        <div class="col-md-5">
-            <input class="form-control"
-                   ng-model="report.params[paramConfig.id].to"
-                   autocomplete="http://somewhere.api/backend/api/whatever"/>
-        </div>
-    </div>
-
-    <div class="form-group" ng-if="paramConfig.type == 'date'">
-        <label class="col-md-2 control-label">{{paramConfig.label}}</label>
-
-        <div class="col-md-10">
-            <force-date-picker year-range="150" date-format="{{config.shortDateFormat.default}}">
-                <input type="text" class="form-control"
-                       ng-model="report.params[paramConfig.id]"/>
-            </force-date-picker>
-        </div>
-    </div>
-
-    <div class="form-group" ng-if="paramConfig.type == 'date_range'">
-        <label class="col-md-2 control-label">{{paramConfig.label}}</label>
-
-        <div class="col-md-5">
-            <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
-                <input type="text" class="form-control"
-                       ng-model="report.params[paramConfig.id].from"/>
-            </force-date-picker>
-        </div>
-        <div class="col-md-5">
-            <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
-                <input type="text" class="form-control"
-                       ng-model="report.params[paramConfig.id].to"/>
-            </force-date-picker>
-        </div>
-    </div>
-
-</div>
 </div>
 <div class="modal-footer">
 
