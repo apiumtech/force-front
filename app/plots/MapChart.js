@@ -63,6 +63,9 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
         var decoratedData = self.decorateHeatMapData(data);
         decoratedData.forEach(function (c) {
+            if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90)
+                return;
+
             var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude)),
                 coordWeight = {
                     location: coord,
@@ -154,6 +157,9 @@ define([
 
 
     MapChart.prototype.getLatLng = function (lat, lng) {
+        if (Math.abs(lat) > 180 || Math.abs(lng) > 90) {
+            return this.mapService.getLatLng(0, 0);
+        }
         return this.mapService.getLatLng(lat, lng);
     };
 
