@@ -203,7 +203,7 @@ define([
         };
 
         self.fn.applyDateFilter = function () {
-            console.log('applying date filter');
+
             self.resetDate = false;
             self.dateRangeFilterOpened = false;
             self.fn.getDatePlaceholder();

@@ -1,14 +1,11 @@
 /**
  * Created by justin on 1/23/15.
  */
-
-(function (factory) {
-    if (undefined !== window.define) {
-        define(['angular', 'jquery'], factory);
-    } else {
-        factory(window.angular, window.jQuery);
-    }
-})(function (angular, $) {
+define([
+    'angular',
+    'jquery',
+    'jquery_ui'
+], function (angular, $) {
     'use strict';
 
     var movingWidgetKey = "movingWidget";
@@ -25,6 +22,7 @@
                 $scope.element = null;
 
                 $scope.fireDragStart = function (event, ui) {
+                    console.log("drag start");
                     if (!$scope.widgetDragStart) return;
 
                     $scope.widgetDragStart({
@@ -77,6 +75,7 @@
                     controller: 'ui.sortable.sortableController',
                     link: function (scope, element, attrs) {
                         scope.element = element;
+                        console.log("asSortable activated");
 
                         $(scope.element).sortable({
                             connectWith: '[as-sortable]',
@@ -87,6 +86,8 @@
                             stop: scope.fireDragStop,
                             update: scope.fireSorted
                         }).disableSelection();
+
+                        console.log($(scope.element));
                     }
                 };
             }

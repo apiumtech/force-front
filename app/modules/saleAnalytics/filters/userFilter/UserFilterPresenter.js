@@ -10,7 +10,7 @@ define([
     UserFilterPresenter.inherits(Object, {});
 
     UserFilterPresenter.prototype.showError = function (error) {
-        console.log(error);
+
     };
 
     UserFilterPresenter.prototype.show = function (view) {

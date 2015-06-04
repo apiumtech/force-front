@@ -6,7 +6,7 @@ define([
 
     function PreviewDialogController($scope, $modalInstance, report) {
         $scope.report = report;
-        console.log("Opening report: ", report);
+
         PreviewDialogController.configureView($scope, $modalInstance);
     }
 

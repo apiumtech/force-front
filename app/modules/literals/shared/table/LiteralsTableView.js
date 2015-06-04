@@ -101,7 +101,7 @@ define([
         this.table.rows.add(data).draw();
     };
     proto.onLiteralsRequestError = function(err) {
-        console.log("onLiteralsRequestError " + err);
+
         this.data.currentError = err;
     };
 

@@ -97,7 +97,7 @@ define([
         self.fn.sendFolderReportOpenCommand = function (item) {
             if (!self.fireOpenFolder || item.type !== 'folder') return;
             var folderId = item.id;
-            console.log("sending open folder command", item);
+
             self.reportEventBus.fireFolderReportSelected(folderId);
         };
 
@@ -164,7 +164,7 @@ define([
         };
 
         self.fn.openParamsDialog = function (callback) {
-            console.log('opening param dialog');
+
             var paramDialog = self.modalService.open({
                 templateUrl: 'app/modules/saleAnalytics/reports/reportParamsDialog/reportParamDialog.html',
                 backdrop: 'static',
@@ -240,7 +240,7 @@ define([
 
     ReportItemView.prototype.onParameterSetForPreview = function(data){
         var self = this;
-        console.log(data);
+
         self.report.params = data.params;
         self.fn.openPreviewDialog();
     };

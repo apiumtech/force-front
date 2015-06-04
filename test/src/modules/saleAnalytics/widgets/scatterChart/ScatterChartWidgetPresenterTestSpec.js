@@ -12,7 +12,6 @@ define([
 
         beforeEach(function () {
             model = mock(ScatterChartWidgetModel);
-            console.log("init model", model);
             sut = new ScatterChartWidgetPresenter(model);
         });
 

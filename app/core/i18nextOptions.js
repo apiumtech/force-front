@@ -31,7 +31,7 @@ define([
                     };
                     $.ajax(params).then(
                         function (data) {
-                            console.log(data);
+
                             loadComplete(null, data);
                         },
                         function (err) {

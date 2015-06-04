@@ -55,7 +55,7 @@ define([
     };
 
     ReportTabBaseView.prototype.onReloadWidgetSuccess = function (data) {
-        console.log("logging data", data);
+
         var self = this;
         self.reports = data;
     };

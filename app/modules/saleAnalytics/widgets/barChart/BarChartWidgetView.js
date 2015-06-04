@@ -142,7 +142,7 @@ define([
     };
 
     BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-        console.log("Widget moved to new position");
+
     };
 
     BarChartWidgetView.prototype.onMoveWidgetError = function (error) {
