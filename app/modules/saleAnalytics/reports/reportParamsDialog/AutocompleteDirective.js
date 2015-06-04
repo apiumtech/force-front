@@ -10,14 +10,14 @@ define([
     'use strict';
 
     function AutocompleteDirective(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        var self = this;
+        ajaxService = ajaxService || new AjaxService();
 
-        self.linkElement = function (scope, $element, $attr) {
+
+        var linkElement = function (scope, $element, $attr) {
             var url = $attr.autocomplete;
 
             scope.getAutocompleteOption = function (request, response) {
-                self.ajaxService.rawAjaxRequest({
+                ajaxService.rawAjaxRequest({
                     result: [{
                         id: 1,
                         label: "param1",
@@ -53,7 +53,7 @@ define([
 
         return {
             restrict: "EA",
-            link: self.linkElement
+            link: linkElement
         };
     }
 

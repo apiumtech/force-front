@@ -34,9 +34,19 @@ define([
                         label: 'Account'
                     },
                     {
-                        id: 'report_name',
-                        type: 'textbox',
-                        label: 'Report'
+                        id: 'age',
+                        type: 'range',
+                        label: 'Age'
+                    },
+                    {
+                        id: 'birthday',
+                        type: 'date',
+                        label: 'Birthday'
+                    },
+                    {
+                        id: 'report_date',
+                        type: 'date_range',
+                        label: 'Report Date'
                     },
                     {
                         id: 'report_type',
