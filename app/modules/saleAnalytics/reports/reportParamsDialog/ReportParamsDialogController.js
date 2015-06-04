@@ -1,6 +1,7 @@
 define([
 	'app',
-	'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogView'
+	'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogView',
+	'modules/saleAnalytics/reports/reportParamsDialog/AutocompleteDirective'
 ], function (app, ReportParamsDialogView) {
 	'use strict';
 

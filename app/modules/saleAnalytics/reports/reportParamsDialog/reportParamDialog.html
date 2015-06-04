@@ -8,16 +8,33 @@
         </h4>
     </div>
 </div>
-<div class="modal-body form-horizontal">
-    <div ng-repeat="paramConfig in report.paramConfig">
+<div class="modal-body form-horizontal report-parameter-dialog">
+    <div ng-repeat="paramConfig in report.parameterConfigurations">
+
         <div class="form-group" ng-if="paramConfig.type == 'textbox'">
             <label class="col-md-2 control-label">{{paramConfig.label}}</label>
-
-            <div class="col-md-10"><input class="form-control" type="text"/></div>
+            <div class="col-md-10 ui-widget">
+                <input class="form-control"
+                       ng-model="report.params[paramConfig.id]"
+                       autocomplete="http://somewhere.api/backend/api/whatever" />
+            </div>
         </div>
+
+        <div class="form-group" ng-if="paramConfig.type == 'selectbox'">
+            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+            <div class="col-md-10">
+                <select class="form-control" ng-model="report.params[paramConfig.id]">
+                    <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.name}}</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 </div>
 <div class="modal-footer">
+
+    {{report}}
+
     <button class="btn btn-sm btn-white" ng-click="fn.close()">
         Cancel
     </button>

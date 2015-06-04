@@ -236,7 +236,7 @@
         font-size: 1.1em;
         color: @force_report_medium_grey;
 
-        &.favourite, &:hover{
+        &.favourite, &:hover {
           color: #ED8B00 !important;
         }
 
@@ -313,3 +313,14 @@
 }
 
 .createAccordionLevel(5);
+
+.ui-autocomplete {
+  z-index: 10000;
+  li.ui-menu-item{
+    padding: 5px 10px;
+    &.ui-state-focus{
+      background: @force_report_light_grey;
+      border: none;
+    }
+  }
+}
