@@ -26,7 +26,8 @@ define([
                 "SearchDeactivated",
                 "FolderReportSelected",
                 "PreviewReport",
-                "ToggleFavourite"
+                "ToggleFavourite",
+                "ReportIsInProgress"
             ];
 
             var sut;

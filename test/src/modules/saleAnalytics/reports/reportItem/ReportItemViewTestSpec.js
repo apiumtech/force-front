@@ -203,6 +203,21 @@ define([
 
             });
 
+            describe('eventBus eventListener', function () {
+                it("should set eventListener to eventbus", function () {
+                    sinon.stub(sut, 'onOtherReportInProgressStateChange');
+                    spyOn(eventBus, 'onReportIsInProgress').and.callFake(function (eventListener) {
+                        eventBus.fireReportIsInProgress = function () {
+                            eventListener();
+                        }
+                    });
+                    sut.configureEvents();
+                    expect(eventBus.onReportIsInProgress).toHaveBeenCalled();
+                    eventBus.fireReportIsInProgress();
+                    expect(sut.onOtherReportInProgressStateChange).toHaveBeenCalled();
+                });
+            });
+
             describe('item actions fn: preview, send, download', function () {
                 beforeEach(function () {
                     sut.event = {
@@ -228,6 +243,10 @@ define([
                     }
                 ].forEach(function (test) {
                         describe('fn.' + test.method, function () {
+                            it("should switch inprogress to true to block further actions and show loading indicator", function () {
+                                sut.fn[test.method]();
+                                expect(sut.inProgress).toBeTruthy();
+                            });
                             it("should set currentActionForEmptyParameters to ", function () {
                                 spyOn(sut, test.haveNoParameterMethod);
                                 sut.fn[test.method]();
@@ -307,13 +326,14 @@ define([
         });
 
         describe('getParameterConfiguration', function () {
-            it("should call view.event.getParameterConfiguration function and return the result to onParameterConfigurationLoaded", function () {
+            var response;
+            beforeEach(function () {
                 sut.$scope.report = {
                     id: 123,
                     name: "123456",
                     description: "description_blahblah"
                 };
-                var response = {someFakeParameters: 123};
+                response = {someFakeParameters: 123};
                 sut.event = {
                     getParameterConfiguration: function () {
                     }
@@ -323,6 +343,11 @@ define([
                 });
                 sinon.stub(sut, 'onParameterConfigurationLoaded');
                 sut.getParameterConfiguration();
+            });
+            it("should fire reportIsInProgress to eventbus with id and true", function () {
+                expect(eventBus.fireReportIsInProgress).toHaveBeenCalledWith(123, true);
+            });
+            it("should call view.event.getParameterConfiguration function and return the result to onParameterConfigurationLoaded", function () {
                 expect(sut.event.getParameterConfiguration).toHaveBeenCalledWith(123, jasmine.any(Function));
                 expect(sut.onParameterConfigurationLoaded).toHaveBeenCalledWith(response);
             });
@@ -339,7 +364,7 @@ define([
                 sut.currentActionForParameters = sinon.stub();
             });
 
-            it("should set the passed params to report's params", function () {
+            function exerciseTestOnLoadedConfiguration() {
                 var data = {
                     params: [
                         {
@@ -351,6 +376,11 @@ define([
                     ]
                 };
                 sut.onParameterConfigurationLoaded(data);
+                return data;
+            }
+
+            it("should set the passed params to report's params", function () {
+                var data = exerciseTestOnLoadedConfiguration();
                 expect(sut.$scope.report.parameterConfigurations).toEqual(data.params);
             });
 
@@ -376,6 +406,15 @@ define([
                 });
             });
 
+            it("should switch inprogress to false to unblock further actions and hide loading indicator", function () {
+                exerciseTestOnLoadedConfiguration();
+                expect(sut.inProgress).toBeFalsy();
+            });
+
+            it("should fire ReportInProgress event to event bus with current report id and false", function () {
+                exerciseTestOnLoadedConfiguration();
+                expect(eventBus.fireReportIsInProgress).toHaveBeenCalledWith(sut.report.id, false);
+            });
         });
 
         describe('configureParameters', function () {
@@ -398,7 +437,7 @@ define([
                     }
                 };
                 scope.$modal.open.returns(paramDialog);
-                spyOn(sut, 'openParamsDialog').and.callFake(function(b){
+                spyOn(sut, 'openParamsDialog').and.callFake(function (b) {
                     b(promise);
                 });
                 spyOn(sut, 'onParameterSet');
@@ -453,5 +492,32 @@ define([
             });
         });
 
+
+        describe('onOtherReportInProgressStateChange', function () {
+            beforeEach(function () {
+                sut.$scope.report = {
+                    id: 2002
+                };
+            });
+
+            describe('current report change', function () {
+                it("should not change current state", function () {
+                    sut.otherReportInProgress = false;
+                    sut.onOtherReportInProgressStateChange(2002, true);
+                    expect(sut.otherReportInProgress).toBeFalsy();
+                });
+            });
+
+            describe('not current report change', function () {
+                it("should change current state with state from input", function () {
+                    sut.otherReportInProgress = false;
+                    sut.onOtherReportInProgressStateChange(2003, true);
+                    expect(sut.otherReportInProgress).toBeTruthy();
+                    // in truthy state already
+                    sut.onOtherReportInProgressStateChange(2003, false);
+                    expect(sut.otherReportInProgress).toBeFalsy();
+                });
+            });
+        });
     });
 });
