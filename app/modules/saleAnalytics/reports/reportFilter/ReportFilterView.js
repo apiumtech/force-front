@@ -2,7 +2,7 @@ define([
     'shared/BaseView',
     'modules/saleAnalytics/reports/ReportEventBus',
     'modules/saleAnalytics/reports/reportFilter/ReportFilterPresenter'
-], function (BaseView, ReportEventBus, ReportFilterPresenter) {
+], function (BaseView, ReportEventBus) {
     'use strict';
 
     function ReportFilterView($scope, $presenter) {

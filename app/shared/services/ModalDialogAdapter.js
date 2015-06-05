@@ -23,6 +23,12 @@ define([
         return modalInstance;
     };
 
+    ModalDialogAdapter.prototype.open = function (conf) {
+        var modalInstance = this.modalService.open(conf);
+
+        return modalInstance;
+    };
+
     ModalDialogAdapter.prototype.confirm = function (title, message,
                                                      onConfirmed, onCancelled,
                                                      okButtonTitle, cancelButtonTitle,
@@ -60,7 +66,7 @@ define([
     };
 
     ModalDialogAdapter.prototype.notify = function (title, message,
-                                                     resolveObject) {
+                                                    resolveObject) {
 
         var resolve = _.extend(resolveObject || {}, {
             title: function () {
