@@ -13,8 +13,7 @@ define([
         this.originalName = "";
         this.originalDescription = "";
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
-        var modalService = $scope.$modal;
-        this.modalService = modalService;
+        this.modalService = $scope.$modal;
         this.configureEvents();
     }
 
@@ -70,6 +69,22 @@ define([
             },
             set: function (value) {
                 this.$scope.selectedReportType = value;
+            }
+        },
+        inProgress: {
+            get: function () {
+                return this.$scope.inProgress;
+            },
+            set: function (value) {
+                this.$scope.inProgress = value;
+            }
+        },
+        otherReportInProgress: {
+            get: function () {
+                return this.$scope.otherReportInProgress;
+            },
+            set: function (value) {
+                this.$scope.otherReportInProgress = value;
             }
         }
     });
@@ -136,6 +151,7 @@ define([
         };
 
         self.fn.preview = function () {
+            self.inProgress = true;
             self.currentActionForEmptyOrAssignedParameters = function () {
                 self.previewReport.call(self);
             };
@@ -146,6 +162,8 @@ define([
         };
 
         self.fn.send = function () {
+            self.inProgress = true;
+
             self.currentActionForEmptyOrAssignedParameters = function () {
                 self.sendReport.call(self);
             };
@@ -156,6 +174,8 @@ define([
         };
 
         self.fn.download = function () {
+            self.inProgress = true;
+
             self.currentActionForEmptyOrAssignedParameters = function () {
                 self.downloadReport.call(self);
             };
@@ -164,6 +184,14 @@ define([
             };
             self.getParameterConfiguration();
         };
+
+        self.reportEventBus.onReportIsInProgress(self.onOtherReportInProgressStateChange.bind(self));
+    };
+
+    ReportItemView.prototype.onOtherReportInProgressStateChange = function (reportId, state) {
+        var self = this;
+        if (reportId === self.report.id) return;
+        self.otherReportInProgress = state;
     };
 
     ReportItemView.prototype.onSaveNameSuccess = function (data) {
@@ -206,6 +234,7 @@ define([
 
     ReportItemView.prototype.getParameterConfiguration = function () {
         var self = this;
+        self.reportEventBus.fireReportIsInProgress(self.report.id, true);
         self.event.getParameterConfiguration(self.report.id, self.onParameterConfigurationLoaded.bind(self));
     };
 
@@ -218,6 +247,8 @@ define([
         else {
             self.currentActionForParameters(data.params);
         }
+        self.inProgress = false;
+        self.reportEventBus.fireReportIsInProgress(self.report.id, false);
     };
 
     ReportItemView.prototype.configureParameters = function (parameterConfigurations) {

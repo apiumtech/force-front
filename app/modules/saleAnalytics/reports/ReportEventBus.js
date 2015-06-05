@@ -72,6 +72,13 @@ define([
     ReportEventBus.prototype.unsubscribePreviewReport = function () {
     };
 
+    ReportEventBus.prototype.onReportIsInProgress = function () {
+    };
+    ReportEventBus.prototype.fireReportIsInProgress = function () {
+    };
+    ReportEventBus.prototype.unsubscribeReportIsInProgress = function () {
+    };
+
     ReportEventBus.getInstance = function () {
         if (ReportEventBus.__instance) {
             return ReportEventBus.__instance;

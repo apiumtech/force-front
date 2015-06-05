@@ -1,4 +1,7 @@
 <div class="row">
+    <span class="panel-loader" ng-show="inProgress">
+        <i class="spinner"></i>
+    </span>
     <div class="col-md-7">
 
         <div class="form-inline name-form clearfix">
@@ -70,9 +73,9 @@
             <span class="reportType m-r-4"
                   ng-if="report.reportType && report.reportType.length == 1">{{selectedReportType}}</span>
 
-            <button class="btn btn-default" ng-click="fn.preview()">View</button>
-            <button class="btn btn-default" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>
-            <button class="btn btn-default" ng-click="fn.send()"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>
+            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>
+            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.send()"><i class="fa fa-paper-plane"></i></button>
 
         </div>
     </div>
