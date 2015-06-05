@@ -129,5 +129,36 @@ define([
                 expect(sut.eventBus.fireLiteralsRequestError).toHaveBeenCalled();
             });
         });
+
+        /*describe('onLiteralsSearch', function () {
+            var sut, view, model;
+            beforeEach(function () {
+                sut = exerciseCreatePresenter();
+                view = {event: {}};
+                model = {};
+                model.setSearchTerms = function(){};
+                model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakePromise());
+                sut.show(view, model);
+            });
+
+            it("should be called after fireLiteralsSearch", function () {
+                spyOn(sut, "onLiteralsSearch");
+                sut.eventBus.fireLiteralsSearch("hello");
+                expect(sut.onLiteralsSearch).toHaveBeenCalledWith("hello");
+            });
+
+            it("should set model's searchTerms", function () {
+                spyOn(sut.model, "setSearchTerms");
+                sut.onLiteralsSearch("bye");
+                expect(sut.model.setSearchTerms).toHaveBeenCalledWith("bye");
+            });
+
+            it("should trigger a literals request", function () {
+                spyOn(sut, "onLiteralsRequest");
+                sut.onLiteralsSearch("hello goodbye");
+                expect(sut.onLiteralsRequest).toHaveBeenCalled();
+            });
+        });*/
+
     });
 });

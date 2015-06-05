@@ -19,12 +19,13 @@ define([
 
 		describe("construct", function () {
 			var events = [
-				"ColumnsRequest",
+				"ColumnsRequest"
                 ,"ColumnsRequestSuccess"
 				,"ColumnsRequestError"
                 ,"LiteralsRequest"
                 ,"LiteralsRequestSuccess"
                 ,"LiteralsRequestError"
+				,"LiteralsSearch"
 			];
 
 			var sut;
