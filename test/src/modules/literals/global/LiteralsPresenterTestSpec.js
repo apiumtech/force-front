@@ -1,10 +1,12 @@
 define([
-    'modules/literals/global/LiteralsPresenter'
-], function (LiteralsPresenter) {
+    'modules/literals/global/LiteralsPresenter',
+    'modules/literals/shared/LiteralsEventBus'
+], function (LiteralsPresenter, LiteralsEventBus) {
     'use strict';
 
     function exerciseCreatePresenter() {
-        return LiteralsPresenter.newInstance();
+        var mockEventBus = mock(LiteralsEventBus);
+        return LiteralsPresenter.newInstance(mockEventBus);
     }
 
     describe('LiteralsPresenter', function () {
@@ -56,6 +58,11 @@ define([
                 sut = exerciseCreatePresenter();
                 view = {event: {}};
                 model = {};
+                spyOn(sut.eventBus, "onColumnsRequest").and.callFake(function(callbackMethod){
+                    sut.eventBus.fireColumnsRequest = function() {
+                        callbackMethod();
+                    };
+                });
             });
             it('should be subscribed to eventBus.onColumnsRequest', function () {
                 spyOn(sut, "onColumnsRequest");
@@ -94,26 +101,28 @@ define([
                 sut = exerciseCreatePresenter();
                 view = {event: {}};
                 model = {};
+                spyOn(sut.eventBus, "onLiteralsRequest").and.callFake(function(callbackMethod){
+                    sut.eventBus.fireLiteralsRequest = function() {
+                        callbackMethod();
+                    };
+                });
             });
 
-            // not working, why?
-            xit('should be subscribed to eventBus.onLiteralsRequest', function () {
+            it('should be subscribed to eventBus.onLiteralsRequest', function () {
+                spyOn(sut, "onLiteralsRequest");
                 sut.show(view, model);
-                spyOn(sut, "onLiteralsRequest");// spy not spying ??
                 sut.eventBus.fireLiteralsRequest();
                 expect(sut.onLiteralsRequest).toHaveBeenCalled();
             });
 
-            // not working, why?
-            xit("should call model's onLiteralsRequest", function () {
+            it("should call model's onLiteralsRequest", function () {
                 model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
                 sut.show(view, model);
                 sut.eventBus.fireLiteralsRequest();
                 expect(model.onLiteralsRequest).toHaveBeenCalled();
             });
 
-            // not working, why?
-            xit("should call fireLiteralsRequestSuccess onLiteralsRequest success", function () {
+            it("should call fireLiteralsRequestSuccess onLiteralsRequest success", function () {
                 model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
                 sut.show(view, model);
                 spyOn(sut.eventBus, "fireLiteralsRequestSuccess");
@@ -130,35 +139,43 @@ define([
             });
         });
 
-        /*describe('onLiteralsSearch', function () {
+        describe('onLiteralsSearch', function () {
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
                 view = {event: {}};
-                model = {};
-                model.setSearchTerms = function(){};
-                model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakePromise());
-                sut.show(view, model);
+                model = {
+                    setSearchTerms: function(){},
+                    onLiteralsRequest: jasmine.createSpy().and.returnValue(exerciseFakePromise())
+                };
+                spyOn(sut.eventBus, "onLiteralsSearch").and.callFake(function(callbackMethod){
+                    sut.eventBus.fireLiteralsSearch = function(param) {
+                        callbackMethod(param);
+                    };
+                });
             });
 
             it("should be called after fireLiteralsSearch", function () {
                 spyOn(sut, "onLiteralsSearch");
+                sut.show(view, model);
                 sut.eventBus.fireLiteralsSearch("hello");
                 expect(sut.onLiteralsSearch).toHaveBeenCalledWith("hello");
             });
 
             it("should set model's searchTerms", function () {
-                spyOn(sut.model, "setSearchTerms");
+                spyOn(model, "setSearchTerms");
+                sut.show(view, model);
                 sut.onLiteralsSearch("bye");
                 expect(sut.model.setSearchTerms).toHaveBeenCalledWith("bye");
             });
 
             it("should trigger a literals request", function () {
                 spyOn(sut, "onLiteralsRequest");
+                sut.show(view, model);
                 sut.onLiteralsSearch("hello goodbye");
                 expect(sut.onLiteralsRequest).toHaveBeenCalled();
             });
-        });*/
+        });
 
     });
 });
