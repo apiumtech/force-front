@@ -8,7 +8,6 @@ define([
 	}
 
     LiteralsEventBus.inherits(EventBase);
-    var proto = LiteralsEventBus.prototype;
 
 
     // ----------------------------------------------
@@ -17,17 +16,17 @@ define([
     //
     // ----------------------------------------------
 
-    proto.onColumnsRequest = function (callback) {};
-    proto.fireColumnsRequest = function () {};
-    proto.unsubscribeColumnsRequest = function () {};
+    LiteralsEventBus.prototype.onColumnsRequest = function (callback) {};
+    LiteralsEventBus.prototype.fireColumnsRequest = function () {};
+    LiteralsEventBus.prototype.unsubscribeColumnsRequest = function () {};
 
-	proto.onColumnsRequestSuccess = function (callback) {};
-    proto.fireColumnsRequestSuccess = function () {};
-    proto.unsubscribeColumnsRequestSuccess = function () {};
+	LiteralsEventBus.prototype.onColumnsRequestSuccess = function (callback) {};
+    LiteralsEventBus.prototype.fireColumnsRequestSuccess = function () {};
+    LiteralsEventBus.prototype.unsubscribeColumnsRequestSuccess = function () {};
 
-    proto.onColumnsRequestError = function (callback) {};
-    proto.fireColumnsRequestError = function () {};
-    proto.unsubscribeColumnsRequestError = function () {};
+    LiteralsEventBus.prototype.onColumnsRequestError = function (callback) {};
+    LiteralsEventBus.prototype.fireColumnsRequestError = function () {};
+    LiteralsEventBus.prototype.unsubscribeColumnsRequestError = function () {};
 
     // ----------------------------------------------
     //
@@ -35,26 +34,31 @@ define([
     //
     // ----------------------------------------------
 
-    proto.onLiteralsRequest = function (callback) {};
-    proto.fireLiteralsRequest = function () {};
-    proto.unsubscribeLiteralsRequest = function () {};
+    LiteralsEventBus.prototype.onLiteralsRequest = function (callback) {};
+    LiteralsEventBus.prototype.fireLiteralsRequest = function () {};
+    LiteralsEventBus.prototype.unsubscribeLiteralsRequest = function () {};
 
-    proto.onLiteralsRequestSuccess = function (callback) {};
-    proto.fireLiteralsRequestSuccess = function () {};
-    proto.unsubscribeLiteralsRequestSuccess = function () {};
+    LiteralsEventBus.prototype.onLiteralsRequestSuccess = function (callback) {};
+    LiteralsEventBus.prototype.fireLiteralsRequestSuccess = function () {};
+    LiteralsEventBus.prototype.unsubscribeLiteralsRequestSuccess = function () {};
 
-    proto.onLiteralsRequestError = function (callback) {};
-    proto.fireLiteralsRequestError = function () {};
-    proto.unsubscribeLiteralsRequestError = function () {};
+    LiteralsEventBus.prototype.onLiteralsRequestError = function (callback) {};
+    LiteralsEventBus.prototype.fireLiteralsRequestError = function () {};
+    LiteralsEventBus.prototype.unsubscribeLiteralsRequestError = function () {};
 
+    // ----------------------------------------------
+    //
+    //  Literals Search
+    //
+    // ----------------------------------------------
+
+    LiteralsEventBus.prototype.onLiteralsSearch = function (callback) {};
+    LiteralsEventBus.prototype.fireLiteralsSearch = function (searchTerms) {};
+    LiteralsEventBus.prototype.unsubscribeLiteralsSearch = function () {};
 
 
     LiteralsEventBus.getInstance = function () {
-		if (LiteralsEventBus.__instance) {
-			return LiteralsEventBus.__instance;
-		}
-
-		return (LiteralsEventBus.__instance = new LiteralsEventBus());
+        return LiteralsEventBus.__instance || (LiteralsEventBus.__instance = new LiteralsEventBus());
 	};
 
 	return LiteralsEventBus;

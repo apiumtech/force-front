@@ -9,33 +9,45 @@ define([
 
 
 	LiteralsPresenter.prototype.show = function (view, model) {
-		this.view = view;
-		this.model = model;
+        var self = this;
+		self.view = view;
+		self.model = model;
 
         view.event.onInit = function() {
             console.log("LiteralsPresenter ready");
         };
 
         // comes from LiteralsTableView.fireColumnsRequest
-        this.eventBus.onColumnsRequest(this.onColumnsRequest.bind(this));
+        self.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
 
         // comes from LiteralsTableView.fireLiteralsRequest
-        this.eventBus.onLiteralsRequest(this.onLiteralsRequest.bind(this));
+        self.eventBus.onLiteralsRequest(self.onLiteralsRequest.bind(self));
+
+        // comes from LiteralsSearchPresenter.fireLiteralsSearch
+        self.eventBus.onLiteralsSearch(self.onLiteralsSearch.bind(self));
 	};
 
 
     LiteralsPresenter.prototype.onColumnsRequest = function() {
-        this.model.onColumnsRequest().then(
-            this.eventBus.fireColumnsRequestSuccess.bind(this.eventBus),
-            this.eventBus.fireColumnsRequestError.bind(this.eventBus)
+        var self = this;
+        self.model.onColumnsRequest().then(
+            self.eventBus.fireColumnsRequestSuccess.bind(self.eventBus),
+            self.eventBus.fireColumnsRequestError.bind(self.eventBus)
         );
     };
 
     LiteralsPresenter.prototype.onLiteralsRequest = function() {
-        this.model.onLiteralsRequest().then(
-            this.eventBus.fireLiteralsRequestSuccess.bind(this.eventBus),
-            this.eventBus.fireLiteralsRequestError.bind(this.eventBus)
+        var self = this;
+        self.model.onLiteralsRequest().then(
+            self.eventBus.fireLiteralsRequestSuccess.bind(self.eventBus),
+            self.eventBus.fireLiteralsRequestError.bind(self.eventBus)
         );
+    };
+
+    LiteralsPresenter.prototype.onLiteralsSearch = function(searchTerms) {
+        var self = this;
+        self.model.setSearchTerms(searchTerms);
+        self.onLiteralsRequest();
     };
 
 

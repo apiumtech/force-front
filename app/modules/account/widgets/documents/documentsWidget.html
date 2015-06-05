@@ -55,8 +55,10 @@
             </tbody>
         </table>
         <div class="ui-sortable">
-            <button class="btn btn-sm btn-default uppercase btn_add_document" type="button"><i
-                    class="symb_add_owner fa ic-plus"></i> {{'Documents.AddDocument' | i18next}}
+            <button class="btn btn-sm btn-default uppercase btn_add_document"
+                    ng-click="fn.openAddDocumentDialog()"
+                    type="button">
+                <i class="symb_add_owner fa ic-plus"></i> {{'Documents.AddDocument' | i18next}}
             </button>
         </div>
     </div>

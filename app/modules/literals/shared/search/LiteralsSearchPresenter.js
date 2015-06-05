@@ -14,7 +14,11 @@ define([
 
 		view.event.onInit = function() {
 			console.log("LiteralsSearchPresenter ready");
-		};
+		}.bind(this);
+
+		view.event.performSearch = function (searchTerms) {
+			this.eventBus.fireLiteralsSearch(searchTerms);
+        }.bind(this);
 	};
 
 

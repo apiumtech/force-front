@@ -22,7 +22,6 @@ define([
                 $scope.element = null;
 
                 $scope.fireDragStart = function (event, ui) {
-                    console.log("drag start");
                     if (!$scope.widgetDragStart) return;
 
                     $scope.widgetDragStart({
@@ -75,7 +74,6 @@ define([
                     controller: 'ui.sortable.sortableController',
                     link: function (scope, element, attrs) {
                         scope.element = element;
-                        console.log("asSortable activated");
 
                         $(scope.element).sortable({
                             connectWith: '[as-sortable]',
@@ -86,8 +84,6 @@ define([
                             stop: scope.fireDragStop,
                             update: scope.fireSorted
                         }).disableSelection();
-
-                        console.log($(scope.element));
                     }
                 };
             }

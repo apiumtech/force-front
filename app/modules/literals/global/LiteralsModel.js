@@ -12,11 +12,17 @@ define([
         };
 	}
 
-    LiteralsModel.prototype.onColumnsRequest = function() {
+    var proto = LiteralsModel.prototype;
+
+    proto.setSearchTerms = function(searchTerms) {
+      return this.searchObject.searchTerms = searchTerms;
+    };
+
+    proto.onColumnsRequest = function() {
       return this.service.getLanguageList();
     };
 
-    LiteralsModel.prototype.onLiteralsRequest = function() {
+    proto.onLiteralsRequest = function() {
         return this.service.getLiteralsList({
             searchTerms: this.searchObject.searchTerms,
             skip: this.searchObject.skip,
