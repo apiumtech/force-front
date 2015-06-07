@@ -1,8 +1,12 @@
 /**
  * Created by justin on 5/22/15.
  */
+var TemplateParser = require(__dirname + '/../../.scaffolding/TemplateParser');
+
 module.exports = function (grunt) {
     'use strict';
+
+    var templateParser = new TemplateParser();
 
     grunt.registerTask('genModule', function (modulePath, featureName) {
         if (!modulePath || !featureName)
@@ -18,13 +22,5 @@ module.exports = function (grunt) {
 
                 grunt.task.run(['gentest:' + classPath]);
             });
-    });
-
-    grunt.registerTask('genclass', function (path) {
-        if (!path) throw new Error("Class path must be specified");
-
-        var classSegments = path.split('/');
-        var className = classSegments[classSegments.length - 1];
-
     });
 };

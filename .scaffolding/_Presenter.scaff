@@ -1,0 +1,15 @@
+define([
+    '$$ModelPath$$'
+], function ($$Model$$) {
+    'use strict';
+
+    function $$ClassName$$(model) {
+        this.model = model || new $$Model$$();
+    }
+
+    $$ClassName$$.prototype.show = function(view) {
+
+    };
+
+    return $$ClassName$$;
+});

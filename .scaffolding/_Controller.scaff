@@ -1,6 +1,7 @@
 define([
+    'app',
     '$$ViewPath$$'
-], function ($$View$$) {
+], function (app, $$View$$) {
     'use strict';
 
     function $$ClassName$$($scope) {
@@ -11,6 +12,8 @@ define([
         this.view = $$View$$.newInstance($scope);
         this.view.show();
     };
+
+    app.register.controller('$$ClassName$$', ['$scope', $$ClassName$$]);
 
     return $$ClassName$$;
 });
