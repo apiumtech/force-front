@@ -123,6 +123,16 @@ define([
                 self.popoverAdapter.closePopover('div.popover');
             });
         };
+
+        self.fn.deleteAccount = function (confirmed) {
+            if (!confirmed)
+                self.modalDialogAdapter.confirm("Close confirmation",
+                    "Are you sure want to close this form without saving?",
+                    self.goBackToPreviousPage,
+                    doNothing,
+                    "Yes", "No");
+            else self.goBackToPreviousPage();
+        };
     };
 
     AccountDetailsView.prototype._show = BaseView.prototype.show;

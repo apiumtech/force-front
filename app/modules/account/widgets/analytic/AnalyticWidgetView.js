@@ -52,9 +52,8 @@ define([
 
     AnalyticWidgetView.prototype.onWindowResize = function () {
         var self = this;
-        setTimeout(function () {
+        if(self.info)
             self.paintChart();
-        }, 0);
     };
 
 
@@ -88,20 +87,23 @@ define([
         self.paintChart();
     };
 
-    AnalyticWidgetView.prototype.paintChart = function(){
+    AnalyticWidgetView.prototype.paintChart = function(chartElement, options){
         var self = this;
+        if(!self.info || !self.info.activity_index || !self.info.activity_index.chartData) return;
 
-        var pieHolder = self.$element.find('#activity-index-pie');
+        chartElement ? self.chartElement = chartElement : self.chartElement = $(self.$element.find('#activity-index-pie'))[0];
+
         var chartService = self.chartService;
 
         if (!self.chart || !self.chartData) {
 
             self.chartData = chartService.arrayToDataTable(self.info.activity_index.chartData);
 
-            self.chart = chartService.createChart($(pieHolder)[0], 'pie');
+            self.chart = chartService.createChart(self.chartElement, 'pie');
         }
 
-        var options = {
+        if(!options)
+        options = {
             legend: {position: 'none'},
             pieHole: 0.4,
             backgroundColor: 'transparent',
