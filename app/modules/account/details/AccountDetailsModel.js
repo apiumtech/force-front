@@ -3,11 +3,13 @@
  */
 define([
     'shared/services/ajax/AjaxService',
+    'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AjaxService, Configuration) {
+], function (AjaxService, FakeAjaxService, Configuration) {
 
-    function AccountDetailsModel(ajaxService) {
-        this.ajaxService = ajaxService;
+    function AccountDetailsModel(ajaxService, fakeAjaxService) {
+        this.ajaxService = ajaxService || new AjaxService();
+        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
     }
 
     AccountDetailsModel.inherits(Object);
@@ -21,7 +23,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(self.decorateAccountDetailData.bind(self));
+        return self.ajaxService.rawAjaxRequest(params).then(self.decorateAccountDetailData.bind(self));
     };
 
     AccountDetailsModel.prototype.getAccountSummary = function (id) {
@@ -33,10 +35,11 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.toggleFollow = function (accountId) {
+        var self = this;
         var params = {
             url: Configuration.api.toggleFollow.format(accountId),
             type: 'post',
@@ -44,10 +47,11 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.updateAccountData = function (accountId, accountData) {
+        var self = this;
         var params = {
             url: Configuration.api.updateAccount.format(accountId),
             type: 'put',
@@ -56,18 +60,20 @@ define([
             data: accountData
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
+    AccountDetailsModel.prototype.deleteAccount = function(){
+        console.log("Account deleted");
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: {
+            }
+        });
     };
 
     AccountDetailsModel.prototype.decorateAccountDetailData = function (data) {
         // TODO: Fake for now
         return data;
-    };
-
-    AccountDetailsModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance();
-
-        return new AccountDetailsModel(ajaxService);
     };
 
     return AccountDetailsModel;

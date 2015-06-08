@@ -1,39 +1,45 @@
 /**
  * Created by justin on 3/9/15.
  */
-define([], function () {
+define([
+    'modules/account/details/AccountDetailsModel'
+], function (AccountDetailsModel) {
 
-    function AccountDetailsPresenter() {
-
+    function AccountDetailsPresenter(model) {
+        this.model = model || new AccountDetailsModel();
     }
 
-    AccountDetailsPresenter.prototype.show = function (view, model) {
-        this.view = view;
-        this.model = model;
+    AccountDetailsPresenter.prototype.show = function (view) {
+        var self = this;
+        view.event = view.event || {};
+
+        self.view = view;
 
         view.event.onLoadAccount = function () {
-            model.getAccountDetail(view.accountId)
+            self.model.getAccountDetail(view.accountId)
                 .then(view.onAccountLoaded.bind(view), view.showError.bind(view));
         };
 
         view.event.onToggleFollow = function () {
-            model.toggleFollow(view.accountId)
+            self.model.toggleFollow(view.accountId)
                 .then(view.onFollowToggled.bind(view), view.showError.bind(view));
         };
 
         view.event.onUpdateEmail = function (accountData) {
-            model.updateAccountData(view.accountId, accountData)
+            self.model.updateAccountData(view.accountId, accountData)
                 .then(view.onAccountUpdated.bind(view), view.showError.bind(view));
         };
 
         view.event.onRelateContactRequest = function (accountId, callback) {
-            model.getAccountSummary(accountId)
+            self.model.getAccountSummary(accountId)
                 .then(callback.bind(view), view.showError.bind(view));
         };
-    };
 
-    AccountDetailsPresenter.newInstance = function () {
-        return new AccountDetailsPresenter();
+        view.event.onDeleteAccount = function(accountId, callback){
+            self.model.deleteAccount(accountId)
+                .then(callback, view.showError.bind(view));
+        };
+
     };
 
     return AccountDetailsPresenter;

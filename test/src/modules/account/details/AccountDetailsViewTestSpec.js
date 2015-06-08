@@ -2,35 +2,35 @@
  * Created by justin on 3/9/15.
  */
 define([
-    'modules/account/details/AccountDetailsView'
-], function (AccountDetailsView) {
+    'modules/account/details/AccountDetailsView',
+    'modules/account/details/AccountDetailsPresenter',
+    'shared/services/ModalDialogAdapter',
+    'shared/services/GoogleMapService',
+    'shared/services/PopoverAdapter'
+], function (AccountDetailsView, AccountDetailsPresenter, ModalDialogAdapter, GoogleMapService, PopoverAdapter) {
     'use strict';
     describe("AccountDetailViews", function () {
 
-        var sut, model, presenter, modalService;
+        var sut, scope, presenter, modal, mapService, popoverService, modalDialogAdapter;
 
         beforeEach(function () {
-            model = {};
-            modalService = {};
-            presenter = {
-                show: jasmine.createSpy(),
-                showError: jasmine.createSpy()
-            };
-            sut = AccountDetailsView.newInstance({}, modalService, model, presenter, null, null, false, false);
+            inject(function ($rootScope) {
+                scope = $rootScope.$new();
+            });
+            modal = {};
+            modalDialogAdapter = mock(ModalDialogAdapter);
+            presenter = mock(AccountDetailsPresenter);
+            mapService = mock(GoogleMapService);
+            popoverService = mock(PopoverAdapter);
+            sut = new AccountDetailsView(scope, modal, presenter, mapService, popoverService, modalDialogAdapter);
         });
 
         it("should call presenter's show method on show()", function () {
             sut.fn.loadAccountData = jasmine.createSpy();
             sut.show();
-            expect(sut.presenter.show).toHaveBeenCalledWith(sut, model);
+            expect(sut.presenter.show).toHaveBeenCalledWith(sut);
             expect(sut.fn.loadAccountData).toHaveBeenCalled();
         });
-
-        it("should call presenter's showError method on showError()", function () {
-            sut.showError("some error");
-            expect(sut.presenter.showError).toHaveBeenCalledWith("some error");
-        });
-
 
         ["onFollowToggled", "onAccountUpdated"].forEach(function (method) {
             describe(method, function () {
@@ -79,6 +79,29 @@ define([
                 sut.fn.initMap();
                 expect(sut.mapService.createMap).toHaveBeenCalled();
                 expect(sut.data.map).toEqual(mapValue);
+            });
+        });
+
+        describe('fn.deleteAccount', function () {
+            it("should call modalDialogAdapter's confirm method with the correct params", function () {
+                var title = "title";
+                var message = "message";
+                spyOn(sut, 'handleDeleteRequest');
+                spyOn(window, 'doNothing');
+                sut.fn.deleteAccount(title, message);
+                expect(sut.modalDialogAdapter.confirm).toHaveBeenCalledWith(title, message, jasmine.any(Function), window.doNothing);
+            });
+            it("should execute handleDeleteRequest when the confirmation confirmed", function () {
+                var title = "title";
+                var message = "message";
+                spyOn(sut, 'handleDeleteRequest');
+                spyOn(window, 'doNothing');
+
+                spyOn(modalDialogAdapter,'confirm').and.callFake (function(title, message, actionConfirmCallback, actionRejectCallback){
+                    actionConfirmCallback();
+                });
+                sut.fn.deleteAccount(title, message);
+                expect(sut.handleDeleteRequest).toHaveBeenCalled();
             });
         });
 
@@ -226,6 +249,50 @@ define([
                 expect(sut.event.onUpdateEmail).toHaveBeenCalledWith(sut.accountData);
             });
         });
+
+        describe('handleDeleteRequest', function () {
+            describe('accountId is undefined', function () {
+                it("should throw accountId undefined error", function () {
+                    sut.event.onDeleteAccount = sinon.stub();
+                    sut.accountId = undefined;
+                    expect(function () {
+                        sut.handleDeleteRequest();
+                    }).toThrow(new Error('AccountID is undefined'));
+                });
+            });
+
+            describe('accountId is defined', function () {
+                beforeEach(function () {
+                    sut.accountId = 123;
+                    sut.event.onDeleteAccount = sinon.stub();
+                    sinon.stub(sut, 'onAccountDeleted');
+                    spyOn(sut.event, 'onDeleteAccount').and.callFake(function (reportId, callback) {
+                        callback();
+                    });
+                    sut.handleDeleteRequest();
+                });
+                it("should fire onDeleteAccount event", function () {
+                    expect(sut.event.onDeleteAccount).toHaveBeenCalledWith(123, jasmine.any(Function));
+                });
+                it("should call onAccountDeleted upon success of onDeleteAccount event", function () {
+                    expect(sut.onAccountDeleted).toHaveBeenCalled();
+                });
+            });
+
+        });
+
+        describe('onAccountDeleted', function () {
+            it("should show notification and redirect to account list page", function () {
+                var title = "title";
+                var message = 'message';
+                spyOn(sut, 'redirectToAccountList');
+                spyOn(modalDialogAdapter,'notify').and.callFake (function(title, message, actionConfirmCallback){
+                });
+                sut.onAccountDeleted();
+                expect(sut.redirectToAccountList).toHaveBeenCalled();
+            });
+        });
+
     });
 
 });

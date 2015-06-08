@@ -3,19 +3,21 @@
  */
 define([
     'shared/BaseView',
-    'modules/account/details/AccountDetailsModel',
     'modules/account/details/AccountDetailsPresenter',
     'shared/services/GoogleMapService',
     'shared/services/PopoverAdapter',
     'shared/services/ModalDialogAdapter',
-    'jquery'
-], function (BaseView, AccountDetailsModel, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $) {
+    'jquery',
+    'shared/services/AwaitHelper'
+], function (BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper) {
 
-    function AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter) {
-        BaseView.call(this, scope, model, presenter);
-        this.modalDialogAdapter = ModalDialogAdapter.newInstance(modalService);
-        this.mapService = mapService;
-        this.popoverAdapter = popoverAdapter;
+    function AccountDetailsView(scope, modal, presenter, mapService, popoverAdapter, modalAdapter) {
+        presenter = presenter || new AccountDetailsPresenter();
+        BaseView.call(this, scope, null, presenter);
+        this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(modal);
+        this.mapService = mapService || GoogleMapService.newInstance();
+        this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
+        this.awaitHelper = AwaitHelper.newInstance();
         this.configureEvents(this);
     }
 
@@ -124,14 +126,14 @@ define([
             });
         };
 
-        self.fn.deleteAccount = function (confirmed) {
-            if (!confirmed)
-                self.modalDialogAdapter.confirm("Close confirmation",
-                    "Are you sure want to close this form without saving?",
-                    self.goBackToPreviousPage,
-                    doNothing,
-                    "Yes", "No");
-            else self.goBackToPreviousPage();
+        self.fn.deleteAccount = function (title, message) {
+            title = title || "Delete confirmation";
+            message = message || "Are you sure want to delete this account?";
+            self.modalDialogAdapter.confirm(title,
+                message,
+                self.handleDeleteRequest.bind(self),
+                doNothing,
+                "Accept", "No, thanks");
         };
     };
 
@@ -184,15 +186,30 @@ define([
         self.fn.loadAccountData();
     };
 
-    AccountDetailsView.newInstance = function (scope, modalService, model, presenter, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
-        assertNotNull('modalService', modalService);
+    AccountDetailsView.prototype.handleDeleteRequest = function () {
+        var self = this;
+        if (!self.accountId) throw new Error('AccountID is undefined');
+        self.event.onDeleteAccount(self.accountId, self.onAccountDeleted.bind(self));
+        self.$scope.location = "/accounts";
+    };
 
-        model = model || AccountDetailsModel.newInstance();
-        presenter = presenter || AccountDetailsPresenter.newInstance();
-        mapService = mapService || GoogleMapService.newInstance();
-        popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
+    AccountDetailsView.prototype.onAccountDeleted = function () {
+        var self = this;
+        var message = "<div class='notify success'>" +
+            "<span class='ok-tick'><i class='ic-accept'></i></span>" +
+            "<p>The account has been deleted successfully</p>" +
+            "</div>";
+        self.modalDialogAdapter.notify('',
+            message, self.redirectToAccountList());
+    };
 
-        var view = new AccountDetailsView(scope, modalService, model, presenter, mapService, popoverAdapter);
+    AccountDetailsView.prototype.redirectToAccountList = function(){
+        window.location.href = "/#/accounts/";
+    };
+
+    AccountDetailsView.newInstance = function (scope, modalService, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
+
+        var view = new AccountDetailsView(scope, modalService);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
