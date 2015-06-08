@@ -1,11 +1,13 @@
 define([
-	
-], function() {
-	'use strict';
+    'app'
+], function (app) {
+    'use strict';
 
-	function DocumentUploadModel() {
-		
-	}
+    function DocumentUploadModel($uploadService) {
+        this.$uploadService = $uploadService;
+    }
 
-	return DocumentUploadModel;
+    app.di.register("documentUploadModel").as(DocumentUploadModel);
+
+    return DocumentUploadModel;
 });

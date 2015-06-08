@@ -1,14 +1,14 @@
 define([
+    'app',
     'shared/BaseView',
     'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter'
-], function (BaseView, DocumentUploadPresenter) {
+], function (app, BaseView, DocumentUploadPresenter) {
     'use strict';
 
-    function DocumentUploadView($scope, $upload, modalInstance, presenter) {
-        presenter = presenter || new DocumentUploadPresenter();
-        this.modalInstance = modalInstance;
-        this.$uploadService = $upload;
-        BaseView.call(this, $scope, null, presenter);
+    function DocumentUploadView(presenter) {
+        this.documentUploadPresenter = presenter;
+
+        BaseView.call(this, {}, null, this.documentUploadPresenter);
     }
 
     DocumentUploadView.inherits(BaseView, {
@@ -26,6 +26,14 @@ define([
             },
             set: function (value) {
                 this.$scope.files = value;
+            }
+        },
+        presenter: {
+            get: function () {
+                return this.documentUploadPresenter;
+            },
+            set: function () {
+                return this.documentUploadPresenter;
             }
         }
     });
@@ -83,6 +91,8 @@ define([
         var self = this;
         console.log(self.filesList);
     };
+
+    app.di.register('documentUploadView').as(DocumentUploadView);
 
     return DocumentUploadView;
 });
