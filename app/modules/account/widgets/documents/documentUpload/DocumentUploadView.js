@@ -7,6 +7,7 @@ define([
     function DocumentUploadView($scope, $upload, modalInstance, presenter) {
         presenter = presenter || new DocumentUploadPresenter();
         this.modalInstance = modalInstance;
+        this.$uploadService = $upload;
         BaseView.call(this, $scope, null, presenter);
     }
 
@@ -48,6 +49,34 @@ define([
 
             self.onFileChanged();
         };
+
+        self.fn.startUpload = function () {
+            var files = self.filesList;
+            for (var i = 0; i < files.length; i++) {
+                self.$uploadService.upload({
+                    url: self.config.api.uploadDocuments,
+                    method: 'POST',
+                    file: files[i],
+                    fileName: files[i].name + "some_other_text.pdf",
+                    //sendFieldsAs: 'form',
+                    headers: {
+                        extracted: true
+                    },
+                    fields: {
+                        extracted: true
+                    },
+                    data: {
+                        extracted: true
+                    }
+                }).then(self.decorateResponseData.bind(self), function (error) {
+                    return error;
+                });
+            }
+        };
+    };
+
+    DocumentUploadView.prototype.decorateResponseData = function (response) {
+        console.log(response);
     };
 
     DocumentUploadView.prototype.onFileChanged = function () {

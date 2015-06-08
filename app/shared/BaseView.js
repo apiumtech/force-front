@@ -57,6 +57,14 @@ define([
             set: function (value) {
                 this._scope.fn = value;
             }
+        },
+        config: {
+            get: function () {
+                return this.$scope.config;
+            },
+            set: function (value) {
+                this.$scope.config = value;
+            }
         }
     });
 
