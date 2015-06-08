@@ -11,8 +11,11 @@ define([
 		return this.ajaxService.rawAjaxRequest({
 			result: {
 				activity_index: {
-					value: 4,
-					total: 10
+					data: {
+						value: 2,
+						total: 10
+					},
+					chartData: [['Title', 'Value'], ['value', 20], ['other', 80]]
 				},
 				number_of_visits: 200,
 				call_minutes: 60,

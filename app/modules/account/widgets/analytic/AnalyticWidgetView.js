@@ -42,7 +42,21 @@ define([
 
         scope.$watch('accountId', self.onAccountIDUpdated.bind(self));
         scope.$on("$destroy", self.onDestroyed.bind(self));
+
+        $(window).on('resize', self.onWindowResize.bind(self));
+
+        self.$scope.$on('destroy', function () {
+            $(window).unbind('resize', self.onWindowResize.bind(self));
+        });
     };
+
+    AnalyticWidgetView.prototype.onWindowResize = function () {
+        var self = this;
+        setTimeout(function () {
+            self.paintChart();
+        }, 0);
+    };
+
 
     AnalyticWidgetView.prototype.onAccountIDUpdated = function () {
         var self = this;
@@ -74,23 +88,29 @@ define([
         self.paintChart();
     };
 
-    AnalyticWidgetView.prototype.paintChart = function(data){
+    AnalyticWidgetView.prototype.paintChart = function(){
         var self = this;
+
         var pieHolder = self.$element.find('#activity-index-pie');
-        var data = [
-            ['Task', 'Hours per Day'],
-            ['Work',     11],
-            ['Eat',      2],
-            ['Commute',  2],
-            ['Watch TV', 2],
-            ['Sleep',    7]
-        ];
+        var chartService = self.chartService;
+
+        if (!self.chart || !self.chartData) {
+
+            self.chartData = chartService.arrayToDataTable(self.info.activity_index.chartData);
+
+            self.chart = chartService.createChart($(pieHolder)[0], 'pie');
+        }
+
         var options = {
-            legend: {position: 'none'}
+            legend: {position: 'none'},
+            pieHole: 0.4,
+            backgroundColor: 'transparent',
+            enableInteractivity: false,
+            colors: ['#FFB54D', '#ed8b00'],
+            pieSliceText: "none"
         };
-        var chartData = self.chartService.arrayToDataTable(data);
-        var chart = self.chartService.createChart($(pieHolder)[0], 'pie');
-        self.chartService.drawChart(chart, chartData, options);
+
+        chartService.drawChart(self.chart, self.chartData, options);
     };
 
     AnalyticWidgetView.prototype.onDestroyed = function () {
