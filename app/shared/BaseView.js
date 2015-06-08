@@ -8,6 +8,7 @@ define([
 ], function (Configuration, ViewRepaintAspect, LogErrorAspect) {
 
     function BaseView($scope, $model, $presenter) {
+        this._scope = {};
         $scope = $scope || {
                 $on: function () {
                 },
@@ -31,6 +32,12 @@ define([
                 return this._scope;
             },
             set: function (value) {
+                var self = this;
+                ['config', 'event', 'fn', 'data'].forEach(function (obj) {
+                    if (self._scope[obj])
+                        value[obj] = self._scope[obj];
+                });
+
                 this._scope = value;
             }
         },
@@ -60,10 +67,10 @@ define([
         },
         config: {
             get: function () {
-                return this.$scope.config;
+                return this._scope.config;
             },
             set: function (value) {
-                this.$scope.config = value;
+                this._scope.config = value;
             }
         }
     });

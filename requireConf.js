@@ -49,6 +49,8 @@ var requireConf = {
         'meld': '../node_modules/meld/meld',
         'i18next': '../bower_components/i18next/i18next.min',
 
+        'di': '../bower_components/di4js/di4js',
+
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
         'moment': '../node_modules/moment/min/moment.min',
@@ -218,12 +220,16 @@ var requireConf = {
         },
         'underscore': {
             exports: 'underscore'
+        },
+
+        'di': {
+            exports: 'di'
         }
         //endregion
     },
 
     'deps': [
-
+        'di',
         /* jquery & its plugins */
         'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll',
         'datatables',

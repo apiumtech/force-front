@@ -19,7 +19,7 @@ define([
 
     // validation config
     'validationConfig'
-], function ($, angular, config) {
+], function ($, angular, config, app) {
     'use strict';
     $.migrateMute = true;
     $(document).ready(function () {
