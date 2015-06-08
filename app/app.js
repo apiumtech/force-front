@@ -6,12 +6,14 @@ define([
     'config',
     'jquery',
     'core/i18nextOptions',
+    'di',
     'routeResolverSvc',
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular-validation',
     'angular-validation-rule'
-], function (angular, config, $, i18nextOptions) {
+], function (angular, config, $, i18nextOptions, di) {
+    di.autowired();
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = i18nextOptions.dev;
@@ -39,7 +41,7 @@ define([
     app.register.filter = app.filter;
     app.register.factory = app.factory;
     app.register.service = app.service;
-
+    app.di = di;
 
     return app;
 });

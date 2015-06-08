@@ -3,7 +3,8 @@
  */
 define([
     'app',
-    'modules/account/widgets/documents/DocumentsWidgetView'
+    'modules/account/widgets/documents/DocumentsWidgetView',
+    'modules/account/widgets/documents/documentUpload/DocumentUploadController'
 ], function (app, DocumentsWidgetView) {
 
     'use strict';

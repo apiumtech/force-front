@@ -32,7 +32,7 @@ define([
     });
 
     DocumentsWidgetView.prototype.show = function () {
-        BaseView.prototype.show.call(this);
+        this.__base__.show.call(this);
         this.configureEvents();
     };
 
@@ -64,6 +64,17 @@ define([
                 doNothing,
                 self.translator.translate("Documents.deleteBtnConfirm"),
                 self.translator.translate("Documents.cancelDelete"));
+        };
+
+        self.fn.openAddDocumentDialog = function () {
+            var option = {
+                templateUrl: 'app/modules/account/widgets/documents/documentUpload/documentUpload.html',
+                //backdrop: 'static',
+                keyboard: true,
+                controller: 'DocumentUploadController',
+                size: 'lg'
+            };
+            self.modalDialogService.open(option);
         };
 
         self.$scope.$watch("accountId", self.onAccountIdChanged.bind(self));

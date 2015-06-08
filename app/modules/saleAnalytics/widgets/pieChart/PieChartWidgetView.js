@@ -83,6 +83,7 @@ define([
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {
+        console.log("PIE", this.data);
         var plot = PieChart.basic(this.data);
         plot.paint($(element));
     };

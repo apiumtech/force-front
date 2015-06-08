@@ -4,6 +4,6 @@
 
 var UploadController = require('../controllers/uploadController');
 module.exports = function (app) {
-
     app.post('/api/upload', UploadController.upload);
+    app.post('/api/uploadDocument', UploadController.uploadDocument);
 };

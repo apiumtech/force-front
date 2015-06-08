@@ -3,8 +3,10 @@
  */
 
 define([
-    'modules/account/details/AccountDetailsPresenter'
-], function (AccountDetailsPresenter) {
+    'modules/account/details/AccountDetailsPresenter',
+    'modules/account/details/AccountDetailsView',
+    'modules/account/details/AccountDetailsModel'
+], function (AccountDetailsPresenter, AccountDetailsView, AccountDetailsModel) {
     'use strict';
 
     describe("AccountDetailsPresenter", function () {
@@ -12,9 +14,9 @@ define([
         var sut, view, model;
 
         beforeEach(function () {
-            sut = AccountDetailsPresenter.newInstance();
-            view = {event: {}};
-            model = {};
+            view = mock(AccountDetailsView);
+            model = mock(AccountDetailsModel);
+            sut = new AccountDetailsPresenter(model);
         });
 
         describe("show()", function () {
@@ -27,6 +29,9 @@ define([
                 },
                 {
                     viewEvent: "onUpdateEmail", test: onUpdateEmailTest
+                },
+                {
+                    viewEvent: "onDeleteAccount", test: onDeleteAccountTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -34,7 +39,7 @@ define([
 
                     describe("when event '" + viewEvent + "' fired", function () {
                         beforeEach(function () {
-                            sut.show(view, model);
+                            sut.show(view);
                         });
                         test();
                     });
@@ -59,6 +64,31 @@ define([
                 var onSuccess = "onAccountUpdated";
                 var onError = "showError";
                 exerciseAjaxCallBinding("onUpdateEmail", modelMethod, onSuccess, onError);
+            }
+
+            function onDeleteAccountTest() {
+                var accountId = 123;
+                var spySuccess;
+
+                function exerciseTest() {
+                    spySuccess = sinon.stub();
+                    view.event.onDeleteAccount(accountId, spySuccess);
+                }
+                it("should call method deleteAccount from model with correct params", function () {
+                    model.deleteAccount.returns(exerciseFakeOkPromise());
+                    exerciseTest();
+                    expect(model.deleteAccount).toHaveBeenCalledWith(accountId);
+                });
+                it("should call success callback method upon success on model", function () {
+                    model.deleteAccount.returns(exerciseFakeOkPromise());
+                    exerciseTest();
+                    expect(spySuccess).toHaveBeenCalled();
+                });
+                it("should call showError callback method upon failed on model", function () {
+                    model.deleteAccount.returns(exerciseFakeKoPromise());
+                    exerciseTest();
+                    expect(view.showError).toHaveBeenCalled();
+                });
             }
 
 

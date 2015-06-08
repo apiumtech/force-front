@@ -8,7 +8,8 @@ define([
     'modules/account/widgets/activity/AccountDetailActivityDirective',
     'modules/account/widgets/opportunity/AccountDetailOpportunityDirective',
     'modules/account/widgets/agenda/AccountDetailAgendaDirective',
-    'modules/account/widgets/documents/AccountDetailDocumentsDirective'
+    'modules/account/widgets/documents/AccountDetailDocumentsDirective',
+    'modules/account/widgets/analytic/AccountAnalyticWidgetDirective'
 
 ], function (app, AccountDetailsView) {
     'use strict';

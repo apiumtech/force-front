@@ -6,11 +6,19 @@ define([], function () {
     google.visualization = google.visualization || {
             DataTable: function () {
                 return {
-                    addColumn: function(){},
-                    addRows: function(){}
+                    addColumn: function () {
+                    },
+                    addRows: function () {
+                    }
                 }
             },
             ScatterChart: function () {
+                return {
+                    draw: function () {
+                    }
+                }
+            },
+            PieChart: function () {
                 return {
                     draw: function () {
                     }
@@ -30,16 +38,18 @@ define([], function () {
         switch (chartName) {
             case 'scatter':
                 return new this.googleChart.ScatterChart(element);
+            case 'pie':
+                return new this.googleChart.PieChart(element);
             default:
                 throw new Error('This chart is not supported at the moment');
         }
     };
 
-    GoogleChartService.prototype.createDataTable = function(data){
+    GoogleChartService.prototype.createDataTable = function (data) {
         var dataTable = new this.googleChart.DataTable();
 
-        data.columns.forEach(function(c){
-            if(c.name)
+        data.columns.forEach(function (c) {
+            if (c.name)
                 dataTable.addColumn(c.type, c.name);
             else
                 dataTable.addColumn(c);
@@ -49,12 +59,17 @@ define([], function () {
         return dataTable;
     };
 
+    GoogleChartService.prototype.arrayToDataTable = function (dataArr) {
+        var dataTable = this.googleChart.arrayToDataTable(dataArr);
+        return dataTable;
+    };
+
     GoogleChartService.prototype.drawChart = function (chart, data, options) {
         chart.draw(data, options);
     };
 
     GoogleChartService.newInstance = function (googleChartService) {
-        if (!googleChartService) {
+        if (!googleChartService && google && google.setOnLoadCallback) {
             google.setOnLoadCallback(function () {
             });
             googleChartService = google.visualization;

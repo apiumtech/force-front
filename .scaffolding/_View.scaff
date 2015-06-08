@@ -5,11 +5,11 @@ define([
     'use strict';
 
     function $$ClassName$$($scope, presenter) {
-        presenter = presenter || new $$Presenter$$(this);
+        presenter = presenter || new $$Presenter$$();
         BaseView.call(this, $scope, null, presenter);
     }
 
-    $$ClassName$$.prototype = Object.create(BaseView.prototype, {});
+    $$ClassName$$.inherits(BaseView, {});
 
     $$ClassName$$.newInstance = function ($scope, model, presenter, viewRepaintAspect, logErrorAspect) {
         var view = new $$ClassName$$($scope, presenter);

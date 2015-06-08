@@ -3,20 +3,17 @@
  */
 define([
     'modules/account/details/AccountDetailsModel',
+    'shared/services/ajax/AjaxService',
     'config'
-], function (AccountDetailsModel, Configuration) {
+], function (AccountDetailsModel, AjaxService, Configuration) {
     'use strict';
     describe("AccountDetailsModel", function () {
 
         var sut, ajaxService;
 
         beforeEach(function () {
-            ajaxService = {
-                rawAjaxRequest: function () {
-                }
-            };
-
-            sut = AccountDetailsModel.newInstance(ajaxService);
+            ajaxService = mock(AjaxService);
+            sut = new AccountDetailsModel(ajaxService);
         });
 
         describe("getAccountDetail", function () {

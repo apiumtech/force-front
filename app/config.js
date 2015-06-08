@@ -26,6 +26,9 @@ define(function () {
         getOpportunities: baseApi + '/api/opportunities',
         getAgenda: baseApi + '/api/agenda',
         uploadFile: baseApi + '/api/upload',
+        uploadDocuments: baseApi + '/api/uploadDocument',
+
+
         getFilterValues: baseApi + '/api/getFilterValues',
 
         getDocuments: baseApi + '/api/accounts/{0}/documents',
