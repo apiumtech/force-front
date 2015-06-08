@@ -56,6 +56,16 @@ define([
     LiteralsEventBus.prototype.fireLiteralsSearch = function (searchTerms) {};
     LiteralsEventBus.prototype.unsubscribeLiteralsSearch = function () {};
 
+    // ----------------------------------------------
+    //
+    //  Literals Delete
+    //
+    // ----------------------------------------------
+
+    LiteralsEventBus.prototype.onLiteralsDeleteRequest = function (callback) {};
+    LiteralsEventBus.prototype.fireLiteralsDeleteRequest = function (searchTerms) {};
+    LiteralsEventBus.prototype.unsubscribeLiteralsDeleteRequest = function () {};
+
 
     LiteralsEventBus.getInstance = function () {
         return LiteralsEventBus.__instance || (LiteralsEventBus.__instance = new LiteralsEventBus());

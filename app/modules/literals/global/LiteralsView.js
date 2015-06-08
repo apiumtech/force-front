@@ -7,6 +7,7 @@ define([
 
 	function LiteralsView($scope, $model, $presenter) {
 		BaseView.call(this, $scope, $model, $presenter);
+        this.data.currentError = null;
         this.configureEvents();
 	}
 
@@ -14,8 +15,10 @@ define([
     var proto = LiteralsView.prototype;
 
     proto.configureEvents = function () {
-        var self = this;
-        this.event.onInit = function () {};
+    };
+
+    proto.showError = function (msg) {
+        this.data.currentError = msg;
     };
 
 

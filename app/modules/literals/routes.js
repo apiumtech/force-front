@@ -6,9 +6,9 @@ define([], function () {
 
 					.when('/literals', resolveRoute('modules/literals/global/LiteralsController', 'modules/literals/global/literals'))
 
-					//.when('/literals/:literalId/edit', resolveRoute('modules/literals/global/edit/LiteralsEditController', 'modules/literal/edit/literalsEdit'))
+					.when('/literals/:literalId/edit', resolveRoute('modules/literals/global/edit-create/LiteralsEditCreateController', 'modules/literals/global/edit-create/literalsEditCreate'))
 
-					//.when('/literals/create', resolveRoute('modules/literal/edit-create/LiteralController', 'modules/literal/edit-create/literal'))
+					.when('/literals/create', resolveRoute('modules/literals/global/edit-create/LiteralsEditCreateController', 'modules/literals/global/edit-create/literalsEditCreate'))
 			;
 		}
 	};

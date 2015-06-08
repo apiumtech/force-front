@@ -13,10 +13,6 @@ define([
 		self.view = view;
 		self.model = model;
 
-        view.event.onInit = function() {
-            console.log("LiteralsPresenter ready");
-        };
-
         // comes from LiteralsTableView.fireColumnsRequest
         self.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
 
@@ -25,6 +21,9 @@ define([
 
         // comes from LiteralsSearchPresenter.fireLiteralsSearch
         self.eventBus.onLiteralsSearch(self.onLiteralsSearch.bind(self));
+
+        // comes from LiteralsTableView.fireLiteralsDeleteRequest
+        self.eventBus.onLiteralsDeleteRequest(self.onLiteralsDeleteRequest.bind(self));
 	};
 
 
@@ -48,6 +47,16 @@ define([
         var self = this;
         self.model.setSearchTerms(searchTerms);
         self.onLiteralsRequest();
+    };
+
+    LiteralsPresenter.prototype.onLiteralsDeleteRequest = function(literalId) {
+        var self = this;
+        self.model.onLiteralsDeleteRequest(literalId).then(
+            self.eventBus.fireLiteralsRequest.bind(self.eventBus),
+            function(){
+                self.view.showError("Error removing literal");
+            }
+        );
     };
 
 

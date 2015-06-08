@@ -17,6 +17,7 @@ define([
 
     proto.configureEvents = function () {
         var self = this;
+        this.fn.onSearchTextFilterChanged = this.performSearch.bind(this);
         this.event.onInit = function () {};
         this.event.performSearch = function () {};
     };

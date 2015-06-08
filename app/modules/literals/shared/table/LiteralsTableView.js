@@ -3,9 +3,10 @@ define([
 	,'modules/literals/shared/table/LiteralsTablePresenter'
 	,'modules/literals/shared/table/LiteralsTableModel'
 	,'shared/services/DataTableService'
-	,'shared/services/SimpleTemplateParser',
-    'jquery'
-], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $) {
+	,'shared/services/SimpleTemplateParser'
+    ,'jquery'
+    ,'shared/services/TranslatorService'
+], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $, TranslatorService) {
 	'use strict';
 
 	function LiteralsTableView(scope, model, presenter, compile, dataTableService, templateParser) {
@@ -13,6 +14,7 @@ define([
         this.compile = compile;
         this.dataTableService = dataTableService;
         this.templateParser = templateParser;
+        this.translator = TranslatorService.newInstance();
 
         this.languages = [];
         this.table = null;
@@ -24,9 +26,24 @@ define([
 
 
 	proto.configureEvents = function () {
+        this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
 		this.event.onInit = function () {};
+        this.event.fireLiteralsDeleteRequest = function () {};
 		this.event.fireLiteralsRequest = function () {};
 	};
+
+
+    proto.deleteLiteralPrompt = function (literalId) {
+        var msg = this.translator.translate(
+            "Literal.List.Table.Delete_Confirm_Message",
+            {literalId: literalId}
+        );
+
+        if (confirm(msg)) {
+            this.event.fireLiteralsDeleteRequest(literalId);
+        }
+    };
+
 
     proto.renderKeyColumn = function (data, type, row) {
         var colTemplate = $(".literalKeyColumnTemplate").html();

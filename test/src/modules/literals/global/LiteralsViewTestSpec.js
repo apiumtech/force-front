@@ -18,10 +18,8 @@ define([
                 spyOn(LiteralsView.prototype, 'configureEvents').and.callThrough();
                 var sut = exerciseCreateView();
                 expect(sut.configureEvents).toHaveBeenCalled();
-                expect(sut.event.onInit).toBeDefined();
             });
         });
-
 
 	});
 });

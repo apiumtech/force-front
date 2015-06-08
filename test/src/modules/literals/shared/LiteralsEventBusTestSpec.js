@@ -26,6 +26,7 @@ define([
                 ,"LiteralsRequestSuccess"
                 ,"LiteralsRequestError"
 				,"LiteralsSearch"
+				,"LiteralsDeleteRequest"
 			];
 
 			var sut;

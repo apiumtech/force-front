@@ -1,39 +1,42 @@
 define([
-	'modules/literals/global/LiteralsService'
-], function(LiteralsService) {
+    'config',
+	'modules/literals/global/LiteralsService',
+	'modules/literals/global/LiteralsQueryBuilder'
+], function(config, LiteralsService, LiteralsQueryBuilder) {
 	'use strict';
 
-	function LiteralsModel(service) {
+
+
+	function LiteralsModel(service, queryBuilder) {
         this.service = service;
-        this.searchObject = {
-            searchTerms:"",
-            skip:0,
-            limit:100
-        };
+        this.queryBuilder = queryBuilder;
 	}
 
     var proto = LiteralsModel.prototype;
 
     proto.setSearchTerms = function(searchTerms) {
-      return this.searchObject.searchTerms = searchTerms;
+        this.queryBuilder.setSearchTerms(searchTerms);
     };
+
 
     proto.onColumnsRequest = function() {
       return this.service.getLanguageList();
     };
 
+    proto.onLiteralsDeleteRequest = function(literalId) {
+      return this.service.deleteLiteral(literalId);
+    };
+
     proto.onLiteralsRequest = function() {
-        return this.service.getLiteralsList({
-            searchTerms: this.searchObject.searchTerms,
-            skip: this.searchObject.skip,
-            limit: this.searchObject.limit
-        });
+        return this.service.getLiteralsList( this.queryBuilder.toRequestHeaders(this.queryBuilder.build()) );
     };
 
 
-	LiteralsModel.newInstance = function(service) {
+	LiteralsModel.newInstance = function(service, queryBuilder) {
         service = service || LiteralsService.newInstance();
-		return new LiteralsModel(service);
+        queryBuilder = queryBuilder || LiteralsQueryBuilder.newInstance();
+
+		return new LiteralsModel(service, queryBuilder);
 	};
 
 	return LiteralsModel;

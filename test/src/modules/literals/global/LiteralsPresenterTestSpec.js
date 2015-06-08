@@ -11,47 +11,6 @@ define([
 
     describe('LiteralsPresenter', function () {
 
-        /*var sut, view, model;
-        beforeEach(function () {
-            sut = exerciseCreatePresenter();
-            view = {event: {}};
-            model = {};
-        });
-
-        [{sutMethod: "onColumnsRequest", modelMethod: "onColumnsRequest", eventBusOnMethod: "onColumnsRequest", eventBusFireMethod: "fireColumnsRequest", eventBusFireSuccessMethod: "fireColumnsRequestSuccess", eventBusFireErrorMethod: "fireColumnsRequestError"},
-         {sutMethod: "onLiteralsRequest", modelMethod: "onLiteralsRequest", eventBusOnMethod: "onLiteralsRequest", eventBusFireMethod: "fireLiteralsRequest", eventBusFireSuccessMethod: "fireLiteralsRequestSuccess", eventBusFireErrorMethod: "fireLiteralsRequestError"}]
-         .forEach(function (testItem) {
-                describe(testItem.sutMethod, function () {
-                    it('should be subscribed to eventBus.' + testItem.eventBusOnMethod, function () {
-                        spyOn(sut, testItem.sutMethod);
-                        sut.show(view, model);
-                        sut.eventBus[testItem.eventBusFireMethod]();
-                        expect(sut[testItem.sutMethod]).toHaveBeenCalled();
-                    });
-                    //it("should call model's onColumnsRequest", function () {
-                    //    model.onColumnsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
-                    //    sut.show(view, model);
-                    //    sut.eventBus.fireColumnsRequest();
-                    //    expect(model.onColumnsRequest).toHaveBeenCalled();
-                    //});
-                    //it("should call fireColumnsRequestSuccess onColumnsRequest success", function () {
-                    //    model.onColumnsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
-                    //    sut.show(view, model);
-                    //    spyOn(sut.eventBus, "fireColumnsRequestSuccess");
-                    //    sut.eventBus.fireColumnsRequest();
-                    //    expect(sut.eventBus.fireColumnsRequestSuccess).toHaveBeenCalled();
-                    //});
-                    //it("should call fireColumnsRequestError onColumnsRequest error", function () {
-                    //    model.onColumnsRequest = jasmine.createSpy().and.returnValue(exerciseFakeKoPromise());
-                    //    sut.show(view, model);
-                    //    spyOn(sut.eventBus, "fireColumnsRequestError");
-                    //    sut.onColumnsRequest();
-                    //    expect(sut.eventBus.fireColumnsRequestError).toHaveBeenCalled();
-                    //});
-                });
-            });*/
-
-
         describe('onColumnsRequest', function () {
             var sut, view, model;
             beforeEach(function () {
