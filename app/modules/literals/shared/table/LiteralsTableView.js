@@ -9,6 +9,7 @@ define([
 ], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $, TranslatorService) {
 	'use strict';
 
+
 	function LiteralsTableView(scope, model, presenter, compile, dataTableService, templateParser) {
 		BaseView.call(this, scope, model, presenter);
         this.compile = compile;
@@ -16,6 +17,7 @@ define([
         this.templateParser = templateParser;
         this.translator = TranslatorService.newInstance();
 
+        this.data.currentError = null;
         this.languages = [];
         this.table = null;
 
@@ -30,7 +32,17 @@ define([
 		this.event.onInit = function () {};
         this.event.fireLiteralsDeleteRequest = function () {};
 		this.event.fireLiteralsRequest = function () {};
+        this.event.onDisposing = function () {};
+        this.$scope.$on("$destroy", this.onDisposing.bind(this));
 	};
+
+
+    proto.onDisposing = function () {
+        console.log("onDisposing");
+        this.table.destroy();
+        this.event.onDisposing();
+        //ScrollEventBus.dispose();
+    };
 
 
     proto.deleteLiteralPrompt = function (literalId) {

@@ -77,7 +77,7 @@ define([
     };
 
     proto._goBack = function () {
-        this.$window.history.back();
+        this.$window.history.go(-1);
     };
 
     proto.isNew = function () {

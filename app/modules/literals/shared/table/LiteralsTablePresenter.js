@@ -25,6 +25,10 @@ define([
 			self.eventBus.fireLiteralsDeleteRequest(literalId);
 		};
 
+        view.event.onDisposing = function () {
+            self.eventBus.dispose();
+        };
+
 
 		this.eventBus.onColumnsRequestSuccess(view.onColumnsRequestSuccess.bind(view));
 		this.eventBus.onColumnsRequestError(view.onColumnsRequestError.bind(view));
