@@ -86,6 +86,8 @@ define(function () {
         pageSize: 10,
         defaultDateSubtraction: 30,
         tokenStorageKey: "fm_token",
-        defaultLiteralLang: "en"
+        defaultLiteralLang: "en",
+        maxSizeUploadAllowed: 1
+
     };
 });

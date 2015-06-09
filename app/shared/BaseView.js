@@ -33,7 +33,7 @@ define([
             },
             set: function (value) {
                 var self = this;
-                ['config', 'event', 'fn', 'data'].forEach(function (obj) {
+                Object.keys(self._scope).forEach(function (obj) {
                     if (self._scope[obj])
                         value[obj] = self._scope[obj];
                 });

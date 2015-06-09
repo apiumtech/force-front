@@ -18,6 +18,7 @@
     "Create": "Create",
     "Delete": "Delete",
     "Cancel": "Cancel",
+    "Retry": "Retry",
     "Save": "Save",
     "Show": "Show",
     "FilterBy": "Filter by",
@@ -46,7 +47,22 @@
     "AddDocument": "Add Document",
     "deleteDocumentConfirmationMsg": "<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
     "deleteBtnConfirm": "Yes, delete it",
-    "cancelDelete": "No, thanks"
+    "cancelDelete": "No, thanks",
+    "UploadDocuments": {
+      "Title": "Add document",
+      "UploadingTitle": "Uploading",
+      "Heading_Instruction": "Drag & Drop your documents here",
+      "Heading_Instruction2": "Some help text appear here",
+      "UploadBtn": "Upload files",
+      "UploadBtn_AddMore": "Add more files",
+      "UploadBtn_Submit": "Upload Documents",
+      "UploadingMessage": "We're uploading your files. It will be a matter of milliseconds",
+      "UploadingSuccessTitle": "Uploaded Successfully!",
+      "UploadingSuccessMessage": "Your documents have been uploaded successfully",
+      "UploadingErrorTitle": "Sorry!",
+      "UploadingErrorMessage": "Some of your files cannot be uploaded, please try again!",
+      "OverSized": "Maximum file size is __size__MB. Please remove this file"
+    }
   },
   "DateTime": {
     "Today": "Today",
@@ -198,7 +214,7 @@
     "FavouriteReports": "Favourite Reports",
     "SearchReports": "Search Reports",
     "Dialog": {
-      "ReportParameterTitle" : "Report Parameters"
+      "ReportParameterTitle": "Report Parameters"
     }
   },
   "Contact": {

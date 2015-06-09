@@ -1,14 +1,21 @@
 define([
     'app',
     'shared/BaseView',
+    'config',
     'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter'
-], function (app, BaseView, DocumentUploadPresenter) {
+], function (app, BaseView, config, DocumentUploadPresenter) {
     'use strict';
 
-    function DocumentUploadView(presenter) {
+    function DocumentUploadView(presenter, modalDialogAdapter, modalInstance) {
+        //@autowired
         this.documentUploadPresenter = presenter;
+        this.modalInstance = modalInstance;
+        this.modalDialogAdapter = modalDialogAdapter;
 
         BaseView.call(this, {}, null, this.documentUploadPresenter);
+        this.uploadedFiles = 0;
+        this.uploadCompleted = false;
+        this.uploading = false;
     }
 
     DocumentUploadView.inherits(BaseView, {
@@ -35,6 +42,70 @@ define([
             set: function () {
                 return this.documentUploadPresenter;
             }
+        },
+        uploadedFiles: {
+            get: function () {
+                return this._scope.uploadedFiles;
+            },
+            set: function (value) {
+                this._scope.uploadedFiles = value;
+            }
+        },
+        uploadCompleted: {
+            get: function () {
+                return this.$scope.uploadCompleted;
+            },
+            set: function (value) {
+                this.$scope.uploadCompleted = value;
+            }
+        },
+        uploading: {
+            get: function () {
+                return this.$scope.uploading;
+            },
+            set: function (value) {
+                this.$scope.uploading = value;
+            }
+        },
+        progress: {
+            get: function () {
+                return this.$scope.progress;
+            },
+            set: function (value) {
+                this.$scope.progress = value;
+            }
+        },
+        error: {
+            get: function () {
+                return this.$scope.error;
+            },
+            set: function (value) {
+                this.$scope.error = value;
+            }
+        },
+        showErrorMsg: {
+            get: function () {
+                return this.$scope.showErrorMsg;
+            },
+            set: function (value) {
+                this.$scope.showErrorMsg = value;
+            }
+        },
+        uploadStatus: {
+            get: function () {
+                return this.$scope.uploadStatus;
+            },
+            set: function (value) {
+                this.$scope.uploadStatus = value;
+            }
+        },
+        filesCount: {
+            get: function () {
+                return this.$scope.filesCount;
+            },
+            set: function (value) {
+                this.$scope.filesCount = value;
+            }
         }
     });
 
@@ -47,49 +118,131 @@ define([
         var self = this;
 
         self.fn.close = function () {
-            self.modalInstance.dismiss();
+            self.modalInstance.close(self.uploadStatus);
         };
 
         self.fn.dropFile = function (files, event) {
-            files.forEach(function (file) {
-                self.filesList.push(file);
-            });
+            var i = self.filesList.length || 0;
 
-            self.onFileChanged();
+            files.forEach(function (file) {
+                var fileItem = {
+                    id: i++,
+                    fileStream: file,
+                    name: file.name,
+                    isEditingName: false,
+                    extract: false,
+                    isArchivedFile: self.isArchivedFile(file),
+                    isOverSized: self.isOverSized(file)
+                };
+                self.filesList.push(fileItem);
+            });
         };
 
         self.fn.startUpload = function () {
+            self.uploading = true;
             var files = self.filesList;
+            self.uploadedFiles = 0;
+            self.uploadCompleted = false;
+            self.filesCount = self.filesList.length;
             for (var i = 0; i < files.length; i++) {
-                self.$uploadService.upload({
-                    url: self.config.api.uploadDocuments,
-                    method: 'POST',
-                    file: files[i],
-                    fileName: files[i].name + "some_other_text.pdf",
-                    //sendFieldsAs: 'form',
-                    headers: {
-                        extracted: true
-                    },
-                    fields: {
-                        extracted: true
-                    },
-                    data: {
-                        extracted: true
-                    }
-                }).then(self.decorateResponseData.bind(self), function (error) {
-                    return error;
-                });
+                self.event.onUploadFile(files[i]);
             }
+        };
+
+        self.fn.editName = function (record) {
+            record.__name = record.name;
+            record.isEditingName = true;
+        };
+
+        self.fn.saveRecordName = function (record) {
+            record.isEditingName = false;
+            delete record.__name;
+        };
+
+        self.fn.cancelEditing = function (record) {
+            record.name = record.__name;
+            record.isEditingName = false;
+            delete record.__name;
+        };
+
+        self.fn.removeFromList = function (record) {
+            self.modalDialogAdapter.confirm("Delete file", "Are you sure to remove this file?",
+                self.handleDeleteRecord.bind(self, record), doNothing, "Yes, please delete it", "Cancel");
+        };
+
+        self.fn.toggleExtract = function (record) {
+            if (!record.isArchivedFile)
+                throw new Error("Trying to extract some thing that cannot be extracted :P");
+            record.extract = !record.extract;
+        };
+
+        self.fn.hideErrorMessage = function () {
+            self.error = false;
+            self.showErrorMsg = false;
+            self.uploadCompleted = false; // to show new list
+        };
+
+        self.fn.checkOversizeError = function () {
+            var filtered = self.filesList.filter(function (file) {
+                return file.isOverSized;
+            });
+
+            return filtered.length > 0;
         };
     };
 
-    DocumentUploadView.prototype.decorateResponseData = function (response) {
-        console.log(response);
+    DocumentUploadView.prototype.handleDeleteRecord = function (record) {
+        var self = this;
+        self.filesList = self.filesList.filter(function (file) {
+            return file.id != record.id;
+        });
     };
 
-    DocumentUploadView.prototype.onFileChanged = function () {
+    DocumentUploadView.prototype.onUploadFileSuccess = function (response) {
         var self = this;
-        console.log(self.filesList);
+        self.uploadedFiles++;
+        self.progress = (self.uploadedFiles / self.filesCount) * 100;
+
+        // remove uploaded file from filesList
+        self.filesList = self.filesList.filter(function (file) {
+            return file.id !== response.config.fields.fileId
+        });
+
+        self.checkUploadProcess();
+    };
+
+    DocumentUploadView.prototype.checkUploadProcess = function () {
+        var self = this;
+        self.uploadCompleted = self.uploadedFiles == self.filesCount;
+
+        if (!self.uploadCompleted) {
+            return;
+        }
+
+        self.uploading = false;
+        self.uploadStatus = "success";
+
+        if (self.error) {
+            self.showErrorMsg = true;
+        }
+    };
+
+    DocumentUploadView.prototype.onUploadFileError = function (error) {
+        var self = this;
+        self.error = true;
+        self.uploadedFiles++;
+
+        self.checkUploadProcess();
+    };
+
+    DocumentUploadView.prototype.isOverSized = function (file) {
+        var allowance = config.maxSizeUploadAllowed * Math.pow(1024, 2);
+
+        return file.size > allowance;
+    };
+
+    DocumentUploadView.prototype.isArchivedFile = function (file) {
+        return /.(zip|rar|tar|7z)$/.test(file.type);
     };
 
     app.di.register('documentUploadView').as(DocumentUploadView);

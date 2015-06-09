@@ -8,4 +8,39 @@
     vertical-align: middle;
     padding: 115px;
   }
+
+  .upload-document-dialog {
+    overflow-y: scroll;
+  }
+
+  #filesUploadList {
+    border-collapse: collapse;
+    td {
+      padding: 15px;
+    }
+
+    tr.error {
+      text-align: left;
+      > td {
+        color: rgb(169, 68, 66);
+        background: #f8b2b2;
+      }
+    }
+
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  a.select-box {
+    padding: 2px 5px !important;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+
+    &.checked {
+      border: 1px solid #ED8B00;
+      color: #ED8B00;
+    }
+  }
 }

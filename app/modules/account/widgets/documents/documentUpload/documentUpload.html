@@ -5,69 +5,158 @@
         </button>
         <div class="modal-title">
             <h4>
-                Add Document
+                {{'Documents.UploadDocuments.Title' | i18next}}
             </h4>
         </div>
     </div>
-    <div class="modal-body form-horizontal report-parameter-dialog height-md">
-        <div class="upload-drop-placeholder text-center"
-             data-multiple="true"
-             ng-file-select="fn.dropFile($files, $event)"
-             ng-file-drop="fn.dropFile($files, $event)"
-             ng-file-drag-over-class="upload-hover"
-             ng-if="!filesList.length">
-            <h1>
-                <i class="fa fa-cloud-upload"></i>
-            </h1>
 
-            <h3>Drag & Drop your documents here</h3>
+    <div ng-if="uploading && !uploadCompleted" class="modal-body form-horizontal report-parameter-dialog">
+        <div class="upload-progress alert alert-info">
+            <h4>{{'Documents.UploadDocuments.UploadingTitle' | i18next}}</h4>
 
-            <p>Some help text appear here</p>
-            <button class="btn btn-sm btn-primary">
-                <i class="fa fa-cloud-upload"></i>&nbsp; Upload files
-            </button>
-        </div>
-        <div ng-if="filesList.length">
-            <div class="row">
-                <div class="col-md-10">
-                    <button class="btn btn-sm btn-primary"
-                            ng-file-drag-over-class="upload-hover"
-                            ng-file-select="fn.dropFile($files, $event)"
-                            ng-file-drop="fn.dropFile($files, $event)">
-                        <i class="fa fa-cloud-upload"></i>&nbsp; Add more files
-                    </button>
+            <p>{{'Documents.UploadDocuments.UploadingMessage' | i18next}}</p>
+
+            <div class="progress clearfix">
+                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                     aria-valuenow="{{progress}}"
+                     aria-valuemin="0" aria-valuemax="100"
+                     style="width: {{progress}}%">
                 </div>
-                <div class="col-md-2">
-                    <div class="pull-right">
-                        {{filesList.length}} documents
-                    </div>
-                </div>
-            </div>
-            <div class=" m-l-5 m-r-5 m-t-20">
-                <table id="data-table" class="table table-striped table-bordered">
-                    <tbody>
-                    <tr ng-repeat="record in filesList">
-                        <td class="col-md-10">
-                            {{record.name}}
-                        </td>
-                        <td>
-                            <i class="fa fa-pencil"></i>
-                        </td>
-                        <td>
-                            <i class="fa fa-remove"></i>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-sm btn-white" ng-click="fn.close()">
-            {{'commonText.Cancel' | i18next}}
-        </button>
-        <button class="btn btn-sm btn-primary" ng-click="fn.startUpload()">
-            Upload Documents
-        </button>
+
+    <div ng-if="!uploading && uploadCompleted && !showErrorMsg" class="modal-body form-horizontal">
+        <div class="upload-progress alert alert-success">
+            <h4>{{'Documents.UploadDocuments.UploadingSuccessTitle' | i18next}}</h4>
+
+            <p>{{'Documents.UploadDocuments.UploadingSuccessMessage' | i18next}}</p>
+        </div>
+    </div>
+
+    <div ng-if="showErrorMsg" class="modal-body form-horizontal">
+
+        <div class="upload-progress alert alert-danger">
+            <h4>{{'Documents.UploadDocuments.UploadingErrorTitle' | i18next}}</h4>
+
+            <p>{{'Documents.UploadDocuments.UploadingErrorMessage' | i18next}}</p>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-white" ng-click="fn.close()">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn btn-sm btn-primary" ng-click="fn.hideErrorMessage()">
+                {{'commonText.Retry' | i18next}}
+            </button>
+        </div>
+    </div>
+
+    <div ng-if="!self.showErrorMsg && !uploading && !uploadCompleted">
+        <div class="modal-body form-horizontal upload-document-dialog height-md">
+            <div class="upload-drop-placeholder text-center"
+                 data-multiple="true"
+                 ng-file-select="fn.dropFile($files, $event)"
+                 ng-file-drop="fn.dropFile($files, $event)"
+                 ng-file-drag-over-class="upload-hover"
+                 ng-if="!filesList.length">
+                <h1>
+                    <i class="fa fa-cloud-upload"></i>
+                </h1>
+
+                <h3>{{'Documents.UploadDocuments.Heading_Instruction' | i18next}}</h3>
+
+                <p>{{'Documents.UploadDocuments.Heading_Instruction2' | i18next}}</p>
+                <button class="btn btn-sm btn-primary">
+                    <i class="fa fa-cloud-upload"></i>&nbsp; {{'Documents.UploadDocuments.UploadBtn' | i18next}}
+                </button>
+            </div>
+            <div ng-if="filesList.length">
+                <div class="row">
+                    <div class="col-md-10">
+                        <button class="btn btn-sm btn-primary"
+                                data-multiple="true"
+                                ng-file-drag-over-class="upload-hover"
+                                ng-file-select="fn.dropFile($files, $event)"
+                                ng-file-drop="fn.dropFile($files, $event)">
+                            <i class="fa fa-cloud-upload"></i>&nbsp;
+                            {{'Documents.UploadDocuments.UploadBtn_AddMore' | i18next}}
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pull-right">
+                            {{filesList.length}} documents
+                        </div>
+                    </div>
+                </div>
+                <div class=" m-l-5 m-r-5 m-t-20">
+                    <table id="filesUploadList" class="table table-striped table-bordered">
+                        <tbody>
+                        <tr ng-repeat="record in filesList" ng-class="{'error': record.isOverSized}">
+                            <td class="col-md-11">
+                                <div ng-show="!record.isEditingName">
+                                    <span class="inline">{{record.name}}</span>
+
+                                    <div ng-if="record.isOverSized" class="pull-right">
+                                        {{'Documents.UploadDocuments.OverSized' | i18next:{size:
+                                        config.maxSizeUploadAllowed} }}
+                                    </div>
+
+                                    <a href="#" class="btn select-box text-center pull-right"
+                                       ng-if="record.isArchivedFile && !record.isOverSized"
+                                       ng-click="fn.toggleExtract(record);$event.preventDefault();"
+                                       ng-class="{'checked': record.extract}">
+                                        <span ng-show="record.extract"
+                                              class="fa ic-accept m-l-5"></span>
+                                        Extract archived
+                                    </a>
+                                </div>
+
+                                <div class="input-group"
+                                     ng-if="record.isEditingName">
+                                    <input type="text" ng-model="record.name" class="form-control"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default"
+                                            ng-click="fn.saveRecordName(record);$event.preventDefault();">
+                                        <i class="ic-accept"></i>
+                                    </button>
+                                    <button class="btn btn-default"
+                                            ng-click="fn.cancelEditing(record);$event.preventDefault();">
+                                        <i class="ic-close"></i>
+                                    </button>
+                                </span>
+                                </div>
+                            </td>
+                            <td class="col-md-1">
+                                <div class="row">
+                                    <button class="pull-left col-md-6 btn btn-link"
+                                            type="button"
+                                            ng-if="!record.isOverSized"
+                                            ng-click="fn.editName(record);$event.preventDefault();"
+                                            ng-show="!record.isEditingName">
+                                        <i class="fa ic-edit"></i>
+                                    </button>
+                                    <button class="pull-right col-md-6 btn btn-link"
+                                            type="button"
+                                            ng-click="fn.removeFromList(record);$event.preventDefault();">
+                                        <i class="fa ic-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-white" ng-click="fn.close()">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn btn-sm btn-primary" ng-disabled="!filesList.length || fn.checkOversizeError()"
+                    ng-click="fn.startUpload()">
+                {{'Documents.UploadDocuments.UploadBtn_Submit' | i18next}}
+            </button>
+        </div>
     </div>
 </div>
