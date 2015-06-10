@@ -7,12 +7,12 @@ define([
 ], function(config, AuthAjaxService, Q, LiteralsSharedService, _) {
     'use strict';
 
-    function LiteralsEditCreateService(ajaxService, sharedService) {
+    function CustomLiteralsEditCreateService(ajaxService, sharedService) {
         this.ajaxService = ajaxService;
         this.sharedService = sharedService;
     }
 
-    var proto = LiteralsEditCreateService.prototype;
+    var proto = CustomLiteralsEditCreateService.prototype;
 
 
     // ------------------------
@@ -25,28 +25,21 @@ define([
         var body = {
             key: literal.Key,
             languageValues: {},
-            deviceTypeIds: [],
-            literalTypeId: null,
-            oldKey: ''
+            implementationCode: literal.ImplementationCode.Code
         };
         _.each(literal.LanguageValues, function(value, key){
             body.languageValues[key] = value;
         });
-        literal.DeviceTypes.forEach(function (deviceType) {
-            body.deviceTypeIds.push(deviceType.Id);
-        });
-        body.literalTypeId = literal.LiteralType ? literal.LiteralType.Id : null;
-        body.oldKey = literal.OldKey || '';
         return body;
     };
 
 
     proto.createLiteral = function (literal) {
         assertNotNull("literal", literal);
-        assertNotNull("LiteralType", literal.LiteralType);
+        assertNotNull("implementationCode", literal.ImplementationCode);
         var body = this._createLiteralBody(literal);
         return this.ajaxService.rawAjaxRequest({
-            url: config.api.createLiteral,
+            url: config.api.createCustomLiteral,
             data: body,
             type: 'POST',
             dataType: 'json',
@@ -56,12 +49,12 @@ define([
 
 
     proto.changeLiteralDetails = function (literal) {
+        assertNotNull("literal", literal);
         assertNotNull("Id", literal.Id);
         var body = this._createLiteralBody(literal);
-        delete body.key;
         body.id = literal.Id;
         var params = {
-            url: config.api.changeLiteralDetails,
+            url: config.api.changeCustomLiteralDetails,
             data: body,
             type: 'POST',
             dataType: 'json',
@@ -104,7 +97,7 @@ define([
         var self = this;
         var body = "id=" + id;
         this.ajaxService.rawAjaxRequest({
-            url: config.api.literalById,
+            url: config.api.customLiteralById,
             data: body,
             type: 'GET',
             dataType: 'json'
@@ -127,12 +120,10 @@ define([
     proto.getNullLiteral = function () {
         var deferred = Q.defer();
         var nullLiteral = {
-            DeviceTypes: [],
+            ImplementationCode: null,
             Id: null,
             Key: "",
-            LanguageValues: {},
-            LiteralType: null,
-            OldKey: ""
+            LanguageValues: {}
         };
         this._mergeLanguagesWithLiteral(nullLiteral).then(
             function (mergedLiteral) {
@@ -150,21 +141,17 @@ define([
 
 
 
-    proto.getLiteralTypeList = function () {
-        return this.sharedService.getLiteralTypeList();
+    proto.getImplementationList = function () {
+        return this.sharedService.getImplementationList();
     };
 
 
-    proto.getDeviceTypeList = function () {
-        return this.sharedService.getDeviceTypeList();
-    };
 
-
-    LiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
+    CustomLiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         sharedService = sharedService || LiteralsSharedService.newInstance();
-        return new LiteralsEditCreateService(ajaxService, sharedService);
+        return new CustomLiteralsEditCreateService(ajaxService, sharedService);
     };
 
-    return LiteralsEditCreateService;
+    return CustomLiteralsEditCreateService;
 });

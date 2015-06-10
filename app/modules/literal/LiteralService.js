@@ -128,7 +128,7 @@ define([
             "&limit=" + limit;
 
         return this.ajaxService.rawAjaxRequest({
-            url: Configuration.api.literalListBySearch,
+            url: Configuration.api.literalList,
             data: body,
             type: 'GET',
             dataType: 'json'

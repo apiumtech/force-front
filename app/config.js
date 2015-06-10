@@ -59,16 +59,27 @@ define(function () {
         //conversion visits/sales
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
+
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
         deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
 
-        literalListBySearch: baseUrl + '/api/queries/commons/literals/literalList',
+        literalList: baseUrl + '/api/queries/commons/literals/literalList',
         literalById: baseUrl + '/api/queries/commons/literals/literalById',
 
         languageList: baseUrl + '/api/queries/commons/languages/languageList',
         literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
         deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
+
+
+        createCustomLiteral: baseUrl + '/api/commands/commons/literals/createCustomLiteral',
+        changeCustomLiteralDetails: baseUrl + '/api/commands/commons/literals/changeCustomLiteralDetails',
+        deleteCustomLiteral: baseUrl + '/api/commands/commons/literals/deleteCustomLiteral',
+
+        customLiteralList: baseUrl + '/api/queries/commons/literals/customLiteralList',
+        customLiteralById: baseUrl + '/api/queries/commons/literals/customLiteralById',
+
+        implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
 
 
         literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueDictionary'

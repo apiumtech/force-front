@@ -1,1 +1,0 @@
-{"status":"ack","message":{"type":"query","code":"02.07.3.01","name":"DeviceTypeListQuery"},"data":[{"Id":"fd113407-aa3a-4d4c-9ea0-2eec68943357","Name":"Android"},{"Id":"f58bbb0a-87b1-4e09-ba0e-4b179135eda0","Name":"iOS"},{"Id":"94c70611-37c3-4389-9ada-c813c9d85ca9","Name":"Windows"}],"metaData":null}

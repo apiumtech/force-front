@@ -1,0 +1,83 @@
+<div class="LiteralView" ng-init="fn.onInit()">
+    <h1 class="page-header">{{'CustomLiteral.Detail.Title' | i18next}}</h1>
+
+    <div class="row">
+        <div class="col-md-12 ui-sortable">
+            <div class="panel panel-inverse">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span ng-if="fn.isNew()">{{'CustomLiteral.Detail.Header.Create' | i18next}} </span>
+                        <span ng-if="!fn.isNew()">{{'CustomLiteral.Detail.Header.Edit' | i18next}} </span>
+                        {{'CustomLiteral.Detail.Header.Form' | i18next}}
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <form class="form-horizontal">
+
+                        <!-- Literal Key -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'CustomLiteral.Detail.Form.Literal_Key' | i18next}}</label>
+                            <div class="col-md-9">
+                                <!-- Literal Key -->
+                                <p ng-if="!fn.isNew()" class="form-control-static">{{data.literal.Key}}</p>
+                                <input ng-if="fn.isNew()"
+                                       type="text"
+                                       class="form-control"
+                                       placeholder="{{'CustomLiteral.Detail.Form.Literal_Key_Placeholder' | i18next}}"
+                                       ng-model="data.literal.Key"
+                                       value={{data.literal.Key}}>
+                            </div>
+                        </div>
+
+
+                        <!-- Implementation Code -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'CustomLiteral.Detail.Form.Implementation_Code' | i18next}}</label>
+                            <div class="col-md-9">
+                                <select class="form-control"
+                                        ng-model="data.literal.ImplementationCode"
+                                        ng-options="implementation.Name for implementation in data.implementationList track by implementation.ImplementationCode">
+                                    <option value="">{{'CustomLiteral.Detail.Form.Select_Implementation_Code' | i18next}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- Literal languages -->
+                        <div class="form-group"
+                             ng-repeat="(languageKey, languageValue) in data.literal.LanguageValues">
+                            <label class="col-md-3 control-label">{{ languageKey }}</label>
+                            <div class="col-md-9">
+                                <!-- Literal language -->
+                                <input type="text"
+                                       ng-model="data.literal.LanguageValues[languageKey]"
+                                       class="form-control"
+                                       placeholder="{{'CustomLiteral.Detail.Form.Literal_Key_Placeholder' | i18next}}"
+                                       value="{{ languageValue }}"/>
+                            </div>
+                        </div>
+
+
+                        <!-- Form buttons -->
+                        <div class="form-group">
+                            <div class="col-md-9">
+                                <button type="submit"
+                                        ng-click="fn.onSave()"
+                                        class="btn btn-sm btn-success">{{'CustomLiteral.Detail.Form.Submit' | i18next}}
+                                </button>
+                                <button type="submit"
+                                        ng-click="fn.onCancel()"
+                                        class="btn btn-sm btn-error">{{'CustomLiteral.Detail.Form.Cancel' | i18next}}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

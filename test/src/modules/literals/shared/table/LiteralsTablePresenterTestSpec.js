@@ -11,7 +11,8 @@ define([
             onColumnsRequestSuccess: function(){},
             onColumnsRequestError: function(){},
             onLiteralsRequestSuccess: function(){},
-            onLiteralsRequestError: function(){}
+            onLiteralsRequestError: function(){},
+            clearTable: function(){}
         };
         model = {};
         sut.show(view, model);

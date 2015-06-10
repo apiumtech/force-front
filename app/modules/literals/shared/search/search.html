@@ -1,7 +1,16 @@
-<div class="btn-group m-r-5 m-b-5  pull-right"
-     ng-controller="LiteralsSearchController">
-    <label class="pull-none">{{'commonText.Search' | i18next}}:
-        <input type="text" ng-change="fn.onSearchTextFilterChanged(data.currentSearchQuery)"
-               ng-model="data.currentSearchQuery" />
-    </label>
-</div>
+<form ng-controller="LiteralsSearchController">
+    <div class="input-group m-t-40">
+        <input type="text"
+               class="form-control"
+               ng-model="data.currentSearchQuery"
+               ng-change="fn.onSearchTextFilterChanged(data.currentSearchQuery)"
+               placeholder="{{'commonText.Search' | i18next}}">
+        <span class="input-group-btn">
+            <button type="button"
+                    class="btn btn-sm btn-default"
+                    ng-click="fn.onSearchTextFilterChanged(data.currentSearchQuery)">
+                <i class="fa ic-search"></i>
+            </button>
+        </span>
+    </div>
+</form>

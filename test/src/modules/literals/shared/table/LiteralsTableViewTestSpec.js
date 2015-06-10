@@ -7,7 +7,7 @@ define([
     function exerciseCreateView(namedParams) {
         namedParams = namedParams || {};
         return LiteralsTableView.newInstance({
-            scope: namedParams.scope,
+            scope: namedParams.scope || {$on:function(){}},
             presenter: namedParams.presenter,
             compile: namedParams.compile,
             dataTableService: namedParams.dataTableService,
@@ -22,7 +22,6 @@ define([
                 spyOn(LiteralsTableView.prototype, 'configureEvents').and.callThrough();
                 var sut = exerciseCreateView();
                 expect(sut.configureEvents).toHaveBeenCalled();
-                expect(sut.event.onInit).toBeDefined();
             });
         });
 

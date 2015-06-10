@@ -45,6 +45,11 @@ define([
     };
 
 
+    proto.clearTable = function () {
+        this.table.clear().draw();
+    };
+
+
     proto.deleteLiteralPrompt = function (literalId) {
         var msg = this.translator.translate(
             "Literal.List.Table.Delete_Confirm_Message",
@@ -52,6 +57,7 @@ define([
         );
 
         if (confirm(msg)) {
+            this.clearTable();
             this.event.fireLiteralsDeleteRequest(literalId);
         }
     };
@@ -81,6 +87,13 @@ define([
             title: "Key",
             type: "string",
             visible: true,
+            sortable: false,
+            width: 150
+        },{
+            data: "ImplementationCode",
+            title: "ImplementationCode",
+            type: "num",
+            visible: false,
             sortable: false
         }];
         columns = columns.concat(this.languages.slice());
@@ -115,6 +128,7 @@ define([
             row.$ref = obj;
             row.Id = obj.Id;
             row.Key = obj.Key;
+            row.ImplementationCode = obj.ImplementationCode || 0;
             self.languages.forEach(function (lang) {
                 var langData = "";
                 if( obj.LanguageValues[lang.data] !== undefined ) {
@@ -127,6 +141,10 @@ define([
         var data = res.data.map(function (row) {
             return requestRow(row);
         });
+
+        if(data.length > 0 && "ImplementationCode" in data[0].$ref){
+            this.table.column(1).visible(true);
+        }
 
         this.table.rows.add(data).draw();
     };
