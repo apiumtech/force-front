@@ -67,8 +67,11 @@ define([
 
         self.fn.resetForm = function () {
             $("form#CreateContact")[0].reset();
-            self.$scope.CreateContact.firstName.$pritine = true;
-            self.$scope.CreateContact.lastName.$pritine = true;
+
+            _.each(self.$scope.CreateContact, function (value, key) {
+                if (value && value.$touched)
+                    value.$touched = false;
+            });
         };
 
         self.fn.startNewForm = function () {
