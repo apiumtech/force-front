@@ -2927,7 +2927,7 @@ legend {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: #216db3;
+    //background: #216db3;
 }
 .progress-bar.progress-bar-success {
     background-color: #85ac1f;

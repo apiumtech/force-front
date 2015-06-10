@@ -1,7 +1,7 @@
 define([
     'app',
     'modules/account/widgets/documents/documentUpload/DocumentUploadModel'
-], function (app, DocumentUploadModel) {
+], function (app) {
     'use strict';
 
     function DocumentUploadPresenter(model) {
@@ -22,6 +22,15 @@ define([
     DocumentUploadPresenter.prototype.show = function (view) {
         this.view = view;
         var model = this.model;
+
+        view.event = view.event || {};
+
+        view.event.onUploadFile = function(file){
+            model.uploadFile(file)
+                .then(view.onUploadFileSuccess.bind(view))
+                .catch(view.onUploadFileError.bind(view));
+        };
+
     };
 
     app.di.register('documentUploadPresenter').as(DocumentUploadPresenter);

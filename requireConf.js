@@ -18,6 +18,7 @@ var requireConf = {
         'angular-validation-rule': '../bower_components/angular-validation/dist/angular-validation-rule.min',
         'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
         'angularRecursion': "../bower_components/angular-recursion/angular-recursion.min",
+        'angular_touch': '../bower_components/angular-touch/angular-touch.min',
 
         'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
         'angular-moment': '../bower_components/angular-moment/angular-moment.min',
@@ -74,6 +75,10 @@ var requireConf = {
         'ngSanitize': {
             deps: ['angular'],
             exports: 'ngSanitize'
+        },
+        'angular_touch': {
+            deps: ['angular'],
+            exports: 'angular_touch'
         },
 
         'angular-validation': {
@@ -235,7 +240,7 @@ var requireConf = {
         'datatables',
 
         /* Angular & Its plugins */
-        'angular', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
 
         'angular-bootstrap',
         'angular-moment', 'ng-i18next', 'infinite-scroll',

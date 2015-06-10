@@ -74,11 +74,19 @@ define([
                 controller: 'DocumentUploadController',
                 size: 'lg'
             };
-            self.modalDialogService.open(option);
+            var modalInstance = self.modalDialogService.open(option);
+            modalInstance.result.then(self.onAddDocumentDialogClosed.bind(self));
         };
 
         self.$scope.$watch("accountId", self.onAccountIdChanged.bind(self));
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    DocumentsWidgetView.prototype.onAddDocumentDialogClosed = function (status) {
+        var self = this;
+        if (status === "success") {
+            self.eventChannel.sendReloadCommand();
+        }
     };
 
     DocumentsWidgetView.prototype.deletionConfirmed = function (record) {

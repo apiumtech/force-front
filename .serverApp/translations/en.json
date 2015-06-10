@@ -18,7 +18,9 @@
     "Create": "Create",
     "Delete": "Delete",
     "Cancel": "Cancel",
+    "Retry": "Retry",
     "Save": "Save",
+    "SaveAndContinue": "Save And Continue",
     "Show": "Show",
     "FilterBy": "Filter by",
     "Owner": "Owner",
@@ -46,7 +48,22 @@
     "AddDocument": "Add Document",
     "deleteDocumentConfirmationMsg": "<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
     "deleteBtnConfirm": "Yes, delete it",
-    "cancelDelete": "No, thanks"
+    "cancelDelete": "No, thanks",
+    "UploadDocuments": {
+      "Title": "Add document",
+      "UploadingTitle": "Uploading",
+      "Heading_Instruction": "Drag & Drop your documents here",
+      "Heading_Instruction2": "Some help text appear here",
+      "UploadBtn": "Upload files",
+      "UploadBtn_AddMore": "Add more files",
+      "UploadBtn_Submit": "Upload Documents",
+      "UploadingMessage": "We're uploading your files. It will be a matter of milliseconds",
+      "UploadingSuccessTitle": "Uploaded Successfully!",
+      "UploadingSuccessMessage": "Your documents have been uploaded successfully",
+      "UploadingErrorTitle": "Sorry!",
+      "UploadingErrorMessage": "Some of your files cannot be uploaded, please try again!",
+      "OverSized": "Maximum file size is __size__MB. Please remove this file"
+    }
   },
   "DateTime": {
     "Today": "Today",
@@ -70,6 +87,7 @@
     "RelatedContacts": "Related Contacts",
     "AddContact": "Add Contacts",
     "RelatedCompany": "Related Company",
+    "AddCompany": "Add Company",
     "ExtraFields": "Extra Fields",
     "RelatedContact": {
       "Mobile": "Mobile",
@@ -77,6 +95,9 @@
     },
     "ActivityWidget": {
       "EditActivity": "Edit activity"
+    },
+    "Dialog": {
+      "AddRelatedCompany": "Add Related Company"
     }
   },
   "LineWidget": {
@@ -121,6 +142,7 @@
   "Account": {
     "AccountTitle": "Accounts",
     "CreateAccount": "Create Account",
+    "CreateContact": "Create Contact",
     "EditAccount": "Edit Account",
     "Table": {
       "Header": "__xx__ Results",
@@ -198,7 +220,7 @@
     "FavouriteReports": "Favourite Reports",
     "SearchReports": "Search Reports",
     "Dialog": {
-      "ReportParameterTitle" : "Report Parameters"
+      "ReportParameterTitle": "Report Parameters"
     }
   },
   "Contact": {

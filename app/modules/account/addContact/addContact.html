@@ -1,0 +1,79 @@
+<div class="panel-loader" ng-show="data.isPosting">
+    <span class="spinner-small"></span>
+</div>
+<div>
+    <div class="padding_box">
+        <div class="pull-right">
+            <button class="btn btn-default"
+                    ng-disabled="data.isPosting" ng-click="fn.goBack()">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn btn-default"
+                    ng-disabled="!fn.isFormValidated('CreateContact')"
+                    ng-click="fn.saveContact(true)">
+                {{'commonText.SaveAndContinue' | i18next}}
+            </button>
+            <button class="btn btn-primary"
+                    ng-disabled="!fn.isFormValidated('CreateContact') || data.isPosting "
+                    ng-click="fn.saveContact()">
+                {{'commonText.Save' | i18next}}
+            </button>
+        </div>
+    </div>
+    <h4 class="modal-title">
+        {{'Account.CreateContact' | i18next}}
+    </h4>
+</div>
+<hr/>
+<div class="form-horizontal create-account panel form-content">
+    <form id="CreateContact" name="CreateContact" class="form-horizontal" novalidate ng-init="fn.pageInitialized()">
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable"></label>
+
+            <div class="col-md-6 ui-sortable form-img ">
+                <img src="{{contactData.ImageUrl || 'assets/img/placeholder.png'}}"
+                        />
+                <br>
+                <button class="btn btn-default btn-sm btn-picture m-t-10 uppercase"
+                        ng-file-select="fn.selectFile($files)">
+                    Upload account's logo
+                </button>
+                <span class="spinner-small" ng-show="data.isUploading"></span>
+            </div>
+        </div>
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.firstName.$invalid && CreateContact.firstName.$touched }">
+            <label class="col-md-3 control-label ui-sortable">First name</label>
+
+            <div class="col-md-9">
+                <input type="text"
+                       name="firstName"
+                       class="form-control"
+                       required
+                       placeholder="First Name *" ng-model="contactData.FirstName">
+
+                <p ng-show="CreateContact.firstName.$touched && CreateContact.firstName.$error.required"
+                   class="help-block">
+                    Please enter first name
+                </p>
+            </div>
+        </div>
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.lastName.$invalid && CreateContact.lastName.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Last name</label>
+
+            <div class="col-md-9">
+                <input type="text"
+                       name="lastName"
+                       class="form-control"
+                       required
+                       placeholder="Last Name *" ng-model="contactData.LastName">
+
+                <p ng-show="CreateContact.lastName.$touched && CreateContact.lastName.$error.required"
+                   class="help-block">
+                    Please enter last name
+                </p>
+            </div>
+        </div>
+    </form>
+</div>

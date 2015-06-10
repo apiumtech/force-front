@@ -4,8 +4,9 @@
 define([
     'app',
     'modules/account/details/AccountDetailsController',
-    'modules/account/details/AccountDetailsView'
-], function (app, AccountDetailsController, AccountDetailsView) {
+    'modules/account/details/AccountDetailsView',
+    'angular'
+], function (app, AccountDetailsController, AccountDetailsView, angular) {
     'use strict';
     describe("AccountDetailsController", function () {
 
@@ -13,15 +14,17 @@ define([
         beforeEach(module(appName));
         describe("AccountDetailsController", function () {
             var $controller;
-            var scope, $routeParams, $modal;
+            var scope, $routeParams, $modal, element;
 
             beforeEach(inject(function (_$controller_, _$rootScope_, _$routeParams_, _$modal_) {
                 $controller = _$controller_;
+                element = angular.element("<div/>");
                 scope = _$rootScope_.$new();
                 $routeParams = _$routeParams_;
                 $routeParams.account_id = 123;
                 $modal = _$modal_;
             }));
+
             describe("loading asynchronously", function () {
                 it("should register the controller to app", function () {
                     var ctrl = $controller('AccountDetailsController', {$scope: scope, $modal: $modal, $routeParams: $routeParams});
@@ -39,8 +42,8 @@ define([
                     AccountDetailsController.configureView.restore();
                 });
                 it("should call AccountDetailsController.configureView global method", function () {
-                    new AccountDetailsController(scope, $modal, $routeParams);
-                    expect(AccountDetailsController.configureView).toHaveBeenCalledWith(scope, $modal);
+                    new AccountDetailsController(scope, element, $modal, $routeParams);
+                    expect(AccountDetailsController.configureView).toHaveBeenCalledWith(scope);
                 });
             });
 
@@ -54,7 +57,7 @@ define([
                     AccountDetailsView.newInstance.restore();
                 });
                 it("should create new instance of AccountDetailsView", function () {
-                    AccountDetailsController.configureView(scope, $modal);
+                    AccountDetailsController.configureView(scope);
                     expect(AccountDetailsView.newInstance).toHaveBeenCalled();
                     expect(view.show).toHaveBeenCalled();
                 });

@@ -1,108 +1,129 @@
-<div class="panel panel-inverse panel-card panel-detail panel-account-detail" ng-init="fn.bindDocumentDomEvents()">
+<div class="panel panel-inverse panel-card panel-detail panel-account-detail account-detail-info" ng-init="fn.bindDocumentDomEvents()">
     <div class="panel-body">
-        <h4>{{'AccountDetail.AccountType' | i18next}}: Lead</h4>
+        <!--general-->
+        <div>
+            <h4>{{'AccountDetail.AccountType' | i18next}}: Lead</h4>
 
-        <p>{{'AccountDetail.Classification' | i18next}}: {{accountData.class}} </p>
+            <p>{{'AccountDetail.Classification' | i18next}}: {{accountData.class}} </p>
 
-        <p>{{'AccountDetail.Owner' | i18next}}:
-            <a href="#/contacts/{{accountData.responsible.id}}">{{accountData.responsible.name}}</a>
-        </p>
+            <p>{{'AccountDetail.Owner' | i18next}}:
+                <a href="#/contacts/{{accountData.responsible.id}}">{{accountData.responsible.name}}</a>
+            </p>
 
-        <div class="line-border clearfix m-b-10 m-t-5"></div>
-        <div id="map-canvas" ng-init="fn.initMap()"></div>
-        <div class="line-border clearfix m-t-10"></div>
+            <div class="line-border clearfix m-b-10 m-t-5"></div>
+            <div id="map-canvas" ng-init="fn.initMap()"></div>
+            <div class="line-border clearfix m-t-10"></div>
 
-        <h6>{{'AccountDetail.Address' | i18next}}</h6>
+            <h6>{{'AccountDetail.Address' | i18next}}</h6>
 
-        <p>{{accountData.contactInfo.address}} {{accountData.contactInfo.city}} {{accountData.contactInfo.country}}</p>
+            <p>{{accountData.contactInfo.address}} {{accountData.contactInfo.city}} {{accountData.contactInfo.country}}</p>
+        </div>
         <!-- email-->
-        <h6>{{'commonText.Email' | i18next}}</h6>
+        <div>
+            <h6>{{'commonText.Email' | i18next}}</h6>
 
-        <div class="edit-email clearfix" ng-repeat="email in accountData.emails">
-            <input class="form-control"
-                   ng-disabled="!fn.isEditingEmail($index)"
-                   ng-class="{'disabled': !fn.isEditingEmail($index)}" type="text"
-                   ng-model="email.email">
-            <a href="javascript:;"
-               ng-show="!fn.isEditingEmail($index)"
-               ng-click="fn.startEditEmail($index, email)"
-               class="btn-email btn btn-default btn-xs m-l-10">
-                <i class="fa ic-email"></i>
-            </a>
-            <a href="javascript:;" class="btn-accept btn btn-default btn-xs m-l-10"
-               ng-click="fn.finishEditingEmail($index)"
-               ng-show="fn.isEditingEmail($index)">
-                <i class="fa ic-accept"></i>
-            </a>
-            <a href="javascript:;" class="btn-close btn btn-default btn-xs m-l-10"
-               ng-click="fn.cancelEditingEmail($index)"
-               ng-show="fn.isEditingEmail($index)">
-                <i class="fa ic-close"></i>
-            </a>
+            <div class="edit-email clearfix" ng-repeat="email in accountData.emails">
+                <input class="form-control"
+                       ng-disabled="!fn.isEditingEmail($index)"
+                       ng-class="{'disabled': !fn.isEditingEmail($index)}" type="text"
+                       ng-model="email.email">
+                <a href="javascript:;"
+                   ng-show="!fn.isEditingEmail($index)"
+                   ng-click="fn.startEditEmail($index, email)"
+                   class="btn-email btn btn-default btn-xs m-l-10">
+                    <i class="fa ic-email"></i>
+                </a>
+                <a href="javascript:;" class="btn-accept btn btn-default btn-xs m-l-10"
+                   ng-click="fn.finishEditingEmail($index)"
+                   ng-show="fn.isEditingEmail($index)">
+                    <i class="fa ic-accept"></i>
+                </a>
+                <a href="javascript:;" class="btn-close btn btn-default btn-xs m-l-10"
+                   ng-click="fn.cancelEditingEmail($index)"
+                   ng-show="fn.isEditingEmail($index)">
+                    <i class="fa ic-close"></i>
+                </a>
+            </div>
         </div>
         <!-- email-->
         <!-- telephones-->
-        <div class="clearfix">
-            <h6 class="pull-left">{{'AccountDetail.Mobile' | i18next}}</h6>
+        <div>
+            <div class="clearfix">
+                <h6 class="pull-left">{{'AccountDetail.Mobile' | i18next}}</h6>
 
-            <p class="pull-left m-t-15 m-l-10">{{accountData.contactInfo.mobile}}</p></div>
-        <div class="clearfix">
-            <h6 class="pull-left m-t-5">{{'AccountDetail.LaneLine' | i18next}}</h6>
-
-            <p class="pull-left m-t-0 m-l-10">{{accountData.contactInfo.phoneNumber}}</p></div>
+                <p class="pull-left m-t-15 m-l-10">{{accountData.contactInfo.mobile}}</p></div>
+            <div class="clearfix">
+                <h6 class="pull-left m-t-5">{{'AccountDetail.LaneLine' | i18next}}</h6>
+                <p class="pull-left m-t-0 m-l-10">{{accountData.contactInfo.phoneNumber}}</p></div>
+        </div>
         <!-- telephones-->
+        <div>
+            <h6>{{'AccountDetail.Web' | i18next}}</h6>
 
-        <h6>{{'AccountDetail.Web' | i18next}}</h6>
+            <p><a href="//{{accountData.contactInfo.website}}" target="_blank">{{accountData.contactInfo.website}}</a></p>
+            <!-- related contacts-->
+            <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
-        <p><a href="//{{accountData.contactInfo.website}}" target="_blank">{{accountData.contactInfo.website}}</a></p>
-        <!-- related contacts-->
-        <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
-
-        <div class="relatedContacts">
-            <p ng-repeat="relatedContact in accountData.relatedContacts">
-                <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.name}}</a>
-                <a class="popover-contact-info"
-                   ng-mouseover="fn.createPopover($event, relatedContact.id)">
+            <div class="relatedContacts">
+                <p ng-repeat="relatedContact in accountData.relatedContacts">
+                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.name}}</a>
+                    <a class="popover-contact-info"
+                       ng-mouseover="fn.createPopover($event, relatedContact.id)">
                     <span class="ic-info"
                           ng-click="fn.showPopover($event)"></span>
-                </a>
-            </p>
+                    </a>
+                </p>
+            </div>
+
+            <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span>
+                {{'AccountDetail.AddContact' | i18next}}
+            </button>
         </div>
 
-        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span>
+        <a href="#/accounts/{{accountData.id}}/addContact"
+           class="btn btn-default btn-xs  m-t-10 m-b-5">
+            <span class="ic-plus"></span>
             {{'AccountDetail.AddContact' | i18next}}
-        </button>
+        </a>
         <!-- related contacts-->
         <!-- related company-->
-        <h6>{{'AccountDetail.RelatedCompany' | i18next}}</h6>
-
-        <p>Leroy Merlin España</p>
-        <button type="button" class="btn btn-default btn-xs  m-t-10 m-b-5"><span class="ic-plus"></span>
-            {{'AccountDetail.AddContact' | i18next}}
-        </button>
+        <div class="related-company">
+            <h6>{{'AccountDetail.RelatedCompany' | i18next}}</h6>
+            <div id="related-company-wrapper">
+                <p>Leroy Merlin España</p>
+            </div>
+            <button type="button" class="btn btn-default btn-xs"
+                    ng-click = "fn.addCompany()"
+                    ><span class="ic-plus"></span>
+                {{'AccountDetail.AddCompany' | i18next}}
+            </button>
+        </div>
         <!-- related company-->
-        <!-- related company-->
-        <h6>{{'commonText.Description' | i18next}}</h6>
 
-        <p>{{accountData.description}}
-            <a>{{'commonText.more' | i18next}}</a></p>
         <!-- related company-->
-        <!-- telephones-->
-        <div class="clearfix" ng-repeat="field in accountData.extraFields">
-            <h6 class="pull-left">
-                <span ng-class="{'boolean-no': field.fieldType=='boolean' && !field.fieldValue}">{{field.fieldName}}</span>
-            </h6>
+        <div>
+            <h6>{{'commonText.Description' | i18next}}</h6>
 
-            <div ng-switch="field.fieldType">
-                <div ng-switch-when="text">
-                    <p class="pull-left m-t-15 m-l-10">{{field.fieldValue}}</p>
-                </div>
-                <div ng-switch-when="boolean">
-                    <p class="pull-left m-t-15 m-l-10">
+            <p>{{accountData.description}}
+                <a>{{'commonText.more' | i18next}}</a></p>
+            <!-- related company-->
+            <!-- telephones-->
+            <div class="clearfix" ng-repeat="field in accountData.extraFields">
+                <h6 class="pull-left">
+                    <span ng-class="{'boolean-no': field.fieldType=='boolean' && !field.fieldValue}">{{field.fieldName}}</span>
+                </h6>
+
+                <div ng-switch="field.fieldType">
+                    <div ng-switch-when="text">
+                        <p class="pull-left m-t-15 m-l-10">{{field.fieldValue}}</p>
+                    </div>
+                    <div ng-switch-when="boolean">
+                        <p class="pull-left m-t-15 m-l-10">
                         <span class="ic-accept"
                               ng-class="{'ic-close': !field.fieldValue}"
                                 ></span>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

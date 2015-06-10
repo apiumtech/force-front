@@ -123,6 +123,10 @@ function exerciseFakeOkPromise() {
         then: function (a, b) {
             a();
             return exerciseFakeOkPromise();
+        },
+        catch: function (errorHandler) {
+            errorHandler();
+            return exerciseFakeOkPromise();
         }
     };
 }
@@ -132,6 +136,10 @@ function exerciseFakeOkPromiseWithArg(arg) {
         then: function (a, b) {
             a(arg);
             return exerciseFakeOkPromise();
+        },
+        catch: function (errorHandler) {
+            if (errorHandler) errorHandler();
+            return exerciseFakeOkPromise()
         }
     };
 }
@@ -139,7 +147,12 @@ function exerciseFakeOkPromiseWithArg(arg) {
 function exerciseFakeKoPromise() {
     return {
         then: function (a, b) {
-            b();
+            if (b)
+                b();
+            return exerciseFakeKoPromise();
+        },
+        catch: function (errorHandler) {
+            errorHandler();
             return exerciseFakeKoPromise();
         }
     };
@@ -150,6 +163,10 @@ function exerciseFakeKoPromiseWithArg(arg) {
         then: function (a, b) {
             b(arg);
             return exerciseFakeKoPromise();
+        },
+        catch: function (errorHandler) {
+            if (errorHandler) errorHandler();
+            return exerciseFakeKoPromise()
         }
     };
 }

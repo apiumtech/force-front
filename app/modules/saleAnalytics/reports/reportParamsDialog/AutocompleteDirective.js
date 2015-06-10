@@ -13,7 +13,7 @@ define([
         ajaxService = ajaxService || new AjaxService();
 
 
-        var linkElement = function (scope, $element, $attr) {
+        var linkElement = function (scope, $element, $attr, ctrl) {
             var url = $attr.autocomplete;
 
             scope.getAutocompleteOption = function (request, response) {
@@ -40,19 +40,32 @@ define([
                 });
             };
 
+            $.ui.autocomplete.prototype.____renderItem = $.ui.autocomplete.prototype._renderItem;
+
+            $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+                //$.ui.autocomplete.prototype.____renderItem.call(this, ul, item);
+
+                item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+                $.ui.autocomplete.escapeRegex(this.term) +
+                ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<span style='background: yellow'>$1</span>");
+                return $("<li></li>")
+                    .data("item.autocomplete", item)
+                    .append("<a>" + item.label + "</a>")
+                    .appendTo(ul);
+            };
+
             $($element).autocomplete({
                 minLength: 3,
                 source: scope.getAutocompleteOption,
                 select: function (event, ui) {
-                    console.log(ui.item ?
-                    "Selected: " + ui.item.value + " aka " + ui.item.id :
-                    "Nothing selected, input was " + this.value);
+                    if (ui.item) ctrl.$setViewValue(ui.item.value);
                 }
             });
         };
 
         return {
             restrict: "EA",
+            require: 'ngModel',
             link: linkElement
         };
     }

@@ -15,6 +15,10 @@ define([
     }
 
     AccountEditController.configureView = function ($scope) {
+        if (!app.di.contains("$uploadService")) {
+            app.di.register("$uploadService").instance($scope.$upload);
+        }
+
         this.view = AccountEditView.newInstance($scope);
         this.view.show();
     };

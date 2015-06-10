@@ -11,7 +11,8 @@ define([
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular-validation',
-    'angular-validation-rule'
+    'angular-validation-rule',
+    'angular_touch'
 ], function (angular, config, $, i18nextOptions, di) {
     di.autowired();
 
@@ -23,6 +24,7 @@ define([
         'routeResolver',
         'ngSanitize',
         'ngRoute',
+        'ngTouch',
         'ui.bootstrap',
         'jm.i18next',
         'forcefront.sortable',

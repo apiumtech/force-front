@@ -33,7 +33,7 @@ define([
             },
             set: function (value) {
                 var self = this;
-                ['config', 'event', 'fn', 'data'].forEach(function (obj) {
+                Object.keys(self._scope).forEach(function (obj) {
                     if (self._scope[obj])
                         value[obj] = self._scope[obj];
                 });
@@ -85,6 +85,7 @@ define([
             this.presenter.showError(error);
     };
 
+    // TODO: Deprecated
     BaseView.prototype._injectAspects = function ($viewRepAspect, $logErrorAspect) {
         if ($viewRepAspect !== false) {
             ($viewRepAspect || ViewRepaintAspect).weave(this);
@@ -97,6 +98,13 @@ define([
         return this;
     };
 
+    BaseView.prototype.generateSuccessMessage = function(message){
+        return "<div class='notify success'>" +
+            "<span class='ok-tick'><i class='ic-accept'></i></span>" +
+            "<strong>Well done!</strong>" +
+            "<p>"+message+"</p>" +
+            "</div>";
+    };
 
     return BaseView;
 });

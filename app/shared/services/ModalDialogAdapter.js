@@ -2,8 +2,9 @@
  * Created by Justin on 3/19/2015.
  */
 define([
+    'app',
     'underscore'
-], function (_) {
+], function (app, _) {
 
     function ModalDialogAdapter(modalService) {
         this.modalService = modalService;
@@ -93,6 +94,8 @@ define([
         assertNotNull('modalService', modalService);
         return new ModalDialogAdapter(modalService);
     };
+
+    app.di.register('modalDialogAdapter').as(ModalDialogAdapter);
 
     return ModalDialogAdapter;
 });

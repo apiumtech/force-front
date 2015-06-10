@@ -47,7 +47,7 @@ define([
                 afterEach(function () {
                     $$View$$.newInstance.restore();
                 });
-                it("should create new instance of ConversionView", function () {
+                it("should create new instance of $$View$$", function () {
                     $$ClassName$$.configureView(scope);
                     expect($$View$$.newInstance).toHaveBeenCalled();
                     expect(view.show).toHaveBeenCalled();
