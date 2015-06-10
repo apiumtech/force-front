@@ -9,19 +9,22 @@ define([
     'modules/account/widgets/opportunity/AccountDetailOpportunityDirective',
     'modules/account/widgets/agenda/AccountDetailAgendaDirective',
     'modules/account/widgets/documents/AccountDetailDocumentsDirective',
-    'modules/account/widgets/analytic/AccountAnalyticWidgetDirective'
+    'modules/account/widgets/analytic/AccountAnalyticWidgetDirective',
+
+    'modules/account/details/addCompanyDialog/AddCompanyDialogController'
 
 ], function (app, AccountDetailsView) {
     'use strict';
 
     function AccountDetailsController($scope, $modal, $routeParams) {
         var account_id = $routeParams.account_id;
+        $scope.$modal = $modal;
         $scope.accountId = account_id;
-        AccountDetailsController.configureView($scope, $modal);
+        AccountDetailsController.configureView($scope);
     }
 
-    AccountDetailsController.configureView = function (scope, $modal) {
-        this.view = AccountDetailsView.newInstance(scope, $modal);
+    AccountDetailsController.configureView = function (scope) {
+        this.view = AccountDetailsView.newInstance(scope, {});
         this.view.show();
     };
 

@@ -6,23 +6,29 @@ define([
     'modules/account/details/AccountDetailsPresenter',
     'shared/services/ModalDialogAdapter',
     'shared/services/GoogleMapService',
-    'shared/services/PopoverAdapter'
-], function (AccountDetailsView, AccountDetailsPresenter, ModalDialogAdapter, GoogleMapService, PopoverAdapter) {
+    'shared/services/PopoverAdapter',
+    'angular'
+], function (AccountDetailsView, AccountDetailsPresenter, ModalDialogAdapter, GoogleMapService, PopoverAdapter, angular) {
     'use strict';
     describe("AccountDetailViews", function () {
 
-        var sut, scope, presenter, modal, mapService, popoverService, modalDialogAdapter;
+        var sut, scope, element, presenter, mapService, popoverService, modalDialogAdapter;
 
         beforeEach(function () {
             inject(function ($rootScope) {
                 scope = $rootScope.$new();
             });
-            modal = {};
+
+            element = angular.element('<div/>');
+
+            scope.$modal = {
+                open: sinon.stub()
+            };
             modalDialogAdapter = mock(ModalDialogAdapter);
             presenter = mock(AccountDetailsPresenter);
             mapService = mock(GoogleMapService);
             popoverService = mock(PopoverAdapter);
-            sut = new AccountDetailsView(scope, modal, presenter, mapService, popoverService, modalDialogAdapter);
+            sut = new AccountDetailsView(scope, element, presenter, mapService, popoverService, modalDialogAdapter);
         });
 
         it("should call presenter's show method on show()", function () {
@@ -97,12 +103,42 @@ define([
                 spyOn(sut, 'handleDeleteRequest');
                 spyOn(window, 'doNothing');
 
-                spyOn(modalDialogAdapter,'confirm').and.callFake (function(title, message, actionConfirmCallback, actionRejectCallback){
+                spyOn(modalDialogAdapter, 'confirm').and.callFake(function (title, message, actionConfirmCallback, actionRejectCallback) {
                     actionConfirmCallback();
                 });
                 sut.fn.deleteAccount(title, message);
                 expect(sut.handleDeleteRequest).toHaveBeenCalled();
             });
+        });
+
+        describe('fn.addCompany', function () {
+
+            var promise = {
+                'obj': 123
+            };
+
+            var paramDialog = {
+                result: {
+                    then: function (b) {
+                        b(promise);
+                    }
+                }
+            };
+
+            beforeEach(function () {
+                scope.$modal.open.returns(paramDialog);
+                sinon.stub(sut, 'handleAddCompanyRequest');
+                sut.fn.addCompany();
+            });
+
+            it("should open the dialog", function () {
+                expect(scope.$modal.open).toHaveBeenCalled();
+            });
+
+            it("should call handleAddCompanyRequest function after dialog dismissed", function () {
+                expect(sut.handleAddCompanyRequest).toHaveBeenCalledWith({'obj': 123});
+            });
+
         });
 
         describe("updateMap", function () {
@@ -286,10 +322,64 @@ define([
                 var title = "title";
                 var message = 'message';
                 spyOn(sut, 'redirectToAccountList');
-                spyOn(modalDialogAdapter,'notify').and.callFake (function(title, message, actionConfirmCallback){
+                spyOn(modalDialogAdapter, 'notify').and.callFake(function (title, message, actionConfirmCallback) {
                 });
                 sut.onAccountDeleted();
                 expect(sut.redirectToAccountList).toHaveBeenCalled();
+            });
+        });
+
+        describe('handleAddCompanyRequest', function () {
+            var data;
+            beforeEach(function () {
+                data = {
+                    relatedCompany: {
+                        name: "mock company",
+                        type: "mock company type"
+                    }
+                };
+                sut.accountId = 123;
+                sut.event.onSaveRelatedCompany = sinon.stub();
+                sinon.stub(sut, 'onRelatedCompanySaved');
+                spyOn(sut.event, 'onSaveRelatedCompany').and.callFake(function (accountId, relatedCompany, callback) {
+                    callback();
+                });
+                sut.handleAddCompanyRequest(data);
+            });
+
+            it("should fire onSaveRelatedCompany event", function () {
+                expect(sut.event.onSaveRelatedCompany).toHaveBeenCalledWith(123, data.relatedCompany, jasmine.any(Function));
+            });
+
+            it("should call onRelatedCompanySaved upon success of onSaveRelatedCompany event", function () {
+                expect(sut.onRelatedCompanySaved).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('onRelatedCompanySaved', function () {
+            var data = {
+                relatedCompany: {
+                    name: "mock company",
+                    type: "mock company type"
+                }
+            };
+            it("shoulld call appendCompany function", function () {
+                sinon.stub(sut, 'appendCompany');
+                sut.onRelatedCompanySaved(data);
+                expect(sut.appendCompany).toHaveBeenCalledWith(data.relatedCompany);
+            });
+        });
+
+        describe('appendCompany', function () {
+            var company = {
+                name: "name",
+                type: "type"
+            };
+            it("should cal removeEffects function", function () {
+                sinon.stub(sut, "removeEffects");
+                sut.appendCompany(company);
+                expect(sut.removeEffects).toHaveBeenCalled();
             });
         });
 

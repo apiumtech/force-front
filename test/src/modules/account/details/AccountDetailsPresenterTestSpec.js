@@ -32,6 +32,9 @@ define([
                 },
                 {
                     viewEvent: "onDeleteAccount", test: onDeleteAccountTest
+                },
+                {
+                    viewEvent: "onSaveRelatedCompany", test: onSaveRelatedCompanyTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -86,6 +89,35 @@ define([
                 });
                 it("should call showError callback method upon failed on model", function () {
                     model.deleteAccount.returns(exerciseFakeKoPromise());
+                    exerciseTest();
+                    expect(view.showError).toHaveBeenCalled();
+                });
+            }
+
+            function onSaveRelatedCompanyTest(){
+                var accountId = 123;
+                var relatedCompany = {
+                    name: "name",
+                    type: "type"
+                };
+                var spySuccess;
+
+                function exerciseTest() {
+                    spySuccess = sinon.stub();
+                    view.event.onSaveRelatedCompany(accountId, relatedCompany, spySuccess);
+                }
+                it("should call method saveRelatedCompany from model with correct params", function () {
+                    model.saveRelatedCompany.returns(exerciseFakeOkPromise());
+                    exerciseTest();
+                    expect(model.saveRelatedCompany).toHaveBeenCalledWith(accountId, relatedCompany);
+                });
+                it("should call success callback method upon success on model", function () {
+                    model.saveRelatedCompany.returns(exerciseFakeOkPromise());
+                    exerciseTest();
+                    expect(spySuccess).toHaveBeenCalled();
+                });
+                it("should call showError callback method upon failed on model", function () {
+                    model.saveRelatedCompany.returns(exerciseFakeKoPromise());
                     exerciseTest();
                     expect(view.showError).toHaveBeenCalled();
                 });

@@ -86,6 +86,7 @@
     "RelatedContacts": "Related Contacts",
     "AddContact": "Add Contacts",
     "RelatedCompany": "Related Company",
+    "AddCompany": "Add Company",
     "ExtraFields": "Extra Fields",
     "RelatedContact": {
       "Mobile": "Mobile",
@@ -93,6 +94,9 @@
     },
     "ActivityWidget": {
       "EditActivity": "Edit activity"
+    },
+    "Dialog": {
+      "AddRelatedCompany": "Add Related Company"
     }
   },
   "LineWidget": {

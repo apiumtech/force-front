@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                 'strictMath': true,
                 'strictUnits': true,
                 'compress': true,
-                'report': 'min'
+                "relatedCompany": 'min'
             },
             'files': {
                 'build/css/force-manager.min.css': 'assets/main.build.less'

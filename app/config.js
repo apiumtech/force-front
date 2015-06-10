@@ -87,7 +87,7 @@ define(function () {
         defaultDateSubtraction: 30,
         tokenStorageKey: "fm_token",
         defaultLiteralLang: "en",
-        maxSizeUploadAllowed: 1
+        maxSizeUploadAllowed: 25
 
     };
 });
