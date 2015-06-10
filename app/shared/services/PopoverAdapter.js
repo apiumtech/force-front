@@ -2,13 +2,15 @@
  * Created by justin on 3/12/15.
  */
 
-define([], function () {
+define([
+    'jquery'
+], function ($) {
     function DefaultPopoverImpl(target, options) {
         $(target).popover(options);
     }
 
     function PopoverAdapter(popOverImplementation) {
-        this.impl = popOverImplementation;
+        this.impl = popOverImplementation || DefaultPopoverImpl;
     }
 
     PopoverAdapter.prototype.createPopover = function (target, template, content, placement, trigger) {

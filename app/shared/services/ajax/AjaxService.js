@@ -2,8 +2,9 @@
  * Created by kevin on 10/27/14.
  */
 define([
+    'app',
     'q', 'jquery', 'underscore', 'config'
-], function (Q, $, _, Configuration) {
+], function (app, Q, $, _, Configuration) {
 
     function AjaxService(ajaxImpl) {
         this.ajaxImpl = ajaxImpl || $.ajax;
@@ -45,6 +46,8 @@ define([
     AjaxService.newInstance = function (ajaxImpl) {
         return new AjaxService(ajaxImpl || $.ajax);
     };
+
+    app.di.register('ajaxService').as(AjaxService);
 
     return AjaxService;
 });

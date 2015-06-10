@@ -15,6 +15,9 @@ define([], function () {
                 .when('/accounts/:account_id/edit', resolveRoute('modules/account/edit/AccountEditController',
                     'modules/account/edit/accountEdit'))
 
+                .when('/accounts/:account_id/addContact', resolveRoute('modules/account/addContact/AddContactController',
+                    'modules/account/addContact/addContact'))
+
                 .when('/account/create', resolveRoute('modules/account/create/AccountCreateController',
                     'modules/account/create/accountCreate'))
             ;

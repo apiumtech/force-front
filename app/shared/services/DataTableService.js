@@ -1,13 +1,15 @@
 /**
  * Created by Justin on 3/2/2015.
  */
-define([], function () {
+define([
+    'jquery'
+], function ($) {
     function DataTableIntegrateImplement(domAccess, dtOptions) {
         return $(domAccess).DataTable(dtOptions);
     }
 
     function DataTableService(dataTableImpl) {
-        this.dtImpl = dataTableImpl;
+        this.dtImpl = dataTableImpl || DataTableIntegrateImplement;
     }
 
     DataTableService.prototype.createDatatable = function (dom, options) {

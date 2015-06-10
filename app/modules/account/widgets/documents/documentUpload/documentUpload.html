@@ -27,7 +27,8 @@
     </div>
 
     <div ng-if="!uploading && uploadCompleted && !showErrorMsg" class="modal-body form-horizontal">
-        <div class="upload-progress alert alert-success">
+        <div class="notify success">
+            <span class="ok-tick"><i class="ic-accept"></i></span>
             <h4>{{'Documents.UploadDocuments.UploadingSuccessTitle' | i18next}}</h4>
 
             <p>{{'Documents.UploadDocuments.UploadingSuccessMessage' | i18next}}</p>
@@ -52,7 +53,7 @@
         </div>
     </div>
 
-    <div ng-if="!self.showErrorMsg && !uploading && !uploadCompleted">
+    <div ng-if="!showErrorMsg && !uploading && !uploadCompleted">
         <div class="modal-body form-horizontal upload-document-dialog height-md">
             <div class="upload-drop-placeholder text-center"
                  data-multiple="true"

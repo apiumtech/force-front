@@ -9,7 +9,7 @@ define([
     var handlers = arguments;
 
     function RouteChangedEventHandlers($locationService, $rootScope) {
-        this.locationService = $locationService;
+        this.$locationService = $locationService;
         this.$rootScope = $rootScope;
         this.handlers = handlers;
     }
@@ -17,10 +17,11 @@ define([
     RouteChangedEventHandlers.prototype.handleEvent = function (event, nextRoute, currentRoute) {
         var self = this;
 
-        if (!self.handlers.length) return;
+        if (!self.handlers.length)
+            return;
 
         var context = {
-            locationService: self.locationService,
+            locationService: self.$locationService,
             $rootScope: self.$rootScope,
             event: event,
             nextRoute: nextRoute,

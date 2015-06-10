@@ -1,16 +1,18 @@
 define([
     'app',
-    'modules/account/widgets/documents/documentUpload/DocumentUploadView',
-    'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter',
-    'modules/account/widgets/documents/documentUpload/DocumentUploadModel'
-], function (app, DocumentUploadView, DocumentUploadPresenter, DocumentUploadModel) {
+    'shared/BaseController',
+    'modules/account/widgets/documents/documentUpload/DocumentUploadView'
+], function (app, BaseController, DocumentUploadView) {
     'use strict';
 
     function DocumentUploadController($scope, $upload, $modal, $modalInstance) {
-        DocumentUploadController.configureView($scope, $upload, $modal, $modalInstance);
+        BaseController.call(this);
+        this.configureView($scope, $upload, $modal, $modalInstance);
     }
 
-    DocumentUploadController.configureView = function ($scope, $upload, $modal, $modalInstance) {
+    DocumentUploadController.inherits(BaseController, {});
+
+    DocumentUploadController.prototype.configureView = function ($scope, $upload, $modal, $modalInstance) {
         if (!app.di.contains("$uploadService")) {
             app.di.register("$uploadService").instance($upload);
         }
@@ -22,8 +24,7 @@ define([
         this.view.$scope = $scope;
         this.view.modalInstance = $modalInstance;
 
-        this.view._injectAspects();
-        this.view.show();
+        this.triggerView(this.view, $scope);
     };
 
     app.register.controller('DocumentUploadController', ['$scope', '$upload', '$modal', '$modalInstance', DocumentUploadController]);

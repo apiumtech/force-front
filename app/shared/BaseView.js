@@ -85,6 +85,7 @@ define([
             this.presenter.showError(error);
     };
 
+    // TODO: Deprecated
     BaseView.prototype._injectAspects = function ($viewRepAspect, $logErrorAspect) {
         if ($viewRepAspect !== false) {
             ($viewRepAspect || ViewRepaintAspect).weave(this);

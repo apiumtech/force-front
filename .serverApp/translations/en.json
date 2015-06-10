@@ -20,6 +20,7 @@
     "Cancel": "Cancel",
     "Retry": "Retry",
     "Save": "Save",
+    "SaveAndContinue": "Save And Continue",
     "Show": "Show",
     "FilterBy": "Filter by",
     "Owner": "Owner",
@@ -137,6 +138,7 @@
   "Account": {
     "AccountTitle": "Accounts",
     "CreateAccount": "Create Account",
+    "CreateContact": "Create Contact",
     "EditAccount": "Edit Account",
     "Table": {
       "Header": "__xx__ Results",
