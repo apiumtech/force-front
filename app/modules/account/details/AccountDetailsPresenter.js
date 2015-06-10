@@ -40,6 +40,11 @@ define([
                 .then(callback, view.showError.bind(view));
         };
 
+        view.event.onSaveRelatedCompany = function(accountId, relatedCompany, callback){
+            self.model.saveRelatedCompany(accountId, relatedCompany)
+                .then(callback, view.showError.bind(view));
+        };
+
     };
 
     return AccountDetailsPresenter;

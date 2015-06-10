@@ -11,13 +11,16 @@ define([
     'shared/services/AwaitHelper'
 ], function (BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper) {
 
-    function AccountDetailsView(scope, modal, presenter, mapService, popoverAdapter, modalAdapter) {
+    function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(modal);
+        this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
         this.awaitHelper = AwaitHelper.newInstance();
+        this.modalService = scope.$modal;
+        this.scope = scope;
+        this.element = element;
         this.configureEvents(this);
     }
 
@@ -135,6 +138,61 @@ define([
                 doNothing,
                 "Accept", "No, thanks");
         };
+
+        self.fn.addCompany = function () {
+
+            var paramDialog = self.modalService.open({
+                templateUrl: 'app/modules/account/details/addCompanyDialog/addCompanyDialog.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'AddCompanyDialogController',
+                resolve: {
+                    accountName: function () {
+                        return self.accountData.name
+                    }
+                }
+            });
+
+            paramDialog.result.then(self.handleAddCompanyRequest.bind(self), function () {
+            });
+        };
+
+    };
+
+    AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {
+        var self = this;
+        self.event.onSaveRelatedCompany(self.accountId, data.relatedCompany, self.onRelatedCompanySaved.bind(self));
+    };
+
+    AccountDetailsView.prototype.appendCompany = function(company){
+        var self = this;
+
+        var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
+        var newCompany = $("<p>"+company.name+"</p>");
+        newCompany.append(okTick);
+
+        $("#related-company-wrapper").append(newCompany);
+        newCompany.addClass('animated fadeIn success-flash');
+
+        self.removeEffects(newCompany, okTick);
+    };
+
+    AccountDetailsView.prototype.removeEffects = function(newCompany, okTick){
+        var self = this;
+        self.awaitHelper.await(function(){
+            newCompany.addClass("bg-fade");
+            okTick.remove();
+            self.awaitHelper.await(function(){
+                newCompany.removeClass('animated fadeIn success-flash');
+            }, 1000);
+        }, 3500);
+    };
+
+    AccountDetailsView.prototype.onRelatedCompanySaved = function(response){
+        var self = this;
+        var message = self.generateSuccessMessage("The company has been added successfully");
+        self.modalDialogAdapter.notify('', message);
+        self.appendCompany(response.relatedCompany);
     };
 
     AccountDetailsView.prototype._show = BaseView.prototype.show;
@@ -195,21 +253,18 @@ define([
 
     AccountDetailsView.prototype.onAccountDeleted = function () {
         var self = this;
-        var message = "<div class='notify success'>" +
-            "<span class='ok-tick'><i class='ic-accept'></i></span>" +
-            "<p>The account has been deleted successfully</p>" +
-            "</div>";
-        self.modalDialogAdapter.notify('',
-            message, self.redirectToAccountList());
+        var message = self.generateSuccessMessage("The account has been deleted successfully");
+        self.modalDialogAdapter.notify('', message);
+        self.redirectToAccountList();
     };
 
-    AccountDetailsView.prototype.redirectToAccountList = function(){
+    AccountDetailsView.prototype.redirectToAccountList = function () {
         window.location.href = "/#/accounts/";
     };
 
-    AccountDetailsView.newInstance = function (scope, modalService, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
+    AccountDetailsView.newInstance = function (scope, element, mapService, popoverAdapter, $viewRepAspect, $logErrorAspect) {
 
-        var view = new AccountDetailsView(scope, modalService);
+        var view = new AccountDetailsView(scope, element);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

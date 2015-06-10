@@ -71,6 +71,14 @@ define([
         });
     };
 
+    AccountDetailsModel.prototype.saveRelatedCompany = function(accountId, relatedCompany){
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: {
+                relatedCompany: relatedCompany
+            }
+        });
+    };
+
     AccountDetailsModel.prototype.decorateAccountDetailData = function (data) {
         // TODO: Fake for now
         return data;

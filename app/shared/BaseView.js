@@ -98,6 +98,13 @@ define([
         return this;
     };
 
+    BaseView.prototype.generateSuccessMessage = function(message){
+        return "<div class='notify success'>" +
+            "<span class='ok-tick'><i class='ic-accept'></i></span>" +
+            "<strong>Well done!</strong>" +
+            "<p>"+message+"</p>" +
+            "</div>";
+    };
 
     return BaseView;
 });
