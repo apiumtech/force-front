@@ -5,14 +5,18 @@ define([
     'underscore',
     // @autowired dependencies
     'modules/account/addContact/AddContactPresenter',
-    'shared/services/RouteChangedStorage'
+    'shared/services/RouteChangedStorage',
+    'shared/services/notification/NotificationService'
 ], function (app, BaseView, $, _) {
     'use strict';
 
-    function AddContactView(presenter, routeChangedStorage, $locationService) {
+    function AddContactView(presenter, routeChangedStorage, $locationService, notificationService) {
+        //@autowired
         this.$locationService = $locationService;
         this.addContactPresenter = presenter;
         this.routeChangedStorage = routeChangedStorage;
+        this.notificationService = notificationService;
+
         BaseView.call(this, {}, null, this.addContactPresenter);
 
         this.continueAfterSaved = false;
@@ -34,6 +38,14 @@ define([
             set: function (value) {
                 this.$scope.contactData = value;
             }
+        },
+        accountId: {
+            get: function () {
+                return this.$scope.accountId;
+            },
+            set: function (value) {
+                this.$scope.accountId = value;
+            }
         }
     });
 
@@ -49,12 +61,12 @@ define([
 
         self.fn.goBack = function () {
             var previousRoute = self.routeChangedStorage.getPreviousRoute();
-            self.$locationService.path(previousRoute)
+            self.$locationService.path(previousRoute);
         };
 
         self.fn.saveContact = function (continueAfterSaved) {
             self.continueAfterSaved = continueAfterSaved || false;
-            self.fn.startNewForm();
+            self.event.onSaveContact(self.accountId, self.contactData);
         };
 
         self.fn.isFormValidated = function (formName) {
@@ -90,6 +102,16 @@ define([
             };
             self.fn.resetForm();
         };
+    };
+
+    AddContactView.prototype.onSaveContactSuccess = function (contactData) {
+        var self = this;
+        this.notificationService.pushMessage('contact_from_account_' + self.accountId, contactData);
+        if (self.continueAfterSaved) {
+            self.fn.startNewForm();
+        } else {
+            self.fn.goBack();
+        }
     };
 
     app.di.register("addContactView").as(AddContactView);
