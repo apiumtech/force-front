@@ -13,6 +13,11 @@ define([
         var model = self.addContactModel;
 
         view.event = view.event || {};
+
+        view.event.onSaveContact = function (accountId, contactData) {
+            model.saveContact(accountId, contactData)
+                .then(view.onSaveContactSuccess.bind(view), view.showError.bind(view));
+        };
     };
 
     app.di.register('addContactPresenter').as(AddContactPresenter).withConstructor();
