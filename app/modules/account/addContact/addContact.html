@@ -21,12 +21,13 @@
         </div>
     </div>
     <h4 class="modal-title">
-        {{'Account.CreateContact' | i18next}}
+        {{'Account.CreateContact' | i18next}} for {{accountData.name}}
     </h4>
 </div>
 <hr/>
 <div class="form-horizontal create-account panel form-content">
     <form id="CreateContact" name="CreateContact" class="form-horizontal" novalidate ng-init="fn.pageInitialized()">
+        <!-- upload avatar -->
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable"></label>
 
@@ -41,11 +42,28 @@
                 <span class="spinner-small" ng-show="data.isUploading"></span>
             </div>
         </div>
+        <!-- gender -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.gender.$invalid && CreateContact.gender.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Gender</label>
+
+            <div class="col-md-2">
+                <select name="gender"
+                        class="form-control"
+                        ng-model="contactData.Gender">
+                    <option value="female" selected>Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- first name -->
         <div class="form-group"
              ng-class="{ 'has-error' : CreateContact.firstName.$invalid && CreateContact.firstName.$touched }">
-            <label class="col-md-3 control-label ui-sortable">First name</label>
+            <label class="col-md-3 control-label ui-sortable">First name *</label>
 
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <input type="text"
                        name="firstName"
                        class="form-control"
@@ -58,11 +76,12 @@
                 </p>
             </div>
         </div>
+        <!-- last name -->
         <div class="form-group"
              ng-class="{ 'has-error' : CreateContact.lastName.$invalid && CreateContact.lastName.$touched }">
-            <label class="col-md-3 control-label ui-sortable">Last name</label>
+            <label class="col-md-3 control-label ui-sortable">Last name *</label>
 
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <input type="text"
                        name="lastName"
                        class="form-control"
@@ -73,6 +92,241 @@
                    class="help-block">
                     Please enter last name
                 </p>
+            </div>
+        </div>
+
+        <!--#################################### account ####################################-->
+        <!-- divider -->
+        <hr/>
+        <!-- account name -->
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable">Account</label>
+
+            <div class="col-md-6">
+                <label class="control-label">{{accountData.name}}</label>
+
+            </div>
+        </div>
+        <!-- role -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.role.$invalid && CreateContact.role.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Role</label>
+
+            <div class="col-md-6">
+                <input type="text"
+                       name="role"
+                       class="form-control"
+                       placeholder="Role" ng-model="contactData.Role">
+            </div>
+        </div>
+        <!-- skype name -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.skypeName.$invalid && CreateContact.skypeName.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Skype Name</label>
+
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text"
+                           name="skypeName"
+                           class="form-control"
+                           placeholder="Skype name" ng-model="contactData.SkypeName">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">CONFIGURAR</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--#################################### datos de contacto ####################################-->
+        <!-- divider and group title -->
+        <hr/>
+        <div class="form-group">
+            <h6 class="col-md-3 text-right">Contact details</h6>
+        </div>
+        <!-- phone number -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.phoneNumber.$invalid && CreateContact.phoneNumber.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Phone Number</label>
+
+            <div class="col-md-6">
+                <input type="text"
+                       name="phoneNumber"
+                       class="form-control"
+                       ng-pattern="/^[0-9]{7,15}$/"
+                       placeholder="Phone number" ng-model="contactData.PhoneNumber">
+
+                <p ng-show="CreateContact.phoneNumber.$touched && CreateContact.phoneNumber.$error.pattern"
+                   class="help-block">
+                    Please enter a valid phone number
+                </p>
+            </div>
+
+        </div>
+        <!-- other phone number -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.otherPhone.$invalid && CreateContact.otherPhone.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Other Phone</label>
+
+            <div class="col-md-6">
+                <input type="text"
+                       name="otherPhone"
+                       class="form-control"
+                       ng-pattern="/^[0-9]{7,15}$/"
+                       placeholder="Other phone" ng-model="contactData.OtherPhone">
+
+                <p ng-show="CreateContact.otherPhone.$touched && CreateContact.otherPhone.$error.pattern"
+                   class="help-block">
+                    Please enter a valid phone number
+                </p>
+
+            </div>
+        </div>
+        <!-- email -->
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.email.$invalid && CreateContact.email.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Email</label>
+
+            <div class="col-md-6">
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                       placeholder="Email" ng-model="contactData.Email">
+
+                <p ng-show="CreateContact.email.$touched &&
+                (CreateContact.email.$error.email || CreateContact.email.$error.pattern)"
+                   class="help-block">
+                    Please enter a valid email
+                </p>
+
+            </div>
+        </div>
+
+        <!--#################################### contact localization ####################################-->
+        <!-- divider and group title -->
+        <hr/>
+        <div class="form-group">
+            <h6 class="col-md-3 text-right">Contact localization</h6>
+        </div>
+        <!-- contact address -->
+        <div class="form-group">
+            <label class="col-md-3 control-label ui-sortable">Contact's address</label>
+
+            <div class="col-md-6">
+
+                <label>
+                    <input type="radio" ng-model="contactData.AddressType" value="company_geolocalization">
+                    Use company's geolocalization
+                </label>
+                <br/>
+                <label>
+                    <input type="radio" ng-model="contactData.AddressType" value="company_address">
+                    Use company's address: <strong>{{accountData.contactInfo.address}}, {{accountData.contactInfo.city}}, {{accountData.contactInfo.country}}</strong>
+                </label>
+                <br/>
+                <label>
+                    <input type="radio" ng-model="contactData.AddressType" value="other">
+                    Other
+                </label>
+
+            </div>
+        </div>
+        <div ng-show=" contactData.AddressType=='other' ">
+            <!-- street -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_street.$invalid && CreateContact.address_street.$touched }">
+                <label class="col-md-3 control-label ui-sortable">Address</label>
+
+                <div class="col-md-6">
+                    <input type="text"
+                           name="address_street"
+                           class="form-control"
+                           placeholder="Street" ng-model="contactData.Address.Street">
+                </div>
+            </div>
+            <!-- city/town -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_city.$invalid && CreateContact.address_city.$touched }">
+                <label class="col-md-3 control-label ui-sortable">City/Town</label>
+
+                <div class="col-md-6">
+                    <input type="text"
+                           name="address_city"
+                           class="form-control"
+                           placeholder="City/Town" ng-model="contactData.Address.City">
+                </div>
+            </div>
+            <!-- province/state -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_state.$invalid && CreateContact.address_state.$touched }">
+                <label class="col-md-3 control-label ui-sortable">Province/State</label>
+
+                <div class="col-md-6">
+                    <input type="text"
+                           name="address_state"
+                           class="form-control"
+                           placeholder="Province/Town" ng-model="contactData.Address.State">
+                </div>
+            </div>
+            <!-- country -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_country.$invalid && CreateContact.address_country.$touched }">
+                <label class="col-md-3 control-label ui-sortable">Country</label>
+
+                <div class="col-md-6">
+                    <select class="form-control"
+                            country-selector
+                            placeholder="Select country"
+                            ng-model="contactData.Address.Country"/>
+                </div>
+            </div>
+            <!-- Postcode -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_postcode.$invalid && CreateContact.address_postcode.$touched }">
+                <label class="col-md-3 control-label ui-sortable">Postcode</label>
+
+                <div class="col-md-3">
+                    <input type="text"
+                           name="address_postcode"
+                           class="form-control"
+                           ng-pattern="/^[0-9]+$/"
+                           placeholder="Postcode" ng-model="contactData.Address.Postcode">
+
+                    <p ng-show="CreateContact.address_postcode.$touched && CreateContact.address_postcode.$error.pattern"
+                       class="help-block">
+                        Please enter a valid postcode
+                    </p>
+
+                </div>
+            </div>
+            <!-- comments -->
+            <div class="form-group"
+                 ng-class="{ 'has-error' : CreateContact.address_comment.$invalid && CreateContact.address_comment.$touched }">
+                <label class="col-md-3 control-label ui-sortable">Comment</label>
+
+                <div class="col-md-6">
+                <textarea name="address_comment"
+                          class="form-control"
+                          placeholder="Comment" ng-model="contactData.Address.Comment"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!--#################################### datos de contacto ####################################-->
+        <!-- divider and group title -->
+        <hr/>
+        <div class="form-group">
+            <h6 class="col-md-3 text-right">Extra fields</h6>
+        </div>
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateContact.extra_field1.$invalid && CreateContact.extra_field1.$touched }">
+            <label class="col-md-3 control-label ui-sortable">Extra field 1</label>
+
+            <div class="col-md-6">
+                <input type="text"
+                       name="extra_field1"
+                       class="form-control"
+                       placeholder="Extra field 1" ng-model="contactData.Extra.Field1">
             </div>
         </div>
     </form>

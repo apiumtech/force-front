@@ -1,0 +1,6 @@
+<option value="" selected="selected">Select Country</option>
+<option ng-repeat="country in countries"
+        value="{{country.name}}"
+        data-alternative-spellings="{{country.alternative}}">
+    {{country.name}}
+</option>

@@ -2,12 +2,14 @@
  * Created by justin on 3/9/15.
  */
 define([
+    'modules/account/AccountService',
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AjaxService, FakeAjaxService, Configuration) {
+], function (AccountService, AjaxService, FakeAjaxService, Configuration) {
 
-    function AccountDetailsModel(ajaxService, fakeAjaxService) {
+    function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
+        this.accountService = accountService || new AccountService();
         this.ajaxService = ajaxService || new AjaxService();
         this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
     }
@@ -16,14 +18,7 @@ define([
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
         var self = this;
-        var params = {
-            url: Configuration.api.getAccount.format(id),
-            type: 'get',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-
-        return self.ajaxService.rawAjaxRequest(params).then(self.decorateAccountDetailData.bind(self));
+        return self.accountService.getAccountDetail(id);
     };
 
     AccountDetailsModel.prototype.getAccountSummary = function (id) {
@@ -77,11 +72,6 @@ define([
                 relatedCompany: relatedCompany
             }
         });
-    };
-
-    AccountDetailsModel.prototype.decorateAccountDetailData = function (data) {
-        // TODO: Fake for now
-        return data;
     };
 
     return AccountDetailsModel;

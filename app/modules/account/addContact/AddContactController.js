@@ -18,7 +18,7 @@ define([
         this.triggerView(this.view, $scope);
     };
 
-    app.register.controller('AddContactController', ['$scope', '$route', '$routeParams', AddContactController]);
+    app.register.controller('AddContactController', ['$scope', '$routeParams', '$route', AddContactController]);
 
     return AddContactController;
 });

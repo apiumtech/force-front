@@ -34,6 +34,22 @@ define([
             set: function (value) {
                 this.$scope.contactData = value;
             }
+        },
+        accountId: {
+            get: function () {
+                return this.$scope.accountId;
+            },
+            set: function (value) {
+                this.$scope.accountId = value;
+            }
+        },
+        accountData: {
+            get: function () {
+                return this.$scope.accountData;
+            },
+            set: function (value) {
+                this.$scope.accountData = value;
+            }
         }
     });
 
@@ -54,7 +70,8 @@ define([
 
         self.fn.saveContact = function (continueAfterSaved) {
             self.continueAfterSaved = continueAfterSaved || false;
-            self.fn.startNewForm();
+            self.event.onSaveContact(self.contactData);
+            //self.fn.startNewForm();
         };
 
         self.fn.isFormValidated = function (formName) {
@@ -62,7 +79,7 @@ define([
         };
 
         self.fn.pageInitialized = function () {
-            self.fn.startNewForm();
+            self.event.getAccountData(self.accountId);
         };
 
         self.fn.resetForm = function () {
@@ -77,7 +94,7 @@ define([
         self.fn.startNewForm = function () {
             self.continueAfterSaved = false;
             self.contactData = {
-                Gender: -1,
+                Gender: "female",
                 ImageUrl: "",
                 FirstName: "",
                 LastName: "",
@@ -87,12 +104,41 @@ define([
                 PhoneNumber: "",
                 OtherPhone: "",
                 Email: "",
-                Address: "",
+                Address: {
+                    Street: "",
+                    City: "",
+                    State:"",
+                    Country:"",
+                    PostCode:"",
+                    Comments:""
+                },
+                AddressType: "other",
+
+                UseOtherAddress: true,
                 UseCompanyAddress: false,
-                UseCompanyGeolocalization: false
+                UseCompanyGeolocalization: false,
+                Extra: {
+                    Field1: ""
+                }
             };
             self.fn.resetForm();
         };
+
+    };
+
+    AddContactView.prototype.onAccountDataLoaded = function(accountData){
+        var self = this;
+        self.fn.startNewForm();
+        self.accountData = accountData;
+    };
+
+    AddContactView.prototype.onContactSaved = function(response){
+        var self = this;
+        if(self.continueAfterSaved)
+            self.fn.startNewForm();
+        else{
+
+        }
     };
 
     app.di.register("addContactView").as(AddContactView);
