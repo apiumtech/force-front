@@ -8,6 +8,7 @@ define([
     'shared/components/ScrollTopButtonDirective',
     'shared/components/datePicker/ForceDatePickerDirective',
     'shared/components/HighLightResultDirective',
+    'shared/components/ResizableTextAreaDirective',
 
     'shared/components/confirmationDialog/ConfirmationDialogController',
     'shared/components/confirmationDialog/NotificationDialogController'
