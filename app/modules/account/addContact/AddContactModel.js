@@ -1,12 +1,12 @@
 define([
     'app',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/FakeAjaxService',
     'modules/account/AccountService'
 ], function (app, AjaxService, AccountService) {
     'use strict';
 
-    function AddContactModel(ajaxService, accountService) {
-        this.ajaxService = ajaxService;
+    function AddContactModel(fakeAjaxService, accountService) {
+        this.fakeAjaxService = fakeAjaxService || new AjaxService();
         this.accountService = accountService || new AccountService();
     }
 
@@ -16,9 +16,10 @@ define([
     };
 
     AddContactModel.prototype.saveContact = function(contactData){
-        var self = this;
-        return self.ajaxService.rawAjaxRequest({
+        return this.fakeAjaxService.rawAjaxRequest({
             result: {
+                status: "OK",
+                data: contactData
             }
         });
     };

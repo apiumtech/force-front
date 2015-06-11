@@ -19,7 +19,8 @@ define([
         };
 
         view.event.onSaveContact = function(contactData){
-            model.saveContact(contactData).then(view.onContactSaved.bind(view), view.showError.bind(view));
+            model.saveContact(contactData)
+                .then(view.onSaveContactSuccess.bind(view), view.showError.bind(view));
         };
     };
 

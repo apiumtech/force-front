@@ -5,14 +5,18 @@ define([
     'underscore',
     // @autowired dependencies
     'modules/account/addContact/AddContactPresenter',
-    'shared/services/RouteChangedStorage'
+    'shared/services/RouteChangedStorage',
+    'shared/services/notification/NotificationService'
 ], function (app, BaseView, $, _) {
     'use strict';
 
-    function AddContactView(presenter, routeChangedStorage, $locationService) {
+    function AddContactView(presenter, routeChangedStorage, $locationService, notificationService) {
+        //@autowired
         this.$locationService = $locationService;
         this.addContactPresenter = presenter;
         this.routeChangedStorage = routeChangedStorage;
+        this.notificationService = notificationService;
+
         BaseView.call(this, {}, null, this.addContactPresenter);
 
         this.continueAfterSaved = false;
@@ -65,7 +69,7 @@ define([
 
         self.fn.goBack = function () {
             var previousRoute = self.routeChangedStorage.getPreviousRoute();
-            self.$locationService.path(previousRoute)
+            self.$locationService.path(previousRoute);
         };
 
         self.fn.saveContact = function (continueAfterSaved) {
@@ -132,12 +136,13 @@ define([
         self.accountData = accountData;
     };
 
-    AddContactView.prototype.onContactSaved = function(response){
+    AddContactView.prototype.onSaveContactSuccess = function (contactData) {
         var self = this;
-        if(self.continueAfterSaved)
+        this.notificationService.pushMessage('contact_from_account_' + self.accountId, contactData);
+        if (self.continueAfterSaved) {
             self.fn.startNewForm();
-        else{
-
+        } else {
+            self.fn.goBack();
         }
     };
 
