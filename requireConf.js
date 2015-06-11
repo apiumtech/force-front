@@ -33,6 +33,7 @@ var requireConf = {
         'jquery_ui': '../bower_components/jqueryui/jquery-ui.min',
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
+        'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
 
@@ -137,6 +138,11 @@ var requireConf = {
             deps: ['jquery']
         },
 
+        'selectToAutocomplete': {
+            deps: ['jquery'],
+            exports: 'selectToAutocomplete'
+        },
+
         'jquery_ui': {
             deps: ['jquery', 'jquery_migrate'],
             exports: 'jquery_ui'
@@ -236,7 +242,7 @@ var requireConf = {
     'deps': [
         'di',
         /* jquery & its plugins */
-        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete',
         'datatables',
 
         /* Angular & Its plugins */
@@ -249,7 +255,6 @@ var requireConf = {
 
         /*3rd party libs */
         'i18next',
-        // 'framework',
 
         'functional-option',
         'moment',

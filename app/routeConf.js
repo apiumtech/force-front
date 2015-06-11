@@ -5,7 +5,7 @@ define([
     'app',
     'shared/services/RouteChangedEventHandlers',
     'shared/services/RouteChangedStorage',
-
+    'jquery',
     // route configurations
     'modules/login/routes'
     , 'modules/saleAnalytics/routes'
@@ -14,16 +14,16 @@ define([
     , 'modules/literal/routes'
     , 'modules/literals/routes'
     // ==more---routes---config---here==
-], function (app, RouteChangedEventHandlers, RouteChangedStorage) {
+], function (app, RouteChangedEventHandlers, RouteChangedStorage, $) {
     'use strict';
 
     var routeConfigurations = [];
 
     for (var i in arguments) {
-        if (i > 2) {
+        if (i > 3) {
             routeConfigurations.push(arguments[i]);
         }
-    } // delete the first 3 dependencies from the injection
+    } // delete the first 4 dependencies from the injection
 
     app.config([
         '$routeProvider',
@@ -57,6 +57,10 @@ define([
 
         $rootScope.$on('$routeChangeSuccess', function (event, current, previousRoute) {
             routeChangedStorage.routeChangedSuccess();
+
+            $('html, body').animate({
+                scrollTop: $("body").offset().top
+            }, 500);
         });
     }]);
 });

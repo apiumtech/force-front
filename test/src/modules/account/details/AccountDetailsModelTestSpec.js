@@ -2,21 +2,25 @@
  * Created by justin on 3/9/15.
  */
 define([
+    'modules/account/AccountService',
     'modules/account/details/AccountDetailsModel',
     'shared/services/ajax/AjaxService',
+    'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AccountDetailsModel, AjaxService, Configuration) {
+], function (AccountService, AccountDetailsModel, AjaxService, FakeAjaxService, Configuration) {
     'use strict';
     describe("AccountDetailsModel", function () {
 
-        var sut, ajaxService;
+        var sut, ajaxService, accountService, fakeAjaxService;
 
         beforeEach(function () {
+            accountService = mock(AccountService);
             ajaxService = mock(AjaxService);
-            sut = new AccountDetailsModel(ajaxService);
+            fakeAjaxService = mock(FakeAjaxService);
+            sut = new AccountDetailsModel(accountService, ajaxService, fakeAjaxService);
         });
 
-        describe("getAccountDetail", function () {
+        xdescribe("getAccountDetail", function () {
             it("should call ajaxRequest with correct params", function () {
                 spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
                 var id = 100;

@@ -1,16 +1,25 @@
 define([
-    'modules/account/addContact/AddContactModel'
-], function(AddContactModel) {
+    'modules/account/addContact/AddContactModel',
+    'modules/account/AccountService',
+    'shared/services/ajax/AjaxService'
+], function(AddContactModel, AccountService, AjaxService) {
     'use strict';
 
     describe('AddContactModel Test', function() {
-        var sut;
+        var sut, accountService, ajaxService;
         beforeEach(function(){
-            sut = new AddContactModel();
+            accountService = mock(AccountService);
+            ajaxService = mock(AjaxService);
+            sut = new AddContactModel(ajaxService, accountService);
         });
 
-        xit('AddContactModel first test', function(){
 
+        describe('getAccountData', function () {
+            it("should call getAccountDetail from accountService", function () {
+                sut.getAccountData();
+                expect(sut.accountService.getAccountDetail).toHaveBeenCalled();
+            });
         });
+
     });
 });

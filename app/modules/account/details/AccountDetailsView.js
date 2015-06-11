@@ -2,6 +2,7 @@
  * Created by justin on 3/9/15.
  */
 define([
+    'app',
     'shared/BaseView',
     'modules/account/details/AccountDetailsPresenter',
     'shared/services/GoogleMapService',
@@ -10,12 +11,12 @@ define([
     'jquery',
     'shared/services/AwaitHelper',
     'shared/services/notification/NotificationService'
-], function (BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper, NotificationService) {
+], function (app, BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper, NotificationService) {
 
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.notificationService = notificationService || NotificationService.getInstance();
+        this.notificationService = app.di.resolve('notificationService');
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
@@ -184,27 +185,30 @@ define([
 
         var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
         var newContact = $('' +
-            '<p>' +
-            '   <a href="#/accounts/' + contact.id + '">' + contact.FirstName + " " + contact.LastName + '</a>' +
-            '   <a class="popover-contact-info" ng-mouseover="fn.createPopover($event, ' + contact.id + ')">' +
-            '       <span class="ic-info" ng-click="fn.showPopover($event)"></span>' +
-            '   </a>' +
-            '</p>');
+        '<p>' +
+        '   <a href="#/accounts/' + contact.id + '">' + contact.FirstName + " " + contact.LastName + '</a>' +
+        '   <a class="popover-contact-info" ng-mouseover="fn.createPopover($event, ' + contact.id + ')">' +
+        '       <span class="ic-info" ng-click="fn.showPopover($event)"></span>' +
+        '   </a>' +
+        '</p>');
         newContact.append(okTick);
 
         $(".relatedContacts").append(newContact);
         newContact.addClass('animated fadeIn success-flash');
 
+        $('html, body').animate({
+            scrollTop: $(".relatedContacts").offset().top
+        }, 500);
         self.removeEffects(newContact, okTick);
     };
 
-    AccountDetailsView.prototype.removeEffects = function (newCompany, okTick) {
+    AccountDetailsView.prototype.removeEffects = function (element, okTick) {
         var self = this;
         self.awaitHelper.await(function () {
-            newCompany.addClass("bg-fade");
+            element.addClass("bg-fade");
             okTick.remove();
             self.awaitHelper.await(function () {
-                newCompany.removeClass('animated fadeIn success-flash');
+                element.removeClass('animated fadeIn success-flash');
             }, 1000);
         }, 3500);
     };
@@ -212,8 +216,7 @@ define([
     AccountDetailsView.prototype.onRelatedCompanySaved = function (response) {
         var self = this;
         var message = self.generateSuccessMessage("The company has been added successfully");
-        self.modalDialogAdapter.notify('', message);
-        self.appendCompany(response.relatedCompany);
+        self.modalDialogAdapter.notify('', message, {}, self.appendCompany.bind(self, response.relatedCompany));
     };
 
     AccountDetailsView.prototype._show = BaseView.prototype.show;
@@ -237,15 +240,22 @@ define([
 
         var self = this;
         self.accountData = data;
+        self.watchElement = setInterval(self.detectElementCreated,100);
         self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
-        self.loadNewCreatedContactIfAny();
+    };
+
+    AccountDetailsView.prototype.detectElementCreated = function(){
+        console.log("DOM", $('.relatedContacts').length);
     };
 
     AccountDetailsView.prototype.loadNewCreatedContactIfAny = function () {
         var self = this;
+        console.log("loaded");
         var contacts = self.notificationService.getMessages('contact_from_account_' + self.accountId);
-        if (!contacts || !contacts.length)return;
+        if (!contacts || !contacts.length)
+            return;
 
+        console.log("loaded", contacts);
         contacts.forEach(function (contact) {
             self.appendContact(contact.message.data);
         });
