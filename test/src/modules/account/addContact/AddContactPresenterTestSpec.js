@@ -20,6 +20,9 @@ define([
                 },
                 {
                     viewEvent: "onSaveContact", test: onSaveContactTest
+                },
+                {
+                    viewEvent: "onUploadFile", test: onUploadFileTest
                 }
             ].forEach(function(testCase){
                     var viewEvent = testCase.viewEvent,
@@ -41,9 +44,16 @@ define([
                 exerciseAjaxCallBinding("getAccountData", modelMethod, onSuccess, onError);
             };
 
+            function onUploadFileTest() {
+                var modelMethod = "uploadFile";
+                var onSuccess = "onUploadComplete";
+                var onError = "showError";
+                exerciseAjaxCallBinding("onUploadFile", modelMethod, onSuccess, onError);
+            };
+
             function onSaveContactTest(){
                 var modelMethod = "saveContact";
-                var onSuccess = "onContactSaved";
+                var onSuccess = "onSaveContactSuccess";
                 var onError = "showError";
                 exerciseAjaxCallBinding("onSaveContact", modelMethod, onSuccess, onError);
             };

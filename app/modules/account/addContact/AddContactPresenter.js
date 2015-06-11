@@ -22,6 +22,11 @@ define([
             model.saveContact(contactData)
                 .then(view.onSaveContactSuccess.bind(view), view.showError.bind(view));
         };
+
+        view.event.onUploadFile = function(file){
+            model.uploadFile(file)
+                .then(view.onUploadComplete.bind(view), view.showError.bind(view));
+        }
     };
 
     app.di.register('addContactPresenter').as(AddContactPresenter).withConstructor();

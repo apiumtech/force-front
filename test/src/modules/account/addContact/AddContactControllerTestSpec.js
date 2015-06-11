@@ -14,11 +14,11 @@ define([
             view = mock(AddContactView);
             app._di = app.di;
             app.di = {
-                register: function () {
-                },
+                register: app._di.register,
                 resolve: function () {
                     return view;
-                }
+                },
+                contains: app._di.contains
             };
         });
         afterEach(function () {
@@ -26,12 +26,13 @@ define([
         });
 
         var $controller;
-        var scope, routeParams;
+        var scope, routeParams, $upload;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$routeParams_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$routeParams_, _$upload_) {
             $controller = _$controller_;
             scope = _$rootScope_.$new();
             routeParams = _$routeParams_;
+            $upload = _$upload_;
         }));
         describe("loading asynchronously", function () {
             beforeEach(inject(function () {
@@ -41,7 +42,11 @@ define([
                 AddContactController.prototype.configureView.restore();
             });
             it("should register the controller to app", function () {
-                var ctrl = $controller('AddContactController', {$scope: scope, $routeParams: routeParams});
+                var ctrl = $controller('AddContactController', {
+                    $scope: scope,
+                    $routeParams: routeParams,
+                    $upload: $upload
+                });
                 expect(ctrl).not.toBeNull();
                 expect(ctrl).not.toBeUndefined();
             });
@@ -56,7 +61,7 @@ define([
                 AddContactController.prototype.configureView.restore();
             });
             it("should call AddContactController.configureView global method", function () {
-                new AddContactController(scope, routeParams);
+                new AddContactController(scope, routeParams, $upload);
                 expect(AddContactController.prototype.configureView).toHaveBeenCalledWith(scope);
             });
         });
@@ -70,7 +75,7 @@ define([
             afterEach(function () {
             });
             it("should create new instance of AddContactView", function () {
-                var sut = new AddContactController(scope, routeParams);
+                var sut = new AddContactController(scope, routeParams, $upload);
                 expect(app.di.resolve).toHaveBeenCalledWith('addContactView');
                 expect(sut.view).toEqual(view);
                 expect(BaseController.prototype.triggerView).toHaveBeenCalledWith(sut.view, scope);

@@ -364,9 +364,17 @@ define([
                     type: "mock company type"
                 }
             };
-            it("shoulld call appendCompany function", function () {
+            beforeEach(function () {
                 sinon.stub(sut, 'appendCompany');
+                spyOn(sut.modalDialogAdapter, 'notify').and.callFake(function (title, message, resolveObject, callBackWhenClose) {
+                    callBackWhenClose();
+                });
                 sut.onRelatedCompanySaved(data);
+            });
+            it("should show a notification dialog", function () {
+                expect(sut.modalDialogAdapter.notify).toHaveBeenCalled();
+            });
+            it("should call appendCompany function after a notification dialog", function () {
                 expect(sut.appendCompany).toHaveBeenCalledWith(data.relatedCompany);
             });
         });

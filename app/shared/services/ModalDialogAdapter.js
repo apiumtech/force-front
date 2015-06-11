@@ -67,7 +67,8 @@ define([
     };
 
     ModalDialogAdapter.prototype.notify = function (title, message,
-                                                    resolveObject) {
+                                                    resolveObject,
+                                                    callBackWhenClose) {
 
         var resolve = _.extend(resolveObject || {}, {
             title: function () {
@@ -86,6 +87,10 @@ define([
             size: 'md',
             resolve: resolve
         });
+
+        if (callBackWhenClose){
+            modalInstance.result.then(callBackWhenClose);
+        }
 
         return modalInstance;
     };
