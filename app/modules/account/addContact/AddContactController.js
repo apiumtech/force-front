@@ -7,6 +7,7 @@ define([
 
     function AddContactController($scope, $routeParams) {
         $scope.accountId = $routeParams.account_id;
+        console.log($scope.accountId);
         BaseController.call(this);
         this.configureView($scope);
     }
@@ -15,10 +16,11 @@ define([
 
     AddContactController.prototype.configureView = function ($scope) {
         this.view = app.di.resolve('addContactView');
+
         this.triggerView(this.view, $scope);
     };
 
-    app.register.controller('AddContactController', ['$scope', '$route', '$routeParams', AddContactController]);
+    app.register.controller('AddContactController', ['$scope', '$routeParams', AddContactController]);
 
     return AddContactController;
 });

@@ -4,12 +4,12 @@ define([
 ], function (app, AjaxService) {
     'use strict';
 
-    function AddContactModel(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+    function AddContactModel(fakeAjaxService) {
+        this.fakeAjaxService = fakeAjaxService || new AjaxService();
     }
 
     AddContactModel.prototype.saveContact = function (accountId, contactData) {
-        return this.ajaxService.rawAjaxRequest({
+        return this.fakeAjaxService.rawAjaxRequest({
             result: {
                 status: "OK",
                 data: contactData

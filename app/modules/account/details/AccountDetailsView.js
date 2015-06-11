@@ -185,14 +185,14 @@ define([
         var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
         var newContact = $('' +
             '<p>' +
-            '   <a href="#/accounts/' + contact.id + '">' + contact.name + '</a>' +
+            '   <a href="#/accounts/' + contact.id + '">' + contact.FirstName + " " + contact.LastName + '</a>' +
             '   <a class="popover-contact-info" ng-mouseover="fn.createPopover($event, ' + contact.id + ')">' +
             '       <span class="ic-info" ng-click="fn.showPopover($event)"></span>' +
             '   </a>' +
             '</p>');
         newContact.append(okTick);
 
-        $("#relatedContacts").append(newContact);
+        $(".relatedContacts").append(newContact);
         newContact.addClass('animated fadeIn success-flash');
 
         self.removeEffects(newContact, okTick);
@@ -247,7 +247,7 @@ define([
         if (!contacts || !contacts.length)return;
 
         contacts.forEach(function (contact) {
-            self.appendContact(contact);
+            self.appendContact(contact.message.data);
         });
     };
 
