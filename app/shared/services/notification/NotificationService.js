@@ -21,7 +21,7 @@ define([
         });
 
         this.notifications = this.notifications.filter(function (notification) {
-            return notification.channel == channel;
+            return notification.channel !== channel;
         });
 
         return messages;
