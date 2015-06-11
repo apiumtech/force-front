@@ -25,12 +25,18 @@ define([
 			self.eventBus.fireLiteralsDeleteRequest(literalId);
 		};
 
+        view.event.onDisposing = function () {
+            self.eventBus.dispose();
+        };
+
 
 		this.eventBus.onColumnsRequestSuccess(view.onColumnsRequestSuccess.bind(view));
 		this.eventBus.onColumnsRequestError(view.onColumnsRequestError.bind(view));
 
         this.eventBus.onLiteralsRequestSuccess(view.onLiteralsRequestSuccess.bind(view));
 		this.eventBus.onLiteralsRequestError(view.onLiteralsRequestError.bind(view));
+
+        this.eventBus.onLiteralsSearch(view.clearTable.bind(view));
 	};
 
 

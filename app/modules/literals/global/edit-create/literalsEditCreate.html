@@ -25,7 +25,7 @@
                                 <input ng-if="fn.isNew()"
                                        type="text"
                                        class="form-control"
-                                       placeholder="{{'Literal_Form_Key_Placeholder' | i18next}}"
+                                       placeholder="{{'Literal.Detail.Form.Literal_Key_Placeholder' | i18next}}"
                                        ng-model="data.literal.Key"
                                        value={{data.literal.Key}}>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="col-md-9">
                                 <!-- Literal language -->
                                 <input type="text"
-                                       ng-model="data.literal.LanguageValues[$index].Value"
+                                       ng-model="data.literal.LanguageValues[languageKey]"
                                        class="form-control"
                                        placeholder="{{'Literal.Detail.Form.Literal_Key_Placeholder' | i18next}}"
                                        value="{{ languageValue }}"/>

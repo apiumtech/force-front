@@ -1,37 +1,36 @@
 <div>
 
-    <h1 class="page-header">{{'Literal.List.Title' | i18next}}
-        <a href="#/literals/create" class="btn btn-big btn-primary m-r-5">
+    <h1 class="page-header">{{'CustomLiteral.List.Title' | i18next}}
+        <a href="#/custom-literals/create" class="btn btn-big btn-primary m-r-5">
             <span class="ic-plus m-r-5"></span>
-            {{'Literal.List.Create_label' | i18next}}
+            {{'CustomLiteral.List.Create_label' | i18next}}
         </a>
     </h1>
 
 
-<!-- FILTERS ZONE -->
+    <!-- FILTERS ZONE -->
 
-        <div class="row filters-div">
-            <!-- begin col-12 -->
-            <div class="col-md-12">
-                <div class="line-border clearfix"></div>
-                <div class="row m-b-5">
-                    <div class="col-md-9">
-                        <h6>Filter by</h6>
-                        <!-- No filters by now-->
-                    </div>
-
-                    <div class="col-md-3">
-                        <!-- Search -->
-                        <div ng-include="'app/modules/literals/shared/search/search.html'"></div>
-                    </div>
-
+    <div class="row filters-div">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <div class="line-border clearfix"></div>
+            <div class="row m-b-5">
+                <div class="col-md-9">
+                    <h6>Filter by</h6>
+                    <!-- No filters by now-->
                 </div>
-                <div class="line-border clearfix m-b-30 "></div>
+
+                <div class="col-md-3">
+                    <!-- Search -->
+                    <div ng-include="'app/modules/literals/shared/search/search.html'"></div>
+                </div>
+
             </div>
+            <div class="line-border clearfix m-b-30 "></div>
         </div>
+    </div>
 
-<!-- END FILTERS ZONE -->
-
+    <!-- END FILTERS ZONE -->
 
 
 
@@ -51,7 +50,7 @@
                        data-original-title="" title=""><i class="fa fa-times"></i></a>
                 </div>
                 <h4 class="panel-title">
-                    {{'Literal.List.Table.Header' | i18next}}
+                    {{'CustomLiteral.List.Table.Header' | i18next}}
                 </h4>
             </div>
 
@@ -72,8 +71,8 @@
             {Key}
             <div>
                 <div class="edit-delete-div">
-                    <a href="#/literals/{Id}/edit"><i class="fa ic-edit"></i>{{'Literal.List.Table.Edit_label' | i18next}}</a> |
-                    <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>{{'Literal.List.Table.Delete_label' | i18next}}</a>
+                    <a href="#/custom-literals/{Id}/edit"><i class="fa ic-edit"></i>{{'CustomLiteral.List.Table.Edit_label' | i18next}}</a> |
+                    <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>{{'CustomLiteral.List.Table.Delete_label' | i18next}}</a>
                 </div>
             </div>
         </div>

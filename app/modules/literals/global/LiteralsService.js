@@ -25,76 +25,12 @@ define([
 
 
     proto.getLiteralsList = function(searchParams) {
-        console.log("fake getLiteralsList");
         return this.ajaxService.rawAjaxRequest({
-            url: "mocks/literalList.json",
-            type: 'GET',
-            dataType: 'json'
-        });
-
-        return this.ajaxService.rawAjaxRequest({
-            url: config.api.literalListBySearch,
+            url: config.api.literalList,
             headers: searchParams,
             type: 'GET',
             dataType: 'json'
         });
-    };
-
-
-
-    // ------------------------
-    //
-    //  Literal manipulation
-    //
-    // ------------------------
-
-    proto._createLiteralBody = function (literal) {
-        var body = {
-            key: literal.Key,
-            values: {},
-            deviceTypeIds: [],
-            literalTypeId: null
-        };
-
-        _.each(literal.LanguageValues, function(value, key){
-            body.values[key] = value;
-        });
-
-        literal.DeviceTypes.forEach(function (deviceType) {
-            body.deviceTypeIds.push(deviceType.Id);
-        });
-
-        body.literalTypeId = literal.LiteralType ? literal.LiteralType.Id : null;
-
-        return body;
-    };
-
-    proto.createLiteral = function (literal) {
-        assertNotNull("literal", literal);
-        var body = this._createLiteralBody(literal);
-
-        return this.ajaxService.rawAjaxRequest({
-            url: config.api.createLiteral,
-            data: body,
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json'
-        });
-    };
-
-
-    proto.changeLiteralDetails = function (literal) {
-        assertNotNull("Id", literal.Id);
-        var body = this._createLiteralBody(literal);
-        body.id = literal.Id;
-        var params = {
-            url: config.api.changeLiteralDetails,
-            data: body,
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json'
-        };
-        return this.ajaxService.rawAjaxRequest(params);
     };
 
 
@@ -103,10 +39,6 @@ define([
         var body = {
             "id": id
         };
-
-        console.log("fake delete literal");
-        this.fakeAjaxService.rawAjaxRequest({result:{}});
-
         return this.ajaxService.rawAjaxRequest({
             url: config.api.deleteLiteral,
             data: body,

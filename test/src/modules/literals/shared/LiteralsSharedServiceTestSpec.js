@@ -9,7 +9,10 @@ define([
 
     describe('LiteralsSharedService', function() {
         [
-            'getLanguageList'
+            'getLanguageList',
+            'getLiteralTypeList',
+            'getDeviceTypeList',
+            'getImplementationList'
         ].forEach(function(methodName){
             it('should define ' + methodName, function(){
                 var sut = exerciseCreateService();

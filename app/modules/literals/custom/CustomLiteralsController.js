@@ -1,6 +1,8 @@
 define([
     'app',
     'modules/literals/custom/CustomLiteralsView',
+    'modules/literals/shared/table/LiteralsTableController',
+    'modules/literals/shared/search/LiteralsSearchController'
 ], function(app, CustomLiteralsView) {
 	'use strict';
 
@@ -9,7 +11,7 @@ define([
     }
 
     CustomLiteralsController.configureView = function ($scope) {
-        var view = CustomLiteralsView.newInstance($scope);
+        var view = CustomLiteralsView.newInstance({scope: $scope});
         view.show();
     };
 

@@ -17,13 +17,6 @@ define([
 
 
     proto.getLanguageList = function () {
-        console.log("fake getLanguageList");
-        return this.ajaxService.rawAjaxRequest({
-            url: "../mocks/languageList.json",
-            type: 'GET',
-            dataType: 'json'
-        });
-
         return this.ajaxService.rawAjaxRequest({
             url: config.api.languageList,
             type: 'GET',
@@ -42,15 +35,16 @@ define([
 
 
     proto.getDeviceTypeList = function () {
-        console.log("fake getDeviceTypeList");
         return this.ajaxService.rawAjaxRequest({
-            url: "../mocks/deviceTypeList.json",
+            url: config.api.deviceTypeList,
             type: 'GET',
             dataType: 'json'
         });
+    };
 
+    proto.getImplementationList = function () {
         return this.ajaxService.rawAjaxRequest({
-            url: config.api.deviceTypeList,
+            url: config.api.implementationList,
             type: 'GET',
             dataType: 'json'
         });

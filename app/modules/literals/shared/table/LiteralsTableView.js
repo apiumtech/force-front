@@ -9,6 +9,7 @@ define([
 ], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $, TranslatorService) {
 	'use strict';
 
+
 	function LiteralsTableView(scope, model, presenter, compile, dataTableService, templateParser) {
 		BaseView.call(this, scope, model, presenter);
         this.compile = compile;
@@ -16,6 +17,7 @@ define([
         this.templateParser = templateParser;
         this.translator = TranslatorService.newInstance();
 
+        this.data.currentError = null;
         this.languages = [];
         this.table = null;
 
@@ -30,7 +32,22 @@ define([
 		this.event.onInit = function () {};
         this.event.fireLiteralsDeleteRequest = function () {};
 		this.event.fireLiteralsRequest = function () {};
+        this.event.onDisposing = function () {};
+        this.$scope.$on("$destroy", this.onDisposing.bind(this));
 	};
+
+
+    proto.onDisposing = function () {
+        console.log("onDisposing");
+        this.table.destroy();
+        this.event.onDisposing();
+        //ScrollEventBus.dispose();
+    };
+
+
+    proto.clearTable = function () {
+        this.table.clear().draw();
+    };
 
 
     proto.deleteLiteralPrompt = function (literalId) {
@@ -40,6 +57,7 @@ define([
         );
 
         if (confirm(msg)) {
+            this.clearTable();
             this.event.fireLiteralsDeleteRequest(literalId);
         }
     };
@@ -69,6 +87,13 @@ define([
             title: "Key",
             type: "string",
             visible: true,
+            sortable: false,
+            width: 150
+        },{
+            data: "ImplementationCode",
+            title: "ImplementationCode",
+            type: "num",
+            visible: false,
             sortable: false
         }];
         columns = columns.concat(this.languages.slice());
@@ -103,6 +128,7 @@ define([
             row.$ref = obj;
             row.Id = obj.Id;
             row.Key = obj.Key;
+            row.ImplementationCode = obj.ImplementationCode || 0;
             self.languages.forEach(function (lang) {
                 var langData = "";
                 if( obj.LanguageValues[lang.data] !== undefined ) {
@@ -115,6 +141,10 @@ define([
         var data = res.data.map(function (row) {
             return requestRow(row);
         });
+
+        if(data.length > 0 && "ImplementationCode" in data[0].$ref){
+            this.table.column(1).visible(true);
+        }
 
         this.table.rows.add(data).draw();
     };

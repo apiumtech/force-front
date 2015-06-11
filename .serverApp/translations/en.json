@@ -254,6 +254,7 @@
       }
     }
   },
+
   "Literal": {
     "List": {
       "Create_label": "Create literal",
@@ -273,12 +274,42 @@
         "Form": "Form"
       },
       "Form": {
-        "Literal_Key": "Key",
-        "Literal_Key_Placeholder": "Key",
+        "Literal_Key": "Literal Key",
+        "Literal_Key_Placeholder": "Enter the Literal Key",
         "Literal_Type": "Literal Type",
         "Select_Literal_Type": "Select Literal Type",
         "Device_Type": "Device Type",
         "Select_Device_Type": "Select Device Type",
+        "ListEmpty": "The list is empty",
+        "Submit": "Submit",
+        "Cancel": "Cancel"
+      }
+    }
+  },
+
+  "CustomLiteral": {
+    "List": {
+      "Create_label": "Create custom literal",
+      "Title": "Custom Literals",
+      "Table": {
+        "Header": "Custom literals table",
+        "Edit_label": "Edit",
+        "Delete_label": "Delete",
+        "Delete_Confirm_Message": "Are you sure you want to delete literal with id '__literalId__'?"
+      }
+    },
+    "Detail": {
+      "Title": "Custom Literal",
+      "Header": {
+        "Create": "Create custom literal",
+        "Edit": "Edit custom literal",
+        "Form": "Form"
+      },
+      "Form": {
+        "Literal_Key": "Custom Literal Key",
+        "Literal_Key_Placeholder": "Enter the Literal Key",
+        "Implementation_Code": "Implementation Code",
+        "Select_Implementation_Code": "Select Implementation Code",
         "ListEmpty": "The list is empty",
         "Submit": "Submit",
         "Cancel": "Cancel"

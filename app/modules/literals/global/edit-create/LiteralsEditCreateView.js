@@ -77,7 +77,7 @@ define([
     };
 
     proto._goBack = function () {
-        this.$window.history.back();
+        this.$window.history.go(-1);
     };
 
     proto.isNew = function () {
@@ -85,6 +85,11 @@ define([
     };
 
     proto.showForm = function (literal) {
+        var self = this;
+        literal.DeviceTypes.forEach(function(deviceType){
+            var deviceTypeFromList = _.findWhere(self.data.deviceTypeList, {Id: deviceType.Id});
+            self.onToggleDeviceType(deviceTypeFromList);
+        });
         this.data.literal = literal;
     };
 
