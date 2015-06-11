@@ -17,11 +17,7 @@ define([
                 sut = exerciseCreatePresenter();
                 view = {event: {}};
                 model = {};
-                spyOn(sut.eventBus, "onColumnsRequest").and.callFake(function(callbackMethod){
-                    sut.eventBus.fireColumnsRequest = function() {
-                        callbackMethod();
-                    };
-                });
+                exerciseFakeEventBusCallback(sut.eventBus, "ColumnsRequest");
             });
             it('should be subscribed to eventBus.onColumnsRequest', function () {
                 spyOn(sut, "onColumnsRequest");
@@ -60,11 +56,7 @@ define([
                 sut = exerciseCreatePresenter();
                 view = {event: {}};
                 model = {};
-                spyOn(sut.eventBus, "onLiteralsRequest").and.callFake(function(callbackMethod){
-                    sut.eventBus.fireLiteralsRequest = function() {
-                        callbackMethod();
-                    };
-                });
+                exerciseFakeEventBusCallback(sut.eventBus, "LiteralsRequest");
             });
 
             it('should be subscribed to eventBus.onLiteralsRequest', function () {
@@ -107,11 +99,7 @@ define([
                     setSearchTerms: function(){},
                     onLiteralsRequest: jasmine.createSpy().and.returnValue(exerciseFakePromise())
                 };
-                spyOn(sut.eventBus, "onLiteralsSearch").and.callFake(function(callbackMethod){
-                    sut.eventBus.fireLiteralsSearch = function(param) {
-                        callbackMethod(param);
-                    };
-                });
+                exerciseFakeEventBusCallback(sut.eventBus, "LiteralsSearch");
             });
 
             it("should be called after fireLiteralsSearch", function () {
@@ -128,11 +116,11 @@ define([
                 expect(sut.model.setSearchTerms).toHaveBeenCalledWith("bye");
             });
 
-            it("should trigger a literals request", function () {
-                spyOn(sut, "onLiteralsRequest");
+            it("should fire a literals request", function () {
+                spyOn(sut.eventBus, "fireLiteralsRequest");
                 sut.show(view, model);
                 sut.onLiteralsSearch("hello goodbye");
-                expect(sut.onLiteralsRequest).toHaveBeenCalled();
+                expect(sut.eventBus.fireLiteralsRequest).toHaveBeenCalled();
             });
         });
 

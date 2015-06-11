@@ -18,7 +18,8 @@ define([
         this.translator = TranslatorService.newInstance();
 
         this.data.currentError = null;
-        this.languages = [];
+        this.data.isLoading = false;
+        this.languageColumns = [];
         this.table = null;
 
 		this.configureEvents();
@@ -38,7 +39,6 @@ define([
 
 
     proto.onDisposing = function () {
-        console.log("onDisposing");
         this.table.destroy();
         this.event.onDisposing();
         //ScrollEventBus.dispose();
@@ -55,11 +55,14 @@ define([
             "Literal.List.Table.Delete_Confirm_Message",
             {literalId: literalId}
         );
-
-        if (confirm(msg)) {
-            this.clearTable();
-            this.event.fireLiteralsDeleteRequest(literalId);
+        if (window.confirm(msg)) {
+            this._doDeleteLiteralPrompt(literalId);
         }
+    };
+
+    proto._doDeleteLiteralPrompt = function (literalId) {
+        this.clearTable();
+        this.event.fireLiteralsDeleteRequest(literalId);
     };
 
 
@@ -69,34 +72,54 @@ define([
     };
 
 
+    proto._createColumnDeclaration = function(name, type) {
+        return {
+            data: name,
+            title: name,
+            type: type,
+            visible: true,
+            sortable: true
+        };
+    };
+
+
+    proto._createLanguageColumns = function (data) {
+        var self = this;
+        data.forEach(function (lang) {
+            self.languageColumns.push(
+                self._createColumnDeclaration(lang.Name, "string")
+            );
+        });
+    };
+
+
+    proto._createKeyColumn = function() {
+        var col = this._createColumnDeclaration("Key", "string");
+        col.sortable = false;
+        col.width = 175;
+        return col;
+    };
+
+
+    proto._createImplementationColumn = function() {
+        var col = this._createColumnDeclaration("ImplementationCode", "num");
+        col.visible = false;
+        col.sortable = false;
+        return col;
+    };
+
+
     // Columns Request callbacks
     proto.onColumnsRequestSuccess = function(res) {
         var self = this;
         var data = res.data;
-        data.forEach(function (lang) {
-            self.languages.push({
-                data: lang.Name,
-                title: lang.Name,
-                type: "string",
-                visible: true,
-                sortable: true
-            });
-        });
-        var columns = [{
-            data: "Key",
-            title: "Key",
-            type: "string",
-            visible: true,
-            sortable: false,
-            width: 150
-        },{
-            data: "ImplementationCode",
-            title: "ImplementationCode",
-            type: "num",
-            visible: false,
-            sortable: false
-        }];
-        columns = columns.concat(this.languages.slice());
+
+        this._createLanguageColumns(data);
+        var KeyColumn = this._createKeyColumn();
+        var ImplementationColumn = this._createImplementationColumn();
+        var columns = [KeyColumn, ImplementationColumn];
+        columns = columns.concat(this.languageColumns.slice());
+
         var dataTableConfig = {
             data: [],
             paging: false,
@@ -112,44 +135,71 @@ define([
                 }
             ]
         };
+
         this.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
         this.event.fireLiteralsRequest();
     };
+
+
     proto.onColumnsRequestError = function(err) {
-        this.data.currentError = err;
+        this.showError(err);
+    };
+
+
+    proto.onLiteralsRequest = function(res) {
+        this.data.isLoading = true;
+    };
+
+
+    proto._createTableRow = function (obj) {
+        var row = {};
+        row.$ref = obj;
+        row.Id = obj.Id;
+        row.Key = obj.Key;
+        row.ImplementationCode = obj.ImplementationCode || 0;
+        this.languageColumns.forEach(function (lang) {
+            var langData = "";
+            if( obj.LanguageValues[lang.data] !== undefined ) {
+                langData = obj.LanguageValues[lang.data];
+            }
+            row[lang.data] = langData;
+        });
+        return row;
+    };
+
+
+    proto._implementationCodeColumnVisibility = function (data) {
+        return data.length > 0 && "ImplementationCode" in data[0].$ref;
     };
 
 
     // Literals Request callbacks
     proto.onLiteralsRequestSuccess = function(res) {
         var self = this;
-        var requestRow = function (obj) {
-            var row = {};
-            row.$ref = obj;
-            row.Id = obj.Id;
-            row.Key = obj.Key;
-            row.ImplementationCode = obj.ImplementationCode || 0;
-            self.languages.forEach(function (lang) {
-                var langData = "";
-                if( obj.LanguageValues[lang.data] !== undefined ) {
-                    langData = obj.LanguageValues[lang.data];
-                }
-                row[lang.data] = langData;
-            });
-            return row;
-        };
-        var data = res.data.map(function (row) {
-            return requestRow(row);
-        });
-
-        if(data.length > 0 && "ImplementationCode" in data[0].$ref){
-            this.table.column(1).visible(true);
-        }
-
+        this.data.isLoading = false;
+        res.data = res.data || [];
+        var data = res.data.map( this._createTableRow.bind(this) );
+        this.table.column(1).visible(
+            this._implementationCodeColumnVisibility(data)
+        );
         this.table.rows.add(data).draw();
     };
+
+
     proto.onLiteralsRequestError = function(err) {
-        this.data.currentError = err;
+        this.data.isLoading = false;
+        this.showError(err);
+    };
+
+
+    proto.showError = function(err) {
+        var msg;
+        if(err.name && err.code){
+            msg = err.name + "" + err.code;
+        } else {
+            msg = "Error: " + err.toString();
+        }
+        this.data.currentError = msg;
     };
 
 

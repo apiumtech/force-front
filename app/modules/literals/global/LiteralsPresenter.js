@@ -46,7 +46,7 @@ define([
     LiteralsPresenter.prototype.onLiteralsSearch = function(searchTerms) {
         var self = this;
         self.model.setSearchTerms(searchTerms);
-        self.onLiteralsRequest();
+        self.eventBus.fireLiteralsRequest();
     };
 
     LiteralsPresenter.prototype.onLiteralsDeleteRequest = function(literalId) {

@@ -26,8 +26,7 @@
                                        type="text"
                                        class="form-control"
                                        placeholder="{{'CustomLiteral.Detail.Form.Literal_Key_Placeholder' | i18next}}"
-                                       ng-model="data.literal.Key"
-                                       value={{data.literal.Key}}>
+                                       ng-model="data.literal.Key">
                             </div>
                         </div>
 
@@ -38,7 +37,7 @@
                             <div class="col-md-9">
                                 <select class="form-control"
                                         ng-model="data.literal.ImplementationCode"
-                                        ng-options="implementation.Name for implementation in data.implementationList track by implementation.ImplementationCode">
+                                        ng-options="implementation.Name for implementation in data.implementationList track by implementation.Code">
                                     <option value="">{{'CustomLiteral.Detail.Form.Select_Implementation_Code' | i18next}}</option>
                                 </select>
                             </div>
@@ -54,8 +53,7 @@
                                 <input type="text"
                                        ng-model="data.literal.LanguageValues[languageKey]"
                                        class="form-control"
-                                       placeholder="{{'CustomLiteral.Detail.Form.Literal_Key_Placeholder' | i18next}}"
-                                       value="{{ languageValue }}"/>
+                                       placeholder="{{ 'CustomLiteral.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}"/>
                             </div>
                         </div>
 

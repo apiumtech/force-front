@@ -26,8 +26,7 @@
                                        type="text"
                                        class="form-control"
                                        placeholder="{{'Literal.Detail.Form.Literal_Key_Placeholder' | i18next}}"
-                                       ng-model="data.literal.Key"
-                                       value={{data.literal.Key}}>
+                                       ng-model="data.literal.Key">
                             </div>
                         </div>
 
@@ -87,8 +86,7 @@
                                 <input type="text"
                                        ng-model="data.literal.LanguageValues[languageKey]"
                                        class="form-control"
-                                       placeholder="{{'Literal.Detail.Form.Literal_Key_Placeholder' | i18next}}"
-                                       value="{{ languageValue }}"/>
+                                       placeholder="{{ 'Literal.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}"/>
                             </div>
                         </div>
 
