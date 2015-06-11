@@ -8,6 +8,11 @@ define([
     }
 
     NotificationService.prototype.pushMessage = function (channel, message, type) {
+        if (!channel)
+            throw new Error("Channel must be specified");
+        if (!message)
+            throw new Error("Message must be specified");
+
         this.notifications.push({
             channel: channel,
             message: message,
@@ -16,6 +21,9 @@ define([
     };
 
     NotificationService.prototype.getMessages = function (channel) {
+        if (!channel)
+            throw new Error('Channel must be specified');
+
         var messages = this.notifications.filter(function (notification) {
             return notification.channel == channel;
         });
