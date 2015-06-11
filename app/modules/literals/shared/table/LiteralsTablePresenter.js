@@ -33,6 +33,7 @@ define([
 		this.eventBus.onColumnsRequestSuccess(view.onColumnsRequestSuccess.bind(view));
 		this.eventBus.onColumnsRequestError(view.onColumnsRequestError.bind(view));
 
+        this.eventBus.onLiteralsRequest(view.onLiteralsRequest.bind(view));
         this.eventBus.onLiteralsRequestSuccess(view.onLiteralsRequestSuccess.bind(view));
 		this.eventBus.onLiteralsRequestError(view.onLiteralsRequestError.bind(view));
 

@@ -178,3 +178,11 @@ function exerciseFakeChannel() {
         }
     };
 }
+
+function exerciseFakeEventBusCallback(eventBus, signalName) {
+    spyOn(eventBus, "on"+signalName).and.callFake(function(callbackMethod){
+        eventBus["fire"+signalName] = function() {
+            callbackMethod.apply(null, arguments);
+        };
+    });
+}

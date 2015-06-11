@@ -48,7 +48,7 @@ define([
     proto.onLiteralsSearch = function(searchTerms) {
         var self = this;
         self.model.setSearchTerms(searchTerms);
-        self.onLiteralsRequest();
+        self.eventBus.fireLiteralsRequest();
     };
 
     proto.onLiteralsDeleteRequest = function(literalId) {
