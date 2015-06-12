@@ -1,6 +1,7 @@
 define([
 	'app',
-	'modules/saleAnalytics/reports/reportFilter/ReportFilterView'
+	'modules/saleAnalytics/reports/reportFilter/ReportFilterView',
+	'modules/saleAnalytics/reports/reportSearchBox/ReportSearchBoxDirective'
 ], function(app, ReportFilterView) {
 	'use strict';
 

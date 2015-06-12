@@ -1,6 +1,7 @@
 define([
-    'shared/services/ajax/FakeAjaxService'
-], function (AjaxService) {
+    'shared/services/ajax/FakeAjaxService',
+    'modules/saleAnalytics/reports/ReportFakeData'
+], function (AjaxService, ReportFakeData) {
     'use strict';
 
     function ReportService(ajaxService) {
@@ -74,6 +75,16 @@ define([
 
     ReportService.prototype.getPreviewReportPhotos = function (reportId) {
         //TODO: implement when having server's contract
+    };
+
+    ReportService.prototype.searchReport = function(query){
+        return this.ajaxService.rawAjaxRequest({
+            result: ReportFakeData()
+        }).then(this.decorateServerData.bind(this));
+    };
+
+    ReportService.prototype.decorateServerData = function (serverData) {
+        return serverData;
     };
 
     return ReportService;

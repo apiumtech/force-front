@@ -37,11 +37,40 @@ define([
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
         self.reportEventBus.onFolderReportSelected(self.openReportFolder.bind(self));
+        self.reportEventBus.onReportSelected(self.openReport.bind(self));
     };
 
     AllReportView.prototype.onReportsLoaded = function (reports) {
         this.reports = reports;
         this.isLoading = false;
+    };
+
+    AllReportView.prototype.openReport = function (selectedReport) {
+        if (!selectedReport) return;
+
+        var self = this;
+        var arrayHelper = self.arrayHelper;
+
+        var cloned = arrayHelper.clone(self.reports);
+        var flattened = arrayHelper.flatten(cloned, 'children');
+
+        flattened.map(function (f) {
+            return f.selected = false;
+        });
+
+        var parents = arrayHelper.findParents(flattened, "idParent", "id", selectedReport, -1);
+
+        parents.forEach(function (p) {
+            if (p.id === selectedReport) {
+                p.selected = true;
+            }
+            else {
+                p.isOpen = true;
+            }
+        });
+
+        self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+
     };
 
     AllReportView.prototype.openReportFolder = function (selectedFolder) {
