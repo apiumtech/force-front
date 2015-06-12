@@ -10,88 +10,99 @@ define([
         return ArrayHelper.clone([
             {
                 id: 1,
-                name: 'Folder',
+                name: 'Animals (Folder)',
                 type: 'folder',
+                date: '12/01/2015',
                 idParent: -1
             },
             {
                 id: 2,
-                name: 'Folder',
+                name: 'Waterfalls (Folder)',
                 type: 'folder',
+                date: '04/12/2014',
                 idParent: -1
             },
             {
                 id: 3,
-                name: 'Folder',
+                name: 'Computers (Folder)',
                 type: 'folder',
+                date: '21/05/2015',
                 idParent: 1
             },
             {
                 id: 4,
-                name: 'Folder',
+                name: 'Forest (Folder)',
                 type: 'folder',
+                date: '07/08/2013',
                 idParent: 3
             },
             {
                 id: 11,
-                name: "Analisis Oportunidades IN/OUT 11",
+                name: "Daisy report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 3,
                 type: 'report',
+                date: '03/09/2014',
                 favourite: true,
                 reportType: ['PDF', 'DOC (MS-Word)', 'XSL (MS-Excel)']
             },
             {
                 id: 6,
-                name: "Analisis Oportunidades IN/OUT 06",
+                name: "Windows phone report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 4,
                 type: 'report',
+                date: '01/01/2013',
                 favourite: false,
                 reportType: ['PDF', 'DOC (MS-Word)']
             },
             {
                 id: 7,
-                name: "Analisis Oportunidades IN/OUT 07",
+                name: "OSX annual report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 4,
                 type: 'report',
+                date: '16/02/2015',
                 favourite: true,
                 reportType: ['XSL (MS-Excel)']
             },
             {
                 id: 8,
-                name: "Analisis Oportunidades IN/OUT 08",
+                name: "Paris night lives report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 4,
                 type: 'report',
+                date: '24/03/2014',
                 favourite: false,
                 reportType: ['PDF', 'XSL (MS-Excel)']
             },
             {
                 id: 9,
-                name: "Analisis Oportunidades IN/OUT 09",
+                name: "White lions report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 4,
                 type: 'report',
+                date: '29/10/2014',
                 favourite: false,
                 reportType: ['XSL (MS-Excel)']
             },
             {
                 id: 10,
-                name: "Analisis Oportunidades IN/OUT 10",
+                name: "Skyscraper report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 2,
                 type: 'report',
+                date: '12/01/2013',
                 favourite: false,
                 reportType: ['DOC (MS-Word)', 'XSL (MS-Excel)']
             },
             {
                 id: 5,
-                name: "Analisis Oportunidades IN/OUT 05",
+                name: "Blue whales report",
                 description: "Imforme que muestra riesgo por bajo uso por cliente",
                 idParent: 2,
                 type: 'report',
+                date: '08/07/2014',
                 favourite: true,
                 reportType: ['PDF']
             }

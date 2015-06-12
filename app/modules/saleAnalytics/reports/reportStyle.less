@@ -93,11 +93,20 @@
         margin-top: 0;
       }
 
-      div.panel .panel-heading {
+      div.panel {
+
+        &.highlight{
+          .panel-heading{
+            background: #FFFAF0 !important;
+          }
+        }
+
+        .panel-heading {
         border-top: 1px solid @force_report_light_grey;
         padding: 2px;
         background: @force_report_light_blue;
         text-transform: none !important;
+
         &:hover {
           background: #fff;
         }
@@ -161,6 +170,7 @@
           }
         }
       }
+      }
 
       .panel-body {
         ul {
@@ -195,6 +205,7 @@
       &:nth-child(even) {
         background: @force_report_light_blue;
       }
+
     }
   }
 

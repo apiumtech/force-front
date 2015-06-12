@@ -1,0 +1,26 @@
+<div class="search-box input-group">
+    <input class="form-control" ng-model="searchQuery" ng-keyup="fn.searchQueryKeyUp($event)"
+            ng-click="fn.showSearchResult()"/>
+    <span class="fa fa-remove removeTextBoxBtn" ng-show="searchQuery"
+          ng-click="fn.deactivateSearch();$event.stopPropagation()"></span>
+
+    <span class="input-group-btn">
+        <button class="btn" ng-class="{'btn-default': !searchQuery, 'btn-activated': searchQuery}"
+                ng-disabled="!searchQuery" type="button" ng-click="fn.activateSearch()"><i class="fa ic-search"></i></button>
+    </span>
+</div>
+
+<div class="search-result-panel animated fadeIn" ng-show="data.showSearchResult">
+    {{showSearchResult}}
+    <ul high-light-result>
+        <li class="search-info" ng-click="fn.activateSearch()"><i class="fa fa-search"></i></i><span class="text">Searching for: {{searchQuery}}</span></li>
+
+        <li ng-repeat="report in reports" ng-click="fn.openResult(report)">
+            <i class="fa fa-file-text-o" ng-if="report.type == 'report'"></i>
+            <i class="fa fa-folder-o" ng-if="report.type == 'folder'"></i>
+
+            <span high-light-result="report.name"
+               keywords='searchQuery'>{{ report.name }}</span>
+        </li>
+    </ul>
+</div>

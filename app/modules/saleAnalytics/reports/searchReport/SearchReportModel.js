@@ -1,21 +1,16 @@
 define([
 	'shared/services/ajax/FakeAjaxService',
-	'modules/saleAnalytics/reports/ReportFakeData'
-], function(AjaxService, ReportFakeData) {
+	'modules/saleAnalytics/reports/ReportService'
+], function(AjaxService, ReportService) {
 	'use strict';
 
-	function SearchReportModel(ajaxService) {
+	function SearchReportModel(ajaxService, reportService) {
 		this.ajaxService = ajaxService || new AjaxService();
+		this.reportService = reportService || new ReportService();
 	}
 
-	SearchReportModel.prototype._getReports = function () {
-		return this.ajaxService.rawAjaxRequest({
-			result: ReportFakeData()
-		}).then(this.decorateServerData.bind(this));
-	};
-
-	SearchReportModel.prototype.decorateServerData = function (serverData) {
-		return serverData;
+	SearchReportModel.prototype._getReports = function (query) {
+		return this.reportService.searchReport(query);
 	};
 
 	return SearchReportModel;

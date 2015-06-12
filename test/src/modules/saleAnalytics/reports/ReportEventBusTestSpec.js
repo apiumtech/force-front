@@ -27,7 +27,8 @@ define([
                 "FolderReportSelected",
                 "PreviewReport",
                 "ToggleFavourite",
-                "ReportIsInProgress"
+                "ReportIsInProgress",
+                "ReportSelected"
             ];
 
             var sut;
