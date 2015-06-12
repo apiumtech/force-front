@@ -38,6 +38,7 @@ define([
         this.fn.onSave = this._onSave.bind(this);
         this.fn.isNew = this.isNew.bind(this);
         this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
+        this.fn.isValid = this.isValid.bind(this);
 
         this.event.isNew = function () {};
         this.event.getLiteralTypeList = function () {};
@@ -51,6 +52,11 @@ define([
     proto._onInit = function () {
         this.event.getLiteralTypeList();
         this.event.getDeviceTypeList();
+    };
+
+    proto.isValid = function (formName) {
+        var isValid = this.$scope.$validation.checkValid(formName);
+        return isValid;
     };
 
 

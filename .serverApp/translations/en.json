@@ -282,7 +282,7 @@
         "Device_Type": "Device type",
         "Select_Device_Type": "Select device type",
         "ListEmpty": "The list is empty",
-        "Submit": "Submit",
+        "Submit": "Save",
         "Cancel": "Cancel"
       }
     }
@@ -313,7 +313,7 @@
         "Implementation_Code": "Implementation code",
         "Select_Implementation_Code": "Select implementation code",
         "ListEmpty": "The list is empty",
-        "Submit": "Submit",
+        "Submit": "Save",
         "Cancel": "Cancel"
       }
     }
