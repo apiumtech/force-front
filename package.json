@@ -51,6 +51,6 @@
     "karma-sinon": "^1.0.4",
     "load-grunt-tasks": "^1.0.0",
     "lokijs": "=1.2.0",
-    "sinon": "^1.14.1"
+    "sinon": "=1.14.1"
   }
 }
