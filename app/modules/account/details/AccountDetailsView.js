@@ -167,14 +167,18 @@ define([
         self.event.onSaveRelatedCompany(self.accountId, data.relatedCompany, self.onRelatedCompanySaved.bind(self));
     };
 
-    AccountDetailsView.prototype.appendCompany = function (company) {
+    AccountDetailsView.prototype.appendCompany = function (company, relatedCompanyWrapper) {
         var self = this;
+
+        var relatedCompanyWrapper = relatedCompanyWrapper || $("#related-company-wrapper");
+
+        if(!relatedCompanyWrapper.length) return;
 
         var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
         var newCompany = $("<p>" + company.name + "</p>");
         newCompany.append(okTick);
 
-        $("#related-company-wrapper").append(newCompany);
+        relatedCompanyWrapper.append(newCompany);
         newCompany.addClass('animated fadeIn success-flash');
 
         self.removeEffects(newCompany, okTick);
@@ -182,6 +186,10 @@ define([
 
     AccountDetailsView.prototype.appendContact = function (contact) {
         var self = this;
+
+        var relatedContactWrapper = $(".relatedContacts");
+
+        if(!relatedContactWrapper.length) return;
 
         var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
         var newContact = $('' +
@@ -193,11 +201,11 @@ define([
         '</p>');
         newContact.append(okTick);
 
-        $(".relatedContacts").append(newContact);
+        relatedContactWrapper.append(newContact);
         newContact.addClass('animated fadeIn success-flash');
 
         $('html, body').animate({
-            scrollTop: $(".relatedContacts").offset().top
+            scrollTop: relatedContactWrapper.offset().top
         }, 500);
         self.removeEffects(newContact, okTick);
     };
@@ -240,22 +248,25 @@ define([
 
         var self = this;
         self.accountData = data;
-        self.watchElement = setInterval(self.detectElementCreated,100);
+        self.watchElement = setInterval(self.detectElementCreated.bind(self),100);
         self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
     };
 
     AccountDetailsView.prototype.detectElementCreated = function(){
-        console.log("DOM", $('.relatedContacts').length);
+        var self = this;
+        if($('.relatedContacts').length > 0){
+            self.loadNewCreatedContactIfAny();
+            clearInterval(self.watchElement);
+        };
     };
 
     AccountDetailsView.prototype.loadNewCreatedContactIfAny = function () {
         var self = this;
         console.log("loaded");
         var contacts = self.notificationService.getMessages('contact_from_account_' + self.accountId);
+        console.log("loaded with", contacts);
         if (!contacts || !contacts.length)
             return;
-
-        console.log("loaded", contacts);
         contacts.forEach(function (contact) {
             self.appendContact(contact.message.data);
         });

@@ -384,11 +384,28 @@ define([
                 name: "name",
                 type: "type"
             };
-            it("should cal removeEffects function", function () {
-                sinon.stub(sut, "removeEffects");
-                sut.appendCompany(company);
-                expect(sut.removeEffects).toHaveBeenCalled();
+
+            describe('related company wrapper has been rendered successfully', function () {
+                var wrapper;
+                beforeEach(function () {
+                    wrapper = angular.element("<div/>");
+                });
+                it("should call removeEffects function", function () {
+                    sinon.stub(sut, "removeEffects");
+                    sut.appendCompany(company, wrapper);
+                    expect(sut.removeEffects).toHaveBeenCalled();
+                });
             });
+
+            describe('related company wrapper has not been rendered', function () {
+                var wrapper;
+                it("should not call removeEffects function", function () {
+                    sinon.stub(sut, "removeEffects");
+                    sut.appendCompany(company, wrapper);
+                    expect(sut.removeEffects).not.toHaveBeenCalled();
+                });
+            });
+
         });
 
     });
