@@ -83,10 +83,15 @@
                             <label class="col-md-3 control-label">{{ languageKey }}</label>
                             <div class="col-md-9">
                                 <!-- Literal language -->
-                                <input type="text"
-                                       ng-model="data.literal.LanguageValues[languageKey]"
-                                       class="form-control"
-                                       placeholder="{{ 'Literal.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}"/>
+                                <!--<input type="text"-->
+                                       <!--ng-model="data.literal.LanguageValues[languageKey]"-->
+                                       <!--class="form-control"-->
+                                       <!--placeholder="{{ 'Literal.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}"/>-->
+                                <textarea resizable-text-area
+                                          class="form-control" rows="1"
+                                          ng-model="data.literal.LanguageValues[languageKey]"
+                                          placeholder="{{ 'Literal.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}">
+                                </textarea>
                             </div>
                         </div>
 

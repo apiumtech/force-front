@@ -12,6 +12,7 @@ define([
         this.routeParams = $routeParams;
         this.translator = TranslatorService.newInstance();
 
+        this.data.isPosting = false;
         this.data.currentError = null;
         this.data.literal = null;
 
