@@ -34,6 +34,7 @@ var requireConf = {
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
+        'toastr': '../bower_components/toastr/toastr.min',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
 
@@ -161,6 +162,10 @@ var requireConf = {
             deps: ['jquery']
         },
 
+        'toastr': {
+            deps: ['jquery']
+        },
+
         //endregion
 
         //region TODO: delete or not ??
@@ -204,7 +209,7 @@ var requireConf = {
             exports: 'flotCrosshair',
             deps: ['flot']
         },
-//endregion flot
+        //endregion flot
 
         //region 3rd party libs
         'crypto.SHA1': {

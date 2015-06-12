@@ -55,6 +55,7 @@ define([
             });
             it("should call ajaxService's rawAjaxRequest with the literal as body", function () {
                 var sut = exerciseCreateService();
+                sut.cqrsUnwrapper = {unwrap:function(){}}
                 spyOn(sut.ajaxService, "rawAjaxRequest");
                 sut.createLiteral({Key:"some_key", DeviceTypes:[], LiteralType:{Id:1}, LanguageValues:{}});
                 expect(sut.ajaxService.rawAjaxRequest.calls.argsFor(0)[0].data).toEqual({

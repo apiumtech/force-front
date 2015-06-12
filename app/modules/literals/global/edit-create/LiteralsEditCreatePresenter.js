@@ -18,28 +18,28 @@ define([], function(){
 
         view.event.getDeviceTypeList = function () {
             model.getDeviceTypeList().then(
-                view.onGetDeviceTypeList.bind(view),
+                view.onGetDeviceTypeListSuccess.bind(view),
                 view.showError.bind(view)
             );
         };
 
         view.event.getLiteralById = function (id) {
             model.getLiteralById(id).then(
-                view.showForm.bind(view),
+                view.onGetLiteralByIdSuccess.bind(view),
                 view.showError.bind(view)
             );
         };
 
         view.event.updateLiteral = function(literal){
             model.changeLiteralDetails(literal).then(
-                function(){ view._goBack(); },
+                function(){ view.onSaveSuccess(); },
                 function(err){ view.showError(err); }
             );
         };
 
         view.event.createLiteral = function(literal){
             model.createLiteral(literal).then(
-                view._goBack.bind(view),
+                view.onSaveSuccess.bind(view),
                 view.showError.bind(view)
             );
         };

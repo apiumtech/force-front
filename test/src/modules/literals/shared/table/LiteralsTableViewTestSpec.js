@@ -273,6 +273,7 @@ define([
                 sut.table = {
                     destroy: jasmine.createSpy()
                 };
+                sut.disposer = jasmine.createSpy();
             });
             it('should destroy table', function () {
                 sut.onDisposing();
@@ -282,6 +283,10 @@ define([
                 spyOn(sut.event, 'onDisposing');
                 sut.onDisposing();
                 expect(sut.event.onDisposing).toHaveBeenCalled();
+            });
+            it("should call scope $on.destroy disposer", function () {
+                sut.onDisposing();
+                expect(sut.disposer).toHaveBeenCalled();
             });
         });
 

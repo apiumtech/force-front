@@ -3,16 +3,18 @@ define([
     'modules/literals/global/edit-create/LiteralsEditCreatePresenter',
     'modules/literals/global/edit-create/LiteralsEditCreateModel',
     'shared/services/TranslatorService',
+    'shared/services/notification/ToastService',
     'underscore'
-], function (BaseView, LiteralsEditCreatePresenter, LiteralsEditCreateModel, TranslatorService, _) {
+], function (BaseView, LiteralsEditCreatePresenter, LiteralsEditCreateModel, TranslatorService, ToastService, _) {
     
     function LiteralsEditCreateView($scope, $model, $presenter, $routeParams, $window) {
         BaseView.call(this, $scope, $model, $presenter);
         this.$window = $window;
         this.routeParams = $routeParams;
         this.translator = TranslatorService.newInstance();
+        this.toastService = ToastService.getInstance();
 
-        this.data.isPosting = false;
+        this.data.isLoading = false;
         this.data.currentError = null;
         this.data.literal = null;
 
@@ -33,9 +35,9 @@ define([
 
 
     proto.configureEvents = function () {
-        this.fn.onInit = this._onInit.bind(this);
-        this.fn.onCancel = this._onCancel.bind(this);
-        this.fn.onSave = this._onSave.bind(this);
+        this.fn.onInit = this.onInit.bind(this);
+        this.fn.onCancel = this.onCancel.bind(this);
+        this.fn.onSave = this.onSave.bind(this);
         this.fn.isNew = this.isNew.bind(this);
         this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
         this.fn.isValid = this.isValid.bind(this);
@@ -49,7 +51,8 @@ define([
     };
 
 
-    proto._onInit = function () {
+    proto.onInit = function () {
+        this.data.isLoading = true;
         this.event.getLiteralTypeList();
         this.event.getDeviceTypeList();
     };
@@ -66,7 +69,7 @@ define([
     };
 
 
-    proto.onGetDeviceTypeList = function (res) {
+    proto.onGetDeviceTypeListSuccess = function (res) {
         this.data.deviceTypeList = res.data;
         this.getLiteralById();
     };
@@ -78,8 +81,13 @@ define([
         }
     };
 
+    proto.onGetLiteralByIdSuccess = function(literal) {
+        this.data.isLoading = false;
+        this.showForm(literal);
+    };
 
-    proto._onCancel = function () {
+
+    proto.onCancel = function () {
         this._goBack();
     };
 
@@ -101,16 +109,27 @@ define([
     };
 
     proto.showError = function (err) {
+        this.data.isLoading = false;
         this.data.currentError = err;
+        var errorMessage = this.translator.translate("Literal.Detail.Form.SaveErrorMessage");
+        this.toastService.error(errorMessage);
     };
 
-    proto._onSave = function () {
+    proto.onSave = function () {
+        this.data.isLoading = true;
         this.data.literal.DeviceTypes = this.data.selectedDeviceTypes;
         if (this.isNew()) {
             this.event.createLiteral(this.data.literal);
         } else {
             this.event.updateLiteral(this.data.literal);
         }
+    };
+
+    proto.onSaveSuccess = function () {
+        this.data.isLoading = false;
+        var successMessage = this.translator.translate("Literal.Detail.Form.SaveSuccessMessage");
+        this.toastService.success( successMessage );
+        this._goBack();
     };
 
     proto.onToggleDeviceType = function (deviceType) {

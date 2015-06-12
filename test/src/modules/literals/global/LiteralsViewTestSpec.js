@@ -4,6 +4,7 @@ define([
 	'use strict';
 
     function exerciseCreateView(scope, presenter){
+        scope = scope || {$on:function(){}};
         return LiteralsView.newInstance({
             scope: scope,
             presenter: presenter,

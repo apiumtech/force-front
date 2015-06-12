@@ -1,15 +1,17 @@
 define([
     'config'
     ,'shared/services/ajax/AuthAjaxService'
+    ,'shared/services/ajax/CQRSUnwrapper'
     ,'q'
     ,'modules/literals/shared/LiteralsSharedService'
     ,'underscore'
-], function(config, AuthAjaxService, Q, LiteralsSharedService, _) {
+], function(config, AuthAjaxService, CQRSUnwrapper, Q, LiteralsSharedService, _) {
     'use strict';
 
-    function LiteralsEditCreateService(ajaxService, sharedService) {
+    function LiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper) {
         this.ajaxService = ajaxService;
         this.sharedService = sharedService;
+        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = LiteralsEditCreateService.prototype;
@@ -45,13 +47,15 @@ define([
         assertNotNull("literal", literal);
         assertNotNull("LiteralType", literal.LiteralType);
         var body = this._createLiteralBody(literal);
-        return this.ajaxService.rawAjaxRequest({
-            url: config.api.createLiteral,
-            data: body,
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json'
-        });
+        return this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest({
+                url: config.api.createLiteral,
+                data: body,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+        );
     };
 
 
@@ -160,10 +164,11 @@ define([
     };
 
 
-    LiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
+    LiteralsEditCreateService.newInstance = function (ajaxService, sharedService, cqrsUnwrapper) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         sharedService = sharedService || LiteralsSharedService.newInstance();
-        return new LiteralsEditCreateService(ajaxService, sharedService);
+        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
+        return new LiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper);
     };
 
     return LiteralsEditCreateService;

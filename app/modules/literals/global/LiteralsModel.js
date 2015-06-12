@@ -18,6 +18,10 @@ define([
         this.queryBuilder.setSearchTerms(searchTerms);
     };
 
+    proto.nextPage = function() {
+        this.queryBuilder.nextPage();
+    };
+
 
     proto.onColumnsRequest = function() {
       return this.service.getLanguageList();

@@ -34,14 +34,15 @@ define([
         this.event.fireLiteralsDeleteRequest = function () {};
 		this.event.fireLiteralsRequest = function () {};
         this.event.onDisposing = function () {};
-        this.$scope.$on("$destroy", this.onDisposing.bind(this));
+
+        this.disposer = this.$scope.$on("$destroy", this.onDisposing.bind(this));
 	};
 
 
     proto.onDisposing = function () {
         this.table.destroy();
         this.event.onDisposing();
-        //ScrollEventBus.dispose();
+        this.disposer();
     };
 
 

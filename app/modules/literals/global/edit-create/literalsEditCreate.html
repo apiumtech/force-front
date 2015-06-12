@@ -1,13 +1,5 @@
 <div class="LiteralsEditCreateView" ng-init="fn.onInit()">
 
-
-    <!-- SPINNER -->
-    <div class="panel-loader" ng-show="data.isPosting">
-        <span class="spinner-small"></span>
-    </div>
-
-
-
     <!-- HEADER -->
     <div class="row LiteralsEditCreateView_Header">
 
@@ -131,5 +123,12 @@
         </form>
     </div>
     <!-- END Form -->
+
+
+    <!-- SPINNER -->
+    <div class="panel-loader" ng-show="data.isLoading">
+        <span class="spinner-small"></span>
+    </div>
+
 
 </div>

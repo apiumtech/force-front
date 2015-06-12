@@ -15,7 +15,7 @@ define([
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}};
+                view = {event: {}, onLiteralsRequestSuccess: function(){}};
                 model = {};
                 exerciseFakeEventBusCallback(sut.eventBus, "ColumnsRequest");
             });
@@ -54,7 +54,7 @@ define([
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}};
+                view = {event: {}, onLiteralsRequestSuccess:function(){}, onLiteralsRequest:function(){}};
                 model = {};
                 exerciseFakeEventBusCallback(sut.eventBus, "LiteralsRequest");
             });
@@ -94,7 +94,7 @@ define([
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}};
+                view = {event: {}, onLiteralsRequestSuccess:function(){}};
                 model = {
                     setSearchTerms: function(){},
                     onLiteralsRequest: jasmine.createSpy().and.returnValue(exerciseFakePromise())
