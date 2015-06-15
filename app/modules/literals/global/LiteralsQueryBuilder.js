@@ -5,6 +5,7 @@ define([
     'use strict';
 
     var TAG_TOTAL_COUNT = "totalCount";
+    var ALL_RESULTS_LIMIT = 0;
     var SORT_DESC = -1;
     var SORT_ASC = 1;
     var SORT_DEFAULT = SORT_DESC;
