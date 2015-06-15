@@ -31,6 +31,7 @@ define([
         this.event.onDisposing();
         ScrollEventBus.dispose();
         this.disposer();
+        $('body').css('min-height', 0);
     };
 
 

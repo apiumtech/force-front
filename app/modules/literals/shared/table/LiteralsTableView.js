@@ -125,6 +125,7 @@ define([
             data: [],
             paging: false,
             info: false,
+            order: [],
             columns: columns,
             columnDefs: [
                 {
