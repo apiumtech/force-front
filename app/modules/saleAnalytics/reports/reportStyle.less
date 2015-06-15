@@ -95,81 +95,81 @@
 
       div.panel {
 
-        &.highlight{
-          .panel-heading{
+        &.highlight {
+          .panel-heading {
             background: #FFFAF0 !important;
           }
         }
 
         .panel-heading {
-        border-top: 1px solid @force_report_light_grey;
-        padding: 2px;
-        background: @force_report_light_blue;
-        text-transform: none !important;
-
-        &:hover {
-          background: #fff;
-        }
-        .item-box {
-          font-size: 1.1em;
-          > i {
-            padding-top: 15px;
-            font-size: 1.6em;
-            &.folder {
-              color: @force_report_medium_grey
-            }
-          }
-
-          > div {
-            font-size: 1.1em;
-            padding-top: 20px;
-          }
-
-          .report-item {
-            padding-top: 10px;
-            padding-bottom: 0;
-
-            > .row {
-              padding-bottom: 0;
-            }
-
-            .action-form {
-              padding-top: 10px;
-              padding-right: 30px;
-            }
-          }
-
-        }
-
-        h5, .panel-title {
+          border-top: 1px solid @force_report_light_grey;
+          padding: 2px;
+          background: @force_report_light_blue;
           text-transform: none !important;
-        }
 
-        a {
-          color: rgba(0, 0, 0, .8);
-          div {
-            padding: 2px 0 4px 0;
-
-            &.inline {
-              padding: 0 !important;
-              p {
-                margin-bottom: 3px;
+          &:hover {
+            background: #fff;
+          }
+          .item-box {
+            font-size: 1.1em;
+            > i {
+              padding-top: 15px;
+              font-size: 1.6em;
+              &.folder {
+                color: @force_report_medium_grey
               }
             }
 
-            &.form-inline {
-              padding-bottom: 0 !important;
+            > div {
+              font-size: 1.1em;
+              padding-top: 20px;
+            }
+
+            .report-item {
+              padding-top: 10px;
+              padding-bottom: 0;
+
+              > .row {
+                padding-bottom: 0;
+              }
+
+              .action-form {
+                padding-top: 10px;
+                padding-right: 30px;
+              }
             }
 
           }
 
-          &.accordion-toggle {
-            overflow: hidden;
-            margin-bottom: 0 !important;
-            padding: 0 20px;
+          h5, .panel-title {
+            text-transform: none !important;
+          }
+
+          a {
+            color: rgba(0, 0, 0, .8);
+            div {
+              padding: 2px 0 4px 0;
+
+              &.inline {
+                padding: 0 !important;
+                p {
+                  margin-bottom: 3px;
+                }
+              }
+
+              &.form-inline {
+                padding-bottom: 0 !important;
+              }
+
+            }
+
+            &.accordion-toggle {
+              overflow: hidden;
+              margin-bottom: 0 !important;
+              padding: 0 20px;
+            }
           }
         }
-      }
       }
 
       .panel-body {
@@ -202,6 +202,9 @@
     div.report-item-box {
       padding: 5px 20px;
       border-bottom: 1px solid @force_report_light_grey;
+      &.panel {
+        margin-bottom: 0;
+      }
       &:nth-child(even) {
         background: @force_report_light_blue;
       }
@@ -327,9 +330,9 @@
 
 .ui-autocomplete {
   z-index: 10000;
-  li.ui-menu-item{
+  li.ui-menu-item {
     padding: 5px 10px;
-    &.ui-state-focus{
+    &.ui-state-focus {
       background: @force_report_light_grey;
       border: none;
     }

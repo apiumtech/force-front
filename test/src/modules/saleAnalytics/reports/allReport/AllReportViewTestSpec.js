@@ -68,342 +68,112 @@ define([
             });
         });
 
-        describe('openReportFolder', function () {
-            it("", function () {
-
-            });
-            it("should correctly set the new data to reports", function () {
-                var input = [{
-                    "id": 1,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "children": [{
-                        "id": 3,
-                        "name": "Folder",
-                        "type": "folder",
-                        "idParent": 1,
-
-                        "children": [{
-                            "id": 4,
-                            "name": "Folder",
-                            "type": "folder",
-                            "idParent": 3,
-
-                            "children": [{
-                                "id": 6,
-                                "name": "Analisis Oportunidades IN/OUT 6",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 7,
-                                "name": "Analisis Oportunidades IN/OUT 7",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 8,
-                                "name": "Analisis Oportunidades IN/OUT 8",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 9,
-                                "name": "Analisis Oportunidades IN/OUT 9",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }]
-                        }, {
-                            "id": 5,
-                            "name": "Analisis Oportunidades IN/OUT 5",
-                            "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                            "idParent": 3,
-                            "type": "report"
-
-                        }]
-                    }]
-                }, {
-                    "id": 2,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "children": [{
-                        "id": 10,
-                        "name": "Analisis Oportunidades IN/OUT 10",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report"
-
-                    }, {
-                        "id": 11,
-                        "name": "Analisis Oportunidades IN/OUT 11",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report"
-
-                    }]
-                }];
-                var expectedOutput = [{
-                    "id": 1,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "isOpen": true,
-                    "children": [{
-                        "id": 3,
-                        "name": "Folder",
-                        "type": "folder",
-                        "idParent": 1,
-                        "isOpen": true,
-                        "children": [{
-                            "id": 4,
-                            "name": "Folder",
-                            "type": "folder",
-                            "idParent": 3,
-                            "isOpen": true,
-                            "children": [{
-                                "id": 6,
-                                "name": "Analisis Oportunidades IN/OUT 6",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 7,
-                                "name": "Analisis Oportunidades IN/OUT 7",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 8,
-                                "name": "Analisis Oportunidades IN/OUT 8",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }, {
-                                "id": 9,
-                                "name": "Analisis Oportunidades IN/OUT 9",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report"
-
-                            }]
-                        }, {
-                            "id": 5,
-                            "name": "Analisis Oportunidades IN/OUT 5",
-                            "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                            "idParent": 3,
-                            "type": "report"
-
-                        }]
-                    }]
-                }, {
-                    "id": 2,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "children": [{
-                        "id": 10,
-                        "name": "Analisis Oportunidades IN/OUT 10",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report"
-
-                    }, {
-                        "id": 11,
-                        "name": "Analisis Oportunidades IN/OUT 11",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report"
-
-                    }]
-                }];
-
-                sut.reports = input;
-
-                sut.openReportFolder(4);
-                expect(sut.reports).toEqual(expectedOutput);
-            });
-
-        });
-
         describe('openReport', function () {
 
             it("should correctly set the new data to reports", function () {
-                var input = [{
-                    "id": 1,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "children": [{
-                        "id": 3,
-                        "name": "Folder",
-                        "type": "folder",
-                        "idParent": 1,
-                        "selected": true,
-                        "children": [{
-                            "id": 4,
+
+                [
+                    {
+                        input: [{
+                            "id": 2,
                             "name": "Folder",
                             "type": "folder",
-                            "idParent": 3,
+                            "idParent": -1,
                             "children": [{
-                                "id": 6,
-                                "name": "Analisis Oportunidades IN/OUT 6",
+                                "id": 10,
+                                "name": "Analisis Oportunidades IN/OUT 10",
                                 "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report",
-                                "selected": false
-
-                            }, {
-                                "id": 7,
-                                "name": "Analisis Oportunidades IN/OUT 7",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report",
-                                "selected": false
-
-                            }, {
-                                "id": 8,
-                                "name": "Analisis Oportunidades IN/OUT 8",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
+                                "idParent": 2,
                                 "type": "report",
                                 "selected": false
                             }, {
-                                "id": 9,
-                                "name": "Analisis Oportunidades IN/OUT 9",
+                                "id": 11,
+                                "name": "Analisis Oportunidades IN/OUT 11",
                                 "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
+                                "idParent": 2,
                                 "type": "report",
                                 "selected": false
                             }]
-                        }, {
-                            "id": 5,
-                            "name": "Analisis Oportunidades IN/OUT 5",
-                            "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                            "idParent": 3,
-                            "type": "report",
-                            "selected": false
-                        }]
-                    }]
-                }, {
-                    "id": 2,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "children": [{
-                        "id": 10,
-                        "name": "Analisis Oportunidades IN/OUT 10",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report",
-                        "selected": false
-                    }, {
-                        "id": 11,
-                        "name": "Analisis Oportunidades IN/OUT 11",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report",
-                        "selected": false
-                    }]
-                }];
-                var expectedOutput = [{
-                    "id": 1,
-                    "name": "Folder",
-                    "type": "folder",
-                    "idParent": -1,
-                    "selected": false,
-                    "children": [{
-                        "id": 3,
-                        "name": "Folder",
-                        "type": "folder",
-                        "idParent": 1,
-                        "selected": false,
-                        "children": [{
-                            "id": 4,
+                        }],
+                        expectedOutput: [{
+                            "id": 2,
                             "name": "Folder",
                             "type": "folder",
-                            "idParent": 3,
+                            isOpen: true,
                             "selected": false,
+                            "idParent": -1,
                             "children": [{
-                                "id": 6,
-                                "name": "Analisis Oportunidades IN/OUT 6",
+                                "id": 10,
+                                "name": "Analisis Oportunidades IN/OUT 10",
                                 "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
+                                "idParent": 2,
                                 "type": "report",
-                                "selected" : false
-                            }, {
-                                "id": 7,
-                                "name": "Analisis Oportunidades IN/OUT 7",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report",
-                                "selected" : false
+                                "selected": true
 
                             }, {
-                                "id": 8,
-                                "name": "Analisis Oportunidades IN/OUT 8",
+                                "id": 11,
+                                "name": "Analisis Oportunidades IN/OUT 11",
                                 "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
+                                "idParent": 2,
                                 "type": "report",
-                                "selected" : false
-
-                            }, {
-                                "id": 9,
-                                "name": "Analisis Oportunidades IN/OUT 9",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 4,
-                                "type": "report",
-                                "selected" : false
-
+                                "selected": false
                             }]
-                        }, {
-                            "id": 5,
-                            "name": "Analisis Oportunidades IN/OUT 5",
-                            "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                            "idParent": 3,
-                            "type": "report",
-                            "selected" : false
+                        }],
+                        testID: 10
+                    },
+                    {
+                        input: [{
+                            "id": 2,
+                            "name": "Folder",
+                            "type": "folder",
+                            "idParent": -1,
+                            "children": [{
+                                "id": 10,
+                                "name": "Analisis Oportunidades IN/OUT 10",
+                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "idParent": 2,
+                                "type": "report",
+                                "selected": false
+                            }, {
+                                "id": 11,
+                                "name": "Analisis Oportunidades IN/OUT 11",
+                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "idParent": 2,
+                                "type": "report",
+                                "selected": false
+                            }]
+                        }],
+                        expectedOutput: [{
+                            "id": 2,
+                            "name": "Folder",
+                            "type": "folder",
+                            isOpen: true,
+                            "selected": true,
+                            "idParent": -1,
+                            "children": [{
+                                "id": 10,
+                                "name": "Analisis Oportunidades IN/OUT 10",
+                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "idParent": 2,
+                                "type": "report",
+                                "selected": false
 
-                        }]
-                    }]
-                }, {
-                    "id": 2,
-                    "name": "Folder",
-                    "type": "folder",
-                    isOpen: true,
-                    "selected": false,
-                    "idParent": -1,
-                    "children": [{
-                        "id": 10,
-                        "name": "Analisis Oportunidades IN/OUT 10",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report",
-                        "selected" : true
-
-                    }, {
-                        "id": 11,
-                        "name": "Analisis Oportunidades IN/OUT 11",
-                        "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                        "idParent": 2,
-                        "type": "report",
-                        "selected" : false
-                    }]
-                }];
-
-                sut.reports = input;
-
-                sut.openReport(10);
-                expect(sut.reports).toEqual(expectedOutput);
+                            }, {
+                                "id": 11,
+                                "name": "Analisis Oportunidades IN/OUT 11",
+                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "idParent": 2,
+                                "type": "report",
+                                "selected": false
+                            }]
+                        }],
+                        testID: 2
+                    }
+                ].forEach(function(testCase){
+                        sut.reports = testCase.input;
+                        sut.openReport(testCase.testID);
+                        expect(sut.reports).toEqual(testCase.expectedOutput);
+                    });
             });
 
         });

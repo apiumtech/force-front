@@ -98,6 +98,7 @@ define([
         self.reportEventBus.onSearchActivated(self.fn.searchReportSelected);
         self.reportEventBus.onSearchDeactivated(self.fn.removeSearchTab);
         self.reportEventBus.onFolderReportSelected(self.fn.openFirstTabForOpeningFolder);
+        self.reportEventBus.onReportSelected(self.fn.openFirstTabForOpeningFolder);
     };
 
     ReportView.prototype.openFirstTabForOpeningFolder = function () {
