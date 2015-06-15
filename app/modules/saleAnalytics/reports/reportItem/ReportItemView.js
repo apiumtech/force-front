@@ -95,6 +95,7 @@ define([
         this.selectedReportType = this.report && this.report.reportType ? this.report.reportType[0] : '';
 
         self.fn.startEditingName = function () {
+            if(self.fireOpenFolder) return;
             self.originalName = self.report.name;
             self.editingName = true;
         };
@@ -113,6 +114,13 @@ define([
             var folderId = item.id;
             console.log("sending open folder command", item);
             self.reportEventBus.fireFolderReportSelected(folderId);
+        };
+
+        self.fn.sendReportOpenCommand = function (item) {
+            if (!self.fireOpenFolder || item.type !== 'report') return;
+            console.log("sending", item);
+            var id = item.id;
+            self.reportEventBus.fireReportSelected(id);
         };
 
         self.fn.cancelEditingName = function () {

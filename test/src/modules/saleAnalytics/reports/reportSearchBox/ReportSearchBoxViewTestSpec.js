@@ -97,6 +97,9 @@ define([
                     it("should set showSearchResult to false", function () {
                         expect(sut.showSearchResult).toBeFalsy();
                     });
+                    it("should set searchActivated to true", function () {
+                        expect(sut.searchActivated).toBeTruthy();
+                    });
                 });
 
             });
@@ -190,21 +193,33 @@ define([
                 beforeEach(function () {
                     sut.showSearchResult = false;
                     sut.reports = null;
-                    sut.onSearchResultLoaded(data);
-                });
-                it("should set showSearchResult to true", function () {
-                    expect(sut.showSearchResult).toBeTruthy();
                 });
 
                 it("should set searchResultLoaded to true", function () {
+                    sut.onSearchResultLoaded(data);
                     expect(sut.searchResultLoaded).toBeTruthy();
                 });
 
                 it("should assign the returned data to sut.reports", function () {
+                    sut.onSearchResultLoaded(data);
                     expect(sut.reports).toEqual([{
                         "this": "is search result"
                     }]);
                 });
+
+                describe('searchActivated is false', function () {
+                    it("should set showSearchResult to true", function () {
+                        sut.searchActivated = false;
+                        sut.onSearchResultLoaded(data);
+                        expect(sut.showSearchResult).toBeTruthy();
+                    });
+                    it("should set showSearchResult to false", function () {
+                        sut.searchActivated = true;
+                        sut.onSearchResultLoaded(data);
+                        expect(sut.showSearchResult).toBeFalsy();
+                    });
+                });
+
             });
 
 

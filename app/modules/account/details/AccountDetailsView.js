@@ -167,10 +167,10 @@ define([
         self.event.onSaveRelatedCompany(self.accountId, data.relatedCompany, self.onRelatedCompanySaved.bind(self));
     };
 
-    AccountDetailsView.prototype.appendCompany = function (company, relatedCompanyWrapper) {
+    AccountDetailsView.prototype.appendCompany = function (company) {
         var self = this;
 
-        var relatedCompanyWrapper = relatedCompanyWrapper || $("#related-company-wrapper");
+        relatedCompanyWrapper = $(".relatedCompanies");
 
         if(!relatedCompanyWrapper.length) return;
 

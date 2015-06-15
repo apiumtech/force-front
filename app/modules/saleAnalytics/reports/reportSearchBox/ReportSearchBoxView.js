@@ -77,6 +77,7 @@ define([
         self.fn.activateSearch = function () {
             if (!self.searchQuery) return;
             self.showSearchResult = false;
+            self.searchActivated = true;
             self.eventBus.fireSearchActivated(self.searchQuery);
         };
 
@@ -112,6 +113,7 @@ define([
         var self = this;
         self.reports = result;
         self.searchResultLoaded = true;
+        if(!self.searchActivated)
         self.showSearchResult = true;
     };
 

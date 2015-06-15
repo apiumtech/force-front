@@ -36,7 +36,7 @@ define([
         };
 
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
-        self.reportEventBus.onFolderReportSelected(self.openReportFolder.bind(self));
+        self.reportEventBus.onFolderReportSelected(self.openReport.bind(self));
         self.reportEventBus.onReportSelected(self.openReport.bind(self));
     };
 
@@ -45,8 +45,8 @@ define([
         this.isLoading = false;
     };
 
-    AllReportView.prototype.openReport = function (selectedReport) {
-        if (!selectedReport) return;
+    AllReportView.prototype.openReport = function (id) {
+        if (!id) return;
 
         var self = this;
         var arrayHelper = self.arrayHelper;
@@ -58,10 +58,14 @@ define([
             return f.selected = false;
         });
 
-        var parents = arrayHelper.findParents(flattened, "idParent", "id", selectedReport, -1);
+        var parents = arrayHelper.findParents(flattened, "idParent", "id", id, -1);
 
         parents.forEach(function (p) {
-            if (p.id === selectedReport) {
+            if (p.id === id && p.type == "folder") {
+                p.selected = true;
+                p.isOpen = true;
+            }
+            else if(p.id === id && p.type == "report"){
                 p.selected = true;
             }
             else {
@@ -70,27 +74,8 @@ define([
         });
 
         self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
-
     };
 
-    AllReportView.prototype.openReportFolder = function (selectedFolder) {
-        if (!selectedFolder)
-            return;
-
-        var self = this;
-        var arrayHelper = self.arrayHelper;
-
-        var cloned = arrayHelper.clone(self.reports);
-        var flattened = arrayHelper.flatten(cloned, 'children');
-
-        var parents = arrayHelper.findParents(flattened, "idParent", "id", selectedFolder, -1);
-
-        parents.forEach(function (p) {
-            p.isOpen = true;
-        });
-
-        self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
-    };
 
     AllReportView.prototype.showError = function (error) {
         console.error(error);

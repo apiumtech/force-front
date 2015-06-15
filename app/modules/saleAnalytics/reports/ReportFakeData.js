@@ -13,6 +13,7 @@ define([
                 name: 'Animals (Folder)',
                 type: 'folder',
                 date: '12/01/2015',
+                path: 'path/to/the/file',
                 idParent: -1
             },
             {
@@ -20,6 +21,7 @@ define([
                 name: 'Waterfalls (Folder)',
                 type: 'folder',
                 date: '04/12/2014',
+                path: 'path/to/the/file',
                 idParent: -1
             },
             {
@@ -27,6 +29,7 @@ define([
                 name: 'Computers (Folder)',
                 type: 'folder',
                 date: '21/05/2015',
+                path: 'path/to/the/file',
                 idParent: 1
             },
             {
@@ -34,6 +37,7 @@ define([
                 name: 'Forest (Folder)',
                 type: 'folder',
                 date: '07/08/2013',
+                path: 'path/to/the/file',
                 idParent: 3
             },
             {
@@ -44,6 +48,7 @@ define([
                 type: 'report',
                 date: '03/09/2014',
                 favourite: true,
+                path: 'path/to/the/file',
                 reportType: ['PDF', 'DOC (MS-Word)', 'XSL (MS-Excel)']
             },
             {
@@ -54,6 +59,7 @@ define([
                 type: 'report',
                 date: '01/01/2013',
                 favourite: false,
+                path: 'path/to/the/file',
                 reportType: ['PDF', 'DOC (MS-Word)']
             },
             {
@@ -64,6 +70,7 @@ define([
                 type: 'report',
                 date: '16/02/2015',
                 favourite: true,
+                path: 'path/to/the/file',
                 reportType: ['XSL (MS-Excel)']
             },
             {
@@ -74,6 +81,7 @@ define([
                 type: 'report',
                 date: '24/03/2014',
                 favourite: false,
+                path: 'path/to/the/file',
                 reportType: ['PDF', 'XSL (MS-Excel)']
             },
             {
@@ -84,6 +92,7 @@ define([
                 type: 'report',
                 date: '29/10/2014',
                 favourite: false,
+                path: 'path/to/the/file',
                 reportType: ['XSL (MS-Excel)']
             },
             {
@@ -94,6 +103,7 @@ define([
                 type: 'report',
                 date: '12/01/2013',
                 favourite: false,
+                path: 'path/to/the/file',
                 reportType: ['DOC (MS-Word)', 'XSL (MS-Excel)']
             },
             {
@@ -104,6 +114,7 @@ define([
                 type: 'report',
                 date: '08/07/2014',
                 favourite: true,
+                path: 'path/to/the/file',
                 reportType: ['PDF']
             }
         ]);

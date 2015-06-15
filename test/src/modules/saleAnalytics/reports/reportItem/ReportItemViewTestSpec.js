@@ -46,15 +46,27 @@ define([
             });
 
             describe('fn.startEditingName', function () {
-                beforeEach(function () {
-                    sut.fn.startEditingName();
+                describe('fireOpenReport is false', function () {
+                    beforeEach(function () {
+                        sut.fireOpenReport = false;
+                        sut.fn.startEditingName();
+                    });
+                    it("should save the original name to backup", function () {
+                        expect(sut.originalName).toEqual("123456");
+                    });
+                    it("should turn on editing name", function () {
+                        expect(sut.editingName).toEqual(true);
+                    });
                 });
-                it("should save the original name to backup", function () {
-                    expect(sut.originalName).toEqual("123456");
-                });
-
-                it("should turn on editing name", function () {
-                    expect(sut.editingName).toEqual(true);
+                describe('fireOpenFolder is true', function () {
+                    it("should not save original name nor turn on editing name", function () {
+                        sut.originalName = "some old name";
+                        sut.fireOpenFolder = true;
+                        sut.fn.startEditingName();
+                        expect(sut.originalName).not.toEqual("123456");
+                        expect(sut.originalName).toEqual("some old name");
+                        expect(sut.editingName).not.toEqual(true);
+                    });
                 });
             });
 
@@ -201,6 +213,35 @@ define([
                     expect(sut.event.toggleFavouriteReport).toHaveBeenCalledWith(123);
                 });
 
+            });
+
+
+            describe('fn.sendReportOpenCommand', function () {
+                it("should fire fireReportSelected event if report's type is report", function () {
+                    sut.fireOpenFolder = true;
+                    var report = {
+                        id: 3,
+                        name: "my-report",
+                        type: "report"
+                    };
+                    sut.fn.sendReportOpenCommand(report);
+                    expect(sut.reportEventBus.fireReportSelected).toHaveBeenCalledWith(3);
+
+                });
+            });
+
+            describe('fn.sendFolderReportOpenCommand', function () {
+                it("should fire fireFolderReportSelected event if report's type is folder", function () {
+                    sut.fireOpenFolder = true;
+                    var report = {
+                        id: 3,
+                        name: "my-report",
+                        type: "folder"
+                    };
+                    sut.fn.sendFolderReportOpenCommand(report);
+                    expect(sut.reportEventBus.fireFolderReportSelected).toHaveBeenCalledWith(3);
+
+                });
             });
 
             describe('eventBus eventListener', function () {
