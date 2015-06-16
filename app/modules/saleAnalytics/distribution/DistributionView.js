@@ -16,6 +16,7 @@ define([
 
     DistributionView.inherits(WidgetDecoratedPageView, {});
 
+    DistributionView.prototype.__configureEvents = WidgetDecoratedPageView.prototype.configureEvents;
     DistributionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
     DistributionView.prototype.show = function () {
         this.__show.call(this);
@@ -24,6 +25,8 @@ define([
 
     DistributionView.prototype.configureEvents = function () {
         var self = this;
+
+        self.__configureEvents.call(this);
 
         self.fn.makeFullSize = function (movingElement, widget) {
             widget.position.size = 12;

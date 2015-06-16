@@ -4,8 +4,9 @@
 
 define([
     'shared/BaseView',
-    'jquery'
-], function (BaseView, $) {
+    'jquery',
+    'modules/saleAnalytics/eventBus/SaleAnalyticEventBus'
+], function (BaseView, $, SaleAnalyticEventBus) {
     'use strict';
 
     function WidgetWrapperView($scope, $element) {
@@ -19,7 +20,7 @@ define([
         BaseView.call(this, $scope);
         this.element = $element || {};
         this.boundChannelEvent = false;
-
+        this.saleAnalyticEventBus = SaleAnalyticEventBus.getInstance();
         this.configureEvents.call(this);
     }
 
@@ -71,6 +72,14 @@ define([
             set: function (value) {
                 this.$scope.eventBusChannel = value;
             }
+        },
+        widgetId: {
+            get: function () {
+                return this.$scope.widgetId;
+            },
+            set: function (value) {
+                this.$scope.widgetId = value;
+            }
         }
     });
 
@@ -92,6 +101,8 @@ define([
 
         self.fn.closeWidget = function () {
             self.element.remove();
+            console.log("firing event");
+            self.saleAnalyticEventBus.fireRemovingWidget(self.widgetId);
         };
 
         $('.panel-body', self.element).on('scroll', self.handleScroll.bind(self));

@@ -4,6 +4,7 @@
 
 define([
     'shared/BaseView',
+    'modules/saleAnalytics/eventBus/SaleAnalyticEventBus',
 
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
@@ -13,13 +14,14 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective'
-], function (BaseView) {
+], function (BaseView, SaleAnalyticEventBus) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.dropZoneClassName = "dropzone";
         this.widgetContainerSelector = '.widgets-container[as-sortable]';
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
+        this.eventBus = SaleAnalyticEventBus.getInstance();
         this.configureEvents();
     }
 
@@ -43,6 +45,17 @@ define([
     });
 
     WidgetDecoratePageView.prototype.configureEvents = function () {
+        var self = this;
+        console.log("configure events");
+        self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
+    };
+
+    WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
+        console.log("removed", widgetId);
+        var self = this;
+        self.widgets = self.widgets.filter(function(widget){
+           return widget.widgetId !== widgetId;
+        });
     };
 
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {

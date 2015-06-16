@@ -18,6 +18,7 @@ define([
     ConversionView.inherits(WidgetDecoratedPageView, {});
 
     ConversionView.prototype.__show = WidgetDecoratedPageView.prototype.show;
+    ConversionView.prototype.__configureEvents = WidgetDecoratedPageView.prototype.configureEvents;
     ConversionView.prototype.show = function () {
         this.__show.call(this);
         this.event.onLoaded();
@@ -25,6 +26,8 @@ define([
 
     ConversionView.prototype.configureEvents = function () {
         var self = this;
+
+        self.__configureEvents.call(this);
 
         self.fn.makeFullSize = function (movingElement, widget) {
             widget.position.size = 12;

@@ -11,9 +11,12 @@ define([
         $presenter = $presenter || new IntensityPresenter();
         WidgetDecoratedPageView.call(this, $scope, null, $presenter);
         this.pageName = 'intensity';
+        this.configureEvents();
     }
 
     IntensityView.inherits(WidgetDecoratedPageView, {});
+
+    IntensityView.prototype.__configureEvents = WidgetDecoratedPageView.prototype.configureEvents;
 
     IntensityView.prototype.show = function () {
         this.__base__.show.call(this);
@@ -26,8 +29,9 @@ define([
         self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };
 
-    IntensityView.prototype.configureEvents = function (data) {
-
+    IntensityView.prototype.configureEvents = function(){
+        var self = this;
+        self.__configureEvents.call(this);
     };
 
     IntensityView.prototype.onWidgetsUpdated = function (data) {
