@@ -1,15 +1,16 @@
 define([
     'shared/services/ajax/BaseListQueryBuilder',
-    'modules/literals/global/LiteralsQueryBuilder',
+    'modules/literals/custom/CustomLiteralsQueryBuilder',
     'config'
-], function(BaseListQueryBuilder, LiteralsQueryBuilder, config) {
+], function(BaseListQueryBuilder, CustomLiteralsQueryBuilder, config) {
     'use strict';
 
+
     function exerciseCreateQueryBuilder() {
-        return LiteralsQueryBuilder.newInstance();
+        return CustomLiteralsQueryBuilder.newInstance();
     }
 
-    describe('LiteralsQueryBuilder', function() {
+    describe('CustomLiteralsQueryBuilder', function() {
 
         describe('createCurrentQuery', function () {
             it('should have valid defaults', function () {
@@ -19,8 +20,7 @@ define([
                     limit: config.pageSize,
                     filter: {
                         search: "",
-                        literalTypeId: "",
-                        deviceTypeIds: []
+                        implementationCode: null
                     },
                     sort: {},
                     tags: [BaseListQueryBuilder.TAG_TOTAL_COUNT]
@@ -32,14 +32,12 @@ define([
         describe('toRequestHeaders', function () {
             it('should convert build result properties to JSON', function () {
                 var sut = exerciseCreateQueryBuilder();
-                sut.literalTypeId = 3;
-                sut.deviceTypeIds = ["id1", "id2", "id3"];
+                sut.implementationCode = 22;
                 var res = sut.build();
                 var headers = sut.toRequestHeaders(res);
                 expect(JSON.parse(headers.filter)).toEqual({
                     search: "",
-                    literalTypeId: 3,
-                    deviceTypeIds:["id1", "id2", "id3"]
+                    implementationCode: 22
                 });
             });
         });
@@ -52,8 +50,8 @@ define([
                     sut.build();
                     sut.skip = 1000;
                 });
-                it("should reset page when literalId has changed", function () {
-                    sut.setLiteralTypeId(123);
+                it("should reset page when implementationCode has changed", function () {
+                    sut.setImplementationCode(123);
                     spyOn(sut,'resetPaging');
                     sut.build();
                     expect(sut.resetPaging).toHaveBeenCalled();

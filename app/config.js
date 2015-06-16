@@ -97,6 +97,7 @@ define(function () {
         pageSize: 10,
         defaultDateSubtraction: 30,
         tokenStorageKey: "fm_token",
+        implementationCodeKey: "fm_implementationCode",
         defaultLiteralLang: "en",
         maxSizeUploadAllowed: 25
 

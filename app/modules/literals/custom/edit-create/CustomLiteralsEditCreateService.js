@@ -3,13 +3,15 @@ define([
     ,'shared/services/ajax/AuthAjaxService'
     ,'q'
     ,'modules/literals/shared/LiteralsSharedService'
+    ,'shared/services/ajax/CQRSUnwrapper'
     ,'underscore'
-], function(config, AuthAjaxService, Q, LiteralsSharedService, _) {
+], function(config, AuthAjaxService, Q, LiteralsSharedService, CQRSUnwrapper, _) {
     'use strict';
 
-    function CustomLiteralsEditCreateService(ajaxService, sharedService) {
+    function CustomLiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper) {
         this.ajaxService = ajaxService;
         this.sharedService = sharedService;
+        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = CustomLiteralsEditCreateService.prototype;
@@ -38,13 +40,15 @@ define([
         assertNotNull("literal", literal);
         assertNotNull("implementationCode", literal.ImplementationCode);
         var body = this._createLiteralBody(literal);
-        return this.ajaxService.rawAjaxRequest({
-            url: config.api.createCustomLiteral,
-            data: body,
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json'
-        });
+        return this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest({
+                url: config.api.createCustomLiteral,
+                data: body,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+        );
     };
 
 
@@ -60,7 +64,9 @@ define([
             dataType: 'json',
             contentType: 'application/json'
         };
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest(params)
+        );
     };
 
 
@@ -96,12 +102,14 @@ define([
         var deferred = Q.defer();
         var self = this;
         var body = "id=" + id;
-        this.ajaxService.rawAjaxRequest({
-            url: config.api.customLiteralById,
-            data: body,
-            type: 'GET',
-            dataType: 'json'
-        }).then(
+        this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest({
+                url: config.api.customLiteralById,
+                data: body,
+                type: 'GET',
+                dataType: 'json'
+            })
+        ).then(
             function (res) {
                 self._mergeLanguagesWithLiteral(res.data).then(
                     function (mergedLiteral) {
@@ -147,10 +155,11 @@ define([
 
 
 
-    CustomLiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
+    CustomLiteralsEditCreateService.newInstance = function (ajaxService, sharedService, cqrsUnwrapper) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         sharedService = sharedService || LiteralsSharedService.newInstance();
-        return new CustomLiteralsEditCreateService(ajaxService, sharedService);
+        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
+        return new CustomLiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper);
     };
 
     return CustomLiteralsEditCreateService;

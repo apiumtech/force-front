@@ -12,6 +12,7 @@ define([
 
         this.data.currentError = null;
         this.data.literal = null;
+        this.data.isLoading = false;
 
         // implementation code
         this.data.implementationList = [];
@@ -67,7 +68,10 @@ define([
     };
 
     proto.showError = function (err) {
+        this.data.isLoading = false;
         this.data.currentError = err;
+        var errorMessage = this.translator.translate("Literal.Detail.Form.SaveErrorMessage");
+        this.toastService.error(errorMessage);
     };
 
     proto._onSave = function () {

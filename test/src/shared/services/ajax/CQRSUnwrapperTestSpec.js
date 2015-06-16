@@ -7,7 +7,7 @@ define([
         return CQRSUnwrapper.newInstance();
     }
 
-    describe('CQRSUnwrapper', function (done) {
+    describe('CQRSUnwrapper', function () {
         it("should call onSuccess when promise is resolved correctly", function() {
             var sut = exerciseCreate();
             spyOn(sut, "onSuccess");
