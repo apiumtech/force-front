@@ -11,7 +11,7 @@ define([
      * Example:
      * <textarea resizable-text-area class="form-control" rows="1"></textarea>
      */
-    function ResizableTextAreaDirective() {
+    function ResizableTextAreaDirective($parse) {
         return {
             link: function (scope, element, attrs) {
                 $(element).css("overflow", "hidden");
@@ -29,14 +29,22 @@ define([
                     .keydown(resizeTextarea)
                     .keyup(resizeTextarea)
                     .change(resizeTextarea)
-                    .focus(resizeTextarea);
+                    .focus(resizeTextarea)
+                    .focusout(resizeTextarea);
+
+                // Resize based on initial value
+                var modelValue = $parse(attrs.ngModel);
+                scope.$watch(modelValue, function(value) {
+                    var htmlElement = element[0];
+                    resizeTextarea.apply( htmlElement );
+                });
             },
             replace: false,
             scope: {}
         };
     }
 
-    app.register.directive('resizableTextArea', [ResizableTextAreaDirective]);
+    app.register.directive('resizableTextArea', ['$parse', ResizableTextAreaDirective]);
 
     return ResizableTextAreaDirective;
 });

@@ -23,23 +23,7 @@ define([
     //
     // ------------------------
 
-    proto._createLiteralBody = function (literal) {
-        var body = {
-            key: literal.Key,
-            languageValues: {},
-            implementationCode: literal.ImplementationCode.Code
-        };
-        _.each(literal.LanguageValues, function(value, key){
-            body.languageValues[key] = value;
-        });
-        return body;
-    };
-
-
-    proto.createLiteral = function (literal) {
-        assertNotNull("literal", literal);
-        assertNotNull("implementationCode", literal.ImplementationCode);
-        var body = this._createLiteralBody(literal);
+    proto.createLiteral = function (body) {
         return this.cqrsUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.createCustomLiteral,
@@ -52,11 +36,7 @@ define([
     };
 
 
-    proto.changeLiteralDetails = function (literal) {
-        assertNotNull("literal", literal);
-        assertNotNull("Id", literal.Id);
-        var body = this._createLiteralBody(literal);
-        body.id = literal.Id;
+    proto.changeLiteralDetails = function (body) {
         var params = {
             url: config.api.changeCustomLiteralDetails,
             data: body,
