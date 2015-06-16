@@ -104,7 +104,6 @@ define([
             self.$scope.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
             self.$scope.eventBusChannel.onReloadCompleteCommandReceived(self.onReloadCompleteCommandReceived.bind(self));
             self.$scope.boundChannelEvent = true;
-
             self.$scope.eventBusChannel.sendReloadCommand();
         }
     };
@@ -131,8 +130,11 @@ define([
 
     WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function (message) {
         var self = this;
-        self.errorMessage = message;
-        self.hasError = !!self.errorMessage;
+        self.errorMessage = {
+            title: "Oops! Hubo un error",
+            message: "Tus datos volveran aprecer muy pronto"
+        };
+        self.hasError = !!message;
         self.isLoading = false;
     };
 

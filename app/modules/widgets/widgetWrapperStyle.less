@@ -1,3 +1,5 @@
+@force_report_dark_grey: #54585a;
+@force_orange: #ed8b00;
 
 span.panel-loading.isLoading {
   position: absolute;
@@ -6,4 +8,27 @@ span.panel-loading.isLoading {
   left: 0;
   right: 0;
   background: rgba(255, 255, 255, 0.6);
+}
+
+.error-panel {
+  text-align: center;
+  color: @force_report_dark_grey;
+  padding: 60px;
+  p {
+    &.error-title {
+      font-size: 1.4em;
+      color: rgba(0,0,0,.6);
+      margin-bottom: 5px;
+    }
+    &.error-msg{
+      margin-bottom: 15px;
+    }
+  }
+
+  .btn-refresh{
+    background: #fff;
+    border: 1px solid @force_orange;
+    color: @force_orange;
+  }
+
 }
