@@ -189,7 +189,10 @@
   "Errors": {
     "IntensityViewCannotInstantiate": "Could not create IntensityView!",
     "CannotInstantiateClass": "Cannot instantiate __class__",
-    "NoWidgetAvailable": "No widget available",
+    "NoWidgetAvailable": {
+      "Title": "No widget available",
+      "Message": "You have closed all the widgets for this page"
+    },
     "LoadingWidgets": "Loading widgets"
   },
   "Header": {

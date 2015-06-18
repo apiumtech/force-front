@@ -1,6 +1,8 @@
 <div ng-if="widgets.length==0">
-    <div class="alert alert-warning">
-        {{'Errors.NoWidgetAvailable' | i18next }}
+    <div class="no-widget-notice">
+        <i class="fa fa-gear"></i>
+        <h4>{{'Errors.NoWidgetAvailable.Title' | i18next }}</h4>
+        {{'Errors.NoWidgetAvailable.Message' | i18next }}
     </div>
 </div>
 <div ng-if="widgets==null">
