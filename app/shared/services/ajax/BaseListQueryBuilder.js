@@ -6,7 +6,6 @@ define([
 
 
     function BaseListQueryBuilder(){
-        this.lastQuery = null;
         this.initializeQueryDefaults();
     }
 
@@ -22,6 +21,7 @@ define([
 
 
     proto.initializeQueryDefaults = function(){
+        this.lastQuery = null;
         this.skip = 0;
         this.limit = config.pageSize;
         this.searchTerms = "";

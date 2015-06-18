@@ -30,7 +30,7 @@ define([
         this.event.onDisposing();
         ScrollEventBus.dispose();
         this.disposer();
-        $('body').css('min-height', 0);
+        this.resetScrollState();
     };
 
 
@@ -42,6 +42,11 @@ define([
         if(this.isPagerActive){
             this.event.nextPage();
         }
+    };
+
+    proto.resetScrollState = function () {
+        $('body').css('min-height', 0);
+        $('html, body').scrollTop( 0 );
     };
 
     proto.saveScrollState = function () {

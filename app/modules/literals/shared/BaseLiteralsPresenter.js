@@ -62,6 +62,7 @@ define([
 
     proto.onLiteralsDeleteRequest = function(literalId) {
         var self = this;
+        self.view.resetScrollState();
         self.model.onLiteralsDeleteRequest(literalId).then(
             self.eventBus.fireLiteralsRequest.bind(self.eventBus),
             function(){

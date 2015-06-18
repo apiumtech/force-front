@@ -22,6 +22,7 @@ define([
     };
 
     proto.onLiteralsDeleteRequest = function(literalId) {
+        this.queryBuilder.initializeQueryDefaults();
         return this.service.deleteLiteral(literalId);
     };
 

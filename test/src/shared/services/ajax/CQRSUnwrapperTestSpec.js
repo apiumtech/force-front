@@ -8,7 +8,7 @@ define([
     }
 
     describe('CQRSUnwrapper', function () {
-        it("should call onSuccess when promise is resolved correctly", function() {
+        xit("should call onSuccess when promise is resolved correctly", function() {
             var sut = exerciseCreate();
             spyOn(sut, "onSuccess");
             sut.unwrap( exerciseFakeOkPromiseWithArg() );
