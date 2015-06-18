@@ -1,42 +1,35 @@
 define([
     'config',
     'modules/literals/custom/CustomLiteralsService',
-    'modules/literals/custom/CustomLiteralsQueryBuilder'
-], function(config, CustomLiteralsService, CustomLiteralsQueryBuilder) {
+    'modules/literals/custom/CustomLiteralsQueryBuilder',
+    'shared/services/StorageService',
+    'modules/literals/shared/BaseLiteralsModel'
+], function(config, CustomLiteralsService, CustomLiteralsQueryBuilder, StorageService, BaseLiteralsModel) {
     'use strict';
 
-
-
-    function CustomLiteralsModel(service, queryBuilder) {
-        this.service = service;
-        this.queryBuilder = queryBuilder;
+    function CustomLiteralsModel(service, queryBuilder, storageService) {
+        BaseLiteralsModel.call(this, service, queryBuilder);
+        this.storageService = storageService;
     }
 
+    CustomLiteralsModel.inherits(BaseLiteralsModel);
     var proto = CustomLiteralsModel.prototype;
 
-    proto.setSearchTerms = function(searchTerms) {
-        this.queryBuilder.setSearchTerms(searchTerms);
+    proto.setUserImplementationCode = function() {
+        var implementationCode = this.storageService.retrieve(config.implementationCodeKey, true);
+
+        //TODO: provisional while not properly integrated into web2
+        implementationCode = implementationCode || 8004;
+
+        this.queryBuilder.setImplementationCode(implementationCode);
     };
 
-
-    proto.onColumnsRequest = function() {
-        return this.service.getLanguageList();
-    };
-
-    proto.onLiteralsDeleteRequest = function(literalId) {
-        return this.service.deleteLiteral(literalId);
-    };
-
-    proto.onLiteralsRequest = function() {
-        return this.service.getLiteralsList( this.queryBuilder.toRequestHeaders(this.queryBuilder.build()) );
-    };
-
-
-    CustomLiteralsModel.newInstance = function(service, queryBuilder) {
+    CustomLiteralsModel.newInstance = function(service, queryBuilder, storageService) {
         service = service || CustomLiteralsService.newInstance();
         queryBuilder = queryBuilder || CustomLiteralsQueryBuilder.newInstance();
+        storageService = storageService || StorageService.newInstance();
 
-        return new CustomLiteralsModel(service, queryBuilder);
+        return new CustomLiteralsModel(service, queryBuilder, storageService);
     };
 
     return CustomLiteralsModel;

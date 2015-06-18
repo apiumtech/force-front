@@ -1,40 +1,16 @@
 define([
-    'config',
 	'modules/literals/global/LiteralsService',
-	'modules/literals/global/LiteralsQueryBuilder'
-], function(config, LiteralsService, LiteralsQueryBuilder) {
+	'modules/literals/global/LiteralsQueryBuilder',
+	'modules/literals/shared/BaseLiteralsModel'
+], function(LiteralsService, LiteralsQueryBuilder, BaseLiteralsModel) {
 	'use strict';
 
-
-
 	function LiteralsModel(service, queryBuilder) {
-        this.service = service;
-        this.queryBuilder = queryBuilder;
+        BaseLiteralsModel.call(this, service, queryBuilder);
 	}
 
+    LiteralsModel.inherits(BaseLiteralsModel);
     var proto = LiteralsModel.prototype;
-
-    proto.setSearchTerms = function(searchTerms) {
-        this.queryBuilder.setSearchTerms(searchTerms);
-    };
-
-    proto.nextPage = function() {
-        this.queryBuilder.nextPage();
-    };
-
-
-    proto.onColumnsRequest = function() {
-      return this.service.getLanguageList();
-    };
-
-    proto.onLiteralsDeleteRequest = function(literalId) {
-      return this.service.deleteLiteral(literalId);
-    };
-
-    proto.onLiteralsRequest = function() {
-        return this.service.getLiteralsList( this.queryBuilder.toRequestHeaders(this.queryBuilder.build()) );
-    };
-
 
 	LiteralsModel.newInstance = function(service, queryBuilder) {
         service = service || LiteralsService.newInstance();

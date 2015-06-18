@@ -196,7 +196,10 @@
   "Errors": {
     "IntensityViewCannotInstantiate": "Could not create IntensityView!",
     "CannotInstantiateClass": "Cannot instantiate __class__",
-    "NoWidgetAvailable": "No widget available",
+    "NoWidgetAvailable": {
+      "Title": "No widget available",
+      "Message": "You have closed all the widgets for this page"
+    },
     "LoadingWidgets": "Loading widgets"
   },
   "Header": {
@@ -300,20 +303,18 @@
 
   "CustomLiteral": {
     "List": {
-      "Create_label": "Create custom literal",
       "Title": "Custom Literals",
       "Table": {
         "Header": "Custom literals table",
-        "Edit_label": "Edit",
-        "Delete_label": "Delete",
-        "Delete_Confirm_Message": "Are you sure you want to delete custom literal with id '__literalId__'?"
+        "Edit_label": "Set",
+        "Delete_label": "Restore",
+        "Delete_Confirm_Message": "Are you sure you want to restore this custom literal with id '__literalId__' to its original state?"
       }
     },
     "Detail": {
       "Title": "Custom Literal",
       "Header": {
-        "Create": "Create custom literal",
-        "Edit": "Edit custom literal",
+        "Edit": "Set custom literal",
         "Form": "Form"
       },
       "Form": {

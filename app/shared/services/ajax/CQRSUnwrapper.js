@@ -8,19 +8,28 @@ define([
     }
 
     CQRSUnwrapper.prototype.unwrap = function (promise) {
-        this.deferred = Q.defer();
+        return promise;
+
+
+        var self = this;
+        self.deferred = Q.defer();
 
         promise.then(
-            this.onSuccess.bind(this),
+            function(res) {
+                console.log("success");
+                self.onSuccess.bind(res)
+            },
             function(err) {
-                this.deferred.reject(err);
+                console.log("error");
+                self.deferred.reject(err);
             }
         );
 
-        return this.deferred.promise;
+        return self.deferred.promise;
     };
 
     CQRSUnwrapper.prototype.onSuccess = function (res) {
+        console.log("onSuccess " + res.status);
         if( res.status === "ack" ){
             this.deferred.resolve(res);
         } else {

@@ -16,7 +16,8 @@ define([
                 title: "@",
                 bodyClass: "@",
                 eventBusChannel: "=",
-                foreverScroll: "&"
+                foreverScroll: "&",
+                widgetId: "="
             },
             transclude: true,
             templateUrl: "app/modules/widgets/widgetWrapper.html"

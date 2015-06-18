@@ -1,26 +1,22 @@
 define([
-    'shared/BaseView',
+    'modules/literals/shared/BaseLiteralsView',
     'modules/literals/custom/CustomLiteralsPresenter',
     'modules/literals/custom/CustomLiteralsModel'
-], function(BaseView, CustomLiteralsPresenter, CustomLiteralsModel) {
+], function(BaseLiteralsView, CustomLiteralsPresenter, CustomLiteralsModel) {
     'use strict';
 
     function CustomLiteralsView($scope, $model, $presenter) {
-        BaseView.call(this, $scope, $model, $presenter);
-        this.data.currentError = null;
-        this.configureEvents();
+        BaseLiteralsView.call(this, $scope, $model, $presenter);
     }
 
-    CustomLiteralsView.inherits(BaseView, {});
+    CustomLiteralsView.inherits(BaseLiteralsView);
     var proto = CustomLiteralsView.prototype;
 
     proto.configureEvents = function () {
+        this.__base__.configureEvents.call(this);
+        this.event.onInit = function(){};
+        this.event.nextPage = function(){};
     };
-
-    proto.showError = function (msg) {
-        this.data.currentError = msg;
-    };
-
 
     CustomLiteralsView.newInstance = function (namedParams) {
         var scope = namedParams.scope || {};

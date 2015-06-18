@@ -12,6 +12,8 @@ define([
 
         this.data.currentError = null;
         this.data.literal = null;
+        this.data.isLoading = false;
+        this.data.isPosting = false;
 
         // implementation code
         this.data.implementationList = [];
@@ -29,6 +31,7 @@ define([
         this.fn.onCancel = this._onCancel.bind(this);
         this.fn.onSave = this._onSave.bind(this);
         this.fn.isNew = this.isNew.bind(this);
+        this.fn.isValid = this.isValid.bind(this);
 
 
         this.event.isNew = function () {};
@@ -41,6 +44,10 @@ define([
 
     proto._onInit = function () {
         this.event.getImplementationList();
+    };
+
+    proto.isValid = function () {
+        return true;
     };
 
 
@@ -67,7 +74,10 @@ define([
     };
 
     proto.showError = function (err) {
+        this.data.isLoading = false;
         this.data.currentError = err;
+        var errorMessage = this.translator.translate("Literal.Detail.Form.SaveErrorMessage");
+        this.toastService.error(errorMessage);
     };
 
     proto._onSave = function () {

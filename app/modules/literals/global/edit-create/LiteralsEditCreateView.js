@@ -64,12 +64,14 @@ define([
 
 
     proto.onGetLiteralTypeList = function (res) {
+        console.log("onGetLiteralTypeList");
         this.data.literalTypeList = res.data;
         this.getLiteralById();
     };
 
 
     proto.onGetDeviceTypeListSuccess = function (res) {
+        console.log("onGetDeviceTypeListSuccess");
         this.data.deviceTypeList = res.data;
         this.getLiteralById();
     };
@@ -77,6 +79,7 @@ define([
 
     proto.getLiteralById = function () {
         if (this.data.deviceTypeList && this.data.literalTypeList) {
+            console.log("getLiteralById");
             this.event.getLiteralById(this.routeParams.literalId);
         }
     };

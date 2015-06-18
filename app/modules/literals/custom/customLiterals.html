@@ -1,10 +1,7 @@
-<div>
+<div ng-init="event.onInit()">
 
-    <h1 class="page-header">{{'CustomLiteral.List.Title' | i18next}}
-        <a href="#/custom-literals/create" class="btn btn-big btn-primary m-r-5">
-            <span class="ic-plus m-r-5"></span>
-            {{'CustomLiteral.List.Create_label' | i18next}}
-        </a>
+    <h1 class="page-header">
+        {{'CustomLiteral.List.Title' | i18next}}
     </h1>
 
 
@@ -71,10 +68,14 @@
             {Key}
             <div>
                 <div class="edit-delete-div">
-                    <a href="#/custom-literals/{Id}/edit"><i class="fa ic-edit"></i>{{'CustomLiteral.List.Table.Edit_label' | i18next}}</a> |
-                    <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')"><i class="fa ic-trash"></i>{{'CustomLiteral.List.Table.Delete_label' | i18next}}</a>
+                    <a href="#/custom-literals/{Id}/edit" ng-show="'{ImplementationCode}'=='-1'"><i class="fa ic-edit"></i>{{'CustomLiteral.List.Table.Edit_label' | i18next}}</a>
+                    <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')" ng-hide="'{ImplementationCode}'=='-1'"><i class="fa ic-trash"></i>{{'CustomLiteral.List.Table.Delete_label' | i18next}}</a>
                 </div>
             </div>
+        </div>
+        <div class="hide literalImplementationCodeColumnTemplate">
+            <p ng-show="'{ImplementationCode}'=='-1'" style="text-align:center;"><i class="fa ic-flag"></i></p>
+            <p ng-hide="'{ImplementationCode}'=='-1'" style="text-align:center;"><i class="fa ic-flag-filled"></i></p>
         </div>
         <!-- END TEMPLATES -->
     </div>

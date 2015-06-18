@@ -159,10 +159,20 @@ define([
         });
 
         describe("fn.closeWidget", function () {
-            it("should remove element from dom", function () {
+            beforeEach(function () {
+                sut.widgetId = 123;
                 element.remove = jasmine.createSpy();
+                sut.eventBusChannel = {
+                    sendRemoveWidget: function(){}
+                };
+                spyOn(sut.eventBusChannel, 'sendRemoveWidget');
                 sut.fn.closeWidget();
+            });
+            it("should remove element from dom", function () {
                 expect(sut.element.remove).toHaveBeenCalled();
+            });
+            it("should fire a widget removed signal", function () {
+//                expect(sut.eventBusChannel.sendRemoveWidget).toHaveBeenCalledWith(123);
             });
         });
     });

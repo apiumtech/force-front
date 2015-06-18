@@ -1,75 +1,38 @@
 define([
-    'config',
-    'underscore'
-], function(config, _) {
+    'shared/services/ajax/BaseListQueryBuilder'
+], function(BaseListQueryBuilder) {
     'use strict';
 
-    var TAG_TOTAL_COUNT = "totalCount";
-    var SORT_DESC = -1;
-    var SORT_ASC = 1;
-    var SORT_DEFAULT = SORT_DESC;
 
     function LiteralsQueryBuilder(){
-        this.lastQuery = null;
-        this.initializeQueryDefaults();
+        BaseListQueryBuilder.call( this );
     }
 
-    LiteralsQueryBuilder.prototype.initializeQueryDefaults = function(){
-        this.skip = 0;
-        this.limit = config.pageSize;
-        this.searchTerms = "";
+    LiteralsQueryBuilder.inherits( BaseListQueryBuilder );
+    var proto = LiteralsQueryBuilder.prototype;
+
+    proto.initializeQueryDefaults = function(){
+        this.__base__.initializeQueryDefaults.call(this);
         this.literalTypeId = "";
         this.deviceTypeIds = [];
-        this.sort = {};
-        this.tags = [ TAG_TOTAL_COUNT ];
     };
 
-    LiteralsQueryBuilder.prototype.setSearchTerms = function( searchTerms ) {
-        this.searchTerms = searchTerms;
+    proto.resetPageHeuristicsBuilder = function(currentQuery) {
+        var conditions = this.__base__.resetPageHeuristicsBuilder.call(this, currentQuery);
+        conditions.push( currentQuery.filter.literalTypeId != this.lastQuery.filter.literalTypeId ||
+            !_.isEqual(currentQuery.filter.deviceTypeIds, this.lastQuery.filter.deviceTypeIds) );
+        return conditions;
     };
 
-    LiteralsQueryBuilder.prototype.resetPageHeuristics = function(currentQuery) {
-        if(!this.lastQuery) {
-            return;
-        }
-        if( currentQuery.filter.search != this.lastQuery.filter.search ||
-            currentQuery.filter.literalTypeId != this.lastQuery.filter.literalTypeId ||
-            !_.isEqual(currentQuery.filter.deviceTypeIds, this.lastQuery.filter.deviceTypeIds) ){
-            this.resetPaging();
-        }
+    proto.createCurrentQuery = function() {
+        var currentQuery = this.__base__.createCurrentQuery.call(this);
+        currentQuery.filter.literalTypeId = this.literalTypeId;
+        currentQuery.filter.deviceTypeIds = this.deviceTypeIds;
+        return currentQuery;
     };
 
-    LiteralsQueryBuilder.prototype.resetPaging = function () {
-        this.skip = 0;
-    };
-
-    LiteralsQueryBuilder.prototype.nextPage = function(){
-        this.skip += this.limit;
-    };
-
-    LiteralsQueryBuilder.prototype.build = function() {
-        var currentQuery = {
-            skip: this.skip,
-            limit: this.limit,
-            filter: {
-                search: this.searchTerms,
-                literalTypeId: this.literalTypeId,
-                deviceTypeIds: this.deviceTypeIds
-            },
-            sort: this.sort,
-            tags: this.tags
-        };
-        this.resetPageHeuristics(currentQuery);
-        this.lastQuery = currentQuery;
-        return this.lastQuery;
-    };
-
-    LiteralsQueryBuilder.prototype.toRequestHeaders = function(builtQuery) {
-        var query = _.clone(builtQuery);
-        query.filter = JSON.stringify(query.filter);
-        query.sort = JSON.stringify(query.sort);
-        query.tags = JSON.stringify(query.tags);
-        return query;
+    proto.setLiteralTypeId = function(literalTypeId) {
+        this.literalTypeId = literalTypeId;
     };
 
 
