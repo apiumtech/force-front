@@ -46,12 +46,10 @@ define([
 
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
-        console.log("configure events");
         self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
     };
 
     WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
-        console.log("removed", widgetId);
         var self = this;
         self.widgets = self.widgets.filter(function(widget){
            return widget.widgetId !== widgetId;

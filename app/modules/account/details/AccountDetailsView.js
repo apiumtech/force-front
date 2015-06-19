@@ -133,8 +133,8 @@ define([
         };
 
         self.fn.deleteAccount = function (title, message) {
-            title = title || "Delete confirmation";
-            message = message || "Are you sure want to delete this account?";
+            title = title || "Delete account";
+            message = message || "Are you sure want to delete the account <b>" + self.accountData.name + "</b>?";
             self.modalDialogAdapter.confirm(title,
                 message,
                 self.handleDeleteRequest.bind(self),
