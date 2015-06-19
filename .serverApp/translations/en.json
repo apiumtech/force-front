@@ -151,8 +151,8 @@
     "CreateContact": "Create contact",
     "EditAccount": "Edit Account",
     "Table": {
-      "Header": "__xx__ Result",
-      "Header_plural": "__xx__ Results",
+      "Header": "__count__ Result",
+      "Header_plural": "__count__ Results",
       "FIELDS": "FIELDS",
       "ShowMap": "Show Map"
     },
@@ -221,8 +221,8 @@
     "SelectDateRange": "Select the date range",
     "Customized": "Customized",
     "To": "to",
-    "LastxxDays": "Last __xx__ day",
-    "LastxxDays_plural": "Last __xx__ days"
+    "LastxxDays": "Last __count__ day",
+    "LastxxDays_plural": "Last __count__ days"
   },
   "Intensity": {
   },
