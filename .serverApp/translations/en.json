@@ -325,7 +325,9 @@
         "Select_Implementation_Code": "Select implementation code",
         "ListEmpty": "The list is empty",
         "Submit": "Save",
-        "Cancel": "Cancel"
+        "Cancel": "Cancel",
+        "SaveSuccessMessage": "Your literal has been saved successfully",
+        "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
       }
     }
   }
