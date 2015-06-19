@@ -91,10 +91,12 @@ define([
 
     proto._createLanguageColumns = function (data) {
         var self = this;
+        var availableColumnWidth = 70;// 100% - keyCol - ImplCol
+        var colWidth = availableColumnWidth / data.length;
         data.forEach(function (lang) {
-            self.languageColumns.push(
-                self._createColumnDeclaration(lang.Name, "string")
-            );
+            var col = self._createColumnDeclaration(lang.Name, "string");
+            col.width = colWidth + "%";
+            self.languageColumns.push(col);
         });
     };
 
@@ -102,7 +104,7 @@ define([
     proto._createKeyColumn = function() {
         var col = this._createColumnDeclaration("Key", "string");
         col.sortable = false;
-        col.width = 175;
+        col.width = "25%";
         return col;
     };
 
@@ -112,6 +114,7 @@ define([
         col.title = "<i class='fa ic-flag-filled'></i>";
         col.visible = false;
         col.sortable = false;
+        col.width = "5%";
         return col;
     };
 
@@ -199,11 +202,29 @@ define([
         var self = this;
         this.data.isLoading = false;
         res.data = res.data || [];
+        if(res.data.length==0){
+
+        }
         var data = res.data.map( this._createTableRow.bind(this) );
         this.table.column(1).visible(
             this._implementationCodeColumnVisibility(data)
         );
-        this.table.rows.add(data).draw();
+        this.table.rows.add(data).draw(false);
+        this.addTooltipsToEllipsis();
+    };
+
+
+    /*
+     * Adds the title attribute on-demand when text overflows.
+     */
+    proto.addTooltipsToEllipsis = function() {
+        $('#data-table td, #data-table th').bind('mouseenter', function(){
+            var $this = $(this);
+
+            if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
+                $this.attr('title', $this.text());
+            }
+        });
     };
 
 
