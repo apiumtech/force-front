@@ -170,7 +170,7 @@ define([
     AccountDetailsView.prototype.appendCompany = function (company) {
         var self = this;
 
-        relatedCompanyWrapper = $(".relatedCompanies");
+        var relatedCompanyWrapper = $(".relatedCompanies");
 
         if(!relatedCompanyWrapper.length) return;
 

@@ -4,7 +4,8 @@
 
 define([
     'app',
-    'modules/widgets/WidgetWrapperController'
+    'modules/widgets/WidgetWrapperController',
+    'shared/components/sortableComponent/ng-sortable'
 ], function (app, WidgetWrapperController) {
     'use strict';
 

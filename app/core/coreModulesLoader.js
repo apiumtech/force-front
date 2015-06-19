@@ -13,7 +13,8 @@ define([
     'shared/components/ResizableTextAreaDirective',
 
     'shared/components/confirmationDialog/ConfirmationDialogController',
-    'shared/components/confirmationDialog/NotificationDialogController'
+    'shared/components/confirmationDialog/NotificationDialogController',
+
 ], function (NotificationService) {
     'use strict';
     NotificationService.getInstance();
