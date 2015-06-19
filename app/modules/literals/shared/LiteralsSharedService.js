@@ -19,7 +19,6 @@ define([
 
 
     proto.getLanguageList = function () {
-        console.log("getLanguageList");
         return this.cqrsUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.languageList,
@@ -31,7 +30,6 @@ define([
 
 
     proto.getLiteralTypeList = function () {
-        console.log("getLiteralTypeList");
         return this.ajaxService.rawAjaxRequest({
                 url: config.api.literalTypeList,
                 type: 'GET',
@@ -42,7 +40,6 @@ define([
 
 
     proto.getDeviceTypeList = function () {
-        console.log("getDeviceTypeList");
         return this.ajaxService.rawAjaxRequest({
                 url: config.api.deviceTypeList,
                 type: 'GET',
@@ -52,7 +49,6 @@ define([
     };
 
     proto.getImplementationList = function () {
-        console.log("getImplementationList");
         return this.cqrsUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.implementationList,

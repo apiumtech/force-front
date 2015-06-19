@@ -36,7 +36,6 @@ define([
 
 
     proto.onColumnsRequest = function() {
-        console.log("onColumnsRequest")
         var self = this;
         self.model.onColumnsRequest().then(
             self.eventBus.fireColumnsRequestSuccess.bind(self.eventBus),
@@ -45,7 +44,6 @@ define([
     };
 
     proto.onLiteralsRequest = function() {
-        console.log("onLiteralsRequest")
         var self = this;
         self.view.onLiteralsRequest();
         self.model.onLiteralsRequest().then(
