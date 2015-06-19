@@ -36,7 +36,8 @@ define([
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
-        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey);
+        //var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);
+        var pageLayoutData = null;// TODO: no caching
         if (pageLayoutData) {
             self.modelData = pageLayoutData;
             deferred.resolve(pageLayoutData);
