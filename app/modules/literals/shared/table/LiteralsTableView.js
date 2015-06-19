@@ -72,6 +72,11 @@ define([
         return this.templateParser.parseTemplate(colTemplate, row);
     };
 
+    proto.renderImplementationCodeColumn = function (data, type, row) {
+        var colTemplate = $(".literalImplementationCodeColumnTemplate").html();
+        return this.templateParser.parseTemplate(colTemplate, row);
+    };
+
 
     proto._createColumnDeclaration = function(name, type) {
         return {
@@ -104,6 +109,7 @@ define([
 
     proto._createImplementationColumn = function() {
         var col = this._createColumnDeclaration("ImplementationCode", "num");
+        col.title = "<i class='fa ic-flag-filled'></i>";
         col.visible = false;
         col.sortable = false;
         return col;
@@ -134,8 +140,21 @@ define([
                     createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
                         self.compile(cell)(self.$scope);
                     }
+                },
+                {
+                    targets: 1,
+                    render: self.renderImplementationCodeColumn.bind(self),
+                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
+                        self.compile(cell)(self.$scope);
+                    }
                 }
-            ]
+            ],
+            createdRow: function ( row, data, index ) {
+                if ( data.ImplementationCode == -1 ) {
+                    $('td', row).addClass('highlight');
+                    //$('td', row).css('background-color', 'red');
+                }
+            }
         };
 
         this.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);

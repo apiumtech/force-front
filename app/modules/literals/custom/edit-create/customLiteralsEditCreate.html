@@ -1,81 +1,78 @@
-<div class="LiteralView" ng-init="fn.onInit()">
-    <h1 class="page-header">{{'CustomLiteral.Detail.Title' | i18next}}</h1>
+<div class="CustomLiteralsEditCreateView" ng-init="fn.onInit()">
 
-    <div class="row">
-        <div class="col-md-12 ui-sortable">
-            <div class="panel panel-inverse">
+    <!-- HEADER -->
+    <div class="row LiteralsEditCreateView_Header">
 
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <span ng-if="fn.isNew()">{{'CustomLiteral.Detail.Header.Create' | i18next}} </span>
-                        <span ng-if="!fn.isNew()">{{'CustomLiteral.Detail.Header.Edit' | i18next}} </span>
-                        {{'CustomLiteral.Detail.Header.Form' | i18next}}
-                    </h4>
-                </div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal">
-
-                        <!-- Literal Key -->
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">{{'CustomLiteral.Detail.Form.Literal_Key' | i18next}}</label>
-                            <div class="col-md-9">
-                                <!-- Literal Key -->
-                                <p ng-if="!fn.isNew()" class="form-control-static">{{data.literal.Key}}</p>
-                                <input ng-if="fn.isNew()"
-                                       type="text"
-                                       class="form-control"
-                                       placeholder="{{'CustomLiteral.Detail.Form.Literal_Key_Placeholder' | i18next}}"
-                                       ng-model="data.literal.Key">
-                            </div>
-                        </div>
-
-
-                        <!-- Implementation Code -->
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">{{'CustomLiteral.Detail.Form.Implementation_Code' | i18next}}</label>
-                            <div class="col-md-9">
-                                <select class="form-control"
-                                        ng-model="data.literal.ImplementationCode"
-                                        ng-options="implementation.Name for implementation in data.implementationList track by implementation.Code">
-                                    <option value="">{{'CustomLiteral.Detail.Form.Select_Implementation_Code' | i18next}}</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <!-- Literal languages -->
-                        <div class="form-group"
-                             ng-repeat="(languageKey, languageValue) in data.literal.LanguageValues">
-                            <label class="col-md-3 control-label">{{ languageKey }}</label>
-                            <div class="col-md-9">
-                                <!-- Literal language -->
-                                <input type="text"
-                                       ng-model="data.literal.LanguageValues[languageKey]"
-                                       class="form-control"
-                                       placeholder="{{ 'CustomLiteral.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}"/>
-                            </div>
-                        </div>
-
-
-                        <!-- Form buttons -->
-                        <div class="form-group">
-                            <div class="col-md-9">
-                                <button type="submit"
-                                        ng-click="fn.onSave()"
-                                        class="btn btn-sm btn-success">{{'CustomLiteral.Detail.Form.Submit' | i18next}}
-                                </button>
-                                <button type="submit"
-                                        ng-click="fn.onCancel()"
-                                        class="btn btn-sm btn-error">{{'CustomLiteral.Detail.Form.Cancel' | i18next}}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
+        <!-- TITLE -->
+        <div class="pull-left">
+            <h1 class="page-header">
+                <span ng-if="fn.isNew()">{{'CustomLiteral.Detail.Header.Create' | i18next}} </span>
+                <span ng-if="!fn.isNew()">{{'CustomLiteral.Detail.Header.Edit' | i18next}} </span>
+            </h1>
         </div>
-    </div>
-</div>
 
+        <!-- SAVE/CANCEL BUTTONS -->
+        <div class="pull-right">
+            <button class="btn btn-big btn-default p-r-30 p-l-30 p-t-15 p-b-15"
+                    ng-disabled="data.isPosting" ng-click="fn.onCancel()">
+                {{'commonText.Cancel' | i18next}}
+            </button>
+            <button class="btn btn-big btn-primary p-r-30 p-l-30 p-t-15 p-b-15"
+                    ng-disabled="!fn.isValid(LiteralForm) || data.isPosting "
+                    ng-click="fn.onSave()">
+                {{'commonText.Save' | i18next}}
+            </button>
+        </div>
+
+    </div>
+    <!-- END HEADER -->
+
+
+
+    <!-- HR -->
+    <div class="row">
+        <div class="line-border clearfix"></div>
+    </div>
+
+
+
+    <!-- FORM -->
+    <div class="form-horizontal create-account panel form-content">
+        <form class="form-horizontal" name="LiteralForm">
+
+            <!-- Literal Key -->
+            <div class="form-group">
+                <label class="col-md-3 control-label">{{'CustomLiteral.Detail.Form.Literal_Key' | i18next}}</label>
+                <div class="col-md-9">
+                    <p class="form-control-static">{{data.literal.Key}}</p>
+                </div>
+            </div>
+            <!-- END Literal Key -->
+
+            <!-- Literal languages -->
+            <div class="form-group"
+                 ng-repeat="(languageKey, languageValue) in data.literal.LanguageValues">
+                <label class="col-md-3 control-label">{{ languageKey }}</label>
+                <div class="col-md-9">
+                    <textarea resizable-text-area
+                              class="form-control" rows="1"
+                              ng-model="data.literal.LanguageValues[languageKey]"
+                              placeholder="{{ 'CustomLiteral.Detail.Form.Literal_Value_Placeholder' | i18next:{mylang:languageKey} }}">
+                    </textarea>
+                </div>
+            </div>
+            <!-- END Literal languages -->
+
+
+        </form>
+    </div>
+    <!-- END Form -->
+
+
+    <!-- SPINNER -->
+    <div class="panel-loader" ng-show="data.isLoading">
+        <span class="spinner-small"></span>
+    </div>
+
+
+</div>

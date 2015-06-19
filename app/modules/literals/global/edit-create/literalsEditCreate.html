@@ -1,7 +1,7 @@
 <div class="LiteralsEditCreateView" ng-init="fn.onInit()">
 
     <!-- HEADER -->
-    <div class="row LiteralsEditCreateView_Header">
+    <div class="row EditCreateView_Header">
 
         <!-- TITLE -->
         <div class="pull-left">
@@ -58,11 +58,12 @@
             <!-- END Literal Key -->
 
             <!-- Literal Type -->
-            <div class="form-group">
+            <div class="form-group required">
                 <label class="col-md-3 control-label">{{'Literal.Detail.Form.Literal_Type' | i18next}}</label>
                 <div class="col-md-9">
                     <select class="form-control"
                             ng-model="data.literal.LiteralType"
+                            validator="required"
                             ng-options="literalType.Name for literalType in data.literalTypeList track by literalType.Id">
                         <option value="">{{'Literal.Detail.Form.Select_Literal_Type' | i18next}}</option>
                     </select>

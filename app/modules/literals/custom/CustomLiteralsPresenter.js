@@ -1,64 +1,25 @@
 define([
-    'modules/literals/shared/LiteralsEventBus'
-], function(LiteralsEventBus) {
+    'modules/literals/shared/LiteralsEventBus',
+    'modules/literals/shared/BaseLiteralsPresenter'
+], function(LiteralsEventBus, BaseLiteralsPresenter) {
     'use strict';
 
     function CustomLiteralsPresenter(literalsEventBus) {
-        this.eventBus = literalsEventBus;
+        BaseLiteralsPresenter.call(this, literalsEventBus);
     }
 
+    CustomLiteralsPresenter.inherits(BaseLiteralsPresenter);
     var proto = CustomLiteralsPresenter.prototype;
 
 
     proto.show = function (view, model) {
-        var self = this;
-        self.view = view;
-        self.model = model;
+        this.__base__.show.call(this, view, model);
 
-        // comes from LiteralsTableView.fireColumnsRequest
-        self.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
-
-        // comes from LiteralsTableView.fireLiteralsRequest
-        self.eventBus.onLiteralsRequest(self.onLiteralsRequest.bind(self));
-
-        // comes from LiteralsSearchPresenter.fireLiteralsSearch
-        self.eventBus.onLiteralsSearch(self.onLiteralsSearch.bind(self));
-
-        // comes from LiteralsTableView.fireLiteralsDeleteRequest
-        self.eventBus.onLiteralsDeleteRequest(self.onLiteralsDeleteRequest.bind(self));
+        view.event.onInit = this.onInit.bind(this);
     };
 
-
-    proto.onColumnsRequest = function() {
-        var self = this;
-        self.model.onColumnsRequest().then(
-            self.eventBus.fireColumnsRequestSuccess.bind(self.eventBus),
-            self.eventBus.fireColumnsRequestError.bind(self.eventBus)
-        );
-    };
-
-    proto.onLiteralsRequest = function() {
-        var self = this;
-        self.model.onLiteralsRequest().then(
-            self.eventBus.fireLiteralsRequestSuccess.bind(self.eventBus),
-            self.eventBus.fireLiteralsRequestError.bind(self.eventBus)
-        );
-    };
-
-    proto.onLiteralsSearch = function(searchTerms) {
-        var self = this;
-        self.model.setSearchTerms(searchTerms);
-        self.eventBus.fireLiteralsRequest();
-    };
-
-    proto.onLiteralsDeleteRequest = function(literalId) {
-        var self = this;
-        self.model.onLiteralsDeleteRequest(literalId).then(
-            self.eventBus.fireLiteralsRequest.bind(self.eventBus),
-            function(){
-                self.view.showError("Error removing literal");
-            }
-        );
+    proto.onInit = function() {
+        this.model.setUserImplementationCode();
     };
 
 

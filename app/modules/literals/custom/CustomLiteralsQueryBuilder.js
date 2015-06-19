@@ -1,74 +1,35 @@
 define([
-    'config',
-    'underscore'
-], function(config, _) {
+    'shared/services/ajax/BaseListQueryBuilder'
+], function(BaseListQueryBuilder) {
     'use strict';
 
-    var TAG_TOTAL_COUNT = "totalCount";
-    var SORT_DESC = -1;
-    var SORT_ASC = 1;
-    var SORT_DEFAULT = SORT_DESC;
 
     function CustomLiteralsQueryBuilder(){
-        this.lastQuery = null;
-        this.initializeQueryDefaults();
+        BaseListQueryBuilder.call(this);
     }
 
+    CustomLiteralsQueryBuilder.inherits(BaseListQueryBuilder);
     var proto = CustomLiteralsQueryBuilder.prototype;
 
     proto.initializeQueryDefaults = function(){
-        this.skip = 0;
-        this.limit = config.pageSize;
-        this.searchTerms = "";
+        this.__base__.initializeQueryDefaults.call(this);
         this.implementationCode = null;
-        this.sort = {};
-        this.tags = [ TAG_TOTAL_COUNT ];
     };
 
-    proto.setSearchTerms = function( searchTerms ) {
-        this.searchTerms = searchTerms;
+    proto.resetPageHeuristicsBuilder = function(currentQuery) {
+        var conditions = this.__base__.resetPageHeuristicsBuilder.call(this, currentQuery);
+        conditions.push( currentQuery.filter.implementationCode != this.lastQuery.filter.implementationCode );
+        return conditions;
     };
 
-    proto.resetPageHeuristics = function(currentQuery) {
-        if(!this.lastQuery) {
-            return;
-        }
-        if( currentQuery.filter.search != this.lastQuery.filter.search ||
-            currentQuery.filter.implementationCode != this.lastQuery.filter.implementationCode ){
-            this.resetPaging();
-        }
+    proto.createCurrentQuery = function() {
+        var currentQuery = this.__base__.createCurrentQuery.call(this);
+        currentQuery.filter.implementationCode = this.implementationCode;
+        return currentQuery;
     };
 
-    proto.resetPaging = function () {
-        this.skip = 0;
-    };
-
-    proto.nextPage = function(){
-        this.skip += this.limit;
-    };
-
-    proto.build = function() {
-        var currentQuery = {
-            skip: this.skip,
-            limit: this.limit,
-            filter: {
-                search: this.searchTerms,
-                implementationCode: this.implementationCode
-            },
-            sort: this.sort,
-            tags: this.tags
-        };
-        this.resetPageHeuristics(currentQuery);
-        this.lastQuery = currentQuery;
-        return this.lastQuery;
-    };
-
-    proto.toRequestHeaders = function(builtQuery) {
-        var query = _.clone(builtQuery);
-        query.filter = JSON.stringify(query.filter);
-        query.sort = JSON.stringify(query.sort);
-        query.tags = JSON.stringify(query.tags);
-        return query;
+    proto.setImplementationCode = function(implementationCode) {
+        this.implementationCode = implementationCode;
     };
 
 

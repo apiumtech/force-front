@@ -31,10 +31,10 @@
     "EditProfile": "Edit Profile",
     "Inbox": "Inbox",
     "Calendar": "Calendar",
-    "MinuteAgo": "__minute__ minute ago",
-    "MinuteAgo_plural": "__minute__ minutes ago",
-    "HourAgo": "__hour__ hour ago",
-    "HourAgo_plural": "__hour__ hours ago",
+    "MinuteAgo": "__count__ minute ago",
+    "MinuteAgo_plural": "__count__ minutes ago",
+    "HourAgo": "__count__ hour ago",
+    "HourAgo_plural": "__count__ hours ago",
     "NewEmailFrom": "New email from __from__",
     "NoResultFound": "No result found"
   },
@@ -52,6 +52,8 @@
     "UploadDocuments": {
       "Title": "Add document",
       "UploadingTitle": "Uploading",
+      "DocumentsAmount": "__count__ document",
+      "DocumentsAmount_plural": "__count__ documents",
       "Heading_Instruction": "Drag & Drop your documents here",
       "Heading_Instruction2": "Some help text appear here",
       "UploadBtn": "Upload files",
@@ -68,13 +70,17 @@
   "DateTime": {
     "Today": "Today",
     "Yesterday": "Yesterday",
-    "DaysAgo": "__xx__ days ago",
+    "DaysAgo": "__xx__ day ago",
+    "DaysAgo_plural": "__xx__ days ago",
     "LastWeek": "Last week",
-    "WeeksAgo": "__xx__ weeks ago",
+    "WeeksAgo": "__xx__ week ago",
+    "WeeksAgo_plural": "__xx__ weeks ago",
     "LastMonth": "Last month",
-    "MonthsAgo": "__xx__ months ago",
+    "MonthsAgo": "__xx__ month ago",
+    "MonthsAgo_plural": "__xx__ months ago",
     "LastYear": "LastYear",
-    "YearsAgo": "__xx__ years ago"
+    "YearsAgo": "__xx__ year ago",
+    "YearsAgo_plural": "__xx__ years ago"
   },
   "AccountDetail": {
     "Address": "Address",
@@ -145,7 +151,8 @@
     "CreateContact": "Create contact",
     "EditAccount": "Edit Account",
     "Table": {
-      "Header": "__xx__ Results",
+      "Header": "__xx__ Result",
+      "Header_plural": "__xx__ Results",
       "FIELDS": "FIELDS",
       "ShowMap": "Show Map"
     },
@@ -214,7 +221,8 @@
     "SelectDateRange": "Select the date range",
     "Customized": "Customized",
     "To": "to",
-    "LastxxDays": "Last __xx__ days"
+    "LastxxDays": "Last __xx__ day",
+    "LastxxDays_plural": "Last __xx__ days"
   },
   "Intensity": {
   },
@@ -295,20 +303,18 @@
 
   "CustomLiteral": {
     "List": {
-      "Create_label": "Create custom literal",
       "Title": "Custom Literals",
       "Table": {
         "Header": "Custom literals table",
-        "Edit_label": "Edit",
-        "Delete_label": "Delete",
-        "Delete_Confirm_Message": "Are you sure you want to delete custom literal with id '__literalId__'?"
+        "Edit_label": "Set",
+        "Delete_label": "Restore",
+        "Delete_Confirm_Message": "Are you sure you want to restore this custom literal with id '__literalId__' to its original state?"
       }
     },
     "Detail": {
       "Title": "Custom Literal",
       "Header": {
-        "Create": "Create custom literal",
-        "Edit": "Edit custom literal",
+        "Edit": "Set custom literal",
         "Form": "Form"
       },
       "Form": {

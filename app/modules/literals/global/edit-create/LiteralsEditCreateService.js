@@ -71,7 +71,9 @@ define([
             dataType: 'json',
             contentType: 'application/json'
         };
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest(params)
+        );
     };
 
 
@@ -85,20 +87,21 @@ define([
     proto._mergeLanguagesWithLiteral = function (literal) {
         var deferred = Q.defer();
         literal.LanguageValues = literal.LanguageValues || {};
-        this.sharedService.getLanguageList().then(
-            function (languageList) {
-                languageList = languageList.data;
-                _.each(languageList, function(lang){
-                    if( !(lang.Name in literal.LanguageValues) ){
-                        literal.LanguageValues[lang.Name] = "";
-                    }
-                });
-                deferred.resolve(literal);
-            },
-            function (err) {
-                deferred.reject(err);
-            }
-        );
+        this.sharedService.getLanguageList()
+            .then(
+                function (languageList) {
+                    languageList = languageList.data;
+                    _.each(languageList, function(lang){
+                        if( !(lang.Name in literal.LanguageValues) ){
+                            literal.LanguageValues[lang.Name] = "";
+                        }
+                    });
+                    deferred.resolve(literal);
+                },
+                function (err) {
+                    deferred.reject(err);
+                }
+            );
         return deferred.promise;
     };
 
@@ -107,12 +110,14 @@ define([
         var deferred = Q.defer();
         var self = this;
         var body = "id=" + id;
-        this.ajaxService.rawAjaxRequest({
-            url: config.api.literalById,
-            data: body,
-            type: 'GET',
-            dataType: 'json'
-        }).then(
+        this.cqrsUnwrapper.unwrap(
+            this.ajaxService.rawAjaxRequest({
+                url: config.api.literalById,
+                data: body,
+                type: 'GET',
+                dataType: 'json'
+            })
+        ).then(
             function (res) {
                 self._mergeLanguagesWithLiteral(res.data).then(
                     function (mergedLiteral) {
