@@ -3,7 +3,9 @@ define([
     'modules/literals/custom/edit-create/CustomLiteralsEditCreateView'
 ], function(app, CustomLiteralsEditCreateView) {
 
-    function CustomLiteralsEditCreateController($routeParams, $scope) {
+    function CustomLiteralsEditCreateController($routeParams, $scope, $injector) {
+        $scope.$injector = $injector;
+        $scope.$validation = $injector.get('$validation');
         CustomLiteralsEditCreateController.configureView($routeParams, $scope);
     }
 
@@ -12,7 +14,7 @@ define([
         view.show();
     };
 
-    app.register.controller('CustomLiteralsEditCreateController', ['$routeParams', '$scope', CustomLiteralsEditCreateController]);
+    app.register.controller('CustomLiteralsEditCreateController', ['$routeParams', '$scope', '$injector', CustomLiteralsEditCreateController]);
 
     return CustomLiteralsEditCreateController;
 });

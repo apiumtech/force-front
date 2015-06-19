@@ -22,7 +22,6 @@ define([
 
 
     proto.getLanguageList = function() {
-        console.log("getLanguageList")
         return this.literalsSharedService.getLanguageList();
     };
 

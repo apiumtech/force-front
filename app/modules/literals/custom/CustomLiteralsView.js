@@ -15,7 +15,6 @@ define([
     proto.configureEvents = function () {
         this.__base__.configureEvents.call(this);
         this.event.onInit = function(){};
-        this.event.nextPage = function(){};
     };
 
     CustomLiteralsView.newInstance = function (namedParams) {

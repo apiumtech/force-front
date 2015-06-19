@@ -14,11 +14,11 @@
         <!-- SAVE/CANCEL BUTTONS -->
         <div class="pull-right">
             <button class="btn btn-big btn-default p-r-30 p-l-30 p-t-15 p-b-15"
-                    ng-disabled="data.isPosting" ng-click="fn.onCancel()">
+                    ng-disabled="data.isLoading" ng-click="fn.onCancel()">
                 {{'commonText.Cancel' | i18next}}
             </button>
             <button class="btn btn-big btn-primary p-r-30 p-l-30 p-t-15 p-b-15"
-                    ng-disabled="!fn.isValid(CreateLiteral) || data.isPosting "
+                    ng-disabled="!fn.isValid(CreateLiteral) || data.isLoading"
                     ng-click="fn.onSave()">
                 {{'commonText.Save' | i18next}}
             </button>

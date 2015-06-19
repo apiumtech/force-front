@@ -18,7 +18,7 @@ define([], function(){
 
         view.event.getLiteralById = function (id) {
             model.getLiteralById(id).then(
-                view.showForm.bind(view),
+                view.onGetLiteralByIdSuccess.bind(view),
                 view.showError.bind(view)
             );
         };
@@ -32,7 +32,7 @@ define([], function(){
 
         view.event.createLiteral = function(literal){
             model.createLiteral(literal).then(
-                view._goBack.bind(view),
+                view.onSaveSuccess.bind(view),
                 view.showError.bind(view)
             );
         };
