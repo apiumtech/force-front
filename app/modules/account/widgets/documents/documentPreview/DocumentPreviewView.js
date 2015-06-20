@@ -11,14 +11,33 @@ define([
         this.$modalInstance = null;
     }
 
-    DocumentPreviewView.inherits(BaseView, {});
+    DocumentPreviewView.inherits(BaseView, {
+        document: {
+            get: function () {
+                return this.$scope.document;
+            },
+            set: function (value) {
+                this.$scope.document = value;
+            }
+        }
+    });
+
+    DocumentPreviewView.prototype.show = function () {
+        this.__base__.show.call(this);
+        this.configureEvents();
+    };
 
     DocumentPreviewView.prototype.configureEvents = function () {
         var self = this;
 
-        self.fn.onStarting = function() {
+        self.fn.onStarting = function () {
 
         };
+
+        self.fn.closePreview = function () {
+            self.$modalInstance.dismiss();
+        };
+
     };
 
     DocumentPreviewView.contractName = "documentPreviewView";

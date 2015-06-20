@@ -15,7 +15,9 @@
             <tbody>
             <tr ng-repeat="record in data.documentsList">
                 <td class="col-md-5">
-                    <a href="detail_quotes.html" ng-show="!record.editing">
+                    <a href="#"
+                       ng-click="fn.previewDocument(record.id);$event.preventDefault();"
+                       ng-show="!record.editing">
                         {{record.name}}
                     </a>
 

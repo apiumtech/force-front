@@ -5,7 +5,8 @@ define([
 ], function (app, BaseController, DocumentPreviewView) {
     'use strict';
 
-    function DocumentPreviewController($scope, $modal, $modalInstance) {
+    function DocumentPreviewController($scope, $modal, $modalInstance, documentId) {
+        $scope.documentId = documentId;
         this.configureView($scope, $modal, $modalInstance);
     }
 
@@ -21,7 +22,7 @@ define([
         this.triggerView(this.view, $scope);
     };
 
-    app.register.controller('DocumentPreviewController', ['$scope', '$modal', '$modalInstance', DocumentPreviewController]);
+    app.register.controller('DocumentPreviewController', ['$scope', '$modal', '$modalInstance', 'documentId', DocumentPreviewController]);
 
     return DocumentPreviewController;
 });

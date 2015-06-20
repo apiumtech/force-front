@@ -80,7 +80,7 @@ define([
             modalInstance.result.then(self.onAddDocumentDialogClosed.bind(self));
         };
 
-        self.previewDocument = function (documentId) {
+        self.fn.previewDocument = function (documentId) {
             self.modalDialogService.open({
                 templateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialog.html',
                 windowTemplateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialogWindow.html',
