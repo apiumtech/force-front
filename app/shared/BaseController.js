@@ -12,6 +12,9 @@ define([
     }
 
     BaseController.prototype.triggerView = function (view, $scope) {
+        if (!view)
+            throw new Error("View cannot be null");
+
         if (!view.$scope && !$scope)
             throw new Error("InvalidArgumentsException");
 

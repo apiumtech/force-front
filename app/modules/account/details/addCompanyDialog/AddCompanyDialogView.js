@@ -59,7 +59,6 @@ define([
     };
 
     AddCompanyDialogView.prototype.onGetCompanySuccess = function(data){
-        console.log("company relation type", data);
         var self = this;
         self.companyTypes = data.companyTypes;
     };
