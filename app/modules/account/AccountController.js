@@ -4,7 +4,9 @@
 define([
     'app',
     'modules/account/AccountView',
-    'modules/account/filters/accountFilter/AccountFilterController'
+    'modules/account/filters/accountFilter/AccountFilterController',
+    'shared/components/sortableComponent/ng-sortable',
+    'modules/account/widgets/accountList/AccountListDirective'
 ], function (app, AccountView) {
 
     function AccountController($scope) {
