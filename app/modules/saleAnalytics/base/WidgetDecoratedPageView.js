@@ -4,7 +4,7 @@
 
 define([
     'shared/BaseView',
-    'modules/saleAnalytics/eventBus/SaleAnalyticEventBus',
+    'modules/widgets/WidgetEventBus',
 
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
@@ -14,14 +14,14 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective'
-], function (BaseView, SaleAnalyticEventBus) {
+], function (BaseView, WidgetEventBus) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
         this.dropZoneClassName = "dropzone";
         this.widgetContainerSelector = '.widgets-container[as-sortable]';
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
-        this.eventBus = SaleAnalyticEventBus.getInstance();
+        this.eventBus = WidgetEventBus.getInstance();
         this.configureEvents();
     }
 
