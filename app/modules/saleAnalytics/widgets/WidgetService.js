@@ -66,6 +66,15 @@ define([
                 id: 2
             },
             {
+                page: "intensity",
+                widgetType: "custom",
+                widgetName: "Custom",
+                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                order: 2,
+                size: 12,
+                id: 3
+            },
+            {
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",

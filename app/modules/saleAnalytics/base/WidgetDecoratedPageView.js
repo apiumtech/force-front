@@ -13,7 +13,8 @@ define([
     'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetDirective',
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
-    'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective'
+    'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
+    'modules/saleAnalytics/widgets/custom/CustomWidgetDirective'
 ], function (BaseView, WidgetEventBus) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
