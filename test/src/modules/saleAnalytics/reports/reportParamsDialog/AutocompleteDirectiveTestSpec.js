@@ -1,5 +1,5 @@
 define([
-    'modules/saleAnalytics/reports/reportParamsDialog/AutocompleteDirective',
+    'shared/components/AutocompleteDirective',
     'shared/services/ajax/AjaxService',
     'angular',
     'jquery',

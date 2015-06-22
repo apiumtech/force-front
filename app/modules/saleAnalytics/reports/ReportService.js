@@ -78,8 +78,9 @@ define([
     };
 
     ReportService.prototype.searchReport = function(query){
+        var result = (query != 'empty') ? ReportFakeData() : [];
         return this.ajaxService.rawAjaxRequest({
-            result: ReportFakeData()
+            result: result
         }).then(this.decorateServerData.bind(this));
     };
 

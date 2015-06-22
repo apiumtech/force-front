@@ -1,7 +1,7 @@
 define([
     'app',
     'modules/account/details/addCompanyDialog/AddCompanyDialogView',
-    'modules/saleAnalytics/reports/reportParamsDialog/AutocompleteDirective'
+    'shared/components/AutocompleteDirective'
 ], function (app, AddCompanyDialogView) {
     'use strict';
 

@@ -2,10 +2,10 @@
  * Created by justin on 3/30/15.
  */
 define([
-    'modules/saleAnalytics/eventBus/SaleAnalyticEventBus'
-], function (SaleAnalyticEventBus) {
+    'modules/widgets/WidgetEventBus'
+], function (WidgetEventBus) {
     'use strict';
-    describe("SaleAnalyticEventBus", function () {
+    describe("WidgetEventBus", function () {
 
         describe("construct", function () {
             var events = [
@@ -14,7 +14,7 @@ define([
 
             var sut;
             beforeEach(function () {
-                sut = new SaleAnalyticEventBus();
+                sut = new WidgetEventBus();
             });
 
             describe("when creating new instance", function () {

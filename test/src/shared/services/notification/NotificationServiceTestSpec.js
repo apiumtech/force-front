@@ -12,9 +12,9 @@ define([
 
         describe("registering to dependency injection", function () {
             it('should be singleton', function () {
-                var instance1 = app.di.resolve('notificationService');
+                var instance1 = app._di.resolve('notificationService');
                 instance1.__some_fake_value = "this is value to identify the single ton";
-                var instance2 = app.di.resolve('notificationService');
+                var instance2 = app._di.resolve('notificationService');
                 expect(instance2.__some_fake_value).not.toBeUndefined();
                 expect(instance2.__some_fake_value).toEqual('this is value to identify the single ton');
             });

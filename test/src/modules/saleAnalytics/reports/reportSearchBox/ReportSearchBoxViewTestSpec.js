@@ -108,8 +108,9 @@ define([
                 beforeEach(function () {
                     sut.searchQuery = "hasValue";
                     spyOn(sut.eventBus, 'fireSearchDeactivated');
-                    sut.showSearchResult = true
+                    sut.showSearchResult = true;
                     sut.searchResultLoaded = true;
+                    sut.searchActivated = true;
                     sut.fn.deactivateSearch();
                 });
                 it("should remove searchQuery value", function () {
@@ -120,6 +121,9 @@ define([
                 });
                 it("should set showSearchResult to false", function () {
                     expect(sut.showSearchResult).toBeFalsy();
+                });
+                it("should set searchActivated to false", function () {
+                    expect(sut.searchActivated).toBeFalsy();
                 });
                 it("should set searchResultLoaded to false", function () {
                     expect(sut.searchResultLoaded).toBeFalsy();

@@ -15,7 +15,12 @@
     <ul high-light-result>
         <li class="search-info" ng-click="fn.activateSearch()"><i class="fa fa-search"></i></i><span class="text">Searching for: {{searchQuery}}</span></li>
 
-        <li ng-repeat="report in reports" ng-click="fn.openResult(report)">
+        <div ng-show="!reports || reports.length <= 0" class="empty-search small">
+            <img src="assets/img/filter-icon.png" alt="" />
+            <h4>We are sorry, your search did not return any result</h4>
+        </div>
+
+        <li ng-repeat="report in reports" ng-click="fn.openResult(report)" ng-show="reports && reports.length > 0">
             <i class="fa fa-file-text-o" ng-if="report.type == 'report'"></i>
             <i class="fa fa-folder-o" ng-if="report.type == 'folder'"></i>
 

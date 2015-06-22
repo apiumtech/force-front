@@ -8,7 +8,8 @@ define([
 
     'shared/services/bus/AccountDetailWidgetEventBus',
     'modules/account/widgets/documents/DocumentsWidgetModel',
-    'modules/account/widgets/documents/DocumentsWidgetPresenter'
+    'modules/account/widgets/documents/DocumentsWidgetPresenter',
+    'modules/account/widgets/documents/documentPreview/DocumentPreviewController'
 ], function (BaseView, ModalDialogAdapter, TranslatorService, AccountDetailWidgetEventBus, DocumentsWidgetModel, DocumentsWidgetPresenter) {
 
     'use strict';
@@ -58,6 +59,7 @@ define([
         };
 
         self.fn.deleteDocument = function (record) {
+            debugger;
             self.modalDialogService.confirm("Delete document",
                 self.translator.translate("Documents.deleteDocumentConfirmationMsg", {documentName: record.name}),
                 self.deletionConfirmed.bind(self, record),
@@ -76,6 +78,21 @@ define([
             };
             var modalInstance = self.modalDialogService.open(option);
             modalInstance.result.then(self.onAddDocumentDialogClosed.bind(self));
+        };
+
+        self.fn.previewDocument = function (documentId) {
+            self.modalDialogService.open({
+                templateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialog.html',
+                windowTemplateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialogWindow.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'DocumentPreviewController',
+                resolve: {
+                    documentId: function () {
+                        return documentId;
+                    }
+                }
+            });
         };
 
         self.$scope.$watch("accountId", self.onAccountIdChanged.bind(self));

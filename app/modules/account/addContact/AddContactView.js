@@ -10,10 +10,10 @@ define([
 ], function (app, BaseView, $, _) {
     'use strict';
 
-    function AddContactView(presenter, $locationService, notificationService) {
+    function AddContactView(addContactPresenter, $locationService, notificationService) {
         //@autowired
         this.$locationService = $locationService;
-        this.addContactPresenter = presenter;
+        this.addContactPresenter = addContactPresenter;
         this.notificationService = notificationService;
 
         BaseView.call(this, {}, null, this.addContactPresenter);
@@ -23,14 +23,6 @@ define([
     }
 
     AddContactView.inherits(BaseView, {
-        presenter: {
-            get: function () {
-                return this.addContactPresenter;
-            },
-            set: function (value) {
-                this.addContactPresenter = value;
-            }
-        },
         contactData: {
             get: function () {
                 return this.$scope.contactData;
