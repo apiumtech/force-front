@@ -10,17 +10,18 @@ define([
     'underscore',
     'jquery',
     'moment',
-    'shared/services/bus/ScrollEventBus'
+    'shared/services/bus/ScrollEventBus',
+    'shared/services/notification/NotificationService'
 ], function (BaseView, AccountDetailWidgetEventBus, AccountListPresenter, GoogleMapService, PopoverAdapter,
-             DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus) {
+             DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus, NotificationService) {
     'use strict';
 
-    function AccountListView($scope, $element, presenter, mapService, dataTableService, templateParser) {
+    function AccountListView($scope, $element, presenter, mapService, dataTableService, templateParser, notificationService) {
         presenter = presenter || new AccountListPresenter();
         BaseView.call(this, $scope, null, presenter);
         this.element = $element;
         this.eventChannel = AccountDetailWidgetEventBus.newInstance();
-
+        this.notificationService = notificationService || NotificationService.getInstance();
         this.popupAdapter = PopoverAdapter.newInstance();
         this.mapService = mapService || GoogleMapService.newInstance();
         this.dataTableService = dataTableService || DataTableService.newInstance();
@@ -121,7 +122,6 @@ define([
         };
 
         self.fn.initTable = function () {
-            console.log("init table");
             self.event.onTableFieldsRequested();
             self.fn.bindDocumentDomEvents();
         };
@@ -136,13 +136,14 @@ define([
             });
         };
 
-        self.fn.reloadPage = function(){
+        self.fn.reloadPage = function () {
             location.reload();
-        }
+        };
 
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
 
     };
+
 
     AccountListView.prototype.onReloadCommandReceived = function (isReload) {
         var self = this;
@@ -156,8 +157,6 @@ define([
     };
 
     AccountListView.prototype.onTableFieldsLoaded = function (data) {
-        console.log("on table field loaded");
-        console.log(data);
         this.data.availableColumns = data;
 
         var self = this;
@@ -220,28 +219,27 @@ define([
 
     AccountListView.prototype.requestTableData = function (requestData, callback, settings) {
         var self = this;
-        console.log("request table data");
         self.event.onTableDataRequesting(self.tableOption, requestData, callback, settings);
     };
 
-    AccountListView.prototype.requestTableDataFailure = function(requestData){
-        console.log("Request failure", requestData);
+    AccountListView.prototype.requestTableDataFailure = function (requestData) {
+        console.log(requestData);
         var self = this;
         self.serverError = true;
-        if(requestData.status.toString().match(/[5][0-9]{2}/i)){
+        var status = requestData.status ? requestData.status.toString() : '';
+        if (status.match(/[5][0-9]{2}/i)) {
             self.errorMessage = "We're sorry! There is an internal server error. Please try again later.";
         }
-        else if(requestData.status.toString().match(/[4][0-9]{2}/i)){
+        else if (status.match(/[4][0-9]{2}/i)) {
             self.errorMessage = "We're sorry! The resource that you're trying to reach is not available at the moment. Please check your internet connection or try again later.";
         }
-        else{
+        else {
             self.errorMessage = "We're sorry! Something went wrong. Please try again later";
         }
     };
 
     AccountListView.prototype.onDataRenderedCallback = function (data) {
         var self = this;
-        console.log('reload complete', data);
         data.length > 0 ? self.isEmpty = false : self.isEmpty = true;
         self.eventChannel.sendReloadCompleteCommand();
         self.markers = [];
@@ -285,7 +283,6 @@ define([
     };
 
     AccountListView.prototype.onServerRequesting = function (aoData) {
-        console.log("on server request", aoData);
         if (!aoData.customFilter) aoData.customFilter = {};
 
         var filters = this.data.filters;
@@ -378,7 +375,7 @@ define([
     };
 
     AccountListView.prototype.renderNameColumn = function (data, type, row) {
-        var self = this
+        var self = this;
         var accountNameColTemplate = $(".accountNameColumnTemplate").html();
         // TODO: Remove $loki when integrate to real server
         row.id = row.$loki;

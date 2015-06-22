@@ -9,11 +9,8 @@ define([
 
     function AccountListDirective() {
         return {
-            restrict: "EA",
+            restrict: "EAC",
             controller: AccountListController,
-            scope: {
-                accountId: "="
-            },
             templateUrl: "app/modules/account/widgets/accountList/accountList.html"
         };
     }

@@ -1,9 +1,6 @@
 /**
  * Created by apium on 6/11/15.
  */
-/**
- * Created by justin on 3/9/15.
- */
 define([
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
