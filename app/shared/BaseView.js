@@ -8,7 +8,6 @@ define([
 ], function (Configuration, ViewRepaintAspect, LogErrorAspect) {
 
     function BaseView($scope, $model, $presenter) {
-        this._scope = {};
         $scope = $scope || {
                 $on: function () {
                 },
@@ -23,7 +22,7 @@ define([
 
         this.model = $model;
         this.presenter = $presenter;
-        this.$scope.config = Configuration;
+        this.config = Configuration;
     }
 
     BaseView.inherits(Object, {
@@ -75,6 +74,7 @@ define([
         }
     });
 
+    BaseView.prototype._scope = {};
     BaseView.prototype.show = function () {
         if (this.presenter && this.presenter.show)
             this.presenter.show(this, this.model);
@@ -98,22 +98,22 @@ define([
         return this;
     };
 
-    BaseView.prototype.generateSuccessMessage = function(message){
+    BaseView.prototype.generateSuccessMessage = function (message) {
         return "<div class='notify success'>" +
             "<span class='ok-tick'><i class='ic-accept'></i></span>" +
             "<strong>Well done!</strong>" +
-            "<p>"+message+"</p>" +
+            "<p>" + message + "</p>" +
             "</div>";
     };
 
-    BaseView.prototype.isValidKey = function(e){
+    BaseView.prototype.isValidKey = function (e) {
         var keycode = e.keyCode;
 
         var valid =
-            (keycode > 47 && keycode < 58)   || // number keys
-            keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-            (keycode > 64 && keycode < 91)   || // letter keys
-            (keycode > 95 && keycode < 112)  || // numpad keys
+            (keycode > 47 && keycode < 58) || // number keys
+            keycode == 32 || keycode == 13 || // spacebar & return key(s) (if you want to allow carriage returns)
+            (keycode > 64 && keycode < 91) || // letter keys
+            (keycode > 95 && keycode < 112) || // numpad keys
             (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
             (keycode > 218 && keycode < 223) || // [\]' (in order)
             (keycode == 8 || keycode == 46);    // backspace & delete

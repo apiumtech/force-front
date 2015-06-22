@@ -15,7 +15,9 @@
             <tbody>
             <tr ng-repeat="record in data.documentsList">
                 <td class="col-md-5">
-                    <a href="detail_quotes.html" ng-show="!record.editing">
+                    <a href="#"
+                       ng-click="fn.previewDocument(record.id);$event.preventDefault();"
+                       ng-show="!record.editing">
                         {{record.name}}
                     </a>
 
@@ -42,12 +44,12 @@
                             data-original-title="Download document"><i class="fa ic-download"></i>
                     </button>
                     <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            ng-click="fn.startEditing(record);$event.preventDefault();"
+                            data-ng-click="fn.startEditing(record);$event.preventDefault();"
                             data-original-title="Edit document">
                         <i class="fa ic-edit"></i>
                     </button>
                     <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" title=""
-                            ng-click="fn.deleteDocument(record);$event.preventDefault();"
+                            data-ng-click="fn.deleteDocument(record);$event.preventDefault();"
                             data-original-title="Delete document"><i class="fa ic-trash"></i>
                     </button>
                 </td>

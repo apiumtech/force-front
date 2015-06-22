@@ -34,7 +34,24 @@ require(['/base/requireConf.js'], function (requireConf) {
     requirejs.config(requireConfig);
     function test_main() {
 
-        require(tests, window.__karma__.start);
+        require(['app'], function (app) {
+            console.log(app);
+            beforeEach(function () {
+                app._di = app.di;
+                app.di = {
+                    register: app._di.register,
+                    resolve: function () {
+                    },
+                    contains: app._di.contains
+                };
+            });
+
+            afterEach(function () {
+                app.di = app._di;
+            });
+
+            require(tests, window.__karma__.start);
+        });
     }
 });
 
@@ -180,8 +197,8 @@ function exerciseFakeChannel() {
 }
 
 function exerciseFakeEventBusCallback(eventBus, signalName) {
-    spyOn(eventBus, "on"+signalName).and.callFake(function(callbackMethod){
-        eventBus["fire"+signalName] = function() {
+    spyOn(eventBus, "on" + signalName).and.callFake(function (callbackMethod) {
+        eventBus["fire" + signalName] = function () {
             callbackMethod.apply(null, arguments);
         };
     });

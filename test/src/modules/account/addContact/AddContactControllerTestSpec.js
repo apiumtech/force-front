@@ -73,6 +73,7 @@ define([
                 sinon.stub(BaseController.prototype, 'triggerView');
             });
             afterEach(function () {
+                BaseController.prototype.triggerView.restore();
             });
             it("should create new instance of AddContactView", function () {
                 var sut = new AddContactController(scope, routeParams, $upload);
