@@ -71,6 +71,7 @@ define([
             self.searchQuery = "";
             self.showSearchResult = false;
             self.searchResultLoaded = false;
+            self.searchActivated = false;
             self.eventBus.fireSearchDeactivated();
         };
 
