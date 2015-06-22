@@ -3,7 +3,8 @@
  */
 define([
     'app',
-    'modules/account/widgets/agenda/AgendaWidgetView'
+    'modules/account/widgets/agenda/AgendaWidgetView',
+    'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarDirective'
 ], function (app, AgendaWidgetView) {
 
     function AgendaWidgetController($scope, $element) {

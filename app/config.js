@@ -24,7 +24,7 @@ define(function () {
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
         toggleFollowActivity: baseApi + '/api/activity/toggleFollow',
         getOpportunities: baseApi + '/api/opportunities',
-        getAgenda: baseApi + '/api/agenda',
+        getAgenda: baseApi + '/api/opportunities',
         uploadFile: baseApi + '/api/upload',
         uploadDocuments: baseApi + '/api/uploadDocument',
 
