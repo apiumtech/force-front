@@ -9,3 +9,5 @@ lib/
 /reports
 build/
 .DS_Store
+assets/main.build.js
+assets/main.build.less
