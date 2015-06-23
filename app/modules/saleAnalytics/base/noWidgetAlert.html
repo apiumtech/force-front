@@ -6,7 +6,8 @@
     </div>
 </div>
 <div ng-if="widgets==null">
-    <div class="alert alert-info">
-        <span class="spinner-small"></span> {{'Errors.LoadingWidgets' | i18next }}
+    <div class="no-widget-notice">
+        <i class="fa fa-gear fa-spin"></i>
+        <h4>{{'Errors.LoadingWidgets' | i18next }}</h4>
     </div>
 </div>

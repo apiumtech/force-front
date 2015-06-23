@@ -5,7 +5,7 @@
 define([
     'shared/BaseView',
     'jquery',
-    'modules/saleAnalytics/eventBus/SaleAnalyticEventBus'
+    'modules/widgets/WidgetEventBus'
 ], function (BaseView, $, SaleAnalyticEventBus) {
     'use strict';
 
@@ -101,7 +101,6 @@ define([
 
         self.fn.closeWidget = function () {
             self.element.remove();
-            console.log("firing event");
             self.saleAnalyticEventBus.fireRemovingWidget(self.widgetId);
         };
 

@@ -13,15 +13,7 @@ define([
     }
 
     DataTableService.prototype.createDatatable = function (dom, options) {
-        console.log("DTS", options);
-        var returnedData;
-        try {
-            returnedData = this.dtImpl(dom, options);
-        }
-        catch(e){
-            console.log("ERROR",e);
-        }
-        return returnedData;
+        return this.dtImpl(dom, options);
     };
 
     DataTableService.newInstance = function (dataTableImpl) {

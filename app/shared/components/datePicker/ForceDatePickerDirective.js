@@ -19,7 +19,8 @@ define([
                 'dateSet': '@',
                 'dateMinLimit': '@',
                 'dateMaxLimit': '@',
-                'yearRange': '@'
+                'yearRange': '@',
+                'isOpen': '@'
             },
             'link': function linkingFunction($scope, element, attr) {
                 //get child input
@@ -108,6 +109,10 @@ define([
                         dateMaxLimit = value;
                     }
                 });
+
+                if($scope.isOpen){
+                    $scope.showCalendar();
+                }
 
                 $scope.month = $filter('date')(date, 'MMMM');//December-November like
                 $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like

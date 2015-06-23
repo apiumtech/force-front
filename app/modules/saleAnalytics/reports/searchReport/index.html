@@ -6,7 +6,14 @@
         <div class="panel-loader" ng-show="isLoading">
             <span class="spinner-small"></span>
         </div>
-        <div class="report-item-box panel" ng-repeat="report in reports">
+        <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
+            <div class="empty-search">
+                <img src="assets/img/filter-icon.png" alt="" />
+                <h4>We are sorry, your search did not return any result</h4>
+                <p>You can widen your search by checking that all words are spelt correctly</p>
+            </div>
+        </div>
+        <div class="report-item-box panel" ng-repeat="report in reports" ng-show="reports && reports.length > 0">
             <report-item report="report" fire-open-folder="true" class="clearfix report-item"></report-item>
         </div>
     </div>
