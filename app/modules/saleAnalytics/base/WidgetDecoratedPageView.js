@@ -65,8 +65,8 @@ define([
     };
 
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
-        this.decorateWidget.call(this, widgetsData);
-        this.widgets = widgetsData;
+        this.decorateWidget.call(this, widgetsData.body);
+        this.widgets = widgetsData.body;
     };
 
     WidgetDecoratePageView.prototype.getElementIndex = function (element) {

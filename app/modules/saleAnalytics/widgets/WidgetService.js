@@ -45,6 +45,7 @@ define([
         this.ajaxService.rawAjaxRequest(params).then(
             function(res){
                 var data = res.data;
+                var data = {data: {body: res.data}};
                 deferred.resolve(self.getWidgetData(page, data));
             },
             function (err) {
