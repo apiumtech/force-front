@@ -44,9 +44,8 @@ define([
         };
         this.ajaxService.rawAjaxRequest(params).then(
             function(res){
-                var data = res.data;
-                var data = {data: {body: res.data}};
-                deferred.resolve(self.getWidgetData(page, data));
+                var data = self.getWidgetData(page, res.data);
+                deferred.resolve({data:{body:data}});
             },
             function (err) {
                 deferred.reject(err);
@@ -72,7 +71,7 @@ define([
             {
                 page: "intensity",
                 widgetType: "graph",
-                endPoint: Configuration.api.graphWidgetIntensityDataApi,
+                endPoint: "graphWidgetIntensityDataApi",
                 widgetName: "Widget A",
                 order: 0,
                 size: 12,
@@ -82,7 +81,7 @@ define([
                 page: "intensity",
                 widgetType: "table",
                 widgetName: "Ranking",
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 1,
                 size: 12,
                 id: 2
@@ -91,7 +90,7 @@ define([
                 page: "intensity",
                 widgetType: "custom",
                 widgetName: "Custom",
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 2,
                 size: 12,
                 id: 3
@@ -100,7 +99,7 @@ define([
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
-                endPoint: Configuration.api.geographicalWidgetDistributionDataApi,
+                endPoint: "geographicalWidgetDistributionDataApi",
                 order: 1,
                 size: 12,
                 id: 3
@@ -109,7 +108,7 @@ define([
                 page: "distribution",
                 widgetType: "segment_distribution",
                 widgetName: "Distribucion por segmento",
-                endPoint: Configuration.api.segmentWidgetDistributionDataApi,
+                endPoint: "segmentWidgetDistributionDataApi",
                 order: 3,
                 size: 6,
                 id: 4
@@ -118,7 +117,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: Configuration.api.hourWidgetDistributionDataApi,
+                endPoint: "hourWidgetDistributionDataApi",
                 order: 3,
                 size: 6,
                 id: 5
@@ -127,7 +126,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: Configuration.api.hourWidgetDistributionDataApi,
+                endPoint: "hourWidgetDistributionDataApi",
                 order: 4,
                 size: 6,
                 id: 6
@@ -137,7 +136,7 @@ define([
                 widgetType: "bar",
                 widgetOption: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
-                endPoint: Configuration.api.coverageWidgetDistributionDataApi,
+                endPoint: "coverageWidgetDistributionDataApi",
                 order: 5,
                 size: 6,
                 id: 7
@@ -146,7 +145,7 @@ define([
                 page: "conversion",
                 widgetType: "scatter",
                 widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
-                endPoint: Configuration.api.activityWidgetConversionDataApi,
+                endPoint: "activityWidgetConversionDataApi",
                 order: 0,
                 size: 6,
                 id: 8
@@ -156,7 +155,7 @@ define([
                 widgetType: "bar",
                 widgetOption: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
-                endPoint: Configuration.api.visitWidgetConversionDataApi,
+                endPoint: "visitWidgetConversionDataApi",
                 order: 1,
                 size: 6,
                 id: 9
@@ -166,7 +165,7 @@ define([
                 widgetType: "table",
                 widgetName: "Ranking",
                 // TODO: change to conversion api
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 1,
                 size: 12,
                 id: 10
