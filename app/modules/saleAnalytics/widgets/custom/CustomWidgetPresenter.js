@@ -4,7 +4,7 @@ define([
     'use strict';
 
     function CustomWidgetPresenter(model) {
-        this.model = model || new CustomWidgetModel();
+        this.model = model || CustomWidgetModel.newInstance();
     }
 
     CustomWidgetPresenter.inherits(Object, {});

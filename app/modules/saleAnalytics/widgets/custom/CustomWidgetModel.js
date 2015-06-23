@@ -12,9 +12,31 @@ define([
     CustomWidgetModel.prototype.reloadWidget = function() {
         var deferred = Q.defer();
 
+        /*
+         var deferred = Q.defer();
         setTimeout(function(){
-            deferred.resolve("<div style='background-color: #ff0084'><h1>HOLA!!</h1></div>");
+            deferred.resolve("<div><h1>{{'LeftMenu.Intensity' | i18next}}</h1></div>");
         }, 1000);
+        return deferred.promise;
+        */
+
+        var params = {
+            url: Configuration.api.getCustomWidget,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        this.ajaxService.rawAjaxRequest(params).then(
+            function(res){
+                var data = res.data;
+                deferred.resolve(res.data);
+            },
+            function (err) {
+                deferred.reject(err);
+            }
+        );
 
         return deferred.promise;
     };
@@ -24,5 +46,5 @@ define([
         return new CustomWidgetModel(ajaxService);
     };
 
-    return CustomWidgetModel;
+    return {newInstance: CustomWidgetModel.newInstance};
 });

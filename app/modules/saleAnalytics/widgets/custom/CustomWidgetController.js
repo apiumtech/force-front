@@ -4,12 +4,12 @@ define([
 ], function (app, CustomWidgetView) {
     'use strict';
 
-    function CustomWidgetController($scope, $element) {
-        CustomWidgetController.configureView($scope, $element);
+    function CustomWidgetController($scope, $element, $compile) {
+        CustomWidgetController.configureView($scope, $element, $compile);
     }
 
-    CustomWidgetController.configureView = function ($scope, $element) {
-        this.view = CustomWidgetView.newInstance($scope, $element);
+    CustomWidgetController.configureView = function ($scope, $element, $compile) {
+        this.view = CustomWidgetView.newInstance($scope, $element, $compile);
         this.view.show();
     };
 

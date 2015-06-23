@@ -5,13 +5,15 @@
 define([
     //TODO: replace by real AjaxService when having real data from server
     'shared/services/ajax/FakeAjaxService',
-    //'shared/services/ajax/AjaxService'
-    'config'
-], function (AjaxService, Configuration) {
+    'shared/services/ajax/AuthAjaxService',
+    'config',
+    'q'
+], function (FakeAjaxService, AjaxService, Configuration, Q) {
     'use strict';
 
     function WidgetService(ajaxService) {
         this.ajaxService = ajaxService || new AjaxService();
+        this.fakeAjaxService = new FakeAjaxService();
     }
 
     WidgetService.inherits(Object, {});
@@ -20,6 +22,7 @@ define([
         assertNotNull("Page name", page);
         var self = this;
 
+        /*
         //TODO: remove when having real data from server
         var widgets = self.getWidgetData(page);
         var params = {
@@ -29,8 +32,26 @@ define([
                 }
             }
         };
+        return this.fakeAjaxService.rawAjaxRequest(params);*/
 
-        return this.ajaxService.rawAjaxRequest(params);
+        var deferred = Q.defer();
+        var params = {
+            url: Configuration.api.widgetList,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        this.ajaxService.rawAjaxRequest(params).then(
+            function(res){
+                var data = res.data;
+                deferred.resolve(self.getWidgetData(page, data));
+            },
+            function (err) {
+                deferred.reject(err);
+            }
+        );
+        return deferred.promise;
     };
 
     WidgetService.prototype.updatePageWidgets = function (data) {
@@ -45,8 +66,8 @@ define([
         return widgetService;
     };
 
-    WidgetService.prototype.getWidgetData = function (page) {
-        var widgetList = [
+    WidgetService.prototype.getWidgetData = function (page, widgetList) {
+        widgetList = widgetList || [
             {
                 page: "intensity",
                 widgetType: "graph",
@@ -168,7 +189,7 @@ define([
                 position: {
                     size: widget.size
                 },
-                dataEndpoint: widget.endPoint,
+                dataEndpoint: Configuration.api[widget.endPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
                 option: widget.widgetOption
             };
             list.push(w);

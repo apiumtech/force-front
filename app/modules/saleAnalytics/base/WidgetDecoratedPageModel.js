@@ -37,6 +37,7 @@ define([
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
         var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey);
+        pageLayoutData = null;// TODO: (joanllenas) disable localStorage caching
         if (pageLayoutData) {
             self.modelData = pageLayoutData;
             deferred.resolve(pageLayoutData);
@@ -44,9 +45,9 @@ define([
         else {
             self.widgetService.getWidgetsForPage(self.pageName)
                 .then(function (data) {
-                    self.storageService.store(pageLayoutStorageKey, data.data);
-                    self.modelData = data.data;
-                    deferred.resolve(data.data);
+                    self.storageService.store(pageLayoutStorageKey, data);
+                    self.modelData = data;
+                    deferred.resolve(data);
                 },
                 function (error) {
                     deferred.reject(error);

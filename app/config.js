@@ -59,6 +59,10 @@ define(function () {
         //conversion visits/sales
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
+        widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
+        getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
+
+
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
