@@ -1,27 +1,160 @@
 define([
     'shared/BaseView',
     'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarPresenter',
-    'jquery'
-], function (BaseView, AgendaCalendarPresenter, $) {
+    'shared/services/FullCalendarService',
+    'moment'
+], function (BaseView, AgendaCalendarPresenter, FullCalendarService, moment) {
     'use strict';
 
-    function AgendaCalendarView($scope, $element, presenter) {
+    function AgendaCalendarView($scope, $element, presenter, calendarService) {
         presenter = presenter || new AgendaCalendarPresenter();
         BaseView.call(this, $scope, null, presenter);
         this.element = $element;
-        this.configureEvents();
+        this.calendarService = calendarService || new FullCalendarService();
+        this.selectedView = 'month';
+        this.moment = moment;
+        this.configureEvents(this);
     }
 
-    AgendaCalendarView.inherits(BaseView, {});
+    AgendaCalendarView.inherits(BaseView, {
+        selectedView: {
+            get: function () {
+                return this.$scope.selectedView;
+            },
+            set: function (value) {
+                this.$scope.selectedView = value;
+            }
+        },
+        currentDate: {
+            get: function () {
+                return this.$scope.currentDate;
+            },
+            set: function (value) {
+                this.$scope.currentDate = value;
+            }
+        },
+        selectedEvent: {
+            get: function () {
+                return this.$scope.selectedEvent;
+            },
+            set: function (value) {
+                this.$scope.selectedEvent = value;
+            }
+        },
+        eventBusChannel: {
+            get: function () {
+                return this.$scope.eventBusChannel;
+            },
+            set: function (value) {
+                this.$scope.eventBusChannel = value;
+            }
+        }
+    });
 
-    AgendaCalendarView.prototype.configureEvents = function(){
+    AgendaCalendarView.prototype.configureEvents = function () {
+
         var self = this;
-        self.initCalendar();
+
+        self.fn.initCalendar = function () {
+            var calendar = self.element.find("#agenda-calendar");
+            self.calendarService.initCalendar(calendar, true, true, 450);
+            self.loadEvents();
+        };
+
+        self.fn.changeView = function () {
+            self.calendarService.changeView(self.selectedView);
+            self.updateCurrentDate();
+        };
+
+        self.fn.prev = function () {
+            self.calendarService.prev();
+            self.updateCurrentDate();
+        };
+
+        self.fn.next = function () {
+            self.calendarService.next();
+            self.updateCurrentDate();
+        };
+
+        self.fn.deleteEvent = function (id) {
+
+        };
+
+        $(document).bind('click', self.handleClickEvent.bind(self));
+
+        self.eventBusChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
     };
 
-    AgendaCalendarView.prototype.initCalendar = function(){
+    AgendaCalendarView.prototype.onReloadCommandReceived = function () {
         var self = this;
-        var calendar = self.element.find("#agenda-calendar");
+        self.loadEvents();
+    };
+
+    AgendaCalendarView.prototype.handleClickEvent = function (event) {
+        var self = this;
+        $('#tooltip').hide();
+        var target = $(event.target);
+        var parents = target.parents();
+        var expectedParent = null;
+        for (var i = 0; i < parents.length; i++) {
+            var p = parents[i];
+            if ($(p).hasClass('agenda-event')) {
+                expectedParent  = p;
+                break;
+            }
+        };
+        if (!expectedParent) return;
+        self.selectEvent($(expectedParent).data('eventData'), target);
+    };
+
+    AgendaCalendarView.prototype.selectEvent = function(event, eventElement){
+        var self = this;
+        var position = eventElement.offset();
+        var time = moment(event.start).format('MMMM Do YYYY, HH:mm');
+        time += " - ";
+        time += moment(event.end).format('HH:mm');
+
+        self.selectedEvent = event;
+        self.selectedEvent.time = time;
+
+        $('#tooltip').css({
+            top: position.top,
+            left: position.left + 35
+        }).appendTo("body").fadeIn(200);
+
+        $('#tooltip').show();
+    };
+
+    AgendaCalendarView.prototype.updateCurrentDate = function () {
+        var self = this;
+        var moment = self.calendarService.getDate();
+        switch (self.selectedView) {
+            case 'agendaDay':
+                self.currentDate = moment.format('MMMM Do YYYY');
+                break;
+            case 'agendaWeek':
+                self.currentDate = moment.startOf('week').format('MMMM Do YYYY') + " - " + moment.endOf('week').format('MMMM Do YYYY');
+                break;
+            default:
+                self.currentDate = moment.format('MMMM YYYY');
+                break;
+        }
+    };
+
+    AgendaCalendarView.prototype.loadEvents = function () {
+        var self = this;
+        console.log("start loading");
+        self.event.onLoadEvents();
+    };
+
+    AgendaCalendarView.prototype.onEventsLoaded = function (events) {
+        var self = this;
+        console.log("finished loading");
+        self.eventBusChannel.sendReloadCompleteCommand();
+        self.calendarService.setEvents(events);
+        self.calendarService.render();
+        self.updateCurrentDate();
     };
 
     AgendaCalendarView.newInstance = function ($scope, $element, model, presenter, viewRepaintAspect, logErrorAspect) {

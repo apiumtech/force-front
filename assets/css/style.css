@@ -5019,7 +5019,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
 .tickLabel {
     color: #707478 !important;
 }
-.flot-tooltip {
+.flot-tooltip, .calendar-tooltip {
     position: absolute;
     display: none;
     border: 0;
