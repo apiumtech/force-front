@@ -8,6 +8,15 @@ define([
     }
 
     AgendaCalendarPresenter.prototype.show = function(view) {
+        var self = this;
+        self.view = view;
+        var model = self.model;
+
+        view.event = {};
+
+        view.event.onLoadEvents = function(){
+            model.loadEvents().then(view.onEventsLoaded.bind(view), view.showError.bind(view));
+        };
 
     };
 

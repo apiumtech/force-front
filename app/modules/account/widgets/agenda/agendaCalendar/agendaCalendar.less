@@ -1,0 +1,52 @@
+.agenda-calendar {
+  button {
+    &.selected {
+      background: #e2e7eb;
+    }
+  }
+
+  td > .fc-day-grid {
+    display: none;
+  }
+
+  hr.fc-divider.ui-widget-header {
+    display: none;
+  }
+
+  .fc-toolbar {
+    display: none;
+  }
+
+  a {
+    &.fc-event {
+      width: 10px;
+      height: 10px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      color: transparent;
+      display: inline-block;
+      padding: 0;
+
+      &.event-element{
+        background-color: #FF8800;
+        border-color: #FF8800;
+      }
+
+      &.task-element{
+        background-color: #00CD60;
+        border-color: #00CD60;
+      }
+
+      &.default-element{
+        background-color: #00CCCD;
+        border-color: #00CCCD;
+      }
+
+      &:hover{
+        color: transparent !important;
+      }
+    }
+  }
+
+}
