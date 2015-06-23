@@ -152,6 +152,8 @@ AccountService.prototype.getAccount = function (id) {
     }];
 
     data.id = data.$loki;
+    data.previousAccountId = id-1;
+    data.nextAccountId = parseInt(id)+1;
 
     return data;
 };
@@ -523,7 +525,19 @@ AccountService.prototype.prepareAccountsDataSet = function (db) {
         });
     }
 
-    fakeAccountData.forEach(function (account) {
+    fakeAccountData.forEach(function (account, index) {
+        if(index == 0) {
+            account.prev = list[list.length -1].id;
+            account.next = list[index+1].id;
+        }
+        else if(index == (list.length -1)){
+            account.next = list[0].id;
+            account.prev = list[index-1].id;
+        }
+        else{
+            account.next = list[index+1].id;
+            account.prev = list[index-1].id;
+        }
         accounts.insert(account);
     });
 

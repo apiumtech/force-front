@@ -34,6 +34,7 @@ var requireConf = {
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
+        'fullcalendar' : '../bower_components/fullcalendar/dist/fullcalendar',
         'toastr': '../bower_components/toastr/toastr.min',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
@@ -144,6 +145,11 @@ var requireConf = {
             exports: 'selectToAutocomplete'
         },
 
+        'fullcalendar': {
+            deps: ['jquery'],
+            exports: 'fullcalendar'
+        },
+
         'jquery_ui': {
             deps: ['jquery', 'jquery_migrate'],
             exports: 'jquery_ui'
@@ -247,7 +253,7 @@ var requireConf = {
     'deps': [
         'di',
         /* jquery & its plugins */
-        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar',
         'datatables',
 
         /* Angular & Its plugins */

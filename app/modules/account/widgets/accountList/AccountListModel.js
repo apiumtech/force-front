@@ -67,6 +67,7 @@ define([
     };
 
     AccountListModel.prototype.remapAccountListData = function (option, requestData, settings, responseData) {
+        var self = this;
         if (option.startFilter)
             option.startFilter = false;
 
@@ -76,7 +77,9 @@ define([
         if (this.accountsList.length === responseData.recordsFiltered)
             option.stopLoading = true;
 
-        responseData.data = this.accountsList;
+        var list = self.accountsList;
+
+        responseData.data = list;
         return responseData;
     };
 

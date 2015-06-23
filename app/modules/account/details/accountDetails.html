@@ -2,8 +2,8 @@
 <div class="m-b-5 clearfix m-t-15">
     <!-- begin edit / delete -->
     <div class="btn-group pull-right prev-buttons">
-        <button class="btn btn-white btn-xs"><span class="ic-arr-left"> </span>Previous Account</button>
-        <button class="btn btn-white btn-xs"> Next Account <span class="ic-arr-right"></span></button>
+        <a class="btn btn-white btn-xs" href="#/accounts/{{accountData.previousAccountId}}"><span class="ic-arr-left"> </span>Previous Account</a>
+        <a class="btn btn-white btn-xs" href="#/accounts/{{accountData.nextAccountId}}"> Next Account <span class="ic-arr-right"></span></a>
     </div>
 
     <ng-include src="'app/modules/account/details/header.html'"></ng-include>
