@@ -12,7 +12,10 @@ define([
         return {
             restrict: "EA",
             templateUrl: "app/modules/account/widgets/agenda/agendaCalendar/agendaCalendar.html",
-            controller: AgendaCalendarController
+            controller: AgendaCalendarController,
+            scope: {
+                eventBusChannel: "="
+            }
         };
     }
 

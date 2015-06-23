@@ -13,7 +13,7 @@ define([
         beforeEach(function () {
             ajaxService = {
                 ajax: jasmine.createSpy(),
-                rawAjaxRequest: jasmine.createSpy()
+                rawAjaxRequest: jasmine.createSpy().and.returnValue(exerciseFakePromise())
             };
             sut = WidgetService.newInstance(ajaxService);
         });

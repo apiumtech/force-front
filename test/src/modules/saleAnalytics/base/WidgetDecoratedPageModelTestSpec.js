@@ -26,6 +26,10 @@ define([
             sut = new WidgetDecoratedPageModel(widgetService, storageService);
         });
 
+        afterEach(function(){
+            window.sessionStorage.clear();
+        });
+
         describe("_getWidgets", function () {
             var deferredObject = {
                 promise: function () {
@@ -57,7 +61,7 @@ define([
             it("should try to get data from local storage", function () {
                 spyOn(storageService, 'retrieve');
                 sut._getWidgets();
-                expect(storageService.retrieve).toHaveBeenCalledWith("pageLayout_pageNameHere");
+                expect(storageService.retrieve).toHaveBeenCalledWith("pageLayout_pageNameHere", true);
             });
 
             describe("can get data from local storage", function () {
@@ -118,7 +122,7 @@ define([
                         spyOn(widgetService, 'getWidgetsForPage').and.returnValue(fakePromise());
                         spyOn(storageService, 'store');
                         sut._getWidgets();
-                        expect(storageService.store).toHaveBeenCalledWith("pageLayout_pageNameHere", returnData.data);
+                        expect(storageService.store).toHaveBeenCalledWith("pageLayout_pageNameHere", returnData.data, true);
                     });
 
                     it("should assign data to modelData", function () {

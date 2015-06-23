@@ -6,9 +6,10 @@ define([
 ], function (WidgetBaseView, CustomWidgetModel, CustomWidgetPresenter, BaseWidgetEventBus) {
     'use strict';
 
-    function CustomWidgetView(scope, element, presenter) {
+    function CustomWidgetView(scope, element, presenter, $compile) {
         presenter = presenter || new CustomWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
+        this.$compile = $compile;
         this.configureEvents();
     }
 
@@ -29,12 +30,13 @@ define([
     };
 
     CustomWidgetView.prototype.onReloadWidgetSuccess = function (data) {
-        // TODO: inject the recieved HTML into the widget
-        console.log(data);
+        var htmlSrc = this.$compile(data)(this.$scope);
+        var el = '#customWidget' + this.widget.widgetId;
+        $(el).html(htmlSrc);
     };
 
-    CustomWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-        var view = new CustomWidgetView($scope, $element);
+    CustomWidgetView.newInstance = function ($scope, $element, $compile, $viewRepAspect, $logErrorAspect) {
+        var view = new CustomWidgetView($scope, $element, undefined, $compile);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

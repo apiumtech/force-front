@@ -1,14 +1,7 @@
 <widget-wrapper title="Agenda"
                 event-bus-channel="eventChannel"
                 body-class="panel-opportunity">
-    <div class="btn-group m-b-10">
-        <button class="btn btn-white btn-sm" id="prevDay" ng-click="onPrevDay()"><i class="ic-arr-left2"></i></button>
-        <button class="btn btn-white btn-sm" id="switchDay">Day</button>
-        <button class="btn btn-white btn-sm" id="switchWeek">Week</button>
-        <button class="btn btn-white btn-sm" id="switchMonth">Month</button>
-        <button class="btn btn-white btn-sm" id="nextDay"><i class="ic-arr-right2"></i></button>
-    </div>
-    <div class="line-border clearfix"></div>
+
     <!--
     <div id="datepicker-inline" class="datepicker-full-width">
         <div></div>
@@ -17,26 +10,26 @@
     <div id="calendar"></div>
     <!-- legend -->
 
-    <agenda-calendar ng-model="data"></agenda-calendar>
+    <agenda-calendar ng-model="data" event-bus-channel="eventChannel"></agenda-calendar>
 
     <table class="m-t-10 m-b-10">
         <tbody>
         <tr>
             <td class="legendColorBox">
                 <div style="border:1px solid #ddd;padding:1px">
-                    <div style="width:4px;height:0;border:5px solid #348fe2;overflow:hidden"></div>
+                    <div style="width:4px;height:0;border:5px solid #FF8800;overflow:hidden"></div>
                 </div>
             </td>
             <td class="legendLabel p-r-10">Eventos</td>
             <td class="legendColorBox ">
                 <div style="border:1px solid #ddd;padding:1px">
-                    <div style="width:4px;height:0;border:5px solid #85ac1f;overflow:hidden"></div>
+                    <div style="width:4px;height:0;border:5px solid #00CD60;overflow:hidden"></div>
                 </div>
             </td>
             <td class="legendLabel p-r-10">Tareas</td>
             <td class="legendColorBox ">
                 <div style="border:1px solid #ddd;padding:1px">
-                    <div style="width:4px;height:0;border:5px solid #85ac1f;overflow:hidden"></div>
+                    <div style="width:4px;height:0;border:5px solid #00CCCD;overflow:hidden"></div>
                 </div>
             </td>
             <td class="legendLabel p-r-10">Oportunidades en cierre</td>

@@ -5,13 +5,15 @@
 define([
     //TODO: replace by real AjaxService when having real data from server
     'shared/services/ajax/FakeAjaxService',
-    //'shared/services/ajax/AjaxService'
-    'config'
-], function (AjaxService, Configuration) {
+    'shared/services/ajax/AuthAjaxService',
+    'config',
+    'q'
+], function (FakeAjaxService, AjaxService, Configuration, Q) {
     'use strict';
 
     function WidgetService(ajaxService) {
         this.ajaxService = ajaxService || new AjaxService();
+        this.fakeAjaxService = new FakeAjaxService();
     }
 
     WidgetService.inherits(Object, {});
@@ -20,6 +22,7 @@ define([
         assertNotNull("Page name", page);
         var self = this;
 
+        /*
         //TODO: remove when having real data from server
         var widgets = self.getWidgetData(page);
         var params = {
@@ -29,8 +32,26 @@ define([
                 }
             }
         };
+        return this.fakeAjaxService.rawAjaxRequest(params);*/
 
-        return this.ajaxService.rawAjaxRequest(params);
+        var deferred = Q.defer();
+        var params = {
+            url: Configuration.api.widgetList,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        this.ajaxService.rawAjaxRequest(params).then(
+            function(res){
+                var data = self.getWidgetData(page, res.data);
+                deferred.resolve({data:{body:data}});
+            },
+            function (err) {
+                deferred.reject(err);
+            }
+        );
+        return deferred.promise;
     };
 
     WidgetService.prototype.updatePageWidgets = function (data) {
@@ -45,12 +66,12 @@ define([
         return widgetService;
     };
 
-    WidgetService.prototype.getWidgetData = function (page) {
-        var widgetList = [
+    WidgetService.prototype.getWidgetData = function (page, widgetList) {
+        widgetList = widgetList || [
             {
                 page: "intensity",
                 widgetType: "graph",
-                endPoint: Configuration.api.graphWidgetIntensityDataApi,
+                endPoint: "graphWidgetIntensityDataApi",
                 widgetName: "Widget A",
                 order: 0,
                 size: 12,
@@ -60,7 +81,7 @@ define([
                 page: "intensity",
                 widgetType: "table",
                 widgetName: "Ranking",
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 1,
                 size: 12,
                 id: 2
@@ -69,7 +90,7 @@ define([
                 page: "intensity",
                 widgetType: "custom",
                 widgetName: "Custom",
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 2,
                 size: 12,
                 id: 3
@@ -78,7 +99,7 @@ define([
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
-                endPoint: Configuration.api.geographicalWidgetDistributionDataApi,
+                endPoint: "geographicalWidgetDistributionDataApi",
                 order: 1,
                 size: 12,
                 id: 3
@@ -87,7 +108,7 @@ define([
                 page: "distribution",
                 widgetType: "segment_distribution",
                 widgetName: "Distribucion por segmento",
-                endPoint: Configuration.api.segmentWidgetDistributionDataApi,
+                endPoint: "segmentWidgetDistributionDataApi",
                 order: 3,
                 size: 6,
                 id: 4
@@ -96,7 +117,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: Configuration.api.hourWidgetDistributionDataApi,
+                endPoint: "hourWidgetDistributionDataApi",
                 order: 3,
                 size: 6,
                 id: 5
@@ -105,7 +126,7 @@ define([
                 page: "distribution",
                 widgetType: "hour_distribution_singleline",
                 widgetName: "DISTRIBUCION HORARIA",
-                endPoint: Configuration.api.hourWidgetDistributionDataApi,
+                endPoint: "hourWidgetDistributionDataApi",
                 order: 4,
                 size: 6,
                 id: 6
@@ -115,7 +136,7 @@ define([
                 widgetType: "bar",
                 widgetOption: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
-                endPoint: Configuration.api.coverageWidgetDistributionDataApi,
+                endPoint: "coverageWidgetDistributionDataApi",
                 order: 5,
                 size: 6,
                 id: 7
@@ -124,7 +145,7 @@ define([
                 page: "conversion",
                 widgetType: "scatter",
                 widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
-                endPoint: Configuration.api.activityWidgetConversionDataApi,
+                endPoint: "activityWidgetConversionDataApi",
                 order: 0,
                 size: 6,
                 id: 8
@@ -134,7 +155,7 @@ define([
                 widgetType: "bar",
                 widgetOption: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
-                endPoint: Configuration.api.visitWidgetConversionDataApi,
+                endPoint: "visitWidgetConversionDataApi",
                 order: 1,
                 size: 6,
                 id: 9
@@ -144,7 +165,7 @@ define([
                 widgetType: "table",
                 widgetName: "Ranking",
                 // TODO: change to conversion api
-                endPoint: Configuration.api.rankingWidgetIntensityDataApi,
+                endPoint: "rankingWidgetIntensityDataApi",
                 order: 1,
                 size: 12,
                 id: 10
@@ -168,7 +189,7 @@ define([
                 position: {
                     size: widget.size
                 },
-                dataEndpoint: widget.endPoint,
+                dataEndpoint: Configuration.api[widget.endPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
                 option: widget.widgetOption
             };
             list.push(w);

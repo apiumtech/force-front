@@ -36,7 +36,7 @@ define([
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
-        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey);
+        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);// TODO: (joanllenas) changed localStorage for sessionStorage
         if (pageLayoutData) {
             self.modelData = pageLayoutData;
             deferred.resolve(pageLayoutData);
@@ -44,7 +44,7 @@ define([
         else {
             self.widgetService.getWidgetsForPage(self.pageName)
                 .then(function (data) {
-                    self.storageService.store(pageLayoutStorageKey, data.data);
+                    self.storageService.store(pageLayoutStorageKey, data.data, true);
                     self.modelData = data.data;
                     deferred.resolve(data.data);
                 },
@@ -60,11 +60,11 @@ define([
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
-        self.storageService.store(pageLayoutStorageKey, self.modelData);
+        self.storageService.store(pageLayoutStorageKey, self.modelData, true);
 
         self.widgetService.updatePageWidgets(self.modelData)
             .then(function (data) {
-                self.storageService.store(pageLayoutStorageKey, data.data);
+                self.storageService.store(pageLayoutStorageKey, data.data, true);
                 self.modelData = data.data;
                 deferred.resolve(data.data);
             },
