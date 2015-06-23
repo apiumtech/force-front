@@ -2,10 +2,11 @@
  * Created by Justin on 3/17/2015.
  */
 define([
-], function () {
+    'app'
+], function (app) {
 
     function TranslatorService(translator) {
-        this.translator = translator;
+        this.translator = translator || i18n;
     }
 
     TranslatorService.prototype.translate = function (key, options) {
@@ -15,6 +16,8 @@ define([
     TranslatorService.newInstance = function () {
         return new TranslatorService(i18n);
     };
+
+    app.di.register('translatorService').as(TranslatorService).asSingleton();
 
     return TranslatorService;
 });

@@ -11,7 +11,7 @@ define([
         beforeEach(module(appName));
 
         var controller;
-        var scope, view, modal, documentId = 1;
+        var scope, view, modal, document = {name: "fake_name", id: 10};
 
         beforeEach(function () {
             view = mock(DocumentPreviewView);
@@ -36,21 +36,21 @@ define([
                         $scope: scope,
                         $modal: modal,
                         $modalInstance: {},
-                        documentId: documentId
+                        document: document
                     });
                     expect(ctrl).not.toBeNull();
                     expect(ctrl).not.toBeUndefined();
                 });
             });
 
-            it("should assign documentId to scope", function () {
+            it("should assign document to scope", function () {
                 controller('DocumentPreviewController', {
                     $scope: scope,
                     $modal: modal,
                     $modalInstance: {},
-                    documentId: documentId
+                    document: document
                 });
-                expect(scope.documentId).toEqual(documentId);
+                expect(scope.document).toEqual(document);
             });
 
             it("should call DocumentPreviewController.configureView global method", function () {
@@ -58,7 +58,7 @@ define([
                     $scope: scope,
                     $modal: modal,
                     $modalInstance: {},
-                    documentId: documentId
+                    document: document
                 });
                 expect(DocumentPreviewController.prototype.configureView).toHaveBeenCalledWith(scope, modal, {});
             });

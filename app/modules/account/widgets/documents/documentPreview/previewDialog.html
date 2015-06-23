@@ -4,13 +4,24 @@
     </button>
     <div class="modal-title">
         <div class="row">
-            <div class="text-center button-group">
-                <button class="btn btn-link right-separator" ng-click="fn.download()">
-                    <i class="fa fa-download download"></i>
-                </button>
-                <button class="btn btn-link" ng-click="fn.send()">
-                    <i class="fa fa-envelope"></i>
-                </button>
+            <div class="col-md-3">
+                <h4>
+                    <span class="fa fa-file"></span>&nbsp;
+                    {{document.name}}
+                </h4>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center button-group">
+                    <button class="btn btn-link right-separator" ng-click="fn.download()">
+                        <i class="fa ic-download download"></i>
+                    </button>
+                    <button class="btn btn-link right-separator" ng-click="fn.send()">
+                        <i class="fa ic-edit"></i>
+                    </button>
+                    <button class="btn btn-link" ng-click="fn.deleteDocument()">
+                        <i class="fa ic-trash"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

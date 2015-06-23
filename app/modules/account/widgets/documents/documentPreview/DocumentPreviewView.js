@@ -5,9 +5,10 @@ define([
 ], function (app, BaseView, DocumentPreviewPresenter) {
     'use strict';
 
-    function DocumentPreviewView(documentPreviewPresenter) {
+    function DocumentPreviewView(documentPreviewPresenter, modalDialogAdapter, translatorService) {
         BaseView.call(this, null, null, documentPreviewPresenter);
-
+        this.modalDialogAdapter = modalDialogAdapter;
+        this.translator = translatorService;
         this.$modalInstance = null;
     }
 
@@ -38,6 +39,18 @@ define([
             self.$modalInstance.dismiss();
         };
 
+        self.fn.deleteDocument = function () {
+            self.modalDialogAdapter.confirm("Delete document",
+                self.translator.translate("Documents.deleteDocumentConfirmationMsg", {documentName: self.document.name}),
+                self.deletionConfirmed.bind(self, self.document),
+                doNothing,
+                self.translator.translate("Documents.deleteBtnConfirm"),
+                self.translator.translate("Documents.cancelDelete"));
+        };
+    };
+
+    DocumentPreviewView.prototype.deletionConfirmed = function (document) {
+        console.log("deletion confirmed", document);
     };
 
     DocumentPreviewView.contractName = "documentPreviewView";

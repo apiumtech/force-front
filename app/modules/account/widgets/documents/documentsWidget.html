@@ -16,7 +16,7 @@
             <tr ng-repeat="record in data.documentsList">
                 <td class="col-md-5">
                     <a href="#"
-                       ng-click="fn.previewDocument(record.id);$event.preventDefault();"
+                       ng-click="fn.previewDocument(record);$event.preventDefault();"
                        ng-show="!record.editing">
                         {{record.name}}
                     </a>

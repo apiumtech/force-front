@@ -80,7 +80,7 @@ define([
             modalInstance.result.then(self.onAddDocumentDialogClosed.bind(self));
         };
 
-        self.fn.previewDocument = function (documentId) {
+        self.fn.previewDocument = function (document) {
             self.modalDialogService.open({
                 templateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialog.html',
                 windowTemplateUrl: 'app/modules/account/widgets/documents/documentPreview/previewDialogWindow.html',
@@ -88,8 +88,8 @@ define([
                 keyboard: false,
                 controller: 'DocumentPreviewController',
                 resolve: {
-                    documentId: function () {
-                        return documentId;
+                    document: function () {
+                        return document;
                     }
                 }
             });

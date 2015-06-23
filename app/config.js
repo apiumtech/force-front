@@ -3,7 +3,8 @@
  */
 define(function () {
     
-    var baseUrl = "https://backenddev.forcemanager.net";
+    var baseUrl = "http://localhost:1999";
+    //var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "https://webpre.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
