@@ -8,6 +8,8 @@ define([
 
     'app',
 
+    'di!app',
+
     // loading controllers & directives asynchronously
     'asyncModuleLoaderConf',
 
@@ -19,8 +21,10 @@ define([
 
     // validation config
     'validationConfig'
-], function ($, angular, config, app) {
+], function ($, angular, config, app, diApp) {
     'use strict';
+    console.log(diApp);
+
     $.migrateMute = true;
     $(document).ready(function () {
         angular.bootstrap(document, [config.appName]);

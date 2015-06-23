@@ -66,7 +66,9 @@ var requireConf = {
         'framework': '../framework/ApplicationFactory',
         'AppsAdapter': '../assets/js/AppsAdapter',
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
-        'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min'
+        'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
+
+        'di': '../framework/diRegister'
     },
 
     'shim': {
