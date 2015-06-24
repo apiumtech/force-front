@@ -2,7 +2,7 @@
  * Created by justin on 5/20/15.
  */
 define([
-    'shared/services/notification/NotificationService',
+    'ioc!shared/services/notification/NotificationService',
     'core/topMenu/TopMenuController',
 
     'shared/components/TriStateCheckBoxDirective',
@@ -13,10 +13,10 @@ define([
     'shared/components/ResizableTextAreaDirective',
 
     'shared/components/confirmationDialog/ConfirmationDialogController',
-    'shared/components/confirmationDialog/NotificationDialogController',
+    'shared/components/confirmationDialog/NotificationDialogController'
 
 ], function (NotificationService) {
     'use strict';
-    NotificationService.getInstance();
+    NotificationService._diResolve();
     console.log("initialized notification service");
 });

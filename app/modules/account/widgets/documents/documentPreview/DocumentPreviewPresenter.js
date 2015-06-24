@@ -1,11 +1,11 @@
 define([
     'app',
-    'modules/account/widgets/documents/documentPreview/DocumentPreviewModel'
+    'ioc!modules/account/widgets/documents/documentPreview/DocumentPreviewModel'
 ], function (app, DocumentPreviewModel) {
     'use strict';
 
     function DocumentPreviewPresenter(documentPreviewModel) {
-        this.model = documentPreviewModel || new DocumentPreviewModel();
+        this.model = documentPreviewModel || DocumentPreviewModel();
     }
 
     DocumentPreviewPresenter.prototype.show = function (view) {
@@ -13,10 +13,6 @@ define([
 
         var model = self.model;
     };
-
-    DocumentPreviewPresenter.contractName = 'documentPreviewPresenter';
-
-    app.di.register(DocumentPreviewPresenter.contractName).as(DocumentPreviewPresenter);
 
     return DocumentPreviewPresenter;
 });

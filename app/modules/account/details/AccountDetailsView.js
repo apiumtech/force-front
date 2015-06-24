@@ -10,13 +10,13 @@ define([
     'shared/services/ModalDialogAdapter',
     'jquery',
     'shared/services/AwaitHelper',
-    'shared/services/notification/NotificationService'
+    'ioc!shared/services/notification/NotificationService'
 ], function (app, BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper, NotificationService) {
 
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.notificationService = app.di.resolve('notificationService');
+        this.notificationService = NotificationService._diResolve();
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();

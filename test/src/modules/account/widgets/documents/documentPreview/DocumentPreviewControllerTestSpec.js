@@ -67,7 +67,7 @@ define([
 
         describe("configureView", function () {
             beforeEach(function () {
-                spyOn(app.di, 'resolve').and.returnValue(view);
+                spyOn(DocumentPreviewView, '_diResolve').and.returnValue(view);
                 sinon.stub(BaseController.prototype, 'triggerView');
             });
             afterEach(function () {
@@ -76,7 +76,7 @@ define([
 
             it("should create new instance of DocumentPreviewView", function () {
                 var sut = new DocumentPreviewController(scope, modal);
-                expect(app.di.resolve).toHaveBeenCalledWith('documentPreviewView');
+                expect(DocumentPreviewView._diResolve).toHaveBeenCalled();
                 expect(sut.view).toEqual(view);
                 expect(BaseController.prototype.triggerView).toHaveBeenCalledWith(sut.view, scope);
             });

@@ -11,7 +11,7 @@ define([
     'jquery',
     'moment',
     'shared/services/bus/ScrollEventBus',
-    'shared/services/notification/NotificationService'
+    'ioc!shared/services/notification/NotificationService'
 ], function (BaseView, AccountDetailWidgetEventBus, AccountListPresenter, GoogleMapService, PopoverAdapter,
              DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus, NotificationService) {
     'use strict';
@@ -21,7 +21,7 @@ define([
         BaseView.call(this, $scope, null, presenter);
         this.element = $element;
         this.eventChannel = AccountDetailWidgetEventBus.newInstance();
-        this.notificationService = notificationService || NotificationService.getInstance();
+        this.notificationService = notificationService || NotificationService._diResolve();
         this.popupAdapter = PopoverAdapter.newInstance();
         this.mapService = mapService || GoogleMapService.newInstance();
         this.dataTableService = dataTableService || DataTableService.newInstance();

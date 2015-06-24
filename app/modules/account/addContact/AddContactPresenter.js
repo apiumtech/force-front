@@ -1,6 +1,6 @@
 define([
     'app',
-    'modules/account/addContact/AddContactModel'
+    'ioc!modules/account/addContact/AddContactModel'
 ], function (app, AddContactModel) {
     'use strict';
 
@@ -28,8 +28,6 @@ define([
                 .then(view.onUploadComplete.bind(view), view.showError.bind(view));
         }
     };
-
-    app.di.register('addContactPresenter').as(AddContactPresenter).withConstructor();
 
     return AddContactPresenter;
 });

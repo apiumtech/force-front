@@ -1,14 +1,8 @@
-define([
-    'app'
-], function (app) {
+define([], function () {
     'use strict';
 
-    function DocumentPreviewModel(uploadService) {
+    function DocumentPreviewModel() {
     }
-
-    DocumentPreviewModel.contractName = 'documentPreviewModel';
-
-    app.di.register(DocumentPreviewModel.contractName).as(DocumentPreviewModel);
 
     return DocumentPreviewModel;
 });

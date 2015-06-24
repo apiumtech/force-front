@@ -13,13 +13,6 @@ define([
     DocumentUploadController.inherits(BaseController, {});
 
     DocumentUploadController.prototype.configureView = function ($scope, $upload, $modal, $modalInstance) {
-        if (!app.di.contains("$uploadService")) {
-            app.di.register("$uploadService").instance($upload);
-        }
-        if (!app.di.contains("modalService")) {
-            app.di.register("modalService").instance($modal);
-        }
-
         this.view = app.di.resolve('documentUploadView');
         this.view.$scope = $scope;
         this.view.modalInstance = $modalInstance;

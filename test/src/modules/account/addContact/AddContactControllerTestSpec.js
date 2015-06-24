@@ -69,7 +69,7 @@ define([
 
         describe("configureView", function () {
             beforeEach(function () {
-                spyOn(app.di, 'resolve').and.callThrough();
+                spyOn(AddContactView, '_diResolve').and.returnValue(view);
                 sinon.stub(BaseController.prototype, 'triggerView');
             });
             afterEach(function () {
@@ -77,7 +77,7 @@ define([
             });
             it("should create new instance of AddContactView", function () {
                 var sut = new AddContactController(scope, routeParams, $upload);
-                expect(app.di.resolve).toHaveBeenCalledWith('addContactView');
+                expect(AddContactView._diResolve).toHaveBeenCalled();
                 expect(sut.view).toEqual(view);
                 expect(BaseController.prototype.triggerView).toHaveBeenCalledWith(sut.view, scope);
             });

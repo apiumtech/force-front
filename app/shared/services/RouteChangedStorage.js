@@ -1,9 +1,7 @@
 /**
  * Created by justin on 5/1/15.
  */
-define([
-    'app'
-], function (app) {
+define([], function () {
     'use strict';
 
     function RouteChangedStorage($locationService) {
@@ -28,16 +26,9 @@ define([
         this.currentRoute = this.$locationService.path();
     };
 
-    RouteChangedStorage.__instance = null;
-
-    RouteChangedStorage.getInstance = function () {
-        if (!RouteChangedStorage.__instance)
-            RouteChangedStorage.__instance = new RouteChangedStorage();
-
-        return RouteChangedStorage.__instance;
+    RouteChangedStorage.diConfig = {
+        singleton: true
     };
-
-    app.di.register('routeChangedStorage').as(RouteChangedStorage).asSingleton();
 
     return RouteChangedStorage;
 });

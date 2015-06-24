@@ -1,7 +1,7 @@
 define([
     'app',
     'shared/BaseController',
-    'modules/account/widgets/documents/documentPreview/DocumentPreviewView'
+    'ioc!modules/account/widgets/documents/documentPreview/DocumentPreviewView'
 ], function (app, BaseController, DocumentPreviewView) {
     'use strict';
 
@@ -13,11 +13,7 @@ define([
     DocumentPreviewController.inherits(BaseController, {});
 
     DocumentPreviewController.prototype.configureView = function ($scope, $modal, $modalInstance) {
-        if (!app.di.contains("modalService")) {
-            app.di.register("modalService").instance($modal);
-        }
-
-        this.view = app.di.resolve(DocumentPreviewView.contractName);
+        this.view = DocumentPreviewView._diResolve();
         this.view.$modalInstance = $modalInstance;
         this.triggerView(this.view, $scope);
     };

@@ -38,9 +38,5 @@ define([
         });
     };
 
-    app.di.register('addContactModel')
-        .as(AddContactModel)
-        .withConstructor();
-
     return AddContactModel;
 });

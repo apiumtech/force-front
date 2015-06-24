@@ -3,8 +3,8 @@
  */
 define([
     'app',
-    'shared/services/RouteChangedEventHandlers',
-    'shared/services/RouteChangedStorage',
+    'ioc!shared/services/RouteChangedEventHandlers',
+    'ioc!shared/services/RouteChangedStorage',
     'jquery',
     // route configurations
     'modules/login/routes'
@@ -43,11 +43,8 @@ define([
     ]);
 
     app.run(['$rootScope', '$route', '$location', function ($rootScope, $route, $location) {
-        app.di.register('$locationService').instance($location);
-        app.di.register('$rootScope').instance($rootScope);
-
-        var routeChangedEventHandlers = new RouteChangedEventHandlers($location, $rootScope);
-        var routeChangedStorage = app.di.resolve('routeChangedStorage');
+        var routeChangedEventHandlers = RouteChangedEventHandlers._diResolve();
+        var routeChangedStorage = RouteChangedStorage._diResolve();
 
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             routeChangedEventHandlers.handleEvent(event, next, current);

@@ -3,9 +3,9 @@
  */
 
 define(function () {
+    if (undefined === window) global.window = {};
     return requireConf;
 });
-
 
 var requireConf = {
     'baseUrl': 'app/',
@@ -34,7 +34,7 @@ var requireConf = {
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
-        'fullcalendar' : '../bower_components/fullcalendar/dist/fullcalendar',
+        'fullcalendar': '../bower_components/fullcalendar/dist/fullcalendar',
         'toastr': '../bower_components/toastr/toastr.min',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
@@ -53,7 +53,7 @@ var requireConf = {
         'meld': '../node_modules/meld/meld',
         'i18next': '../bower_components/i18next/i18next.min',
 
-        'di': '../bower_components/di4js/di4js',
+        'di4js': '../bower_components/di4js/di4js',
 
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
@@ -68,10 +68,19 @@ var requireConf = {
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
 
-        'di': '../framework/diRegister'
+        'diConfig': '../framework/diConfig',
+        'ioc': '../framework/ioc'
     },
 
     'shim': {
+        'diConfig': {
+            deps: ['di4js']
+        },
+
+        'diRegister': {
+            deps: ['diConfig']
+        },
+
         //region Angular & Stuffs
         'angular': {
             deps: ['jquery'],
@@ -171,7 +180,8 @@ var requireConf = {
         },
 
         'toastr': {
-            deps: ['jquery']
+            deps: ['jquery'],
+            exports: 'toastr'
         },
 
         //endregion
@@ -245,7 +255,6 @@ var requireConf = {
         'underscore': {
             exports: 'underscore'
         },
-
         'di': {
             exports: 'di'
         }
@@ -253,13 +262,13 @@ var requireConf = {
     },
 
     'deps': [
-        'di',
         /* jquery & its plugins */
         'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar',
-        'datatables',
+        'datatables', 'toastr',
 
         /* Angular & Its plugins */
-        'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload', 'angular-route', 'angular-validation', 'angular-validation-rule',
+        'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload',
+        'angular-route', 'angular-validation', 'angular-validation-rule',
 
         'angular-bootstrap',
         'angular-moment', 'ng-i18next', 'infinite-scroll',
@@ -278,8 +287,10 @@ var requireConf = {
 
         /* Flot & stuffs */
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
-        'crypto.SHA1'
+        'crypto.SHA1',
 
+        /* Dependency Injection configuration loader */
+        'diConfig', 'ioc'
     ],
     callback: function () {
         require(['main']);

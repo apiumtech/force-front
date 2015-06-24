@@ -1,9 +1,7 @@
 /**
  * Created by justin on 5/1/15.
  */
-define([
-
-], function () {
+define([], function () {
     'use strict';
 
     var handlers = arguments;
@@ -35,6 +33,10 @@ define([
             var handler = self.handlers[i];
             handler.handle(context);
         }
+    };
+
+    RouteChangedEventHandlers.diConfig = {
+        singleton: true
     };
 
     return RouteChangedEventHandlers;

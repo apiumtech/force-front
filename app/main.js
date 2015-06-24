@@ -8,8 +8,6 @@ define([
 
     'app',
 
-    'di!app',
-
     // loading controllers & directives asynchronously
     'asyncModuleLoaderConf',
 
@@ -21,9 +19,8 @@ define([
 
     // validation config
     'validationConfig'
-], function ($, angular, config, app, diApp) {
+], function ($, angular, config) {
     'use strict';
-    console.log(diApp);
 
     $.migrateMute = true;
     $(document).ready(function () {

@@ -35,11 +35,9 @@ define([
         return messages;
     };
 
-    NotificationService.getInstance = function () {
-        return NotificationService.__instance || (NotificationService.__instance = new NotificationService());
+    NotificationService.diConfig = {
+        singleton: true
     };
-
-    app.di.register("notificationService").instance(NotificationService.getInstance());
 
     return NotificationService;
 });

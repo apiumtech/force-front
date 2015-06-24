@@ -1,7 +1,7 @@
 define([
     'app',
     'shared/BaseController',
-    'modules/account/addContact/AddContactView'
+    'ioc!modules/account/addContact/AddContactView'
 ], function (app, BaseController, AddContactView) {
     'use strict';
 
@@ -14,11 +14,7 @@ define([
     AddContactController.inherits(BaseController, {});
 
     AddContactController.prototype.configureView = function ($scope, $upload) {
-        if (!app.di.contains("$uploadService")) {
-            app.di.register("$uploadService").instance($upload);
-        }
-
-        this.view = app.di.resolve(AddContactView.contractName);
+        this.view = AddContactView._diResolve();
         this.triggerView(this.view, $scope);
     };
 

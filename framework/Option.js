@@ -137,7 +137,6 @@
             child.prototype = Object.create(parentClass.prototype, options);
             child.prototype.constructor = child;
             child.prototype.__base__ = parentClass.prototype;
-            child.prototype.__isInherited__ = true;
             return child;
         };
     }

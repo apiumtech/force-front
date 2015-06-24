@@ -2,8 +2,9 @@
  * Created by apium on 5/29/15.
  */
 define([
-    'app'
-], function (app) {
+    'app',
+    'diConfig'
+], function (app, diConfig) {
     'use strict';
 
     app.config([

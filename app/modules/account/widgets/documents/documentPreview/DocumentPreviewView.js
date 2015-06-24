@@ -1,7 +1,7 @@
 define([
     'app',
     'shared/BaseView',
-    'modules/account/widgets/documents/documentPreview/DocumentPreviewPresenter'
+    'ioc!modules/account/widgets/documents/documentPreview/DocumentPreviewPresenter'
 ], function (app, BaseView, DocumentPreviewPresenter) {
     'use strict';
 
@@ -52,10 +52,6 @@ define([
     DocumentPreviewView.prototype.deletionConfirmed = function (document) {
         console.log("deletion confirmed", document);
     };
-
-    DocumentPreviewView.contractName = "documentPreviewView";
-
-    app.di.register(DocumentPreviewView.contractName).as(DocumentPreviewView);
 
     return DocumentPreviewView;
 });
