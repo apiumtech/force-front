@@ -2,16 +2,18 @@ define([
     'shared/BaseView',
     'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarPresenter',
     'shared/services/FullCalendarService',
+    'shared/services/ModalDialogAdapter',
     'moment'
-], function (BaseView, AgendaCalendarPresenter, FullCalendarService, moment) {
+], function (BaseView, AgendaCalendarPresenter, FullCalendarService, ModalDialogAdapter, moment) {
     'use strict';
 
-    function AgendaCalendarView($scope, $element, presenter, calendarService) {
+    function AgendaCalendarView($scope, $element, presenter, calendarService, modalAdapter) {
         presenter = presenter || new AgendaCalendarPresenter();
         BaseView.call(this, $scope, null, presenter);
         this.element = $element;
         this.calendarService = calendarService || new FullCalendarService();
         this.selectedView = 'month';
+        this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance($scope.$modal);
         this.moment = moment;
         this.configureEvents(this);
     }
@@ -76,8 +78,14 @@ define([
             self.updateCurrentDate();
         };
 
-        self.fn.deleteEvent = function (id) {
-
+        self.fn.deleteEvent = function (event, title, message) {
+            title = title || "Delete event";
+            message = message || "Are you sure want to delete the event <b>" + event.title + "</b>?";
+            self.modalDialogAdapter.confirm(title,
+                message,
+                self.event.onDeleteEvent.bind(self, event),
+                doNothing,
+                "Accept", "No, thanks");
         };
 
         $(document).bind('click', self.handleClickEvent.bind(self));
@@ -89,6 +97,13 @@ define([
     AgendaCalendarView.prototype.onReloadCommandReceived = function () {
         var self = this;
         self.loadEvents();
+    };
+
+    AgendaCalendarView.prototype.onEventDeleted = function(event){
+        var self = this;
+        self.eventBusChannel.sendReloadCommand();
+        var message = self.generateSuccessMessage("Event " + event.title + " has been deleted successfully");
+        self.modalDialogAdapter.notify('', message);
     };
 
     AgendaCalendarView.prototype.handleClickEvent = function (event) {
@@ -140,6 +155,8 @@ define([
                 self.currentDate = moment.format('MMMM YYYY');
                 break;
         }
+
+        console.log("current date", self.currentDate);
     };
 
     AgendaCalendarView.prototype.loadEvents = function () {

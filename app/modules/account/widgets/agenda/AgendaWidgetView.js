@@ -4,13 +4,17 @@
 define([
     'shared/BaseView',
     'shared/services/bus/AccountDetailWidgetEventBus',
-    'modules/account/widgets/agenda/AgendaWidgetModel',
-    'modules/account/widgets/agenda/AgendaWidgetPresenter'
-], function (BaseView, AccountDetailWidgetEventBus, AgendaWidgetModel, AgendaWidgetPresenter) {
+    'modules/account/widgets/agenda/AgendaWidgetPresenter',
+    'shared/services/ModalDialogAdapter'
+], function (BaseView, AccountDetailWidgetEventBus, AgendaWidgetPresenter, ModalDialogAdapter) {
 
-    function AgendaWidgetView($scope, $element, $model, $presenter) {
-        BaseView.call(this, $scope, $model, $presenter);
+    function AgendaWidgetView($scope, $element, $presenter, modalDialogAdapter) {
+        $presenter = $presenter || new AgendaWidgetPresenter();
+        BaseView.call(this, $scope, null, $presenter);
+        this.modalDialogAdapter = modalDialogAdapter || new ModalDialogAdapter($scope.$modal);
+        this.modalService = $scope.$modal;
         this.$element = $element;
+        this.configureEvents();
     }
 
     AgendaWidgetView.inherits(BaseView, {
@@ -43,7 +47,6 @@ define([
     AgendaWidgetView.prototype._show = BaseView.prototype.show;
     AgendaWidgetView.prototype.show = function () {
         this._show();
-        this.configureEvents();
     };
 
     AgendaWidgetView.prototype.configureEvents = function () {
@@ -52,8 +55,33 @@ define([
 
         self.eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        self.fn.addEvent = function(type){
+            console.log("should open with", type);
+            var paramDialog = self.modalService.open({
+                templateUrl: 'app/modules/account/widgets/agenda/addEventDialog/addEventDialog.html',
+                backdrop: 'static',
+                keyboard: false,
+                controller: 'AddEventDialogController',
+                resolve: {
+                    eventType: function () {
+                        return type
+                    }
+                }
+            });
+
+            paramDialog.result.then(self.event.onAddEvent.bind(self), function () {
+            });
+        };
+
         scope.$watch('accountId', self.onAccountIdChanged.bind(self));
         scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    AgendaWidgetView.prototype.onEventAdded = function(event){
+        var self = this;
+        self.eventChannel.sendReloadCommand();
+        var message = self.generateSuccessMessage("Event " + event.title + " has been created successfully");
+        self.modalDialogAdapter.notify('', message);
     };
 
     AgendaWidgetView.prototype.onAccountIdChanged = function () {
@@ -92,10 +120,8 @@ define([
         self.eventChannel = null;
     };
 
-    AgendaWidgetView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
-        $model = $model || AgendaWidgetModel.newInstance();
-        $presenter = $presenter || AgendaWidgetPresenter.newInstance();
-        var view = new AgendaWidgetView($scope, $element, $model, $presenter);
+    AgendaWidgetView.newInstance = function ($scope, $element, $presenter, $viewRepaintAspect, $logErrorAspect) {
+        var view = new AgendaWidgetView($scope, $element);
         return view._injectAspects($viewRepaintAspect, $logErrorAspect);
     };
 

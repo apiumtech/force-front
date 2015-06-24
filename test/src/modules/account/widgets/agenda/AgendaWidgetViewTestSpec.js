@@ -3,36 +3,76 @@
  */
 
 define([
-    'modules/account/widgets/agenda/AgendaWidgetView'
-], function (AgendaWidgetView) {
+    'modules/account/widgets/agenda/AgendaWidgetView',
+    'modules/account/widgets/agenda/AgendaWidgetPresenter',
+    'shared/services/ModalDialogAdapter',
+    'angular'
+], function (AgendaWidgetView, AgendaWidgetPresenter, ModalDialogAdapter, angular) {
     'use strict';
     describe("AgendaWidgetView", function () {
 
-        var sut, presenter, model, $scope, element;
+        var sut, presenter, model, $scope, element, modalDialogAdapter;
 
         beforeEach(function () {
-            element = {};
-            model = {};
+
+            inject(function($rootScope){
+                $scope = $rootScope.$new();
+                $scope.$modal = {
+                    open: sinon.stub()
+                };
+            });
+            modalDialogAdapter = mock(ModalDialogAdapter);
+            presenter = mock(AgendaWidgetPresenter);
+            element = angular.element("<div />");
+            sut = new AgendaWidgetView($scope, element, presenter, modalDialogAdapter);
         });
 
-        describe("baseview inheritance", function () {
-            it("should call presenter's show method on show()", function () {
-                var view = new AgendaWidgetView($scope, element, model, {show: jasmine.createSpy()});
-                view.show();
-                expect(view.presenter.show).toHaveBeenCalledWith(view, model);
+        describe('Constructor', function () {
+            beforeEach(function () {
+                sinon.stub(AgendaWidgetView.prototype, "configureEvents");
+            });
+            afterEach(function () {
+                AgendaWidgetView.prototype.configureEvents.restore();
+            });
+            it('should call configureEvents', function () {
+                new AgendaWidgetView($scope, element, presenter, modalDialogAdapter);
+                expect(AgendaWidgetView.prototype.configureEvents).toHaveBeenCalled();
+            });
+        });
+
+        describe('configureEvents', function () {
+
+            beforeEach(function () {
+                sut.configureEvents();
             });
 
-            it("should call presenter's showError method on showError()", function () {
-                var view = new AgendaWidgetView($scope, element, model, {showError: jasmine.createSpy()});
-                view.showError("some error");
-                expect(view.presenter.showError).toHaveBeenCalledWith("some error");
+            describe('fn.addEvent', function () {
+                var promise = {'obj': 123};
+                var paramDialog = {
+                    result: {
+                        then: function (b) {
+                            b(promise);
+                        }
+                    }
+                };
+
+                beforeEach(function () {
+                    $scope.$modal.open.returns(paramDialog);
+                    sut.event.onAddEvent = sinon.stub();
+                    sut.fn.addEvent();
+                });
+
+                it("should open the dialog", function () {
+                    expect($scope.$modal.open).toHaveBeenCalled();
+                });
+
+                it("should fire onAddEvent event after dialog dismissed", function () {
+                    expect(sut.event.onAddEvent).toHaveBeenCalledWith({'obj': 123});
+                });
+
             });
         });
 
-        beforeEach(function () {
-            sut = AgendaWidgetView.newInstance($scope, element, model, presenter, false);
-            sut.configureEvents();
-        });
 
         describe("onAccountIdChanged", function () {
             it("should call sendReloadCommand if accountId is assigned", function () {
@@ -78,6 +118,29 @@ define([
                 expect(sut.loadAgendaData).toHaveBeenCalledWith();
             });
         });
+
+        describe('onEventAdded', function () {
+            var event = {
+                title: "e1",
+                start: "12-12-2015"
+            };
+
+            beforeEach(function () {
+                sut.eventChannel = {
+                    sendReloadCommand: sinon.stub()
+                };
+                sut.onEventAdded(event);
+            });
+
+            it('should send a reload command', function () {
+                expect(sut.eventChannel.sendReloadCommand).toHaveBeenCalled();
+            });
+
+            it("should show a notification dialog", function () {
+                expect(sut.modalDialogAdapter.notify).toHaveBeenCalled();
+            });
+        });
+
     });
 
 });

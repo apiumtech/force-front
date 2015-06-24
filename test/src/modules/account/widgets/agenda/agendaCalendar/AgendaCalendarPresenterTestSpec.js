@@ -18,11 +18,14 @@ define([
                 sut.show(view);
             });
 
-            describe('view.event.onLoadEvents', function () {
-                var modelMethod = "loadEvents";
-                var onSuccess = "onEventsLoaded";
-                var onError = "showError";
-                exerciseAjaxCallBinding("onLoadEvents", modelMethod, onSuccess, onError);
+            [
+                {method: 'onLoadEvents', modelMethod: 'loadEvents', onSuccess: 'onEventsLoaded', onError: 'showError'},
+                {method: 'onDeleteEvent', modelMethod: 'deleteEvent', onSuccess: 'onEventDeleted', onError: 'showError'}
+            ].forEach(function(testCase){
+                    describe('view.event.' + testCase.method, function () {
+                        exerciseAjaxCallBinding(testCase.method, testCase.modelMethod, testCase.onSuccess, testCase.onError);
+                    });
+
             });
 
         });

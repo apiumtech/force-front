@@ -44,8 +44,8 @@
                 data-toggle="dropdown" aria-expanded="true"><span class="ic-plus"></span> Create
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Task</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Event</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="$event.preventDefault();fn.addEvent('task')">Task</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="$event.preventDefault();fn.addEvent('event')">Event</a></li>
         </ul>
     </div>
 
