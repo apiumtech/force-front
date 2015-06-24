@@ -1,6 +1,6 @@
 define([
     'app',
-    'ioc!modules/account/addContact/AddContactModel'
+    'modules/account/addContact/AddContactModel'
 ], function (app, AddContactModel) {
     'use strict';
 

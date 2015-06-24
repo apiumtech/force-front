@@ -1,7 +1,7 @@
 define([
     'app',
     'shared/BaseController',
-    'ioc!modules/account/widgets/documents/documentPreview/DocumentPreviewView'
+    'modules/account/widgets/documents/documentPreview/DocumentPreviewView'
 ], function (app, BaseController, DocumentPreviewView) {
     'use strict';
 

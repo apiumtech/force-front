@@ -68,17 +68,12 @@ var requireConf = {
         'lodash': '../node_modules/postal/node_modules/lodash/dist/lodash.min',
         'conduitjs': '../node_modules/postal/node_modules/conduitjs/lib/conduit.min',
 
-        'diConfig': '../framework/diConfig',
-        'ioc': '../framework/ioc'
+        'diConfig': '../framework/diConfig'
     },
 
     'shim': {
         'diConfig': {
             deps: ['di4js']
-        },
-
-        'diRegister': {
-            deps: ['diConfig']
         },
 
         //region Angular & Stuffs
@@ -290,7 +285,7 @@ var requireConf = {
         'crypto.SHA1',
 
         /* Dependency Injection configuration loader */
-        'diConfig', 'ioc'
+        'diConfig'
     ],
     callback: function () {
         require(['main']);

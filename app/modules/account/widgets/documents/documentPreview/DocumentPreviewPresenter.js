@@ -1,6 +1,6 @@
 define([
     'app',
-    'ioc!modules/account/widgets/documents/documentPreview/DocumentPreviewModel'
+    'modules/account/widgets/documents/documentPreview/DocumentPreviewModel'
 ], function (app, DocumentPreviewModel) {
     'use strict';
 

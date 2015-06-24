@@ -1,7 +1,7 @@
 define([
     'app',
     'shared/BaseController',
-    'ioc!modules/account/addContact/AddContactView'
+    'modules/account/addContact/AddContactView'
 ], function (app, BaseController, AddContactView) {
     'use strict';
 

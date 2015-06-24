@@ -11,7 +11,7 @@ define([
     'jquery',
     'moment',
     'shared/services/bus/ScrollEventBus',
-    'ioc!shared/services/notification/NotificationService'
+    'shared/services/notification/NotificationService'
 ], function (BaseView, AccountDetailWidgetEventBus, AccountListPresenter, GoogleMapService, PopoverAdapter,
              DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus, NotificationService) {
     'use strict';

@@ -4,9 +4,9 @@ define([
     'jquery',
     'underscore',
     // @autowired dependencies
-    'ioc!modules/account/addContact/AddContactPresenter',
-    'ioc!shared/services/RouteChangedStorage',
-    'ioc!shared/services/notification/NotificationService'
+    'modules/account/addContact/AddContactPresenter',
+    'shared/services/RouteChangedStorage',
+    'shared/services/notification/NotificationService'
 ], function (app, BaseView, $, _) {
     'use strict';
 

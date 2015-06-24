@@ -2,7 +2,7 @@
  * Created by justin on 5/20/15.
  */
 define([
-    'ioc!shared/services/notification/NotificationService',
+    'shared/services/notification/NotificationService',
     'core/topMenu/TopMenuController',
 
     'shared/components/TriStateCheckBoxDirective',

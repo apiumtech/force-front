@@ -10,7 +10,7 @@ define([
     'shared/services/ModalDialogAdapter',
     'jquery',
     'shared/services/AwaitHelper',
-    'ioc!shared/services/notification/NotificationService'
+    'shared/services/notification/NotificationService'
 ], function (app, BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper, NotificationService) {
 
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {

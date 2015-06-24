@@ -3,8 +3,8 @@
  */
 define([
     'app',
-    'ioc!shared/services/RouteChangedEventHandlers',
-    'ioc!shared/services/RouteChangedStorage',
+    'shared/services/RouteChangedEventHandlers',
+    'shared/services/RouteChangedStorage',
     'jquery',
     // route configurations
     'modules/login/routes'

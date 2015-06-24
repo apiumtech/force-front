@@ -33,9 +33,7 @@ require(['/base/requireConf.js'], function (requireConf) {
 
     requirejs.config(requireConfig);
     function test_main() {
-
         require(['app'], function (app) {
-            console.log(app);
             beforeEach(function () {
                 app._di = app.di;
                 app.di = {
