@@ -4,7 +4,8 @@ define([
 ], function (app, AgendaCalendarView) {
     'use strict';
 
-    function AgendaCalendarController($scope, $element) {
+    function AgendaCalendarController($scope, $element, $modal) {
+        $scope.$modal = $modal;
         AgendaCalendarController.configureView($scope, $element);
     }
 
@@ -13,7 +14,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('AgendaCalendarController', ['$scope', '$element', AgendaCalendarController]);
+    app.register.controller('AgendaCalendarController', ['$scope', '$element', '$modal', AgendaCalendarController]);
 
     return AgendaCalendarController;
 });

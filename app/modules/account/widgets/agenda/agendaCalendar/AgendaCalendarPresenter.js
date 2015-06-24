@@ -18,6 +18,10 @@ define([
             model.loadEvents().then(view.onEventsLoaded.bind(view), view.showError.bind(view));
         };
 
+        view.event.onDeleteEvent = function(event){
+            model.deleteEvent(event).then(view.onEventDeleted.bind(view), view.showError.bind(view));
+        };
+
     };
 
     return AgendaCalendarPresenter;

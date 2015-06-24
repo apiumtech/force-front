@@ -1,0 +1,59 @@
+<div class="modal-header add-related-company-dialog">
+    <button type="button" class="close" ng-click="fn.close()">
+        <span class="fa ic-close"></span>
+    </button>
+    <div class="modal-title">
+        <h4>
+            Add new event to agenda {{event}}
+        </h4>
+    </div>
+</div>
+<div class="modal-body form-horizontal add-related-company-dialog">
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Title</label>
+
+        <div class="col-md-8 ui-widget">
+            <input class="form-control" ng-model="event.title"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Type</label>
+
+        <div class="col-md-8">
+            <select class="form-control" ng-model="event.type">
+                <option value="task">Task</option>
+                <option value="event">Event</option>
+                <option value="other">Default</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Date</label>
+
+        <div class="col-md-4">
+            <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
+                <input type="text" class="form-control"
+                       ng-model="event.start"/>
+            </force-date-picker>
+        </div>
+        <div class="col-md-4">
+            <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
+                <input type="text" class="form-control"
+                       ng-model="event.end"/>
+            </force-date-picker>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm btn-white" ng-click="fn.close()">
+        {{'commonText.Cancel' | i18next}}
+    </button>
+    <button class="btn btn-sm btn-primary" ng-click="fn.submit()" ng-disabled="!event.title || !event.start || !event.type">
+        {{'commonText.Save' | i18next}}
+    </button>
+</div>

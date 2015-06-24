@@ -46,7 +46,7 @@ define([
                     expect(sut.fn.loadAccountData).toHaveBeenCalled();
                 });
             });
-        })
+        });
 
         describe("onAccountLoaded()", function () {
             beforeEach(function () {

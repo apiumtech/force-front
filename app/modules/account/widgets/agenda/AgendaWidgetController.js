@@ -4,10 +4,12 @@
 define([
     'app',
     'modules/account/widgets/agenda/AgendaWidgetView',
-    'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarDirective'
+    'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarDirective',
+    'modules/account/widgets/agenda/addEventDialog/AddEventDialogController'
 ], function (app, AgendaWidgetView) {
 
-    function AgendaWidgetController($scope, $element) {
+    function AgendaWidgetController($scope, $element, $modal) {
+        $scope.$modal = $modal;
         AgendaWidgetController.configureView($scope, $element);
     }
 
@@ -16,7 +18,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('AgendaWidgetController', ['$scope', '$element', AgendaWidgetController]);
+    app.register.controller('AgendaWidgetController', ['$scope', '$element', '$modal', AgendaWidgetController]);
 
     return AgendaWidgetController;
 });

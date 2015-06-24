@@ -73,5 +73,11 @@ define([
         });
     };
 
+    AgendaCalendarModel.prototype.deleteEvent = function(event){
+        return this.ajaxService.rawAjaxRequest({
+            result: event
+        });
+    };
+
     return AgendaCalendarModel;
 });

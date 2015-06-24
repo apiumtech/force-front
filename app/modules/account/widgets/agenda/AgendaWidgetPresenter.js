@@ -2,23 +2,28 @@
  * Created by Justin on 3/16/2015.
  */
 
-define([], function () {
-    function AgendaWidgetPresenter() {
-
+define([
+    'modules/account/widgets/agenda/AgendaWidgetModel'
+], function (AgendaWidgetModel) {
+    function AgendaWidgetPresenter(model) {
+        this.model = model || new AgendaWidgetModel();
     }
 
-    AgendaWidgetPresenter.prototype.show = function (view, model) {
+    AgendaWidgetPresenter.prototype.show = function (view) {
         this.view = view;
-        this.model = model;
+        var model = this.model;
+        view.event = view.event || {};
 
         view.event.onLoadAgenda = function (accountId) {
             model.loadAgendaData(accountId)
                 .then(view.onAgendaLoaded.bind(view), view.showError.bind(view));
         };
-    };
 
-    AgendaWidgetPresenter.newInstance = function () {
-        return new AgendaWidgetPresenter();
+        view.event.onAddEvent = function(event){
+            model.addEvent(event)
+                .then(view.onEventAdded.bind(view), view.showError.bind(view));
+        };
+
     };
 
     return AgendaWidgetPresenter;

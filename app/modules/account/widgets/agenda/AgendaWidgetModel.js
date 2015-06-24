@@ -3,11 +3,13 @@
  */
 define([
     'shared/services/ajax/AjaxService',
-    'config'
-], function (AjaxService, Configuration) {
+    'config',
+    'shared/services/ajax/FakeAjaxService'
+], function (AjaxService, Configuration, FakeAjaxService) {
 
     function AgendaWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.ajaxService = ajaxService || new AjaxService();
+        this.fakeAjaxService = new FakeAjaxService();
     }
 
     AgendaWidgetModel.inherits(Object);
@@ -28,6 +30,14 @@ define([
         };
 
         return this.ajaxService.rawAjaxRequest(params).then(self.decorateAgendaData.bind(self));
+    };
+
+    AgendaWidgetModel.prototype.addEvent = function (event) {
+        var self = this;
+
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: event
+        });
     };
 
     AgendaWidgetModel.prototype.decorateAgendaData = function (data) {

@@ -11,16 +11,17 @@ define([
             beforeEach(module(appName));
 
             var $controller;
-            var scope, element;
+            var scope, element, modal;
 
-            beforeEach(inject(function (_$controller_, _$rootScope_) {
+            beforeEach(inject(function (_$controller_, _$rootScope_, _$modal_) {
                 $controller = _$controller_;
                 scope = _$rootScope_.$new();
                 element = angular.element("<div/>");
+                modal = _$modal_;
             }));
             describe("loading asynchronously", function () {
                 it("should register the controller to app", function () {
-                    var ctrl = $controller('AgendaCalendarController', {$scope: scope, $element: element});
+                    var ctrl = $controller('AgendaCalendarController', {$scope: scope, $element: element, $modal: modal});
                     expect(ctrl).not.toBeNull();
                     expect(ctrl).not.toBeUndefined();
                 });
@@ -35,7 +36,7 @@ define([
                     AgendaCalendarController.configureView.restore();
                 });
                 it("should call AgendaCalendarController.configureView global method", function () {
-                    new AgendaCalendarController(scope, element);
+                    new AgendaCalendarController(scope, element, modal);
                     expect(AgendaCalendarController.configureView).toHaveBeenCalledWith(scope, element);
                 });
             });
