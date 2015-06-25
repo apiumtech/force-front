@@ -19,7 +19,7 @@ define([
         if (pageIndex) query += "?pageIndex=" + pageIndex;
 
         var params = {
-            url: Configuration.api.getActivity + '/' + id + query,
+            url: Configuration.api.getActivity.format(id) + query,
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
@@ -30,7 +30,7 @@ define([
 
     ActivityWidgetModel.prototype.toggleFollow = function (activityId) {
         var params = {
-            url: Configuration.api.toggleFollowActivity + "/" + activityId,
+            url: Configuration.api.toggleFollowActivity.format(activityId),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'
