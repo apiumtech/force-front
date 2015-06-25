@@ -21,9 +21,9 @@ define(function () {
         updateAccount: baseApi + '/api/accounts/{0}',
         createAccount: baseApi + '/api/accounts',
 
-        getActivity: baseApi + "/api/queries/accounts/{0}/activities",
+        getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
-        toggleFollowActivity: baseApi + '/api/queries/activities/{0}/toggleFollow',
+        toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
         getOpportunities: baseApi + '/api/opportunities',
         getAgenda: baseApi + '/api/opportunities',
 
