@@ -21,12 +21,12 @@ define(function () {
         updateAccount: baseApi + '/api/accounts/{0}',
         createAccount: baseApi + '/api/accounts',
 
-        getActivity: baseApi + "/api/activity",
+        getActivity: baseApi + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
-        toggleFollowActivity: baseApi + '/api/activity/toggleFollow',
+        toggleFollowActivity: baseApi + '/api/queries/activities/{0}/toggleFollow',
         getOpportunities: baseApi + '/api/opportunities',
         getAgenda: baseApi + '/api/opportunities',
-        
+
         uploadFile: baseUrl + '/api/upload',
         uploadDocuments: baseUrl + '/api/uploadDocument',
 

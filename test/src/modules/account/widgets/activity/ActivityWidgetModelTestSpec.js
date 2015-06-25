@@ -4,7 +4,7 @@
 define([
     'modules/account/widgets/activity/ActivityWidgetModel',
     'config'
-], function(ActivityWidgetModel, Configuration){
+], function (ActivityWidgetModel, Configuration) {
     'use strict';
     describe("ActivityWidgetModel", function () {
 
@@ -22,11 +22,11 @@ define([
         describe("loadActivity", function () {
             [{
                 id: 100,
-                expectUrl: Configuration.api.getActivity + '/100'
+                expectUrl: Configuration.api.getActivity.format('100')
             }, {
                 id: 1001,
                 pageIndex: 5,
-                expectUrl: Configuration.api.getActivity + '/1001?pageIndex=5'
+                expectUrl: Configuration.api.getActivity.format(1001) + '?pageIndex=5'
             }].forEach(function (test) {
                     it("should call ajaxRequest with correct params", function () {
                         spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
@@ -54,7 +54,7 @@ define([
                 spyOn(ajaxService, 'rawAjaxRequest');
                 sut.toggleFollow(toFollow);
                 expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-                expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollowActivity + "/" + 10);
+                expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollowActivity.format(10));
                 expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('post');
             });
         });
