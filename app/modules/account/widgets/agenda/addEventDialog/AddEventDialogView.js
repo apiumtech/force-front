@@ -40,14 +40,18 @@ define([
             startDate.minute(startTime.minute());
             self.event.start = startDate.toISOString();
 
-            if(!self.event.end.date) self.event.end = self.event.start;
-            else{
+            if (!self.event.end.date) {
+                self.event.end = startDate.toISOString();
+            }
+            else {
                 var endDate = moment.utc(self.event.end.date);
                 var endTime = self.event.end.time ? moment.utc(self.event.end.time) : moment();
                 endDate.hour(endTime.hour());
                 endDate.minute(endTime.minute());
                 self.event.end = endDate.toISOString();
             }
+
+            console.log(self.event);
 
             self.$modalInstance.close(self.event);
         };

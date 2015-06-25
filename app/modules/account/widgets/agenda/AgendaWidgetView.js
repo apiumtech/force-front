@@ -107,7 +107,8 @@ define([
             self.loadEvents();
         };
 
-        self.fn.changeView = function () {
+        self.fn.changeView = function (selectedView) {
+            self.selectedView = selectedView;
             self.calendarService.changeView(self.selectedView);
             self.updateCurrentDate();
         };
@@ -185,8 +186,6 @@ define([
         var self = this;
         var position = eventElement.offset();
         var time = moment(event.start).format('MMMM Do YYYY, HH:mm');
-        time += " - ";
-        time += moment(event.end).format('HH:mm');
 
         self.selectedEvent = event;
         self.selectedEvent.time = time;

@@ -7,17 +7,17 @@
         <div class="btn-group m-b-10">
 
             <button class="btn btn-white btn-sm" id="switchDay"
-                    data-ng-click="selectedView = 'agendaDay'; fn.changeView()"
+                    data-ng-click="fn.changeView('agendaDay')"
                     ng-class="{ 'selected' : selectedView == 'agendaDay' }"
                     >Day
             </button>
             <button class="btn btn-white btn-sm" id="switchWeek"
-                    data-ng-click="selectedView = 'agendaWeek'; fn.changeView()"
+                    data-ng-click="fn.changeView('agendaWeek')"
                     ng-class="{ 'selected' : selectedView == 'agendaWeek' }"
                     >Week
             </button>
             <button class="btn btn-white btn-sm" id="switchMonth"
-                    data-ng-click="selectedView = 'month'; fn.changeView()"
+                    data-ng-click="fn.changeView('month')"
                     ng-class="{ 'selected' : selectedView == 'month' }"
                     >Month
             </button>
