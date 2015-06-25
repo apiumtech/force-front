@@ -24,8 +24,12 @@ define(function () {
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
-        getOpportunities: baseApi + '/api/opportunities',
-        getAgenda: baseApi + '/api/opportunities',
+        
+        getOpportunities: baseUrl + '/api/queries/account/opportunities',
+
+        getAgenda: baseUrl + '/api/queries/account/{0}/agenda',
+        deleteAgenda: baseUrl + '/api/queries/account/agenda/delete',
+        createAgenda: baseUrl + '/api/queries/account/agenda/create',
 
         uploadFile: baseUrl + '/api/upload',
         uploadDocuments: baseUrl + '/api/uploadDocument',
@@ -61,10 +65,13 @@ define(function () {
         //conversion visits/sales
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
+        //report
+        getAllReports: baseUrl + '/api/queries/stats/reports/allReports',
+        getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
+        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/{0}/toggleFavourite',
+
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
-
-
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
@@ -87,8 +94,8 @@ define(function () {
 
         implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
 
-
         literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueDictionary'
+
     };
 
     return {

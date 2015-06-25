@@ -2,15 +2,36 @@
                 event-bus-channel="eventChannel"
                 body-class="panel-opportunity">
 
-    <!--
-    <div id="datepicker-inline" class="datepicker-full-width">
-        <div></div>
-    </div>
-    -->
-    <div id="calendar"></div>
-    <!-- legend -->
+    <div class="agenda-calendar" ng-init="fn.initCalendar()">
 
-    <agenda-calendar ng-model="data" event-bus-channel="eventChannel"></agenda-calendar>
+        <div class="btn-group m-b-10">
+
+            <button class="btn btn-white btn-sm" id="switchDay"
+                    data-ng-click="fn.changeView('agendaDay')"
+                    ng-class="{ 'selected' : selectedView == 'agendaDay' }"
+                    >Day
+            </button>
+            <button class="btn btn-white btn-sm" id="switchWeek"
+                    data-ng-click="fn.changeView('agendaWeek')"
+                    ng-class="{ 'selected' : selectedView == 'agendaWeek' }"
+                    >Week
+            </button>
+            <button class="btn btn-white btn-sm" id="switchMonth"
+                    data-ng-click="fn.changeView('month')"
+                    ng-class="{ 'selected' : selectedView == 'month' }"
+                    >Month
+            </button>
+        </div>
+        <div class="line-border clearfix"></div>
+
+        <div class="calendar-title">
+            <a href="#" class="btn btn-link prev" ng-click="$event.preventDefault();fn.prev()"><i class="fa fa-angle-double-left"></i></a>
+            <span class="title">{{currentDate}}</span>
+            <a href="#" class="btn btn-link next" ng-click="$event.preventDefault();fn.next()"><i class="fa fa-angle-double-right"></i></a>
+        </div>
+
+        <div id="agenda-calendar"></div>
+    </div>
 
     <table class="m-t-10 m-b-10">
         <tbody>
@@ -53,6 +74,20 @@
     <div class="m-t-15  text-link clearfix pull-right">
         <a class="pull-right">Go to agenda <span class="ic-arr-right"></span></a>
     </div>
+
+    <div id="tooltip" class="tooltip calendar-tooltip">
+        <div class="body">
+            <span class="title">{{selectedEvent.title}}</span>
+            <span class="time">{{selectedEvent.time}}</span>
+        </div>
+        <div class="clearfix"></div>
+        <div class="footer">
+            <button class="btn btn-link pull-right" type="button" ng-click="fn.deleteEvent(selectedEvent)"><i
+                    class="fa ic-trash"></i> Delete
+            </button>
+        </div>
+    </div>
+
 </widget-wrapper>
 
 <!--<script type="text/javascript">-->

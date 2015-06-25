@@ -1,7 +1,7 @@
 define([
-    'shared/services/ajax/FakeAjaxService',
-    'modules/saleAnalytics/reports/ReportFakeData'
-], function (AjaxService, ReportFakeData) {
+    'shared/services/ajax/AjaxService',
+    'config'
+], function (AjaxService, Configuration) {
     'use strict';
 
     function FavouriteReportModel(ajaxService) {
@@ -9,22 +9,26 @@ define([
     }
 
     FavouriteReportModel.prototype._getReports = function () {
-        return this.ajaxService.rawAjaxRequest({
-            result: ReportFakeData()
-        }).then(this.decorateServerData.bind(this));
+        var self = this;
+        var url = Configuration.api.getFavouriteReports;
+        var params = {
+            url: url,
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     FavouriteReportModel.prototype.decorateServerData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        var returnData = data.filter(function(item){
-            return item.type === "report" && item.favourite === true;
-        });
-        returnData.sort(function(a, b){
+        data.sort(function(a, b){
             if(a.name > b.name) return 1;
             if(a.name < b.name) return -1;
             return 0;
         });
-        return returnData;
+        return data;
     };
 
     return FavouriteReportModel;

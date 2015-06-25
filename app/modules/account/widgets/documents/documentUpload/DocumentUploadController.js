@@ -13,8 +13,8 @@ define([
     DocumentUploadController.inherits(BaseController, {});
 
     DocumentUploadController.prototype.configureView = function ($scope, $upload, $modal, $modalInstance) {
-        this.view = app.di.resolve('documentUploadView');
-        this.view.$scope = $scope;
+        this.view = DocumentUploadView._diResolve();
+        //this.view.$scope = $scope;
         this.view.modalInstance = $modalInstance;
 
         this.triggerView(this.view, $scope);

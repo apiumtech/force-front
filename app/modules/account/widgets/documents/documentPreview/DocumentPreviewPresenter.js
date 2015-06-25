@@ -1,11 +1,10 @@
 define([
-    'app',
     'modules/account/widgets/documents/documentPreview/DocumentPreviewModel'
-], function (app, DocumentPreviewModel) {
+], function ( DocumentPreviewModel) {
     'use strict';
 
     function DocumentPreviewPresenter(documentPreviewModel) {
-        this.model = documentPreviewModel || DocumentPreviewModel();
+        this.model = documentPreviewModel || DocumentPreviewModel._diResolve();
     }
 
     DocumentPreviewPresenter.prototype.show = function (view) {

@@ -33,12 +33,12 @@
                         <h6 class="pull-left m-t-5">Value</h6>
 
                         <p class="pull-left m-t-0 m-l-10 m-b-0">
-                            {{opportunity.value}} €
+                            {{opportunity.value | number: 2}} €
                         </p>
                     </div>
                     <div class="pull-right">
                         <p class="pull-right m-t-0 m-l-10 m-b-0">
-                            {{opportunity.saleProbability*100}}%
+                            {{opportunity.saleProbability*100 | number : 0}}%
                         </p>
                         <h6 class="pull-right m-t-5">SALE PROBABILITY</h6>
                     </div>

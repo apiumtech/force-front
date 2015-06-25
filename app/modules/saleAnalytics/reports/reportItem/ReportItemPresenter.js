@@ -22,7 +22,8 @@ define([
         };
 
         view.event.toggleFavouriteReport = function(reportId){
-            self.model.toggleFavouriteReport(reportId);
+            self.model.toggleFavouriteReport(reportId)
+                .then(view.onToggledFavouriteReport.bind(view), view.showError.bind(view));
         };
 
         view.event.getParameterConfiguration = function(reportId, callback){

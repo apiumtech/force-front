@@ -196,6 +196,10 @@ define([
         self.reportEventBus.onReportIsInProgress(self.onOtherReportInProgressStateChange.bind(self));
     };
 
+    ReportItemView.prototype.onToggledFavouriteReport = function(){
+      console.log("toggled");
+    };
+
     ReportItemView.prototype.onOtherReportInProgressStateChange = function (reportId, state) {
         var self = this;
         if (reportId === self.report.id) return;

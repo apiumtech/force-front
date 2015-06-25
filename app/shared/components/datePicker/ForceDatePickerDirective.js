@@ -57,7 +57,9 @@ define([
                         '       {{item}}' +
                         '   </option>' +
                         '</select>' +
+
                         '</div>' +
+
                         '</div>' +
                             //years pagination header
                         '<div class="force-datepicker-calendar-header" ng-show="showYearsPagination">' +
@@ -110,7 +112,7 @@ define([
                     }
                 });
 
-                if($scope.isOpen){
+                if ($scope.isOpen) {
                     $scope.showCalendar();
                 }
 
@@ -119,6 +121,13 @@ define([
                 $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
                 $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
                 $scope.months = datetime.MONTH;
+                $scope.hour = 0;
+                $scope.minute = 0;
+                $scope.hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+                $scope.minutes = [];
+                for(var i = 0; i < 60; i++){
+                    $scope.minutes.push(i);
+                }
                 $scope.daysInString = ['0', '1', '2', '3', '4', '5', '6'].map(function mappingFunc(el) {
 
                     return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');

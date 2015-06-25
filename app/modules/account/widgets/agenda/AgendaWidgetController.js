@@ -4,7 +4,6 @@
 define([
     'app',
     'modules/account/widgets/agenda/AgendaWidgetView',
-    'modules/account/widgets/agenda/agendaCalendar/AgendaCalendarDirective',
     'modules/account/widgets/agenda/addEventDialog/AddEventDialogController'
 ], function (app, AgendaWidgetView) {
 
