@@ -65,10 +65,13 @@ define(function () {
         //conversion visits/sales
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
+        //report
+        getAllReports: baseUrl + '/api/queries/stats/reports/allReports',
+        getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
+        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/{0}/toggleFavourite',
+
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
-
-
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
@@ -91,8 +94,8 @@ define(function () {
 
         implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
 
-
         literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueDictionary'
+
     };
 
     return {

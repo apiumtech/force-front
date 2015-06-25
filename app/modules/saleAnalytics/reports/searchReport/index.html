@@ -13,7 +13,7 @@
                 <p>You can widen your search by checking that all words are spelt correctly</p>
             </div>
         </div>
-        <div class="report-item-box panel" ng-repeat="report in reports" ng-show="reports && reports.length > 0">
+        <div class="report-item-box panel" ng-repeat="report in reports track by $index" ng-show="reports && reports.length > 0">
             <report-item report="report" fire-open-folder="true" class="clearfix report-item"></report-item>
         </div>
     </div>

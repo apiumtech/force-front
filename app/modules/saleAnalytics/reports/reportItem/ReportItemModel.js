@@ -10,7 +10,7 @@ define([
     }
 
     ReportItemModel.prototype.toggleFavouriteReport = function (reportId) {
-        this.reportService.toggleFavouriteReport(reportId);
+        return this.reportService.toggleFavouriteReport(reportId);
     };
 
     ReportItemModel.prototype.saveName = function (id, newName) {

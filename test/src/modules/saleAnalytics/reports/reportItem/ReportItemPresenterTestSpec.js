@@ -73,7 +73,7 @@ define([
                 });
             });
 
-            describe('view.event.toggleFavouriteReport', function () {
+            xdescribe('view.event.toggleFavouriteReport', function () {
                 it("should call toggleFavouriteReport function from model", function () {
                     var reportId = 123;
                     view.event.toggleFavouriteReport(reportId);
