@@ -1,7 +1,8 @@
 define([
     'shared/BaseView',
+    'moment',
     'config'
-], function (BaseView) {
+], function (BaseView, moment) {
     'use strict';
 
     function AddCompanyDialogView($scope, $modalInstance) {
@@ -9,6 +10,8 @@ define([
         BaseView.call(this, $scope);
         $scope.event = event;
         this.$modalInstance = $modalInstance;
+        this.event.start = {};
+        this.event.end = {};
         this.configureEvents();
     }
 
@@ -31,6 +34,21 @@ define([
         };
 
         self.fn.submit = function () {
+            var startDate = moment.utc(self.event.start.date);
+            var startTime = self.event.start.time ? moment.utc(self.event.start.time) : moment();
+            startDate.hour(startTime.hour());
+            startDate.minute(startTime.minute());
+            self.event.start = startDate.toISOString();
+
+            if(!self.event.end.date) self.event.end = self.event.start;
+            else{
+                var endDate = moment.utc(self.event.end.date);
+                var endTime = self.event.end.time ? moment.utc(self.event.end.time) : moment();
+                endDate.hour(endTime.hour());
+                endDate.minute(endTime.minute());
+                self.event.end = endDate.toISOString();
+            }
+
             self.$modalInstance.close(self.event);
         };
 

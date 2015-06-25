@@ -5,8 +5,8 @@ define([
     'modules/account/details/AccountDetailsModel'
 ], function (AccountDetailsModel) {
 
-    function AccountDetailsPresenter(model) {
-        this.model = model || new AccountDetailsModel();
+    function AccountDetailsPresenter(accountDetailsModel) {
+        this.model = accountDetailsModel || AccountDetailsModel._diResolve();
     }
 
     AccountDetailsPresenter.prototype.show = function (view) {

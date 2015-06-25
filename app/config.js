@@ -24,8 +24,11 @@ define(function () {
         getActivity: baseApi + "/api/activity",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
         toggleFollowActivity: baseApi + '/api/activity/toggleFollow',
-        getOpportunities: baseApi + '/api/opportunities',
-        getAgenda: baseApi + '/api/opportunities',
+        getOpportunities: baseUrl + '/api/queries/account/opportunities',
+
+        getAgenda: baseUrl + '/api/queries/account/{0}/agenda',
+        deleteAgenda: baseUrl + '/api/queries/account/agenda/delete',
+        createAgenda: baseUrl + '/api/queries/account/agenda/create',
         
         uploadFile: baseUrl + '/api/upload',
         uploadDocuments: baseUrl + '/api/uploadDocument',

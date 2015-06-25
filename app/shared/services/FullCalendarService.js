@@ -31,9 +31,13 @@ define([
         }
     };
 
-    FullCalendarService.prototype.render = function () {
+    FullCalendarService.prototype.render = function (events) {
         var self = this;
+        //self.options.events = events;
+        self.options.eventRender = self.renderEvent;
         $(self.element).fullCalendar(self.options);
+        $(self.element).fullCalendar('removeEvents');
+        $(self.element).fullCalendar('addEventSource', events);
     };
 
     FullCalendarService.prototype.changeView = function (viewName) {

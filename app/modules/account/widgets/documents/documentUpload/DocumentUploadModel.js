@@ -29,7 +29,5 @@ define([
         });
     };
 
-    app.di.register("documentUploadModel").as(DocumentUploadModel);
-
     return DocumentUploadModel;
 });
