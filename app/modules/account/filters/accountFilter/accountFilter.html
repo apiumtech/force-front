@@ -19,7 +19,7 @@
                                            placeholder="{{'Account.Filters.FilterBy.MenuOwner.SelectOwner' | i18next}}"
                                            ng-model="data.ownerFilter"
                                            ng-click="$event.stopPropagation();"
-                                           ng-change="event.onShowAvailableOwners(data.ownerFilter);"/>
+                                           ng-change="fn.onShowAvailableOwners(data.ownerFilter);"/>
                                     <span class="fa ic-search removeTextBoxBtn" ng-show="data.ownerFilter==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.ownerFilter!=''"
                                           ng-click="data.ownerFilter='';event.onShowAvailableOwners(data.ownerFilter);$event.stopPropagation()"></span>

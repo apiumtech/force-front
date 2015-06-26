@@ -3,16 +3,16 @@
  */
 define(function () {
     
-    var baseUrl = "http://localhost:1999";
-    //var baseUrl = "https://backenddev.forcemanager.net";
+    //var baseUrl = "http://localhost:1999";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "https://webpre.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
 
     var api = {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
-        getAvailableOwners: baseApi + '/api/accounts/availableOwners',
-        getAvailableEnvironments: baseApi + '/api/accounts/environments',
+        getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
+        getAvailableEnvironments: baseUrl + '/api/accounts/environments',
         getAvailableViews: baseApi + '/api/accounts/views',
         getAvailableAccountTypes: baseApi + '/api/accounts/accountTypes',
 
