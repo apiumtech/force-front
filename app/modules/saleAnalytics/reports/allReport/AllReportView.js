@@ -21,6 +21,14 @@ define([
             set: function (value) {
                 this.$scope.searchQuery = value;
             }
+        },
+        pageType: {
+            get: function () {
+                return this.$scope.pageType;
+            },
+            set: function (value) {
+                this.$scope.pageType = value;
+            }
         }
     });
 

@@ -18,6 +18,8 @@
                 <div class="m-l-10" ng-if="item.children">
                     <strong>{{item.name}}</strong>
                 </div>
+
+                {{pageType}}
                 <report-item report="item" ng-if="!item.children"></report-item>
             </div>
         </div>

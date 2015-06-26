@@ -21,56 +21,35 @@ define([
                 sut.show(view);
             });
 
-            describe('view.event.onSaveName', function () {
-                it("should call saveName method on model", function () {
-                    mockModel.saveName.returns(exerciseFakeOkPromise());
-                    var name = "newNameOftheStupidReport";
-                    var id = 10000;
-                    view.event.onSaveName(id, name);
-                    expect(mockModel.saveName).toHaveBeenCalledWith(id, name);
-                });
+            [
+                {method: "onSaveName", modelMethod: "update", onSuccess: "onSaveNameSuccess", onFailure: "onSaveNameError"},
+                {method: "onSaveDescription", modelMethod: "update", onSuccess: "onSaveDescriptionSuccess", onFailure: "onSaveDescriptionError"}
+            ].forEach(function(testCase){
+                    describe('view.event.' + testCase.method, function () {
+                        var report = {
+                            id: 123,
+                            name: "rName"
+                        };
+                        it("should call " + testCase.modelMethod + " method on model", function () {
+                            mockModel[testCase.modelMethod].returns(exerciseFakeOkPromise());
+                            view.event[testCase.method](report);
+                            expect(mockModel[testCase.modelMethod]).toHaveBeenCalledWith(report);
+                        });
 
-                it("should fallback to onSaveNameSuccess on view", function (done) {
-                    mockModel.saveName.returns(exerciseFakeOkPromise());
+                        it("should fallback to " + testCase.onSuccess + " on view", function (done) {
+                            mockModel[testCase.modelMethod].returns(exerciseFakeOkPromise());
+                            view.event[testCase.method]();
+                            expect(view[testCase.onSuccess]).toHaveBeenCalled();
+                            done();
+                        });
 
-                    view.event.onSaveName();
-                    expect(view.onSaveNameSuccess).toHaveBeenCalled();
-                    done();
-                });
-
-                it("should fallback to onSaveNameError on view", function (done) {
-                    mockModel.saveName.returns(exerciseFakeKoPromise());
-
-                    view.event.onSaveName();
-                    expect(view.onSaveNameError).toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            describe('view.event.onSaveDescription', function () {
-                var description = "newNameOftheStupidReport";
-                var id = 10000;
-                it("should call saveDescription method on model", function () {
-                    mockModel.saveDescription.returns(exerciseFakeOkPromise());
-                    view.event.onSaveDescription(id, description);
-                    expect(mockModel.saveDescription).toHaveBeenCalledWith(id, description);
-                });
-
-                it("should fallback to onSaveDescriptionSuccess on view", function (done) {
-                    mockModel.saveDescription.returns(exerciseFakeOkPromise());
-
-                    view.event.onSaveDescription(id, description);
-                    expect(view.onSaveDescriptionSuccess).toHaveBeenCalled();
-                    done();
-                });
-
-                it("should fallback to onSaveDescriptionError on view", function (done) {
-                    mockModel.saveDescription.returns(exerciseFakeKoPromise());
-
-                    view.event.onSaveDescription(id, description);
-                    expect(view.onSaveDescriptionError).toHaveBeenCalled();
-                    done();
-                });
+                        it("should fallback to onSaveNameError on view", function (done) {
+                            mockModel[testCase.modelMethod].returns(exerciseFakeKoPromise());
+                            view.event[testCase.method]();
+                            expect(view[testCase.onFailure]).toHaveBeenCalled();
+                            done();
+                        });
+                    });
             });
 
             xdescribe('view.event.toggleFavouriteReport', function () {

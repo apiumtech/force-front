@@ -92,7 +92,7 @@ define([
 
                 it("should fire event onSaveName", function () {
                     sut.fn.saveName();
-                    expect(sut.event.onSaveName).toHaveBeenCalledWith(sut.report.id, sut.report.name);
+                    expect(sut.event.onSaveName).toHaveBeenCalledWith(sut.report);
                 });
 
                 it("should show error if the name is empty", function () {
@@ -100,6 +100,12 @@ define([
 
                     sut.fn.saveName();
                     expect(sut.nameError).toEqual("Name cannot be empty");
+                });
+
+                it("should mark inProgress as true", function () {
+                    sut.inProgress = false;
+                    sut.fn.saveName();
+                    expect(sut.inProgress).toBeTruthy();
                 });
             });
 
@@ -160,7 +166,13 @@ define([
                 });
 
                 it("should fire event onSaveDescription", function () {
-                    expect(sut.event.onSaveDescription).toHaveBeenCalledWith(sut.report.id, sut.report.description);
+                    expect(sut.event.onSaveDescription).toHaveBeenCalledWith(sut.report);
+                });
+
+                it("should mark inProgress as true", function () {
+                    sut.inProgress = false;
+                    sut.fn.saveDescription();
+                    expect(sut.inProgress).toBeTruthy();
                 });
             });
 
@@ -202,16 +214,18 @@ define([
                     sut.event = {
                         toggleFavouriteReport: sinon.spy()
                     };
+                    sut.inProgress = false;
                     sut.fn.toggleFavouriteReport();
-                });
-
-                it("should set toggle the state of report.favourite", function () {
-                    expect(sut.$scope.report.favourite).toBeTruthy();
                 });
 
                 it("should call event.toggleFavouriteReport function", function () {
                     expect(sut.event.toggleFavouriteReport).toHaveBeenCalledWith(123);
                 });
+
+                it('should mark inProgress to true', function () {
+                    expect(sut.inProgress).toBeTruthy();
+                });
+
 
             });
 
@@ -406,8 +420,8 @@ define([
             });
 
             function exerciseTestOnLoadedConfiguration() {
-                var data = {
-                    params: [
+                var data =
+                    [
                         {
                             p1: 1234
                         },
@@ -415,21 +429,19 @@ define([
                             p2: "abcd"
                         }
                     ]
-                };
+                ;
                 sut.onParameterConfigurationLoaded(data);
                 return data;
             }
 
             it("should set the passed params to report's params", function () {
                 var data = exerciseTestOnLoadedConfiguration();
-                expect(sut.$scope.report.parameterConfigurations).toEqual(data.params);
+                expect(sut.$scope.report.parameterConfigurations).toEqual(data);
             });
 
             describe("there is no params passed", function () {
                 it("should call currentActionForEmptyParameters function", function () {
-                    var data = {
-                        params: []
-                    };
+                    var data = [];
                     sut.onParameterConfigurationLoaded(data);
                     expect(sut.currentActionForEmptyOrAssignedParameters).toHaveBeenCalled();
                 });
@@ -437,13 +449,13 @@ define([
 
             describe("there are params passed", function () {
                 it("should call currentActionForParameters function", function () {
-                    var data = {
-                        params: [
+                    var data =
+                        [
                             {'p1': 123456}
                         ]
-                    };
+                    ;
                     sut.onParameterConfigurationLoaded(data);
-                    expect(sut.currentActionForParameters).toHaveBeenCalledWith(data.params);
+                    expect(sut.currentActionForParameters).toHaveBeenCalledWith(data);
                 });
             });
 
@@ -560,5 +572,44 @@ define([
                 });
             });
         });
+
+        describe('onToggledFavouriteReport', function () {
+
+            it('should change report\'s favourite property to true if it is currently false', function () {
+                sut.report = {
+                    id: 123,
+                    name: "report name",
+                    description: "description of a report",
+                    favourite: false
+                };
+                sut.onToggledFavouriteReport();
+                expect(sut.report.favourite).toBeTruthy();
+            });
+
+            it('should change report\'s favourite property to false if it is currently true', function () {
+                sut.report = {
+                    id: 123,
+                    name: "report name",
+                    description: "description of a report",
+                    favourite: true
+                };
+                sut.onToggledFavouriteReport();
+                expect(sut.report.favourite).toBeFalsy();
+            });
+
+            it('should mark inProgress to false', function () {
+                sut.report = {
+                    id: 123,
+                    name: "report name",
+                    description: "description of a report",
+                    favourite: true
+                };
+                sut.inProgress = true;
+                sut.onToggledFavouriteReport();
+                expect(sut.inProgress).toBeFalsy();
+            });
+
+        });
+
     });
 });

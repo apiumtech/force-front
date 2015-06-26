@@ -1,7 +1,8 @@
 define([
-    'shared/services/ajax/FakeAjaxService',
-    'modules/saleAnalytics/reports/ReportService'
-], function (AjaxService, ReportService) {
+    'shared/services/ajax/AjaxService',
+    'modules/saleAnalytics/reports/ReportService',
+    'config'
+], function (AjaxService, ReportService, Configuration) {
     'use strict';
 
     function ReportItemModel(ajaxService, reportService) {
@@ -13,22 +14,18 @@ define([
         return this.reportService.toggleFavouriteReport(reportId);
     };
 
-    ReportItemModel.prototype.saveName = function (id, newName) {
-        return this.ajaxService.rawAjaxRequest({
-            result: {
-                name: newName,
-                id: id
-            }
-        });
-    };
-
-    ReportItemModel.prototype.saveDescription = function (id, newDescription) {
-        return this.ajaxService.rawAjaxRequest({
-            result: {
-                description: newDescription,
-                id: id
-            }
-        });
+    ReportItemModel.prototype.update = function (report) {
+        var self = this;
+        var url = Configuration.api.updateReport.format(report.id);
+        console.log("update report url",url);
+        var params = {
+            url: url,
+            type: 'post',
+            data: report,
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     ReportItemModel.prototype.getParameterConfiguration = function (reportId, callback) {

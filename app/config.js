@@ -3,8 +3,8 @@
  */
 define(function () {
     
-    var baseUrl = "http://localhost:1999";
-    //var baseUrl = "https://backenddev.forcemanager.net";
+    //var baseUrl = "http://localhost:1999";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "https://webpre.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -68,7 +68,9 @@ define(function () {
         //report
         getAllReports: baseUrl + '/api/queries/stats/reports/allReports',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
-        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/{0}/toggleFavourite',
+        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
+        updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
+        getReportParameters: baseUrl + '/api/queries/stats/reports/{0}/parameters',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
