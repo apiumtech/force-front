@@ -8,6 +8,7 @@
         </h4>
     </div>
 </div>
+
 <div class="modal-body form-horizontal report-parameter-dialog">
     <div ng-repeat="paramConfig in report.parameterConfigurations">
 
@@ -27,7 +28,7 @@
             <div class="col-md-10">
                 <select class="form-control" ng-model="report.params[paramConfig.id]"
                         ng-init="report.params[paramConfig.id] = paramConfig.value[0].key">
-                    <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.name}}</option>
+                    <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.value}}</option>
                 </select>
             </div>
         </div>

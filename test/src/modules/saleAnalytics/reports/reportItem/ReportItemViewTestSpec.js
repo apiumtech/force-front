@@ -420,8 +420,8 @@ define([
             });
 
             function exerciseTestOnLoadedConfiguration() {
-                var data = {
-                    params: [
+                var data =
+                    [
                         {
                             p1: 1234
                         },
@@ -429,21 +429,19 @@ define([
                             p2: "abcd"
                         }
                     ]
-                };
+                ;
                 sut.onParameterConfigurationLoaded(data);
                 return data;
             }
 
             it("should set the passed params to report's params", function () {
                 var data = exerciseTestOnLoadedConfiguration();
-                expect(sut.$scope.report.parameterConfigurations).toEqual(data.params);
+                expect(sut.$scope.report.parameterConfigurations).toEqual(data);
             });
 
             describe("there is no params passed", function () {
                 it("should call currentActionForEmptyParameters function", function () {
-                    var data = {
-                        params: []
-                    };
+                    var data = [];
                     sut.onParameterConfigurationLoaded(data);
                     expect(sut.currentActionForEmptyOrAssignedParameters).toHaveBeenCalled();
                 });
@@ -451,13 +449,13 @@ define([
 
             describe("there are params passed", function () {
                 it("should call currentActionForParameters function", function () {
-                    var data = {
-                        params: [
+                    var data =
+                        [
                             {'p1': 123456}
                         ]
-                    };
+                    ;
                     sut.onParameterConfigurationLoaded(data);
-                    expect(sut.currentActionForParameters).toHaveBeenCalledWith(data.params);
+                    expect(sut.currentActionForParameters).toHaveBeenCalledWith(data);
                 });
             });
 

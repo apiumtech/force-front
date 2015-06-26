@@ -12,7 +12,6 @@ define([
     ReportService.inherits(Object, {});
 
     ReportService.prototype.toggleFavouriteReport = function (reportId) {
-        //TODO: implement when having server's contract
 
         var url = Configuration.api.toggleFavouriteReport.format(reportId);
         console.log("toggle fav report url",url);
@@ -38,52 +37,16 @@ define([
     };
 
     ReportService.prototype.getParameterConfiguration = function (reportId) {
-        //TODO: implement when having server's contract
-        return this.ajaxService.rawAjaxRequest({
-            result: {
-                params: [
-                    {
-                        id: 'account_name',
-                        type: 'textbox',
-                        label: 'Account'
-                    },
-                    {
-                        id: 'age',
-                        type: 'range',
-                        label: 'Age'
-                    },
-                    {
-                        id: 'birthday',
-                        type: 'date',
-                        label: 'Birthday'
-                    },
-                    {
-                        id: 'report_date',
-                        type: 'date_range',
-                        label: 'Report Date'
-                    },
-                    {
-                        id: 'report_type',
-                        label: 'Type',
-                        type: 'selectbox',
-                        value: [
-                            {
-                                key: 'graph',
-                                name: 'Graph Report'
-                            },
-                            {
-                                key: 'pie',
-                                name: 'Pie Report'
-                            },
-                            {
-                                key: 'map',
-                                name: 'Map Report'
-                            }
-                        ]
-                    }
-                ]
-            }
-        });
+        var url = Configuration.api.getReportParameters.format(reportId);
+        console.log("report params url",url);
+        var params = {
+            url: url,
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.getPreviewReportPhotos = function (reportId) {

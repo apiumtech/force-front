@@ -264,13 +264,14 @@ define([
     };
 
     ReportItemView.prototype.onParameterConfigurationLoaded = function (data) {
+        console.log("param loaded", data);
         var self = this;
-        self.report.parameterConfigurations = data.params;
+        self.report.parameterConfigurations = data;
         if (!self.report.parameterConfigurations || self.report.parameterConfigurations.length <= 0) {
             self.currentActionForEmptyOrAssignedParameters();
         }
         else {
-            self.currentActionForParameters(data.params);
+            self.currentActionForParameters(data);
         }
         self.inProgress = false;
         self.reportEventBus.fireReportIsInProgress(self.report.id, false);
