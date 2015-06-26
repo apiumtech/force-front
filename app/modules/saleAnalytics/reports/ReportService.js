@@ -27,13 +27,17 @@ define([
     };
 
     ReportService.prototype.getReportURL = function (report) {
-        //TODO: implement when having server's contract
-        return this.ajaxService.rawAjaxRequest({
-            result: {
-                url: "http://this.is/theURL/we/want/" + report.id
-
-            }
-        });
+        var self = this;
+        var url = Configuration.api.getReportUrl.format(report.id);
+        console.log("get report url url",url, report.params);
+        var params = {
+            url: url,
+            type: 'post',
+            data: report.params,
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.getParameterConfiguration = function (reportId) {
