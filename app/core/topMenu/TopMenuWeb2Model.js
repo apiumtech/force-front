@@ -70,9 +70,6 @@ define([
                 var userData = JSON.parse(data.d);
                 self.storeUserData(userData);
                 deferred.resolve();
-            },
-            function (error) {
-                deferred.reject(error);
             }
         );
 

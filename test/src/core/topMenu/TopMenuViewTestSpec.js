@@ -43,5 +43,11 @@ define([
             expect(viewInstance.getMenuTemplateName()).toBe('topMenuWeb2');
         });
 
+        it("should return the calculated view type from its newInstance entry point", function(){
+            spyOn(TopMenuView.prototype, "getViewImpl").and.returnValue("SomeView");
+            var view = TopMenuView.newInstance({}, window);
+            expect(view).toBe("SomeView");
+        });
+
     });
 });

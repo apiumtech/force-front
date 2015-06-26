@@ -1,6 +1,7 @@
 define([
-    'core/topMenu/TopMenuWeb2Presenter'
-], function (TopMenuWeb2Presenter) {
+    'core/topMenu/TopMenuWeb2Presenter',
+    'core/topMenu/TopMenuWeb2Model'
+], function (TopMenuWeb2Presenter, TopMenuWeb2Model) {
     'use strict';
 
     describe("TopMenuWeb2Presenter", function () {
@@ -8,6 +9,32 @@ define([
         function exerciseCreatePresenter() {
             return TopMenuWeb2Presenter.newInstance();
         }
+
+        describe("view.event method", function () {
+            var sut;
+            var view;
+            var model;
+            beforeEach(function () {
+                view = {event:{}};
+                model = mock(TopMenuWeb2Model);
+                sut = exerciseCreatePresenter();
+                sut.show(view, model);
+            });
+            [
+                "getUserSections",
+                "getUserOptions",
+                "getUserData",
+                "getUserNotifications"
+            ].forEach(function(methodUnderTest){
+                describe(methodUnderTest, function () {
+                    it("should call model's "+methodUnderTest, function () {
+                        spyOn(model, methodUnderTest);
+                        view.event[methodUnderTest]();
+                        expect(model[methodUnderTest]).toHaveBeenCalled();
+                    });
+                });
+            });
+        });
 
         describe('getUserDataInfo', function () {
             var presenter, view;

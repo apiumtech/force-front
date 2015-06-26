@@ -3,8 +3,14 @@ define([
 ], function(CustomLiteralsView) {
 	'use strict';
 
-	describe('CustomLiteralsView', function() {
+    function exerciseCreateView(){
+        return CustomLiteralsView.newInstance({scope:mockAngularScope(),viewRepAspect:false, logErrorAspect:false});
+    }
 
-		
+	describe('CustomLiteralsView', function() {
+		it('should set event.onInit on instantiation', function () {
+            var sut = exerciseCreateView();
+            expect(sut.event.onInit).toBeDefined();
+        });
 	});
 });

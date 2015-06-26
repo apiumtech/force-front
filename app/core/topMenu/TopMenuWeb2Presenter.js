@@ -8,13 +8,6 @@ define([], function () {
     function TopMenuWeb2Presenter() {}
 
     TopMenuWeb2Presenter.prototype.show = function (view, model) {
-        view.event.getUserDataInfo = function () {
-            model.getUserDataInfo().then(
-                view.onGetUserDataInfo.bind(view),
-                view.onGetUserDataInfoError.bind(view)
-            );
-        };
-
         view.event.getUserSections = function () {
             return model.getUserSections();
         };
@@ -29,6 +22,13 @@ define([], function () {
 
         view.event.getUserNotifications = function () {
             return model.getUserNotifications();
+        };
+
+        view.event.getUserDataInfo = function () {
+            model.getUserDataInfo().then(
+                view.onGetUserDataInfo.bind(view),
+                view.onGetUserDataInfoError.bind(view)
+            );
         };
 
         view.event.logout = function () {
