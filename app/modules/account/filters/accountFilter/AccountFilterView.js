@@ -7,8 +7,9 @@ define([
     'shared/aspects/LogErrorAspect',
     'shared/BaseView',
     'modules/account/filters/accountFilter/AccountFilterPresenter',
-    'modules/account/filters/accountFilter/AccountFilterModel'
-], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel) {
+    'modules/account/filters/accountFilter/AccountFilterModel',
+    'shared/services/AwaitHelper'
+], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel, AwaitHelper) {
 
     function AccountFilterView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -19,6 +20,7 @@ define([
         this.data.EnvFilter = '';
         this.data.ownerFilter = '';
         this.data.availableFields = [];
+        this.awaitHelper = AwaitHelper.getInstance();
     }
 
     AccountFilterView.inherits(BaseView, {});
@@ -61,7 +63,17 @@ define([
             });
             self.event.onFieldsDeselected(deselectedFields);
         };
+
+        self.fn.onShowAvailableOwners = function () {
+            self.awaitHelper.await(self.loadAvailableOwners.bind(self), 500);
+        };
         self.$scope.$watch('$destroy', self.dispose.bind(self));
+    };
+
+    AccountFilterView.prototype.loadAvailableOwners = function () {
+        var self = this;
+
+        self.event.onShowAvailableOwners(self.data.ownerFilter);
     };
 
     AccountFilterView.prototype.setAvailableOwners = function (owners) {

@@ -11,8 +11,8 @@ define(function () {
 
     var api = {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
-        getAvailableOwners: baseApi + '/api/accounts/availableOwners',
-        getAvailableEnvironments: baseApi + '/api/accounts/environments',
+        getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
+        getAvailableEnvironments: baseUrl + '/api/accounts/environments',
         getAvailableViews: baseApi + '/api/accounts/views',
         getAvailableAccountTypes: baseApi + '/api/accounts/accountTypes',
 
