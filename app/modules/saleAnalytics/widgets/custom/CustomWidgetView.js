@@ -2,8 +2,9 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/custom/CustomWidgetModel',
     'modules/saleAnalytics/widgets/custom/CustomWidgetPresenter',
-    'modules/widgets/BaseWidgetEventBus'
-], function (WidgetBaseView, CustomWidgetModel, CustomWidgetPresenter, BaseWidgetEventBus) {
+    'modules/widgets/BaseWidgetEventBus',
+    'jquery'
+], function (WidgetBaseView, CustomWidgetModel, CustomWidgetPresenter, BaseWidgetEventBus, $) {
     'use strict';
 
     function CustomWidgetView(scope, element, presenter, $compile) {
@@ -25,15 +26,21 @@ define([
     });
 
     CustomWidgetView.prototype.configureEvents = function () {
-        var eventChannel = this.eventChannel;
-        eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
+        this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
     };
 
+
+    CustomWidgetView.prototype.getCustomWidgetDivId = function(){
+        return '#customWidget' + this.widget.widgetId;
+    };
+    CustomWidgetView.prototype.getCustomWidgetDiv = function(){
+        return $( this.getCustomWidgetDivId() );
+    };
     CustomWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var htmlSrc = this.$compile(data)(this.$scope);
-        var el = '#customWidget' + this.widget.widgetId;
-        $(el).html(htmlSrc);
+        this.getCustomWidgetDiv().html(htmlSrc);
     };
+
 
     CustomWidgetView.newInstance = function ($scope, $element, $compile, $viewRepAspect, $logErrorAspect) {
         var view = new CustomWidgetView($scope, $element, undefined, $compile);
