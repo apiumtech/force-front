@@ -68,7 +68,8 @@ define(function () {
         //report
         getAllReports: baseUrl + '/api/queries/stats/reports/allReports',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
-        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/{0}/toggleFavourite',
+        toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
+        updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',

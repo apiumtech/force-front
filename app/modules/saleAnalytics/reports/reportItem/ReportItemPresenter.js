@@ -11,13 +11,13 @@ define([
         var self = this;
         self.view = view;
 
-        view.event.onSaveName = function (reportId, reportName) {
-            self.model.saveName(reportId, reportName)
+        view.event.onSaveName = function (report) {
+            self.model.update(report)
                 .then(view.onSaveNameSuccess.bind(view), view.onSaveNameError.bind(view));
         };
 
-        view.event.onSaveDescription = function (reportId, reportDescription) {
-            self.model.saveDescription(reportId, reportDescription)
+        view.event.onSaveDescription = function (report) {
+            self.model.update(report)
                 .then(view.onSaveDescriptionSuccess.bind(view), view.onSaveDescriptionError.bind(view));
         };
 

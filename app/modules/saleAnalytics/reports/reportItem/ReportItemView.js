@@ -14,6 +14,7 @@ define([
         this.originalDescription = "";
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.modalService = $scope.$modal;
+
         this.configureEvents();
     }
 
@@ -21,6 +22,9 @@ define([
         report: {
             get: function () {
                 return this.$scope.report;
+            },
+            set: function (value) {
+                this.$scope.report = value;
             }
         },
         nameError: {
@@ -95,7 +99,7 @@ define([
         this.selectedReportType = this.report && this.report.reportType ? this.report.reportType[0] : '';
 
         self.fn.startEditingName = function () {
-            if(self.fireOpenFolder) return;
+            if (self.fireOpenFolder) return;
             self.originalName = self.report.name;
             self.editingName = true;
         };
@@ -105,7 +109,8 @@ define([
                 self.nameError = "Name cannot be empty";
             } else {
                 self.nameError = "";
-                self.event.onSaveName(self.report.id, self.report.name);
+                self.inProgress = true;
+                self.event.onSaveName(self.report);
             }
         };
 
@@ -139,7 +144,8 @@ define([
                 self.descriptionError = "Description cannot be empty";
             } else {
                 self.descriptionError = "";
-                self.event.onSaveDescription(self.report.id, self.report.description);
+                self.inProgress = true;
+                self.event.onSaveDescription(self.report);
             }
         };
 
@@ -154,7 +160,7 @@ define([
         };
 
         self.fn.toggleFavouriteReport = function () {
-            self.report.favourite = !self.report.favourite;
+            self.inProgress = true;
             self.event.toggleFavouriteReport(self.report.id);
         };
 
@@ -196,8 +202,10 @@ define([
         self.reportEventBus.onReportIsInProgress(self.onOtherReportInProgressStateChange.bind(self));
     };
 
-    ReportItemView.prototype.onToggledFavouriteReport = function(){
-      console.log("toggled");
+    ReportItemView.prototype.onToggledFavouriteReport = function () {
+        var self = this;
+        self.report.favourite = !self.report.favourite;
+        self.inProgress = false;
     };
 
     ReportItemView.prototype.onOtherReportInProgressStateChange = function (reportId, state) {
@@ -209,18 +217,23 @@ define([
     ReportItemView.prototype.onSaveNameSuccess = function (data) {
         this.report.name = data.name;
         this.editingName = false;
+        this.inProgress = false;
     };
 
     ReportItemView.prototype.onSaveNameError = function (data) {
+        console.error("Save name failed");
+        this.inProgress = false;
     };
 
     ReportItemView.prototype.onSaveDescriptionSuccess = function (data) {
         this.report.description = data.description;
         this.editingDescription = false;
+        this.inProgress = false;
     };
 
     ReportItemView.prototype.onSaveDescriptionError = function (data) {
-
+        console.error("Save description failed");
+        this.inProgress = false;
     };
 
     ReportItemView.prototype.openParamsDialog = function (callback) {

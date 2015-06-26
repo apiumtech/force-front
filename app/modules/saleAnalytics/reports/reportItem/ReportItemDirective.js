@@ -7,6 +7,7 @@ define([
     function ReportItemDirective() {
         return {
             restrict: "EA",
+            require: "treeDirectory",
             scope: {
                 report: "=",
                 fireOpenFolder: "="
