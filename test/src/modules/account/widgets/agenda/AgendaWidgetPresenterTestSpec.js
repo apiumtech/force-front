@@ -25,8 +25,9 @@ define([
             });
 
             [
-                {method: 'onLoadAgenda', modelMethod: 'loadAgendaData', onSuccess: 'onAgendaLoaded', onError: 'showError'},
-                {method: 'onAddEvent', modelMethod: 'addEvent', onSuccess: 'onEventAdded', onError: 'showError'}
+                {method: 'onLoadEvents', modelMethod: 'loadEvents', onSuccess: 'onEventsLoaded', onError: 'showError'},
+                {method: 'onAddEvent', modelMethod: 'addEvent', onSuccess: 'onEventAdded', onError: 'showError'},
+                {method: 'onDeleteEvent', modelMethod: 'deleteEvent', onSuccess: 'onEventDeleted', onError: 'showError'}
             ].forEach(function(testCase){
                     describe('view.event.' + testCase.method, function () {
                         exerciseAjaxCallBinding(testCase.method, testCase.modelMethod, testCase.onSuccess, testCase.onError);

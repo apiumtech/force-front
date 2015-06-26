@@ -6,12 +6,13 @@ define([
     'modules/account/widgets/agenda/AgendaWidgetView',
     'modules/account/widgets/agenda/AgendaWidgetPresenter',
     'shared/services/ModalDialogAdapter',
+    'shared/services/FullCalendarService',
     'angular'
-], function (AgendaWidgetView, AgendaWidgetPresenter, ModalDialogAdapter, angular) {
+], function (AgendaWidgetView, AgendaWidgetPresenter, ModalDialogAdapter, FullCalendarService, angular) {
     'use strict';
     describe("AgendaWidgetView", function () {
 
-        var sut, presenter, model, $scope, element, modalDialogAdapter;
+        var sut, presenter, calendarService, $scope, element, modalDialogAdapter;
 
         beforeEach(function () {
 
@@ -21,10 +22,11 @@ define([
                     open: sinon.stub()
                 };
             });
+            calendarService = mock(FullCalendarService);
             modalDialogAdapter = mock(ModalDialogAdapter);
             presenter = mock(AgendaWidgetPresenter);
             element = angular.element("<div />");
-            sut = new AgendaWidgetView($scope, element, presenter, modalDialogAdapter);
+            sut = new AgendaWidgetView($scope, element, presenter, modalDialogAdapter, calendarService);
         });
 
         describe('Constructor', function () {
@@ -35,7 +37,7 @@ define([
                 AgendaWidgetView.prototype.configureEvents.restore();
             });
             it('should call configureEvents', function () {
-                new AgendaWidgetView($scope, element, presenter, modalDialogAdapter);
+                new AgendaWidgetView($scope, element, presenter, modalDialogAdapter, calendarService);
                 expect(AgendaWidgetView.prototype.configureEvents).toHaveBeenCalled();
             });
         });
@@ -89,33 +91,11 @@ define([
             });
         });
 
-        describe("onAgendaLoaded", function () {
-            it("should send sendReloadCompleteCommand to event", function () {
-                spyOn(sut.eventChannel, 'sendReloadCompleteCommand');
-                sut.onAgendaLoaded([]);
-                expect(sut.eventChannel.sendReloadCompleteCommand).toHaveBeenCalledWith();
-            });
-        });
-
-        describe("loadAgendaData", function () {
-            beforeEach(function () {
-                sut.event.onLoadAgenda = jasmine.createSpy();
-
-                sut.nextPage = false;
-            });
-
-            it("should fire event onLoadActivity", function () {
-                sut.accountId = 1;
-                sut.loadAgendaData();
-                expect(sut.event.onLoadAgenda).toHaveBeenCalledWith(sut.accountId);
-            });
-        });
-
         describe("onReloadCommandReceived", function () {
-            it("should call loadAgendaData method", function () {
-                spyOn(sut, 'loadAgendaData');
+            it("should call loadEvents method", function () {
+                spyOn(sut, 'loadEvents');
                 sut.onReloadCommandReceived();
-                expect(sut.loadAgendaData).toHaveBeenCalledWith();
+                expect(sut.loadEvents).toHaveBeenCalledWith();
             });
         });
 
@@ -139,6 +119,85 @@ define([
             it("should show a notification dialog", function () {
                 expect(sut.modalDialogAdapter.notify).toHaveBeenCalled();
             });
+        });
+
+        describe('updateCurrentDate', function () {
+            beforeEach(function () {
+                sut.calendarService.getDate.returns({
+                    format: sinon.stub()
+                });
+                sut.updateCurrentDate();
+            });
+            it('should call getDate function from calendar service', function () {
+                expect(sut.calendarService.getDate).toHaveBeenCalled();
+            });
+        });
+
+        describe('loadEvents', function () {
+            it('should fire onLoadEvents', function () {
+                sut.event = {
+                    onLoadEvents: sinon.stub()
+                };
+                sut.loadEvents();
+                expect(sut.event.onLoadEvents).toHaveBeenCalled();
+            });
+        });
+
+        describe('onEventsLoaded', function () {
+
+            var events = [
+                {title: "e1", start: "12-12-2015"},
+                {title: "e2", start: "24-12-2015"}
+            ];
+
+            beforeEach(function () {
+                sinon.stub(sut, 'updateCurrentDate');
+                sut.eventChannel = {
+                    sendReloadCompleteCommand: sinon.stub()
+                };
+                sut.onEventsLoaded(events);
+            });
+
+            it('should send reload complete command', function () {
+                expect(sut.eventChannel.sendReloadCompleteCommand).toHaveBeenCalled();
+            });
+            it('should render the calendar', function () {
+                expect(sut.calendarService.render).toHaveBeenCalledWith(events);
+            });
+            it('should update current date text', function () {
+                expect(sut.updateCurrentDate).toHaveBeenCalled();
+            });
+        });
+
+        describe('onReloadCommandReceived', function () {
+            it('should call loadEvents function', function () {
+                sinon.stub(sut, 'loadEvents');
+                sut.onReloadCommandReceived();
+                expect(sut.loadEvents).toHaveBeenCalled();
+            });
+        });
+
+        describe('onEventDeleted', function () {
+            var event = {
+                title: "e1",
+                start: "12-12-2015"
+            };
+
+            beforeEach(function () {
+                sut.eventChannel = {
+                    sendReloadCommand: sinon.stub()
+                };
+                sut.onEventDeleted(event);
+            });
+
+            it('should send a reload command', function () {
+                expect(sut.eventChannel.sendReloadCommand).toHaveBeenCalled();
+            });
+
+            it("should show a notification dialog", function () {
+                expect(sut.modalDialogAdapter.notify).toHaveBeenCalled();
+            });
+
         });
 
     });

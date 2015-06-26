@@ -14,30 +14,45 @@ define([
 
     AgendaWidgetModel.inherits(Object);
 
-    AgendaWidgetModel.prototype.loadAgendaData = function (id) {
-        var self = this;
-
+    AgendaWidgetModel.prototype.loadEvents = function(accountId){
+        if(!accountId) accountId = 28;
+        var url = Configuration.api.getAgenda.format(accountId);
+        console.log("Agenda URL", url);
         var params = {
-            url: Configuration.api.getAgenda + '/' + id,
+            url: url,
             type: 'get',
             contentType: 'application/json',
-            accept: 'application/json',
-            result: [{
-                id: 1,
-                eventName: "eventname",
-                date: new Date(2015, 15, 3).toISOString()
-            }]
+            accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(self.decorateAgendaData.bind(self));
+        return this.ajaxService.rawAjaxRequest(params);
+    };
+
+    AgendaWidgetModel.prototype.deleteEvent = function(event){
+        var url = Configuration.api.deleteAgenda + "/" + event.id;
+        console.log("Delete Agenda URL", url);
+        var params = {
+            url: url,
+            type: 'delete',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.addEvent = function (event) {
-        var self = this;
+        var url = Configuration.api.createAgenda;
+        console.log("Create Agenda URL", url);
+        var params = {
+            url: url,
+            data: event,
+            type: 'POST',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
 
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: event
-        });
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.decorateAgendaData = function (data) {

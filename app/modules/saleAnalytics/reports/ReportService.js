@@ -1,7 +1,8 @@
 define([
-    'shared/services/ajax/FakeAjaxService',
-    'modules/saleAnalytics/reports/ReportFakeData'
-], function (AjaxService, ReportFakeData) {
+    'shared/services/ajax/AjaxService',
+    'modules/saleAnalytics/reports/ReportFakeData',
+    'config'
+], function (AjaxService, ReportFakeData, Configuration) {
     'use strict';
 
     function ReportService(ajaxService) {
@@ -10,8 +11,20 @@ define([
 
     ReportService.inherits(Object, {});
 
-    ReportService.prototype.toggleFavouriteReport = function () {
+    ReportService.prototype.toggleFavouriteReport = function (reportId) {
         //TODO: implement when having server's contract
+
+        var url = Configuration.api.toggleFavouriteReport.format(reportId);
+        console.log("toggle fav report url",url);
+        var params = {
+            url: url,
+            type: 'put',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
+
     };
 
     ReportService.prototype.getReportURL = function (report) {

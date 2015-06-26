@@ -20,7 +20,7 @@
             <h4>We are sorry, your search did not return any result</h4>
         </div>
 
-        <li ng-repeat="report in reports" ng-click="fn.openResult(report)" ng-show="reports && reports.length > 0">
+        <li ng-repeat="report in reports track by $index" ng-click="fn.openResult(report)" ng-show="reports && reports.length > 0">
             <i class="fa fa-file-text-o" ng-if="report.type == 'report'"></i>
             <i class="fa fa-folder-o" ng-if="report.type == 'folder'"></i>
 

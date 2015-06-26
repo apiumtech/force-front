@@ -1,5 +1,5 @@
 define([
-    'shared/services/ajax/FakeAjaxService',
+    'shared/services/ajax/AjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
     'modules/saleAnalytics/reports/ReportFakeData',
     'shared/services/ArrayHelper',
@@ -27,12 +27,21 @@ define([
     };
 
     AllReportModel.prototype._reload = function () {
-        return this.ajaxService.rawAjaxRequest({
-            result: ReportFakeData()
-        }).then(this.decorateServerData.bind(this));
+        var self = this;
+        var url = Configuration.api.getAllReports;
+        console.log("report url",url);
+        var params = {
+            url: url,
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
+        console.log("server",data);
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
         return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
     };
