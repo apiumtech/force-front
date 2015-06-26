@@ -312,15 +312,16 @@ define([
     ReportItemView.prototype.onReportURLLoadedForSend = function (data) {
         var a = document.createElement("A");
         var subject = "Report from Force Manager";
-        var body = encodeURIComponent(data.url);
+        var body = encodeURIComponent(data);
         a.href = "mailto:?subject=" + subject + "&body=" + body + "&html=true";
         a.click();
     };
 
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
-        a.href = data.url;
-        a.click();
+        a.href = data;
+        console.log(data);
+        //a.click();
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {

@@ -30,9 +30,15 @@ define([
 		};
 
 		self.fn.submit = function(){
-			self.report.params = [{
-				"new" : "params"
-			}];
+			var paramList = Object.keys(self.report.params).map(function(key){
+				return {
+					key: key,
+					value: self.report.params[key]
+				};
+			});
+
+			self.report.params = paramList;
+
 			self.$modalInstance.close(self.report);
 		};
 	};
