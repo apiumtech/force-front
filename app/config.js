@@ -20,6 +20,8 @@ define(function () {
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
         updateAccount: baseApi + '/api/accounts/{0}',
         createAccount: baseApi + '/api/accounts',
+        getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
+        addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',

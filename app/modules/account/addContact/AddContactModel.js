@@ -1,13 +1,13 @@
 define([
     'app',
-    'shared/services/ajax/FakeAjaxService',
+    'shared/services/ajax/AjaxService',
     'modules/account/AccountService',
     'config'
 ], function (app, AjaxService, AccountService, Configuration) {
     'use strict';
 
-    function AddContactModel(fakeAjaxService, accountService, $uploadService) {
-        this.fakeAjaxService = fakeAjaxService || new AjaxService();
+    function AddContactModel(ajaxService, accountService, $uploadService) {
+        this.ajaxService = ajaxService || new AjaxService();
         this.accountService = accountService || new AccountService();
         // @autowired
         this.$uploadService = $uploadService;
@@ -18,13 +18,17 @@ define([
         return self.accountService.getAccountDetail(id);
     };
 
-    AddContactModel.prototype.saveContact = function (contactData) {
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {
-                status: "OK",
-                data: contactData
-            }
-        });
+    AddContactModel.prototype.saveContact = function (accountId, contactData) {
+        var self = this;
+        var params = {
+            url: Configuration.api.addAccountRelatedContact.format(accountId),
+            type: 'post',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: contactData
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AddContactModel.prototype.uploadFile = function (file) {

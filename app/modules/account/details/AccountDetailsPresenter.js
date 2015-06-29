@@ -45,6 +45,11 @@ define([
                 .then(callback, view.showError.bind(view));
         };
 
+        view.event.onLoadingRelatedContact = function(accountId){
+            self.model.loadRelatedContact(accountId)
+                .then(view.onRelatedContactLoaded.bind(view), view.showError.bind(view));
+        }
+
     };
 
     return AccountDetailsPresenter;

@@ -141,6 +141,17 @@ define([
 
         });
 
+        describe('loadRelatedContact', function () {
+            it('should fire onLoadingRelatedContact event', function () {
+                sut.accountId = 123;
+                sut.event = {
+                    onLoadingRelatedContact : sinon.stub()
+                };
+                sut.fn.loadRelatedContact();
+                expect(sut.event.onLoadingRelatedContact).toHaveBeenCalledWith(123);
+            });
+        });
+
         describe("updateMap", function () {
             var latLon = {lat: 0, long: 0};
             var marker = {
@@ -376,6 +387,17 @@ define([
             });
             it("should call appendCompany function after a notification dialog", function () {
                 expect(sut.appendCompany).toHaveBeenCalledWith(data.relatedCompany);
+            });
+        });
+
+        describe('onRelatedContactLoaded', function () {
+            var data = [
+                {"value": "01"},{"value": "02"},{"value": "03"}
+            ];
+            it('should assign the returned data to accountData.relatedContacts', function () {
+                sut.accountData = {};
+                sut.onRelatedContactLoaded(data);
+                expect(sut.accountData.relatedContacts).toEqual(data);
             });
         });
 

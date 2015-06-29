@@ -18,8 +18,8 @@ define([
             model.getAccountData(accountId).then(view.onAccountDataLoaded.bind(view), view.showError.bind(view));
         };
 
-        view.event.onSaveContact = function(contactData){
-            model.saveContact(contactData)
+        view.event.onSaveContact = function(accountId, contactData){
+            model.saveContact(accountId, contactData)
                 .then(view.onSaveContactSuccess.bind(view), view.showError.bind(view));
         };
 
