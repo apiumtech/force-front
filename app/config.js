@@ -13,8 +13,8 @@ define(function () {
         dataTableRequest: baseApi + '/api/accounts/dataTables',
         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
         getAvailableEnvironments: baseUrl + '/api/accounts/environments',
-        getAvailableViews: baseApi + '/api/accounts/views',
-        getAvailableAccountTypes: baseApi + '/api/accounts/accountTypes',
+        getAvailableViews: baseUrl + '/api/accounts/views',
+        getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
 
         getAccount: baseApi + '/api/accounts/{0}',
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
@@ -25,6 +25,7 @@ define(function () {
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
+        accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
         
         getOpportunities: baseUrl + '/api/queries/account/opportunities',

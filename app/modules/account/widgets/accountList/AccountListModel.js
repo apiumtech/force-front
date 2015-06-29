@@ -28,12 +28,14 @@ define([
     };
 
     AccountListModel.prototype.getLatLongData = function (record) {
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {
-                latitude: 41.3970997,
-                longitude: 2.1509145
-            }
-        });
+        var params = {
+            url: Configuration.api.accountGeoLocation.format(record.$loki),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
     AccountListModel.prototype.loadTableFields = function () {
