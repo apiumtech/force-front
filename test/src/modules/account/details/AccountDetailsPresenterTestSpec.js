@@ -35,6 +35,9 @@ define([
                 },
                 {
                     viewEvent: "onSaveRelatedCompany", test: onSaveRelatedCompanyTest
+                },
+                {
+                    viewEvent: "onLoadingRelatedContact", test: onLoadingRelatedContactTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -47,6 +50,13 @@ define([
                         test();
                     });
                 });
+
+            function onLoadingRelatedContactTest() {
+                var modelMethod = "loadRelatedContact";
+                var onSuccess = "onRelatedContactLoaded";
+                var onError = "showError";
+                exerciseAjaxCallBinding("onLoadingRelatedContact", modelMethod, onSuccess, onError);
+            }
 
             function onLoadAccountTest() {
                 var modelMethod = "getAccountDetail";
@@ -126,8 +136,6 @@ define([
 
             function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {
                 beforeEach(function () {
-                    model[modelMethod] = function () {
-                    };
                     view[onSuccess] = jasmine.createSpy();
                     view[onError] = jasmine.createSpy();
                 });

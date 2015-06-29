@@ -82,7 +82,7 @@ define([
         self.fn.saveContact = function (continueAfterSaved) {
             self.isPosting = true;
             self.continueAfterSaved = continueAfterSaved || false;
-            self.event.onSaveContact(self.contactData);
+            self.event.onSaveContact(self.accountId, self.contactData);
         };
 
         self.fn.isFormValidated = function (formName) {
