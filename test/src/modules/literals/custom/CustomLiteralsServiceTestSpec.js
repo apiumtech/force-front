@@ -1,7 +1,8 @@
 define([
     'config',
-	'modules/literals/custom/CustomLiteralsService'
-], function(config, CustomLiteralsService) {
+	'modules/literals/custom/CustomLiteralsService',
+    'shared/services/ajax/CQRSUnwrapper'
+], function(config, CustomLiteralsService, CQRSUnwrapper) {
 	'use strict';
 
     function exerciseCreateService(){
@@ -20,7 +21,7 @@ define([
         describe('getLiteralsList', function() {
             it("sould call ajaxservice with correct url", function () {
                 var sut = exerciseCreateService();
-                spyOn(sut.cqrsUnwrapper, "unwrap");
+                spyOn(CQRSUnwrapper, "unwrap");
                 spyOn(sut.ajaxService, "rawAjaxRequest");
                 config.api.customLiteralList = "some url";
                 sut.getLiteralsList();
@@ -35,7 +36,7 @@ define([
             });
             it("sould call ajaxservice with correct url", function () {
                 var sut = exerciseCreateService();
-                spyOn(sut.cqrsUnwrapper, "unwrap");
+                spyOn(CQRSUnwrapper, "unwrap");
                 spyOn(sut.ajaxService, "rawAjaxRequest");
                 config.api.deleteCustomLiteral = "deleteCustomLiteral url";
                 sut.deleteLiteral(123);
@@ -44,7 +45,7 @@ define([
             });
             it("sould call ajaxservice passing id", function () {
                 var sut = exerciseCreateService();
-                spyOn(sut.cqrsUnwrapper, "unwrap");
+                spyOn(CQRSUnwrapper, "unwrap");
                 spyOn(sut.ajaxService, "rawAjaxRequest");
                 sut.deleteLiteral(456);
                 var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);

@@ -8,18 +8,17 @@ define([
 ], function(config, AuthAjaxService, StorageService, Q, CQRSUnwrapper, FakeAjaxService) {
     'use strict';
 
-    function LiteralsSharedService(ajaxService, storageService, cqrsUnwrapper) {
+    function LiteralsSharedService(ajaxService, storageService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
         this.fakeAjaxService = FakeAjaxService.newInstance();
-        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = LiteralsSharedService.prototype;
 
 
     proto.getLanguageList = function () {
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.languageList,
                 type: 'GET',
@@ -49,7 +48,7 @@ define([
     };
 
     proto.getImplementationList = function () {
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.implementationList,
                 type: 'GET',
@@ -59,11 +58,10 @@ define([
     };
 
 
-    LiteralsSharedService.newInstance = function (ajaxService, storageService, cqrsUnwrapper) {
+    LiteralsSharedService.newInstance = function (ajaxService, storageService) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         storageService = storageService || StorageService.newInstance();
-        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
-        return new LiteralsSharedService(ajaxService, storageService, cqrsUnwrapper);
+        return new LiteralsSharedService(ajaxService, storageService);
     };
 
     return LiteralsSharedService;

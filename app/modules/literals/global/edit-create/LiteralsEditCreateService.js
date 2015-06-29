@@ -8,10 +8,9 @@ define([
 ], function(config, AuthAjaxService, CQRSUnwrapper, Q, LiteralsSharedService, _) {
     'use strict';
 
-    function LiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper) {
+    function LiteralsEditCreateService(ajaxService, sharedService) {
         this.ajaxService = ajaxService;
         this.sharedService = sharedService;
-        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = LiteralsEditCreateService.prototype;
@@ -47,7 +46,7 @@ define([
         assertNotNull("literal", literal);
         assertNotNull("LiteralType", literal.LiteralType);
         var body = this._createLiteralBody(literal);
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.createLiteral,
                 data: body,
@@ -71,7 +70,7 @@ define([
             dataType: 'json',
             contentType: 'application/json'
         };
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest(params)
         );
     };
@@ -110,7 +109,7 @@ define([
         var deferred = Q.defer();
         var self = this;
         var body = "id=" + id;
-        this.cqrsUnwrapper.unwrap(
+        CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.literalById,
                 data: body,
@@ -169,11 +168,10 @@ define([
     };
 
 
-    LiteralsEditCreateService.newInstance = function (ajaxService, sharedService, cqrsUnwrapper) {
+    LiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         sharedService = sharedService || LiteralsSharedService.newInstance();
-        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
-        return new LiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper);
+        return new LiteralsEditCreateService(ajaxService, sharedService);
     };
 
     return LiteralsEditCreateService;

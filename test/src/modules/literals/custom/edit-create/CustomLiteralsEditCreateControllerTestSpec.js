@@ -1,6 +1,7 @@
 define([
-    'modules/literals/custom/edit-create/CustomLiteralsEditCreateController'
-], function(CustomLiteralsEditCreateController) {
+    'modules/literals/custom/edit-create/CustomLiteralsEditCreateController',
+    'modules/literals/custom/edit-create/CustomLiteralsEditCreateView'
+], function(CustomLiteralsEditCreateController, CustomLiteralsEditCreateView) {
 
     var $routeParams;
     var $scope;
@@ -19,6 +20,13 @@ define([
             spyOn(CustomLiteralsEditCreateController,"configureView");
             exerciseCreateController();
             expect(CustomLiteralsEditCreateController.configureView).toHaveBeenCalledWith($routeParams, $scope);
+        });
+
+        it("should view's show method", function () {
+            var mockView = {show:jasmine.createSpy()};
+            spyOn(CustomLiteralsEditCreateView,"newInstance").and.returnValue(mockView);
+            CustomLiteralsEditCreateController.configureView({});
+            expect(mockView.show).toHaveBeenCalled();
         });
 
     });

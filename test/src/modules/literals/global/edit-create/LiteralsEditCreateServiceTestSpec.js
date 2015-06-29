@@ -1,6 +1,7 @@
 define([
-    'modules/literals/global/edit-create/LiteralsEditCreateService'
-], function (LiteralsEditCreateService) {
+    'modules/literals/global/edit-create/LiteralsEditCreateService',
+    'shared/services/ajax/CQRSUnwrapper'
+], function (LiteralsEditCreateService, CQRSUnwrapper) {
     'use strict';
 
     function exerciseCreateService() {
@@ -55,7 +56,7 @@ define([
             });
             it("should call ajaxService's rawAjaxRequest with the literal as body", function () {
                 var sut = exerciseCreateService();
-                sut.cqrsUnwrapper = {unwrap:function(){}}
+                spyOn(CQRSUnwrapper, "unwrap");
                 spyOn(sut.ajaxService, "rawAjaxRequest");
                 sut.createLiteral({Key:"some_key", DeviceTypes:[], LiteralType:{Id:1}, LanguageValues:{}});
                 expect(sut.ajaxService.rawAjaxRequest.calls.argsFor(0)[0].data).toEqual({

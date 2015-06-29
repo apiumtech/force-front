@@ -15,5 +15,13 @@ define([
             var sut = exerciseCreatePresenter();
             expect(sut).toEqual(jasmine.any(BaseLiteralsPresenter));
         });
+        it('should call BaseLiteralsPresenter.show method on show', function () {
+            var sut = exerciseCreatePresenter();
+            spyOn(BaseLiteralsPresenter.prototype, "show");
+            var view = {};
+            var model = {};
+            sut.show(view, model);
+            expect(sut.__base__.show).toHaveBeenCalledWith(view, model);
+        });
     });
 });

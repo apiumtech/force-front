@@ -10,12 +10,11 @@ define([
 ], function(config, AuthAjaxService, StorageService, LiteralsSharedService, Q, _, CQRSUnwrapper, FakeAjaxService) {
     'use strict';
 
-    function CustomLiteralsService(ajaxService, storageService, literalsSharedService, cqrsUnwrapper) {
+    function CustomLiteralsService(ajaxService, storageService, literalsSharedService) {
         this.ajaxService = ajaxService;
         this.storageService = storageService;
         this.literalsSharedService = literalsSharedService;
         this.fakeAjaxService = FakeAjaxService.newInstance();
-        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = CustomLiteralsService.prototype;
@@ -27,7 +26,7 @@ define([
 
 
     proto.getLiteralsList = function(searchParams) {
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.customLiteralList,
                 headers: searchParams,
@@ -43,7 +42,7 @@ define([
         var body = {
             "id": id
         };
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.ajaxService.rawAjaxRequest({
                 url: config.api.deleteCustomLiteral,
                 data: body,
@@ -55,12 +54,11 @@ define([
     };
 
 
-    CustomLiteralsService.newInstance = function (ajaxService, storageService, literalsSharedService, cqrsUnwrapper) {
+    CustomLiteralsService.newInstance = function (ajaxService, storageService, literalsSharedService) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         storageService = storageService || StorageService.newInstance();
         literalsSharedService = literalsSharedService || LiteralsSharedService.newInstance();
-        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
-        return new CustomLiteralsService(ajaxService, storageService, literalsSharedService, cqrsUnwrapper);
+        return new CustomLiteralsService(ajaxService, storageService, literalsSharedService);
     };
 
     return CustomLiteralsService;
