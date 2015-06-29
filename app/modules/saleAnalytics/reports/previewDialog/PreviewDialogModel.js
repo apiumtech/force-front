@@ -8,11 +8,15 @@ define([
     }
 
     PreviewDialogModel.prototype.toggleFavouriteReport = function (reportId) {
-        this.reportService.toggleFavouriteReport(reportId);
+        return this.reportService.toggleFavouriteReport(reportId);
     };
 
     PreviewDialogModel.prototype.getReportURL = function(report, callback){
         this.reportService.getReportURL(report).then(callback);
+    };
+
+    PreviewDialogModel.prototype.loadPreviewImage = function(report){
+        return this.reportService.loadPreviewImage(report);
     };
 
     return PreviewDialogModel;

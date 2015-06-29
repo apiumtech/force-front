@@ -48,14 +48,19 @@ define([
                 });
             });
             describe('fn.toggleFavouriteReport', function () {
-                it("should dismiss the preview dialog", function () {
+                beforeEach(function () {
                     scope.report = {
                         id: 123,
                         favourite: false
                     };
                     sut.event.toggleFavouriteReport = sinon.spy();
                     sut.fn.toggleFavouriteReport();
+                });
+                it("should fire toggleFavouriteReport event", function () {
                     expect(sut.event.toggleFavouriteReport).toHaveBeenCalledWith(123);
+                });
+                it('should set processingFavourite to true', function () {
+                    expect(sut.processingFavourite).toBeTruthy();
                 });
             });
 
@@ -104,6 +109,50 @@ define([
                 })
             });
 
+            describe('fn.init', function () {
+                var report = {
+                    id: 123,
+                    name: "sample report"
+                };
+                it('should fire onLoadingPreviewImage event', function () {
+                    sut.event = {
+                        onLoadingPreviewImage: sinon.stub()
+                    };
+                    sut.report = report;
+                    sut.fn.init();
+                    expect(sut.event.onLoadingPreviewImage).toHaveBeenCalledWith(report);
+                });
+            });
+
         });
+
+        describe('onPreviewImageLoaded', function () {
+            var data = [
+                "img 1",
+                "img 2"
+            ];
+            it('should assign returned data to images', function () {
+                sut.onPreviewImageLoaded(data);
+                expect(sut.images).toEqual(data);
+            });
+        });
+
+        describe('onToggledFavouriteReport', function () {
+            beforeEach(function () {
+                sut.report = {
+                    id: 123,
+                    name: "sample report",
+                    favourite: false
+                };
+                sut.onToggledFavouriteReport();
+            });
+            it('should toggle report\'s favourite property', function () {
+                expect(sut.report.favourite).toBeTruthy();
+            });
+            it('should set processingFavourite to false', function () {
+                expect(sut.processingFavourite).toBeFalsy();
+            });
+        });
+
     });
 });

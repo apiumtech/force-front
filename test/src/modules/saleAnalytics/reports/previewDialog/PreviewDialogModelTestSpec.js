@@ -19,5 +19,16 @@ define([
 				expect(reportService.toggleFavouriteReport).toHaveBeenCalledWith(reportId);
 			});
 		});
+
+		describe('loadPreviewImage', function () {
+			it("should call loadPreviewImage from ReportService", function () {
+				var report = {
+					id: 123,
+					name: "sample report"
+				};
+				sut.loadPreviewImage(report);
+				expect(reportService.loadPreviewImage).toHaveBeenCalledWith(report);
+			});
+		});
 	});
 });

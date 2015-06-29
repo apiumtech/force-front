@@ -1,8 +1,3 @@
-/**
- * Created by joanllenas on 4/27/15.
- */
-
-
 define([
     'shared/BaseView'
 ], function (BaseView) {
@@ -15,7 +10,6 @@ define([
     }
 
 
-    //TopMenuWeb3View.inherits(BaseView, {});
     TopMenuWeb3View.inherits(BaseView);
 
     TopMenuWeb3View.prototype.configureEvents = function () {

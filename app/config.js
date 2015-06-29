@@ -73,6 +73,8 @@ define(function () {
         updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
         getReportParameters: baseUrl + '/api/queries/stats/reports/{0}/parameters',
         getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
+        searchReport: baseUrl + '/api/queries/stats/reports/searchReports/{0}',
+        previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',

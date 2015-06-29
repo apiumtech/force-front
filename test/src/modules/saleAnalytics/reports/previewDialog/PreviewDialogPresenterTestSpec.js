@@ -20,13 +20,15 @@ define([
 				sut.show(view);
 			});
 
-			describe('view.event.toggleFavourite', function () {
-				it('should call toggleFavourite method from the model', function () {
-					var reportId = '123';
-					view.event.toggleFavouriteReport(reportId);
-					expect(model.toggleFavouriteReport).toHaveBeenCalledWith(reportId);
+			[
+				{method: 'onLoadingPreviewImage', modelMethod: 'loadPreviewImage', onSuccess: 'onPreviewImageLoaded', onError: 'showError'},
+				{method: 'toggleFavouriteReport', modelMethod: 'toggleFavouriteReport', onSuccess: 'onToggledFavouriteReport', onError: 'showError'}
+			].forEach(function(testCase){
+					describe('view.event.' + testCase.method, function () {
+						exerciseAjaxCallBinding(testCase.method, testCase.modelMethod, testCase.onSuccess, testCase.onError);
+					});
+
 				});
-			});
 
 			describe('view.event.getReportURL', function () {
 				it("should call getReportURL from model", function () {
@@ -38,6 +40,30 @@ define([
 			});
 
 		});
+
+		function exerciseAjaxCallBinding(viewEvent, modelMethod, onSuccess, onError) {
+			beforeEach(function () {
+				view[onSuccess] = jasmine.createSpy();
+				view[onError] = jasmine.createSpy();
+			});
+			it("presenter should connect event to '" + modelMethod + "' method on $model", function () {
+				spyOn(model, modelMethod).and.returnValue(exerciseFakePromise());
+				view.event[viewEvent]();
+				expect(model[modelMethod]).toHaveBeenCalled();
+			});
+
+			it("should call method '" + onSuccess + "' on $view if $model '" + modelMethod + "' return success", function () {
+				spyOn(model, modelMethod).and.returnValue(exerciseFakeOkPromise());
+				view.event[viewEvent]();
+				expect(view[onSuccess]).toHaveBeenCalled();
+			});
+
+			it("should call method '" + onError + "' on $view if $model '" + modelMethod + "' return error", function () {
+				spyOn(model, modelMethod).and.returnValue(exerciseFakeKoPromise());
+				view.event[viewEvent]();
+				expect(view[onError]).toHaveBeenCalled();
+			});
+		}
 		
 	});
 });
