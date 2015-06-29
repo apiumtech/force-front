@@ -23,6 +23,7 @@ define(function () {
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
+        accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
         
         getOpportunities: baseUrl + '/api/queries/account/opportunities',
