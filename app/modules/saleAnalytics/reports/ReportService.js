@@ -53,8 +53,18 @@ define([
         return this.ajaxService.rawAjaxRequest(params);
     };
 
-    ReportService.prototype.getPreviewReportPhotos = function (reportId) {
-        //TODO: implement when having server's contract
+    ReportService.prototype.loadPreviewImage = function (report) {
+        var url = Configuration.api.previewReport.format(report.id);
+        console.log("preview report url",url);
+        var params = {
+            url: url,
+            type: 'post',
+            data: report.params,
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.ajaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.searchReport = function(query){

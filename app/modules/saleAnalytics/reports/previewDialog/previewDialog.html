@@ -5,7 +5,9 @@
     <div class="modal-title">
         <div class="row">
             <div class="pull-left m-t-6">
-                <i class="fa fa-star" ng-class="{'favourite': report.favourite, 'not-favourite' : !report.favourite }" data-ng-click="fn.toggleFavouriteReport()"></i>
+                <i class="fa fa-star" ng-show = "!processingFavourite"
+                   ng-class="{'favourite': report.favourite, 'not-favourite' : !report.favourite }" data-ng-click="fn.toggleFavouriteReport()"></i>
+                <i class="fa fa-spinner fa-spin" ng-show = "processingFavourite"></i>
             </div>
             <div class="col-md-5">
                 <h5>{{report.name}}</h5>
@@ -23,16 +25,10 @@
         </div>
     </div>
 </div>
-<div class="modal-body">
+<div class="modal-body" ng-init="fn.init()">
     <carousel interval="myInterval">
-        <slide>
-            <img ng-src="http://miriadna.com/desctopwalls/images/max/Ideal-landscape.jpg">
-        </slide>
-        <slide>
-            <img ng-src="http://digital-photography-school.com/wp-content/uploads/flickr/205125227_3f160763a0_o.jpg">
-        </slide>
-        <slide>
-            <img ng-src="http://www.h3dwallpapers.com/wp-content/uploads/2014/08/Landscape-wallpapers-1.jpeg">
+        <slide ng-repeat="image in images">
+            <img ng-src="{{image}}">
         </slide>
     </carousel>
 </div>

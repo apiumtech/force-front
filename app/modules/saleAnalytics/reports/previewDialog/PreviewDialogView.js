@@ -19,6 +19,22 @@ define([
             set: function (value) {
                 this.$scope.report = value;
             }
+        },
+        images: {
+            get: function () {
+                return this.$scope.images;
+            },
+            set: function (value) {
+                this.$scope.images = value;
+            }
+        },
+        processingFavourite: {
+            get: function () {
+                return this.$scope.processingFavourite;
+            },
+            set: function (value) {
+                this.$scope.processingFavourite = value;
+            }
         }
     });
 
@@ -29,8 +45,12 @@ define([
             self.$modalInstance.dismiss();
         };
 
+        self.fn.init = function(){
+            self.event.onLoadingPreviewImage(self.report);
+        };
+
         self.fn.toggleFavouriteReport = function () {
-            self.report.favourite = !self.report.favourite;
+            self.processingFavourite = true;
             self.event.toggleFavouriteReport(self.report.id);
         };
 
@@ -44,16 +64,28 @@ define([
 
     };
 
+    PreviewDialogView.prototype.onPreviewImageLoaded = function(data){
+        var self = this;
+        self.images = data;
+    };
+
+    PreviewDialogView.prototype.onToggledFavouriteReport = function(){
+        var self = this;
+        self.report.favourite = !self.report.favourite;
+        self.processingFavourite = false;
+    };
+
     PreviewDialogView.prototype.onURLReceivedForDownload = function (data) {
         var a = document.createElement("A");
-        a.href = data.url;
-        a.click();
+        a.href = data;
+        console.log(a);
+        //a.click();
     };
 
     PreviewDialogView.prototype.onURLReceivedForSend = function (data) {
         var a = document.createElement("A");
         var subject = "Report from Force Manager";
-        var body = data.url;
+        var body = data;
         a.href = "mailto:?subject=" + subject + "&body=" + body + "&html=true";
         a.click();
     };
