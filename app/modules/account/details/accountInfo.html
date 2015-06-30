@@ -73,15 +73,14 @@
 
             <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
-
-            <p ng-repeat="relatedContact in accountData.relatedContacts"
-               ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
+            <div class="relatedContacts">
+                <p ng-repeat="relatedContact in accountData.relatedContacts"
+                   ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
                    'bg-fade' : relatedContact.added }">
 
-                <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.firstName}} {{relatedContact.lastName}}
-                    {{relatedContact.status}}</a>
-                <a class="popover-contact-info"
-                   ng-mouseover="fn.createPopover($event, relatedContact)">
+                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.name}}</a>
+                    <a class="popover-contact-info"
+                       ng-mouseover="fn.createPopover($event, relatedContact)">
                     <span class="ic-info"
                           ng-click="fn.showPopover($event)"></span>
                 </a>

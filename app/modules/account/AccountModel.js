@@ -18,9 +18,8 @@ define([
     }
 
     AccountModel.prototype.toggleFollow = function (record) {
-        // TODO: replace $loki with the record identifer
         var params = {
-            url: Configuration.api.toggleFollow.format(record.$loki),
+            url: Configuration.api.toggleFollow.format(record.id),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'

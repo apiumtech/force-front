@@ -9,9 +9,9 @@ define([
 ], function (AccountService, AjaxService, FakeAjaxService, Configuration) {
 
     function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
-        this.accountService = accountService || new AccountService();
-        this.ajaxService = ajaxService || new AjaxService();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
+        this.accountService = accountService || AccountService._diResolve();
+        this.ajaxService = ajaxService || new AjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
     }
 
     AccountDetailsModel.inherits(Object);
@@ -80,6 +80,13 @@ define([
         };
 
         return self.ajaxService.rawAjaxRequest(params);
+	};
+
+    AccountDetailsModel.prototype.deleteAccount = function () {
+        console.log("Account deleted");
+        return this.fakeAjaxService.rawAjaxRequest({
+            result: {}
+        });
     };
 
     AccountDetailsModel.prototype.deleteAccount = function(accountId){

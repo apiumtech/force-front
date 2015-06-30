@@ -16,7 +16,7 @@ define([
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.notificationService = NotificationService._diResolve();
+        this.notificationService = notificationService || NotificationService._diResolve();
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
@@ -24,7 +24,6 @@ define([
         this.modalService = scope.$modal;
         this.scope = scope;
         this.element = element;
-        this.configureEvents(this);
     }
 
     AccountDetailsView.inherits(BaseView, {
@@ -38,7 +37,8 @@ define([
         },
         accountData: {
             get: function () {
-                return this.$scope.accountData;
+                return this.$scope.accountData || (this.$scope.accountData = {}                )
+                ;
             },
             set: function (value) {
                 this.$scope.accountData = value;
@@ -102,7 +102,7 @@ define([
 
         self.fn.createPopover = function ($event, relatedContact) {
             var target = $event.target.closest('.popover-contact-info');
-            self.event.onRelateContactRequest(1, function (data) {
+            self.event.onRelateContactRequest(relatedContact.id, function (data) {
                 self.relatedContact = relatedContact;
                 self.popoverAdapter.createPopover(target, self.getPopoverTemplate(), self.getPopoverContentTemplate());
             });
@@ -193,7 +193,8 @@ define([
             };
             self.appendCompany(newCompany);
             self.newCompany = undefined;
-        };
+        }
+        ;
     };
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {
@@ -255,6 +256,7 @@ define([
     AccountDetailsView.prototype.show = function () {
         var self = this;
         BaseView.prototype.show.call(this);
+        this.configureEvents(this);
         self.fn.loadAccountData();
     };
 

@@ -7,8 +7,8 @@ define([
     'use strict';
 
     function AccountListModel(ajaxService, dataTableDataProvider, fakeAjaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
+        this.ajaxService = ajaxService || AjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
         this.dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance();
         this.accountsList = [];
         this.recentFilters = {};
@@ -16,7 +16,6 @@ define([
     }
 
     AccountListModel.prototype.toggleFollow = function (record) {
-        // TODO: replace $loki with the record identifer
         var params = {
             url: Configuration.api.toggleFollow.format(record.id),
             type: 'post',

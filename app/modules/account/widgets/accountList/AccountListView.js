@@ -447,8 +447,7 @@ define([
         var viewFilter = self.data.filters.view;
         if (view && view.selected) {
             viewFilter.filtering = true;
-            // TODO: update $loki to the identifier of the view object
-            viewFilter.value = view.$loki;
+            viewFilter.value = view.id;
         } else {
             viewFilter.value = null;
             viewFilter.filtering = false;
