@@ -16,7 +16,7 @@ define([
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.notificationService = NotificationService._diResolve();
+        this.notificationService = notificationService || NotificationService._diResolve();
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
@@ -24,7 +24,6 @@ define([
         this.modalService = scope.$modal;
         this.scope = scope;
         this.element = element;
-        this.configureEvents(this);
     }
 
     AccountDetailsView.inherits(BaseView, {
@@ -38,7 +37,8 @@ define([
         },
         accountData: {
             get: function () {
-                return this.$scope.accountData;
+                return this.$scope.accountData || (this.$scope.accountData = {}                )
+                ;
             },
             set: function (value) {
                 this.$scope.accountData = value;
@@ -102,7 +102,7 @@ define([
 
         self.fn.createPopover = function ($event, relatedContact) {
             var target = $event.target.closest('.popover-contact-info');
-            self.event.onRelateContactRequest(1, function (data) {
+            self.event.onRelateContactRequest(relatedContact.id, function (data) {
                 self.relatedContact = relatedContact;
                 self.popoverAdapter.createPopover(target, self.getPopoverTemplate(), self.getPopoverContentTemplate());
             });
@@ -160,12 +160,12 @@ define([
             });
         };
 
-        self.fn.loadRelatedContact = function(){
+        self.fn.loadRelatedContact = function () {
             self.event.onLoadingRelatedContact(self.accountId);
         };
     };
 
-    AccountDetailsView.prototype.onRelatedContactLoaded = function(data){
+    AccountDetailsView.prototype.onRelatedContactLoaded = function (data) {
         var self = this;
         self.accountData.relatedContacts = data;
         self.loadNewCreatedContactIfAny();
@@ -181,7 +181,7 @@ define([
 
         var relatedCompanyWrapper = $(".relatedCompanies");
 
-        if(!relatedCompanyWrapper.length) return;
+        if (!relatedCompanyWrapper.length) return;
 
         var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
         var newCompany = $("<p>" + company.name + "</p>");
@@ -195,20 +195,20 @@ define([
 
     AccountDetailsView.prototype.appendContact = function (contacts) {
         var self = this;
-        var scope =self.scope;
+        var scope = self.scope;
         self.newContacts = [];
-        self.accountData.relatedContacts.forEach(function(contact){
-            contacts.forEach(function(c){
-                if(c.message.message == contact.id) {
+        self.accountData.relatedContacts.forEach(function (contact) {
+            contacts.forEach(function (c) {
+                if (c.message.message == contact.id) {
                     contact.recent = true;
                     self.newContacts.push(contact);
-                };
+                }
             });
         });
 
         self.awaitHelper.await(function () {
             console.log("should turn off");
-            self.newContacts.forEach(function(c){
+            self.newContacts.forEach(function (c) {
                 c.added = true;
                 self.awaitHelper.await(function () {
                     c.recent = false;
@@ -241,6 +241,7 @@ define([
     AccountDetailsView.prototype.show = function () {
         var self = this;
         BaseView.prototype.show.call(this);
+        this.configureEvents(this);
         self.fn.loadAccountData();
     };
 

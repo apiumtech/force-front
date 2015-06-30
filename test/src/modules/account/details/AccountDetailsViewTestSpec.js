@@ -29,21 +29,213 @@ define([
             mapService = mock(GoogleMapService);
             popoverService = mock(PopoverAdapter);
             sut = new AccountDetailsView(scope, element, presenter, mapService, popoverService, modalDialogAdapter);
+            sut.event.onLoadAccount = function(){};
         });
 
         it("should call presenter's show method on show()", function () {
-            sut.fn.loadAccountData = jasmine.createSpy();
             sut.show();
             expect(sut.presenter.show).toHaveBeenCalledWith(sut);
-            expect(sut.fn.loadAccountData).toHaveBeenCalled();
         });
 
-        ["onFollowToggled", "onAccountUpdated"].forEach(function (method) {
-            describe(method, function () {
-                it("should reload account data", function () {
-                    spyOn(sut.fn, 'loadAccountData');
-                    sut[method]();
+        describe("configureEvents", function () {
+            beforeEach(function () {
+                sut.event.onLoadAccount = function () {
+                };
+                sut.show();
+            });
+
+
+            ["onFollowToggled", "onAccountUpdated"].forEach(function (method) {
+                describe(method, function () {
+                    it("should reload account data", function () {
+                        spyOn(sut.fn, 'loadAccountData');
+                        sut[method]();
+                        expect(sut.fn.loadAccountData).toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe("fn.initMap", function () {
+                it("should createMap", function () {
+                    var mapValue = {map: 'googleMap'};
+                    spyOn(sut.mapService, 'createMap').and.returnValue(mapValue);
+                    sut.fn.initMap();
+                    expect(sut.mapService.createMap).toHaveBeenCalled();
+                    expect(sut.data.map).toEqual(mapValue);
+                });
+            });
+
+            describe('fn.deleteAccount', function () {
+                it("should call modalDialogAdapter's confirm method with the correct params", function () {
+                    var title = "title";
+                    var message = "message";
+                    spyOn(sut, 'handleDeleteRequest');
+                    spyOn(window, 'doNothing');
+                    sut.fn.deleteAccount(title, message);
+                    expect(sut.modalDialogAdapter.confirm).toHaveBeenCalledWith(title, message, jasmine.any(Function), window.doNothing);
+                });
+                it("should execute handleDeleteRequest when the confirmation confirmed", function () {
+                    var title = "title";
+                    var message = "message";
+                    spyOn(sut, 'handleDeleteRequest');
+                    spyOn(window, 'doNothing');
+
+                    spyOn(modalDialogAdapter, 'confirm').and.callFake(function (title, message, actionConfirmCallback, actionRejectCallback) {
+                        actionConfirmCallback();
+                    });
+                    sut.fn.deleteAccount(title, message);
+                    expect(sut.handleDeleteRequest).toHaveBeenCalled();
+                });
+            });
+
+            describe('fn.addCompany', function () {
+
+                var promise = {
+                    'obj': 123
+                };
+
+                var paramDialog = {
+                    result: {
+                        then: function (b) {
+                            b(promise);
+                        }
+                    }
+                };
+
+                beforeEach(function () {
+                    scope.$modal.open.returns(paramDialog);
+                    sinon.stub(sut, 'handleAddCompanyRequest');
+                    sut.fn.addCompany();
+                });
+
+                it("should open the dialog", function () {
+                    expect(scope.$modal.open).toHaveBeenCalled();
+                });
+
+                it("should call handleAddCompanyRequest function after dialog dismissed", function () {
+                    expect(sut.handleAddCompanyRequest).toHaveBeenCalledWith({'obj': 123});
+                });
+
+            });
+
+            describe("fn.loadAccountData", function () {
+                it("should fire event onLoadAccount", function () {
+                    sut.event.onLoadAccount = jasmine.createSpy();
+                    sut.fn.loadAccountData();
+                    expect(sut.event.onLoadAccount).toHaveBeenCalled();
+                });
+            });
+
+            describe("fn.toggleFollow", function () {
+                it("should fire event onToggleFollow", function () {
+                    sut.event.onToggleFollow = jasmine.createSpy();
+                    sut.fn.toggleFollow();
+                    expect(sut.event.onToggleFollow).toHaveBeenCalled();
+                });
+            });
+
+            describe("fn.startEditEmail", function () {
+                beforeEach(function () {
+                    sut.fn.editingEmails = {
+                        "0": "have-value",
+                        "1": "have-v-alue",
+                        "3": "have--va-lue"
+                    };
+                });
+                it("should add the value to editingEmails list", function () {
+                    sut.fn.startEditEmail(2, "newValue");
+                    expect(sut.fn.editingEmails).toEqual({
+                        "0": "have-value",
+                        "1": "have-v-alue",
+                        "2": "newValue",
+                        "3": "have--va-lue"
+                    });
+                });
+            });
+
+            describe("fn.isEditingEmail", function () {
+                [{
+                    real: {
+                        "1": "abc"
+                    },
+                    toGet: 1,
+                    expected: true
+                }, {
+                    real: {
+                        "1": "abc"
+                    },
+                    toGet: 3,
+                    expected: false
+                }].forEach(function (testCase) {
+                        describe("getting index " + testCase.toGet, function () {
+                            it("should return " + testCase.expected, function () {
+                                sut.fn.editingEmails = testCase.real;
+                                var actual = sut.fn.isEditingEmail([testCase.toGet]);
+                                expect(actual).toEqual(testCase.expected);
+                            });
+                        });
+                    });
+            });
+
+            describe("fn.cancelEditingEmail", function () {
+                beforeEach(function () {
+                    sut.fn.editingEmails = {
+                        "0": "have-value",
+                        "1": "have-v-alue",
+                        "3": "have--va-lue"
+                    };
+
+                    sut.fn.loadAccountData = jasmine.createSpy();
+                });
+                it("should turn the email editing to false by remove it from the editingEmails object", function () {
+                    sut.fn.cancelEditingEmail(3);
+                    expect(sut.fn.editingEmails).toEqual({
+                        "0": "have-value",
+                        "1": "have-v-alue"
+                    });
+                });
+
+                it("should call loadAccountData to reload the data", function () {
+                    sut.fn.cancelEditingEmail(3);
                     expect(sut.fn.loadAccountData).toHaveBeenCalled();
+                });
+            });
+
+            describe("fn.finishEditingEmail", function () {
+                beforeEach(function () {
+                    sut.fn.editingEmails = {
+                        "0": "have-value",
+                        "1": "have-v-alue",
+                        "3": "have--va-lue"
+                    };
+                    sut.accountData = {
+                        emails: ["have-value", "have-v-alue", "some-other-value", "have--va-lue"]
+                    };
+                    sut.event.onUpdateEmail = jasmine.createSpy();
+                });
+
+                it("should turn the email editing to false by remove it from the editingEmails object", function () {
+                    sut.fn.finishEditingEmail(3, "newValue");
+                    expect(sut.fn.editingEmails).toEqual({
+                        "0": "have-value",
+                        "1": "have-v-alue"
+                    });
+                });
+
+                it("should call onUpdateEmail to reload the data", function () {
+                    sut.fn.finishEditingEmail(3, "newValue");
+                    expect(sut.event.onUpdateEmail).toHaveBeenCalledWith(sut.accountData);
+                });
+            });
+
+            describe('fn.loadRelatedContact', function () {
+                it('should fire onLoadingRelatedContact event', function () {
+                    sut.accountId = 123;
+                    sut.event = {
+                        onLoadingRelatedContact: sinon.stub()
+                    };
+                    sut.fn.loadRelatedContact();
+                    expect(sut.event.onLoadingRelatedContact).toHaveBeenCalledWith(123);
                 });
             });
         });
@@ -75,80 +267,6 @@ define([
             it("should update the map with new location", function () {
                 sut.onAccountLoaded(data);
                 expect(sut.updateMap).toHaveBeenCalledWith(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
-            });
-        });
-
-        describe("fn.initMap", function () {
-            it("should createMap", function () {
-                var mapValue = {map: 'googleMap'};
-                spyOn(sut.mapService, 'createMap').and.returnValue(mapValue);
-                sut.fn.initMap();
-                expect(sut.mapService.createMap).toHaveBeenCalled();
-                expect(sut.data.map).toEqual(mapValue);
-            });
-        });
-
-        describe('fn.deleteAccount', function () {
-            it("should call modalDialogAdapter's confirm method with the correct params", function () {
-                var title = "title";
-                var message = "message";
-                spyOn(sut, 'handleDeleteRequest');
-                spyOn(window, 'doNothing');
-                sut.fn.deleteAccount(title, message);
-                expect(sut.modalDialogAdapter.confirm).toHaveBeenCalledWith(title, message, jasmine.any(Function), window.doNothing);
-            });
-            it("should execute handleDeleteRequest when the confirmation confirmed", function () {
-                var title = "title";
-                var message = "message";
-                spyOn(sut, 'handleDeleteRequest');
-                spyOn(window, 'doNothing');
-
-                spyOn(modalDialogAdapter, 'confirm').and.callFake(function (title, message, actionConfirmCallback, actionRejectCallback) {
-                    actionConfirmCallback();
-                });
-                sut.fn.deleteAccount(title, message);
-                expect(sut.handleDeleteRequest).toHaveBeenCalled();
-            });
-        });
-
-        describe('fn.addCompany', function () {
-
-            var promise = {
-                'obj': 123
-            };
-
-            var paramDialog = {
-                result: {
-                    then: function (b) {
-                        b(promise);
-                    }
-                }
-            };
-
-            beforeEach(function () {
-                scope.$modal.open.returns(paramDialog);
-                sinon.stub(sut, 'handleAddCompanyRequest');
-                sut.fn.addCompany();
-            });
-
-            it("should open the dialog", function () {
-                expect(scope.$modal.open).toHaveBeenCalled();
-            });
-
-            it("should call handleAddCompanyRequest function after dialog dismissed", function () {
-                expect(sut.handleAddCompanyRequest).toHaveBeenCalledWith({'obj': 123});
-            });
-
-        });
-
-        describe('loadRelatedContact', function () {
-            it('should fire onLoadingRelatedContact event', function () {
-                sut.accountId = 123;
-                sut.event = {
-                    onLoadingRelatedContact : sinon.stub()
-                };
-                sut.fn.loadRelatedContact();
-                expect(sut.event.onLoadingRelatedContact).toHaveBeenCalledWith(123);
             });
         });
 
@@ -184,116 +302,6 @@ define([
             it("should set the map to center", function () {
                 sut.updateMap(10, 10, name);
                 expect(sut.data.map.setCenter).toHaveBeenCalledWith(latLon);
-            });
-        });
-
-        describe("fn.loadAccountData", function () {
-            it("should fire event onLoadAccount", function () {
-                sut.event.onLoadAccount = jasmine.createSpy();
-                sut.fn.loadAccountData();
-                expect(sut.event.onLoadAccount).toHaveBeenCalled();
-            });
-        });
-
-        describe("fn.toggleFollow", function () {
-            it("should fire event onToggleFollow", function () {
-                sut.event.onToggleFollow = jasmine.createSpy();
-                sut.fn.toggleFollow();
-                expect(sut.event.onToggleFollow).toHaveBeenCalled();
-            });
-        });
-
-        describe("fn.startEditEmail", function () {
-            beforeEach(function () {
-                sut.fn.editingEmails = {
-                    "0": "have-value",
-                    "1": "have-v-alue",
-                    "3": "have--va-lue"
-                };
-            });
-            it("should add the value to editingEmails list", function () {
-                sut.fn.startEditEmail(2, "newValue");
-                expect(sut.fn.editingEmails).toEqual({
-                    "0": "have-value",
-                    "1": "have-v-alue",
-                    "2": "newValue",
-                    "3": "have--va-lue"
-                });
-            });
-        });
-
-        describe("fn.isEditingEmail", function () {
-            [{
-                real: {
-                    "1": "abc"
-                },
-                toGet: 1,
-                expected: true
-            }, {
-                real: {
-                    "1": "abc"
-                },
-                toGet: 3,
-                expected: false
-            }].forEach(function (testCase) {
-                    describe("getting index " + testCase.toGet, function () {
-                        it("should return " + testCase.expected, function () {
-                            sut.fn.editingEmails = testCase.real;
-                            var actual = sut.fn.isEditingEmail([testCase.toGet]);
-                            expect(actual).toEqual(testCase.expected);
-                        });
-                    });
-                });
-        });
-
-        describe("fn.cancelEditingEmail", function () {
-            beforeEach(function () {
-                sut.fn.editingEmails = {
-                    "0": "have-value",
-                    "1": "have-v-alue",
-                    "3": "have--va-lue"
-                };
-
-                sut.fn.loadAccountData = jasmine.createSpy();
-            });
-            it("should turn the email editing to false by remove it from the editingEmails object", function () {
-                sut.fn.cancelEditingEmail(3);
-                expect(sut.fn.editingEmails).toEqual({
-                    "0": "have-value",
-                    "1": "have-v-alue"
-                });
-            });
-
-            it("should call loadAccountData to reload the data", function () {
-                sut.fn.cancelEditingEmail(3);
-                expect(sut.fn.loadAccountData).toHaveBeenCalled();
-            });
-        });
-
-        describe("fn.finishEditingEmail", function () {
-            beforeEach(function () {
-                sut.fn.editingEmails = {
-                    "0": "have-value",
-                    "1": "have-v-alue",
-                    "3": "have--va-lue"
-                };
-                sut.accountData = {
-                    emails: ["have-value", "have-v-alue", "some-other-value", "have--va-lue"]
-                };
-                sut.event.onUpdateEmail = jasmine.createSpy();
-            });
-
-            it("should turn the email editing to false by remove it from the editingEmails object", function () {
-                sut.fn.finishEditingEmail(3, "newValue");
-                expect(sut.fn.editingEmails).toEqual({
-                    "0": "have-value",
-                    "1": "have-v-alue"
-                });
-            });
-
-            it("should call onUpdateEmail to reload the data", function () {
-                sut.fn.finishEditingEmail(3, "newValue");
-                expect(sut.event.onUpdateEmail).toHaveBeenCalledWith(sut.accountData);
             });
         });
 
@@ -392,7 +400,7 @@ define([
 
         describe('onRelatedContactLoaded', function () {
             var data = [
-                {"value": "01"},{"value": "02"},{"value": "03"}
+                {"value": "01"}, {"value": "02"}, {"value": "03"}
             ];
             it('should assign the returned data to accountData.relatedContacts', function () {
                 sut.accountData = {};

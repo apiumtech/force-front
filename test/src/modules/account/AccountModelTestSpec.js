@@ -19,7 +19,7 @@ define([
 
         describe("toggleFollow", function () {
             it("should call rawAjaxRequest with correct url", function () {
-                var toFollow = {$loki: 10};
+                var toFollow = {id: 10};
                 spyOn(sut.ajaxService, 'rawAjaxRequest');
                 sut.toggleFollow(toFollow);
                 expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
