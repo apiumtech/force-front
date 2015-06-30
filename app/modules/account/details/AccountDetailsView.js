@@ -317,9 +317,10 @@ define([
         self.$scope.location = "/accounts";
     };
 
-    AccountDetailsView.prototype.onAccountDeleted = function () {
+    AccountDetailsView.prototype.onAccountDeleted = function (response) {
         var self = this;
-        var message = self.generateSuccessMessage("The account has been deleted successfully");
+        console.log("account delete", response);
+        var message = self.generateSuccessMessage(response.message);
         self.modalDialogAdapter.notify('', message);
         self.redirectToAccountList();
     };

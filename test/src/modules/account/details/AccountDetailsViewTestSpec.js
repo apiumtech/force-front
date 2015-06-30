@@ -346,7 +346,10 @@ define([
                 spyOn(sut, 'redirectToAccountList');
                 spyOn(modalDialogAdapter, 'notify').and.callFake(function (title, message, actionConfirmCallback) {
                 });
-                sut.onAccountDeleted();
+                var response = {
+                  message: "Server message"
+                };
+                sut.onAccountDeleted(response);
                 expect(sut.redirectToAccountList).toHaveBeenCalled();
             });
         });

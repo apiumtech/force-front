@@ -82,12 +82,16 @@ define([
         return self.ajaxService.rawAjaxRequest(params);
     };
 
-    AccountDetailsModel.prototype.deleteAccount = function(){
-        console.log("Account deleted");
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {
-            }
-        });
+    AccountDetailsModel.prototype.deleteAccount = function(accountId){
+        var self = this;
+        console.log("Delete account", Configuration.api.deleteAccount.format(accountId));
+        var params = {
+            url: Configuration.api.deleteAccount.format(accountId),
+            type: 'delete',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.saveRelatedCompany = function(accountId, relatedCompany){
