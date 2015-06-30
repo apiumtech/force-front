@@ -347,8 +347,6 @@ define([
         });
         self.mapService.bindClickEvent(marker, function () {
             self.closeInfoWindowInMap();
-            // TODO: remove this when integrate with real server
-            accountData.id = accountData.$loki;
             var parsedContent = self.templateParser.parseTemplate(self.getInfoWindowTemplate(), accountData);
             self.data.infoWindow = self.mapService.createInfoWindow(parsedContent);
             self.data.infoWindow.open(self.data.map, marker);
@@ -369,7 +367,7 @@ define([
     };
 
     AccountListView.prototype.renderLogoColumn = function (data, type, row) {
-        var self = this
+        var self = this;
         var accountNameColTemplate = $(".accountLogoTemplate").html();
         return self.templateParser.parseTemplate(accountNameColTemplate, row);
     };
@@ -377,8 +375,6 @@ define([
     AccountListView.prototype.renderNameColumn = function (data, type, row) {
         var self = this;
         var accountNameColTemplate = $(".accountNameColumnTemplate").html();
-        // TODO: Remove $loki when integrate to real server
-        row.id = row.$loki;
         return self.templateParser.parseTemplate(accountNameColTemplate, row);
     };
 

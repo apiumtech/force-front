@@ -72,21 +72,13 @@ define([
         if (option.startFilter)
             option.startFilter = false;
 
-        var mappedResponseData = this.mapAccountListResponseData(responseData.data);
-        this.accountsList = this.accountsList.concat(mappedResponseData);
+        this.accountsList = this.accountsList.concat(responseData.data);
 
         if (this.accountsList.length === responseData.recordsFiltered)
             option.stopLoading = true;
 
         responseData.data = this.accountsList;
         callback(responseData);
-    };
-
-    AccountModel.prototype.mapAccountListResponseData = function (data) {
-        return data.map(function (record) {
-            record.id = record.$loki;
-            return record;
-        });
     };
 
     AccountModel.prototype.remapResponseError = function (error) {

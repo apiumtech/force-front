@@ -10,7 +10,7 @@ define(function () {
     var baseApi = '';
 
     var api = {
-        dataTableRequest: baseApi + '/api/accounts/dataTables',
+        dataTableRequest: baseUrl + '/api/accounts/dataTables',
         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
         getAvailableEnvironments: baseUrl + '/api/accounts/environments',
         getAvailableViews: baseUrl + '/api/accounts/views',
