@@ -75,22 +75,18 @@ define([
 
 
     proto.onInit = function () {
-        this.data.isLoading = true;
         throw new Error("Abstract method not implemented");
     };
 
     proto.getLiteralById = function () {
-        this.data.isLoading = true;
         throw new Error("Abstract method not implemented");
     };
 
     proto.onGetLiteralByIdSuccess = function(literal) {
-        this.data.isLoading = false;
         throw new Error("Abstract method not implemented");
     };
 
     proto.onSave = function () {
-        this.data.isLoading = true;
         throw new Error("Abstract method not implemented");
     };
 
