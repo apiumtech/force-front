@@ -2,7 +2,7 @@
  * Created by justin on 3/9/15.
  */
 define([
-    'modules/account/AccountService',
+    'shared/services/AccountService',
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
@@ -17,8 +17,8 @@ define([
     AccountDetailsModel.inherits(Object);
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
-        var self = this;
-        return self.accountService.getAccountDetail(id);
+        console.log("account id", id);
+        return this.accountService.getDetails(id);
     };
 
     AccountDetailsModel.prototype.getAccountSummary = function (id) {

@@ -16,9 +16,9 @@ define(function () {
         getAvailableViews: baseUrl + '/api/accounts/views',
         getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
 
-        getAccount: baseApi + '/api/accounts/{0}',
+        getAccount: baseUrl + '/api/accounts/getAccount/{0}',
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
-        updateAccount: baseApi + '/api/accounts/{0}',
+        updateAccount: baseUrl + '/api/accounts/update/{0}',
         createAccount: baseApi + '/api/accounts',
         deleteAccount: baseUrl + '/api/accounts/delete/{0}',
         getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
