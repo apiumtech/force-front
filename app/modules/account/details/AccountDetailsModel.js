@@ -70,6 +70,18 @@ define([
         return self.ajaxService.rawAjaxRequest(params);
     };
 
+    AccountDetailsModel.prototype.loadRelatedCompany = function (accountId) {
+        var self = this;
+        var params = {
+            url: Configuration.api.getAccountRelatedCompany.format(accountId),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
     AccountDetailsModel.prototype.deleteAccount = function(){
         console.log("Account deleted");
         return this.fakeAjaxService.rawAjaxRequest({
@@ -79,11 +91,16 @@ define([
     };
 
     AccountDetailsModel.prototype.saveRelatedCompany = function(accountId, relatedCompany){
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {
-                relatedCompany: relatedCompany
-            }
-        });
+        var self = this;
+        var params = {
+            url: Configuration.api.addAccountRelatedCompany.format(accountId),
+            type: 'post',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: relatedCompany
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     return AccountDetailsModel;
