@@ -4,23 +4,17 @@ define([
 ], function (app, Q) {
 
     function CQRSUnwrapper() {
-        this.deferred = null;
+        this.deferred = Q.defer();
     }
 
-    CQRSUnwrapper.prototype.unwrap = function (promise) {
-        return promise;
-
-
-        var self = this;
-        self.deferred = Q.defer();
+    CQRSUnwrapper.unwrap = function (promise) {
+        var self = CQRSUnwrapper.$newInstance();
 
         promise.then(
             function(res) {
-                console.log("success");
-                self.onSuccess.bind(res)
+                self.onSuccess(res);
             },
             function(err) {
-                console.log("error");
                 self.deferred.reject(err);
             }
         );
@@ -29,7 +23,6 @@ define([
     };
 
     CQRSUnwrapper.prototype.onSuccess = function (res) {
-        console.log("onSuccess " + res.status);
         if( res.status === "ack" ){
             this.deferred.resolve(res);
         } else {
@@ -37,7 +30,7 @@ define([
         }
     };
 
-    CQRSUnwrapper.newInstance = function () {
+    CQRSUnwrapper.$newInstance = function() {
         return new CQRSUnwrapper();
     };
 

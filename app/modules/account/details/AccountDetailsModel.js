@@ -58,6 +58,18 @@ define([
         return self.ajaxService.rawAjaxRequest(params);
     };
 
+    AccountDetailsModel.prototype.loadRelatedContact = function (accountId) {
+        var self = this;
+        var params = {
+            url: Configuration.api.getAccountRelatedContact.format(accountId),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
     AccountDetailsModel.prototype.deleteAccount = function(){
         console.log("Account deleted");
         return this.fakeAjaxService.rawAjaxRequest({

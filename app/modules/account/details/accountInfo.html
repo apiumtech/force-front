@@ -68,14 +68,18 @@
             <!-- related contacts-->
             <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
-            <div class="relatedContacts">
-                <p ng-repeat="relatedContact in accountData.relatedContacts">
-                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.name}}</a>
+            <div class="relatedContacts" ng-init="fn.loadRelatedContact()">
+                <p ng-repeat="relatedContact in accountData.relatedContacts"
+                   ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
+                   'bg-fade' : relatedContact.added }">
+
+                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.firstName}} {{relatedContact.lastName}} {{relatedContact.status}}</a>
                     <a class="popover-contact-info"
-                       ng-mouseover="fn.createPopover($event, relatedContact.id)">
+                       ng-mouseover="fn.createPopover($event, relatedContact)">
                     <span class="ic-info"
                           ng-click="fn.showPopover($event)"></span>
                     </a>
+                    <span class='ok-tick pull-right' ng-show="relatedContact.recent && !relatedContact.added"><i class='ic-accept'></i></span>
                 </p>
             </div>
 
@@ -130,7 +134,7 @@
             </div>
         </div>
         <!-- telephones-->
-        <div class="hide">
+        <div class="hide contact-details-popup">
             <div id="popover_template">
                 <div class="popover popover-contact-info" role="tooltip">
                     <div class="arrow"></div>
@@ -142,18 +146,18 @@
 
             <div id="popover_content_template">
                 <a class="main" href="#/accounts/{{relatedContact.id}}">
-                    {{relatedContact.id}} {{relatedContact.name}}
+                    {{relatedContact.id}} {{relatedContact.firstName}} {{relatedContact.lastName}}
                 </a><br>
-                <span>{{relatedContact.position}}</span>
+                <span>{{relatedContact.role}}</span>
                 <hr>
                 <table>
                     <tr>
                         <th>{{'AccountDetail.RelatedContact.Mobile' | i18next}}</th>
-                        <td>{{relatedContact.mobile}}</td>
+                        <td>{{relatedContact.phoneNumber}}</td>
                     </tr>
                     <tr>
                         <th>{{'AccountDetail.RelatedContact.FixedLine' | i18next}}</th>
-                        <td>{{relatedContact.phoneNumber}}</td>
+                        <td>{{relatedContact.otherPhone}}</td>
                     </tr>
                     <tr>
                         <th>{{'commonText.Email' | i18next}}</th>
@@ -161,12 +165,12 @@
                     </tr>
                     <tr>
                         <th>{{'commonText.Skype' | i18next}}</th>
-                        <td><a href="skype:{{relatedContact.skype}}?chat">{{relatedContact.skype}}</a></td>
+                        <td><a href="skype:{{relatedContact.skype}}?chat">{{relatedContact.skypeName}}</a></td>
                     </tr>
                 </table>
                 <hr>
                 <div class="description">
-                    {{relatedContact.description}}
+                    {{relatedContact.addressStr}}
                 </div>
             </div>
         </div>

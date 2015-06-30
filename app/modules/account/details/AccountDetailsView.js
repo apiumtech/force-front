@@ -100,10 +100,10 @@ define([
             self.event.onToggleFollow();
         };
 
-        self.fn.createPopover = function ($event, relatedContactId) {
+        self.fn.createPopover = function ($event, relatedContact) {
             var target = $event.target.closest('.popover-contact-info');
-            self.event.onRelateContactRequest(relatedContactId, function (data) {
-                self.relatedContact = data;
+            self.event.onRelateContactRequest(1, function (data) {
+                self.relatedContact = relatedContact;
                 self.popoverAdapter.createPopover(target, self.getPopoverTemplate(), self.getPopoverContentTemplate());
             });
         };
@@ -160,6 +160,15 @@ define([
             });
         };
 
+        self.fn.loadRelatedContact = function(){
+            self.event.onLoadingRelatedContact(self.accountId);
+        };
+    };
+
+    AccountDetailsView.prototype.onRelatedContactLoaded = function(data){
+        var self = this;
+        self.accountData.relatedContacts = data;
+        self.loadNewCreatedContactIfAny();
     };
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {
@@ -184,30 +193,31 @@ define([
         self.removeEffects(newCompany, okTick);
     };
 
-    AccountDetailsView.prototype.appendContact = function (contact) {
+    AccountDetailsView.prototype.appendContact = function (contacts) {
         var self = this;
+        var scope =self.scope;
+        self.newContacts = [];
+        self.accountData.relatedContacts.forEach(function(contact){
+            contacts.forEach(function(c){
+                if(c.message.message == contact.id) {
+                    contact.recent = true;
+                    self.newContacts.push(contact);
+                };
+            });
+        });
 
-        var relatedContactWrapper = $(".relatedContacts");
+        self.awaitHelper.await(function () {
+            console.log("should turn off");
+            self.newContacts.forEach(function(c){
+                c.added = true;
+                self.awaitHelper.await(function () {
+                    c.recent = false;
+                }, 1000);
+                scope.$apply();
+            })
+        }, 3500);
 
-        if(!relatedContactWrapper.length) return;
-
-        var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
-        var newContact = $('' +
-        '<p>' +
-        '   <a href="#/accounts/' + contact.id + '">' + contact.FirstName + " " + contact.LastName + '</a>' +
-        '   <a class="popover-contact-info" ng-mouseover="fn.createPopover($event, ' + contact.id + ')">' +
-        '       <span class="ic-info" ng-click="fn.showPopover($event)"></span>' +
-        '   </a>' +
-        '</p>');
-        newContact.append(okTick);
-
-        relatedContactWrapper.append(newContact);
-        newContact.addClass('animated fadeIn success-flash');
-
-        $('html, body').animate({
-            scrollTop: relatedContactWrapper.offset().top
-        }, 500);
-        self.removeEffects(newContact, okTick);
+        console.log("after", self.accountData.relatedContacts);
     };
 
     AccountDetailsView.prototype.removeEffects = function (element, okTick) {
@@ -248,28 +258,16 @@ define([
 
         var self = this;
         self.accountData = data;
-        self.watchElement = setInterval(self.detectElementCreated.bind(self),100);
         self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
-    };
-
-    AccountDetailsView.prototype.detectElementCreated = function(){
-        var self = this;
-        if($('.relatedContacts').length > 0){
-            self.loadNewCreatedContactIfAny();
-            clearInterval(self.watchElement);
-        };
     };
 
     AccountDetailsView.prototype.loadNewCreatedContactIfAny = function () {
         var self = this;
-        console.log("loaded");
         var contacts = self.notificationService.getMessages('contact_from_account_' + self.accountId);
         console.log("loaded with", contacts);
         if (!contacts || !contacts.length)
             return;
-        contacts.forEach(function (contact) {
-            self.appendContact(contact.message.data);
-        });
+        self.appendContact(contacts);
     };
 
     AccountDetailsView.prototype.updateMap = function (lat, long, accountName) {

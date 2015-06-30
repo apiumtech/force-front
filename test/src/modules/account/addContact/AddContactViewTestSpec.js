@@ -58,6 +58,7 @@ define([
 
             describe('fn.saveContact', function () {
                 beforeEach(function () {
+                    sut.accountId = 123;
                     sut.contactData = {
                         "this": "is the contact data"
                     };
@@ -66,7 +67,7 @@ define([
                 });
 
                 it("should fire onSaveContact event", function () {
-                    expect(sut.event.onSaveContact).toHaveBeenCalledWith({
+                    expect(sut.event.onSaveContact).toHaveBeenCalledWith(123, {
                         "this": "is the contact data"
                     });
                 });

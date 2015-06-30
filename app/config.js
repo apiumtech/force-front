@@ -3,8 +3,8 @@
  */
 define(function () {
     
-    var baseUrl = "http://localhost:1999";
-    //var baseUrl = "https://backenddev.forcemanager.net";
+    //var baseUrl = "http://localhost:1999";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = "https://webpre.forcemanager.net/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -20,6 +20,8 @@ define(function () {
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
         updateAccount: baseApi + '/api/accounts/{0}',
         createAccount: baseApi + '/api/accounts',
+        getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
+        addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
