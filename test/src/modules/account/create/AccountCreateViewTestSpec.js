@@ -173,6 +173,42 @@ define([
             });
         });
 
+        describe('fn.updateAccountType', function () {
+            var accountTypes = [
+                {id: 1, name: "Type 1"},
+                {id: 2, name: "Type 2"},
+                {id: 3, name: "Type 3"}
+            ];
+            var currentAccountType = 2;
+            it('assign the correct account type to accountData', function () {
+                sut.configureEvents();
+                sut.accountData = {};
+                sut.data = {
+                    availableAccountTypes: accountTypes
+                };
+                sut.fn.updateAccountType(currentAccountType);
+                expect(sut.accountData.accountType).toEqual({id: 2, name: "Type 2"});
+            });
+        });
+
+        describe('fn.updateAccountEnv', function () {
+            var envs = [
+                {id: 4, name: "Force UK"},
+                {id: 5, name: "Force US"},
+                {id: 6, name: "Force FR"}
+            ];
+            var currentAccountEnv = 6;
+            it('assign the correct account type to accountData', function () {
+                sut.configureEvents();
+                sut.accountData = {};
+                sut.data = {
+                    availableEnvironments: envs
+                };
+                sut.fn.updateAccountEnv(currentAccountEnv);
+                expect(sut.accountData.environment).toEqual({id: 6, name: "Force FR"});
+            });
+        });
+
         describe("fn.saveAccount", function () {
             it("should turn loading indicator on", function () {
                 sut.configureEvents();
@@ -214,18 +250,19 @@ define([
         });
 
         describe("onAccountCreated", function () {
+            var response = {success: true, message: "server message"};
             beforeEach(function () {
                 spyOn(sut.modalDialogAdapter, 'notify');
             });
             it("should turn loading indicator of", function () {
                 spyOn(sut, 'goBackToPreviousPage');
-                sut.onAccountCreated();
+                sut.onAccountCreated(response);
                 expect(sut.data.isPosting).toBeFalsy();
 
             });
             it("should go back to previous page", function () {
                 spyOn(sut, 'goBackToPreviousPage');
-                sut.onAccountCreated();
+                sut.onAccountCreated(response);
                 expect(sut.goBackToPreviousPage).toHaveBeenCalled();
             });
         });

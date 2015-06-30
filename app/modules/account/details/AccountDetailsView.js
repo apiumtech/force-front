@@ -193,8 +193,7 @@ define([
             };
             self.appendCompany(newCompany);
             self.newCompany = undefined;
-        }
-        ;
+        };
     };
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {

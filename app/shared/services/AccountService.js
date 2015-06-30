@@ -30,7 +30,6 @@ define([
 
     AccountService.prototype.updateAccount = function (id, model) {
         var self = this;
-        console.log("update account", model);
         var params = {
             url: Configuration.api.updateAccount.format(id),
             type: 'post',

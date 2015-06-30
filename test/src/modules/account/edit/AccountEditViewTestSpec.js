@@ -233,7 +233,7 @@ define([
             });
         });
 
-        describe('fn.updateAccountType', function () {
+        describe('fn.updateAccountEnv', function () {
             var envs = [
                 {id: 4, name: "Force UK"},
                 {id: 5, name: "Force US"},

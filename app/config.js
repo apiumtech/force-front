@@ -19,7 +19,7 @@ define(function () {
         getAccount: baseUrl + '/api/accounts/getAccount/{0}',
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
         updateAccount: baseUrl + '/api/accounts/update/{0}',
-        createAccount: baseApi + '/api/accounts',
+        createAccount: baseUrl + '/api/accounts/create',
         deleteAccount: baseUrl + '/api/accounts/delete/{0}',
         getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
         addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',

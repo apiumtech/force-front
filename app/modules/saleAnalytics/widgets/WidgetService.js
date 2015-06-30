@@ -22,7 +22,7 @@ define([
         assertNotNull("Page name", page);
         var self = this;
 
-        /*
+
         //TODO: remove when having real data from server
         var widgets = self.getWidgetData(page);
         var params = {
@@ -32,26 +32,26 @@ define([
                 }
             }
         };
-        return this.fakeAjaxService.rawAjaxRequest(params);*/
+        return this.fakeAjaxService.rawAjaxRequest(params);
 
-        var deferred = Q.defer();
-        var params = {
-            url: Configuration.api.widgetList,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-        this.ajaxService.rawAjaxRequest(params).then(
-            function(res){
-                var data = self.getWidgetData(page, res.data);
-                deferred.resolve({data:{body:data}});
-            },
-            function (err) {
-                deferred.reject(err);
-            }
-        );
-        return deferred.promise;
+        //var deferred = Q.defer();
+        //var params = {
+        //    url: Configuration.api.widgetList,
+        //    type: 'GET',
+        //    dataType: 'json',
+        //    contentType: 'application/json',
+        //    accept: 'application/json'
+        //};
+        //this.ajaxService.rawAjaxRequest(params).then(
+        //    function(res){
+        //        var data = self.getWidgetData(page, res.data);
+        //        deferred.resolve({data:{body:data}});
+        //    },
+        //    function (err) {
+        //        deferred.reject(err);
+        //    }
+        //);
+        //return deferred.promise;
     };
 
     WidgetService.prototype.updatePageWidgets = function (data) {
