@@ -2,7 +2,7 @@
  * Created by justin on 3/9/15.
  */
 define([
-    'modules/account/AccountService',
+    'shared/services/AccountService',
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
@@ -17,8 +17,8 @@ define([
     AccountDetailsModel.inherits(Object);
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
-        var self = this;
-        return self.accountService.getAccountDetail(id);
+        console.log("account id", id);
+        return this.accountService.getDetails(id);
     };
 
     AccountDetailsModel.prototype.getAccountSummary = function (id) {
@@ -70,6 +70,18 @@ define([
         return self.ajaxService.rawAjaxRequest(params);
     };
 
+    AccountDetailsModel.prototype.loadRelatedCompany = function (accountId) {
+        var self = this;
+        var params = {
+            url: Configuration.api.getAccountRelatedCompany.format(accountId),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+	};
+
     AccountDetailsModel.prototype.deleteAccount = function () {
         console.log("Account deleted");
         return this.fakeAjaxService.rawAjaxRequest({
@@ -77,12 +89,29 @@ define([
         });
     };
 
-    AccountDetailsModel.prototype.saveRelatedCompany = function (accountId, relatedCompany) {
-        return this.fakeAjaxService.rawAjaxRequest({
-            result: {
-                relatedCompany: relatedCompany
-            }
-        });
+    AccountDetailsModel.prototype.deleteAccount = function(accountId){
+        var self = this;
+        console.log("Delete account", Configuration.api.deleteAccount.format(accountId));
+        var params = {
+            url: Configuration.api.deleteAccount.format(accountId),
+            type: 'delete',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
+    AccountDetailsModel.prototype.saveRelatedCompany = function(accountId, relatedCompany){
+        var self = this;
+        var params = {
+            url: Configuration.api.addAccountRelatedCompany.format(accountId),
+            type: 'post',
+            contentType: 'application/json',
+            accept: 'application/json',
+            data: relatedCompany
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     return AccountDetailsModel;

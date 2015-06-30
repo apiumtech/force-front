@@ -109,7 +109,7 @@ define([
         self.fn.startNewForm = function () {
             self.continueAfterSaved = false;
             self.contactData = {
-                Gender: "female",
+                Gender: "Female",
                 ImageUrl: "",
                 FirstName: "",
                 LastName: "",

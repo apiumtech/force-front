@@ -1,10 +1,10 @@
 define([
     'modules/account/details/addCompanyDialog/AddCompanyDialogView',
     'modules/account/details/addCompanyDialog/AddCompanyDialogPresenter'
-], function(AddCompanyDialogView, AddCompanyDialogPresenter) {
+], function (AddCompanyDialogView, AddCompanyDialogPresenter) {
     'use strict';
 
-    describe('AddCompanyDialogView Test', function() {
+    describe('AddCompanyDialogView Test', function () {
         var sut, scope, presenter, modalInstance;
 
         beforeEach(function () {
@@ -77,13 +77,11 @@ define([
 
         describe('onGetCompanySuccess', function () {
             it("should assign returned data to companyTypes", function () {
-                var data = {
-                    companyTypes: [
-                        {"1": "1"},
-                        {"2": "2"},
-                        {"3": "3"},
-                    ]
-                };
+                var data = [
+                    {"1": "1"},
+                    {"2": "2"},
+                    {"3": "3"},
+                ];
 
                 sut.onGetCompanySuccess(data);
                 expect(scope.companyTypes).toEqual([

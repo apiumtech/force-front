@@ -38,6 +38,9 @@ define([
                 },
                 {
                     viewEvent: "onLoadingRelatedContact", test: onLoadingRelatedContactTest
+                },
+                {
+                    viewEvent: "onLoadingRelatedCompany", test: onLoadingRelatedCompanyTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -56,6 +59,13 @@ define([
                 var onSuccess = "onRelatedContactLoaded";
                 var onError = "showError";
                 exerciseAjaxCallBinding("onLoadingRelatedContact", modelMethod, onSuccess, onError);
+            }
+
+            function onLoadingRelatedCompanyTest() {
+                var modelMethod = "loadRelatedCompany";
+                var onSuccess = "onRelatedCompanyLoaded";
+                var onError = "showError";
+                exerciseAjaxCallBinding("onLoadingRelatedCompany", modelMethod, onSuccess, onError);
             }
 
             function onLoadAccountTest() {

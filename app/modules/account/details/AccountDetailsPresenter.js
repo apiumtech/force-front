@@ -50,6 +50,11 @@ define([
                 .then(view.onRelatedContactLoaded.bind(view), view.showError.bind(view));
         }
 
+        view.event.onLoadingRelatedCompany = function(accountId){
+            self.model.loadRelatedCompany(accountId)
+                .then(view.onRelatedCompanyLoaded.bind(view), view.showError.bind(view));
+        }
+
     };
 
     return AccountDetailsPresenter;

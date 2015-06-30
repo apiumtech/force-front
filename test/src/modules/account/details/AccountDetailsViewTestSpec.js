@@ -238,6 +238,17 @@ define([
                     expect(sut.event.onLoadingRelatedContact).toHaveBeenCalledWith(123);
                 });
             });
+
+            describe('fn.loadRelatedCompany', function () {
+                it('should fire onLoadingRelatedCompany event', function () {
+                    sut.accountId = 123;
+                    sut.event = {
+                        onLoadingRelatedCompany : sinon.stub()
+                    };
+                    sut.fn.loadRelatedCompany();
+                    expect(sut.event.onLoadingRelatedCompany).toHaveBeenCalledWith(123);
+                });
+            });
         });
 
         describe("onAccountLoaded()", function () {
@@ -269,7 +280,6 @@ define([
                 expect(sut.updateMap).toHaveBeenCalledWith(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
             });
         });
-
         describe("updateMap", function () {
             var latLon = {lat: 0, long: 0};
             var marker = {
@@ -343,7 +353,10 @@ define([
                 spyOn(sut, 'redirectToAccountList');
                 spyOn(modalDialogAdapter, 'notify').and.callFake(function (title, message, actionConfirmCallback) {
                 });
-                sut.onAccountDeleted();
+                var response = {
+                  message: "Server message"
+                };
+                sut.onAccountDeleted(response);
                 expect(sut.redirectToAccountList).toHaveBeenCalled();
             });
         });
@@ -378,13 +391,11 @@ define([
 
         describe('onRelatedCompanySaved', function () {
             var data = {
-                relatedCompany: {
                     name: "mock company",
                     type: "mock company type"
-                }
             };
             beforeEach(function () {
-                sinon.stub(sut, 'appendCompany');
+                sinon.stub(sut, 'reloadRelatedCompany');
                 spyOn(sut.modalDialogAdapter, 'notify').and.callFake(function (title, message, resolveObject, callBackWhenClose) {
                     callBackWhenClose();
                 });
@@ -393,8 +404,8 @@ define([
             it("should show a notification dialog", function () {
                 expect(sut.modalDialogAdapter.notify).toHaveBeenCalled();
             });
-            it("should call appendCompany function after a notification dialog", function () {
-                expect(sut.appendCompany).toHaveBeenCalledWith(data.relatedCompany);
+            it("should call reloadRelatedCompany function after a notification dialog", function () {
+                expect(sut.reloadRelatedCompany).toHaveBeenCalledWith(data);
             });
         });
 
@@ -402,11 +413,171 @@ define([
             var data = [
                 {"value": "01"}, {"value": "02"}, {"value": "03"}
             ];
-            it('should assign the returned data to accountData.relatedContacts', function () {
+            beforeEach(function () {
+                sinon.stub(sut, "loadNewCreatedContactIfAny");
                 sut.accountData = {};
                 sut.onRelatedContactLoaded(data);
+            });
+            it('should assign the returned data to accountData.relatedContacts', function () {
                 expect(sut.accountData.relatedContacts).toEqual(data);
             });
+            it('should call loadNewCreatedContactIfAny', function () {
+                expect(sut.loadNewCreatedContactIfAny).toHaveBeenCalled();
+            });
+        });
+
+        describe('onRelatedCompanyLoaded', function () {
+            var data = [
+                {"value": "01"},{"value": "02"},{"value": "03"}
+            ];
+            beforeEach(function () {
+                sut.accountData = {};
+            });
+            it('should assign the returned data to accountData.relatedCompanies', function () {
+                sut.onRelatedCompanyLoaded(data);
+                expect(sut.accountData.relatedCompanies).toEqual(data);
+            });
+            describe('no newCompany is added', function () {
+                it('should not call appendCompany function', function () {
+                    sut.newCompany = null;
+                    sut.onRelatedCompanyLoaded(data);
+                    expect(sut.appendCompany).not.toHaveBeenCalled();
+                });
+            });
+            describe('a newCompany is added', function () {
+                beforeEach(function () {
+                    sut.newCompany = {
+                        success: true,
+                        message: 1
+                    };
+                    sinon.stub(sut, "appendCompany");
+                    sut.onRelatedCompanyLoaded(data);
+                });
+                it('should call appendCompany function with new company information in the right format', function () {
+                    expect(sut.appendCompany).toHaveBeenCalledWith({
+                        message: {
+                            message: 1
+                        }
+                    });
+                });
+                it('should set sut.newCompany to undefined', function () {
+                    expect(sut.newCompany).toBeUndefined();
+                });
+            });
+        });
+
+        describe('appendCompany', function () {
+            var newCompany = {
+                message: {
+                    message: 1
+                }
+            };
+            var companies = [{"company": "name 01"},{"company": "name 02"}];
+            it('should call appendNewElement function', function () {
+                sut.accountData = {
+                    relatedCompanies: companies
+                };
+                sinon.stub(sut, "appendNewElement");
+                sut.appendCompany(newCompany);
+                expect(sut.appendNewElement).toHaveBeenCalledWith(companies, [newCompany]);
+            });
+        });
+
+        describe('appendContact', function () {
+            var newContacts = [{
+                message: {
+                    message: 1
+                }
+            },{
+                message: {
+                    message: 3
+                }
+            }];
+            var contacts = [{"contact": "name 01"},{"contact": "name 02"}];
+            it('should call appendNewElement function', function () {
+                sut.accountData = {
+                    relatedContacts: contacts
+                };
+                sinon.stub(sut, "appendNewElement");
+                sut.appendContact(newContacts);
+                expect(sut.appendNewElement).toHaveBeenCalledWith(contacts, newContacts);
+            });
+        });
+
+        describe('appendNewElement', function () {
+            var inputElements = [
+                {
+                    id: 1,
+                    name: "Element 1"
+                },
+                {
+                    id: 2,
+                    name: "Element 2"
+                },
+                {
+                    id: 3,
+                    name: "Element 3"
+                },
+                {
+                    id: 4,
+                    name: "Element 4"
+                }
+            ];
+            var expected = [
+                {
+                    id: 1,
+                    name: "Element 1",
+                    recent: true
+                },
+                {
+                    id: 2,
+                    name: "Element 2"
+                },
+                {
+                    id: 3,
+                    name: "Element 3",
+                    recent: true
+                },
+                {
+                    id: 4,
+                    name: "Element 4"
+                }
+            ];
+            var newElements = [
+                {
+                    message: {
+                        message: 1
+                    }
+                },
+                {
+                    message: {
+                        message: 3
+                    }
+                }
+            ];
+
+            beforeEach(function () {
+                sut.appendNewElement(inputElements, newElements, angular.element('<div/>'));
+            });
+
+            it('should modify element status to apply effects', function () {
+                expect(inputElements).toEqual(expected);
+            });
+        });
+
+        describe('removeEffects', function () {
+            var elements = [
+                {id: 1, name: "name 01"},{id: 2, name: "name 02"}
+            ];
+            var expected = [
+                {id: 1, name: "name 01", added: true},{id: 2, name: "name 02", added: true}
+            ];
+
+            it('should modify element status to remove effects', function () {
+                sut.removeEffects(elements);
+                expect(elements).toEqual(expected);
+            });
+
         });
 
     });
