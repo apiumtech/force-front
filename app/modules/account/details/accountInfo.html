@@ -78,7 +78,7 @@
                    ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
                    'bg-fade' : relatedContact.added }">
 
-                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.name}}</a>
+                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.firstName}} {{relatedContact.lastName}}</a>
                     <a class="popover-contact-info"
                        ng-mouseover="fn.createPopover($event, relatedContact)">
                     <span class="ic-info"

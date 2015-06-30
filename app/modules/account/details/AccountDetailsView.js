@@ -67,7 +67,7 @@ define([
         self.fn.editingEmails = {};
 
         self.fn.loadAccountData = function () {
-            self.event.onLoadAccount();
+            self.event.onLoadAccount(self.accountId);
         };
 
         self.fn.initMap = function () {
@@ -194,7 +194,6 @@ define([
             self.appendCompany(newCompany);
             self.newCompany = undefined;
         }
-        ;
     };
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {

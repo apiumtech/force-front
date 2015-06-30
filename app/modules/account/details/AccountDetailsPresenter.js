@@ -15,8 +15,8 @@ define([
 
         self.view = view;
 
-        view.event.onLoadAccount = function () {
-            self.model.getAccountDetail(view.accountId)
+        view.event.onLoadAccount = function (accountId) {
+            self.model.getAccountDetail(accountId)
                 .then(view.onAccountLoaded.bind(view), view.showError.bind(view));
         };
 
