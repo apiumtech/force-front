@@ -55,7 +55,7 @@ define([
                     sut.updateAccount(10, {});
                     expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
                         url: Configuration.api.updateAccount.format(10),
-                        type: "put",
+                        type: "post",
                         data: {}
                     }));
                 });

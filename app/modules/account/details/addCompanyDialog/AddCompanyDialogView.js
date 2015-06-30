@@ -60,7 +60,7 @@ define([
 
     AddCompanyDialogView.prototype.onGetCompanySuccess = function(data){
         var self = this;
-        self.companyTypes = data.companyTypes;
+        self.companyTypes = data;
     };
 
     AddCompanyDialogView.newInstance = function ($scope, $modalInstance, $viewRepaintAspect, $logErrorAspect) {

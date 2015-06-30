@@ -5,8 +5,9 @@ define([
     'shared/BaseView',
     'shared/services/ModalDialogAdapter',
     'modules/account/edit/AccountEditingModel',
-    'modules/account/edit/AccountEditPresenter'
-], function (BaseView, ModalDialogAdapter, AccountEditingModel, AccountEditPresenter) {
+    'modules/account/edit/AccountEditPresenter',
+    'underscore'
+], function (BaseView, ModalDialogAdapter, AccountEditingModel, AccountEditPresenter, _) {
 
     function doNothing() {
     }
@@ -23,7 +24,7 @@ define([
             "imgUrl": "",
             "class": "",
             "accountType": -1,
-            "emails": "",
+            "emails": [],
             "description": "",
             "contactInfo": {
                 "validAddress": true,
@@ -53,6 +54,22 @@ define([
             set: function (value) {
                 this.$scope.accountData = value;
             }
+        },
+        currentAccountType: {
+            get: function () {
+                return this.$scope.currentAccountType;
+            },
+            set: function (value) {
+                this.$scope.currentAccountType = value;
+            }
+        },
+        currentAccountEnv: {
+            get: function () {
+                return this.$scope.currentAccountEnv;
+            },
+            set: function (value) {
+                this.$scope.currentAccountEnv = value;
+            }
         }
     });
 
@@ -70,7 +87,10 @@ define([
     };
 
     AccountEditView.prototype.onAccountLoaded = function (data) {
-        this.accountData = data;
+        var self = this;
+        self.accountData = data;
+        self.currentAccountType = this.accountData.accountType.id;
+        self.currentAccountEnv = this.accountData.environment.id;
     };
 
     AccountEditView.prototype.configureEvents = function () {
@@ -93,11 +113,29 @@ define([
 
         self.fn.isValid = function (formName) {
             var isValid = self.$scope.$validation.checkValid(formName);
+            //TODO: check validation bug
+            isValid = true;
             return isValid;
         };
 
         self.fn.selectFile = function (files) {
             self.onFilesChanged(files);
+        };
+
+        self.fn.updateAccountType = function(currentType){
+            var selectedType = self.data.availableAccountTypes.filter(function(d){
+                return d.id == parseInt(currentType);
+            })[0];
+            selectedType = angular.copy(selectedType);
+            self.accountData.accountType = selectedType;
+        };
+
+        self.fn.updateAccountEnv = function(currentEnv){
+            var selectedEnv = self.data.availableEnvironments.filter(function(d){
+                return d.id == parseInt(currentEnv);
+            })[0];
+            selectedEnv = angular.copy(selectedEnv);
+            self.accountData.environment = selectedEnv;
         };
     };
 

@@ -65,39 +65,51 @@
 
             <p><a href="//{{accountData.contactInfo.website}}" target="_blank">{{accountData.contactInfo.website}}</a>
             </p>
-            <!-- related contacts-->
+        </div>
+
+        <!-- related contacts-->
+        <div class="relatedContacts" ng-init="fn.loadRelatedContact()"
+             ng-show="accountData.relatedContacts && accountData.relatedContacts.length > 0">
+
             <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
-            <div class="relatedContacts" ng-init="fn.loadRelatedContact()">
+            <div class="relatedContacts">
                 <p ng-repeat="relatedContact in accountData.relatedContacts"
                    ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
                    'bg-fade' : relatedContact.added }">
 
-                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.firstName}} {{relatedContact.lastName}} {{relatedContact.status}}</a>
+                    <a href="#/accounts/{{relatedContact.id}}">{{relatedContact.firstName}} {{relatedContact.lastName}}</a>
                     <a class="popover-contact-info"
                        ng-mouseover="fn.createPopover($event, relatedContact)">
                     <span class="ic-info"
                           ng-click="fn.showPopover($event)"></span>
-                    </a>
-                    <span class='ok-tick pull-right' ng-show="relatedContact.recent && !relatedContact.added"><i class='ic-accept'></i></span>
-                </p>
-            </div>
-
-            <a href="#/accounts/{{accountData.id}}/addContact"
-               class="btn btn-default btn-xs  m-t-10 m-b-5">
-                <span class="ic-plus"></span>
-                {{'AccountDetail.AddContact' | i18next}}
-            </a>
+                </a>
+                <span class='ok-tick pull-right' ng-show="relatedContact.recent && !relatedContact.added"><i
+                        class='ic-accept'></i></span>
+            </p>
         </div>
 
+        <a href="#/accounts/{{accountData.id}}/addContact"
+           class="btn btn-default btn-xs button m-t-10 m-b-5 m-l-15">
+            <span class="ic-plus"></span>
+            {{'AccountDetail.AddContact' | i18next}}
+        </a>
         <!-- related contacts-->
+
         <!-- related company-->
-        <div class="related-company">
+        <div class="relatedCompanies" ng-init="fn.loadRelatedCompany()"
+             ng-show="accountData.relatedCompanies && accountData.relatedCompanies.length > 0">
+
             <h6>{{'AccountDetail.RelatedCompany' | i18next}}</h6>
 
-            <div class="relatedCompanies">
-                <p>Leroy Merlin España</p>
-            </div>
+            <p ng-repeat="relatedCompany in accountData.relatedCompanies"
+               ng-class="{'animated fadeIn success-flash' : relatedCompany.recent,
+                   'bg-fade' : relatedCompany.added }">
+                {{relatedCompany.name}}
+                <span class='ok-tick pull-right' ng-show="relatedCompany.recent && !relatedCompany.added"><i
+                        class='ic-accept'></i></span>
+            </p>
+
             <button type="button" class="btn btn-default btn-xs"
                     ng-click="fn.addCompany()"
                     ><span class="ic-plus"></span>

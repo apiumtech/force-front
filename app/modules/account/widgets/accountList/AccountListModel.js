@@ -7,8 +7,8 @@ define([
     'use strict';
 
     function AccountListModel(ajaxService, dataTableDataProvider, fakeAjaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
+        this.ajaxService = ajaxService || AjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
         this.dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance();
         this.accountsList = [];
         this.recentFilters = {};
@@ -16,9 +16,8 @@ define([
     }
 
     AccountListModel.prototype.toggleFollow = function (record) {
-        // TODO: replace $loki with the record identifer
         var params = {
-            url: Configuration.api.toggleFollow.format(record.$loki),
+            url: Configuration.api.toggleFollow.format(record.id),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'
@@ -29,7 +28,7 @@ define([
 
     AccountListModel.prototype.getLatLongData = function (record) {
         var params = {
-            url: Configuration.api.accountGeoLocation.format(record.$loki),
+            url: Configuration.api.accountGeoLocation.format(record.id),
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
@@ -73,8 +72,7 @@ define([
         if (option.startFilter)
             option.startFilter = false;
 
-        var mappedResponseData = this.mapAccountListResponseData(responseData.data);
-        this.accountsList = this.accountsList.concat(mappedResponseData);
+        this.accountsList = this.accountsList.concat(responseData.data);
 
         if (this.accountsList.length === responseData.recordsFiltered)
             option.stopLoading = true;
@@ -83,13 +81,6 @@ define([
 
         responseData.data = list;
         return responseData;
-    };
-
-    AccountListModel.prototype.mapAccountListResponseData = function (data) {
-        return data.map(function (record) {
-            record.id = record.$loki;
-            return record;
-        });
     };
 
     AccountListModel.prototype.remapResponseError = function (error, callback) {

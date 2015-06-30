@@ -17,7 +17,7 @@
             <input class="form-control"
                    ng-model="relatedCompany.name"
                    higlight="true"
-                   autocomplete="http://somewhere.api/backend/api/whatever"/>
+                   autocomplete="{{config.api.getCompanyNameSuggestions}}"/>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
         <div class="col-md-8">
             <select class="form-control" ng-model="relatedCompany.type"
                     ng-init="relatedCompany.type = companyTypes.value[0].key">
-                <option ng-repeat="type in companyTypes" value="{{type.key}}">{{type.value}}</option>
+                <option ng-repeat="type in companyTypes" value="{{type}}">{{type}}</option>
             </select>
         </div>
     </div>

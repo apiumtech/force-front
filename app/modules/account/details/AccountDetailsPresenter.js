@@ -15,8 +15,8 @@ define([
 
         self.view = view;
 
-        view.event.onLoadAccount = function () {
-            self.model.getAccountDetail(view.accountId)
+        view.event.onLoadAccount = function (accountId) {
+            self.model.getAccountDetail(accountId)
                 .then(view.onAccountLoaded.bind(view), view.showError.bind(view));
         };
 
@@ -48,6 +48,11 @@ define([
         view.event.onLoadingRelatedContact = function(accountId){
             self.model.loadRelatedContact(accountId)
                 .then(view.onRelatedContactLoaded.bind(view), view.showError.bind(view));
+        }
+
+        view.event.onLoadingRelatedCompany = function(accountId){
+            self.model.loadRelatedCompany(accountId)
+                .then(view.onRelatedCompanyLoaded.bind(view), view.showError.bind(view));
         }
 
     };

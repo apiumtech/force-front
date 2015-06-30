@@ -215,6 +215,42 @@ define([
             expect(sut.data.isPosting).toBeFalsy();
         });
 
+        describe('fn.updateAccountType', function () {
+            var accountTypes = [
+                {id: 1, name: "Type 1"},
+                {id: 2, name: "Type 2"},
+                {id: 3, name: "Type 3"}
+            ];
+            var currentAccountType = 2;
+            it('assign the correct account type to accountData', function () {
+                sut.configureEvents();
+                sut.accountData = {};
+                sut.data = {
+                    availableAccountTypes: accountTypes
+                };
+                sut.fn.updateAccountType(currentAccountType);
+                expect(sut.accountData.accountType).toEqual({id: 2, name: "Type 2"});
+            });
+        });
+
+        describe('fn.updateAccountEnv', function () {
+            var envs = [
+                {id: 4, name: "Force UK"},
+                {id: 5, name: "Force US"},
+                {id: 6, name: "Force FR"}
+            ];
+            var currentAccountEnv = 6;
+            it('assign the correct account type to accountData', function () {
+                sut.configureEvents();
+                sut.accountData = {};
+                sut.data = {
+                    availableEnvironments: envs
+                };
+                sut.fn.updateAccountEnv(currentAccountEnv);
+                expect(sut.accountData.environment).toEqual({id: 6, name: "Force FR"});
+            });
+        });
+
         describe("onAccountUpdated", function () {
             beforeEach(function () {
                 spyOn(sut.modalDialogAdapter, 'notify');
@@ -249,12 +285,35 @@ define([
         });
 
         describe("onAccountLoaded", function () {
-            it("should assign data to accountData", function () {
-                var data = [];
+            var data = {
+                accountType: {
+                    id: 1,
+                    name: "Type1"
+                },
+                environment:{
+                    id: 3,
+                    name: "Force UK"
+                }
+            };
+
+            beforeEach(function () {
                 sut.onAccountLoaded(data);
+            });
+
+            it("should assign data to accountData", function () {
                 expect(sut.accountData).toEqual(data);
             });
+
+            it("should assign data.accountType.id to currentAccountType", function () {
+                expect(sut.currentAccountType).toEqual(1);
+            });
+
+            it("should assign data.environment.id to currentAccountEnv", function () {
+                expect(sut.currentAccountEnv).toEqual(3);
+            });
+
         });
+
     });
 
 });

@@ -23,7 +23,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params).then(self.decorateAccountDetailData.bind(self));
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.decorateAccountDetailData = function (data) {

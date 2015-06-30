@@ -16,7 +16,7 @@ define([
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
         presenter = presenter || new AccountDetailsPresenter();
         BaseView.call(this, scope, null, presenter);
-        this.notificationService = NotificationService._diResolve();
+        this.notificationService = notificationService || NotificationService._diResolve();
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
         this.mapService = mapService || GoogleMapService.newInstance();
         this.popoverAdapter = popoverAdapter || PopoverAdapter.newInstance();
@@ -24,7 +24,6 @@ define([
         this.modalService = scope.$modal;
         this.scope = scope;
         this.element = element;
-        this.configureEvents(this);
     }
 
     AccountDetailsView.inherits(BaseView, {
@@ -38,7 +37,8 @@ define([
         },
         accountData: {
             get: function () {
-                return this.$scope.accountData;
+                return this.$scope.accountData || (this.$scope.accountData = {}                )
+                ;
             },
             set: function (value) {
                 this.$scope.accountData = value;
@@ -67,7 +67,7 @@ define([
         self.fn.editingEmails = {};
 
         self.fn.loadAccountData = function () {
-            self.event.onLoadAccount();
+            self.event.onLoadAccount(self.accountId);
         };
 
         self.fn.initMap = function () {
@@ -102,7 +102,7 @@ define([
 
         self.fn.createPopover = function ($event, relatedContact) {
             var target = $event.target.closest('.popover-contact-info');
-            self.event.onRelateContactRequest(1, function (data) {
+            self.event.onRelateContactRequest(relatedContact.id, function (data) {
                 self.relatedContact = relatedContact;
                 self.popoverAdapter.createPopover(target, self.getPopoverTemplate(), self.getPopoverContentTemplate());
             });
@@ -160,15 +160,40 @@ define([
             });
         };
 
-        self.fn.loadRelatedContact = function(){
+        self.fn.loadRelatedContact = function () {
             self.event.onLoadingRelatedContact(self.accountId);
+        };
+
+        self.fn.loadRelatedCompany = function () {
+            self.event.onLoadingRelatedCompany(self.accountId);
         };
     };
 
-    AccountDetailsView.prototype.onRelatedContactLoaded = function(data){
+    AccountDetailsView.prototype.reloadRelatedCompany = function (company) {
+        var self = this;
+        console.log("reloading", company);
+        self.newCompany = company;
+        self.fn.loadRelatedCompany();
+    };
+
+    AccountDetailsView.prototype.onRelatedContactLoaded = function (data) {
         var self = this;
         self.accountData.relatedContacts = data;
         self.loadNewCreatedContactIfAny();
+    };
+
+    AccountDetailsView.prototype.onRelatedCompanyLoaded = function (data) {
+        var self = this;
+        self.accountData.relatedCompanies = data;
+        if (self.newCompany) {
+            var newCompany = {
+                message: {
+                    message: self.newCompany.message
+                }
+            };
+            self.appendCompany(newCompany);
+            self.newCompany = undefined;
+        }
     };
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {
@@ -178,69 +203,59 @@ define([
 
     AccountDetailsView.prototype.appendCompany = function (company) {
         var self = this;
-
-        var relatedCompanyWrapper = $(".relatedCompanies");
-
-        if(!relatedCompanyWrapper.length) return;
-
-        var okTick = $("<span class='ok-tick pull-right'><i class='ic-accept'></i></span>");
-        var newCompany = $("<p>" + company.name + "</p>");
-        newCompany.append(okTick);
-
-        relatedCompanyWrapper.append(newCompany);
-        newCompany.addClass('animated fadeIn success-flash');
-
-        self.removeEffects(newCompany, okTick);
+        self.appendNewElement(self.accountData.relatedCompanies, [company], $('.relatedCompanies'));
     };
 
     AccountDetailsView.prototype.appendContact = function (contacts) {
         var self = this;
-        var scope =self.scope;
-        self.newContacts = [];
-        self.accountData.relatedContacts.forEach(function(contact){
-            contacts.forEach(function(c){
-                if(c.message.message == contact.id) {
-                    contact.recent = true;
-                    self.newContacts.push(contact);
-                };
+        self.appendNewElement(self.accountData.relatedContacts, contacts, $('.relatedContacts'));
+    };
+
+    AccountDetailsView.prototype.appendNewElement = function (elements, newElements, elementWrapper) {
+        var self = this;
+
+        $('html, body').animate({
+            scrollTop: elementWrapper.offset().top
+        }, 2000);
+
+        var nEs = [];
+        elements.forEach(function (e) {
+            newElements.forEach(function (ne) {
+                if (ne.message.message == e.id) {
+                    e.recent = true;
+                    nEs.push(e);
+                }
             });
         });
 
         self.awaitHelper.await(function () {
-            console.log("should turn off");
-            self.newContacts.forEach(function(c){
-                c.added = true;
-                self.awaitHelper.await(function () {
-                    c.recent = false;
-                }, 1000);
-                scope.$apply();
-            })
+            self.removeEffects(nEs);
         }, 3500);
-
-        console.log("after", self.accountData.relatedContacts);
     };
 
-    AccountDetailsView.prototype.removeEffects = function (element, okTick) {
+    AccountDetailsView.prototype.removeEffects = function (nEs) {
         var self = this;
-        self.awaitHelper.await(function () {
-            element.addClass("bg-fade");
-            okTick.remove();
+        var scope = self.scope;
+        nEs.forEach(function (nE) {
+            nE.added = true;
             self.awaitHelper.await(function () {
-                element.removeClass('animated fadeIn success-flash');
+                nE.recent = false;
             }, 1000);
-        }, 3500);
+            scope.$apply();
+        })
     };
 
     AccountDetailsView.prototype.onRelatedCompanySaved = function (response) {
         var self = this;
         var message = self.generateSuccessMessage("The company has been added successfully");
-        self.modalDialogAdapter.notify('', message, {}, self.appendCompany.bind(self, response.relatedCompany));
+        self.modalDialogAdapter.notify('', message, {}, self.reloadRelatedCompany.bind(self, response));
     };
 
     AccountDetailsView.prototype._show = BaseView.prototype.show;
     AccountDetailsView.prototype.show = function () {
         var self = this;
         BaseView.prototype.show.call(this);
+        this.configureEvents(this);
         self.fn.loadAccountData();
     };
 
@@ -302,9 +317,10 @@ define([
         self.$scope.location = "/accounts";
     };
 
-    AccountDetailsView.prototype.onAccountDeleted = function () {
+    AccountDetailsView.prototype.onAccountDeleted = function (response) {
         var self = this;
-        var message = self.generateSuccessMessage("The account has been deleted successfully");
+        console.log("account delete", response);
+        var message = self.generateSuccessMessage(response.message);
         self.modalDialogAdapter.notify('', message);
         self.redirectToAccountList();
     };

@@ -194,7 +194,7 @@ define([
             describe("view is selected", function () {
                 var view = {
                     name: "user1",
-                    $loki: 1,
+                    id: 1,
                     selected: true
                 };
 

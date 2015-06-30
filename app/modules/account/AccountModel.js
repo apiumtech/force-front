@@ -18,9 +18,8 @@ define([
     }
 
     AccountModel.prototype.toggleFollow = function (record) {
-        // TODO: replace $loki with the record identifer
         var params = {
-            url: Configuration.api.toggleFollow.format(record.$loki),
+            url: Configuration.api.toggleFollow.format(record.id),
             type: 'post',
             contentType: 'application/json',
             accept: 'application/json'
@@ -72,21 +71,13 @@ define([
         if (option.startFilter)
             option.startFilter = false;
 
-        var mappedResponseData = this.mapAccountListResponseData(responseData.data);
-        this.accountsList = this.accountsList.concat(mappedResponseData);
+        this.accountsList = this.accountsList.concat(responseData.data);
 
         if (this.accountsList.length === responseData.recordsFiltered)
             option.stopLoading = true;
 
         responseData.data = this.accountsList;
         callback(responseData);
-    };
-
-    AccountModel.prototype.mapAccountListResponseData = function (data) {
-        return data.map(function (record) {
-            record.id = record.$loki;
-            return record;
-        });
     };
 
     AccountModel.prototype.remapResponseError = function (error) {

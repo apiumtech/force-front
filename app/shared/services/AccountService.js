@@ -17,19 +17,22 @@ define([
     }
 
     AccountService.prototype.getAccount = function (id) {
-        return this.ajaxService.rawAjaxRequest({
+        var self = this;
+        var params = {
             url: Configuration.api.getAccount.format(id),
             type: 'get',
             contentType: 'application/json',
             accept: 'application/json'
-        });
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.updateAccount = function (id, model) {
         var self = this;
         var params = {
             url: Configuration.api.updateAccount.format(id),
-            type: 'put',
+            type: 'post',
             contentType: 'application/json',
             accept: 'application/json',
             data: model
@@ -65,6 +68,18 @@ define([
         };
 
         return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableOwners.bind(this));
+    };
+
+    AccountService.prototype.getDetails = function (id) {
+        var self = this;
+        var params = {
+            url: Configuration.api.getAccount.format(id),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.decorateAvailableOwners = function (result) {

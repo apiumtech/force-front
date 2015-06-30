@@ -25,7 +25,7 @@
             <label class="col-md-3 control-label ui-sortable"></label>
 
             <div class="col-md-6 ui-sortable form-img ">
-                <img src="{{accountData.imgUrl || 'assets/img/placeholder.png'}}"
+                <img src="{{accountData.avatar || 'assets/img/placeholder.png'}}"
                         />
                 <br>
                 <button class="btn btn-default btn-sm btn-picture m-t-10 uppercase"
@@ -49,12 +49,14 @@
             <label class="col-md-3 control-label ui-sortable">Account type</label>
 
             <div class="col-md-9 ui-sortable">
-                <select class="form-control account_type_box" ng-model="accountData.accountType"
+                <select class="form-control account_type_box"
+                        ng-change="fn.updateAccountType(currentAccountType)"
                         validator="required"
-                        valid-method="blur">
+                        valid-method="blur"
+                        ng-model="currentAccountType">
                     <option value="">Select one *</option>
                     <option ng-repeat="option in data.availableAccountTypes"
-                            value="{{option.id || option.$loki}}">
+                            value="{{option.id}}">
                         {{option.name}}
                     </option>
                 </select>
@@ -65,12 +67,13 @@
 
             <div class="col-md-9 ui-sortable">
                 <select class="form-control account_env_box"
+                        ng-change="fn.updateAccountEnv(currentAccountEnv)"
                         validator="required"
                         valid-method="blur"
-                        ng-model="accountData.environments">
+                        ng-model="currentAccountEnv">
                     <option class="select_value_style" value="">Select one *</option>
                     <option ng-repeat="option in data.availableEnvironments"
-                            value="{{option.id || option.$loki}}">
+                            value="{{option.id}}">
                         {{option.name}}
                     </option>
                 </select>
@@ -95,8 +98,8 @@
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Account owner</label>
 
-            <div class="col-md-6 ui-sortable padding_account_owner">
-                <input type="text" class="form-control account_owner_box" placeholder="Mario Rossi">
+            <div class="col-md-6 ui-sortable padding_account_owner" >
+                <input type="text" disabled class="form-control account_owner_box" placeholder="Mario Rossi">
             </div>
             <div class="col-md-3 ui-sortable btn_add_owner">
                 <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add
@@ -153,7 +156,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="nilOrNumber"
-                       ng-model="accountData.contactInfo.otherPhone"
+                       ng-model="accountData.contactInfo.mobile"
                        valid-method="blur" placeholder="Other phone" value="">
             </div>
 
@@ -162,12 +165,11 @@
             <label class="col-md-3 control-label ui-sortable">
                 Email
             </label>
-
             <div class="col-md-9 ui-sortable">
                 <input type="email"
                        validator="required,email"
                        valid-method="blur"
-                       ng-model="accountData.emails"
+                       ng-model="accountEmail"
                        class="form-control work_phone_box" placeholder="Email" value="">
             </div>
 
@@ -180,7 +182,7 @@
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
                        validator="nilOrUrl"
-                       ng-model="accountData.contactInfo.web"
+                       ng-model="accountData.contactInfo.website"
                        valid-method="blur" placeholder="Web" value="http://">
             </div>
         </div>
