@@ -16,28 +16,34 @@ define([
         $scope.$modal = $scope.$injector.get("$modal");
         this.modalDialogAdapter = ModalDialogAdapter.newInstance($scope.$modal);
         this.accountData = {
-            "following": false,
+            "id": 1,
             "name": "",
-            "subtitle": "",
-            "imgUrl": "",
-            "class": "",
-            "accountType": -1,
-            "emails": "",
-            "description": "",
+            "avatar": "",
             "contactInfo": {
-                "validAddress": true,
-                "country": "",
-                "city": "",
-                "region": "",
                 "address": "",
-                "address2": "",
-                "phoneNumber": "",
-                "mobile": "",
+                "city": "",
+                "state": "",
+                "postCode": "",
+                "country": "",
                 "latitude": 0,
                 "longitude": 0,
-                "website": "http://"
+                "mobile": "",
+                "phoneNumber": "",
+                "fax": "",
+                "validAddress": false,
+                "website": "",
+                "comment": ""
             },
-            "comment": ""
+            "class": "",
+            "subtitle": "",
+            "description": "",
+            "following": false,
+            "responsible": null,
+            "modified": "",
+            "emails": [],
+            "accountType": null,
+            "environment": null,
+            "extra": null
         };
 
         this.data.isUploading = false;
@@ -51,6 +57,38 @@ define([
             },
             set: function (value) {
                 this.$scope.accountData = value;
+            }
+        },
+        accountEmail: {
+            get: function () {
+                return this.$scope.accountEmail;
+            },
+            set: function (value) {
+                this.$scope.accountEmail = value;
+            }
+        },
+        accountOwners: {
+            get: function () {
+                return this.$scope.accountOwners;
+            },
+            set: function (value) {
+                this.$scope.accountOwners = value;
+            }
+        },
+        currentAccountType: {
+            get: function () {
+                return this.$scope.currentAccountType;
+            },
+            set: function (value) {
+                this.$scope.currentAccountType = value;
+            }
+        },
+        currentAccountEnv: {
+            get: function () {
+                return this.$scope.currentAccountEnv;
+            },
+            set: function (value) {
+                this.$scope.currentAccountEnv = value;
             }
         }
     });
@@ -82,17 +120,41 @@ define([
 
         self.fn.saveAccount = function () {
             self.data.isPosting = true;
+            if(self.accountEmail) self.accountData.emails.push({id: 1, email: self.accountEmail});
             self.event.onCreateAccount(self.accountData);
         };
 
         self.fn.isValid = function (formName) {
             var isValid = self.$scope.$validation.checkValid(formName);
+            //TODO: recheck the validation
+            isValid = true;
             return isValid;
         };
 
         self.fn.selectFile = function (files) {
             self.onFilesChanged(files);
         };
+
+        self.fn.chooseOwner = function(){
+
+        };
+
+        self.fn.updateAccountType = function(currentType){
+            var selectedType = self.data.availableAccountTypes.filter(function(d){
+                return d.id == parseInt(currentType);
+            })[0];
+            selectedType = angular.copy(selectedType);
+            self.accountData.accountType = selectedType;
+        };
+
+        self.fn.updateAccountEnv = function(currentEnv){
+            var selectedEnv = self.data.availableEnvironments.filter(function(d){
+                return d.id == parseInt(currentEnv);
+            })[0];
+            selectedEnv = angular.copy(selectedEnv);
+            self.accountData.environment = selectedEnv;
+        };
+
     };
 
     AccountCreateView.prototype.goBackToPreviousPage = function () {
@@ -134,7 +196,7 @@ define([
         }
     };
 
-    AccountCreateView.prototype.onAccountCreated = function () {
+    AccountCreateView.prototype.onAccountCreated = function (response) {
         var self = this;
         self.data.isPosting = false;
 
@@ -142,7 +204,7 @@ define([
             "<div class='notify success'>" +
             "<span class='ok-tick'><i class='ic-accept'></i></span>" +
             "<p>Well done !</p>" +
-            "<p>La empresa Company SL ha sido creada correctamente</p>" +
+            "<p>"+response.message+"</p>" +
             "</div>");
         self.goBackToPreviousPage();
     };

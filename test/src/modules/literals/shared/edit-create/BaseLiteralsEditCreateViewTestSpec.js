@@ -11,7 +11,7 @@ define([
     describe("BaseLiteralsEditCreateView", function(){
 
         it('configureProperties should throw', function () {
-            expect(exerciseCreateView).toThrow();
+            expect(exerciseCreateView).toThrowError("Abstract method not implemented");
         });
 
         describe('on instantiation', function () {
@@ -103,6 +103,63 @@ define([
                 sut.data.isLoading = true;
                 sut.showError();
                 expect(sut.data.isLoading).toBe(false);
+            });
+            it("should set data.currentError to the provided message", function () {
+                var sut = exerciseCreateView();
+                sut.showError("an error");
+                expect(sut.data.currentError).toBe("an error");
+            });
+            it("should call toastService's error method with the provided message", function () {
+                var sut = exerciseCreateView();
+                spyOn(sut.toastService, "error");
+                sut.showError("an error");
+                expect(sut.toastService.error).toHaveBeenCalledWith("an error");
+            });
+        });
+
+        describe("onSaveSuccess", function () {
+            beforeEach(function(){
+                spyOn(BaseLiteralsEditCreateView.prototype, "configureProperties");// avoid throwing
+            });
+            it("should set data.isLoading to false", function () {
+                var sut = exerciseCreateView();
+                sut.data.isLoading = true;
+                sut.onSaveSuccess();
+                expect(sut.data.isLoading).toBe(false);
+            });
+            it("should call toastService's success method with the provided message", function () {
+                var sut = exerciseCreateView();
+                spyOn(sut.toastService, "success");
+                sut.onSaveSuccess("nice!");
+                expect(sut.toastService.success).toHaveBeenCalledWith("nice!");
+            });
+            it("should _goBack", function () {
+                var sut = exerciseCreateView();
+                spyOn(sut, "_goBack");
+                sut.onSaveSuccess();
+                expect(sut._goBack).toHaveBeenCalled();
+            });
+        });
+
+        describe("onInit", function () {
+            beforeEach(function () {
+                spyOn(BaseLiteralsEditCreateView.prototype, "configureProperties");// avoid throwing
+            });
+            it("should throw", function () {
+                var sut = exerciseCreateView();
+                expect(sut.onInit).toThrowError();
+            });
+        });
+
+        describe("abstract method", function () {
+            beforeEach(function () {
+                spyOn(BaseLiteralsEditCreateView.prototype, "configureProperties");// avoid throwing
+            });
+            ["onInit", "getLiteralById", "onGetLiteralByIdSuccess", "onSave"].forEach(function(testMethod){
+                it(testMethod + " should throw", function () {
+                    var sut = exerciseCreateView();
+                    expect(sut[testMethod]).toThrowError("Abstract method not implemented");
+                });
             });
         });
     });

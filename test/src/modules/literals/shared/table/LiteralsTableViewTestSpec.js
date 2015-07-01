@@ -305,5 +305,41 @@ define([
             });
         });
 
+        describe("clearTable", function(){
+            it("call clear table", function () {
+                var draw = jasmine.createSpy();
+                var tableMock = {
+                    clear: jasmine.createSpy().and.returnValue({
+                        draw:draw
+                    })
+                };
+                var sut = exerciseCreateView();
+                sut.table = tableMock;
+                sut.clearTable();
+                expect(tableMock.clear).toHaveBeenCalled();
+                expect(draw).toHaveBeenCalled();
+            });
+        });
+        
+        describe("renderKeyColumn", function () {
+            it("should resolve html template", function () {
+                var sut = exerciseCreateView();
+                $('<div class="literalKeyColumnTemplate">some html tags</div>').appendTo("body");
+                spyOn(sut.templateParser, "parseTemplate");
+                sut.renderKeyColumn(5,6,7);
+                expect(sut.templateParser.parseTemplate).toHaveBeenCalledWith("some html tags", 7);
+            });
+        });
+
+        describe("renderImplementationCodeColumn", function () {
+            it("should resolve html template", function () {
+                var sut = exerciseCreateView();
+                $('<div class="literalImplementationCodeColumnTemplate">some html</div>').appendTo("body");
+                spyOn(sut.templateParser, "parseTemplate");
+                sut.renderImplementationCodeColumn(1,2,3);
+                expect(sut.templateParser.parseTemplate).toHaveBeenCalledWith("some html", 3);
+            });
+        });
+
     });
 });
