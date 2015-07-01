@@ -107,7 +107,7 @@ define(function () {
 
         implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
 
-        literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueDictionary'
+        literalValueDictionary: 'https://backend.forcemanager.net/api/queries/commons/literalValues/literalValueObject'
 
     };
 

@@ -21,9 +21,9 @@ define([
                     var params = {
                         url: config.api.literalValueDictionary,
                         data: {
-                            language: 'en',
+                            language: 'es',
                             implementationCode: '-1',
-                            deviceType: ''
+                            deviceType: '108'
                         },
                         type: 'GET',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
