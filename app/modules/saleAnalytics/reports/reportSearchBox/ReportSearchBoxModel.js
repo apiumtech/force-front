@@ -1,5 +1,5 @@
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/reports/ReportService'
 ], function (AjaxService, ReportService) {
     'use strict';

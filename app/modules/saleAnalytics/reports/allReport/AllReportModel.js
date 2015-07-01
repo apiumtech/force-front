@@ -1,5 +1,5 @@
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
     'modules/saleAnalytics/reports/ReportFakeData',
     'shared/services/ArrayHelper',

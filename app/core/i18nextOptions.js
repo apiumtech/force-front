@@ -5,6 +5,9 @@ define([
     // FIXME: (joanllenas) for some reason prod's customLoad is being called three times. This is a hack to avoid it meanwhile.
     var isFetching = false;
     return {
+        dev_local: {
+            resGetPath: 'assets/translations/en.json'
+        },
         dev: {
             lng: 'en',
             useCookie: false,
@@ -31,7 +34,7 @@ define([
                     };
                     $.ajax(params).then(
                         function (data) {
-
+                            console.log("literals loaded");
                             loadComplete(null, data);
                         },
                         function (err) {

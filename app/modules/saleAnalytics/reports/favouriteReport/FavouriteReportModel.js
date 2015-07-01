@@ -1,5 +1,5 @@
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'config'
 ], function (AjaxService, Configuration) {
     'use strict';

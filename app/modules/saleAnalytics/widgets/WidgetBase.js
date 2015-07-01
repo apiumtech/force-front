@@ -3,7 +3,7 @@
  */
 
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'moment',
     'config'
 ], function (AjaxService, moment, Configuration) {
