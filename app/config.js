@@ -3,8 +3,8 @@
  */
 define(function () {
     
-    //var baseUrl = "http://localhost:1999";
-    var baseUrl = "https://backenddev.forcemanager.net";
+    var baseUrl = "http://localhost:1999";
+    //var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -16,7 +16,7 @@ define(function () {
         getAvailableViews: baseUrl + '/api/accounts/views',
         getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
 
-        getAccount: baseUrl + '/api/accounts/getAccount/{0}',
+        getAccount: baseUrl + '/api/accounts/{0}',
         getAccountSummary: baseApi + '/api/accounts/{0}/summary',
         updateAccount: baseUrl + '/api/accounts/update/{0}',
         createAccount: baseUrl + '/api/accounts/create',
@@ -42,8 +42,8 @@ define(function () {
         uploadFile: baseUrl + '/api/upload',
         uploadDocuments: baseUrl + '/api/uploadDocument',
 
-
-        getFilterValues: baseApi + '/api/getFilterValues',
+        getFilterValues: baseUrl + '/api/accounts/getFilterValues',
+        getAvailableFields: baseUrl + '/api/accounts/availableFields',
 
         getDocuments: baseApi + '/api/accounts/{0}/documents',
         deleteDocument: baseApi + '/api/documents/{0}',

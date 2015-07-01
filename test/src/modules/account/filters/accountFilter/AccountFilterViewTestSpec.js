@@ -2,39 +2,32 @@
  * Created by trung.dang on 02/13/2015
  */
 define([
-    'modules/account/filters/accountFilter/AccountFilterView'
-], function (AccountFilterView) {
+    'modules/account/filters/accountFilter/AccountFilterView',
+    'modules/account/filters/accountFilter/AccountFilterPresenter'
+], function (AccountFilterView, AccountFilterPresenter) {
     'use strict';
     describe("AccountFilterView", function () {
 
-        function exerciseCreateView(model, presenter) {
-            return AccountFilterView.newInstance({
-                $watch: function () {
-                },
-                $on: function () {
-                }
-            }, model || {}, presenter || {
-                show: function () {
-                }
-            }, false, false);
-        }
+        var sut, scope, presenter;
+        beforeEach(function () {
+            inject(function($rootScope){
+                scope = $rootScope.$new();
+            });
 
-        it("should call presenter's show method on show()", function () {
-            var view = exerciseCreateView(undefined, {show: jasmine.createSpy()});
-            view.show();
+            presenter = mock(AccountFilterPresenter);
 
-            expect(view.presenter.show).toHaveBeenCalledWith(view, view.model);
+            sut = new AccountFilterView(scope, presenter);
         });
 
         describe("configureEvents", function () {
-            var view;
             beforeEach(function () {
-                view = exerciseCreateView();
-                view.configureEvents();
+                sut.configureEvents();
             });
 
             [{
                 method: "onLoaded", exercise: onLoadedTest
+            }, {
+                method: "onSelectedViewChanged", exercise: onSelectedViewChangedTest
             }, {
                 method: "onSelectedViewChanged", exercise: onSelectedViewChangedTest
             }].forEach(function (test) {
@@ -42,8 +35,8 @@ define([
                     var testExercise = test.exercise;
 
                     it("should define method '" + method + "'", function () {
-                        expect(view.fn[method]).not.toBeNull();
-                        expect(isFunction(view.fn[method]));
+                        expect(sut.fn[method]).not.toBeNull();
+                        expect(isFunction(sut.fn[method]));
                     });
 
                     describe("calling '" + method + "' ", function () {
@@ -56,22 +49,23 @@ define([
                     "onShowAvailableEnvironments",
                     "onShowAvailableAccountTypes",
                     "onShowAvailableViews",
-                    "onShowAvailableOwners"
+                    "onShowAvailableOwners",
+                    "onLoadingAvailableFilters"
                 ].forEach(function (event) {
                         beforeEach(function () {
-                            view.event[event] = jasmine.createSpy();
+                            sut.event[event] = jasmine.createSpy();
                         });
                         it("should fire event '" + event + "'", function () {
-                            view.fn.onLoaded();
-                            expect(view.event[event]).toHaveBeenCalled();
+                            sut.fn.onLoaded();
+                            expect(sut.event[event]).toHaveBeenCalled();
                         });
                     });
             }
 
             function onSelectedViewChangedTest() {
                 it("should fire event 'onToggleViewsFilter' with correct selected view", function () {
-                    view.data.selectedView = "view1";
-                    view.data.availableViews = [{
+                    sut.data.selectedView = "view1";
+                    sut.data.availableViews = [{
                         name: 'view1'
                     }, {
                         name: 'view2'
@@ -80,45 +74,43 @@ define([
                     }, {
                         name: 'view4'
                     }];
-                    view.event.onToggleViewFilter = jasmine.createSpy();
+                    sut.event.onToggleViewFilter = jasmine.createSpy();
 
-                    view.fn.onSelectedViewChanged();
-                    expect(view.event.onToggleViewFilter).toHaveBeenCalledWith({
+                    sut.fn.onSelectedViewChanged();
+                    expect(sut.event.onToggleViewFilter).toHaveBeenCalledWith({
                         name: 'view1',
                         selected: true
                     });
                 });
             }
+
         });
 
         describe("setAvailableOwners behaviour", function () {
-            var view = exerciseCreateView();
             var data = 1;
 
             beforeEach(function () {
-                view.setAvailableOwners(data);
+                sut.setAvailableOwners(data);
             });
 
             it("should assign the availableOwners field", function () {
-                expect(view.data.availableOwners).toEqual(data);
+                expect(sut.data.availableOwners).toEqual(data);
             });
         });
 
         it("showCustomFilters should assign the customFilters field", function () {
-            var view = exerciseCreateView();
             var data = 1;
 
-            view.showCustomFilters(data);
+            sut.showCustomFilters(data);
 
-            expect(view.data.customFilters).toEqual(data);
+            expect(sut.data.customFilters).toEqual(data);
         });
 
         it("shouldError should assign the currentError field", function () {
-            var view = exerciseCreateView();
             var msg = "Mamma mia!";
 
-            view.showError(msg);
-            expect(view.data.currentError).toEqual(msg);
+            sut.showError(msg);
+            expect(sut.data.currentError).toEqual(msg);
         });
     });
 

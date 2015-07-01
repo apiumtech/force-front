@@ -4,18 +4,16 @@
 
 define([
     'shared/services/AccountService',
+    'shared/services/ajax/AjaxService',
     'config'
-], function (AccountService, Configuration) {
+], function (AccountService, AjaxService, Configuration) {
     'use strict';
     describe("AccountService", function () {
         var sut, ajaxService;
 
         beforeEach(function () {
-            ajaxService = {
-                rawAjaxRequest: function () {
-                }
-            };
-            sut = AccountService.newInstance(ajaxService);
+            ajaxService = mock(AjaxService);
+            sut = new AccountService(ajaxService);
         });
 
         function exerciseAjaxOk() {

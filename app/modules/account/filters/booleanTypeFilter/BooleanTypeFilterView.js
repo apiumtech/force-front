@@ -32,7 +32,7 @@ define([
                 return r.name === 'true';
             });
 
-            self.event.filterSelectionToggled(scope.filterFor.data, selected);
+            self.event.filterSelectionToggled(scope.filterFor.key, selected);
         };
     };
 

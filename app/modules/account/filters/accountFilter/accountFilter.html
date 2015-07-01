@@ -172,9 +172,11 @@
                                            class="form-control ic-user"
                                            placeholder="{{'Account.Filters.SearchFilters' | i18next}}"
                                            ng-model="data.customFiltersQuery"
-                                           ng-click="$event.stopPropagation();"/>
-                                    <span class="fa fa-remove removeTextBoxBtn"
-                                          ng-click="$event.stopPropagation()"></span>
+                                           ng-click="$event.stopPropagation();"
+                                           ng-change="event.onLoadingAvailableFilters(data.customFiltersQuery);"/>
+                                    <span class="fa ic-search removeTextBoxBtn" ng-show="data.customFiltersQuery==''"></span>
+                                    <span class="fa fa-remove removeTextBoxBtn" ng-show="data.customFiltersQuery!=''"
+                                          ng-click="data.customFiltersQuery='';event.onLoadingAvailableFilters(data.customFiltersQuery);$event.stopPropagation()"></span>
                                 </form>
                             </li>
                             <li class="media" ng-repeat="atype in data.availableFields">
@@ -184,14 +186,15 @@
 
                                 <div class="media-body"
                                      ng-click="$event.stopPropagation();atype.selected=!atype.selected;event.updateAvailableFilters(atype);">
-                                    <p high-light-result="atype.title"
-                                       keywords='data.customFiltersQuery'>{{ atype.title }}</p>
+                                    <p high-light-result="atype.name"
+                                       keywords='data.customFiltersQuery'>{{ atype.name }}</p>
                                 </div>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
+
                 <div class="dropdown dynamic-filter btn-group clearfix"
                      ng-repeat="field in data.availableFields | filter:{selected:true}">
                     <string-type-filter ng-if="field.dataType=='String'"

@@ -10,6 +10,18 @@ define([
 
     AccountFilterModel.inherits(AccountService, {});
 
+    AccountFilterModel.prototype.loadAvailableFilters = function(filter){
+        var self = this;
+        var params = {
+            url: Configuration.api.getAvailableFields + "?searchQuery=" + filter,
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.ajaxService.rawAjaxRequest(params);
+    };
+
     AccountFilterModel.prototype.decorateAvailableOwners = function (result) {
         var self = this;
 
