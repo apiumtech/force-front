@@ -3,8 +3,8 @@
  */
 define(function () {
     
-    var baseUrl = "http://localhost:1999";
-    //var baseUrl = "https://backenddev.forcemanager.net";
+    //var baseUrl = "http://localhost:1999";
+    var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var baseApi = '';
@@ -16,8 +16,8 @@ define(function () {
         getAvailableViews: baseUrl + '/api/accounts/views',
         getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
 
-        getAccount: baseUrl + '/api/accounts/{0}',
-        getAccountSummary: baseApi + '/api/accounts/{0}/summary',
+        getAccount: baseUrl + '/api/accounts/getAccount/{0}',
+        getAccountSummary: baseUrl + '/api/accounts/{0}/summary',
         updateAccount: baseUrl + '/api/accounts/update/{0}',
         createAccount: baseUrl + '/api/accounts/create',
         deleteAccount: baseUrl + '/api/accounts/delete/{0}',
@@ -29,7 +29,7 @@ define(function () {
         getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions',
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
-        toggleFollow: baseApi + '/api/accounts/toggleFollow/{0}',
+        toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
         accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
         
