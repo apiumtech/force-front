@@ -43,6 +43,12 @@ define([
 
     AccountListModel.prototype.loadAccountsList = function (option, requestData, callback, settings) {
 
+        console.log("reloading", requestData);
+        var searchData = requestData.customFilter;
+        requestData.accountSearch = Object.keys(searchData).map(function (key) {
+            return {column: key, value: searchData[key]};}
+        );
+
         if (JSON.stringify(this.recentFilters) !== JSON.stringify(requestData.customFilter) ||
             JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order)) {
             this.accountsList = [];

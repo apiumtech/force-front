@@ -42,8 +42,8 @@ define(function () {
         uploadFile: baseUrl + '/api/upload',
         uploadDocuments: baseUrl + '/api/uploadDocument',
 
-
-        getFilterValues: baseApi + '/api/getFilterValues',
+        getFilterValues: baseUrl + '/api/accounts/getFilterValues',
+        getAvailableFields: baseUrl + '/api/accounts/availableFields',
 
         getDocuments: baseApi + '/api/accounts/{0}/documents',
         deleteDocument: baseApi + '/api/documents/{0}',

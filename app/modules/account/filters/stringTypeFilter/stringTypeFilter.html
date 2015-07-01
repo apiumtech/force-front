@@ -1,7 +1,7 @@
 <a href="#"
    class="dropdown-toggle"
    data-toggle="dropdown">
-    {{filterFor.title}}
+    {{filterFor.name}}
     <span class="caret"></span>
 </a>
 <ul class="dropdown-menu media-list  animated-slow fadeInDown">
@@ -9,7 +9,6 @@
         <form>
             <input type="text"
                    class="form-control ic-user"
-                   placeholder="Search {{filterFor.title}}"
                    ng-model="data.filterValue"
                    ng-click="$event.stopPropagation();"
                    ng-change="fn.loadStringFilters(data.filterValue);"/>

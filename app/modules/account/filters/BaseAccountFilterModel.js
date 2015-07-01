@@ -11,6 +11,7 @@ define([
     }
 
     BaseAccountFilterModel.prototype.getFilterValues = function (filterName, queryString) {
+        console.log("filter values", filterName);
         return this.ajaxService.rawAjaxRequest({
             url: Configuration.api.getFilterValues + "?fieldName=" + filterName + "&queryString=" + queryString,
             type: 'get',

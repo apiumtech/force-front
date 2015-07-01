@@ -30,7 +30,7 @@ define([
         };
 
         self.fn.fireSearchEvent = function () {
-            self.event.searchValueChanged(scope.filterFor.data, self.data.filterValue);
+            self.event.searchValueChanged(scope.filterFor.key, self.data.filterValue);
         };
 
         self.fn.prePostFilterChanged = function () {
@@ -40,7 +40,7 @@ define([
                 return r.name;
             });
 
-            self.event.filterSelectionToggled(scope.filterFor.data, selected);
+            self.event.filterSelectionToggled(scope.filterFor.key, selected);
         };
 
         scope.$watch('filterFor', self.onFieldChanged.bind(self));

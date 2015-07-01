@@ -3,17 +3,22 @@
  */
 define([
     'shared/services/bus/FilterChannel',
-    'shared/services/AccountEventBus'
-], function (FilterChannel, AccountEventBus) {
+    'shared/services/AccountEventBus',
+    'modules/account/filters/accountFilter/AccountFilterModel'
+], function (FilterChannel, AccountEventBus, AccountFilterModel) {
 
-    function AccountFilterPresenter(filterEventChannel, accountEventBus) {
-        this.filterChannel = filterEventChannel;
-        this.accountEventBus = accountEventBus;
+    function AccountFilterPresenter(filterEventChannel, accountEventBus, model) {
+        this.model = model || new AccountFilterModel();
+        this.filterChannel = filterEventChannel || FilterChannel.newInstance();
+        this.accountEventBus = accountEventBus || AccountEventBus.getInstance();
     }
 
-    AccountFilterPresenter.prototype.show = function (view, model) {
+    AccountFilterPresenter.prototype.show = function (view) {
         this.view = view;
-        this.model = model;
+        var model = this.model;
+
+        view.event = view.event || {}
+
         var self = this;
         var channel = this.filterChannel;
         var eventBus = this.accountEventBus;
@@ -63,18 +68,16 @@ define([
         view.event.onToggleOwnerFilter = function (owner) {
             channel.sendOwnerToggleSignal(owner);
         };
+
+        view.event.onLoadingAvailableFilters = function(filter){
+            model.loadAvailableFilters(filter)
+                .then(view.onAvailableFiltersLoaded.bind(view), view.showError.bind(view));
+        }
     };
 
     AccountFilterPresenter.prototype.tableFieldsLoaded = function (data) {
         var self = this;
         self.view.onTableFieldsLoaded(data);
-    };
-
-    AccountFilterPresenter.newInstance = function ($filterChannel, accountEventBus) {
-        var filterChannel = $filterChannel || FilterChannel.newInstance();
-        accountEventBus = accountEventBus || AccountEventBus.getInstance();
-
-        return new AccountFilterPresenter(filterChannel, accountEventBus);
     };
 
     return AccountFilterPresenter;

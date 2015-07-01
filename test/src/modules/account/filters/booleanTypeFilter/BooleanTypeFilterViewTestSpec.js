@@ -45,7 +45,7 @@ define([
 
                     var expected = [false];
                     sut.fn.prePostFilterChanged();
-                    expect(sut.event.filterSelectionToggled).toHaveBeenCalledWith(sut.$scope.filterFor.data, expected);
+                    expect(sut.event.filterSelectionToggled).toHaveBeenCalledWith(sut.$scope.filterFor.key, expected);
                 });
             });
         });

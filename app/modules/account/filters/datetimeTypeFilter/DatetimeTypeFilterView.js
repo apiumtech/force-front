@@ -11,16 +11,56 @@ define([
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
         var self = this;
+
         self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
+
         self.$scope.dateRangeFilterOpened = false;
+
+        self.$scope.isoStringDateStart = function () {
+            return self.$scope.dateRangeStart;
+        };
+        self.$scope.isoStringDateEnd = function () {
+            return self.$scope.dateRangeEnd;
+        };
+        self.$scope.isoStringDateEndLimit = function () {
+            var date = new Date(self.$scope.dateRangeStart);
+            date = date.setDate(date.getDate() + 1);
+            return new Date(date).toString();
+        };
+        self.$scope.isoStringMaxDateLimit = function () {
+            return new Date().toString();
+        };
+
+        self.$scope.isoStringMaxDateFromLimit = function () {
+            var date = new Date(self.$scope.dateRangeEnd);
+            date = date.setDate(date.getDate() - 1);
+            return new Date(date).toString();
+        };
+
         this.configureEvents();
     }
 
     DatetimeTypeFilterView.inherits(BaseView, {
+        dateRangeFilterOpened: {
+            get: function () {
+                return this.$scope.dateRangeFilterOpened || (this.$scope.dateRangeFilterOpened = false);
+            },
+            set: function (value) {
+                this.$scope.dateRangeFilterOpened = value;
+            }
+        },
+        userFilterOpened: {
+            get: function () {
+                return this.$scope.userFilterOpened || (this.$scope.userFilterOpened = false);
+            },
+            set: function (value) {
+                this.$scope.userFilterOpened = value;
+            }
+        },
         dateRangeStart: {
             get: function () {
-                return this.$scope.dateRangeStart;
+                return this.$scope.dateRangeStart || new Date();
             },
             set: function (value) {
                 this.$scope.dateRangeStart = value;
@@ -28,7 +68,7 @@ define([
         },
         dateRangeEnd: {
             get: function () {
-                return this.$scope.dateRangeEnd;
+                return this.$scope.dateRangeEnd || new Date();
             },
             set: function (value) {
                 this.$scope.dateRangeEnd = value;
@@ -90,7 +130,7 @@ define([
 
         self.fn.applyDateFilter = function () {
             self.data.dateRangeFilterOpened = false;
-            self.event.filterSelectionToggled(scope.filterFor.data, [{
+            self.event.filterSelectionToggled(scope.filterFor.key, [{
                 from: self.dateRangeStart,
                 to: self.dateRangeEnd
             }]);
@@ -121,6 +161,10 @@ define([
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
             self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.fn.getDatePlaceholder();
+        };
+
+        self.fn.getFormattedDate = function (date) {
+            return moment(date).format(self.momentFormat);
         };
     };
 

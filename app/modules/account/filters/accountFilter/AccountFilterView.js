@@ -11,8 +11,9 @@ define([
     'shared/services/AwaitHelper'
 ], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel, AwaitHelper) {
 
-    function AccountFilterView($scope, $model, $presenter) {
-        BaseView.call(this, $scope, $model, $presenter);
+    function AccountFilterView($scope, $presenter) {
+        $presenter = $presenter || new AccountFilterPresenter();
+        BaseView.call(this, $scope, null, $presenter);
 
         this.data.selectedView = null;
         this.data.searchQuery = "";
@@ -20,6 +21,7 @@ define([
         this.data.EnvFilter = '';
         this.data.ownerFilter = '';
         this.data.availableFields = [];
+        this.data.customFiltersQuery = "";
         this.awaitHelper = AwaitHelper.getInstance();
     }
 
@@ -38,6 +40,7 @@ define([
             self.event.onShowAvailableEnvironments();
             self.event.onShowAvailableAccountTypes();
             self.event.onShowAvailableViews();
+            self.event.onLoadingAvailableFilters(self.data.customFiltersQuery);
         };
 
         self.fn.onSelectedViewChanged = function () {
@@ -68,6 +71,11 @@ define([
             self.awaitHelper.await(self.loadAvailableOwners.bind(self), 500);
         };
         self.$scope.$watch('$destroy', self.dispose.bind(self));
+    };
+
+    AccountFilterView.prototype.onAvailableFiltersLoaded = function(availableFilters){
+        var self = this;
+        self.data.availableFields = availableFilters;
     };
 
     AccountFilterView.prototype.loadAvailableOwners = function () {
@@ -118,11 +126,8 @@ define([
     };
 
     AccountFilterView.newInstance = function ($scope, $model, $presenter, $viewRepAspect, $logErrorAspect) {
-        var scope = $scope || {};
-        var model = $model || AccountFilterModel.newInstance();
-        var presenter = $presenter || AccountFilterPresenter.newInstance();
 
-        var view = new AccountFilterView(scope, model, presenter);
+        var view = new AccountFilterView($scope);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

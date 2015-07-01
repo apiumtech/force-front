@@ -67,7 +67,7 @@ define([
 
                     var expected = ["selected 1", "selected 156"];
                     sut.fn.prePostFilterChanged();
-                    expect(sut.event.filterSelectionToggled).toHaveBeenCalledWith(sut.$scope.filterFor.data, expected);
+                    expect(sut.event.filterSelectionToggled).toHaveBeenCalledWith(sut.$scope.filterFor.key, expected);
                 });
             });
 
@@ -75,7 +75,7 @@ define([
                 it("should call searchValueChanged on event", function () {
                     sut.event.searchValueChanged = jasmine.createSpy();
                     sut.fn.fireSearchEvent();
-                    expect(sut.event.searchValueChanged).toHaveBeenCalledWith(sut.$scope.filterFor.data, sut.data.filterValue);
+                    expect(sut.event.searchValueChanged).toHaveBeenCalledWith(sut.$scope.filterFor.key, sut.data.filterValue);
                 });
             });
         });

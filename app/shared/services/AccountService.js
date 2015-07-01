@@ -9,7 +9,7 @@ define([
 ], function (Configuration, AjaxService, Q) {
 
     function AccountService(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.ajaxService = ajaxService || new AjaxService();
         this.availableOwners = null;
         this.availableEnvironments = null;
         this.availableViews = null;
@@ -150,9 +150,8 @@ define([
         return this.availableViews;
     };
 
-    AccountService.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance();
-        return new AccountService(_ajaxService);
+    AccountService.newInstance = function () {
+        return new AccountService();
     };
 
     return AccountService;

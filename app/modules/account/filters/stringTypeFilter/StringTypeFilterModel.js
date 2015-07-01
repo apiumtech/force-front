@@ -21,6 +21,7 @@ define([
     };
 
     StringFilterModel.prototype.decorateResponseData = function (data) {
+        console.log("TEST",data);
         return data.map(function (string) {
             return {name: string, selected: false};
         });
