@@ -67,8 +67,6 @@ define([
             accept: 'application/json'
         };
 
-        console.log("auth ajax", this.authAjaxService);
-
         return this.authAjaxService.rawAjaxRequest(params).then(this.decorateAvailableOwners.bind(this));
     };
 
