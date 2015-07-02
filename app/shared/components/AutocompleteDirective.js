@@ -47,8 +47,9 @@ define([
                     });
                 }
                 else{
+                    url = url.format(request.term);
                     var params = {
-                        url: url + "/" + request.term,
+                        url: url,
                         type: 'get',
                         contentType: 'application/json',
                         accept: 'application/json'

@@ -26,7 +26,7 @@ define(function () {
         getAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/companies',
         addAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/addCompany',
         getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
-        getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions',
+        getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
 
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
@@ -80,7 +80,7 @@ define(function () {
         updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
         getReportParameters: baseUrl + '/api/queries/stats/reports/{0}/parameters',
         getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
-        searchReport: baseUrl + '/api/queries/stats/reports/searchReports/{0}',
+        searchReport: baseUrl + '/api/queries/stats/reports/searchReports?searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
