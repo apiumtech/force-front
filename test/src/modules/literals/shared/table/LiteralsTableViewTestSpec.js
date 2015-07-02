@@ -7,7 +7,7 @@ define([
     function exerciseCreateView(namedParams) {
         namedParams = namedParams || {};
         return LiteralsTableView.newInstance({
-            scope: namedParams.scope || {$on:function(){}},
+            scope: namedParams.scope || mockAngularScope(),
             presenter: namedParams.presenter,
             compile: namedParams.compile,
             dataTableService: namedParams.dataTableService,
@@ -340,6 +340,64 @@ define([
                 expect(sut.templateParser.parseTemplate).toHaveBeenCalledWith("some html", 3);
             });
         });
+
+        describe("_createLanguageColumns", function () {
+            it("should resolve html template", function () {
+                var sut = exerciseCreateView();
+                var data = [{Name:"lang 1"}, {Name:"lang 2"}];
+                sut._createLanguageColumns(data);
+                expect(sut.languageColumns.length).toBe(2);
+            });
+        });
+
+        describe("compile_createdCell", function () {
+            it("should call compile", function () {
+                var compile2 = jasmine.createSpy();
+                var compile = jasmine.createSpy().and.returnValue(compile2);
+                var sut = exerciseCreateView({compile: compile});
+                var cell = "the cell";
+                sut.compile_createdCell(cell);
+                expect(compile).toHaveBeenCalledWith(cell);
+                expect(compile2).toHaveBeenCalledWith(sut.$scope);
+            });
+        });
+
+        describe('onCreatedRow', function () {
+            it("should highlight rows when ImplementationCode equals -1", function () {
+                var sut = exerciseCreateView();
+                var data = {ImplementationCode:-1};
+                var row = $('<tr><td>td1</td></tr>');
+                sut.onCreatedRow(row, data);
+                expect( row.html() ).toMatch(/class="highlight"/);
+            });
+            it("should not highlight rows when ImplementationCode is not -1", function () {
+                var sut = exerciseCreateView();
+                var data = {ImplementationCode:8004};
+                var row = $('<tr><td>td1</td></tr>');
+                sut.onCreatedRow(row, data);
+                expect( row.html()).not.toMatch(/class="highlight"/);
+            });
+        });
+
+        describe('addTooltipsToEllipsisHandler', function () {
+            it("should set title attribute when text overflows container", function () {
+                var el = $("<div>some text</div>");
+                el.offsetWidth = 10;
+                el.scrollWidth = 100;
+                var sut = exerciseCreateView();
+                sut.addTooltipsToEllipsisHandler.call(el);
+                expect(el.attr('title')).toBe("some text");
+            });
+            it("should not set title attribute when text doesn't overflow container", function () {
+                var el = $("<div>some text</div>");
+                el.offsetWidth = 100;
+                el.scrollWidth = 10;
+                var sut = exerciseCreateView();
+                sut.addTooltipsToEllipsisHandler.call(el);
+                expect(el.attr('title')).not.toBe("some text");
+            });
+        });
+
 
     });
 });

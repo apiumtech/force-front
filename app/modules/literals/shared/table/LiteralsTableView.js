@@ -118,6 +118,16 @@ define([
         return col;
     };
 
+    proto.compile_createdCell = function (cell, cellData, rowData, rowIndex, colIndex) {
+        this.compile(cell)(this.$scope);
+    };
+
+    proto.onCreatedRow = function ( row, data, index ) {
+        if ( data.ImplementationCode == -1 ) {
+            $('td', row).addClass('highlight');
+            //$('td', row).css('background-color', 'red');
+        }
+    };
 
     // Columns Request callbacks
     proto.onColumnsRequestSuccess = function(res) {
@@ -140,24 +150,15 @@ define([
                 {
                     targets: 0,
                     render: self.renderKeyColumn.bind(self),
-                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
-                        self.compile(cell)(self.$scope);
-                    }
+                    createdCell: self.compile_createdCell.bind(self)
                 },
                 {
                     targets: 1,
                     render: self.renderImplementationCodeColumn.bind(self),
-                    createdCell: function (cell, cellData, rowData, rowIndex, colIndex) {
-                        self.compile(cell)(self.$scope);
-                    }
+                    createdCell: self.compile_createdCell.bind(self)
                 }
             ],
-            createdRow: function ( row, data, index ) {
-                if ( data.ImplementationCode == -1 ) {
-                    $('td', row).addClass('highlight');
-                    //$('td', row).css('background-color', 'red');
-                }
-            }
+            createdRow: self.onCreatedRow.bind(self)
         };
 
         this.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
@@ -217,14 +218,14 @@ define([
     /*
      * Adds the title attribute on-demand when text overflows.
      */
+    proto.addTooltipsToEllipsisHandler = function() {
+        var $this = $(this);
+        if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
+            $this.attr('title', $this.text());
+        }
+    };
     proto.addTooltipsToEllipsis = function() {
-        $('#data-table td, #data-table th').bind('mouseenter', function(){
-            var $this = $(this);
-
-            if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-                $this.attr('title', $this.text());
-            }
-        });
+        $('#data-table td, #data-table th').bind('mouseenter', self.addTooltipsToEllipsisHandler);
     };
 
 
