@@ -9,7 +9,7 @@ define([
     'use strict';
 
     function CustomLiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.sharedService = sharedService;
         this.cqrsUnwrapper = cqrsUnwrapper;
     }
@@ -25,7 +25,7 @@ define([
 
     proto.createLiteral = function (body) {
         return this.cqrsUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.createCustomLiteral,
                 data: body,
                 type: 'POST',
@@ -45,7 +45,7 @@ define([
             contentType: 'application/json'
         };
         return this.cqrsUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest(params)
+            this.authAjaxService.rawAjaxRequest(params)
         );
     };
 
@@ -83,7 +83,7 @@ define([
         var self = this;
         var body = "id=" + id;
         this.cqrsUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.customLiteralById,
                 data: body,
                 type: 'GET',

@@ -51,8 +51,6 @@ define([
                 self.event.end = endDate.toISOString();
             }
 
-            console.log(self.event);
-
             self.$modalInstance.close(self.event);
         };
 

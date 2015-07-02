@@ -47,14 +47,14 @@ define([
         describe("loadContacts", function () {
             it("should make a tokenized ajax call ", function () {
 
-                spyOn(model.ajaxService, 'rawAjaxRequest');
+                spyOn(model.authAjaxService, 'rawAjaxRequest');
                 var fakeToken = "fake token";
                 spyOn(model.storageService, 'retrieve').and.returnValue(fakeToken);
 
                 model.loadContacts();
 
-                expect(model.ajaxService.rawAjaxRequest.calls.count()).toEqual(1);
-                var argsForAjaxServiceCall = model.ajaxService.rawAjaxRequest.calls.argsFor(0);
+                expect(model.authAjaxService.rawAjaxRequest.calls.count()).toEqual(1);
+                var argsForAjaxServiceCall = model.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 var params = argsForAjaxServiceCall[0];
 
                 expect(params.headers).toBeDefined();

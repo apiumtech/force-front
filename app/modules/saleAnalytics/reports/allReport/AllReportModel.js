@@ -37,7 +37,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
+        return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {

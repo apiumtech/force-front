@@ -11,7 +11,7 @@ define([
 	'use strict';
 
 	function LiteralsService(ajaxService, storageService, literalsSharedService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.storageService = storageService;
         this.literalsSharedService = literalsSharedService;
         this.fakeAjaxService = FakeAjaxService.newInstance();
@@ -27,7 +27,7 @@ define([
 
     proto.getLiteralsList = function(searchParams) {
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.literalList,
                 headers: searchParams,
                 type: 'GET',
@@ -43,7 +43,7 @@ define([
             "id": id
         };
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.deleteLiteral,
                 data: body,
                 type: 'POST',

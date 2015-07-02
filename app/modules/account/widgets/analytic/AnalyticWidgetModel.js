@@ -4,11 +4,11 @@ define([
 	'use strict';
 
 	function AnalyticWidgetModel(ajaxService) {
-		this.ajaxService = ajaxService || new AjaxService();
+		this.authAjaxService = ajaxService || new AjaxService();
 	}
 
 	AnalyticWidgetModel.prototype.loadData = function(accountId){
-		return this.ajaxService.rawAjaxRequest({
+		return this.authAjaxService.rawAjaxRequest({
 			result: {
 				activity_index: {
 					data: {

@@ -223,7 +223,6 @@ define([
     };
 
     AccountListView.prototype.requestTableDataFailure = function (requestData) {
-        console.log(requestData);
         var self = this;
         self.serverError = true;
         var status = requestData.status ? requestData.status.toString() : '';

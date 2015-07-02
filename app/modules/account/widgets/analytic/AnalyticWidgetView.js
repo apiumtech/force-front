@@ -71,7 +71,6 @@ define([
 
     AnalyticWidgetView.prototype.loadData = function () {
         var self = this;
-        console.log("before event load data", self.eventBus);
         self.event.loadData(self.accountId);
     };
 

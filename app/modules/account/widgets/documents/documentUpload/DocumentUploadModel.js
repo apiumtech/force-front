@@ -24,7 +24,6 @@ define([
                 extract: file.extract
             }
         }).then(function (response) {
-            console.log(response);
             return response;
         });
     };

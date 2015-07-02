@@ -9,7 +9,7 @@ define([
 ], function (AjaxService, moment, Configuration) {
 
     function WidgetBase(ajaxService) {
-        this.ajaxService = ajaxService || AjaxService.newInstance();
+        this.authAjaxService = ajaxService || AjaxService.newInstance();
         this.fetchPoint = null;
         this.widgetId = null;
         this.queries = {
@@ -73,7 +73,7 @@ define([
             contentType: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(request);
+        return this.authAjaxService.rawAjaxRequest(request);
     };
 
     return WidgetBase;

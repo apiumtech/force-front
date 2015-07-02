@@ -22,10 +22,10 @@ define([
             it("sould call ajaxservice with correct url", function () {
                 var sut = exerciseCreateService();
                 spyOn(CQRSUnwrapper, "unwrap");
-                spyOn(sut.ajaxService, "rawAjaxRequest");
+                spyOn(sut.authAjaxService, "rawAjaxRequest");
                 config.api.customLiteralList = "some url";
                 sut.getLiteralsList();
-                var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);
+                var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 expect(args[0].url).toBe("some url");
             });
         });
@@ -37,18 +37,18 @@ define([
             it("sould call ajaxservice with correct url", function () {
                 var sut = exerciseCreateService();
                 spyOn(CQRSUnwrapper, "unwrap");
-                spyOn(sut.ajaxService, "rawAjaxRequest");
+                spyOn(sut.authAjaxService, "rawAjaxRequest");
                 config.api.deleteCustomLiteral = "deleteCustomLiteral url";
                 sut.deleteLiteral(123);
-                var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);
+                var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 expect(args[0].url).toBe("deleteCustomLiteral url");
             });
             it("sould call ajaxservice passing id", function () {
                 var sut = exerciseCreateService();
                 spyOn(CQRSUnwrapper, "unwrap");
-                spyOn(sut.ajaxService, "rawAjaxRequest");
+                spyOn(sut.authAjaxService, "rawAjaxRequest");
                 sut.deleteLiteral(456);
-                var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);
+                var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 expect(args[0].data.id).toBe(456);
             });
         });

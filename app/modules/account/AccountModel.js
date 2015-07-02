@@ -3,15 +3,15 @@
  */
 define([
     'config',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'shared/services/ajax/FakeAjaxService',
     'shared/services/DataTableDataProvider'
-], function (Configuration, AjaxService, FakeAjaxService, DataTableDataProvider) {
+], function (Configuration, AuthAjaxService, FakeAjaxService, DataTableDataProvider) {
 
-    function AccountModel(ajaxService, dataTableDataProvider) {
-        this.ajaxService = ajaxService;
-        this.fakeAjaxService = FakeAjaxService.newInstance();
-        this.dataTableDataProvider = dataTableDataProvider;
+    function AccountModel(authAjaxService, dataTableDataProvider) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
+        this.fakeAjaxService = FakeAjaxService._diResolve();
+        this.dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance();
         this.accountsList = [];
         this.recentFilters = {};
         this.recentOrder = {};
@@ -25,7 +25,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountModel.prototype.getLatLongData = function (record) {
@@ -58,7 +58,7 @@ define([
         requestData.length = option.pageSize;
         requestData.start = option.pageSize * option.currentPage;
 
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
             url: Configuration.api.dataTableRequest,
             type: "POST",
             contentType: 'application/json',
@@ -84,11 +84,11 @@ define([
         return error;
     };
 
-    AccountModel.newInstance = function (ajaxService, dataTableDataProvider) {
-        ajaxService = ajaxService || AjaxService.newInstance();
+    AccountModel.newInstance = function (authAjaxService, dataTableDataProvider) {
+        authAjaxService = authAjaxService || AuthAjaxService.newInstance();
         dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance()
 
-        return new AccountModel(ajaxService, dataTableDataProvider);
+        return new AccountModel(authAjaxService, dataTableDataProvider);
     };
 
     return AccountModel;

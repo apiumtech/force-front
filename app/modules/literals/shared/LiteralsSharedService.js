@@ -9,7 +9,7 @@ define([
     'use strict';
 
     function LiteralsSharedService(ajaxService, storageService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.storageService = storageService;
         this.fakeAjaxService = FakeAjaxService.newInstance();
     }
@@ -19,7 +19,7 @@ define([
 
     proto.getLanguageList = function () {
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.languageList,
                 type: 'GET',
                 dataType: 'json'
@@ -29,7 +29,7 @@ define([
 
 
     proto.getLiteralTypeList = function () {
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
                 url: config.api.literalTypeList,
                 type: 'GET',
                 dataType: 'json'
@@ -39,7 +39,7 @@ define([
 
 
     proto.getDeviceTypeList = function () {
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
                 url: config.api.deviceTypeList,
                 type: 'GET',
                 dataType: 'json'
@@ -49,7 +49,7 @@ define([
 
     proto.getImplementationList = function () {
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.implementationList,
                 type: 'GET',
                 dataType: 'json'

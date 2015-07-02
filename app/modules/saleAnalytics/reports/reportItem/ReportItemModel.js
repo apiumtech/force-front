@@ -6,7 +6,7 @@ define([
     'use strict';
 
     function ReportItemModel(ajaxService, reportService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.reportService = reportService || new ReportService();
     }
 
@@ -25,7 +25,7 @@ define([
             contentType: 'application/json',
             accept: 'application/json'
         };
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     ReportItemModel.prototype.getParameterConfiguration = function (reportId, callback) {

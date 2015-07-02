@@ -7,7 +7,7 @@ define([
 ], function (AjaxService, Configuration) {
 
     function OpportunityWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
     }
 
     OpportunityWidgetModel.inherits(Object);
@@ -22,12 +22,11 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(self.decorateOpportunityData.bind(self));
+        return this.authAjaxService.rawAjaxRequest(params).then(self.decorateOpportunityData.bind(self));
     };
 
     OpportunityWidgetModel.prototype.decorateOpportunityData = function (data) {
         // TODO: Fake for now
-        console.log("opportunity data", data);
         return data;
     };
 

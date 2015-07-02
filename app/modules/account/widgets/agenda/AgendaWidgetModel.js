@@ -8,7 +8,7 @@ define([
 ], function (AjaxService, Configuration, FakeAjaxService) {
 
     function AgendaWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.fakeAjaxService = new FakeAjaxService();
     }
 
@@ -17,7 +17,6 @@ define([
     AgendaWidgetModel.prototype.loadEvents = function(accountId){
         if(!accountId) accountId = 28;
         var url = Configuration.api.getAgenda.format(accountId);
-        console.log("Agenda URL", url);
         var params = {
             url: url,
             type: 'get',
@@ -25,12 +24,11 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.deleteEvent = function(event){
         var url = Configuration.api.deleteAgenda + "/" + event.id;
-        console.log("Delete Agenda URL", url);
         var params = {
             url: url,
             type: 'delete',
@@ -38,12 +36,11 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.addEvent = function (event) {
         var url = Configuration.api.createAgenda;
-        console.log("Create Agenda URL", url);
         var params = {
             url: url,
             data: event,
@@ -52,7 +49,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.decorateAgendaData = function (data) {

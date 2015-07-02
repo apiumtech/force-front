@@ -7,7 +7,7 @@ define([
 ], function (AjaxService, Configuration) {
 
     function ActivityWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
     }
 
     ActivityWidgetModel.inherits(Object);
@@ -25,7 +25,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(self.decorateActivityData.bind(self));
+        return this.authAjaxService.rawAjaxRequest(params).then(self.decorateActivityData.bind(self));
     };
 
     ActivityWidgetModel.prototype.toggleFollow = function (activityId) {
@@ -36,7 +36,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     ActivityWidgetModel.prototype.decorateActivityData = function (data) {

@@ -1,14 +1,14 @@
 define([
     'app',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'modules/account/AccountService',
     'config'
-], function (app, AjaxService, AccountService, Configuration) {
+], function (app, AuthAjaxService, AccountService, Configuration) {
     'use strict';
 
-    function AddContactModel(ajaxService, accountService, $uploadService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        this.accountService = accountService || new AccountService();
+    function AddContactModel(authAjaxService, accountService, $uploadService) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
+        this.accountService = accountService || AccountService._diResolve();
         // @autowired
         this.$uploadService = $uploadService;
     }
@@ -28,7 +28,7 @@ define([
             data: contactData
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AddContactModel.prototype.uploadFile = function (file) {

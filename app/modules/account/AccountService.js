@@ -2,14 +2,14 @@
  * Created by apium on 6/11/15.
  */
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AjaxService, FakeAjaxService, Configuration) {
+], function (AuthAjaxService, FakeAjaxService, Configuration) {
 
-    function AccountService(ajaxService, fakeAjaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService();
+    function AccountService(authAjaxService, fakeAjaxService) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
     }
 
     AccountService.inherits(Object);
@@ -23,7 +23,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.decorateAccountDetailData = function (data) {

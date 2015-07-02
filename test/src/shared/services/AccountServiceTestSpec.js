@@ -32,9 +32,9 @@ define([
 
             describe("calling getAccount", function () {
                 it("should call ajaxService rawAjaxRequest", function () {
-                    spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
+                    spyOn(sut.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
                     sut.getAccount(10);
-                    expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
+                    expect(sut.authAjaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
                         url: Configuration.api.getAccount.format(10),
                         type: "get"
                     }));
@@ -49,9 +49,9 @@ define([
 
             describe("calling getAccount", function () {
                 it("should call ajaxService rawAjaxRequest", function () {
-                    spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
+                    spyOn(sut.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseAjaxOk());
                     sut.updateAccount(10, {});
-                    expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
+                    expect(sut.authAjaxService.rawAjaxRequest).toHaveBeenCalledWith(jasmine.objectContaining({
                         url: Configuration.api.updateAccount.format(10),
                         type: "post",
                         data: {}

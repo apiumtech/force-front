@@ -14,12 +14,12 @@ define([
 
         describe("getTableFields", function () {
             it("should return the fields configured in data", function () {
-                spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+                spyOn(sut.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
                 sut.getTableFields();
-                expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
+                expect(sut.authAjaxService.rawAjaxRequest).toHaveBeenCalled();
             });
             it("should call decorateTableFields in return", function () {
-                spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+                spyOn(sut.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
                 spyOn(sut, 'decorateTableFields').and.returnValue(exerciseFakeOkPromise());
                 sut.getTableFields();
                 expect(sut.decorateTableFields).toHaveBeenCalled();

@@ -11,7 +11,7 @@ define([
     'use strict';
 
     function TopMenuWeb2Model(ajaxService, storageService, configuration) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.storageService = storageService;
         this.configuration = configuration;
     }
@@ -50,7 +50,7 @@ define([
             method: "POST"
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
 
@@ -65,7 +65,7 @@ define([
             method: "POST"
         };
 
-        this.ajaxService.rawAjaxRequest(params).then(
+        this.authAjaxService.rawAjaxRequest(params).then(
             function (data) {
                 var userData = JSON.parse(data.d);
                 self.storeUserData(userData);

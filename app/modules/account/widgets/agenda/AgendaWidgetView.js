@@ -84,7 +84,6 @@ define([
         self.eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.fn.addEvent = function(type){
-            console.log("should open with", type);
             var paramDialog = self.modalService.open({
                 templateUrl: 'app/modules/account/widgets/agenda/addEventDialog/addEventDialog.html',
                 backdrop: 'static',
@@ -213,18 +212,15 @@ define([
                 break;
         }
 
-        console.log("current date", self.currentDate);
     };
 
     AgendaWidgetView.prototype.loadEvents = function () {
         var self = this;
-        console.log("start loading");
         self.event.onLoadEvents();
     };
 
     AgendaWidgetView.prototype.onEventsLoaded = function (events) {
         var self = this;
-        console.log("finished loading", events);
         self.eventChannel.sendReloadCompleteCommand();
         self.events = events;
         self.calendarService.render(self.events);

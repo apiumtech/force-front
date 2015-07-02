@@ -2,12 +2,14 @@
  * Created by kevin on 10/27/14.
  */
 define([
-    'app',
-    'q', 'jquery', 'underscore', 'config'
-], function (app, Q, $, _, Configuration) {
+    'q', 'jquery', 'underscore', 'config',
 
-    function AjaxService(ajaxImpl) {
+    'shared/services/StorageService'
+], function (Q, $, _, Configuration, StorageService) {
+
+    function AjaxService(ajaxImpl, storageService) {
         this.ajaxImpl = ajaxImpl || $.ajax;
+        this.storageService = storageService || StorageService._diResolve();
     }
 
     AjaxService.prototype.ensureSuccess = function (result) {
@@ -23,6 +25,17 @@ define([
 
         if (typeof request.data != "string") {
             request.data = JSON.stringify(request.data);
+        }
+
+        if (Configuration.useAuthRequest) {
+            var token = this.storageService.retrieve(Configuration.tokenStorageKey, true);
+
+            // TODO: get rid of it when proper login is implemented
+            var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+
+            token = token || dev_token;
+            request.headers = request.headers || {};
+            request.headers.token = token;
         }
 
         return request;
@@ -46,8 +59,6 @@ define([
     AjaxService.newInstance = function (ajaxImpl) {
         return new AjaxService(ajaxImpl || $.ajax);
     };
-
-    app.di.register('ajaxService').as(AjaxService);
 
     return AjaxService;
 });

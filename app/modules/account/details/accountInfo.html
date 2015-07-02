@@ -105,7 +105,7 @@
             <p ng-repeat="relatedCompany in accountData.relatedCompanies"
                ng-class="{'animated fadeIn success-flash' : relatedCompany.recent,
                    'bg-fade' : relatedCompany.added }">
-                {{relatedCompany.name}}
+                {{relatedCompany.company.name}}
                 <span class='ok-tick pull-right' ng-show="relatedCompany.recent && !relatedCompany.added"><i
                         class='ic-accept'></i></span>
             </p>
