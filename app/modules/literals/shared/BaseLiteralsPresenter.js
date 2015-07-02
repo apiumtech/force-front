@@ -15,9 +15,7 @@ define([
 
         view.event.nextPage = self.nextPage.bind(self);
 
-        view.event.onDisposing = function () {
-            self.eventBus.dispose();
-        };
+        view.event.onDisposing = self.onDisposing.bind(self);
 
         // comes from LiteralsTableView.fireColumnsRequest
         self.eventBus.onColumnsRequest(self.onColumnsRequest.bind(self));
@@ -34,6 +32,10 @@ define([
         self.eventBus.onLiteralsDeleteRequest(self.onLiteralsDeleteRequest.bind(self));
 	};
 
+
+    proto.onDisposing = function () {
+        this.eventBus.dispose();
+    };
 
     proto.onColumnsRequest = function() {
         var self = this;

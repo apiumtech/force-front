@@ -1,7 +1,9 @@
 define([
+    'modules/literals/shared/BaseLiteralsView',
     'modules/literals/shared/BaseLiteralsPresenter',
+    'modules/literals/shared/BaseLiteralsModel',
     'modules/literals/shared/LiteralsEventBus'
-], function (BaseLiteralsPresenter, LiteralsEventBus) {
+], function (BaseLiteralsView, BaseLiteralsPresenter, BaseLiteralsModel, LiteralsEventBus) {
     'use strict';
 
     function exerciseCreatePresenter() {
@@ -9,14 +11,25 @@ define([
         return new BaseLiteralsPresenter(mockEventBus);
     }
 
+    function mockView(){
+        var view = mock(BaseLiteralsView);
+        view.event = {};
+        return view;
+    }
+
+    function mockModel() {
+        return mock(BaseLiteralsModel);
+    }
+
+
     describe('BaseLiteralsPresenter', function () {
 
         describe('onColumnsRequest', function () {
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}, onLiteralsRequestSuccess: function(){}};
-                model = {};
+                view = mockView();
+                model = mockModel();
                 exerciseFakeEventBusCallback(sut.eventBus, "ColumnsRequest");
             });
             it('should be subscribed to eventBus.onColumnsRequest', function () {
@@ -54,25 +67,22 @@ define([
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}, onLiteralsRequestSuccess:function(){}, onLiteralsRequest:function(){}};
-                model = {};
+                view = mockView();
+                model = mockModel();
                 exerciseFakeEventBusCallback(sut.eventBus, "LiteralsRequest");
             });
-
             it('should be subscribed to eventBus.onLiteralsRequest', function () {
                 spyOn(sut, "onLiteralsRequest");
                 sut.show(view, model);
                 sut.eventBus.fireLiteralsRequest();
                 expect(sut.onLiteralsRequest).toHaveBeenCalled();
             });
-
             it("should call model's onLiteralsRequest", function () {
                 model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
                 sut.show(view, model);
                 sut.eventBus.fireLiteralsRequest();
                 expect(model.onLiteralsRequest).toHaveBeenCalled();
             });
-
             it("should call fireLiteralsRequestSuccess onLiteralsRequest success", function () {
                 model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakeOkPromise());
                 sut.show(view, model);
@@ -80,7 +90,6 @@ define([
                 sut.eventBus.fireLiteralsRequest();
                 expect(sut.eventBus.fireLiteralsRequestSuccess).toHaveBeenCalled();
             });
-
             it("should call fireLiteralsRequestError onLiteralsRequest error", function () {
                 model.onLiteralsRequest = jasmine.createSpy().and.returnValue(exerciseFakeKoPromise());
                 sut.show(view, model);
@@ -94,11 +103,9 @@ define([
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
-                view = {event: {}, onLiteralsRequestSuccess:function(){}};
-                model = {
-                    setSearchTerms: function(){},
-                    onLiteralsRequest: jasmine.createSpy().and.returnValue(exerciseFakePromise())
-                };
+                view = mockView();
+                model = mockModel();
+                spyOn(model, "onLiteralsRequest").and.returnValue(exerciseFakePromise());
                 exerciseFakeEventBusCallback(sut.eventBus, "LiteralsSearch");
             });
 
@@ -121,6 +128,44 @@ define([
                 sut.show(view, model);
                 sut.onLiteralsSearch("hello goodbye");
                 expect(sut.eventBus.fireLiteralsRequest).toHaveBeenCalled();
+            });
+        });
+
+        describe("onDisposing", function(){
+            it("should dispose eventBus", function(){
+                var sut = exerciseCreatePresenter();
+                spyOn(sut.eventBus, "dispose");
+                sut.onDisposing();
+                expect(sut.eventBus.dispose).toHaveBeenCalled();
+            });
+        });
+
+        describe("onLiteralsDeleteRequest", function(){
+            var sut, view, model;
+            beforeEach(function () {
+                sut = exerciseCreatePresenter();
+                view = mockView();
+                model = mockModel();
+                sut.show(view, model);
+                spyOn(view, "resetScrollState");
+            });
+            it("should reset view's scroll state", function(){
+                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakePromise());
+                sut.onLiteralsDeleteRequest();
+                expect(view.resetScrollState).toHaveBeenCalled();
+            });
+
+            it("should fire Literals Request when promise succeeds", function(){
+                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakeOkPromise());
+                spyOn(sut.eventBus, "fireLiteralsRequest");
+                sut.onLiteralsDeleteRequest();
+                expect(sut.eventBus.fireLiteralsRequest).toHaveBeenCalled();
+            });
+
+            it("should call view's showError when promise fails", function(){
+                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakeKoPromise());
+                sut.onLiteralsDeleteRequest();
+                expect(view.showError).toHaveBeenCalled();
             });
         });
 

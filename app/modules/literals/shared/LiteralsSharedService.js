@@ -8,6 +8,9 @@ define([
 ], function(config, AuthAjaxService, StorageService, Q, CQRSUnwrapper, FakeAjaxService) {
     'use strict';
 
+
+    // TODO: refactor all methods and add them to BaseLiteralsService, remove this class enterely
+
     function LiteralsSharedService(ajaxService, storageService) {
         this.authAjaxService = ajaxService;
         this.storageService = storageService;
