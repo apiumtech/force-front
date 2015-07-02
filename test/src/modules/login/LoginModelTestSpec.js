@@ -26,7 +26,7 @@ define([
         });
 
         it("should reject promise on login error", function (done) {
-            spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeKoPromiseWithArg("an error"));
+            spyOn(model.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeKoPromiseWithArg("an error"));
             model.login(loginUser, loginPass).then(
                 function () {
                 },
@@ -38,12 +38,12 @@ define([
         });
 
         it("should make a parametrized call to ajaxService's rawAjaxRequest() method on login()", function () {
-            spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
+            spyOn(model.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakePromise());
 
             model.login(loginUser, loginPass);
 
-            expect(model.ajaxService.rawAjaxRequest.calls.count()).toEqual(1);
-            var argsForAjaxServiceCall = model.ajaxService.rawAjaxRequest.calls.argsFor(0);
+            expect(model.authAjaxService.rawAjaxRequest.calls.count()).toEqual(1);
+            var argsForAjaxServiceCall = model.authAjaxService.rawAjaxRequest.calls.argsFor(0);
 
             var credentials = argsForAjaxServiceCall[0];
 
@@ -64,7 +64,7 @@ define([
 
             spyOn(model, 'storeConfig');
             spyOn(model, 'storeToken');
-            spyOn(model.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummy));
+            spyOn(model.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromiseWithArg(dummy));
             model.login(loginUser, loginPass);
             expect(model.storeConfig).toHaveBeenCalledWith(dummy.config);
             expect(model.storeToken).toHaveBeenCalledWith(dummy.token);

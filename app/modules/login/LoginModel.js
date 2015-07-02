@@ -12,7 +12,7 @@ define([
 ], function (AjaxService, EntityService, StorageService, Configuration, sha1, Q) {
 
     function LoginModel(ajaxService, entityService, storage, configuration) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.entityService = entityService;
         this.storage = storage;
         this.configuration = configuration;
@@ -38,7 +38,7 @@ define([
 
         var self = this;
         var deferred = Q.defer();
-        this.ajaxService.rawAjaxRequest(params).then(
+        this.authAjaxService.rawAjaxRequest(params).then(
             function (data) {
                 self.storeToken(data.token);
                 self.storeConfig(data.config);

@@ -8,7 +8,7 @@ define([
 ], function (FilterChannel, AccountEventBus, AccountFilterModel) {
 
     function AccountFilterPresenter(filterEventChannel, accountEventBus, model) {
-        this.model = model || new AccountFilterModel();
+        this.model = model || AccountFilterModel._diResolve();
         this.filterChannel = filterEventChannel || FilterChannel.newInstance();
         this.accountEventBus = accountEventBus || AccountEventBus.getInstance();
     }

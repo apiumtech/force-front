@@ -6,7 +6,7 @@ define([
     'use strict';
 
     function CustomWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
     }
 
     CustomWidgetModel.prototype.reloadWidget = function() {
@@ -28,7 +28,7 @@ define([
             accept: 'application/json'
         };
 
-        this.ajaxService.rawAjaxRequest(params).then(
+        this.authAjaxService.rawAjaxRequest(params).then(
             function(res){
                 var data = res.data;
                 deferred.resolve(res.data);

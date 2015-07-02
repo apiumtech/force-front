@@ -64,23 +64,23 @@ define([
 
         describe("logout", function () {
            it("should make and ajax call to the logout url", function () {
-               spyOn(sut.ajaxService, "rawAjaxRequest").and.returnValue(exerciseFakePromise());
+               spyOn(sut.authAjaxService, "rawAjaxRequest").and.returnValue(exerciseFakePromise());
                sut.logout();
-               var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);
+               var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                expect(args[0].url).toBe("logout url");
            });
         });
 
         describe("getUserDataInfo", function () {
             it("should make and ajax call to the getUserDataInfo url", function () {
-               spyOn(sut.ajaxService, "rawAjaxRequest").and.returnValue(exerciseFakePromise());
+               spyOn(sut.authAjaxService, "rawAjaxRequest").and.returnValue(exerciseFakePromise());
                sut.getUserDataInfo();
-               var args = sut.ajaxService.rawAjaxRequest.calls.argsFor(0);
+               var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                expect(args[0].url).toBe("getUserDataInfo url");
             });
             it("should store User Data on ajax call success", function () {
                 var userData = {d:JSON.stringify({some:"data"})};
-               spyOn(sut.ajaxService, "rawAjaxRequest").and.returnValue(
+               spyOn(sut.authAjaxService, "rawAjaxRequest").and.returnValue(
                    exerciseFakeOkPromiseWithArg(userData)
                );
                spyOn(sut, "storeUserData");

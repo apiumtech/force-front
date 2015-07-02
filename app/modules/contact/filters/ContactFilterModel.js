@@ -9,7 +9,7 @@ define([
     'use strict';
 
     function ContactFilterModel(ajaxService, dataTableDataProvider) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.dataTableDataProvider = dataTableDataProvider;
     }
 

@@ -1,11 +1,11 @@
 define([
     'config',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'shared/services/AccountService'
-], function (Configuration, AjaxService, AccountService) {
+], function (Configuration, AuthAjaxService, AccountService) {
 
-    function AccountFilterModel(ajaxService) {
-        AccountService.call(this, ajaxService);
+    function AccountFilterModel(authAjaxService) {
+        AccountService.call(this, authAjaxService);
     }
 
     AccountFilterModel.inherits(AccountService, {});
@@ -19,7 +19,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountFilterModel.prototype.decorateAvailableOwners = function (result) {
@@ -99,7 +99,7 @@ define([
     };
 
     AccountFilterModel.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance();
+        var _ajaxService = ajaxService || AuthAjaxService._diResolve();
         return new AccountFilterModel(_ajaxService);
     };
 

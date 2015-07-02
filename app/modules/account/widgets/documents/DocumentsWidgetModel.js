@@ -31,7 +31,7 @@ define([
     }];
 
     function DocumentsWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
     }
 
     DocumentsWidgetModel.inherits(Object, {});
@@ -48,7 +48,7 @@ define([
             , result: hardcodedData
         };
 
-        return this.ajaxService.rawAjaxRequest(params)
+        return this.authAjaxService.rawAjaxRequest(params)
             .then(self.decorateDocumentData.bind(self), self.decorateError.bind(self));
     };
 
@@ -74,7 +74,7 @@ define([
                 message: "ok"
             }
         };
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     DocumentsWidgetModel.prototype.deleteDocument = function (documentId) {
@@ -95,7 +95,7 @@ define([
                 message: "ok"
             }
         };
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     DocumentsWidgetModel.prototype.decorateDocumentData = function (data) {

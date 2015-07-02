@@ -12,7 +12,7 @@ define([
     'use strict';
 
     function WidgetService(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.fakeAjaxService = new FakeAjaxService();
     }
 
@@ -57,7 +57,7 @@ define([
     WidgetService.prototype.updatePageWidgets = function (data) {
 
         //TODO: request updates to server when having real API
-        return this.ajaxService.rawAjaxRequest();
+        return this.authAjaxService.rawAjaxRequest();
     };
 
     WidgetService.newInstance = function (ajaxService) {

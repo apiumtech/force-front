@@ -15,6 +15,10 @@ define([
 
     AuthAjaxService.inherits(AjaxService, {});
 
+    /**
+     * TODO: [deprecated], remove for all used
+     * @param params
+     */
     AuthAjaxService.prototype.mapRequest = function (params) {
         var request = AjaxService.prototype.mapRequest.call(this, params);
 

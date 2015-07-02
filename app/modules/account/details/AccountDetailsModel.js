@@ -10,7 +10,7 @@ define([
 
     function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
         this.accountService = accountService || AccountService._diResolve();
-        this.ajaxService = ajaxService || new AjaxService._diResolve();
+        this.authAjaxService = ajaxService || new AjaxService._diResolve();
         this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
     }
 
@@ -29,7 +29,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.toggleFollow = function (accountId) {
@@ -41,7 +41,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.updateAccountData = function (accountId, accountData) {
@@ -54,7 +54,7 @@ define([
             data: accountData
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.loadRelatedContact = function (accountId) {
@@ -66,7 +66,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.loadRelatedCompany = function (accountId) {
@@ -78,7 +78,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
 	};
 
     AccountDetailsModel.prototype.deleteAccount = function () {
@@ -95,7 +95,7 @@ define([
             contentType: 'application/json',
             accept: 'application/json'
         };
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.saveRelatedCompany = function(accountId, relatedCompany){
@@ -108,7 +108,7 @@ define([
             data: relatedCompany
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     return AccountDetailsModel;

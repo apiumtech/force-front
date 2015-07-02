@@ -5,7 +5,7 @@ define([
     'use strict';
 
     function FavouriteReportModel(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
     }
 
     FavouriteReportModel.prototype._getReports = function () {
@@ -18,7 +18,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
+        return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     FavouriteReportModel.prototype.decorateServerData = function (data) {

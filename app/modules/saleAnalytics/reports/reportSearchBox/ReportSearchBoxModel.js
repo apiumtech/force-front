@@ -5,7 +5,7 @@ define([
     'use strict';
 
     function ReportSearchBoxModel(ajaxService, reportService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.reportService = reportService || new ReportService();
     }
 

@@ -9,7 +9,7 @@ define([
     'use strict';
 
     function LiteralsEditCreateService(ajaxService, sharedService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.sharedService = sharedService;
     }
 
@@ -47,7 +47,7 @@ define([
         assertNotNull("LiteralType", literal.LiteralType);
         var body = this._createLiteralBody(literal);
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.createLiteral,
                 data: body,
                 type: 'POST',
@@ -71,7 +71,7 @@ define([
             contentType: 'application/json'
         };
         return CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest(params)
+            this.authAjaxService.rawAjaxRequest(params)
         );
     };
 
@@ -110,7 +110,7 @@ define([
         var self = this;
         var body = "id=" + id;
         CQRSUnwrapper.unwrap(
-            this.ajaxService.rawAjaxRequest({
+            this.authAjaxService.rawAjaxRequest({
                 url: config.api.literalById,
                 data: body,
                 type: 'GET',

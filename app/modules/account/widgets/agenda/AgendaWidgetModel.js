@@ -8,7 +8,7 @@ define([
 ], function (AjaxService, Configuration, FakeAjaxService) {
 
     function AgendaWidgetModel(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.fakeAjaxService = new FakeAjaxService();
     }
 
@@ -24,7 +24,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.deleteEvent = function(event){
@@ -36,7 +36,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.addEvent = function (event) {
@@ -49,7 +49,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AgendaWidgetModel.prototype.decorateAgendaData = function (data) {

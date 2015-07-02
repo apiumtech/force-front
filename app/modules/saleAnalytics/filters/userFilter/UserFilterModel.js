@@ -15,7 +15,7 @@ define([
     var ENVIRONMENT = 'Environment', TEAM = 'Hierarqhy';
 
     function UserFilterModel(ajaxService, storageService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
         this.storageService = storageService || new StorageService();
         this.currentQuery = UserFilterModel.ENVIRONMENT;
         this.arrayHelper = ArrayHelper;
@@ -39,7 +39,7 @@ define([
             accept: 'application/json'
         };
 
-        var ajaxService = self.ajaxService;
+        var ajaxService = self.authAjaxService;
 
         var deferred = self.defer();
 

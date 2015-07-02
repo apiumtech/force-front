@@ -1,13 +1,13 @@
 define([
     'config',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'shared/services/ajax/FakeAjaxService',
     'shared/services/DataTableDataProvider'
-], function (Configuration, AjaxService, FakeAjaxService, DataTableDataProvider) {
+], function (Configuration, AuthAjaxService, FakeAjaxService, DataTableDataProvider) {
     'use strict';
 
-    function AccountListModel(ajaxService, dataTableDataProvider, fakeAjaxService) {
-        this.ajaxService = ajaxService || AjaxService._diResolve();
+    function AccountListModel(authAjaxService, dataTableDataProvider, fakeAjaxService) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
         this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
         this.dataTableDataProvider = dataTableDataProvider || DataTableDataProvider.newInstance();
         this.accountsList = [];
@@ -23,7 +23,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountListModel.prototype.getLatLongData = function (record) {
@@ -34,7 +34,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountListModel.prototype.loadTableFields = function () {
@@ -63,7 +63,7 @@ define([
         requestData.length = option.pageSize;
         requestData.start = option.pageSize * option.currentPage;
 
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
             url: Configuration.api.dataTableRequest,
             type: "POST",
             contentType: 'application/json',

@@ -6,12 +6,12 @@ define([
 ], function (AjaxService) {
 
     function DataTableDataProvider(ajaxService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.tableFields = [];
     }
 
     DataTableDataProvider.prototype.getTableFields = function () {
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
             result: [
                 {
                     data: "following",

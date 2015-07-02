@@ -20,11 +20,11 @@ define([
         describe("toggleFollow", function () {
             it("should call rawAjaxRequest with correct url", function () {
                 var toFollow = {id: 10};
-                spyOn(sut.ajaxService, 'rawAjaxRequest');
+                spyOn(sut.authAjaxService, 'rawAjaxRequest');
                 sut.toggleFollow(toFollow);
-                expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
-                expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow.format(10));
-                expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('post');
+                expect(sut.authAjaxService.rawAjaxRequest).toHaveBeenCalled();
+                expect(sut.authAjaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.toggleFollow.format(10));
+                expect(sut.authAjaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('post');
 
             });
         });
@@ -64,11 +64,11 @@ define([
             });
 
             it("should call ajaxRequest", function () {
-                spyOn(sut.ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
+                spyOn(sut.authAjaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
                 sut.loadAccountsList(option, requestData, doNothing, {});
-                expect(sut.ajaxService.rawAjaxRequest).toHaveBeenCalled();
-                expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.dataTableRequest);
-                expect(sut.ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('POST');
+                expect(sut.authAjaxService.rawAjaxRequest).toHaveBeenCalled();
+                expect(sut.authAjaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.dataTableRequest);
+                expect(sut.authAjaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('POST');
             });
         });
     });

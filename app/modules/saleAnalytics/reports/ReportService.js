@@ -6,7 +6,7 @@ define([
     'use strict';
 
     function ReportService(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+        this.authAjaxService = ajaxService || new AjaxService();
     }
 
     ReportService.inherits(Object, {});
@@ -22,7 +22,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
 
     };
 
@@ -37,7 +37,7 @@ define([
             contentType: 'application/json',
             accept: 'application/json'
         };
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.getParameterConfiguration = function (reportId) {
@@ -50,7 +50,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.loadPreviewImage = function (report) {
@@ -64,7 +64,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.searchReport = function(query){
@@ -77,7 +77,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateServerData.bind(this));
+        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateServerData.bind(this));
     };
 
     ReportService.prototype.decorateServerData = function (serverData) {

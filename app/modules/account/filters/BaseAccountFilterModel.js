@@ -2,16 +2,16 @@
  * Created by Justin on 4/3/2015.
  */
 define([
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'config'
-], function (AjaxService, Configuration) {
+], function (AuthAjaxService, Configuration) {
 
-    function BaseAccountFilterModel(ajaxService) {
-        this.ajaxService = ajaxService || AjaxService.newInstance();
+    function BaseAccountFilterModel(authAjaxService) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
     }
 
     BaseAccountFilterModel.prototype.getFilterValues = function (filterName, queryString) {
-        return this.ajaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
             url: Configuration.api.getFilterValues + "?fieldName=" + filterName + "&queryString=" + queryString,
             type: 'get',
             contentType: 'application/json',

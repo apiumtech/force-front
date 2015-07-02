@@ -11,7 +11,7 @@ define([
     'use strict';
 
     function ContactModel(ajaxService, entityService, storageService) {
-        this.ajaxService = ajaxService;
+        this.authAjaxService = ajaxService;
         this.entityService = entityService;
         this.storageService = storageService;
         this.configuration = Configuration;
@@ -57,7 +57,7 @@ define([
                 token: this.storageService.retrieve("token")
             }
         };
-        return this.ajaxService.rawAjaxRequest(params);
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
 

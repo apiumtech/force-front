@@ -5,7 +5,7 @@ define([
 	'use strict';
 
 	function AddCompanyDialogModel(ajaxService) {
-		this.ajaxService = ajaxService || new AjaxService();
+		this.authAjaxService = ajaxService || new AjaxService();
 	}
 
 	AddCompanyDialogModel.prototype.getCompanyTypes = function(){
@@ -16,7 +16,7 @@ define([
 			accept: 'application/json'
 		};
 
-		return this.ajaxService.rawAjaxRequest(params);
+		return this.authAjaxService.rawAjaxRequest(params);
 	};
 
 	return AddCompanyDialogModel;

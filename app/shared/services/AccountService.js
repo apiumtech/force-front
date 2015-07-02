@@ -4,12 +4,12 @@
 
 define([
     'config',
-    'shared/services/ajax/AjaxService',
+    'shared/services/ajax/AuthAjaxService',
     'q'
-], function (Configuration, AjaxService, Q) {
+], function (Configuration, AuthAjaxService, Q) {
 
-    function AccountService(ajaxService) {
-        this.ajaxService = ajaxService || new AjaxService();
+    function AccountService(authAjaxService) {
+        this.authAjaxService = authAjaxService || AuthAjaxService._diResolve();
         this.availableOwners = null;
         this.availableEnvironments = null;
         this.availableViews = null;
@@ -25,7 +25,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.updateAccount = function (id, model) {
@@ -38,7 +38,7 @@ define([
             data: model
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.createAccount = function (model) {
@@ -51,7 +51,7 @@ define([
             data: model
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.getAvailableOwners = function (filter) {
@@ -67,7 +67,9 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableOwners.bind(this));
+        console.log("auth ajax", this.authAjaxService);
+
+        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateAvailableOwners.bind(this));
     };
 
     AccountService.prototype.getDetails = function (id) {
@@ -79,7 +81,7 @@ define([
             accept: 'application/json'
         };
 
-        return self.ajaxService.rawAjaxRequest(params);
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountService.prototype.decorateAvailableOwners = function (result) {
@@ -100,7 +102,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableEnvironments.bind(this));
+        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateAvailableEnvironments.bind(this));
     };
 
     AccountService.prototype.decorateAvailableEnvironments = function (result) {
@@ -121,7 +123,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableAccountTypes.bind(this));
+        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateAvailableAccountTypes.bind(this));
     };
 
     AccountService.prototype.decorateAvailableAccountTypes = function (result) {
@@ -142,7 +144,7 @@ define([
             accept: 'application/json'
         };
 
-        return this.ajaxService.rawAjaxRequest(params).then(this.decorateAvailableViews.bind(this));
+        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateAvailableViews.bind(this));
     };
 
     AccountService.prototype.decorateAvailableViews = function (result) {
