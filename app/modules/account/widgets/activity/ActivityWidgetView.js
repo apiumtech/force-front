@@ -89,6 +89,7 @@ define([
             self.nextPage = false;
         }
 
+        if(self.accountId)
         self.event.onLoadActivity(self.accountId, self.currentPage);
     };
 

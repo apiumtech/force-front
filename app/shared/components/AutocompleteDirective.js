@@ -65,8 +65,8 @@ define([
             $.ui.autocomplete.prototype.____renderItem = $.ui.autocomplete.prototype._renderItem;
 
             $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+                console.log("render item", item);
                 //$.ui.autocomplete.prototype.____renderItem.call(this, ul, item);
-
                 item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
                 $.ui.autocomplete.escapeRegex(this.term) +
                 ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<span style='background: yellow'>$1</span>");
@@ -80,7 +80,7 @@ define([
                 minLength: 3,
                 source: scope.getAutocompleteOption,
                 select: function (event, ui) {
-                    if (ui.item) ctrl.$setViewValue(ui.item.value);
+                    if (ui.item) ctrl.$setViewValue(ui.item);
                 }
             });
         };

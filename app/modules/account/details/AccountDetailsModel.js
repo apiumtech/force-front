@@ -17,7 +17,6 @@ define([
     AccountDetailsModel.inherits(Object);
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
-        console.log("account id", id);
         return this.accountService.getDetails(id);
     };
 
@@ -83,7 +82,6 @@ define([
 	};
 
     AccountDetailsModel.prototype.deleteAccount = function () {
-        console.log("Account deleted");
         return this.fakeAjaxService.rawAjaxRequest({
             result: {}
         });
@@ -91,7 +89,6 @@ define([
 
     AccountDetailsModel.prototype.deleteAccount = function(accountId){
         var self = this;
-        console.log("Delete account", Configuration.api.deleteAccount.format(accountId));
         var params = {
             url: Configuration.api.deleteAccount.format(accountId),
             type: 'delete',

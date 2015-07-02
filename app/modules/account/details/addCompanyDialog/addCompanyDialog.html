@@ -15,7 +15,7 @@
 
         <div class="col-md-8 ui-widget">
             <input class="form-control"
-                   ng-model="relatedCompany.name"
+                   ng-model="relatedCompany.company"
                    higlight="true"
                    autocomplete="{{config.api.getCompanyNameSuggestions}}"/>
         </div>
@@ -37,7 +37,7 @@
     <button class="btn btn-sm btn-white" ng-click="fn.close()">
         {{'commonText.Cancel' | i18next}}
     </button>
-    <button class="btn btn-sm btn-primary" ng-click="fn.submit()" ng-disabled="!relatedCompany.type || !relatedCompany.name ">
+    <button class="btn btn-sm btn-primary" ng-click="fn.submit()" ng-disabled="!relatedCompany.type || !relatedCompany.company ">
         {{'commonText.Save' | i18next}}
     </button>
 </div>

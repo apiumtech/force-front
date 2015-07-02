@@ -43,7 +43,6 @@ define([
 
     AccountListModel.prototype.loadAccountsList = function (option, requestData, callback, settings) {
 
-        console.log("reloading", requestData);
         var searchData = requestData.customFilter;
         requestData.accountSearch = Object.keys(searchData).map(function (key) {
             return {column: key, value: searchData[key]};}
@@ -90,7 +89,6 @@ define([
     };
 
     AccountListModel.prototype.remapResponseError = function (error, callback) {
-        console.log("resp error", error);
         return error;
     };
 

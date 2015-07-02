@@ -171,7 +171,6 @@ define([
 
     AccountDetailsView.prototype.reloadRelatedCompany = function (company) {
         var self = this;
-        console.log("reloading", company);
         self.newCompany = company;
         self.fn.loadRelatedCompany();
     };
@@ -279,7 +278,6 @@ define([
     AccountDetailsView.prototype.loadNewCreatedContactIfAny = function () {
         var self = this;
         var contacts = self.notificationService.getMessages('contact_from_account_' + self.accountId);
-        console.log("loaded with", contacts);
         if (!contacts || !contacts.length)
             return;
         self.appendContact(contacts);
@@ -319,7 +317,6 @@ define([
 
     AccountDetailsView.prototype.onAccountDeleted = function (response) {
         var self = this;
-        console.log("account delete", response);
         var message = self.generateSuccessMessage(response.message);
         self.modalDialogAdapter.notify('', message);
         self.redirectToAccountList();

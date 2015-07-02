@@ -17,7 +17,6 @@ define([
     AgendaWidgetModel.prototype.loadEvents = function(accountId){
         if(!accountId) accountId = 28;
         var url = Configuration.api.getAgenda.format(accountId);
-        console.log("Agenda URL", url);
         var params = {
             url: url,
             type: 'get',
@@ -30,7 +29,6 @@ define([
 
     AgendaWidgetModel.prototype.deleteEvent = function(event){
         var url = Configuration.api.deleteAgenda + "/" + event.id;
-        console.log("Delete Agenda URL", url);
         var params = {
             url: url,
             type: 'delete',
@@ -43,7 +41,6 @@ define([
 
     AgendaWidgetModel.prototype.addEvent = function (event) {
         var url = Configuration.api.createAgenda;
-        console.log("Create Agenda URL", url);
         var params = {
             url: url,
             data: event,

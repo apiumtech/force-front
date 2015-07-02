@@ -65,8 +65,8 @@ define([
 
     OpportunityWidgetView.prototype.loadOpportunitiesData = function () {
         var self = this;
-
-        self.event.onLoadOpportunities(self.accountId);
+        if(self.accountId)
+            self.event.onLoadOpportunities(self.accountId);
     };
 
     OpportunityWidgetView.prototype.onReloadCommandReceived = function () {

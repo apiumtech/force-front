@@ -27,7 +27,6 @@ define([
 
     OpportunityWidgetModel.prototype.decorateOpportunityData = function (data) {
         // TODO: Fake for now
-        console.log("opportunity data", data);
         return data;
     };
 
