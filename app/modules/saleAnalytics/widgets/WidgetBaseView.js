@@ -16,12 +16,10 @@ define([
 
         var self = this;
         this.event.onDateFilterApplied = function (filterValue) {
-
-            throw new Error("NotImplementedException");
+            //throw new Error("NotImplementedException");
         };
         this.event.onUsersFilterApplied = function (filterValue) {
-
-            throw new Error("NotImplementedException");
+            //throw new Error("NotImplementedException");
         };
 
         this.channelInitialized = false;

@@ -65,7 +65,7 @@
                                     <li class="divider"></li>
                                     <li class="m-t-10 m-b-5 text-link" ng-repeat="range in dateOptionRange">
                                         <a ng-click="fn.loadPreviousLastDaysFilter(range, $event)">
-                                            {{'Filters.LastxxDays' | i18next:{xx: range} }}
+                                            {{'Filters.LastxxDays' | i18next:{count: range} }}
                                         </a>
                                     </li>
 

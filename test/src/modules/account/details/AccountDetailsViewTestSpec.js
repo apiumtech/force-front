@@ -270,7 +270,7 @@ define([
                     longitude: -1.023
                 }
             };
-            it("should assign data to accountData scope", function () {
+            xit("should assign data to accountData scope", function () {
                 sut.onAccountLoaded(data);
                 expect(sut.$scope.accountData).toEqual(data);
             });

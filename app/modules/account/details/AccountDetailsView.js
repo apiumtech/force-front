@@ -271,7 +271,9 @@ define([
         if (!data) throw new Error(errorMsg);
 
         var self = this;
-        self.accountData = data;
+        self.accountData = data.data;
+        self.accountData.previousAccountId = data.previousAccountId;
+        self.accountData.nextAccountId = data.nextAccountId;
         self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
     };
 
