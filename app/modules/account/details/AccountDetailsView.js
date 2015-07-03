@@ -38,7 +38,7 @@ define([
         accountData: {
             get: function () {
                 return this.$scope.accountData || (this.$scope.accountData = {}                )
-                ;
+                    ;
             },
             set: function (value) {
                 this.$scope.accountData = value;
@@ -271,9 +271,17 @@ define([
         if (!data) throw new Error(errorMsg);
 
         var self = this;
-        self.accountData = data.data;
-        self.accountData.previousAccountId = data.previousAccountId;
-        self.accountData.nextAccountId = data.nextAccountId;
+
+        if (data.data) {
+            self.accountData = data.data;
+            self.accountData.previousAccountId = data.previousAccountId;
+            self.accountData.nextAccountId = data.nextAccountId;
+        }
+
+        else{
+            self.accountData = data;
+        }
+
         self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
     };
 
