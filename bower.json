@@ -39,6 +39,7 @@
     "angular": ">=1.2"
   },
   "devDependencies": {
-    "fullcalendar": "~2.3.2"
+    "fullcalendar": "~2.3.2",
+    "i18next": "=1.9.0"
   }
 }
