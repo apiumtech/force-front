@@ -169,5 +169,24 @@ define([
             });
         });
 
+        describe("nextPage", function () {
+            var sut, view, model;
+            beforeEach(function () {
+                sut = exerciseCreatePresenter();
+                view = mockView();
+                model = mockModel();
+                sut.show(view, model);
+            });
+            it("should call model's nextPage", function(){
+                sut.nextPage();
+                expect(model.nextPage).toHaveBeenCalled();
+            });
+            it("should call eventBus's fireLiteralsRequest", function(){
+                spyOn(sut.eventBus, "fireLiteralsRequest");
+                sut.nextPage();
+                expect(sut.eventBus.fireLiteralsRequest).toHaveBeenCalled();
+            });
+        });
+
     });
 });
