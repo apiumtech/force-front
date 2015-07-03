@@ -1,7 +1,7 @@
 <!-- begin #content -->
 <div class="m-b-5 clearfix m-t-15">
     <!-- begin edit / delete -->
-    <div class="btn-group pull-right prev-buttons">
+    <div class="btn-group pull-right prev-buttons" ng-if="accountData.previousAccountId && accountData.nextAccountId">
         <a class="btn btn-white btn-xs" href="#/accounts/{{accountData.previousAccountId}}"><span class="ic-arr-left"> </span>Previous Account</a>
         <a class="btn btn-white btn-xs" href="#/accounts/{{accountData.nextAccountId}}"> Next Account <span class="ic-arr-right"></span></a>
     </div>
