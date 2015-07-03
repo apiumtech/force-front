@@ -4,5 +4,5 @@
 module.exports = function (grunt) {
     'use strict';
 
-    grunt.registerTask('dev-server', ['less:dev', 'express:api', 'keepalive']);
+    grunt.registerTask('dev-server', ['build', 'http-server:dev', 'keepalive']);
 };
