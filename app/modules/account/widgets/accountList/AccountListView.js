@@ -5,6 +5,7 @@ define([
     'shared/services/GoogleMapService',
     'shared/services/PopoverAdapter',
     'shared/services/DataTableService',
+    'shared/services/ModalDialogAdapter',
     'config',
     'shared/services/SimpleTemplateParser',
     'underscore',
@@ -13,10 +14,10 @@ define([
     'shared/services/bus/ScrollEventBus',
     'shared/services/notification/NotificationService'
 ], function (BaseView, AccountDetailWidgetEventBus, AccountListPresenter, GoogleMapService, PopoverAdapter,
-             DataTableService, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus, NotificationService) {
+             DataTableService, ModalDialogAdapter, Configuration, SimpleTemplateParser, _, $, moment, ScrollEventBus, NotificationService) {
     'use strict';
 
-    function AccountListView($scope, $element, presenter, mapService, dataTableService, templateParser, notificationService) {
+    function AccountListView($scope, $element, presenter, modalDialogAdapter, mapService, dataTableService, templateParser, notificationService) {
         presenter = presenter || new AccountListPresenter();
         BaseView.call(this, $scope, null, presenter);
         this.element = $element;
@@ -31,6 +32,8 @@ define([
         this.data.mapCanvasCollapsed = false;
         this.data.table = null;
         this.data.accountDetailPage = "#/accounts/{id}";
+        this.modal = $scope.$modal;
+        this.modalDialogAdapter = modalDialogAdapter || ModalDialogAdapter.newInstance($scope.$modal);
         this.tableOption = {
             pageSize: Configuration.pageSize,
             currentPage: -1,
@@ -141,10 +144,31 @@ define([
             location.reload();
         };
 
+        self.fn.deleteAccount = function (account) {
+            var title = "Delete account";
+            var message = "Are you sure want to delete the account <b>" + account.name + "</b>?";
+            self.modalDialogAdapter.confirm(title,
+                message,
+                self.event.onDeleteAccount.bind(self, account),
+                doNothing,
+                "Accept", "No, thanks");
+        };
+
         self.$scope.$on("$destroy", self.onDisposing.bind(self));
 
     };
 
+    AccountListView.prototype.onAccountDeleted = function(response){
+        console.log(response);
+        var self = this;
+        var message = self.generateSuccessMessage(response.message);
+        self.modalDialogAdapter.notify('', message, {}, self.reloadData.bind(self));
+    };
+
+    AccountListView.prototype.reloadData = function(){
+        var self = this;
+        self.eventChannel.sendReloadCommand();
+    };
 
     AccountListView.prototype.onReloadCommandReceived = function (isReload) {
         var self = this;
@@ -269,6 +293,11 @@ define([
             e.preventDefault();
             self.data.isToggleFollowReload = true;
             self.event.onFollowToggled(aData);
+        });
+
+        $(nRow).on("click", "[function-delete-account]", function (e) {
+            e.preventDefault();
+            self.fn.deleteAccount(aData);
         });
 
         self.event.getLatLongData(aData, function (data) {

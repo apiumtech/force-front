@@ -1,19 +1,21 @@
 define([
     'modules/account/widgets/accountList/AccountListView',
     'modules/account/widgets/accountList/AccountListPresenter',
+    'shared/services/ModalDialogAdapter',
     'angular'
-], function(AccountListView, AccountListPresenter) {
+], function(AccountListView, AccountListPresenter, ModalDialogAdapter) {
     'use strict';
 
     describe('AccountListView Test', function() {
-        var sut, scope, element, presenter;
+        var sut, scope, element, presenter, modal, modalDialogService;
         beforeEach(function(){
             presenter = mock(AccountListPresenter);
             inject(function($rootScope){
                 scope = $rootScope.$new();
             });
+            modalDialogService = mock(ModalDialogAdapter);
             element = angular.element("<div />");
-            sut = new AccountListView(scope, element, presenter);
+            sut = new AccountListView(scope, element, presenter, modalDialogService);
             sut.event = {};
         });
 
@@ -25,7 +27,7 @@ define([
                 AccountListView.prototype.configureEvents.restore();
             });
             it("should call configureEvents", function () {
-                new AccountListView(scope, element, presenter);
+                new AccountListView(scope, element, presenter, modalDialogService);
                 expect(AccountListView.prototype.configureEvents).toHaveBeenCalled();
             });
         });

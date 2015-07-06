@@ -6,7 +6,8 @@ define([
     'modules/account/widgets/accountList/AccountListView'
 ], function (app, AccountListView) {
 
-    function AccountListController($scope, $element) {
+    function AccountListController($scope, $element, $modal) {
+        $scope.$modal = $modal;
         AccountListController.configureView($scope, $element);
     }
 
@@ -15,7 +16,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('AccountListController', ['$scope', '$element', AccountListController]);
+    app.register.controller('AccountListController', ['$scope', '$element', '$modal', AccountListController]);
 
     return AccountListController;
 });

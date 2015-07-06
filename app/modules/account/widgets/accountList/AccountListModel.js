@@ -90,6 +90,18 @@ define([
         return responseData;
     };
 
+    AccountListModel.prototype.deleteAccount = function(account){
+        console.log(account);
+        var self = this;
+        var params = {
+            url: Configuration.api.deleteAccount.format(account.id),
+            type: 'delete',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        return self.authAjaxService.rawAjaxRequest(params);
+    };
+
     AccountListModel.prototype.remapResponseError = function (error, callback) {
         return error;
     };

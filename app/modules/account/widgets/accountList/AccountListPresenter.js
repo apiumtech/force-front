@@ -11,7 +11,7 @@ define([
         this.accountEventBus = accountEventBus || AccountEventBus.getInstance();
     }
 
-    AccountListPresenter.prototype.show = function(view) {
+    AccountListPresenter.prototype.show = function (view) {
         var self = this;
         self.view = view;
         var model = self.model;
@@ -76,11 +76,9 @@ define([
             view.resetTableColumns();
         };
 
-        view.event.onDelete = function (account) {
-            if (confirm("Do you want to delete " + account.value)) {
-                model.deleteAccount(account.id)
-                    .then(view.reloadTableData.bind(view), view.showError.bind(view));
-            }
+        view.event.onDeleteAccount = function (account) {
+            model.deleteAccount(account)
+                .then(view.onAccountDeleted.bind(view), view.showError.bind(view));
         };
 
         view.event.onTableDataRequesting = function (option, requestData, callback, settings) {
@@ -112,7 +110,7 @@ define([
         self.view.reloadTableData();
     };
 
-    AccountListPresenter.prototype.showError = function(error){
+    AccountListPresenter.prototype.showError = function (error) {
 
     };
 
