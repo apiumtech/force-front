@@ -58,7 +58,8 @@ define(function () {
 
         intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
-        userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        //userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
 
         graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
