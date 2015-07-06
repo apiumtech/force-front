@@ -14,6 +14,7 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         this.dataSource = [];
         var self = this;
+        self.enableIdColumn = false;
         self.configureEvents();
     }
 
@@ -83,14 +84,24 @@ define([
 
     TableWidgetView.prototype.assignColumnsData = function (inputData) {
         var columnsToMerge = this.columns;
+        var self = this;
 
         if (columnsToMerge.length != inputData.length)
             columnsToMerge = [];
 
         var newColumns = inputData.map(function (item) {
+            var isShown = true;
+            var isAvailable = true;
+            if(item == "Id" || item == "IdFm") {
+                isShown = false;
+                if(!self.enableIdColumn){
+                    isAvailable = false;
+                }
+            }
             return {
                 name: item,
-                isShown: true
+                isShown: isShown,
+                isAvailable: isAvailable
             }
         });
 
