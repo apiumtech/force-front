@@ -14,7 +14,7 @@ define([
 ], function (app, BaseView, AccountDetailsPresenter, GoogleMapService, PopoverAdapter, ModalDialogAdapter, $, AwaitHelper, NotificationService) {
 
     function AccountDetailsView(scope, element, presenter, mapService, popoverAdapter, modalAdapter, notificationService) {
-        presenter = presenter || new AccountDetailsPresenter();
+        presenter = presenter || AccountDetailsPresenter._diResolve();
         BaseView.call(this, scope, null, presenter);
         this.notificationService = notificationService || NotificationService._diResolve();
         this.modalDialogAdapter = modalAdapter || ModalDialogAdapter.newInstance(scope.$modal);
