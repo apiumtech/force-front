@@ -83,7 +83,7 @@ define([
     };
 
     MapChartWidgetView.prototype.paintChart = function (element) {
-        this.mapChart.createMap($(element)[0]);
+        this.mapChart.createMap($(element)[0], {minZoom:2});
     };
 
     MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $viewRepAspect, $logErrorAspect) {

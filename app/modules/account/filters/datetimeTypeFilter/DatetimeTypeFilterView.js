@@ -11,17 +11,18 @@ define([
         this.$element = $element;
         BaseView.call(this, $scope, $model, $presenter);
         var self = this;
-
+        self.resetDate = true;
+        self.defaultPreviousDay = 30;
         self.momentFormat = 'DD/MM/YYYY';
+        self.$scope.datePickerFormat = "dd/MM/yyyy";
         self.$scope.dateOptionRange = [7, 15, 30, 90];
-
-        self.$scope.dateRangeFilterOpened = false;
+        self.$scope.multipleSelection = true;
 
         self.$scope.isoStringDateStart = function () {
-            return self.$scope.dateRangeStart;
+            return self.$scope.dateRangeStart.toString();
         };
         self.$scope.isoStringDateEnd = function () {
-            return self.$scope.dateRangeEnd;
+            return self.$scope.dateRangeEnd.toString();
         };
         self.$scope.isoStringDateEndLimit = function () {
             var date = new Date(self.$scope.dateRangeStart);
@@ -104,6 +105,27 @@ define([
         var self = this;
         var scope = self.$scope;
 
+        self.$scope.$watch('displayDateStart', function (value) {
+            var _date = moment(value, self.momentFormat);
+            if (!_date.isValid()) {
+                console.error("Input date is not valid");
+                return;
+            }
+            self.dateRangeStart = _date.toDate();
+            self.validateDates();
+        });
+
+        self.$scope.$watch('displayDateEnd', function (value) {
+            var _date = moment(value, self.momentFormat);
+            if (!_date.isValid()) {
+                console.error("Input date is not valid");
+                return;
+            }
+
+            self.dateRangeEnd = _date.toDate();
+            self.validateDates();
+        });
+
         self.fn.validateDateInput = function (event) {
             if ([46, 8, 9, 27, 13, 191, 111].indexOf(event.keyCode) !== -1 ||
                     // Allow: Ctrl+A
@@ -117,6 +139,33 @@ define([
             // Ensure that it is a number and stop the keypress
             if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
+            }
+        };
+
+        self.fn.openDatePickerStart = function (event) {
+            event.stopPropagation();
+            self.datePickerStartOpened = true;
+            self.datePickerEndOpened = false;
+        };
+
+        self.fn.openDatePickerEnd = function (event) {
+            event.stopPropagation();
+            self.datePickerEndOpened = true;
+            self.datePickerStartOpened = false;
+        };
+
+        self.fn.closeDatePickers = function (event) {
+            event.stopPropagation();
+            $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
+        };
+
+        self.fn.dateFilterToggled = function (isOpened) {
+            if (!isOpened) {
+                if (!self.resetDate) {
+                    self.resetDate = true;
+                    return;
+                }
+                self.fn.resetDate();
             }
         };
 
@@ -163,9 +212,21 @@ define([
             self.fn.getDatePlaceholder();
         };
 
+        self.fn.initializeFilters = function () {
+            self.fn.resetDate();
+        };
+
         self.fn.getFormattedDate = function (date) {
             return moment(date).format(self.momentFormat);
         };
+    };
+
+    DatetimeTypeFilterView.prototype.validateDates = function () {
+        var self = this;
+        if (moment(self.dateRangeStart).isAfter(self.dateRangeEnd)) {
+            self.dateRangeEnd = new Date(self.dateRangeStart.toString());
+            self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
+        }
     };
 
     DatetimeTypeFilterView.newInstance = function ($scope, $element, $model, $presenter, $viewRepaintAspect, $logErrorAspect) {
