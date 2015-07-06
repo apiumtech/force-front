@@ -10,8 +10,8 @@ define([
 
     function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
         this.accountService = accountService || AccountService._diResolve();
-        this.authAjaxService = ajaxService || new AjaxService._diResolve();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
+        this.authAjaxService = ajaxService || AjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
     }
 
     AccountDetailsModel.inherits(Object);
