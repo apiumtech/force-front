@@ -354,13 +354,16 @@ define([
 
                     var expected = [{
                         name: "column1",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }, {
                         name: "column2",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }, {
                         name: "column3",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }];
                     sut.assignColumnsData(inputData);
                     expect(sut.columns).toEqual(expected);
@@ -397,16 +400,20 @@ define([
                     var inputData = ["column fake 1", "column fake 2", "column fake 3", "column fake 4"];
                     var expected = [{
                         name: "column fake 1",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }, {
                         name: "column fake 2",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }, {
                         name: "column fake 3",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }, {
                         name: "column fake 4",
-                        isShown: true
+                        isShown: true,
+                        isAvailable: true
                     }];
 
                     sut.assignColumnsData(inputData);

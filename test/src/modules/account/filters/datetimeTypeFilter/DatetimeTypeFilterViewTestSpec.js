@@ -49,6 +49,8 @@ define([
                 method: "cancelFilter", test: cancelFilterTest
             }, {
                 method: "resetDate", test: resetDateTest
+            }, {
+                method: "initializeFilters", test: initializeFiltersTest
             }].forEach(function (test) {
                     var method = test.method;
 
@@ -165,6 +167,76 @@ define([
                     expect(sut.fn.getDatePlaceholder).toHaveBeenCalled();
                 });
             }
+
+            function initializeFiltersTest() {
+                beforeEach(function () {
+                    spyOn(sut.fn, 'resetDate');
+                });
+
+                it("should reset dates to default range", function () {
+                    sut.fn.initializeFilters();
+                    expect(sut.fn.resetDate).toHaveBeenCalled();
+                });
+            }
+        });
+
+
+
+        describe("validateDates", function () {
+
+            describe("'from' date is prior to 'to' date", function () {
+                it("should keep from and to dates remain", function () {
+                    sut.dateRangeStart = new Date(2015, 3, 12);
+                    sut.dateRangeEnd = new Date(2015, 4, 8);
+                    sut.validateDates();
+                    expect(sut.dateRangeStart.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeStart.getMonth()).toEqual(3);
+                    expect(sut.dateRangeStart.getDate()).toEqual(12);
+                    expect(sut.dateRangeEnd.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeEnd.getMonth()).toEqual(4);
+                    expect(sut.dateRangeEnd.getDate()).toEqual(8);
+                });
+            });
+            describe("'from' date is same as 'to' date", function () {
+                it("should keep from and to dates remain", function () {
+                    sut.dateRangeStart = new Date(2015, 3, 12);
+                    sut.dateRangeEnd = new Date(2015, 3, 12);
+                    sut.validateDates();
+                    expect(sut.dateRangeStart.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeStart.getMonth()).toEqual(3);
+                    expect(sut.dateRangeStart.getDate()).toEqual(12);
+                    expect(sut.dateRangeEnd.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeEnd.getMonth()).toEqual(3);
+                    expect(sut.dateRangeEnd.getDate()).toEqual(12);
+                });
+            });
+            describe("'from' date is later than 'to' date", function () {
+
+                beforeEach(function () {
+                    sut.dateRangeStart = new Date(2015, 5, 12);
+                    sut.dateRangeEnd = new Date(2015, 4, 8);
+                    spyOn(sut.fn, 'getFormattedDate').and.returnValue('some-stupid-string');
+                    sut.validateDates();
+                });
+
+                it("should adjust 'to' date to 'from' date", function () {
+                    expect(sut.dateRangeStart.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeStart.getMonth()).toEqual(5);
+                    expect(sut.dateRangeStart.getDate()).toEqual(12);
+                    expect(sut.dateRangeEnd.getFullYear()).toEqual(2015);
+                    expect(sut.dateRangeEnd.getMonth()).toEqual(5);
+                    expect(sut.dateRangeEnd.getDate()).toEqual(12);
+                });
+
+                it("should get formatted string with 'getFormatted'", function () {
+                    expect(sut.fn.getFormattedDate).toHaveBeenCalledWith(sut.dateRangeEnd);
+                });
+
+                it("should assign formatted string to displayDateEnd", function () {
+                    expect(sut.displayDateEnd).toEqual('some-stupid-string');
+                });
+
+            });
         });
     });
 

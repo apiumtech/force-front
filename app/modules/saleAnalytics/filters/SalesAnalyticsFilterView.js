@@ -24,6 +24,7 @@ define([
         self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
         self.$scope.multipleSelection = true;
+
         self.$scope.isoStringDateStart = function () {
             return self.$scope.dateRangeStart.toString();
         };

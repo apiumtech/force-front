@@ -33,10 +33,17 @@ define([
 
     AddContactModel.prototype.uploadFile = function (file) {
         var self = this;
+
+        var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+
+
         return self.$uploadService.upload({
             url: Configuration.api.uploadFile,
             method: 'POST',
-            file: file
+            file: file,
+            headers: {
+                token:dev_token
+            }
         }).then(function (response) {
             return response.data;
         });

@@ -21,7 +21,7 @@
                 <li class="divider"></li>
 
 
-                <li ng-repeat="column in columns">
+                <li ng-repeat="column in columns" ng-if="column.isAvailable">
                     <input type="checkbox"
                            class="pull-left m-t-10 m-r-10 "
                            ng-checked="column.isShown"

@@ -9,15 +9,23 @@ define([
 ], function (AccountService, AjaxService, FakeAjaxService, Configuration) {
 
     function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
-        this.accountService = accountService || AccountService._diResolve();
         this.authAjaxService = ajaxService || new AjaxService._diResolve();
         this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
+        this.accountService = accountService || new AccountService(this.authAjaxService);
     }
 
     AccountDetailsModel.inherits(Object);
 
     AccountDetailsModel.prototype.getAccountDetail = function (id) {
-        return this.accountService.getDetails(id);
+        var self = this;
+        var params = {
+            url: Configuration.api.getAccount.format(id),
+            type: 'get',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return self.authAjaxService.rawAjaxRequest(params);
     };
 
     AccountDetailsModel.prototype.getAccountSummary = function (id) {

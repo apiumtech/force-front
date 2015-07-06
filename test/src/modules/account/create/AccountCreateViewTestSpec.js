@@ -146,7 +146,7 @@ define([
             it("should assign image url to the account", function () {
                 sut.data.imagesUploaded = 2;
                 sut.onUploadComplete({imageUrl: "fakeUrl"});
-                expect(sut.accountData.imgUrl).toEqual("fakeUrl");
+                expect(sut.accountData.avatar).toEqual("fakeUrl");
             });
 
             it("should turn off loading indicator if all images are uploaded", function () {
@@ -231,15 +231,6 @@ define([
                 spyOn(sut, 'onFilesChanged');
                 sut.fn.selectFile();
                 expect(sut.onFilesChanged).toHaveBeenCalled();
-            });
-        });
-
-        describe("fn.isValid", function () {
-            it("should call isValid from validationService", function () {
-                sut.configureEvents();
-                spyOn(scope.$validation, 'checkValid');
-                sut.fn.isValid();
-                expect(scope.$validation.checkValid).toHaveBeenCalled();
             });
         });
 
