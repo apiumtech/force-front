@@ -264,20 +264,32 @@ define([
             });
 
             var data = {
-                name: "data from server",
-                contactInfo: {
-                    latitude: 0.981,
-                    longitude: -1.023
+                data:
+                {
+                    name: "data from server",
+                    contactInfo: {
+                        latitude: 0.981,
+                        longitude: -1.023
+                    }
                 }
             };
-            xit("should assign data to accountData scope", function () {
+            beforeEach(function () {
                 sut.onAccountLoaded(data);
-                expect(sut.$scope.accountData).toEqual(data);
+            });
+            it("should assign data to accountData scope", function () {
+                expect(sut.$scope.accountData).toEqual(data.data);
+            });
+
+            it('should extract previousAccountId from data', function () {
+                expect(sut.$scope.accountData.previousAccountId).toEqual(data.previousAccountId);
+            });
+
+            it('should extract nextAccountId from data', function () {
+                expect(sut.$scope.accountData.nextAccountId).toEqual(data.nextAccountId);
             });
 
             it("should update the map with new location", function () {
-                sut.onAccountLoaded(data);
-                expect(sut.updateMap).toHaveBeenCalledWith(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
+                expect(sut.updateMap).toHaveBeenCalledWith(sut.accountData.contactInfo.latitude, sut.accountData.contactInfo.longitude, sut.accountData.name);
             });
         });
         describe("updateMap", function () {

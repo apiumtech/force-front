@@ -282,7 +282,7 @@ define([
             self.accountData = data;
         }
 
-        self.updateMap(data.contactInfo.latitude, data.contactInfo.longitude, data.name);
+        self.updateMap(self.accountData.contactInfo.latitude, self.accountData.contactInfo.longitude, self.accountData.name);
     };
 
     AccountDetailsView.prototype.loadNewCreatedContactIfAny = function () {

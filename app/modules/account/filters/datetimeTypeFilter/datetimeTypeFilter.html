@@ -2,7 +2,7 @@
         {{filterFor.title}}
 </span>
 
-<div class="input-group pull-left" style="width:220px;">
+<div class="input-group pull-left" style="width:220px;" ng-init="fn.initializeFilters()">
 
     <input type="text" class="form-control"
            ng-keypress="$event.preventDefault()"
@@ -13,7 +13,7 @@
          is-open="data.dateRangeFilterOpened"
          on-toggle="fn.dateFilterToggled(open)">
         <ul class="dropdown-menu media-list pull-right animated fadeInDown"
-            ng-click="$event.stopPropagation()"
+            ng-click="fn.closeDatePickers($event);$event.stopPropagation()"
             style="width:300px; max-width:300px;">
             <li><h6 class="m-t-20">{{'Filters.SelectDateRange' | i18next}}</h6></li>
             <li class="divider"></li>
@@ -23,13 +23,25 @@
                         <p>{{'Filters.Customized' | i18next}}</p></div>
                     <div class="col-md-12">
                         <div class="input-group input-daterange">
-                            <input type="text" class="form-control" name="start"
-                                   ng-model="displayDateStart"
-                                   ng-keydown="fn.validateDateInput($event)"/>
+                            <force-date-picker
+                                    date-set="{{isoStringDateStart()}}"
+                                    year-range="2"
+                                    date-format="{{datePickerFormat}}"
+                                    >
+
+                                <input type="text" class="form-control" name="start"
+                                       ng-model="displayDateStart"/>
+                            </force-date-picker>
                             <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
-                            <input type="text" class="form-control" name="end"
-                                   ng-model="displayDateEnd"
-                                   ng-keydown="fn.validateDateInput($event)"/>
+                            <force-date-picker
+                                    date-set={{isoStringDateEnd()}}
+                                    year-range="2"
+                                    date-min-limit="{{isoStringDateEndLimit()}}"
+                                    date-max-limit="{{isoStringMaxDateLimit()}}"
+                                    date-format="{{datePickerFormat}}">
+                                <input type="text" class="form-control" name="end"
+                                       ng-model="displayDateEnd"/>
+                            </force-date-picker>
                         </div>
                     </div>
                 </div>
