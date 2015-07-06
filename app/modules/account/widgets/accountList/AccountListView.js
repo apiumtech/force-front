@@ -37,6 +37,7 @@ define([
             stopLoading: false,
             startFilter: false
         };
+        this.data.isToggleFollowReload = false;
         this.$scope.resultCounts = 0;
 
         this.data.filters = {
@@ -196,6 +197,7 @@ define([
             drawCallback: function () {
                 var api = this.api();
                 self.$scope.resultCounts = api.context[0]._iRecordsDisplay;
+                self.data.isToggleFollowReload = false;
                 self.onDataRenderedCallback.call(self, api.data());
             }
         };
@@ -219,6 +221,10 @@ define([
 
     AccountListView.prototype.requestTableData = function (requestData, callback, settings) {
         var self = this;
+        if (self.data.isToggleFollowReload) {
+            console.log(settings);
+            settings.toggleFollow = true;
+        }
         self.event.onTableDataRequesting(self.tableOption, requestData, callback, settings);
     };
 
@@ -261,6 +267,7 @@ define([
         var self = this;
         $(nRow).on("click", "[function-togglefollow]", function (e) {
             e.preventDefault();
+            self.data.isToggleFollowReload = true;
             self.event.onFollowToggled(aData);
         });
 
