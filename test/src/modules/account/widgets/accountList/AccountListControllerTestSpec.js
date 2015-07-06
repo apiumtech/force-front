@@ -14,17 +14,18 @@ define([
         beforeEach(module(appName));
         describe("AccountListController", function () {
             var $controller;
-            var scope, element;
+            var scope, element, modal;
 
-            beforeEach(inject(function (_$controller_, _$rootScope_) {
+            beforeEach(inject(function (_$controller_, _$rootScope_, $modal) {
                 $controller = _$controller_;
                 scope = _$rootScope_.$new();
                 element = angular.element("<div/>");
+                modal = $modal;
             }));
             describe("loading asynchronously", function () {
                 it("should register the controller to app", function () {
                     var ctrl = $controller('AccountListController', {
-                        $scope: scope, $element: element
+                        $scope: scope, $element: element, $modal : modal
                     });
                     expect(ctrl).not.toBeNull();
                     expect(ctrl).not.toBeUndefined();

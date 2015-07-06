@@ -28,6 +28,8 @@ define(function () {
         getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
         getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
 
+        getCompany: baseUrl + '/api/queries/companies?companyName={0}',
+
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
         accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
@@ -56,7 +58,8 @@ define(function () {
 
         intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
-        userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        //userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
+        userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
 
         graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 

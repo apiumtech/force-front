@@ -15,7 +15,7 @@ define([
 
     AddContactModel.prototype.getAccountData = function (id) {
         var self = this;
-        return self.accountService.getAccountDetail(id);
+        return self.accountService.getDetails(id);
     };
 
     AddContactModel.prototype.saveContact = function (accountId, contactData) {

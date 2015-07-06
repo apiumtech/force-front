@@ -17,7 +17,7 @@ define([
         describe('getAccountData', function () {
             it("should call getAccountDetail from accountService", function () {
                 sut.getAccountData();
-                expect(sut.accountService.getAccountDetail).toHaveBeenCalled();
+                expect(sut.accountService.getDetails).toHaveBeenCalled();
             });
         });
 

@@ -59,7 +59,6 @@ define([
         };
 
         self.fn.deleteDocument = function (record) {
-            debugger;
             self.modalDialogService.confirm("Delete document",
                 self.translator.translate("Documents.deleteDocumentConfirmationMsg", {documentName: record.name}),
                 self.deletionConfirmed.bind(self, record),

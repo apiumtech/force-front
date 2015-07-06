@@ -3,7 +3,7 @@
  */
 define([
     'shared/services/ajax/AjaxService',
-    'shared/services/AccountService',
+    'modules/account/AccountService',
     'config'
 ], function (AjaxService, AccountService, Configuration) {
 

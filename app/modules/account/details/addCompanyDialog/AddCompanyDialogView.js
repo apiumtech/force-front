@@ -35,6 +35,14 @@ define([
             set: function (value) {
                 this.$scope.companyTypes = value;
             }
+        },
+        warningMsg: {
+            get: function () {
+                return this.$scope.warningMsg;
+            },
+            set: function (value) {
+                this.$scope.warningMsg = value;
+            }
         }
     });
 
@@ -56,9 +64,19 @@ define([
             self.event.onGetCompanyTypes(self.onGetCompanySuccess.bind(self));
         };
 
+        self.fn.validateCompany = function () {
+            if (self.relatedCompany.company && self.relatedCompany.company.id) {
+                return true;
+            }
+            else {
+                self.warningMsg = "Please choose a valid company name";
+                return false;
+            }
+        };
+
     };
 
-    AddCompanyDialogView.prototype.onGetCompanySuccess = function(data){
+    AddCompanyDialogView.prototype.onGetCompanySuccess = function (data) {
         var self = this;
         self.companyTypes = data;
     };

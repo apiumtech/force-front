@@ -70,6 +70,14 @@ define([
             set: function (value) {
                 this.$scope.currentAccountEnv = value;
             }
+        },
+        accountClass: {
+            get: function () {
+                return this.$scope.accountClass;
+            },
+            set: function (value) {
+                this.$scope.accountClass = value;
+            }
         }
     });
 
@@ -88,7 +96,7 @@ define([
 
     AccountEditView.prototype.onAccountLoaded = function (data) {
         var self = this;
-        self.accountData = data;
+        self.accountData = data.data;
         self.currentAccountType = this.accountData.accountType.id;
         self.currentAccountEnv = this.accountData.environment.id;
     };
@@ -112,10 +120,12 @@ define([
         };
 
         self.fn.isValid = function (formName) {
-            var isValid = self.$scope.$validation.checkValid(formName);
-            //TODO: check validation bug
-            isValid = true;
-            return isValid;
+            var error = Object.keys(self.$scope[formName].$error).map(function(key){
+                return {
+                    key: self.$scope[formName].$error[key]
+                };
+            });
+            return error.length == 0;
         };
 
         self.fn.selectFile = function (files) {
@@ -137,6 +147,9 @@ define([
             selectedEnv = angular.copy(selectedEnv);
             self.accountData.environment = selectedEnv;
         };
+        self.fn.init = function(){
+            self.accountClass = ['A', 'B', 'C', 'D'];
+        }
     };
 
     AccountEditView.prototype.goBackToPreviousPage = function () {
