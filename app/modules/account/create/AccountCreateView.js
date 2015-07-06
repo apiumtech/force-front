@@ -189,7 +189,7 @@ define([
 
     AccountCreateView.prototype.onUploadComplete = function (uploadedFile) {
         this.data.imagesUploaded++;
-        this.accountData.imgUrl = uploadedFile.imageUrl;
+        this.accountData.avatar = uploadedFile.imageUrl;
 
         if (this.data.imagesUploaded === this.data.imagesToUpload) {
             this.data.isUploading = false;

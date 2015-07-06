@@ -17,11 +17,15 @@ define([
     AccountEditingModel.prototype.uploadFile = function (file) {
         var $upload = this.uploadService;
         var self = this;
+        var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
 
         return $upload.upload({
             url: Configuration.api.uploadFile,
             method: 'POST',
-            file: file
+            file: file,
+            headers: {
+                token: dev_token
+            }
         }).then(self.decorateResponseData.bind(self), function (error) {
             return error;
         });
