@@ -47,9 +47,9 @@ define([
                     });
                 }
                 else{
-                    url = url.format(request.term);
+                    var rurl = url.format(request.term);
                     var params = {
-                        url: url,
+                        url: rurl,
                         type: 'get',
                         contentType: 'application/json',
                         accept: 'application/json'
@@ -57,6 +57,7 @@ define([
 
                     ajaxService.rawAjaxRequest(params).then(function (data) {
                         response(data);
+                        request = "";
                     });
                 }
 

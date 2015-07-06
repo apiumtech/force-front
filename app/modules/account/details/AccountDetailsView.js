@@ -182,6 +182,7 @@ define([
     };
 
     AccountDetailsView.prototype.onRelatedCompanyLoaded = function (data) {
+        console.log("realted company", data);
         var self = this;
         self.accountData.relatedCompanies = data;
         if (self.newCompany) {
@@ -197,6 +198,7 @@ define([
 
     AccountDetailsView.prototype.handleAddCompanyRequest = function (data) {
         var self = this;
+        console.log("company to save", data);
         self.event.onSaveRelatedCompany(self.accountId, data.relatedCompany, self.onRelatedCompanySaved.bind(self));
     };
 
@@ -245,6 +247,7 @@ define([
     };
 
     AccountDetailsView.prototype.onRelatedCompanySaved = function (response) {
+        console.log("savve company", response);
         var self = this;
         var message = self.generateSuccessMessage("The company has been added successfully");
         self.modalDialogAdapter.notify('', message, {}, self.reloadRelatedCompany.bind(self, response));

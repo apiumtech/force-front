@@ -6,6 +6,8 @@
         <h4>
             {{'AccountDetail.Dialog.AddRelatedCompany' | i18next}} <span class="company-name">to <span class="name">{{accountName}}</span> </span>
         </h4>
+        <p ng-show="fn.validateCompany() == false && companyTouched" class="help-block">
+            {{warningMsg}}</p>
     </div>
 </div>
 <div class="modal-body form-horizontal add-related-company-dialog" ng-init="fn.getCompanyTypes()">
@@ -17,6 +19,7 @@
             <input class="form-control"
                    ng-model="relatedCompany.company"
                    higlight="true"
+                   ng-change="companyTouched=true"
                    autocomplete="{{config.api.getCompanyNameSuggestions}}"/>
         </div>
     </div>
@@ -34,10 +37,14 @@
 
 </div>
 <div class="modal-footer">
+    <div class="inline">
     <button class="btn btn-sm btn-white" ng-click="fn.close()">
         {{'commonText.Cancel' | i18next}}
     </button>
-    <button class="btn btn-sm btn-primary" ng-click="fn.submit()" ng-disabled="!relatedCompany.type || !relatedCompany.company ">
+    </div>
+    <div class="inline">
+    <button class="btn btn-sm btn-primary" ng-click="fn.submit()" ng-disabled="!relatedCompany.type || !fn.validateCompany()">
         {{'commonText.Save' | i18next}}
     </button>
+    </div>
 </div>

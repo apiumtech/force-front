@@ -28,6 +28,8 @@ define(function () {
         getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
         getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
 
+        getCompany: baseUrl + '/api/queries/companies?companyName={0}',
+
         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
         toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
         accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
