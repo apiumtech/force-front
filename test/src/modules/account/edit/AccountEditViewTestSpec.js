@@ -201,11 +201,28 @@ define([
         });
 
         describe("fn.isValid", function () {
-            it("should call isValid from validationService", function () {
-                sut.configureEvents();
-                spyOn(scope.$validation, 'checkValid');
-                sut.fn.isValid();
-                expect(scope.$validation.checkValid).toHaveBeenCalled();
+            var formName = "EditAccount";
+            describe('form has error', function () {
+                it("should return false", function () {
+                    sut.configureEvents();
+                    scope.EditAccount = {
+                        $error: {
+                            requires: "SomeStuff"
+                        }
+                    };
+                    var actual = sut.fn.isValid(formName);
+                    expect(actual).toBeFalsy();
+                });
+            });
+            describe('form has no error', function () {
+                it("should return true", function () {
+                    sut.configureEvents();
+                    scope.EditAccount = {
+                        $error: {}
+                    };
+                    var actual = sut.fn.isValid(formName);
+                    expect(actual).toBeTruthy();
+                });
             });
         });
 
@@ -286,13 +303,15 @@ define([
 
         describe("onAccountLoaded", function () {
             var data = {
-                accountType: {
-                    id: 1,
-                    name: "Type1"
-                },
-                environment:{
-                    id: 3,
-                    name: "Force UK"
+                data: {
+                    accountType: {
+                        id: 1,
+                        name: "Type1"
+                    },
+                    environment: {
+                        id: 3,
+                        name: "Force UK"
+                    }
                 }
             };
 
@@ -301,7 +320,7 @@ define([
             });
 
             it("should assign data to accountData", function () {
-                expect(sut.accountData).toEqual(data);
+                expect(sut.accountData).toEqual(data.data);
             });
 
             it("should assign data.accountType.id to currentAccountType", function () {
