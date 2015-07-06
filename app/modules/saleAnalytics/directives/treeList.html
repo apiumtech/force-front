@@ -11,13 +11,13 @@
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
                 <i class="pull-left m-t-2 m-r-10"
-                   ng-class="{'fa fa-star  m-l-10': item.children && item.idParent == -1,
-                    'fa fa-bookmark m-l-10': item.children && item.idParent !== -1,
+                   ng-class="{'fa fa-star  m-l-10': item.children && item.ParentId == -1,
+                    'fa fa-bookmark m-l-10': item.children && item.ParentId !== -1,
                     'glyphicon glyphicon-user m-l-25': !item.children}"
                         ></i>
 
                 <div class="m-l-10" ng-click="toggleNode(item);">
-                    <strong>{{item.name}}</strong>
+                    <strong>{{item.Name}}</strong>
                     <span ng-show="item.checked" class="pull-right fa ic-close m-r-10"></span>
                 </div>
             </div>
