@@ -9,7 +9,7 @@
                 {{'commonText.Cancel' | i18next}}
             </button>
             <button class="btn btn-primary p-r-30 p-l-30 p-t-15 p-b-15"
-                    ng-disabled="!fn.isValid(CreateAccount) || data.isPosting "
+                    ng-disabled="!fn.isValid('CreateAccount') || data.isPosting"
                     ng-click="fn.saveAccount()">
                 {{'commonText.Save' | i18next}}
             </button>
@@ -19,7 +19,7 @@
     </h4>
 </div>
 </hr>
-<div class="form-horizontal create-account panel form-content">
+<div class="form-horizontal create-account panel form-content" ng-init="fn.init()">
     <form name="CreateAccount" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable"></label>
@@ -35,66 +35,83 @@
                 <span class="spinner-small" ng-show="data.isUploading"></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.name.$invalid && CreateAccount.name.$touched }">
             <label class="col-md-3 control-label ui-sortable">Account name</label>
 
             <div class="col-md-9 ui-sortable">
-                <input type="text" class="form-control account_name_box"
-                       validator="required"
-                       valid-method="blur"
+                <input type="text"
+                       class="form-control account_name_box"
+                       name="name"
+                       required
                        placeholder="Account name *" ng-model="accountData.name">
+                <p ng-show="CreateAccount.name.$touched && CreateAccount.name.$error.required"
+                   class="help-block">
+                    Please enter account name
+                </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.currentAccountType.$invalid && CreateAccount.currentAccountType.$touched }">
             <label class="col-md-3 control-label ui-sortable">Account type</label>
 
             <div class="col-md-9 ui-sortable">
                 <select class="form-control account_type_box"
+                        name="currentAccountType"
                         ng-change="fn.updateAccountType(currentAccountType)"
-                        validator="required"
-                        valid-method="blur"
-                        ng-model="currentAccountType">
+                        required
+                        ng-model="currentAccountType"
+                        ng-options="option.id as option.name for option in data.availableAccountTypes"
+                        >
                     <option value="">Select one *</option>
                     <option ng-repeat="option in data.availableAccountTypes"
-                            value="{{option.id}}"
-                            ng-selected = "option.id == currentAccountType">
+                            value="{{option.id}}">
                         {{option.name}}
                     </option>
                 </select>
+
+                <p ng-show="CreateAccount.currentAccountType.$touched && CreateAccount.currentAccountType.$error.required"
+                   class="help-block">
+                    Please select account type
+                </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.currentAccountEnv.$invalid && CreateAccount.currentAccountEnv.$touched }">
             <label class="col-md-3 control-label ui-sortable">Environment</label>
 
             <div class="col-md-9 ui-sortable">
                 <select class="form-control account_env_box"
                         ng-change="fn.updateAccountEnv(currentAccountEnv)"
-                        validator="required"
-                        valid-method="blur"
-                        ng-model="currentAccountEnv">
-                    <option class="select_value_style" value="">Select one *</option>
+                        required
+                        ng-model="currentAccountEnv"
+                        name="currentAccountEnv"
+                        ng-options="option.id as option.name for option in data.availableEnvironments">
+                    <option value="">Select one *</option>
                     <option ng-repeat="option in data.availableEnvironments"
-                            value="{{option.id}}"
-                            ng-selected = "option.id == currentAccountEnv">
+                            value="{{option.id}}">
                         {{option.name}}
                     </option>
                 </select>
+                <p ng-show="CreateAccount.currentAccountEnv.$touched && CreateAccount.currentAccountEnv.$error.required"
+                   class="help-block">
+                    Please select account type
+                </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group"ng-class="{ 'has-error' : CreateAccount.class.$invalid && CreateAccount.class.$touched }">
             <label class="col-md-3 control-label ui-sortable">Segment</label>
 
             <div class="col-md-9 ui-sortable">
                 <select class="form-control account_seg_box"
+                        name="class"
                         ng-model="accountData.class"
-                        valid-method="blur"
-                        validator="required">
-                    <option class="select_value_style" value="">Select one *</option>
-                    <option class="select_value_style" value="A">A</option>
-                    <option class="select_value_style" value="B">B</option>
-                    <option class="select_value_style" value="C">C</option>
-                    <option class="select_value_style" value="D">D</option>
+                        required
+                        ng-options="class as class for class in accountClass">
+                    <option value="">Select one *</option>
+                    <option ng-repeat="class in accountClass" value="{{class}}">{{class}}</option>
                 </select>
+                <p ng-show="CreateAccount.class.$touched && CreateAccount.class.$error.required"
+                   class="help-block">
+                    Please select account type
+                </p>
             </div>
         </div>
         <div class="form-group">
@@ -125,56 +142,76 @@
         <div class="form-group">
             <h6 class="col-md-3 text-right">Contact details</h6>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.phoneNumber.$invalid && CreateAccount.phoneNumber.$touched }">
             <label class="col-md-3 control-label ui-sortable">
                 Work phone number
             </label>
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       validator="nilOrNumber"
+                       name="phoneNumber"
+                       ng-pattern="/^[0-9]{7,15}$/"
                        ng-model="accountData.contactInfo.phoneNumber"
-                       valid-method="blur" placeholder="Work phone number" value="">
+                       placeholder="Work phone number" value="">
+                <p ng-show="CreateAccount.phoneNumber.$touched && CreateAccount.phoneNumber.$error.pattern"
+                   class="help-block">
+                    Please enter a valid phone number
+                </p>
             </div>
 
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.fax.$invalid && CreateAccount.fax.$touched }">
             <label class="col-md-3 control-label ui-sortable">
                 Fax
             </label>
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       validator="nilOrNumber"
+                       name="fax"
+                       ng-pattern="/^[0-9]*$/"
                        ng-model="accountData.contactInfo.fax"
-                       valid-method="blur" placeholder="Fax" value="">
+                       placeholder="Fax" value="">
+                <p ng-show="CreateAccount.fax.$touched && CreateAccount.fax.$error.pattern"
+                   class="help-block">
+                    Please enter a valid fax number
+                </p>
             </div>
 
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : CreateAccount.mobile.$invalid && CreateAccount.mobile.$touched }">
             <label class="col-md-3 control-label ui-sortable">
                 Other phone
             </label>
 
             <div class="col-md-9 ui-sortable">
                 <input type="text" class="form-control work_phone_box"
-                       validator="nilOrNumber"
+                       name="mobile"
+                       ng-pattern="/^[0-9]{7,15}$/"
                        ng-model="accountData.contactInfo.mobile"
-                       valid-method="blur" placeholder="Other phone" value="">
+                       placeholder="Other phone" value="">
+                <p ng-show="CreateAccount.mobile.$touched && CreateAccount.mobile.$error.pattern"
+                   class="help-block">
+                    Please enter a valid phone number
+                </p>
             </div>
 
         </div>
-        <div class="form-group">
+        <div class="form-group"
+             ng-class="{ 'has-error' : CreateAccount.email.$invalid && CreateAccount.email.$touched }">
             <label class="col-md-3 control-label ui-sortable">
                 Email
             </label>
-
             <div class="col-md-9 ui-sortable">
-                <input ng-repeat="e in accountData.emails" type="email"
-                       validator="required,email"
-                       valid-method="blur"
-                       ng-model="e.email"
+                <input type="email"
+                       name="email"
+                       ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
+                       ng-model="accountEmail"
                        class="form-control work_phone_box" placeholder="Email" value="">
+                <p ng-show="CreateAccount.email.$touched &&
+                (CreateAccount.email.$error.email || CreateAccount.email.$error.pattern)"
+                   class="help-block">
+                    Please enter a valid email
+                </p>
             </div>
 
         </div>
