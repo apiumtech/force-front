@@ -1,7 +1,7 @@
 define([
     'config',
     'shared/services/ajax/AuthAjaxService',
-    'shared/services/AccountService'
+    'modules/account/AccountService'
 ], function (Configuration, AuthAjaxService, AccountService) {
 
     function AccountFilterModel(authAjaxService) {

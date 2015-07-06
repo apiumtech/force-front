@@ -2,25 +2,23 @@
  * Created by justin on 3/9/15.
  */
 define([
-    'modules/account/AccountService',
     'modules/account/details/AccountDetailsModel',
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AccountService, AccountDetailsModel, AjaxService, FakeAjaxService, Configuration) {
+], function (AccountDetailsModel, AjaxService, FakeAjaxService, Configuration) {
     'use strict';
     describe("AccountDetailsModel", function () {
 
-        var sut, ajaxService, accountService, fakeAjaxService;
+        var sut, ajaxService, fakeAjaxService;
 
         beforeEach(function () {
-            accountService = mock(AccountService);
             ajaxService = mock(AjaxService);
             fakeAjaxService = mock(FakeAjaxService);
-            sut = new AccountDetailsModel(accountService, ajaxService, fakeAjaxService);
+            sut = new AccountDetailsModel(ajaxService, fakeAjaxService);
         });
 
-        xdescribe("getAccountDetail", function () {
+        describe("getAccountDetail", function () {
             it("should call ajaxRequest with correct params", function () {
                 spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
                 var id = 100;
@@ -28,14 +26,6 @@ define([
                 expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
                 expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].url).toEqual(Configuration.api.getAccount.format(id));
                 expect(ajaxService.rawAjaxRequest.calls.mostRecent().args[0].type).toEqual('get');
-            });
-
-            it("should call decorateAccountDetailData to decorate response data", function () {
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                spyOn(sut, 'decorateAccountDetailData');
-                var id = 100;
-                sut.getAccountDetail(id);
-                expect(sut.decorateAccountDetailData).toHaveBeenCalled();
             });
         });
 

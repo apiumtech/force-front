@@ -2,16 +2,14 @@
  * Created by justin on 3/9/15.
  */
 define([
-    'shared/services/AccountService',
     'shared/services/ajax/AjaxService',
     'shared/services/ajax/FakeAjaxService',
     'config'
-], function (AccountService, AjaxService, FakeAjaxService, Configuration) {
+], function (AjaxService, FakeAjaxService, Configuration) {
 
-    function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
-        this.authAjaxService = ajaxService || new AjaxService._diResolve();
-        this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
-        this.accountService = accountService || new AccountService(this.authAjaxService);
+    function AccountDetailsModel(ajaxService, fakeAjaxService) {
+        this.authAjaxService = ajaxService || AjaxService._diResolve();
+        this.fakeAjaxService = fakeAjaxService || FakeAjaxService._diResolve();
     }
 
     AccountDetailsModel.inherits(Object);
