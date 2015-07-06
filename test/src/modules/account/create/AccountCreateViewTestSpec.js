@@ -234,15 +234,6 @@ define([
             });
         });
 
-        describe("fn.isValid", function () {
-            it("should call isValid from validationService", function () {
-                sut.configureEvents();
-                spyOn(scope.$validation, 'checkValid');
-                sut.fn.isValid();
-                expect(scope.$validation.checkValid).toHaveBeenCalled();
-            });
-        });
-
         it("should close any loading indicator on showError()", function () {
             spyOn(presenter, 'showError');
             sut.showError("some error");

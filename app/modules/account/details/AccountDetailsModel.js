@@ -9,7 +9,7 @@ define([
 ], function (AccountService, AjaxService, FakeAjaxService, Configuration) {
 
     function AccountDetailsModel(accountService, ajaxService, fakeAjaxService) {
-        this.accountService = accountService || AccountService._diResolve();
+        this.accountService = accountService || new AccountService();
         this.authAjaxService = ajaxService || new AjaxService._diResolve();
         this.fakeAjaxService = fakeAjaxService || new FakeAjaxService._diResolve();
     }

@@ -90,6 +90,14 @@ define([
             set: function (value) {
                 this.$scope.currentAccountEnv = value;
             }
+        },
+        accountClass: {
+            get: function () {
+                return this.$scope.accountClass;
+            },
+            set: function (value) {
+                this.$scope.accountClass = value;
+            }
         }
     });
 
@@ -125,10 +133,12 @@ define([
         };
 
         self.fn.isValid = function (formName) {
-            var isValid = self.$scope.$validation.checkValid(formName);
-            //TODO: recheck the validation
-            isValid = true;
-            return isValid;
+            var error = Object.keys(self.$scope[formName].$error).map(function(key){
+                return {
+                    key: self.$scope[formName].$error[key]
+                };
+            });
+            return error.length == 0;
         };
 
         self.fn.selectFile = function (files) {
@@ -154,6 +164,10 @@ define([
             selectedEnv = angular.copy(selectedEnv);
             self.accountData.environment = selectedEnv;
         };
+
+        self.fn.init = function(){
+            self.accountClass = ['A', 'B', 'C', 'D'];
+        }
 
     };
 
