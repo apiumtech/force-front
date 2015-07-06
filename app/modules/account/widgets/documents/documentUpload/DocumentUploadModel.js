@@ -21,7 +21,9 @@ define([
                 fileId: file.id
             },
             headers: {
-                extract: file.extract
+                extract: file.extract,
+                // TODO: Read this from configuration/local storage
+                token: "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC"
             }
         }).then(function (response) {
             return response;

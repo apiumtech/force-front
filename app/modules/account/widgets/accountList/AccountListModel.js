@@ -41,15 +41,17 @@ define([
         return this.dataTableDataProvider.getTableFields();
     };
 
-    AccountListModel.prototype.loadAccountsList = function (option, requestData, callback, settings) {
+    AccountListModel.prototype.loadAccountsList = function (option, requestData, settings) {
 
         var searchData = requestData.customFilter;
         requestData.accountSearch = Object.keys(searchData).map(function (key) {
-            return {column: key, value: searchData[key]};}
+                return {column: key, value: searchData[key]};
+            }
         );
 
         if (JSON.stringify(this.recentFilters) !== JSON.stringify(requestData.customFilter) ||
-            JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order)) {
+            JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order) ||
+            settings.toggleFollow) {
             this.accountsList = [];
             option.stopLoading = false;
             option.currentPage = 0;
