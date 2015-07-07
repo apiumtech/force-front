@@ -2,6 +2,7 @@
  * Created by justin on 4/14/15.
  */
 define([
+    'jquery',
     'shared/BaseView',
     'shared/services/ModalDialogAdapter',
     'shared/services/TranslatorService',
@@ -10,7 +11,7 @@ define([
     'modules/account/widgets/documents/DocumentsWidgetModel',
     'modules/account/widgets/documents/DocumentsWidgetPresenter',
     'modules/account/widgets/documents/documentPreview/DocumentPreviewController'
-], function (BaseView, ModalDialogAdapter, TranslatorService, AccountDetailWidgetEventBus, DocumentsWidgetModel, DocumentsWidgetPresenter) {
+], function ($, BaseView, ModalDialogAdapter, TranslatorService, AccountDetailWidgetEventBus, DocumentsWidgetModel, DocumentsWidgetPresenter) {
 
     'use strict';
 
@@ -50,6 +51,13 @@ define([
         self.fn.startEditing = function (record) {
             record._name = record.name;
             record.editing = true;
+        };
+
+        self.fn.downloadDocument = function (record) {
+            var a = document.createElement("A");
+            a.href = record.downloadUrl;
+            a.download = record.downloadUrl;
+            a.click();
         };
 
         self.fn.cancelEditing = function (record) {
