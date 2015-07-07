@@ -39,7 +39,8 @@ define([
         };
 
         view.event.onSearchQueryChanged = function (searchQuery) {
-            channel.sendQueryingData(searchQuery);
+            //channel.sendQueryingData(searchQuery);
+            eventBus.fireQueryChanged(searchQuery);
         };
 
         view.event.onShowAvailableEnvironments = function (filter) {

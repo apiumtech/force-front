@@ -126,9 +126,9 @@ define([
 
             function onSearchQueryChangedTest() {
                 it("should send query changed signal using channel", function () {
-                    spyOn(sut.filterChannel, 'sendQueryingData');
+                    spyOn(sut.accountEventBus, 'fireQueryChanged');
                     view.event.onSearchQueryChanged("queryString_apiumtech");
-                    expect(sut.filterChannel.sendQueryingData).toHaveBeenCalledWith("queryString_apiumtech");
+                    expect(sut.accountEventBus.fireQueryChanged).toHaveBeenCalledWith("queryString_apiumtech");
                 });
             }
         });
