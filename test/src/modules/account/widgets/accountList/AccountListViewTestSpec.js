@@ -248,7 +248,7 @@ define([
                     var query = null;
                     sut.updateQueryingString(query);
                     expect(sut.data.filters.query.filtering).toBeFalsy();
-                    expect(sut.data.filters.query.value).toEqual("");
+                    expect(sut.data.filters.query.value).toEqual([""]);
                 })
             });
         });
