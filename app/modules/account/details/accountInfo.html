@@ -69,12 +69,12 @@
 
         <!-- related contacts-->
         <div class="relatedContacts" ng-init="fn.loadRelatedContact()"
-             ng-show="accountData.relatedContacts && accountData.relatedContacts.length > 0">
+             ng-show="relatedContacts && relatedContacts.length > 0">
 
             <h6>{{'AccountDetail.RelatedContacts' | i18next}}</h6>
 
             <div class="relatedContacts">
-                <p ng-repeat="relatedContact in accountData.relatedContacts"
+                <p ng-repeat="relatedContact in relatedContacts"
                    ng-class="{'animated fadeIn success-flash' : relatedContact.recent,
                    'bg-fade' : relatedContact.added }">
 
@@ -98,11 +98,11 @@
 
         <!-- related company-->
         <div class="relatedCompanies" ng-init="fn.loadRelatedCompany()"
-             ng-show="accountData.relatedCompanies && accountData.relatedCompanies.length > 0">
+             ng-show="relatedCompanies && relatedCompanies.length > 0">
 
             <h6>{{'AccountDetail.RelatedCompany' | i18next}}</h6>
 
-            <p ng-repeat="relatedCompany in accountData.relatedCompanies"
+            <p ng-repeat="relatedCompany in relatedCompanies"
                ng-class="{'animated fadeIn success-flash' : relatedCompany.recent,
                    'bg-fade' : relatedCompany.added }">
                 {{relatedCompany.company.name}}

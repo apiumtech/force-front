@@ -54,10 +54,18 @@ define([
         },
         relatedContacts: {
             get: function () {
-                return this.$scope.relatedContacts || (this.$scope.relatedContacts = {});
+                return this.$scope.relatedContacts || (this.$scope.relatedContacts = []);
             },
             set: function (value) {
                 this.$scope.relatedContacts = value;
+            }
+        },
+        relatedCompanies: {
+            get: function () {
+                return this.$scope.relatedCompanies || (this.$scope.relatedCompanies = []);
+            },
+            set: function (value) {
+                this.$scope.relatedCompanies = value;
             }
         }
     });
@@ -177,14 +185,14 @@ define([
 
     AccountDetailsView.prototype.onRelatedContactLoaded = function (data) {
         var self = this;
-        self.accountData.relatedContacts = data;
+        self.relatedContacts = data;
         self.loadNewCreatedContactIfAny();
     };
 
     AccountDetailsView.prototype.onRelatedCompanyLoaded = function (data) {
         console.log("realted company", data);
         var self = this;
-        self.accountData.relatedCompanies = data;
+        self.relatedCompanies = data;
         if (self.newCompany) {
             var newCompany = {
                 message: {
@@ -204,12 +212,12 @@ define([
 
     AccountDetailsView.prototype.appendCompany = function (company) {
         var self = this;
-        self.appendNewElement(self.accountData.relatedCompanies, [company], $('.relatedCompanies'));
+        self.appendNewElement(self.relatedCompanies, [company], $('.relatedCompanies'));
     };
 
     AccountDetailsView.prototype.appendContact = function (contacts) {
         var self = this;
-        self.appendNewElement(self.accountData.relatedContacts, contacts, $('.relatedContacts'));
+        self.appendNewElement(self.relatedContacts, contacts, $('.relatedContacts'));
     };
 
     AccountDetailsView.prototype.appendNewElement = function (elements, newElements, elementWrapper) {

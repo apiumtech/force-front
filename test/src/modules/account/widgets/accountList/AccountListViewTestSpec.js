@@ -239,7 +239,7 @@ define([
                     var query = "query_string_123";
                     sut.updateQueryingString(query);
                     expect(sut.data.filters.query.filtering).toBeTruthy();
-                    expect(sut.data.filters.query.value).toEqual(query);
+                    expect(sut.data.filters.query.value).toEqual([query]);
                 });
             });
 
@@ -248,7 +248,7 @@ define([
                     var query = null;
                     sut.updateQueryingString(query);
                     expect(sut.data.filters.query.filtering).toBeFalsy();
-                    expect(sut.data.filters.query.value).toEqual("");
+                    expect(sut.data.filters.query.value).toEqual([""]);
                 })
             });
         });

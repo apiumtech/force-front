@@ -146,7 +146,7 @@ define([
             it("should assign image url to the account", function () {
                 sut.data.imagesUploaded = 2;
                 sut.onUploadComplete({imageUrl: "fakeUrl"});
-                expect(sut.accountData.imgUrl).toEqual("fakeUrl");
+                expect(sut.accountData.avatar).toEqual("fakeUrl");
             });
 
             it("should turn off loading indicator if all images are uploaded", function () {

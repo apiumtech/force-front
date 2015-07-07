@@ -431,7 +431,7 @@ define([
                 sut.onRelatedContactLoaded(data);
             });
             it('should assign the returned data to accountData.relatedContacts', function () {
-                expect(sut.accountData.relatedContacts).toEqual(data);
+                expect(sut.relatedContacts).toEqual(data);
             });
             it('should call loadNewCreatedContactIfAny', function () {
                 expect(sut.loadNewCreatedContactIfAny).toHaveBeenCalled();
@@ -447,7 +447,7 @@ define([
             });
             it('should assign the returned data to accountData.relatedCompanies', function () {
                 sut.onRelatedCompanyLoaded(data);
-                expect(sut.accountData.relatedCompanies).toEqual(data);
+                expect(sut.relatedCompanies).toEqual(data);
             });
             describe('no newCompany is added', function () {
                 it('should not call appendCompany function', function () {
@@ -486,9 +486,7 @@ define([
             };
             var companies = [{"company": "name 01"},{"company": "name 02"}];
             it('should call appendNewElement function', function () {
-                sut.accountData = {
-                    relatedCompanies: companies
-                };
+                sut.relatedCompanies= companies;
                 sinon.stub(sut, "appendNewElement");
                 sut.appendCompany(newCompany);
                 expect(sut.appendNewElement).toHaveBeenCalledWith(companies, [newCompany]);
@@ -507,9 +505,7 @@ define([
             }];
             var contacts = [{"contact": "name 01"},{"contact": "name 02"}];
             it('should call appendNewElement function', function () {
-                sut.accountData = {
-                    relatedContacts: contacts
-                };
+                sut.relatedContacts = contacts;
                 sinon.stub(sut, "appendNewElement");
                 sut.appendContact(newContacts);
                 expect(sut.appendNewElement).toHaveBeenCalledWith(contacts, newContacts);

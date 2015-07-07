@@ -39,7 +39,7 @@ define([
             "description": "",
             "following": false,
             "responsible": null,
-            "modified": "",
+            "modified": new Date(),
             "emails": [],
             "accountType": null,
             "environment": null,
