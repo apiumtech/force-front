@@ -90,16 +90,26 @@ define([
                 page: "intensity",
                 widgetType: "custom",
                 widgetName: "Custom",
-                endPoint: "rankingWidgetIntensityDataApi",
+                endPoint: "",
                 order: 2,
                 size: 12,
                 id: 3
+            },
+            {
+                page: "intensity",
+                widgetType: "table",
+                widgetName: "User extra fields",
+                endPoint: "userExtraFieldsDataApi",
+                order: 3,
+                size: 12,
+                id: 4
             },
             {
                 page: "distribution",
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
                 endPoint: "geographicalWidgetDistributionDataApi",
+                widgetOption: "checkins|users",// "checkins" and/or "users" separated with pipe symbol
                 order: 1,
                 size: 12,
                 id: 3

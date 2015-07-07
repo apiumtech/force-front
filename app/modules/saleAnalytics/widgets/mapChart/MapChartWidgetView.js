@@ -54,6 +54,8 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        self.fn.shouldShowOption = self.shouldShowOption.bind(self);
     };
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -80,6 +82,10 @@ define([
             default:
                 break;
         }
+    };
+
+    MapChartWidgetView.prototype.shouldShowOption = function (itemToCheck) {
+        return this.widget.option.split("|").indexOf(itemToCheck) > -1;
     };
 
     MapChartWidgetView.prototype.paintChart = function (element) {
