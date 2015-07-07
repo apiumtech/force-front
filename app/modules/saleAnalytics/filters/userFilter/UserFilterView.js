@@ -168,14 +168,14 @@ define([
         var flattened = arrayHelper.flatten(cloned, 'children');
 
         flattened.forEach(function (node) {
-            if (node.id == selectedNode.id) {
+            if (node.Id == selectedNode.Id) {
                 node.checked = node_state;
-                self.currentSelectedUser = node.checked ? node.name : undefined;
+                self.currentSelectedUser = node.checked ? node.Name : undefined;
             }
             else node.checked = false;
         });
 
-        self.userFiltered = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+        self.userFiltered = arrayHelper.makeTree(flattened, 'ParentId', 'Id', 'children', -1);
 
     };
 
@@ -189,12 +189,12 @@ define([
         }
 
         var nodeToCheck = _.find(flattened, function (n) {
-            return n.id === selectedNode.id
+            return n.Id === selectedNode.Id
         });
-        if (!nodeToCheck || nodeToCheck.idParent == -1) return;
+        if (!nodeToCheck || nodeToCheck.ParentId == -1) return;
 
         var siblings = _.filter(flattened, function (n) {
-            return n.idParent == nodeToCheck.idParent
+            return n.ParentId == nodeToCheck.ParentId
         });
         if (!siblings || siblings.length == 0) return;
 
@@ -203,7 +203,7 @@ define([
         }).length;
 
         var parentNode = _.find(flattened, function (n) {
-            return n.id == nodeToCheck.idParent;
+            return n.Id == nodeToCheck.ParentId;
         });
 
         parentNode.checked = (unselectedData == siblings.length) ? false : ( (unselectedData === 0) ? true : null );
@@ -211,7 +211,7 @@ define([
         self.checkStateForTeamList(parentNode, flattened, true);
 
         if (!notRoot)
-            self.userFiltered = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+            self.userFiltered = arrayHelper.makeTree(flattened, 'ParentId', 'Id', 'children', -1);
     };
 
     UserFilterView.prototype.checkSelectAllState = function () {
@@ -234,7 +234,7 @@ define([
 
         var result = _.pluck(flattened.filter(function (node) {
             return node.checked === true;
-        }), 'id');
+        }), 'Id');
 
         return result;
     };

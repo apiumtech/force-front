@@ -112,13 +112,13 @@ define([
                         checked: false,
                         group: 'group1',
                         children: [{
-                            name: "group1",
+                            Name: "group1",
                             checked: false
                         }, {
-                            name: "group2",
+                            Name: "group2",
                             checked: true
                         }, {
-                            name: "group3",
+                            Name: "group3",
                             checked: false
                         }]
                     };
@@ -130,13 +130,13 @@ define([
                     group.checked = true;
                     sut.fn.groupSelectAllChanged(group);
                     expect(group.children).toEqual([{
-                        name: "group1",
+                        Name: "group1",
                         checked: true
                     }, {
-                        name: "group2",
+                        Name: "group2",
                         checked: true
                     }, {
-                        name: "group3",
+                        Name: "group3",
                         checked: true
                     }]);
                 });
@@ -151,13 +151,13 @@ define([
                     group.checked = false;
                     sut.fn.groupSelectAllChanged(group);
                     expect(group.children).toEqual([{
-                        name: "group1",
+                        Name: "group1",
                         checked: false
                     }, {
-                        name: "group2",
+                        Name: "group2",
                         checked: false
                     }, {
-                        name: "group3",
+                        Name: "group3",
                         checked: false
                     }]);
                 });
@@ -230,23 +230,23 @@ define([
                             group: "groupA",
                             checked: false,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: true
                             }]
                         }, {
                             group: "groupB",
                             checked: true,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }],
@@ -254,23 +254,23 @@ define([
                             group: "groupA",
                             checked: null,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: true
                             }]
                         }, {
                             group: "groupB",
                             checked: true,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }]
@@ -280,23 +280,23 @@ define([
                             group: "groupC",
                             checked: null,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: false
                             }]
                         }, {
                             group: "groupD",
                             checked: false,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }],
@@ -305,23 +305,23 @@ define([
                             group: "groupC",
                             checked: false,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: false
                             }]
                         }, {
                             group: "groupD",
                             checked: true,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }]
@@ -331,23 +331,23 @@ define([
                             group: "groupE",
                             checked: true,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: true
                             }]
                         }, {
                             group: "groupF",
                             checked: false,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }],
@@ -356,23 +356,23 @@ define([
                             group: "groupE",
                             checked: null,
                             children: [{
-                                name: "groupa-1",
+                                Name: "groupa-1",
                                 checked: false
                             }, {
-                                name: "groupa-2",
+                                Name: "groupa-2",
                                 checked: true
                             }]
                         }, {
                             group: "groupF",
                             checked: true,
                             children: [{
-                                name: "groupb-1",
+                                Name: "groupb-1",
                                 checked: true
                             }, {
-                                name: "groupb-2",
+                                Name: "groupb-2",
                                 checked: true
                             }, {
-                                name: "groupb-3",
+                                Name: "groupb-3",
                                 checked: true
                             }]
                         }]
@@ -399,27 +399,27 @@ define([
                 sut.userFiltered = [{
                     group: "groupA",
                     children: [{
-                        id: 1,
-                        name: "groupa-1",
+                        Id: 1,
+                        Name: "groupa-1",
                         checked: false
                     }, {
-                        id: 2,
-                        name: "groupa-2",
+                        Id: 2,
+                        Name: "groupa-2",
                         checked: true
                     }]
                 }, {
                     group: "groupB",
                     children: [{
-                        id: 3,
-                        name: "groupb-1",
+                        Id: 3,
+                        Name: "groupb-1",
                         checked: false
                     }, {
-                        id: 4,
-                        name: "groupb-2",
+                        Id: 4,
+                        Name: "groupb-2",
                         checked: false
                     }, {
-                        id: 5,
-                        name: "groupb-3",
+                        Id: 5,
+                        Name: "groupb-3",
                         checked: true
                     }]
                 }];
@@ -468,26 +468,26 @@ define([
                 {
                     input: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: false,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: true
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: true
                                     }
                                 ]
@@ -497,26 +497,26 @@ define([
 
                     expectedOutput: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: true,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: true
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: true,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: true
                                     }
                                 ]
@@ -524,60 +524,60 @@ define([
                         }
                     ],
                     testNode: {
-                        id: 5,
-                        idParent: 3,
+                        Id: 5,
+                        ParentId: 3,
                         checked: true
                     }
                 },
                 {
                     input: [
                         {
-                            id: 1,
-                            idParent: -1,
+                            Id: 1,
+                            ParentId: -1,
                             checked: false,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: true
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: true
                                     }
                                 ]
                             }]
                         },
                         {
-                            id: 4,
+                            Id: 4,
                             checked: true,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 7,
-                                idParent: 4,
+                                Id: 7,
+                                ParentId: 4,
                                 checked: true
                             }, {
-                                id: 8,
-                                idParent: 4,
+                                Id: 8,
+                                ParentId: 4,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 9,
-                                        idParent: 8,
+                                        Id: 9,
+                                        ParentId: 8,
                                         checked: true
                                     },
                                     {
-                                        id: 10,
-                                        idParent: 8,
+                                        Id: 10,
+                                        ParentId: 8,
                                         checked: false
                                     }
                                 ]
@@ -587,52 +587,52 @@ define([
 
                     expectedOutput: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: true,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: true
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: true,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: true
                                     }
                                 ]
                             }]
                         },
                         {
-                            id: 4,
+                            Id: 4,
                             checked: null,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 7,
-                                idParent: 4,
+                                Id: 7,
+                                ParentId: 4,
                                 checked: true
                             }, {
-                                id: 8,
-                                idParent: 4,
+                                Id: 8,
+                                ParentId: 4,
                                 checked: null,
                                 children: [
                                     {
-                                        id: 9,
-                                        idParent: 8,
+                                        Id: 9,
+                                        ParentId: 8,
                                         checked: true
                                     },
                                     {
-                                        id: 10,
-                                        idParent: 8,
+                                        Id: 10,
+                                        ParentId: 8,
                                         checked: false
                                     }
                                 ]
@@ -640,12 +640,12 @@ define([
                         }
                     ],
                     testNode: [{
-                        id: 9,
-                        idParent: 8,
+                        Id: 9,
+                        ParentId: 8,
                         checked: true
                     }, {
-                        id: 5,
-                        idParent: 3,
+                        Id: 5,
+                        ParentId: 3,
                         checked: true
                     }]
                 }
@@ -673,26 +673,26 @@ define([
                 {
                     input: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: false,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: false
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: false
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: false
                                     }
                                 ]
@@ -702,26 +702,26 @@ define([
 
                     expectedOutput: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: false,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: false
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: false
                                     }
                                 ]
@@ -729,60 +729,60 @@ define([
                         }
                     ],
                     testNode: {
-                        id: 5,
-                        idParent: 3,
+                        Id: 5,
+                        ParentId: 3,
                         checked: true
                     }
                 },
                 {
                     input: [
                         {
-                            id: 1,
-                            idParent: -1,
+                            Id: 1,
+                            ParentId: -1,
                             checked: false,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: true
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: true
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: true
                                     }
                                 ]
                             }]
                         },
                         {
-                            id: 4,
+                            Id: 4,
                             checked: true,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 7,
-                                idParent: 4,
+                                Id: 7,
+                                ParentId: 4,
                                 checked: true
                             }, {
-                                id: 8,
-                                idParent: 4,
+                                Id: 8,
+                                ParentId: 4,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 9,
-                                        idParent: 8,
+                                        Id: 9,
+                                        ParentId: 8,
                                         checked: true
                                     },
                                     {
-                                        id: 10,
-                                        idParent: 8,
+                                        Id: 10,
+                                        ParentId: 8,
                                         checked: false
                                     }
                                 ]
@@ -792,52 +792,52 @@ define([
 
                     expectedOutput: [
                         {
-                            id: 1,
+                            Id: 1,
                             checked: false,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 2,
-                                idParent: 1,
+                                Id: 2,
+                                ParentId: 1,
                                 checked: false
                             }, {
-                                id: 3,
-                                idParent: 1,
+                                Id: 3,
+                                ParentId: 1,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 5,
-                                        idParent: 3,
+                                        Id: 5,
+                                        ParentId: 3,
                                         checked: false
                                     },
                                     {
-                                        id: 6,
-                                        idParent: 3,
+                                        Id: 6,
+                                        ParentId: 3,
                                         checked: false
                                     }
                                 ]
                             }]
                         },
                         {
-                            id: 4,
+                            Id: 4,
                             checked: false,
-                            idParent: -1,
+                            ParentId: -1,
                             children: [{
-                                id: 7,
-                                idParent: 4,
+                                Id: 7,
+                                ParentId: 4,
                                 checked: false
                             }, {
-                                id: 8,
-                                idParent: 4,
+                                Id: 8,
+                                ParentId: 4,
                                 checked: false,
                                 children: [
                                     {
-                                        id: 9,
-                                        idParent: 8,
+                                        Id: 9,
+                                        ParentId: 8,
                                         checked: false
                                     },
                                     {
-                                        id: 10,
-                                        idParent: 8,
+                                        Id: 10,
+                                        ParentId: 8,
                                         checked: false
                                     }
                                 ]
@@ -845,8 +845,8 @@ define([
                         }
                     ],
                     testNode: [{
-                        id: 1,
-                        idParent: -1,
+                        Id: 1,
+                        ParentId: -1,
                         checked: false
                     }]
                 }

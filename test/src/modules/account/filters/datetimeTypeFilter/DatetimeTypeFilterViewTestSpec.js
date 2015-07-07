@@ -124,7 +124,7 @@ define([
                     expect(sut.data.dateRangeFilterOpened).toEqual(false);
                 });
 
-                xit("should fire event ", function () {
+                it("should fire event ", function () {
                     sut.fn.applyDateFilter();
                     expect(sut.event.filterSelectionToggled).toHaveBeenCalledWith(sut.$scope.filterFor.key, [{
                         from: sut.dateRangeStart,

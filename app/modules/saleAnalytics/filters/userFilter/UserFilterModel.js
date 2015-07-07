@@ -69,7 +69,7 @@ define([
 
     UserFilterModel.prototype.decorateData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
+        return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
 
     UserFilterModel.prototype.defer = function () {
@@ -85,15 +85,15 @@ define([
         var clonedData = JSON.parse(JSON.stringify(data));
         return self['getFilteredDataFor' + filter](clonedData, searchQuery);
         // TODO: Refactor to use same method
-        //return this.arrayHelper.queryTree(clonedData, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+        //return this.arrayHelper.queryTree(clonedData, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
     };
 
     UserFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+        return this.arrayHelper.queryTree(data, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
     };
 
     UserFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(data, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+        return this.arrayHelper.queryTree(data, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
 
     };
 

@@ -152,120 +152,120 @@ define([
 				it("should decorate the data into tree", function () {
 					var input = [
 						{
-							"id": 1,
-							"name": "A",
-							"idParent": -1
+							"Id": 1,
+							"Name": "A",
+							"ParentId": -1
 						},
 						{
-							"id": 2,
-							"name": "B",
-							"idParent": -1
+							"Id": 2,
+							"Name": "B",
+							"ParentId": -1
 						},
 						{
-							"id": 3,
-							"name": "C",
-							"idParent": -1
+							"Id": 3,
+							"Name": "C",
+							"ParentId": -1
 						},
 						{
-							"id": 4,
-							"name": "D",
-							"idParent": -1
+							"Id": 4,
+							"Name": "D",
+							"ParentId": -1
 						},
 						{
-							"id": 5,
-							"name": "Child of A",
-							"idParent": 1
+							"Id": 5,
+							"Name": "Child of A",
+							"ParentId": 1
 						},
 						{
-							"id": 6,
-							"name": "Child of B 1",
-							"idParent": 2
+							"Id": 6,
+							"Name": "Child of B 1",
+							"ParentId": 2
 						},
 						{
-							"id": 7,
-							"name": "Child of B 2",
-							"idParent": 2
+							"Id": 7,
+							"Name": "Child of B 2",
+							"ParentId": 2
 						},
 						{
-							"id": 8,
-							"name": "Child of D 1",
-							"idParent": 4
+							"Id": 8,
+							"Name": "Child of D 1",
+							"ParentId": 4
 						},
 						{
-							"id": 9,
-							"name": "Child of D 2",
-							"idParent": 4
+							"Id": 9,
+							"Name": "Child of D 2",
+							"ParentId": 4
 						},
 						{
-							"id": 10,
-							"name": "Child of Child of D 2",
-							"idParent": 9
+							"Id": 10,
+							"Name": "Child of Child of D 2",
+							"ParentId": 9
 						},
 						{
-							"id": 11,
-							"name": "Child of Child of Child of D 2",
-							"idParent": 10
+							"Id": 11,
+							"Name": "Child of Child of Child of D 2",
+							"ParentId": 10
 						}];
 
 					var expected = [
 						{
-							"id": 1,
-							"name": 'A',
-							"idParent": -1,
+							"Id": 1,
+							"Name": 'A',
+							"ParentId": -1,
 							"children": [
 								{
-									"id": 5,
-									"name": "Child of A",
-									"idParent": 1
+									"Id": 5,
+									"Name": "Child of A",
+									"ParentId": 1
 								}
 							]
 						},
 						{
-							"id": 2,
-							"name": "B",
-							"idParent": -1,
+							"Id": 2,
+							"Name": "B",
+							"ParentId": -1,
 							children: [
 								{
-									"id": 6,
-									"name": "Child of B 1",
-									"idParent": 2
+									"Id": 6,
+									"Name": "Child of B 1",
+									"ParentId": 2
 								},
 								{
-									"id": 7,
-									"name": "Child of B 2",
-									"idParent": 2
+									"Id": 7,
+									"Name": "Child of B 2",
+									"ParentId": 2
 								}
 							]
 						},
 						{
-							"id": 3,
-							"name": "C",
-							"idParent": -1
+							"Id": 3,
+							"Name": "C",
+							"ParentId": -1
 						},
 						{
-							"id": 4,
-							"name": "D",
-							"idParent": -1,
+							"Id": 4,
+							"Name": "D",
+							"ParentId": -1,
 							children: [
 								{
-									"id": 8,
-									"name": "Child of D 1",
-									"idParent": 4
+									"Id": 8,
+									"Name": "Child of D 1",
+									"ParentId": 4
 								},
 								{
-									"id": 9,
-									"name": "Child of D 2",
-									"idParent": 4,
+									"Id": 9,
+									"Name": "Child of D 2",
+									"ParentId": 4,
 									children: [
 										{
-											"id": 10,
-											"name": "Child of Child of D 2",
-											"idParent": 9,
+											"Id": 10,
+											"Name": "Child of Child of D 2",
+											"ParentId": 9,
 											children: [
 												{
-													"id": 11,
-													"name": "Child of Child of Child of D 2",
-													"idParent": 10
+													"Id": 11,
+													"Name": "Child of Child of Child of D 2",
+													"ParentId": 10
 												}
 											]
 										}
@@ -276,7 +276,7 @@ define([
 					];
 					spyOn(sut.arrayHelper, 'makeTree').and.callThrough();
 					var output = sut.decorateData(input);
-					expect(sut.arrayHelper.makeTree).toHaveBeenCalledWith(input, 'idParent', 'id', 'children', -1);
+					expect(sut.arrayHelper.makeTree).toHaveBeenCalledWith(input, 'ParentId', 'Id', 'children', -1);
 					expect(output).toEqual(expected);
 				});
 			});
@@ -357,41 +357,41 @@ define([
 				var searchQuery = "o";
 				var input = [
 					{
-						"id": 1,
-						"name": "Antonio",
-						"idParent": -1,
+						"Id": 1,
+						"Name": "Antonio",
+						"ParentId": -1,
 						"isEnvironment": true,
 						"checked": false,
 						"children": [{
-							"id": 3,
-							"name": "Beck",
-							"idParent": 1,
+							"Id": 3,
+							"Name": "Beck",
+							"ParentId": 1,
 							"isEnvironment": false,
 							"checked": false
 						}, {
-							"id": 4,
-							"name": "Victoria",
-							"idParent": 1,
+							"Id": 4,
+							"Name": "Victoria",
+							"ParentId": 1,
 							"isEnvironment": false,
 							"checked": false
 						}]
 					},
 					{
-						"id": 2,
-						"name": "Kevin",
-						"idParent": -1,
+						"Id": 2,
+						"Name": "Kevin",
+						"ParentId": -1,
 						"isEnvironment": true,
 						"checked": false,
 						"children": [{
-							"id": 5,
-							"name": "Thomas",
-							"idParent": 2,
+							"Id": 5,
+							"Name": "Thomas",
+							"ParentId": 2,
 							"isEnvironment": false,
 							"checked": false
 						}, {
-							"id": 6,
-							"name": "Cindy",
-							"idParent": 2,
+							"Id": 6,
+							"Name": "Cindy",
+							"ParentId": 2,
 							"isEnvironment": false,
 							"checked": false
 						}]
@@ -399,29 +399,29 @@ define([
 				];
 				var output = [
 					{
-						"id": 1,
-						"name": "Antonio",
-						"idParent": -1,
+						"Id": 1,
+						"Name": "Antonio",
+						"ParentId": -1,
 						"isEnvironment": true,
 						"checked": false,
 						"children": [{
-							"id": 4,
-							"name": "Victoria",
-							"idParent": 1,
+							"Id": 4,
+							"Name": "Victoria",
+							"ParentId": 1,
 							"isEnvironment": false,
 							"checked": false
 						}]
 					},
 					{
-						"id": 2,
-						"name": "Kevin",
-						"idParent": -1,
+						"Id": 2,
+						"Name": "Kevin",
+						"ParentId": -1,
 						"checked": false,
 						"isEnvironment": true,
 						"children": [{
-							"id": 5,
-							"name": "Thomas",
-							"idParent": 2,
+							"Id": 5,
+							"Name": "Thomas",
+							"ParentId": 2,
 							"isEnvironment": false,
 							"checked": false
 						}]
@@ -429,7 +429,7 @@ define([
 				];
 				spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
 				var filteredData = sut.getFilteredDataForEnvironment(input, searchQuery);
-				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
 				expect(filteredData).toEqual(output);
 			});
 		});
@@ -439,62 +439,62 @@ define([
 				var searchQuery = "o";
 				var input = [
 					{
-						"id": 1,
-						"name": "Antonio",
-						"idParent": -1,
+						"Id": 1,
+						"Name": "Antonio",
+						"ParentId": -1,
 						"checked": false,
 						"children": [{
-							"id": 3,
-							"name": "Beck",
-							"idParent": 1,
+							"Id": 3,
+							"Name": "Beck",
+							"ParentId": 1,
 							"checked": false
 						}, {
-							"id": 4,
-							"name": "Victoria",
-							"idParent": 1,
+							"Id": 4,
+							"Name": "Victoria",
+							"ParentId": 1,
 							"checked": false,
 							"children": [
 								{
-									"id": 41,
-									"name": "Hank",
-									"idParent": 4,
+									"Id": 41,
+									"Name": "Hank",
+									"ParentId": 4,
 									"checked": false
 								},
 								{
-									"id": 42,
-									"name": "John",
-									"idParent": 4,
+									"Id": 42,
+									"Name": "John",
+									"ParentId": 4,
 									"checked": false
 								}
 							]
 						}]
 					},
 					{
-						"id": 2,
-						"name": "Kevin",
-						"idParent": -1,
+						"Id": 2,
+						"Name": "Kevin",
+						"ParentId": -1,
 						"checked": false,
 						"children": [{
-							"id": 5,
-							"name": "Thomas",
-							"idParent": 2,
+							"Id": 5,
+							"Name": "Thomas",
+							"ParentId": 2,
 							"checked": false
 						}, {
-							"id": 6,
-							"name": "Cindy",
-							"idParent": 2,
+							"Id": 6,
+							"Name": "Cindy",
+							"ParentId": 2,
 							"checked": false,
 							"children": [
 								{
-									"id": 61,
-									"name": "Alex",
-									"idParent": 6,
+									"Id": 61,
+									"Name": "Alex",
+									"ParentId": 6,
 									"checked": false,
 									"children": [
 										{
-											"id": 611,
-											"name": "Tom",
-											"idParent": 61,
+											"Id": 611,
+											"Name": "Tom",
+											"ParentId": 61,
 											"checked": false
 										}
 									]
@@ -505,51 +505,51 @@ define([
 				];
 				var expectedOutput = [
 					{
-						"id": 1,
-						"name": "Antonio",
-						"idParent": -1,
+						"Id": 1,
+						"Name": "Antonio",
+						"ParentId": -1,
 						"checked": false,
 						"children": [{
-							"id": 4,
-							"name": "Victoria",
-							"idParent": 1,
+							"Id": 4,
+							"Name": "Victoria",
+							"ParentId": 1,
 							"checked": false,
 							"children": [
 								{
-									"id": 42,
-									"name": "John",
-									"idParent": 4,
+									"Id": 42,
+									"Name": "John",
+									"ParentId": 4,
 									"checked": false
 								}
 							]
 						}]
 					},
 					{
-						"id": 2,
-						"name": "Kevin",
-						"idParent": -1,
+						"Id": 2,
+						"Name": "Kevin",
+						"ParentId": -1,
 						"checked": false,
 						"children": [{
-							"id": 5,
-							"name": "Thomas",
-							"idParent": 2,
+							"Id": 5,
+							"Name": "Thomas",
+							"ParentId": 2,
 							"checked": false
 						}, {
-							"id": 6,
-							"name": "Cindy",
-							"idParent": 2,
+							"Id": 6,
+							"Name": "Cindy",
+							"ParentId": 2,
 							"checked": false,
 							"children": [
 								{
-									"id": 61,
-									"name": "Alex",
-									"idParent": 6,
+									"Id": 61,
+									"Name": "Alex",
+									"ParentId": 6,
 									"checked": false,
 									"children": [
 										{
-											"id": 611,
-											"name": "Tom",
-											"idParent": 61,
+											"Id": 611,
+											"Name": "Tom",
+											"ParentId": 61,
 											"checked": false
 										}
 									]
@@ -560,7 +560,7 @@ define([
 				];
 				spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
 				var filteredData = sut.getFilteredDataForHierarqhy(input, searchQuery);
-				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "name", searchQuery, "id", true, "idParent", "id", -1);
+				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
 				expect(filteredData).toEqual(expectedOutput);
 			});
 		});
