@@ -225,9 +225,9 @@ define([
                 });
 
                 it("should bind onSearchQueryChanged event to channel", function () {
-                    spyOn(sut.filterChannel, 'onQueryingData');
+                    spyOn(sut.accountEventBus, 'onQueryChanged');
                     sut.show(view, model);
-                    expect(sut.filterChannel.onQueryingData).toHaveBeenCalledWith(view.event.onSearchQueryChanged);
+                    expect(sut.accountEventBus.onQueryChanged).toHaveBeenCalledWith(view.event.onSearchQueryChanged);
                 });
             }
 

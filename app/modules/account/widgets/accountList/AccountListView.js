@@ -492,7 +492,7 @@ define([
     AccountListView.prototype.updateQueryingString = function (queryString) {
         var self = this;
         self.data.filters.query.filtering = !!queryString;
-        self.data.filters.query.value = queryString || "";
+        self.data.filters.query.value = [queryString || ""];
     };
 
     AccountListView.prototype.reloadTableColumns = function () {

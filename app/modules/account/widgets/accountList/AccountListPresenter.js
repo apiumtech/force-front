@@ -37,7 +37,8 @@ define([
             view.updateQueryingString(queryString);
             view.reloadTableData();
         };
-        channel.onQueryingData(view.event.onSearchQueryChanged);
+        //channel.onQueryingData(view.event.onSearchQueryChanged);
+        eventBus.onQueryChanged(view.event.onSearchQueryChanged);
 
         view.event.onEnvironmentToggled = function (environment) {
             view.updateEnvironmentFilter(environment);
