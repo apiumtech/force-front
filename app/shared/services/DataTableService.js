@@ -13,7 +13,13 @@ define([
     }
 
     DataTableService.prototype.createDatatable = function (dom, options) {
+        this.element = dom;
         return this.dtImpl(dom, options);
+    };
+
+    DataTableService.prototype.refreshTable = function(table){
+        console.log(table['ajax']);
+        table['ajax'].reload();
     };
 
     DataTableService.newInstance = function (dataTableImpl) {

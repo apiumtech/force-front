@@ -39,7 +39,7 @@ define([
             "description": "",
             "following": false,
             "responsible": null,
-            "modified": "",
+            "modified": new Date(),
             "emails": [],
             "accountType": null,
             "environment": null,
@@ -138,6 +138,9 @@ define([
                     key: self.$scope[formName].$error[key]
                 };
             });
+
+            console.log(error);
+
             return error.length == 0;
         };
 

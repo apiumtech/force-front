@@ -21,7 +21,7 @@ define([
             "following": false,
             "name": "",
             "subtitle": "",
-            "imgUrl": "",
+            "avatar": "",
             "class": "",
             "accountType": -1,
             "emails": [],
@@ -116,6 +116,7 @@ define([
 
         self.fn.saveAccount = function () {
             self.data.isPosting = true;
+            self.accountData.modified = new Date();
             self.event.onSubmitEditAccount(self.accountId, self.accountData);
         };
 
@@ -184,7 +185,7 @@ define([
 
     AccountEditView.prototype.onUploadComplete = function (uploadedFile) {
         this.data.imagesUploaded++;
-        this.accountData.imgUrl = uploadedFile.imageUrl;
+        this.accountData.avatar = uploadedFile.imageUrl;
 
         if (this.data.imagesUploaded === this.data.imagesToUpload) {
             this.data.isUploading = false;
