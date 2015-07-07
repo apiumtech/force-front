@@ -162,13 +162,9 @@ define([
         console.log(response);
         var self = this;
         var message = self.generateSuccessMessage(response.message);
-        self.modalDialogAdapter.notify('', message, {}, self.reloadData.bind(self));
+        self.modalDialogAdapter.notify('', message, {}, self.reloadTableData());
     };
 
-    AccountListView.prototype.reloadData = function(){
-        var self = this;
-        self.eventChannel.sendReloadCommand();
-    };
 
     AccountListView.prototype.onReloadCommandReceived = function (isReload) {
         var self = this;
@@ -297,6 +293,7 @@ define([
 
         $(nRow).on("click", "[function-delete-account]", function (e) {
             e.preventDefault();
+            self.data.isToggleFollowReload = true;
             self.fn.deleteAccount(aData);
         });
 

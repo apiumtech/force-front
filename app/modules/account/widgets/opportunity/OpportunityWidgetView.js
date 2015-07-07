@@ -75,6 +75,7 @@ define([
     };
 
     OpportunityWidgetView.prototype.onOpportunitiesLoaded = function (data) {
+        console.log("opportunity", data);
         var self = this;
         self.eventChannel.sendReloadCompleteCommand();
         self.decorateActivityData(data);

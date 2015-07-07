@@ -138,6 +138,9 @@ define([
                     key: self.$scope[formName].$error[key]
                 };
             });
+
+            console.log(error);
+
             return error.length == 0;
         };
 
