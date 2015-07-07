@@ -116,6 +116,7 @@ define([
 
         self.fn.saveAccount = function () {
             self.data.isPosting = true;
+            self.accountData.modified = new Date();
             self.event.onSubmitEditAccount(self.accountId, self.accountData);
         };
 
