@@ -3,35 +3,14 @@
  */
 define([
     'config',
-    // TODO: Change to this in production code
-    //'shared/services/ajax/AjaxService',
-    'shared/services/ajax/FakeAjaxService',
+    'shared/services/ajax/AjaxService',
     'underscore'
 ], function (Configuration, AjaxService, _) {
 
     'use strict';
 
-    // TODO: Remove in production code
-    var hardcodedData = [{
-        "id": 1,
-        "name": "Nombre documento",
-        "date": "2015-04-14T17:00:00.000Z"
-    }, {
-        id: 2,
-        name: "Nombre documento",
-        date: "2015-04-14T17:00:00.000Z"
-    }, {
-        "id": 3,
-        "name": "Nombre documento",
-        "date": "2015-04-14T17:00:00.000Z"
-    }, {
-        "id": 4,
-        "name": "Nombre documento",
-        "date": "2015-04-14T17:00:00.000Z"
-    }];
-
     function DocumentsWidgetModel(ajaxService) {
-        this.authAjaxService = ajaxService;
+        this.authAjaxService = ajaxService || AjaxService._diResolve();
     }
 
     DocumentsWidgetModel.inherits(Object, {});
@@ -44,8 +23,6 @@ define([
             type: 'GET',
             contentType: 'application/json',
             accept: 'application/json'
-            // TODO : Remove in production code
-            , result: hardcodedData
         };
 
         return this.authAjaxService.rawAjaxRequest(params)
@@ -53,47 +30,22 @@ define([
     };
 
     DocumentsWidgetModel.prototype.updateDocument = function (document) {
-        // TODO : Remove in production code
-        (function () {
-            var d = _.find(hardcodedData, function (r) {
-                return r.id == document.id;
-            });
-
-            d.name = document.name;
-        })();
-
         var params = {
             url: Configuration.api.updateDocument.format(document.id),
             type: 'PUT',
             contentType: 'application/json',
             accept: 'application/json',
             data: document
-
-            // TODO : Remove in production code
-            , result: {
-                message: "ok"
-            }
         };
         return this.authAjaxService.rawAjaxRequest(params);
     };
 
     DocumentsWidgetModel.prototype.deleteDocument = function (documentId) {
-        // TODO : Remove in production code
-        (function () {
-            hardcodedData = _.filter(hardcodedData, function (r) {
-                return r.id !== documentId;
-            });
-        })();
         var params = {
             url: Configuration.api.deleteDocument.format(documentId),
             type: 'DELETE',
             contentType: 'application/json',
             accept: 'application/json'
-
-            // TODO : Remove in production code
-            , result: {
-                message: "ok"
-            }
         };
         return this.authAjaxService.rawAjaxRequest(params);
     };
@@ -108,7 +60,7 @@ define([
     };
 
     DocumentsWidgetModel.newInstance = function (ajaxService) {
-        ajaxService = ajaxService || AjaxService.newInstance();
+        ajaxService = ajaxService || AjaxService._diResolve();
 
         return new DocumentsWidgetModel(ajaxService);
     };

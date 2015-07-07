@@ -47,9 +47,9 @@ define(function () {
         getFilterValues: baseUrl + '/api/accounts/getFilterValues',
         getAvailableFields: baseUrl + '/api/accounts/availableFields',
 
-        getDocuments: baseApi + '/api/accounts/{0}/documents',
-        deleteDocument: baseApi + '/api/documents/{0}',
-        updateDocument: baseApi + '/api/documents/{0}',
+        getDocuments: baseUrl + '/api/accounts/{0}/documents',
+        deleteDocument: baseUrl + '/api/documents/{0}',
+        updateDocument: baseUrl + '/api/documents/{0}',
 
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
