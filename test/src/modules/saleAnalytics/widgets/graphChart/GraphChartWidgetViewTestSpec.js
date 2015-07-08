@@ -310,10 +310,6 @@ define([
 
                 [{
                     testCase: "fields is not defined", widgetData: {}
-                }, {
-                    testCase: "fields is null", widgetData: {fields: null}
-                }, {
-                    testCase: "fields is not array", widgetData: {fields: {blah: 123456}}
                 }].forEach(function (test) {
                         describe(test.testCase, function () {
                             it("Should not call paintChart", function () {

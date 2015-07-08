@@ -120,6 +120,7 @@ define([
     ScatterChartWidgetView.prototype.refreshChart = function () {
         var self = this,
             data = self.data;
+        console.log("data for scatter", data);
 
         if (data && (Object.getOwnPropertyNames(data) && Object.getOwnPropertyNames(data).length !== 0))
             self.paintChart(self.element.find('.chart-place-holder'), data);
@@ -141,14 +142,13 @@ define([
 
         var self = this;
 
+        if (data) self.data = data;
+
         var chartService = self.chartService;
 
-        if (!self.chart || !self.chartData) {
+        self.chartData = chartService.createDataTable(self.data);
 
-            self.chartData = chartService.createDataTable(self.data);
-
-            self.chart = chartService.createChart(element[0], 'scatter');
-        }
+        self.chart = chartService.createChart(element[0], 'scatter');
 
         var options = {
             title: self.widgetName,
