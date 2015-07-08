@@ -187,12 +187,14 @@ define([
         };
 
         self.fn.applyDateFilter = function () {
+            self.dateFilterInformation = self.displayDateStart + " - " + self.displayDateEnd;
+            console.log(self.dateFilterInformation);
             self.data.dateRangeFilterOpened = false;
             self.event.filterSelectionToggled(scope.filterFor.key, [{
                 from: self.dateRangeStart,
                 to: self.dateRangeEnd
             }]);
-            self.dateFilterInformation = self.displayDateStart + " - " + self.displayDateEnd;
+            self.$element.find('[data-toggle=dropdown]').dropdown('toggle');
         };
 
         self.fn.getPreviousDate = function (days, from) {

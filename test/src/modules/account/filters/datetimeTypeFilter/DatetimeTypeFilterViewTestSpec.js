@@ -30,7 +30,9 @@ define([
                 event: {},
                 fn: {}
             };
-            element = {};
+            element = {
+                find: sinon.stub()
+            };
             model = {};
             presenter = {};
             sut = DatetimeTypeFilterView.newInstance(scope, element, model, presenter, false, false);
@@ -117,6 +119,11 @@ define([
             function applyDateFilterTest() {
                 beforeEach(function () {
                     sut.event.filterSelectionToggled = jasmine.createSpy();
+                    sut.$element = {
+                        find: jasmine.createSpy().and.returnValue({
+                            dropdown: sinon.stub()
+                        })
+                    };
                 });
                 it("should close popup", function () {
                     sut.data.dateRangeFilterOpened = true;
