@@ -62,8 +62,9 @@ define([
             var deselectedFields = self.data.availableFields.filter(function (r) {
                 return !r.selected;
             }).map(function (r) {
-                return r.data;
+                return r.key;
             });
+
             self.event.onFieldsDeselected(deselectedFields);
         };
 

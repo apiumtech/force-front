@@ -159,7 +159,6 @@ define([
     };
 
     AccountListView.prototype.onAccountDeleted = function(response){
-        console.log(response);
         var self = this;
         var message = self.generateSuccessMessage(response.message);
         self.modalDialogAdapter.notify('', message, {}, self.reloadTableData());
@@ -182,9 +181,6 @@ define([
             c.defaultContent = "N/A";
             return c;
         });
-
-        console.log("columns", this.data.datatableColumns);
-        console.log("columns default", this.data.availableColumns);
 
         var self = this;
         this.data.dataTableConfig = {
@@ -240,7 +236,6 @@ define([
 
     AccountListView.prototype.onPageScrolledToBottom = function () {
         var self = this;
-        console.log("Scrolled to bottom, isReloading = ", self.tableOption.stopLoading);
         if (self.tableOption.stopLoading)
             return;
 
@@ -250,7 +245,6 @@ define([
     AccountListView.prototype.requestTableData = function (requestData, callback, settings) {
         var self = this;
         if (self.data.isToggleFollowReload) {
-            console.log(settings);
             settings.toggleFollow = true;
         }
         self.event.onTableDataRequesting(self.tableOption, requestData, callback, settings);
@@ -510,7 +504,6 @@ define([
     };
 
     AccountListView.prototype.reloadTableData = function () {
-        console.log("reloading table data");
         this.data.table.draw();
     };
 
