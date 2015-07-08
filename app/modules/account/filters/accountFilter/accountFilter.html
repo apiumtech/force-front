@@ -2,7 +2,7 @@
      ng-init="fn.onLoaded()">
     <!-- begin col-12 -->
     <div class="col-md-12">
-        <div class="line-border clearfix"></div>
+        <!--<div class="line-border clearfix"></div>-->
         <div class="row m-b-5">
             <div class="col-md-9">
                 <h6>Filter by</h6>
@@ -20,7 +20,8 @@
                                            ng-model="data.ownerFilter"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="fn.onShowAvailableOwners(data.ownerFilter);"/>
-                                    <span class="fa ic-search removeTextBoxBtn" ng-show="data.ownerFilter==''"></span>
+                                        <span class="fa ic-search removeTextBoxBtn"
+                                              ng-show="data.ownerFilter==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.ownerFilter!=''"
                                           ng-click="data.ownerFilter='';event.onShowAvailableOwners(data.ownerFilter);$event.stopPropagation()"></span>
                                 </form>
@@ -48,7 +49,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <!-- Menu Views -->
                     <li class="dropdown">
                         <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown">Views <span
@@ -120,7 +120,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <!-- Menu Account Type -->
                     <li class="dropdown">
                         <a href="#"
@@ -174,7 +173,8 @@
                                            ng-model="data.customFiltersQuery"
                                            ng-click="$event.stopPropagation();"
                                            ng-change="event.onLoadingAvailableFilters(data.customFiltersQuery);"/>
-                                    <span class="fa ic-search removeTextBoxBtn" ng-show="data.customFiltersQuery==''"></span>
+                                    <span class="fa ic-search removeTextBoxBtn"
+                                          ng-show="data.customFiltersQuery==''"></span>
                                     <span class="fa fa-remove removeTextBoxBtn" ng-show="data.customFiltersQuery!=''"
                                           ng-click="data.customFiltersQuery='';event.onLoadingAvailableFilters(data.customFiltersQuery);$event.stopPropagation()"></span>
                                 </form>
@@ -193,8 +193,26 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-3">
+                <form>
+                    <div class="input-group  m-t-40">
+                        <input type="text" class="form-control"
+                               ng-model="data.searchQuery"
+                               ng-change="event.onSearchQueryChanged(data.searchQuery)"
+                               placeholder="Buscar"
+                                />
+                  <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button"
+                            ng-click="event.onSearchQueryChanged(data.searchQuery)">
+                        <i class="fa ic-search"></i>
+                    </button>
+                  </span>
+                    </div>
+                </form>
+            </div>
 
+            <div class="col-md-12">
                 <div class="dropdown dynamic-filter btn-group clearfix"
                      ng-repeat="field in data.availableFields | filter:{selected:true}">
                     <string-type-filter ng-if="field.dataType=='String'"
@@ -214,23 +232,6 @@
 
                     <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <form>
-                    <div class="input-group  m-t-40">
-                        <input type="text" class="form-control"
-                               ng-model="data.searchQuery"
-                               ng-change="event.onSearchQueryChanged(data.searchQuery)"
-                               placeholder="Buscar"
-                                />
-                  <span class="input-group-btn">
-                    <button class="btn btn-sm btn-default" type="button"
-                            ng-click="event.onSearchQueryChanged(data.searchQuery)">
-                        <i class="fa ic-search"></i>
-                    </button>
-                  </span>
-                    </div>
-                </form>
             </div>
         </div>
         <div class="line-border clearfix m-b-30 "></div>

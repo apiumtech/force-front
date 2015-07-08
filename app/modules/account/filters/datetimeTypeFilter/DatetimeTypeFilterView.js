@@ -4,8 +4,9 @@
 define([
     'shared/BaseView',
     'moment',
-    'modules/account/filters/datetimeTypeFilter/DatetimeTypeFilterPresenter'
-], function (BaseView, moment, DatetimeTypeFilterPresenter) {
+    'modules/account/filters/datetimeTypeFilter/DatetimeTypeFilterPresenter',
+    'jquery'
+], function (BaseView, moment, DatetimeTypeFilterPresenter, $) {
 
     function DatetimeTypeFilterView($scope, $element, $model, $presenter) {
         this.$element = $element;
@@ -228,6 +229,7 @@ define([
         self.fn.getFormattedDate = function (date) {
             return moment(date).format(self.momentFormat);
         };
+
     };
 
     DatetimeTypeFilterView.prototype.validateDates = function () {

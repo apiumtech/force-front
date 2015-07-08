@@ -209,7 +209,7 @@ define([
                 it("should set view identifier to filtering value", function () {
                     sut.data.filters.view.value = 2;
                     sut.updateViewFilter(view);
-                    expect(sut.data.filters.view.value).toEqual(1);
+                    expect(sut.data.filters.view.value).toEqual([1]);
                 });
             });
 
@@ -222,7 +222,7 @@ define([
                 it("should remove view from filter values", function () {
                     sut.data.filters.view.value = 1;
                     sut.updateViewFilter(view);
-                    expect(sut.data.filters.view.value).toEqual(null);
+                    expect(sut.data.filters.view.value).toEqual([]);
                 });
 
                 it("should switch filtering to false if no filter available", function () {

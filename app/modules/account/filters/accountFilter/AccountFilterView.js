@@ -8,8 +8,9 @@ define([
     'shared/BaseView',
     'modules/account/filters/accountFilter/AccountFilterPresenter',
     'modules/account/filters/accountFilter/AccountFilterModel',
-    'shared/services/AwaitHelper'
-], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel, AwaitHelper) {
+    'shared/services/AwaitHelper',
+    'jquery'
+], function (_, ViewRepaintAspect, LogErrorAspect, BaseView, AccountFilterPresenter, AccountFilterModel, AwaitHelper, $) {
 
     function AccountFilterView($scope, $presenter) {
         $presenter = $presenter || new AccountFilterPresenter();
@@ -72,6 +73,14 @@ define([
             self.awaitHelper.await(self.loadAvailableOwners.bind(self), 500);
         };
         self.$scope.$watch('$destroy', self.dispose.bind(self));
+
+        self.fn.checkDropdown = function(event){
+          console.log(event.target);
+        };
+
+
+
+
     };
 
     AccountFilterView.prototype.onAvailableFiltersLoaded = function(availableFilters){

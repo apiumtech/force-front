@@ -481,9 +481,9 @@ define([
         var viewFilter = self.data.filters.view;
         if (view && view.selected) {
             viewFilter.filtering = true;
-            viewFilter.value = view.id;
+            viewFilter.value = [view.id || 1];
         } else {
-            viewFilter.value = null;
+            viewFilter.value = [];
             viewFilter.filtering = false;
         }
     };
