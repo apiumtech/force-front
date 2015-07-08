@@ -233,6 +233,7 @@ define([
 
     AccountListView.prototype.onPageScrolledToBottom = function () {
         var self = this;
+        console.log("Scrolled to bottom, isReloading = ", self.tableOption.stopLoading);
         if (self.tableOption.stopLoading)
             return;
 
@@ -502,6 +503,7 @@ define([
     };
 
     AccountListView.prototype.reloadTableData = function () {
+        console.log("reloading table data");
         this.data.table.draw();
     };
 
