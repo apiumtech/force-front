@@ -178,12 +178,19 @@ define([
     };
 
     AccountListView.prototype.onTableFieldsLoaded = function (data) {
-        this.data.availableColumns = data;
+        this.data.availableColumns = data.map(function(c){
+            c.defaultContent = "N/A";
+            return c;
+        });
+
+        console.log("columns", this.data.datatableColumns);
+        console.log("columns default", this.data.availableColumns);
 
         var self = this;
         this.data.dataTableConfig = {
             bServerSide: true,
-            processing: true,
+            bProcessing: true,
+            bDestroy: true,
             bSort: true,
             columns: this.data.availableColumns,
             ajax: self.requestTableData.bind(self),
@@ -216,7 +223,7 @@ define([
             rowCallback: self.onRowRenderedCallback.bind(self),
             drawCallback: function () {
                 var api = this.api();
-                self.$scope.resultCounts = api.context[0]._iRecordsDisplay;
+                self.$scope.resultCounts = api.context[0] ? api.context[0]._iRecordsDisplay : 0;
                 self.data.isToggleFollowReload = false;
                 self.onDataRenderedCallback.call(self, api.data());
             }

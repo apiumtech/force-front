@@ -316,7 +316,8 @@ define([
         //
         //
         //
-        this.data.map.setCenter(latLng);
+        if(this.data.map)
+            this.data.map.setCenter(latLng);
     };
 
     AccountDetailsView.prototype.onFollowToggled = function () {

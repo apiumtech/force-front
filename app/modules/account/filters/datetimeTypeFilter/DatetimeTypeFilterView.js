@@ -98,6 +98,14 @@ define([
             set: function (value) {
                 this.$scope.displayDateEnd = value;
             }
+        },
+        dateFilterInformation: {
+            get: function () {
+                return this.$scope.dateFilterInformation;
+            },
+            set: function (value) {
+                this.$scope.dateFilterInformation = value;
+            }
         }
     });
 
@@ -183,6 +191,7 @@ define([
                 from: self.dateRangeStart,
                 to: self.dateRangeEnd
             }]);
+            self.dateFilterInformation = self.displayDateStart + " - " + self.displayDateEnd;
         };
 
         self.fn.getPreviousDate = function (days, from) {
