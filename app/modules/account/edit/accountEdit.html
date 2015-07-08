@@ -196,21 +196,21 @@
             </div>
 
         </div>
-        <div class="form-group"
-             ng-class="{ 'has-error' : CreateAccount.email.$invalid && CreateAccount.email.$touched }">
+        <div class="form-group" ng-repeat="m in accountData.emails"
+             ng-class="{ 'has-error' : CreateAccount.email{{$index}}.$invalid && CreateAccount.email.$touched }">
             <label class="col-md-3 control-label ui-sortable">
-                Email
+                Email {{index + 1}}
             </label>
-            <div class="col-md-9 ui-sortable">
+            <div class="col-md-9 uisortable">
                 <input type="email"
-                       name="email"
+                       name="email{{$index}}"
                        ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/"
-                       ng-model="accountEmail"
+                       ng-model="m.email"
                        class="form-control work_phone_box" placeholder="Email" value="">
-                <p ng-show="CreateAccount.email.$touched &&
-                (CreateAccount.email.$error.email || CreateAccount.email.$error.pattern)"
+                <p ng-show="CreateAccount.email{{$index}}.$touched &&
+                (CreateAccount.email{{$index}}.$error.email || CreateAccount.email{{$index}}.$error.pattern)"
                    class="help-block">
-                    Please enter a valid email
+                    Please enter a valid email for email {{$index +1}}
                 </p>
             </div>
 
