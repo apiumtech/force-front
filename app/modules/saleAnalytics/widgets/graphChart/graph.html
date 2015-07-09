@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-2 ">
-                <div class=" border-grey parameters clearfix" >
-                    <div class="clearfix m-b-20" ng-show="availableFields && availableFields.length > 0">
+                <div class=" border-grey parameters clearfix" ng-show="availableFields && availableFields.length > 0">
+                    <div class="clearfix m-b-20">
                         <h6>
                             {{'LineWidget.Filters.ShowFields' | i18next}}
                         </h6>
@@ -83,6 +83,7 @@
                     </div>
 
                 </div>
+                <div class="empty-msg" ng-show="!availableFields || availableFields.length <= 0">No data to show</div>
             </div>
         </div>
 
