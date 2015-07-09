@@ -40,7 +40,7 @@ define([
                     , isMouseOnInput = false
                     , datetime = $locale.DATETIME_FORMATS
                     , pageDatepickers
-                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-click="$event.stopPropagation();" ng-blur="hideCalendar()">' +
+                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-click="$event.stopPropagation();">' +
                             //Mobile month+year pagination
                         '<div class="force-datepicker-calendar-header">' +
                         '<div class="force-datepicker-calendar-header-middle force-datepicker-mobile-item force-datepicker-calendar-month">' +

@@ -5,22 +5,21 @@ define([
 ], function (app, BaseController, DocumentUploadView) {
     'use strict';
 
-    function DocumentUploadController($scope, $upload, $modal, $modalInstance) {
+    function DocumentUploadController($scope, $modalInstance) {
         BaseController.call(this);
-        this.configureView($scope, $upload, $modal, $modalInstance);
+        this.configureView($scope, $modalInstance);
     }
 
     DocumentUploadController.inherits(BaseController, {});
 
-    DocumentUploadController.prototype.configureView = function ($scope, $upload, $modal, $modalInstance) {
+    DocumentUploadController.prototype.configureView = function ($scope, $modalInstance) {
         this.view = DocumentUploadView._diResolve();
-        //this.view.$scope = $scope;
         this.view.modalInstance = $modalInstance;
 
         this.triggerView(this.view, $scope);
     };
 
-    app.register.controller('DocumentUploadController', ['$scope', '$upload', '$modal', '$modalInstance', DocumentUploadController]);
+    app.register.controller('DocumentUploadController', ['$scope', '$modalInstance', DocumentUploadController]);
 
     return DocumentUploadController;
 });

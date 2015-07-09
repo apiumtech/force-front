@@ -2,20 +2,23 @@ define([
     'app',
     'shared/BaseView',
     'config',
-    'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter'
-], function (app, BaseView, config, DocumentUploadPresenter) {
+    'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter',
+    'shared/services/ModalDialogAdapter',
+    'shared/services/fileService/FileService'
+], function (app, BaseView, config, DocumentUploadPresenter, ModalDialogAdapter, FileService) {
     'use strict';
 
-    function DocumentUploadView(presenter, modalDialogAdapter, modalInstance) {
+    function DocumentUploadView(documentUploadPresenter, modalDialogAdapter, fileService) {
         //@autowired
-        this.documentUploadPresenter = presenter;
-        this.modalInstance = modalInstance;
-        this.modalDialogAdapter = modalDialogAdapter;
+        this.documentUploadPresenter = documentUploadPresenter || DocumentUploadPresenter._diResolve();
+        this.modalDialogAdapter = modalDialogAdapter || ModalDialogAdapter._diResolve();
+        this.fileService = fileService || FileService._diResolve();
 
         BaseView.call(this, {}, null, this.documentUploadPresenter);
         this.uploadedFiles = 0;
         this.uploadCompleted = false;
         this.uploading = false;
+        this.modalInstance = null;
     }
 
     DocumentUploadView.inherits(BaseView, {
@@ -155,6 +158,10 @@ define([
         };
 
         self.fn.saveRecordName = function (record) {
+            var fileOriginalExtension = self.fileService.getFileExtension(record.__name);
+            var currentFileExtension = self.fileService.getFileExtension(record.name);
+            if (!currentFileExtension)
+                record.name += '.' + fileOriginalExtension;
             record.isEditingName = false;
             delete record.__name;
         };
@@ -244,8 +251,6 @@ define([
     DocumentUploadView.prototype.isArchivedFile = function (file) {
         return /.(zip|rar|tar|7z)$/.test(file.type);
     };
-
-    app.di.register('documentUploadView').as(DocumentUploadView);
 
     return DocumentUploadView;
 });
