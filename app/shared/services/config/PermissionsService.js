@@ -27,7 +27,16 @@ define([
         return parsed;
     };
 
+
+    /**
+     * Gets the permission value.
+     *
+     * @param permission Required String with the name of the permission. i.e "sfm.isEnabled"
+     * @param defaultValue Optional Boolean value that will be used as default value.
+     * @returns Boolean
+     */
     PermissionsService.prototype.getPermission = function(permission, defaultValue){
+        assertNotNull("permission", permission);
         this.parsedPermissions = this.parsedPermissions || (this.parsedPermissions = this._parseRawPermissions(this._getPermissionsFromStorage()));
         if(permission in this.parsedPermissions){
             return this.parsedPermissions[permission];

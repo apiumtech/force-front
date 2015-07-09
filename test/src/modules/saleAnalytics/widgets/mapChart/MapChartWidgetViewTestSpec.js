@@ -6,8 +6,9 @@ define([
     'angular',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetView',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
-    'plots/MapChart'
-], function (angular, MapChartWidgetView, MapChartWidgetPresenter, MapChart) {
+    'plots/MapChart',
+    'shared/services/config/PermissionsService'
+], function (angular, MapChartWidgetView, MapChartWidgetPresenter, MapChart, PermissionsService) {
     'use strict';
     describe("MapChartWidgetView", function () {
 
@@ -18,7 +19,7 @@ define([
             presenter = mock(MapChartWidgetPresenter);
             element = angular.element("<div />");
             mapChart = mock(MapChart);
-            sut = new MapChartWidgetView(scope, element, mapChart, presenter);
+            sut = new MapChartWidgetView(scope, element, mapChart, presenter, mock(PermissionsService));
         }));
 
         describe("configureEvents", function () {
@@ -134,30 +135,14 @@ define([
                 });
         });
 
-        describe("shouldShowOption", function () {
-            it("should return true when widget.option has the item", function () {
-                sut.widget = {
-                    option: "option1|option2|option3"
-                };
-                expect(sut.shouldShowOption('option2')).toBe(true);
+        describe("canDisplayUsersInMap", function () {
+            it('should allow displaying when permission is true', function () {
+                spyOn(sut.permissionsService, "getPermission").and.returnValue(true);
+                expect(sut.canDisplayUsersInMap()).toBe(true);
             });
-            it("should return false when widget.option doesn't have the item", function () {
-                sut.widget = {
-                    option: "option1|option2|option3"
-                };
-                expect(sut.shouldShowOption('option4')).toBe(false);
-            });
-            it("should work with one item", function () {
-                sut.widget = {
-                    option: "option5"
-                };
-                expect(sut.shouldShowOption('option5')).toBe(true);
-            });
-            it("should return false when no items are provided", function () {
-                sut.widget = {
-                    option: ""
-                };
-                expect(sut.shouldShowOption('option6')).toBe(false);
+            it('should not allow displaying when permission is false', function () {
+                spyOn(sut.permissionsService, "getPermission").and.returnValue(false);
+                expect(sut.canDisplayUsersInMap()).toBe(false);
             });
         });
     });

@@ -32,6 +32,10 @@ define([
         });
 
         describe("getPermission", function () {
+            it('should throw when no permission is provided', function () {
+                expect(sut.getPermission).toThrow();
+            });
+
             it('should find permission', function () {
                 var parsedPermissions = {
                     "agenda.canUpdate": false,

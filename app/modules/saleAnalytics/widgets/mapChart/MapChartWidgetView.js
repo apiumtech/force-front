@@ -7,14 +7,16 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
-    'plots/MapChart'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart){
+    'plots/MapChart',
+    'shared/services/config/PermissionsService'
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart, PermissionsService){
 
-    function MapChartWidgetView(scope, element, mapChart, presenter) {
+    function MapChartWidgetView(scope, element, mapChart, presenter, permissionsService) {
         presenter = presenter || new MapChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.mapChart = mapChart;
+        self.permissionsService = permissionsService;
         self.selectedFilter = 'checkins';
         self.configureEvents();
     }
@@ -55,7 +57,7 @@ define([
             self.refreshChart();
         };
 
-        self.fn.shouldShowOption = self.shouldShowOption.bind(self);
+        self.fn.canDisplayUsersInMap = self.canDisplayUsersInMap.bind(self);
     };
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -84,18 +86,19 @@ define([
         }
     };
 
-    MapChartWidgetView.prototype.shouldShowOption = function (itemToCheck) {
-        return this.widget.option.split("|").indexOf(itemToCheck) > -1;
+    MapChartWidgetView.prototype.canDisplayUsersInMap = function () {
+        return this.permissionsService.getPermission("geotrackviewenabled.isEnabled", true);
     };
 
     MapChartWidgetView.prototype.paintChart = function (element) {
         this.mapChart.createMap($(element)[0], {minZoom:2});
     };
 
-    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, $viewRepAspect, $logErrorAspect) {
+    MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, permissionsService, $viewRepAspect, $logErrorAspect) {
         var mapChart = $mapChart || MapChart.newInstance();
+        var permissionsService = permissionsService || PermissionsService.newInstance();
 
-        var view = new MapChartWidgetView($scope, $element, mapChart);
+        var view = new MapChartWidgetView($scope, $element, mapChart, undefined, permissionsService);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
