@@ -41,55 +41,55 @@ define([
 				it("should sort report by name", function () {
 					var input = [
 						{
-							id: 7,
-							name: "Analisis Oportunidades IN/OUT 07",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 4,
-							type: 'report',
-							favourite: true
+							Id: 7,
+							Name: "Analisis Oportunidades IN/OUT 07",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 4,
+							Type: 'report',
+							Favorite: true
 						},
 						{
-							id: 5,
-							name: "Analisis Oportunidades IN/OUT 05",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 3,
-							type: 'report',
-							favourite: true
+							Id: 5,
+							Name: "Analisis Oportunidades IN/OUT 05",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 3,
+							Type: 'report',
+							Favorite: true
 						},
 						{
-							id: 11,
-							name: "Analisis Oportunidades IN/OUT 11",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 2,
-							type: 'report',
-							favourite: true
+							Id: 11,
+							Name: "Analisis Oportunidades IN/OUT 11",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 2,
+							Type: 'report',
+							Favorite: true
 						}
 					];
 
 					var expectedOutput = [
 						{
-							id: 5,
-							name: "Analisis Oportunidades IN/OUT 05",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 3,
-							type: 'report',
-							favourite: true
+							Id: 5,
+							Name: "Analisis Oportunidades IN/OUT 05",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 3,
+							Type: 'report',
+							Favorite: true
 						},
 						{
-							id: 7,
-							name: "Analisis Oportunidades IN/OUT 07",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 4,
-							type: 'report',
-							favourite: true
+							Id: 7,
+							Name: "Analisis Oportunidades IN/OUT 07",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 4,
+							Type: 'report',
+							Favorite: true
 						},
 						{
-							id: 11,
-							name: "Analisis Oportunidades IN/OUT 11",
-							description: "Imforme que muestra riesgo por bajo uso por cliente",
-							idParent: 2,
-							type: 'report',
-							favourite: true
+							Id: 11,
+							Name: "Analisis Oportunidades IN/OUT 11",
+							Description: "Imforme que muestra riesgo por bajo uso por cliente",
+							IdParent: 2,
+							Type: 'report',
+							Favorite: true
 						}
 					];
 

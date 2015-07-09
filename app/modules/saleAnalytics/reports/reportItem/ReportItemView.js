@@ -96,16 +96,16 @@ define([
     ReportItemView.prototype.configureEvents = function () {
         var self = this;
 
-        this.selectedReportType = this.report && this.report.reportType ? this.report.reportType[0] : '';
+        this.selectedReportType = this.report && this.report.ReportType ? this.report.ReportType[0] : '';
 
         self.fn.startEditingName = function () {
             if (self.fireOpenFolder) return;
-            self.originalName = self.report.name;
+            self.originalName = self.report.Name;
             self.editingName = true;
         };
 
         self.fn.saveName = function () {
-            if (!self.report.name) {
+            if (!self.report.Name) {
                 self.nameError = "Name cannot be empty";
             } else {
                 self.nameError = "";
@@ -115,32 +115,32 @@ define([
         };
 
         self.fn.sendFolderReportOpenCommand = function (item) {
-            if (!self.fireOpenFolder || item.type !== 'folder') return;
-            var folderId = item.id;
+            if (!self.fireOpenFolder || item.Type !== 'folder') return;
+            var folderId = item.Id;
             console.log("sending open folder command", item);
             self.reportEventBus.fireFolderReportSelected(folderId);
         };
 
         self.fn.sendReportOpenCommand = function (item) {
-            if (!self.fireOpenFolder || item.type !== 'report') return;
+            if (!self.fireOpenFolder || item.Type !== 'report') return;
             console.log("sending", item);
-            var id = item.id;
+            var id = item.Id;
             self.reportEventBus.fireReportSelected(id);
         };
 
         self.fn.cancelEditingName = function () {
             self.nameError = "";
-            self.report.name = self.originalName;
+            self.report.Name = self.originalName;
             self.editingName = false;
         };
 
         self.fn.startEditingDescription = function () {
-            self.originalDescription = self.report.description;
+            self.originalDescription = self.report.Description;
             self.editingDescription = true;
         };
 
         self.fn.saveDescription = function () {
-            if (!self.report.description) {
+            if (!self.report.Description) {
                 self.descriptionError = "Description cannot be empty";
             } else {
                 self.descriptionError = "";
@@ -151,7 +151,7 @@ define([
 
         self.fn.cancelEditingDescription = function () {
             self.descriptionError = "";
-            self.report.description = self.originalDescription;
+            self.report.Description = self.originalDescription;
             self.editingDescription = false;
         };
 
@@ -161,7 +161,7 @@ define([
 
         self.fn.toggleFavouriteReport = function () {
             self.inProgress = true;
-            self.event.toggleFavouriteReport(self.report.id);
+            self.event.toggleFavouriteReport(self.report.Id);
         };
 
         self.fn.preview = function () {
@@ -204,18 +204,21 @@ define([
 
     ReportItemView.prototype.onToggledFavouriteReport = function () {
         var self = this;
-        self.report.favourite = !self.report.favourite;
+        self.report.Favorite = !self.report.Favorite;
         self.inProgress = false;
     };
 
     ReportItemView.prototype.onOtherReportInProgressStateChange = function (reportId, state) {
         var self = this;
-        if (reportId === self.report.id) return;
+        if (reportId === self.report.Id) return;
         self.otherReportInProgress = state;
     };
 
     ReportItemView.prototype.onSaveNameSuccess = function (data) {
-        this.report.name = data.name;
+        if( !("Name" in data) ){
+            throw new Error("Name property not found");
+        }
+        this.report.Name = data.Name;
         this.editingName = false;
         this.inProgress = false;
     };
@@ -226,7 +229,10 @@ define([
     };
 
     ReportItemView.prototype.onSaveDescriptionSuccess = function (data) {
-        this.report.description = data.description;
+        if( !("Description" in data) ){
+            throw new Error("Description property not found");
+        }
+        this.report.Description = data.Description;
         this.editingDescription = false;
         this.inProgress = false;
     };
@@ -259,8 +265,8 @@ define([
 
     ReportItemView.prototype.getParameterConfiguration = function () {
         var self = this;
-        self.reportEventBus.fireReportIsInProgress(self.report.id, true);
-        self.event.getParameterConfiguration(self.report.id, self.onParameterConfigurationLoaded.bind(self));
+        self.reportEventBus.fireReportIsInProgress(self.report.Id, true);
+        self.event.getParameterConfiguration(self.report.Id, self.onParameterConfigurationLoaded.bind(self));
     };
 
     ReportItemView.prototype.onParameterConfigurationLoaded = function (data) {
@@ -274,7 +280,7 @@ define([
             self.currentActionForParameters(data);
         }
         self.inProgress = false;
-        self.reportEventBus.fireReportIsInProgress(self.report.id, false);
+        self.reportEventBus.fireReportIsInProgress(self.report.Id, false);
     };
 
     ReportItemView.prototype.configureParameters = function (parameterConfigurations) {

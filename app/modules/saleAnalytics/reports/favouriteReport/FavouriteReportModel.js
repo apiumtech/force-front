@@ -24,8 +24,8 @@ define([
     FavouriteReportModel.prototype.decorateServerData = function (data) {
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
         data.sort(function(a, b){
-            if(a.name > b.name) return 1;
-            if(a.name < b.name) return -1;
+            if(a.Name > b.Name) return 1;
+            if(a.Name < b.Name) return -1;
             return 0;
         });
         return data;

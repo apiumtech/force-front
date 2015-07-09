@@ -49,8 +49,9 @@ define([
     StringTypeFilterView.prototype.onFieldChanged = function () {
         var self = this;
         var value = self.$scope.filterFor;
+        console.log(value)
         if (value) {
-            self.event.searchValueChanged(value.data, self.data.filterValue);
+            self.event.searchValueChanged(value.key, self.data.filterValue);
         }
     };
 

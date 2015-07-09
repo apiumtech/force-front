@@ -21,13 +21,13 @@
         </div>
 
         <li ng-repeat="report in reports track by $index" ng-click="fn.openResult(report)" ng-show="reports && reports.length > 0">
-            <i class="fa fa-file-text-o" ng-if="report.type == 'report'"></i>
-            <i class="fa fa-folder-o" ng-if="report.type == 'folder'"></i>
+            <i class="fa fa-file-text-o" ng-if="report.Type == 'report'"></i>
+            <i class="fa fa-folder-o" ng-if="report.Type == 'folder'"></i>
 
-            <span high-light-result="report.name"
-               keywords='searchQuery'>{{ report.name }}</span>
+            <span high-light-result="report.Name"
+               keywords='searchQuery'>{{ report.Name }}</span>
 
-            <span class="pull-right report-date">{{report.date | date: 'dd-MM-yyyy'}}</span>
+            <span class="pull-right report-date">{{report.Date | date: 'dd-MM-yyyy'}}</span>
         </li>
     </ul>
 </div>

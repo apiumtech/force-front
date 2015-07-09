@@ -6,13 +6,13 @@
         <div class="row">
             <div class="pull-left m-t-6">
                 <i class="fa fa-star" ng-show = "!processingFavourite"
-                   ng-class="{'favourite': report.favourite, 'not-favourite' : !report.favourite }" data-ng-click="fn.toggleFavouriteReport()"></i>
+                   ng-class="{'favourite': report.Favorite, 'not-favourite' : !report.Favorite }" data-ng-click="fn.toggleFavouriteReport()"></i>
                 <i class="fa fa-spinner fa-spin" ng-show = "processingFavourite"></i>
             </div>
             <div class="col-md-5">
-                <h5>{{report.name}}</h5>
+                <h5>{{report.Name}}</h5>
 
-                <p>{{report.description}}</p>
+                <p>{{report.Description}}</p>
             </div>
             <div class="text-center col-md-2 button-group">
                 <button class="btn btn-link right-separator" ng-click="fn.download()">

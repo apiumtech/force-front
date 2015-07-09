@@ -66,14 +66,14 @@ define([
             return f.selected = false;
         });
 
-        var parents = arrayHelper.findParents(flattened, "idParent", "id", id, -1);
+        var parents = arrayHelper.findParents(flattened, "IdParent", "Id", id, -1);
 
         parents.forEach(function (p) {
-            if (p.id === id && p.type == "folder") {
+            if (p.Id === id && p.Type == "folder") {
                 p.selected = true;
                 p.isOpen = true;
             }
-            else if(p.id === id && p.type == "report"){
+            else if(p.Id === id && p.Type == "report"){
                 p.selected = true;
             }
             else {
@@ -81,7 +81,7 @@ define([
             }
         });
 
-        self.reports = arrayHelper.makeTree(flattened, 'idParent', 'id', 'children', -1);
+        self.reports = arrayHelper.makeTree(flattened, 'IdParent', 'Id', 'children', -1);
     };
 
 
