@@ -40,7 +40,7 @@ define([
                     , isMouseOnInput = false
                     , datetime = $locale.DATETIME_FORMATS
                     , pageDatepickers
-                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-click="$event.stopPropagation();" ng-blur="hideCalendar()">' +
+                    , htmlTemplate = '<div class="force-datepicker-calendar" ng-click="$event.stopPropagation();">' +
                             //Mobile month+year pagination
                         '<div class="force-datepicker-calendar-header">' +
                         '<div class="force-datepicker-calendar-header-middle force-datepicker-mobile-item force-datepicker-calendar-month">' +
@@ -323,6 +323,11 @@ define([
                 };
 
                 $scope.showCalendar = function manageShowCalendar() {
+
+                    console.log("selected", $scope.monthNumber);
+                    $scope.setDaysInMonth($scope.monthNumber, $scope.year);
+                    $scope.setInputValue();
+
                     //lets hide all the latest instances of datepicker
                     pageDatepickers = $window.document.getElementsByClassName('force-datepicker-calendar');
 
@@ -332,6 +337,7 @@ define([
                     });
 
                     theCalendar.classList.add('force-datepicker-open');
+                    $scope.$apply();
                 };
 
                 $scope.hideCalendar = function manageHideCalendar() {

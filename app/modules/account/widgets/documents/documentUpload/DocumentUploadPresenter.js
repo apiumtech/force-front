@@ -1,11 +1,10 @@
 define([
-    'app',
     'modules/account/widgets/documents/documentUpload/DocumentUploadModel'
-], function (app) {
+], function (DocumentUploadModel) {
     'use strict';
 
-    function DocumentUploadPresenter(model) {
-        this.documentUploadModel = model;
+    function DocumentUploadPresenter(documentUploadModel) {
+        this.documentUploadModel = documentUploadModel || DocumentUploadModel._diResolve();
     }
 
     DocumentUploadPresenter.inherits(Object, {
@@ -30,10 +29,7 @@ define([
                 .then(view.onUploadFileSuccess.bind(view))
                 .catch(view.onUploadFileError.bind(view));
         };
-
     };
-
-    app.di.register('documentUploadPresenter').as(DocumentUploadPresenter);
 
     return DocumentUploadPresenter;
 });

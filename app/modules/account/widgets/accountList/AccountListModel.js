@@ -53,6 +53,7 @@ define([
 
         if (JSON.stringify(this.recentFilters) !== JSON.stringify(requestData.customFilter) ||
             JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order) ||
+            JSON.stringify(this.recentSearch) !== JSON.stringify(requestData.accountSearch) ||
             settings.toggleFollow) {
             this.accountsList = [];
             option.stopLoading = false;
@@ -61,6 +62,7 @@ define([
             option.currentPage++;
         }
 
+        this.recentSearch = requestData.accountSearch;
         this.recentFilters = requestData.customFilter;
         this.recentOrder = requestData.order;
 

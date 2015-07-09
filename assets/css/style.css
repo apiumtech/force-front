@@ -6387,7 +6387,15 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
     }
 }
 /* Responsive Setting */
+@media (max-width: 992px) {
+    .form-img img {
+        margin-left: 0 !important;
+    }
+}
 @media (max-width: 979px) {
+    .form-img img {
+        margin-left: 0 !important;
+    }
     .form-horizontal.form-bordered .form-group {
         border-bottom: 1px solid #eee;
     }
@@ -7204,16 +7212,12 @@ a.main,
     text-align: center;
 }
 .btn-squared.active,
-.btn-squared:active,
-.btn-squared:focus,
 .btn-squared:hover,
 .open .dropdown-toggle.btn-squared {
     border-color: #ed8b00 !important;
     color: #ed8b00 !important;
 }
 .btn-follow.active i:before,
-.btn-follow:active i:before,
-.btn-follow:focus i:before,
 .open .dropdown-toggle.btn-follow i:before {
     content: 'K';
     border-color: #ed8b00 !important;

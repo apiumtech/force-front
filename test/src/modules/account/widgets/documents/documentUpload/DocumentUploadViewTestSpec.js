@@ -1,20 +1,24 @@
 define([
     'config',
     'modules/account/widgets/documents/documentUpload/DocumentUploadView',
+    'shared/services/ModalDialogAdapter',
+    'shared/services/fileService/FileService',
     'modules/account/widgets/documents/documentUpload/DocumentUploadPresenter'
-], function (config, DocumentUploadView, DocumentUploadPresenter) {
+], function (config, DocumentUploadView, ModalDialogAdapter, FileService, DocumentUploadPresenter) {
     'use strict';
 
     describe('DocumentUploadView', function () {
 
-        var sut, presenter, modalInstance;
+        var sut, presenter, modalInstance, modalDialogAdapter, fileService;
         beforeEach(function () {
             modalInstance = {
                 dismiss: sinon.stub(),
                 close: sinon.stub()
             };
             presenter = mock(DocumentUploadPresenter);
-            sut = new DocumentUploadView(presenter);
+            modalDialogAdapter = mock(ModalDialogAdapter);
+            fileService = mock(FileService);
+            sut = new DocumentUploadView(presenter, modalDialogAdapter, fileService);
             sut.modalInstance = modalInstance;
         });
 
@@ -133,13 +137,29 @@ define([
             describe('fn.saveRecordName', function () {
                 var record;
                 beforeEach(function () {
+                    fileService.getFileExtension.withArgs('abcd.png').returns('png');
+                    fileService.getFileExtension.withArgs('original').returns('');
                     record = {
-                        isEditingName: false,
+                        isEditingName: true,
                         name: "original",
-                        __name: "abcd"
+                        __name: "abcd.png"
                     };
                     sut.fn.saveRecordName(record);
                 });
+                afterEach(function () {
+                    fileService.getFileExtension.restore();
+                });
+
+                it("should call getFileExtension from service to get file extension", function () {
+                    expect(fileService.getFileExtension).toHaveBeenCalledWith("abcd.png");
+                });
+
+                describe("new name doesn't contain extension", function () {
+                    it("should store old extension to new name", function () {
+                        expect(record.name).toEqual('original.png');
+                    });
+                });
+
                 it("should turn isEditingName to false", function () {
                     expect(record.isEditingName).toBeFalsy();
                 });
@@ -210,7 +230,7 @@ define([
                 allowance = config.maxSizeUploadAllowed;
                 file = {
                     lastModified: new Date().getTime(),
-                    size: 2048*1024*1024
+                    size: 2048 * 1024 * 1024
                 };
             });
             afterEach(function () {
@@ -229,7 +249,7 @@ define([
 
         describe('isArchivedFile', function () {
             it("should be true if file archived file", function () {
-                var file={
+                var file = {
                     type: "application/zip"
                 };
 
@@ -237,7 +257,7 @@ define([
             });
 
             it("should be false if file is not archived file", function () {
-                var file={
+                var file = {
                     type: "application/pdf"
                 };
 

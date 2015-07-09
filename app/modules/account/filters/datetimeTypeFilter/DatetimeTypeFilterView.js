@@ -35,7 +35,7 @@ define([
         };
 
         self.$scope.isoStringMaxDateFromLimit = function () {
-            var date = new Date(self.$scope.dateRangeEnd);
+            var date = new Date();
             date = date.setDate(date.getDate() - 1);
             return new Date(date).toString();
         };
