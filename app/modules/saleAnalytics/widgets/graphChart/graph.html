@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-2 ">
-                <div class=" border-grey parameters clearfix">
-                    <div class="clearfix">
+                <div class=" border-grey parameters clearfix" >
+                    <div class="clearfix m-b-20" ng-show="availableFields && availableFields.length > 0">
                         <h6>
                             {{'LineWidget.Filters.ShowFields' | i18next}}
                         </h6>
@@ -62,7 +62,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="m-t-20 clearfix">
+                    <div class="clearfix">
                         <h6>{{'LineWidget.DataDisplay' | i18next}}</h6>
 
                         <div class="btn-group  m-t-10 m-b-10">

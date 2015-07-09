@@ -11,11 +11,11 @@
                 <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>
                 <ul class="nav navbar-nav row row m-t-10">
                     <li>
-                        <span class="pull-left date-range m-r-10">
+                        <span class="pull-left date-range m-r-10 inline">
                             {{'Filters.DateRange' | i18next}}
                         </span>
 
-                        <div class="input-group " style="width:300px; margin-bottom: 4px; "
+                        <div class="input-group " style="width:300px; margin-bottom: 4px; float:left"
                              ng-click="fn.closeDatePickers($event);"
                                 >
 
@@ -46,7 +46,8 @@
                                                             year-range="2"
                                                             date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="start"
-                                                               ng-model="displayDateStart"/>
+                                                               data-desc="calendar-input"
+                                                               ng-model="displayDateStart" />
                                                     </force-date-picker>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <force-date-picker
@@ -56,6 +57,7 @@
                                                             date-max-limit="{{isoStringMaxDateLimit()}}"
                                                             date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="end"
+                                                               data-desc="calendar-input"
                                                                ng-model="displayDateEnd"/>
                                                     </force-date-picker>
                                                 </div>

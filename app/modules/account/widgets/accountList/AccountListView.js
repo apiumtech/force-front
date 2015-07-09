@@ -321,21 +321,20 @@ define([
 
         var filters = this.data.filters;
         if (filters.owner.filtering) {
-            aoData.customFilter['owners'] = filters.owner.values;
+            aoData.customFilter['Responsible.Name'] = filters.owner.values;
         }
         if (filters.environments.filtering) {
-            aoData.customFilter['environments'] = filters.environments.values;
+            aoData.customFilter['Environment.Name'] = filters.environments.values;
         }
         if (filters.accountType.filtering) {
-            aoData.customFilter['accountTypes'] = filters.accountType.values;
+            aoData.customFilter['AccountType.Name'] = filters.accountType.values;
         }
         if (filters.view.filtering) {
-            aoData.customFilter['view'] = filters.view.value;
+            aoData.customFilter['View'] = filters.view.value;
         }
         if (filters.query.filtering) {
-            aoData.customFilter['searchQuery'] = filters.query.value;
+            aoData.customFilter['CustomSearch'] = filters.query.value;
         }
-
         if (filters.customFilters.values.length) {
             filters.customFilters.values.forEach(function (filter) {
                 if (filter.value.length)

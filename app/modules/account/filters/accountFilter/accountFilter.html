@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <!--<div class="line-border clearfix"></div>-->
         <div class="row m-b-5">
-            <div class="col-md-9">
+            <div class="col-md-9 col-xs-9">
                 <h6>Filter by</h6>
                 <ul class="nav navbar-nav row row m-t-10">
                     <li class="dropdown">
@@ -194,7 +194,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-xs-3">
                 <form>
                     <div class="input-group  m-t-40">
                         <input type="text" class="form-control"
@@ -212,7 +212,7 @@
                 </form>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12 no-padding">
                 <div class="dropdown dynamic-filter btn-group clearfix"
                      ng-repeat="field in data.availableFields | filter:{selected:true}">
                     <string-type-filter ng-if="field.dataType=='String'"

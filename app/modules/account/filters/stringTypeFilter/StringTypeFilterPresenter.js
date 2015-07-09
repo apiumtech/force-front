@@ -16,11 +16,13 @@ define([
         var eventBus = self.accountEventBus;
 
         view.event.searchValueChanged = function (fieldName, queryValue) {
+            console.log("field name", fieldName);
             model.getFilterValues(fieldName, queryValue)
                 .then(view.onFieldValuesLoaded.bind(view), view.showError.bind(view));
         };
 
         view.event.filterSelectionToggled = function (key, values) {
+            console.log(key);
             eventBus.fireFilterValueChanged(key, values);
         };
     };

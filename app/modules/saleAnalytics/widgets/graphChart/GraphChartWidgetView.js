@@ -100,7 +100,8 @@ define([
             scope = self.$scope,
             data = self.data;
 
-        if (!data.fields || !data.fields.length) return;
+        if (!data.fields) return;
+        if(!data.fields.length) data.fields = [];
 
         var chartFields = [];
 
