@@ -28,7 +28,7 @@ define([
 
     ReportService.prototype.getReportURL = function (report) {
         var self = this;
-        var url = Configuration.api.getReportUrl.format(report.id);
+        var url = Configuration.api.getReportUrl.format(report.Id);
         console.log("get report url url",url, report.params);
         var params = {
             url: url,
@@ -54,7 +54,7 @@ define([
     };
 
     ReportService.prototype.loadPreviewImage = function (report) {
-        var url = Configuration.api.previewReport.format(report.id);
+        var url = Configuration.api.previewReport.format(report.Id);
         console.log("preview report url",url);
         var params = {
             url: url,

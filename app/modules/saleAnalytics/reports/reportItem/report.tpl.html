@@ -6,11 +6,11 @@
 
         <div class="form-inline name-form clearfix">
             <i class="fa pull-left bullet fa-star-o" ng-click="fn.toggleFavouriteReport()"
-               ng-class="{'favourite' : report.favourite}"></i>
+               ng-class="{'favourite' : report.Favorite}"></i>
 
             <h5 ng-show="!editingName" class="pull-left"
-                ng-click="fn.startEditingName();">{{report.name}}</h5>
-            <input ng-show="editingName" ng-model="report.name"
+                ng-click="fn.startEditingName();">{{report.Name}}</h5>
+            <input ng-show="editingName" ng-model="report.Name"
                    class="form-control inline"
                    type="text"
                    ng-keyup="$event.keyCode == 13 ? fn.saveName() : null"
@@ -31,16 +31,16 @@
                     <i class="fa ic-close"></i>
                 </button>
             </div>
-            <div class="help help-danger" ng-if="nameError && !report.name">{{nameError}}</div>
+            <div class="help help-danger" ng-if="nameError && !report.Name">{{nameError}}</div>
         </div>
 
         <div class="form-inline description-form clearfix" ng-show="fireOpenFolder">
-            in <a href="#" ng-click="$event.preventDefault();fn.sendReportOpenCommand(report)">{{report.path}}</a></div>
+            in <a href="#" ng-click="$event.preventDefault();fn.sendReportOpenCommand(report)">{{report.Path}}</a></div>
 
         <div class="form-inline description-form clearfix" ng-show="!fireOpenFolder">
             <p ng-show="!editingDescription" class="pull-left"
-               ng-click="fn.startEditingDescription();">{{report.description}}</p>
-            <input ng-show="editingDescription" ng-model="report.description"
+               ng-click="fn.startEditingDescription();">{{report.Description}}</p>
+            <input ng-show="editingDescription" ng-model="report.Description"
                    class="form-control inline clearfix"
                    type="text"
                    ng-keyup="$event.keyCode == 13 ? fn.saveDescription() : null"
@@ -60,7 +60,7 @@
                     <i class="fa ic-close"></i>
                 </button>
             </div>
-            <div class="help help-danger" ng-if="descriptionError && !report.description">{{descriptionError}}</div>
+            <div class="help help-danger" ng-if="descriptionError && !report.Description">{{descriptionError}}</div>
         </div>
 
     </div>
@@ -68,13 +68,13 @@
 
     <div class="col-md-4 pull-right">
         <div class="form-inline action-form clearfix pull-right">
-            <select ng-if="report.reportType && report.reportType.length > 1" class="form-control"
+            <select ng-if="report.ReportType && report.ReportType.length > 1" class="form-control"
                     ng-model="selectedReportType" ng-change="fn.changeReportType(selectedReportType)">
-                <option ng-repeat="type in report.reportType" value="{{type}}">{{type}}</option>
+                <option ng-repeat="type in report.ReportType" value="{{type}}">{{type}}</option>
             </select>
 
             <span class="reportType m-r-4"
-                  ng-if="report.reportType && report.reportType.length == 1">{{selectedReportType}}</span>
+                  ng-if="report.ReportType && report.ReportType.length == 1">{{selectedReportType}}</span>
 
             <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>
             <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>

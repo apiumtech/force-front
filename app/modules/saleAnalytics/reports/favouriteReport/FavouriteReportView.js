@@ -23,7 +23,7 @@ define([
         };
 
         self.fn.isFavourite = function (element, index) {
-            return element.favourite;
+            return element.Favorite;
         };
 
         self.event.onDateFilterApplied = function (filterValue) {
