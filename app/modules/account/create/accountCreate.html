@@ -117,10 +117,10 @@
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">Account owner</label>
 
-            <div class="col-md-6 ui-sortable padding_account_owner" >
+            <div class="col-md-6 col-xs-6 ui-sortable padding_account_owner" >
                 <input type="text" disabled class="form-control account_owner_box" placeholder="Mario Rossi">
             </div>
-            <div class="col-md-3 ui-sortable btn_add_owner">
+            <div class="col-md-3 col-xs-3 ui-sortable btn_add_owner">
                 <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add
                     owner
                 </button>
@@ -129,17 +129,17 @@
 
         <div class="form-group">
             <div class="col-md-3 control-label ui-sortable"></div>
-            <div class="col-md-6 ui-sortable padding_account_owner">
+            <div class="col-md-6 col-xs-6 ui-sortable padding_account_owner">
                 <input type="text" class="form-control account_owner_box" placeholder="Search owner"/>
                 <i class="fa ic-search search_owner_icon"></i>
             </div>
-            <div class="col-md-1 ui-sortable">
+            <div class="col-md-1 col-xs-1 ui-sortable">
                 <i class="fa ic-close ic_close_search_owner"></i>
             </div>
         </div>
         <hr/>
         <div class="form-group">
-            <h6 class="col-md-3 text-right">Contact details</h6>
+            <h6 class="col-md-3 text-right hidden-xs">Contact details</h6>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : CreateAccount.phoneNumber.$invalid && CreateAccount.phoneNumber.$touched }">
             <label class="col-md-3 control-label ui-sortable">
@@ -244,7 +244,7 @@
         </div>
         <hr/>
         <div class="form-group">
-            <h6 class="col-md-3 text-right">Address</h6>
+            <h6 class="col-md-3 text-right hidden-xs">Address</h6>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label ui-sortable">
@@ -264,13 +264,13 @@
                 Street
             </label>
 
-            <div class="col-md-6 ui-sortable padding_account_owner">
+            <div class="col-md-6 col-xs-6 ui-sortable padding_account_owner">
                 <input type="text" class="form-control account_owner_box"
                        validator="required"
                        ng-model="accountData.contactInfo.address"
                        valid-method="blur" placeholder="Street">
             </div>
-            <div class="col-md-3 ui-sortable btn_add_owner">
+            <div class="col-md-3 col-xs-3 ui-sortable btn_add_owner">
                 <button class="btn btn-sm btn-default uppercase" type="button"><i class="symb_add_owner fa ic-plus"></i>add
                     street
                 </button>
@@ -359,7 +359,7 @@
         <hr/>
         <div class="form-group">
             <div class="form-group">
-                <h6 class="col-md-3 text-right">Extra fields</h6>
+                <h6 class="col-md-3 text-right hidden-xs hidden-sm">Extra fields</h6>
             </div>
             <label class="col-md-3 control-label ui-sortable">
                 Text
@@ -373,7 +373,7 @@
 
 
         <!--<div class="form-group">-->
-        <!--<h6 class="col-md-3 text-right">Extra fields</h6>-->
+        <!--<h6 class="col-md-3 text-right hidden-xs hidden-sm">Extra fields</h6>-->
         <!--</div>-->
         <!--<div class="form-group">-->
         <!--<label class="col-md-3 control-label ui-sortable">Checkbox</label>-->
