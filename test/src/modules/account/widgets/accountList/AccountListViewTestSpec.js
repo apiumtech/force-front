@@ -265,7 +265,7 @@ define([
                     values: ["user1", "user2"]
                 };
                 sut.onServerRequesting(aoData);
-                expect(aoData).toEqual({customFilter: {owners: ["user1", "user2"]}});
+                expect(aoData).toEqual({customFilter: {"Responsible.Name": ["user1", "user2"]}});
             });
 
             it("should add ownerFilter to aoData ", function () {
@@ -274,7 +274,7 @@ define([
                     value: "Daikin"
                 };
                 sut.onServerRequesting(aoData);
-                expect(aoData).toEqual({customFilter: {searchQuery: "Daikin"}});
+                expect(aoData).toEqual({customFilter: {"CustomSearch": "Daikin"}});
             });
 
             it("should add environmentFilter to aoData ", function () {
@@ -283,7 +283,7 @@ define([
                     values: ["UK", "Force US"]
                 };
                 sut.onServerRequesting(aoData);
-                expect(aoData).toEqual({customFilter: {environments: ["UK", "Force US"]}});
+                expect(aoData).toEqual({customFilter: {"Environment.Name": ["UK", "Force US"]}});
             });
 
             it("should add accountTypeFilter to aoData ", function () {
@@ -292,7 +292,7 @@ define([
                     values: ["Internal", "Prospect"]
                 };
                 sut.onServerRequesting(aoData);
-                expect(aoData).toEqual({customFilter: {accountTypes: ["Internal", "Prospect"]}});
+                expect(aoData).toEqual({customFilter: {"AccountType.Name": ["Internal", "Prospect"]}});
             });
 
             it("should add viewFilter to aoData ", function () {
@@ -301,7 +301,7 @@ define([
                     value: 1
                 };
                 sut.onServerRequesting(aoData);
-                expect(aoData).toEqual({customFilter: {view: 1}});
+                expect(aoData).toEqual({customFilter: {View: 1}});
             });
         });
 

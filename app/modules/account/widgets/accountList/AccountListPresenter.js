@@ -23,6 +23,7 @@ define([
         eventBus.onTableFieldsFilterDeselected(self.onTableFieldsFilterDeselected.bind(self));
 
         view.event.onOwnerToggled = function (owner) {
+            console.log(owner);
             view.updateOwnerFilter(owner);
             view.reloadTableData();
         };

@@ -108,7 +108,7 @@ define([
             describe("data is defined for 'filterFor' value", function () {
                 it("should fire event searchValueChanged", function () {
                     sut.onFieldChanged();
-                    expect(sut.event.searchValueChanged).toHaveBeenCalledWith(sut.$scope.filterFor.data, sut.data.filterValue);
+                    expect(sut.event.searchValueChanged).toHaveBeenCalledWith(sut.$scope.filterFor.key, sut.data.filterValue);
                 });
             });
         });
