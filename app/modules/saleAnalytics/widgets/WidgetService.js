@@ -109,7 +109,6 @@ define([
                 widgetType: "map",
                 widgetName: "GEOGRAPHICAL DISTRIBUTION",
                 endPoint: "geographicalWidgetDistributionDataApi",
-                widgetOption: "checkins|users",// "checkins" and/or "users" separated with pipe symbol
                 order: 1,
                 size: 12,
                 id: 3
