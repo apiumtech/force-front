@@ -26,8 +26,9 @@
                         <div class="input-group input-daterange">
                             <force-date-picker
                                     date-set="{{isoStringDateStart()}}"
-                                    year-range="2"
+                                    year-range="5"
                                     date-format="{{datePickerFormat}}"
+                                    date-max-limit="{{isoStringMaxDateFromLimit()}}"
                                     >
 
                                 <input type="text" class="form-control" name="start"
