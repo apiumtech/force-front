@@ -46,7 +46,8 @@
                                                             year-range="2"
                                                             date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="start"
-                                                               ng-model="displayDateStart"/>
+                                                               data-desc="calendar-input"
+                                                               ng-model="displayDateStart" />
                                                     </force-date-picker>
                                                     <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
                                                     <force-date-picker
@@ -56,6 +57,7 @@
                                                             date-max-limit="{{isoStringMaxDateLimit()}}"
                                                             date-format="{{datePickerFormat}}">
                                                         <input type="text" class="form-control" name="end"
+                                                               data-desc="calendar-input"
                                                                ng-model="displayDateEnd"/>
                                                     </force-date-picker>
                                                 </div>

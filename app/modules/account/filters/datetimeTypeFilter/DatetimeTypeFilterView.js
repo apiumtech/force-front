@@ -165,7 +165,8 @@ define([
 
         self.fn.closeDatePickers = function (event) {
             event.stopPropagation();
-            $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
+            if (event.target && $(event.target).attr("data-desc") != "calendar-input")
+                $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
         };
 
         self.fn.dateFilterToggled = function (isOpened) {

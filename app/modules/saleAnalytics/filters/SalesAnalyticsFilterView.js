@@ -134,12 +134,14 @@ define([
         });
 
         self.fn.openDatePickerStart = function (event) {
+            console.log(event, "opened start");
             event.stopPropagation();
             self.datePickerStartOpened = true;
             self.datePickerEndOpened = false;
         };
 
         self.fn.openDatePickerEnd = function (event) {
+            console.log(event, "opened end");
             event.stopPropagation();
             self.datePickerEndOpened = true;
             self.datePickerStartOpened = false;
@@ -147,7 +149,8 @@ define([
 
         self.fn.closeDatePickers = function (event) {
             event.stopPropagation();
-            $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
+            if(event.target && $(event.target).attr("data-desc") != "calendar-input")
+                $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
         };
 
         self.fn.loadPreviousLastDaysFilter = function (days, event) {
