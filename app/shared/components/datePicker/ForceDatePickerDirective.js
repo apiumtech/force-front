@@ -323,6 +323,11 @@ define([
                 };
 
                 $scope.showCalendar = function manageShowCalendar() {
+
+                    console.log("selected", $scope.monthNumber);
+                    $scope.setDaysInMonth($scope.monthNumber, $scope.year);
+                    $scope.setInputValue();
+
                     //lets hide all the latest instances of datepicker
                     pageDatepickers = $window.document.getElementsByClassName('force-datepicker-calendar');
 
@@ -332,6 +337,7 @@ define([
                     });
 
                     theCalendar.classList.add('force-datepicker-open');
+                    $scope.$apply();
                 };
 
                 $scope.hideCalendar = function manageHideCalendar() {
