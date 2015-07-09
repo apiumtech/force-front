@@ -32,18 +32,19 @@ define([
         console.log("report url",url);
         var params = {
             url: url,
-            type: 'get',
+            type: 'GET',
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
 
         return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
-        console.log("server",data);
+        //console.log("server",data);
+        data = data.data;
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
-        return this.arrayHelper.makeTree(data, 'idParent', 'id', 'children', -1);
+        return this.arrayHelper.makeTree(data, 'IdParent', 'Id', 'children', -1);
     };
 
     return AllReportModel;

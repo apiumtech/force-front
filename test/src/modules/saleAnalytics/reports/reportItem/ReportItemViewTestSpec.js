@@ -39,9 +39,9 @@ define([
 
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
+                    Id: 123,
+                    Name: "123456",
+                    Description: "description_blahblah"
                 };
             });
 
@@ -73,7 +73,7 @@ define([
             describe('fn.saveName', function () {
 
                 it("should show error if the name is empty", function () {
-                    sut.report.name = "";
+                    sut.report.Name = "";
 
                     sut.fn.saveName();
                     expect(sut.nameError).toEqual("Name cannot be empty");
@@ -96,7 +96,7 @@ define([
                 });
 
                 it("should show error if the name is empty", function () {
-                    sut.report.name = "";
+                    sut.report.Name = "";
 
                     sut.fn.saveName();
                     expect(sut.nameError).toEqual("Name cannot be empty");
@@ -114,7 +114,7 @@ define([
 
                 beforeEach(function () {
                     sut.originalName = 'backed-up-name';
-                    sut.$scope.report.name = "new_name_entered";
+                    sut.$scope.report.Name = "new_name_entered";
                     sut.fn.cancelEditingName();
                 });
 
@@ -124,7 +124,7 @@ define([
                 });
 
                 it("should reverse the original name", function () {
-                    expect(sut.report.name).toEqual('backed-up-name');
+                    expect(sut.report.Name).toEqual('backed-up-name');
                 });
 
                 it("should turn off editing name", function () {
@@ -148,7 +148,7 @@ define([
 
             describe('fn.saveDescription', function () {
                 it("should show error if the description is empty", function () {
-                    sut.report.description = "";
+                    sut.report.Description = "";
 
                     sut.fn.saveDescription();
                     expect(sut.descriptionError).toEqual("Description cannot be empty");
@@ -179,7 +179,7 @@ define([
             describe('fn.cancelEditingDescription', function () {
                 beforeEach(function () {
                     sut.originalDescription = 'backed-up-name';
-                    sut.$scope.report.description = "new_name_entered";
+                    sut.$scope.report.Description = "new_name_entered";
                     sut.fn.cancelEditingDescription();
                 });
 
@@ -189,7 +189,7 @@ define([
                 });
 
                 it("should reverse the original name", function () {
-                    expect(sut.report.description).toEqual('backed-up-name');
+                    expect(sut.report.Description).toEqual('backed-up-name');
                 });
 
                 it("should turn off editing desc", function () {
@@ -199,7 +199,7 @@ define([
 
             describe('fn.saveName', function () {
                 it("should assign new value to selectedReportType", function () {
-                    sut.$scope.report.reportType = ['PDF', 'DOC', 'XSL'];
+                    sut.$scope.report.ReportType = ['PDF', 'DOC', 'XSL'];
                     sut.selectedReportType = 'PDF';
                     var newValue = 'DOC';
                     sut.fn.changeReportType(newValue);
@@ -210,7 +210,7 @@ define([
             describe('fn.toggleFavouriteReport', function () {
 
                 beforeEach(function () {
-                    sut.$scope.report.favourite = false;
+                    sut.$scope.report.Favorite = false;
                     sut.event = {
                         toggleFavouriteReport: sinon.spy()
                     };
@@ -234,9 +234,9 @@ define([
                 it("should fire fireReportSelected event if report's type is report", function () {
                     sut.fireOpenFolder = true;
                     var report = {
-                        id: 3,
-                        name: "my-report",
-                        type: "report"
+                        Id: 3,
+                        Name: "my-report",
+                        Type: "report"
                     };
                     sut.fn.sendReportOpenCommand(report);
                     expect(sut.reportEventBus.fireReportSelected).toHaveBeenCalledWith(3);
@@ -248,9 +248,9 @@ define([
                 it("should fire fireFolderReportSelected event if report's type is folder", function () {
                     sut.fireOpenFolder = true;
                     var report = {
-                        id: 3,
-                        name: "my-report",
-                        type: "folder"
+                        Id: 3,
+                        Name: "my-report",
+                        Type: "folder"
                     };
                     sut.fn.sendFolderReportOpenCommand(report);
                     expect(sut.reportEventBus.fireFolderReportSelected).toHaveBeenCalledWith(3);
@@ -332,21 +332,21 @@ define([
 
         describe('onSaveNameSuccess', function () {
             var serverResponse = {
-                name: "new_name_here",
-                id: 123
+                Name: "new_name_here",
+                Id: 123
             };
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
+                    Id: 123,
+                    Name: "123456",
+                    Description: "description_blahblah"
                 };
                 sut.editingName = true;
             });
             it("should update the name to the report", function () {
 
                 sut.onSaveNameSuccess(serverResponse);
-                expect(sut.report.name).toEqual('new_name_here');
+                expect(sut.report.Name).toEqual('new_name_here');
             });
 
             it("should turn off editing name", function () {
@@ -357,21 +357,21 @@ define([
 
         describe('onSaveDescriptionSuccess', function () {
             var serverResponse = {
-                description: "new_description_here",
-                id: 123
+                Description: "new_description_here",
+                Id: 123
             };
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
+                    Id: 123,
+                    Name: "123456",
+                    Description: "description_blahblah"
                 };
                 sut.editingDescription = true;
             });
             it("should update the description to the report", function () {
 
                 sut.onSaveDescriptionSuccess(serverResponse);
-                expect(sut.report.description).toEqual('new_description_here');
+                expect(sut.report.Description).toEqual('new_description_here');
             });
 
             it("should turn off editing description", function () {
@@ -384,9 +384,9 @@ define([
             var response;
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
+                    Id: 123,
+                    Name: "123456",
+                    Description: "description_blahblah"
                 };
                 response = {someFakeParameters: 123};
                 sut.event = {
@@ -411,9 +411,9 @@ define([
         describe('onParameterConfigurationLoaded', function () {
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 123,
-                    name: "123456",
-                    description: "description_blahblah"
+                    Id: 123,
+                    Name: "123456",
+                    Description: "description_blahblah"
                 };
                 sut.currentActionForEmptyOrAssignedParameters = sinon.stub();
                 sut.currentActionForParameters = sinon.stub();
@@ -466,7 +466,7 @@ define([
 
             it("should fire ReportInProgress event to event bus with current report id and false", function () {
                 exerciseTestOnLoadedConfiguration();
-                expect(eventBus.fireReportIsInProgress).toHaveBeenCalledWith(sut.report.id, false);
+                expect(eventBus.fireReportIsInProgress).toHaveBeenCalledWith(sut.report.Id, false);
             });
         });
 
@@ -479,8 +479,8 @@ define([
             };
             beforeEach(function () {
                 scope.report = {
-                    id: 123,
-                    name: "the report"
+                    Id: 123,
+                    Name: "the report"
                 };
                 var paramDialog = {
                     result: {
@@ -549,7 +549,7 @@ define([
         describe('onOtherReportInProgressStateChange', function () {
             beforeEach(function () {
                 sut.$scope.report = {
-                    id: 2002
+                    Id: 2002
                 };
             });
 
@@ -577,32 +577,32 @@ define([
 
             it('should change report\'s favourite property to true if it is currently false', function () {
                 sut.report = {
-                    id: 123,
-                    name: "report name",
-                    description: "description of a report",
-                    favourite: false
+                    Id: 123,
+                    Name: "report name",
+                    Description: "description of a report",
+                    Favorite: false
                 };
                 sut.onToggledFavouriteReport();
-                expect(sut.report.favourite).toBeTruthy();
+                expect(sut.report.Favorite).toBeTruthy();
             });
 
             it('should change report\'s favourite property to false if it is currently true', function () {
                 sut.report = {
-                    id: 123,
-                    name: "report name",
-                    description: "description of a report",
-                    favourite: true
+                    Id: 123,
+                    Name: "report name",
+                    Description: "description of a report",
+                    Favorite: true
                 };
                 sut.onToggledFavouriteReport();
-                expect(sut.report.favourite).toBeFalsy();
+                expect(sut.report.Favorite).toBeFalsy();
             });
 
             it('should mark inProgress to false', function () {
                 sut.report = {
-                    id: 123,
-                    name: "report name",
-                    description: "description of a report",
-                    favourite: true
+                    Id: 123,
+                    Name: "report name",
+                    Description: "description of a report",
+                    Favorite: true
                 };
                 sut.inProgress = true;
                 sut.onToggledFavouriteReport();

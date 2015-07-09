@@ -83,9 +83,9 @@ define([
         };
 
         self.fn.openResult = function(report){
-            var id = report.id;
+            var id = report.Id;
             self.showSearchResult = false;
-            if(report.type=='folder') {
+            if(report.Type=='folder') {
                 self.eventBus.fireFolderReportSelected(id);
             }
             else{

@@ -23,8 +23,8 @@ define([
 		describe('loadPreviewImage', function () {
 			it("should call loadPreviewImage from ReportService", function () {
 				var report = {
-					id: 123,
-					name: "sample report"
+					Id: 123,
+					Name: "sample report"
 				};
 				sut.loadPreviewImage(report);
 				expect(reportService.loadPreviewImage).toHaveBeenCalledWith(report);

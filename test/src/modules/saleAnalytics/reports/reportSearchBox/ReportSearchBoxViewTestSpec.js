@@ -232,8 +232,8 @@ define([
                 it("should set showSearchResult to false", function () {
                     sut.showSearchResult = true;
                     var report = {
-                        type: "folder",
-                        id: 10
+                        Type: "folder",
+                        Id: 10
                     };
                     sut.fn.openResult(report);
                     expect(sut.showSearchResult).toBeFalsy();
@@ -242,8 +242,8 @@ define([
                 describe('a folder is clicked on', function () {
                     it("should fire event bus's fireFolderReportSelected", function () {
                         var report = {
-                            type: "folder",
-                            id: 10
+                            Type: "folder",
+                            Id: 10
                         };
                         sut.fn.openResult(report);
                         expect(sut.eventBus.fireFolderReportSelected).toHaveBeenCalledWith(10);
@@ -254,8 +254,8 @@ define([
                 describe('a report is clicked on', function () {
                     it("should fire event bus's fireReportSelected", function () {
                         var report = {
-                            type: "report",
-                            id: 10
+                            Type: "report",
+                            Id: 10
                         };
                         sut.fn.openResult(report);
                         expect(sut.eventBus.fireReportSelected).toHaveBeenCalledWith(10);

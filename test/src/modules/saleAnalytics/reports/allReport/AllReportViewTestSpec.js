@@ -75,47 +75,47 @@ define([
                 [
                     {
                         input: [{
-                            "id": 2,
-                            "name": "Folder",
-                            "type": "folder",
-                            "idParent": -1,
+                            "Id": 2,
+                            "Name": "Folder",
+                            "Type": "folder",
+                            "IdParent": -1,
                             "children": [{
-                                "id": 10,
-                                "name": "Analisis Oportunidades IN/OUT 10",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 10,
+                                "Name": "Analisis Oportunidades IN/OUT 10",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }, {
-                                "id": 11,
-                                "name": "Analisis Oportunidades IN/OUT 11",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 11,
+                                "Name": "Analisis Oportunidades IN/OUT 11",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }]
                         }],
                         expectedOutput: [{
-                            "id": 2,
-                            "name": "Folder",
-                            "type": "folder",
+                            "Id": 2,
+                            "Name": "Folder",
+                            "Type": "folder",
                             isOpen: true,
                             "selected": false,
-                            "idParent": -1,
+                            "IdParent": -1,
                             "children": [{
-                                "id": 10,
-                                "name": "Analisis Oportunidades IN/OUT 10",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 10,
+                                "Name": "Analisis Oportunidades IN/OUT 10",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": true
 
                             }, {
-                                "id": 11,
-                                "name": "Analisis Oportunidades IN/OUT 11",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 11,
+                                "Name": "Analisis Oportunidades IN/OUT 11",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }]
                         }],
@@ -123,47 +123,47 @@ define([
                     },
                     {
                         input: [{
-                            "id": 2,
-                            "name": "Folder",
-                            "type": "folder",
-                            "idParent": -1,
+                            "Id": 2,
+                            "Name": "Folder",
+                            "Type": "folder",
+                            "IdParent": -1,
                             "children": [{
-                                "id": 10,
-                                "name": "Analisis Oportunidades IN/OUT 10",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 10,
+                                "Name": "Analisis Oportunidades IN/OUT 10",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }, {
-                                "id": 11,
-                                "name": "Analisis Oportunidades IN/OUT 11",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 11,
+                                "Name": "Analisis Oportunidades IN/OUT 11",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }]
                         }],
                         expectedOutput: [{
-                            "id": 2,
-                            "name": "Folder",
-                            "type": "folder",
+                            "Id": 2,
+                            "Name": "Folder",
+                            "Type": "folder",
                             isOpen: true,
                             "selected": true,
-                            "idParent": -1,
+                            "IdParent": -1,
                             "children": [{
-                                "id": 10,
-                                "name": "Analisis Oportunidades IN/OUT 10",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 10,
+                                "Name": "Analisis Oportunidades IN/OUT 10",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
 
                             }, {
-                                "id": 11,
-                                "name": "Analisis Oportunidades IN/OUT 11",
-                                "description": "Imforme que muestra riesgo por bajo uso por cliente",
-                                "idParent": 2,
-                                "type": "report",
+                                "Id": 11,
+                                "Name": "Analisis Oportunidades IN/OUT 11",
+                                "Description": "Imforme que muestra riesgo por bajo uso por cliente",
+                                "IdParent": 2,
+                                "Type": "report",
                                 "selected": false
                             }]
                         }],

@@ -50,8 +50,8 @@ define([
             describe('fn.toggleFavouriteReport', function () {
                 beforeEach(function () {
                     scope.report = {
-                        id: 123,
-                        favourite: false
+                        Id: 123,
+                        Favorite: false
                     };
                     sut.event.toggleFavouriteReport = sinon.spy();
                     sut.fn.toggleFavouriteReport();
@@ -66,7 +66,7 @@ define([
 
             beforeEach(function () {
                 scope.report = {
-                    id: 123,
+                    Id: 123,
                     params: [{'p1': 1}, {'p2': 'abcd'}]
                 }
             });
@@ -111,8 +111,8 @@ define([
 
             describe('fn.init', function () {
                 var report = {
-                    id: 123,
-                    name: "sample report"
+                    Id: 123,
+                    Name: "sample report"
                 };
                 it('should fire onLoadingPreviewImage event', function () {
                     sut.event = {
@@ -140,14 +140,14 @@ define([
         describe('onToggledFavouriteReport', function () {
             beforeEach(function () {
                 sut.report = {
-                    id: 123,
-                    name: "sample report",
-                    favourite: false
+                    Id: 123,
+                    Name: "sample report",
+                    Favorite: false
                 };
                 sut.onToggledFavouriteReport();
             });
             it('should toggle report\'s favourite property', function () {
-                expect(sut.report.favourite).toBeTruthy();
+                expect(sut.report.Favorite).toBeTruthy();
             });
             it('should set processingFavourite to false', function () {
                 expect(sut.processingFavourite).toBeFalsy();

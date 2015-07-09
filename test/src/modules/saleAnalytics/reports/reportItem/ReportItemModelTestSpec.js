@@ -36,8 +36,8 @@ define([
 		describe('getReportURL', function () {
 			it("should call getReportURL from ReportService", function () {
 				var report = {
-					id: 123,
-					name: "report 01"
+					Id: 123,
+					Name: "report 01"
 				};
 				var response = {};
 				var callback = sinon.stub();

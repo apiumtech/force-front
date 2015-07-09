@@ -27,8 +27,8 @@ define([
             ].forEach(function(testCase){
                     describe('view.event.' + testCase.method, function () {
                         var report = {
-                            id: 123,
-                            name: "rName"
+                            Id: 123,
+                            Name: "rName"
                         };
                         it("should call " + testCase.modelMethod + " method on model", function () {
                             mockModel[testCase.modelMethod].returns(exerciseFakeOkPromise());

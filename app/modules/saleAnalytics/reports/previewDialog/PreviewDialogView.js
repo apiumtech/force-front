@@ -51,7 +51,7 @@ define([
 
         self.fn.toggleFavouriteReport = function () {
             self.processingFavourite = true;
-            self.event.toggleFavouriteReport(self.report.id);
+            self.event.toggleFavouriteReport(self.report.Id);
         };
 
         self.fn.download = function () {
@@ -71,7 +71,7 @@ define([
 
     PreviewDialogView.prototype.onToggledFavouriteReport = function(){
         var self = this;
-        self.report.favourite = !self.report.favourite;
+        self.report.Favorite = !self.report.Favorite;
         self.processingFavourite = false;
     };
 
