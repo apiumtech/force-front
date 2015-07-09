@@ -215,7 +215,7 @@ define([
                 });
             });
 
-            describe("availableFields is not empty", function () {
+            xdescribe("availableFields is not empty", function () {
                 it("should keep the current fields setting", function () {
                     sut.$scope.availableFields = [{
                         name: 'field1', isDisplaying: true

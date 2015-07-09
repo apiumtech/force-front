@@ -176,7 +176,8 @@ define([
 
     GraphChartWidgetView.prototype.extractDisplayFields = function () {
         var self = this;
-        var fieldsToMerge = self.availableFields;
+        var fieldsToMerge = [];
+            //fieldsToMerge = self.availableFields;
 
         var newFields = self.data.fields.map(function (item) {
             return {
@@ -185,16 +186,16 @@ define([
             };
         });
 
-        newFields.forEach(function (field) {
-            var isExisting = _.find(fieldsToMerge, function (c) {
-                return c.name == field.name
-            });
+        //newFields.forEach(function (field) {
+        //    var isExisting = _.find(fieldsToMerge, function (c) {
+        //        return c.name == field.name
+        //    });
+        //
+        //    if (undefined === isExisting)
+        //        fieldsToMerge.push(field);
+        //});
 
-            if (undefined === isExisting)
-                fieldsToMerge.push(field);
-        });
-
-        self.availableFields = fieldsToMerge;
+        self.availableFields = newFields;
     };
 
     GraphChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
