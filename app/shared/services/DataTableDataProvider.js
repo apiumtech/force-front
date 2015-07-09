@@ -36,6 +36,7 @@ define([
                     title: "Logo",
                     dataType: "String",
                     visible: true,
+                    orderable: false,
                     width: 35
                 },
                 {data: "class", title: "Class.", dataType: "String", visible: true},
@@ -45,6 +46,7 @@ define([
                     menuName: 'Geolocalization',
                     width: 100,
                     dataType: "String",
+                    orderable: false,
                     visible: true
                 },
                 {data: "contactInfo.country", title: "Country", dataType: "String", visible: true, isFilterable: true},
