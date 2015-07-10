@@ -158,7 +158,7 @@ define([
 
         self.chart = chartService.createChart(element[0], 'scatter');
 
-        var options = {
+        self.chartOptions = {
             title: self.widgetName,
             selectionMode: 'none',
             aggregationTarget: 'category',
@@ -178,7 +178,14 @@ define([
             vAxis: {title: self.axisXTitle}
         };
 
-        chartService.drawChart(self.chart, self.chartData, options);
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+    };
+
+    ScatterChartWidgetView.prototype.reDraw = function(){
+        var self = this;
+        console.log(self.chart);
+        //if(!self.chart || !self.chartData || !self.chartOptions) return;
+        //self.chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
     var previousPoint = null;

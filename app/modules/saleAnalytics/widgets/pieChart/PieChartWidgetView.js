@@ -51,7 +51,7 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -84,6 +84,11 @@ define([
         if (!data || data === null || !isArray(data)) return;
 
         self.paintChart(self.element.find('.chart-place-holder'));
+    };
+
+    PieChartWidgetView.prototype.reDraw = function(){
+        if(PieChart.getChart())
+        PieChart.getChart().draw();
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {

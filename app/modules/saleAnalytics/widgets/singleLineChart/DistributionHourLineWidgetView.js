@@ -15,6 +15,7 @@ define([
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
@@ -61,7 +62,7 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -115,14 +116,22 @@ define([
         self.paintChart(self.element.find('.chart-place-holder'), chartFields);
     };
 
+    SingleLineChartWidgetView.prototype.reDraw = function(){
+        var self = this;
+        if(!self.plot) return;
+        if(!SingleLineChart.getChart()) return;
+        SingleLineChart.getChart().draw();
+    };
+
     SingleLineChartWidgetView.getLineGraphInstance = function (field) {
         return LineGraphPlot.newInstance(field.name, field.data, false, false);
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
-        var plot = SingleLineChart.basic(chartFields, []);
-        plot.paint($(element));
-        plot.onHover(this.onPlotHover.bind(this));
+        var self = this;
+        self.plot = SingleLineChart.basic(chartFields, []);
+        self.plot.paint($(element));
+        self.plot.onHover(this.onPlotHover.bind(this));
     };
 
     var previousPoint = null;

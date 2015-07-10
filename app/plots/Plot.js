@@ -43,10 +43,20 @@ define([
         this.configuration.xaxis = this.configuration.xaxis || {};
         this.configuration.xaxis.ticks = this.labels;
 
-        this.paintPlot(element, this.plots.map(function (e) {
+        this.plots = this.plots.map(function (e) {
             return e.digest(element);
-        }).filter(Plot._isNotEmpty), this.configuration);
+        }).filter(Plot._isNotEmpty);
+
         this.renderedElement = element;
+
+        this.paintPlot(this.renderedElement , this.plots, this.configuration);
+    };
+
+    Plot.getChart = function(){
+        if(!this.renderedElement || !this.plots || !this.configuration){
+            return null;
+        }
+        return this.paintPlot(this.renderedElement , this.plots, this.configuration);
     };
 
     Plot.prototype.onHover = function (callback) {

@@ -52,7 +52,7 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
@@ -116,6 +116,11 @@ define([
         });
 
         self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
+    };
+
+    GraphChartWidgetView.prototype.reDraw = function(){
+        if(!Plot.getChart()) return;
+        Plot.getChart().draw();
     };
 
     GraphChartWidgetView.prototype.paintChart = function (element, chartFields, axisData) {

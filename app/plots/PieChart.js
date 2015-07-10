@@ -19,7 +19,14 @@ define([
     };
 
     PieChart.prototype.paint = function (element) {
-        this.paintPlot(element, this.plotData.filter(PieChart._isNotEmpty), this.configuration)
+        this.element = element;
+        this.plotData = this.plotData.filter(PieChart._isNotEmpty);
+        this.paintPlot(this.element, this.plotData, this.configuration)
+    };
+
+    PieChart.getChart = function(){
+        if(!this.element || !this.plotData || !this.configuration) return null;
+        return this.paintPlot(this.element, this.plotData, this.configuration);
     };
 
     PieChart.basic = function (plotData) {

@@ -33,6 +33,14 @@ define([
                 this.$scope.isExpanded = value;
             }
         },
+        isMinimized: {
+            get: function () {
+                return this.$scope.isMinimized || (this.$scope.isMinimized = false);
+            },
+            set: function (value) {
+                this.$scope.isMinimized = value;
+            }
+        },
         isLoading: {
             get: function () {
                 return this.$scope.isLoading || (this.$scope.isLoading = false);
@@ -88,12 +96,17 @@ define([
             scope = this.$scope;
 
         self.fn.toggleCollapsePanel = function () {
+            self.isMinimized = !self.isMinimized;
             self.element.find('.panel-body').slideToggle();
         };
 
         self.fn.expandPanel = function () {
             self.eventBusChannel.sendExpandingWidget();
             self.isExpanded = !self.isExpanded;
+            if (self.isMinimized) {
+                self.isMinimized = !self.isMinimized;
+                self.element.find('.panel-body').slideToggle();
+            }
         };
 
         self.fn.reloadPanel = function () {

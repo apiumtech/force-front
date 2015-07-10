@@ -61,7 +61,7 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -95,6 +95,11 @@ define([
         if (!data || data === null || !isArray(data)) return;
 
         self.paintChart(self.element.find('.chart-place-holder'));
+    };
+
+    BarChartWidgetView.prototype.reDraw = function(){
+        if(!BarChart.getChart()) return;
+        BarChart.getChart().draw();
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {
