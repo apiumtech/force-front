@@ -9,7 +9,8 @@ define([
 
         describe("construct", function () {
             var events = [
-                "RemovingWidget"
+                "RemovingWidget",
+                "ExpandingWidget"
             ];
 
             var sut;
