@@ -29,7 +29,6 @@ define([
         return this._baseReload();
     };
 
-    //TableWidgetModel.prototype.decorateServerData = function (data) {
     TableWidgetModel.prototype.parseData = function (data, widgetOption) {
         if( widgetOption && widgetOption == "userExtraFieldsDataParser" ) {
             return this.userExtraFieldsDataParser(data);
