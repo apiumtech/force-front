@@ -103,17 +103,19 @@ define([
 
         describe("refreshChart", function () {
 
+            var data = [{not: "null"}];
+
             it("should call paintChart()", function () {
                 spyOn(sut, 'paintChart');
                 var fakeElement = {};
                 spyOn(sut.element, 'find').and.returnValue(fakeElement);
-                sut.refreshChart();
+                sut.refreshChart(data);
                 expect(sut.paintChart).toHaveBeenCalledWith(fakeElement);
             });
 
             it("should call clearHeatMap and clearPointMap from mapchart()", function () {
                 spyOn(sut, 'paintChart');
-                sut.refreshChart();
+                sut.refreshChart(data);
                 expect(mapChart.clearHeatMap).toHaveBeenCalled();
                 expect(mapChart.clearPointMap).toHaveBeenCalled();
             });
@@ -127,7 +129,6 @@ define([
 
                     it("should call '" + method + "' method from mapchart when selectedFilter is '" + filter + "'", function () {
                         spyOn(sut, 'paintChart');
-                        var data = {};
                         sut.selectedFilter = filter;
                         sut.refreshChart(data);
                         expect(mapChart[method]).toHaveBeenCalledWith(data);

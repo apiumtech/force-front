@@ -69,7 +69,7 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        self.widgetEventBus.onExpandingWidget(self.onWindowResize.bind(self));
+        eventChannel.onExpandingWidget(self.onWindowResize.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;

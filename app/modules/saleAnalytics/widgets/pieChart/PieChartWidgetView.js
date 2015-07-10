@@ -5,13 +5,15 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/PieChart'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
 
@@ -48,6 +50,8 @@ define([
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
+        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;

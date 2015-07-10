@@ -7,13 +7,15 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/BarChart'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = EventBus.getInstance();
         self.configureEvents();
     }
 
@@ -58,6 +60,8 @@ define([
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
+        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;

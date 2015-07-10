@@ -41,6 +41,7 @@ define([
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
+        console.log("decorate", data);
         //console.log("server",data);
         data = data.data;
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");

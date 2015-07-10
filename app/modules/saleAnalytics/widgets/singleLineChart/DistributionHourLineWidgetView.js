@@ -6,14 +6,16 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/SingleLineChart',
     'plots/LineGraphPlot'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, SingleLineChart, LineGraphPlot) {
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot) {
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
 
@@ -58,6 +60,8 @@ define([
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
+        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;

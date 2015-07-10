@@ -92,7 +92,7 @@ define([
         };
 
         self.fn.expandPanel = function () {
-            self.saleAnalyticEventBus.fireExpandingWidget(self.widgetId);
+            self.eventBusChannel.sendExpandingWidget();
             self.isExpanded = !self.isExpanded;
         };
 

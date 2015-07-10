@@ -49,6 +49,7 @@ define([
     };
 
     AllReportView.prototype.onReportsLoaded = function (reports) {
+        console.log("loaded", reports);
         this.reports = reports;
         this.isLoading = false;
     };

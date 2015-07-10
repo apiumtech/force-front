@@ -11,6 +11,7 @@ define([
         this.signalService = signalService;
         this.reloadSignal = this.signalService.newSignal();
         this.reloadCompleteSignal = this.signalService.newSignal();
+        this.expandWidgetSgnal = this.signalService.newSignal();
     }
 
     BaseWidgetEventBus.inherits(Object, {});
@@ -37,6 +38,18 @@ define([
 
     BaseWidgetEventBus.prototype.unsubscribeReloadCompleteCommand = function () {
         this.reloadCompleteSignal.removeAll();
+    };
+
+    BaseWidgetEventBus.prototype.onExpandingWidget = function (callback) {
+        this.expandWidgetSgnal.add(callback);
+    };
+
+    BaseWidgetEventBus.prototype.sendExpandingWidget = function (message) {
+        this.expandWidgetSgnal.dispatch(message);
+    };
+
+    BaseWidgetEventBus.prototype.unsubscribeExpandingWidget = function () {
+        this.expandWidgetSgnal.removeAll();
     };
 
     BaseWidgetEventBus.newInstance = function () {
