@@ -1,0 +1,334 @@
+{
+  "hello": "Hello",
+  "validationMsg": {
+    "required": "This field is required",
+    "email": "Please enter valid email format",
+    "url": "Please enter valid URL format",
+    "number": "Please enter number"
+  },
+  "commonText": {
+    "more": "more",
+    "Email": "Email",
+    "Skype": "Skype",
+    "Export": "Export",
+    "Description": "Description",
+    "ViewMore": "View more",
+    "Apply": "Apply",
+    "Edit": "Edit",
+    "Create": "Create",
+    "Delete": "Delete",
+    "Cancel": "Cancel",
+    "Retry": "Retry",
+    "Save": "Save",
+    "SaveAndContinue": "Save And Continue",
+    "Show": "Show",
+    "FilterBy": "Filter by",
+    "Owner": "Owner",
+    "Search": "Search",
+    "RestoreDefault": "Restore default",
+    "LogOut": "Log out",
+    "Setting": "Setting",
+    "EditProfile": "Edit Profile",
+    "Inbox": "Inbox",
+    "Calendar": "Calendar",
+    "MinuteAgo": "__count__ minute ago",
+    "MinuteAgo_plural": "__count__ minutes ago",
+    "HourAgo": "__count__ hour ago",
+    "HourAgo_plural": "__count__ hours ago",
+    "NewEmailFrom": "New email from __from__",
+    "NoResultFound": "No result found"
+  },
+  "ConfirmationBox": {
+    "Delete": {
+    }
+  },
+  "Documents": {
+    "Title": "Title",
+    "Date": "Date",
+    "AddDocument": "Add Document",
+    "deleteDocumentConfirmationMsg": "<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
+    "deleteBtnConfirm": "Yes, delete it",
+    "cancelDelete": "No, thanks",
+    "UploadDocuments": {
+      "Title": "Add document",
+      "UploadingTitle": "Uploading",
+      "DocumentsAmount": "__count__ document",
+      "DocumentsAmount_plural": "__count__ documents",
+      "Heading_Instruction": "Drag & Drop your documents here",
+      "Heading_Instruction2": "Some help text appear here",
+      "UploadBtn": "Upload files",
+      "UploadBtn_AddMore": "Add more files",
+      "UploadBtn_Submit": "Upload Documents",
+      "UploadingMessage": "We're uploading your files. It will be a matter of milliseconds",
+      "UploadingSuccessTitle": "Uploaded Successfully!",
+      "UploadingSuccessMessage": "Your documents have been uploaded successfully",
+      "UploadingErrorTitle": "Sorry!",
+      "UploadingErrorMessage": "Some of your files cannot be uploaded, please try again!",
+      "OverSized": "Maximum file size is __size__MB. Please remove this file"
+    }
+  },
+  "DateTime": {
+    "Today": "Today",
+    "Yesterday": "Yesterday",
+    "DaysAgo": "__xx__ day ago",
+    "DaysAgo_plural": "__xx__ days ago",
+    "LastWeek": "Last week",
+    "WeeksAgo": "__xx__ week ago",
+    "WeeksAgo_plural": "__xx__ weeks ago",
+    "LastMonth": "Last month",
+    "MonthsAgo": "__xx__ month ago",
+    "MonthsAgo_plural": "__xx__ months ago",
+    "LastYear": "LastYear",
+    "YearsAgo": "__xx__ year ago",
+    "YearsAgo_plural": "__xx__ years ago"
+  },
+  "AccountDetail": {
+    "Address": "Address",
+    "Classification": "Classification",
+    "AccountType": "Account Type",
+    "Owner": "Owner",
+    "Mobile": "Mobile",
+    "LaneLine": "Lane Line",
+    "Web": "Web",
+    "RelatedContacts": "Related Contacts",
+    "AddContact": "Add Contacts",
+    "RelatedCompany": "Related Company",
+    "AddCompany": "Add Company",
+    "ExtraFields": "Extra Fields",
+    "RelatedContact": {
+      "Mobile": "Mobile",
+      "FixedLine": "Fixed Line"
+    },
+    "ActivityWidget": {
+      "EditActivity": "Edit activity"
+    },
+    "Dialog": {
+      "AddRelatedCompany": "Add Related Company"
+    }
+  },
+  "LineWidget": {
+    "DataDisplay": "Data display",
+    "TotalVisits": "Total Visits",
+    "VisitsPerDay": "Visits / Day",
+    "VisitsPerUserPerDay": "Visits / User / Day",
+    "Filters": {
+      "Hour": "Hour",
+      "Date": "Date",
+      "Month": "Month",
+      "Week": "Week",
+      "ShowFields": "Show Fields"
+    }
+  },
+  "TableWidget": {
+    "AddColumns": "Add Columns",
+    "RestoreDefault": "Restore default"
+  },
+  "MapChart": {
+    "CheckIns": "CheckIns",
+    "Users": "Users",
+    "Activity": "Activity"
+  },
+  "LeftMenu": {
+    "Dashboard": "Dashboard",
+    "Accounts": "Accounts",
+    "Contacts": "Contacts",
+    "Opportunities": "Opportunities",
+    "Quotes": "Quotes",
+    "Agenda": "Agenda",
+    "Products": "Products",
+    "Documents": "Documents",
+    "Activity": "Activity",
+    "SaleAnalytics": "Sale Analytics",
+    "Overview": "Overview",
+    "Intensity": "Intensity",
+    "Distribution": "Distribution",
+    "Conversion": "Conversion",
+    "Reports": "Reports"
+  },
+  "Account": {
+    "AccountTitle": "Accounts",
+    "CreateAccount": "Create Account",
+    "CreateContact": "Create contact",
+    "EditAccount": "Edit Account",
+    "Table": {
+      "Header": "__count__ Result",
+      "Header_plural": "__count__ Results",
+      "FIELDS": "FIELDS",
+      "ShowMap": "Show Map"
+    },
+    "Filters": {
+      "AddFilter": "Add Filter",
+      "FilterBy": {
+        "MenuOwner": {
+          "Title": "Owner",
+          "SelectOwner": "Select owner",
+          "OwnerListEmpty": "No owner available",
+          "AvailableOwners": "Available Owners"
+        },
+        "MenuViews": {
+          "Title": "Views",
+          "AvailableFilter": "Available Views Filter",
+          "Filter": "Enter your filter",
+          "SelectView": "Select view",
+          "SaveCurrentView": "Save current view",
+          "DeleteView": "Delete view"
+        },
+        "MenuEnvironment": {
+          "Title": "Environment",
+          "EnvironmentListEmpty": "No environment available",
+          "FilterEnvironment": "Filter Environment",
+          "AvailableFilterEnvironment": "Available Environment Settings"
+        },
+        "MenuFilter": {
+          "Title": "Custom Filter"
+        },
+        "MenuAccountType": {
+          "Title": "Account Type",
+          "FilterAccountType": "Search Account Type",
+          "AvailableFilterAccountType": "Available Account Type"
+        }
+      },
+      "AddFilters": "Add Filters",
+      "SearchFilters": "Search Filters",
+      "AvailableFilters": "Available Filters"
+    }
+  },
+  "Errors": {
+    "IntensityViewCannotInstantiate": "Could not create IntensityView!",
+    "CannotInstantiateClass": "Cannot instantiate __class__",
+    "NoWidgetAvailable": {
+      "Title": "No widget available",
+      "Message": "You have closed all the widgets for this page"
+    },
+    "LoadingWidgets": "Loading widgets"
+  },
+  "Header": {
+    "EnterKeyword": "Enter keyword",
+    "ServerErrorReports": "Server Error Reports",
+    "NewUserRegistered": "New User Registered"
+  },
+  "Filters": {
+    "FilterBy": "Filter by",
+    "AllUsers": "All Users",
+    "Team": "Team",
+    "Environment": "Environment",
+    "RecentSelected": "Recent selected",
+    "SearchOwner": "Select user",
+    "AllUserSelectsAllEnvironments": "All users (select all environments)",
+    "ForceES": "Force ES (Environment ES)",
+    "ForceUK": "Force UK (Environment ES)",
+    "DateRange": "In this date range",
+    "SelectDateRange": "Select the date range",
+    "Customized": "Customized",
+    "To": "to",
+    "LastxxDays": "Last __count__ day",
+    "LastxxDays_plural": "Last __count__ days"
+  },
+  "Intensity": {
+  },
+  "Reports": {
+    "AllReports": "All Reports",
+    "FavouriteReports": "Favourite Reports",
+    "SearchReports": "Search Reports",
+    "Dialog": {
+      "ReportParameterTitle": "Report Parameters"
+    }
+  },
+  "Contact": {
+    "ContactTitle": "Contacts",
+    "CreateContact": "Create Contact",
+    "Table": {
+      "Header": "Contacts Management",
+      "FIELDS": "FIELDS",
+      "ShowMap": "Show Map"
+    },
+    "Filters": {
+      "FilterBy": {
+        "MenuAccount": {
+          "Title": "Account",
+          "SearchPrompt": "Search account",
+          "ListEmpty": "No accounts available"
+        },
+        "MenuRole": {
+          "Title": "Role",
+          "SearchPrompt": "Search role",
+          "ListEmpty": "No roles available"
+        },
+        "MenuPhoneNumber": {
+          "Title": "Tel. number",
+          "SearchPrompt": "Type in phone number"
+        },
+        "MenuAddFilter": {
+          "Title": "Add Filter",
+          "SearchPrompt": "Search Filter"
+        }
+      }
+    }
+  },
+
+  "Literal": {
+    "List": {
+      "Create_label": "Create literal",
+      "Title": "Literals",
+      "Table": {
+        "Header": "Literals table",
+        "Edit_label": "Edit",
+        "Delete_label": "Delete",
+        "Delete_Confirm_Message": "Are you sure you want to delete literal with id '__literalId__'?"
+      }
+    },
+    "Detail": {
+      "Title": "Literal",
+      "Header": {
+        "Create": "Create literal",
+        "Edit": "Edit literal",
+        "Form": "Form"
+      },
+      "Form": {
+        "Literal_Key": "Literal key",
+        "Literal_Key_Placeholder": "Enter the literal key",
+        "Literal_Value_Placeholder": "Enter literal value for '__mylang__'",
+        "Literal_Type": "Literal type",
+        "Select_Literal_Type": "Select literal type",
+        "Device_Type": "Device type",
+        "Select_Device_Type": "Select device type",
+        "ListEmpty": "The list is empty",
+        "Submit": "Save",
+        "Cancel": "Cancel",
+        "SaveSuccessMessage": "Your literal has been saved successfully",
+        "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
+      }
+    }
+  },
+
+  "CustomLiteral": {
+    "List": {
+      "Title": "Custom Literals",
+      "Table": {
+        "Header": "Custom literals table",
+        "Edit_label": "Set",
+        "Delete_label": "Restore",
+        "Delete_Confirm_Message": "Are you sure you want to restore this custom literal with id '__literalId__' to its original state?"
+      }
+    },
+    "Detail": {
+      "Title": "Custom Literal",
+      "Header": {
+        "Edit": "Set custom literal",
+        "Form": "Form"
+      },
+      "Form": {
+        "Literal_Key": "Custom literal key",
+        "Literal_Key_Placeholder": "Enter the custom literal key",
+        "Literal_Value_Placeholder": "Enter custom literal value for '__mylang__'",
+        "Implementation_Code": "Implementation code",
+        "Select_Implementation_Code": "Select implementation code",
+        "ListEmpty": "The list is empty",
+        "Submit": "Save",
+        "Cancel": "Cancel",
+        "SaveSuccessMessage": "Your literal has been saved successfully",
+        "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
+      }
+    }
+  }
+}
