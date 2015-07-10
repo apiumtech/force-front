@@ -7,5 +7,9 @@ define([
 		this.reportService = reportService || new ReportService();
 	}
 
+    ReportParamsDialogModel.prototype.getReportListOfValues = function(list){
+        return this.reportService.getReportListOfValues(list);
+    };
+
 	return ReportParamsDialogModel;
 });

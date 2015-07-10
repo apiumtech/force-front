@@ -16,7 +16,7 @@ define([
 
     ReportItemModel.prototype.update = function (report) {
         var self = this;
-        var url = Configuration.api.updateReport.format(report.Id);
+        var url = Configuration.api.updateReport.format(report.id);
         console.log("update report url",url);
         var params = {
             url: url,

@@ -54,8 +54,7 @@ define([
 
         it('should return a new instance on newInstance', function () {
             expect(CQRSUnwrapper.$newInstance()).toEqual(jasmine.any(CQRSUnwrapper));
-        })
-
+        });
     });
 
 });

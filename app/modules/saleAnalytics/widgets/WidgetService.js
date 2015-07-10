@@ -174,8 +174,7 @@ define([
                 page: "conversion",
                 widgetType: "table",
                 widgetName: "Ranking",
-                // TODO: change to conversion api
-                endPoint: "rankingWidgetIntensityDataApi",
+                endPoint: "rankingWidgetConversionDataApi",
                 order: 1,
                 size: 12,
                 id: 10

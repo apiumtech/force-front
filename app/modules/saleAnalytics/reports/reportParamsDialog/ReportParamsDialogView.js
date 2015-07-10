@@ -1,13 +1,15 @@
 define([
 	'shared/BaseView',
-	'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogPresenter'
-], function (BaseView, PreviewDialogPresenter) {
+	'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogPresenter',
+    'shared/services/TranslatorService'
+], function (BaseView, PreviewDialogPresenter, TranslatorService) {
 	'use strict';
 
 	function PreviewDialogView($scope, $modalInstance, presenter) {
 		presenter = presenter || new PreviewDialogPresenter();
 		BaseView.call(this, $scope, null, presenter);
 		this.$modalInstance = $modalInstance;
+        this.translator = TranslatorService.newInstance();
 		this.configureEvents();
 	}
 
@@ -41,6 +43,15 @@ define([
 
 			self.$modalInstance.close(self.report);
 		};
+
+        self.fn.getReportListOfValues = function(paramConfig){
+            self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
+                listOfValues.forEach(function(item){
+                    item.Key = self.translator.translate(item.Key);
+                });
+                paramConfig.Value = listOfValues;
+            });
+        };
 	};
 
 	PreviewDialogView.prototype.validateParameterInput = function(){

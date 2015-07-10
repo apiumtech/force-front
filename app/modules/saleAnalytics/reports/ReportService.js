@@ -1,8 +1,9 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/reports/ReportFakeData',
-    'config'
-], function (AjaxService, ReportFakeData, Configuration) {
+    'config',
+    'shared/services/ajax/CQRSUnwrapper'
+], function (AjaxService, ReportFakeData, Configuration, CQRSUnwrapper) {
     'use strict';
 
     function ReportService(ajaxService) {
@@ -19,7 +20,7 @@ define([
             url: url,
             type: 'put',
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
 
         return this.authAjaxService.rawAjaxRequest(params);
@@ -35,7 +36,7 @@ define([
             type: 'post',
             data: report.params,
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
         return self.authAjaxService.rawAjaxRequest(params);
     };
@@ -47,10 +48,10 @@ define([
             url: url,
             type: 'get',
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
 
-        return this.authAjaxService.rawAjaxRequest(params);
+        return CQRSUnwrapper.unwrapData(this.authAjaxService.rawAjaxRequest(params));
     };
 
     ReportService.prototype.loadPreviewImage = function (report) {
@@ -61,7 +62,7 @@ define([
             type: 'post',
             data: report.params,
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
 
         return this.authAjaxService.rawAjaxRequest(params);
@@ -74,10 +75,23 @@ define([
             url: url,
             type: 'get',
             contentType: 'application/json',
-            accept: 'application/json'
+            dataType: 'json'
         };
 
         return this.authAjaxService.rawAjaxRequest(params).then(this.decorateServerData.bind(this));
+    };
+
+    ReportService.prototype.getReportListOfValues = function(list){
+        var url = Configuration.api.getReportListOfValues.format(list);
+        console.log("getReportListOfValues url",url);
+        var params = {
+            url: url,
+            type: 'get',
+            contentType: 'application/json',
+            dataType: 'json'
+        };
+
+        return CQRSUnwrapper.unwrapData( this.authAjaxService.rawAjaxRequest(params) );
     };
 
     ReportService.prototype.decorateServerData = function (serverData) {

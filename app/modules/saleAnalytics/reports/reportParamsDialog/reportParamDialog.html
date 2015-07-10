@@ -12,72 +12,81 @@
 <div class="modal-body form-horizontal report-parameter-dialog">
     <div ng-repeat="paramConfig in report.parameterConfigurations">
 
-        <div class="form-group" ng-if="paramConfig.type == 'textbox'">
-            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+        <div class="form-group" ng-if="paramConfig.Type == 'textbox'">
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10 ui-widget">
                 <input class="form-control"
-                       ng-model="report.params[paramConfig.id]"
+                       ng-model="report.params[paramConfig.Id]"
                        autocomplete="http://somewhere.api/backend/api/whatever"/>
             </div>
         </div>
 
-        <div class="form-group" ng-if="paramConfig.type == 'selectbox'">
-            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+        <div class="form-group" ng-if="paramConfig.Type == 'singlevaluelist'"><!-- was 'selectbox' -->
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10">
-                <select class="form-control" ng-model="report.params[paramConfig.id]"
-                        ng-init="report.params[paramConfig.id] = paramConfig.value[0].key">
-                    <option ng-repeat="value in paramConfig.value" value="{{value.key}}">{{value.value}}</option>
+                <select class="form-control" ng-model="report.params[paramConfig.Id]"
+                        ng-init="fn.getReportListOfValues(paramConfig)"
+                        ng-options="value.Key for value in paramConfig.Value track by value.Value">
+                    <option value="">{{'Reports.Dialog.LoV.Select_Value' | i18next}}</option>
                 </select>
             </div>
         </div>
 
-        <div class="form-group" ng-if="paramConfig.type == 'range'">
-            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+        <div class="form-group" ng-if="paramConfig.Type == 'range'">
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10">
                 <div class="col-md-12"
                      value-range min="10"
                      max="100"
-                     ng-model="report.params[paramConfig.id]"
+                     ng-model="report.params[paramConfig.Id]"
                      min-value="from" max-value="to"></div>
             </div>
             <div class="clearfix"></div>
 
             <div class="col-md-5 col-md-push-2">
-                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.id].from"/>
+                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].from"/>
             </div>
             <div class="col-md-5 col-md-push-2">
-                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.id].to"/>
+                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].to"/>
             </div>
         </div>
 
-        <div class="form-group" ng-if="paramConfig.type == 'date'">
-            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+        <div class="form-group" ng-if="paramConfig.Type == 'date'">
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10">
                 <force-date-picker year-range="150" date-format="{{config.shortDateFormat.default}}">
                     <input type="text" class="form-control"
-                           ng-model="report.params[paramConfig.id]"/>
+                           ng-model="report.params[paramConfig.Id]"/>
                 </force-date-picker>
             </div>
         </div>
 
-        <div class="form-group" ng-if="paramConfig.type == 'date_range'">
-            <label class="col-md-2 control-label">{{paramConfig.label}}</label>
+        <div class="form-group" ng-if="paramConfig.Type == 'date_range'">
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-5">
                 <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
                     <input type="text" class="form-control"
-                           ng-model="report.params[paramConfig.id].from"/>
+                           ng-model="report.params[paramConfig.Id].from"/>
                 </force-date-picker>
             </div>
             <div class="col-md-5">
                 <force-date-picker year-range="5" date-format="{{config.shortDateFormat.default}}">
                     <input type="text" class="form-control"
-                           ng-model="report.params[paramConfig.id].to"/>
+                           ng-model="report.params[paramConfig.Id].to"/>
                 </force-date-picker>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="paramConfig.Type == 'user'">
+            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
+
+            <div class="col-md-10 ui-widget">
+                <p>Something for selecting users goes here</p>
             </div>
         </div>
 

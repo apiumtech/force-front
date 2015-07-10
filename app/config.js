@@ -64,6 +64,7 @@ define(function () {
         graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
 
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
+        rankingWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod',
 
         userExtraFieldsDataApi: baseApi + '/api/userExtraFields',
         //userExtraFieldsDataApi: baseApi + 'api/queries/stats/extrafields/extrafieldList',
@@ -89,6 +90,7 @@ define(function () {
         getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
         searchReport: baseUrl + '/api/queries/stats/reports/searchReports?searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
+        getReportListOfValues: baseApi + '/api/reportListOfValues/{0}',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
