@@ -30,9 +30,20 @@ define([
 
     SingleLineChart.prototype.paint = function (element) {
         this.renderedElement = element;
-        this.paintPlot(this.renderedElement, this.plotData.map(function (e) {
+        this.plotData = this.plotData.map(function (e) {
+            return e.digest(element);
+        }).filter(SingleLineChart._isNotEmpty);
+        this.paintPlot(this.renderedElement, this.plotData, this.configuration);
+    };
+
+    SingleLineChart.getChart = function(){
+
+        if(!this.renderedElement || !this.plotData || !this.configuration) return null;
+
+        return this.paintPlot(this.renderedElement, this.plotData.map(function (e) {
             return e.digest(element);
         }).filter(SingleLineChart._isNotEmpty), this.configuration);
+
     };
 
     SingleLineChart.prototype.onHover = function (callback) {

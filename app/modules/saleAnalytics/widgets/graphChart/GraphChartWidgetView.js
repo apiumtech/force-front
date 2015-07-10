@@ -5,10 +5,11 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/Plot',
     'plots/LineGraphPlot',
     'jquery'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, Plot, LineGraphPlot, $) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
@@ -21,7 +22,7 @@ define([
         scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;
         var self = this;
-
+        self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
 
@@ -50,6 +51,8 @@ define([
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
@@ -100,6 +103,8 @@ define([
             scope = self.$scope,
             data = self.data;
 
+        console.log(data);
+
         if (!data.fields) return;
         if(!data.fields.length) data.fields = [];
 
@@ -111,6 +116,11 @@ define([
         });
 
         self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
+    };
+
+    GraphChartWidgetView.prototype.reDraw = function(){
+        if(!Plot.getChart()) return;
+        Plot.getChart().draw();
     };
 
     GraphChartWidgetView.prototype.paintChart = function (element, chartFields, axisData) {

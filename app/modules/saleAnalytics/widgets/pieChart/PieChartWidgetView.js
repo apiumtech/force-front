@@ -5,13 +5,15 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/PieChart'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, PieChart) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
 
@@ -49,6 +51,8 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();
@@ -80,6 +84,11 @@ define([
         if (!data || data === null || !isArray(data)) return;
 
         self.paintChart(self.element.find('.chart-place-holder'));
+    };
+
+    PieChartWidgetView.prototype.reDraw = function(){
+        if(PieChart.getChart())
+        PieChart.getChart().draw();
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {

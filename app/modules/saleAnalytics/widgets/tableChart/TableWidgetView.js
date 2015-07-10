@@ -52,6 +52,8 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        eventChannel.onExpandingWidget(self.renderChart.bind(self));
+
         self.fn.isImage = function (string) {
             if (typeof string !== 'string') return false;
 

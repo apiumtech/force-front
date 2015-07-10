@@ -32,7 +32,14 @@ define([
             this.configuration.xaxis.ticks = this.getTickLabels();
 
         this.renderedElement = element;
-        this.paintPlot(this.renderedElement, this.plotData.filter(BarChart._isNotEmpty), this.configuration);
+
+        this.plotData = this.plotData.filter(BarChart._isNotEmpty);
+        this.paintPlot(this.renderedElement, this.plotData, this.configuration);
+    };
+
+    BarChart.getChart = function(){
+        if(!this.renderedElement || !this.plotData || !this.configuration) return null;
+        return this.paintPlot(this.renderedElement, this.plotData, this.configuration);
     };
 
     BarChart.prototype.onHover = function (callback) {

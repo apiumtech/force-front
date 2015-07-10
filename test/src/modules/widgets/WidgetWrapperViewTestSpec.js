@@ -138,6 +138,11 @@ define([
         });
 
         describe("fn.expandPanel", function () {
+            beforeEach(function () {
+                sut.eventBusChannel = {
+                    sendExpandingWidget: function(){}
+                };
+            });
             it("should reverse the expand state", function () {
                 sut.isExpanded = true;
                 sut.fn.expandPanel();
@@ -147,6 +152,11 @@ define([
                 sut.isExpanded = false;
                 sut.fn.expandPanel();
                 expect(sut.isExpanded).toBeTruthy();
+            });
+            xit('should send expanding widget signal', function () {
+                sut.fn.expandPanel();
+                spyOn(sut.eventBusChannel, "sendExpandingWidget");
+                expect(sut.eventBusChannel.sendExpandingWidget).toHaveBeenCalled();
             });
         });
 

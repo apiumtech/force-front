@@ -7,13 +7,15 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/BarChart'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, BarChart){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = EventBus.getInstance();
         self.configureEvents();
     }
 
@@ -59,6 +61,8 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();
@@ -91,6 +95,11 @@ define([
         if (!data || data === null || !isArray(data)) return;
 
         self.paintChart(self.element.find('.chart-place-holder'));
+    };
+
+    BarChartWidgetView.prototype.reDraw = function(){
+        if(!BarChart.getChart()) return;
+        BarChart.getChart().draw();
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {

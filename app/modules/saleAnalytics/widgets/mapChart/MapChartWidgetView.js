@@ -7,14 +7,16 @@ define([
     'modules/saleAnalytics/eventBus/WidgetEventBus',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'plots/MapChart',
     'shared/services/config/PermissionsService'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, MapChart, PermissionsService){
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService){
 
     function MapChartWidgetView(scope, element, mapChart, presenter, permissionsService) {
         presenter = presenter || new MapChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = EventBus.getInstance();
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
         self.selectedFilter = 'checkins';
@@ -48,6 +50,8 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+
         self.fn.changeFilter = function (selectedFilter) {
             self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
@@ -68,15 +72,20 @@ define([
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
         var self = this;
+        if(data && data.length)
+            self.mapData = data;
+
+        if(!self.mapData) return;
+
         self.paintChart(self.element.find('.chart-place-holder'));
         self.mapChart.clearHeatMap();
         self.mapChart.clearPointMap();
         switch (self.selectedFilter) {
             case 'checkins':
-                self.mapChart.applyHeatLayer(data);
+                self.mapChart.applyHeatLayer(self.mapData);
                 break;
             case 'users':
-                self.mapChart.createUserMap(data);
+                self.mapChart.createUserMap(self.mapData);
                 break;
             //case 'activity':
             //    self.mapChart.createPointMap(data);
