@@ -166,6 +166,8 @@ define([
                 sut.event = {};
                 sut.event.onReloadWidgetDone = function () {
                 };
+                sut.event.parseData = jasmine.createSpy().and.returnValue(fakeResponseData.data.params);
+                sut.widget = {};
                 spyOn(sut, 'assignColumnsData');
                 spyOn(sut, '_onReloadWidgetSuccess');
                 spyOn(sut, 'renderChart');
@@ -190,6 +192,11 @@ define([
                 spyOn(sut.event, 'onReloadWidgetDone');
                 sut.onReloadWidgetSuccess(fakeResponseData);
                 expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
+            });
+
+            it("Should call parseData", function () {
+                sut.onReloadWidgetSuccess(fakeResponseData);
+                expect(sut.event.parseData).toHaveBeenCalled();
             });
         });
 

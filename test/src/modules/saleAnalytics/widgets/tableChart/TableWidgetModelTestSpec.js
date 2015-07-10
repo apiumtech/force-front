@@ -18,24 +18,20 @@ define([
         });
 
         describe('_reload', function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut.fetchPoint = "fake_url";
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
-                });
+            it('should call _baseReload', function () {
+                spyOn(sut, '_baseReload');
+                sut._reload();
+                expect(sut._baseReload).toHaveBeenCalled();
             });
         });
 
-        describe('decorateServerData', function () {
+        describe('parseFlatStructure', function () {
             describe('data is empty', function () {
                 it("should return empty", function () {
                     var emptyData = [];
 
                     expect(function () {
-                        sut.decorateServerData(emptyData);
+                        sut.parseFlatStructure(emptyData);
                     }).toThrow(new Error("No data received from server"));
                 });
             });
@@ -115,24 +111,81 @@ define([
                 ];
 
                 var expected = {
-                    data: {
-                        params: {
-                            columns: [
-                                "Id", "IdFm", "Name", "PhotoUrl", "ActivityIndex", "Visits", "Activities", "Activity", "PhoneCallsTime", "Emails", "Orders", "Quotes"
-                            ],
-                            data: [
-                                [1, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [2, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [3, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [4, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [5, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1]
-                            ]
-                        }
-                    }
+                    columns: [
+                        "Id", "IdFm", "Name", "PhotoUrl", "ActivityIndex", "Visits", "Activities", "Activity", "PhoneCallsTime", "Emails", "Orders", "Quotes"
+                    ],
+                    data: [
+                        [1, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [2, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [3, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [4, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [5, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1]
+                    ]
                 };
 
-                var output = sut.decorateServerData(input);
+                var output = sut.parseFlatStructure(input);
                 expect(output).toEqual(expected);
+            });
+        });
+
+        describe("parseData", function () {
+            it("should call userExtraFieldsDataParser when widget option is set to 'userExtraFieldsDataParser'", function () {
+                spyOn(sut, "userExtraFieldsDataParser");
+                sut.parseData("some data", "userExtraFieldsDataParser");
+                expect(sut.userExtraFieldsDataParser).toHaveBeenCalledWith("some data");
+            });
+
+            it("should call parseFlatStructure when widget option is not set", function () {
+                spyOn(sut, "parseFlatStructure");
+                sut.parseData("more data");
+                expect(sut.parseFlatStructure).toHaveBeenCalledWith("more data");
+            });
+        });
+
+        describe("userExtraFieldsDataParser", function () {
+            var rawData, columns, rows;
+            beforeEach(function () {
+                columns = ["Id", "Name", "Z_facebug", "Z_hasFB"];
+                rows = [
+                    [109,"Bruno Ràfols","este es mi facebuk","True"],
+                    [238,"Cristian Oyarzo","","False"]
+                ];
+                rawData = [
+                    {
+                        "Id": 109,
+                        "Name": "Bruno Ràfols",
+                        "extrafields": [
+                            {
+                                "Name": "Z_facebug",
+                                "Value": "este es mi facebuk"
+                            },
+                            {
+                                "Name": "Z_hasFB",
+                                "Value": "True"
+                            }
+                        ]
+                    },
+                    {
+                        "Id": 238,
+                        "Name": "Cristian Oyarzo",
+                        "extrafields": [
+                            {
+                                "Name": "Z_facebug",
+                                "Value": ""
+                            },
+                            {
+                                "Name": "Z_hasFB",
+                                "Value": "False"
+                            }
+                        ]
+                    }
+                ];
+            });
+            it('should extract columns from the data', function () {
+                expect(sut.userExtraFieldsDataParser(rawData).columns).toEqual(columns);
+            });
+            it('should extract rows from the data', function () {
+                expect(sut.userExtraFieldsDataParser(rawData).data).toEqual(rows);
             });
         });
     });

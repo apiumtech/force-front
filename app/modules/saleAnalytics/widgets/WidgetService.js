@@ -100,6 +100,7 @@ define([
                 widgetType: "table",
                 widgetName: "User extra fields",
                 endPoint: "userExtraFieldsDataApi",
+                widgetOption: "userExtraFieldsDataParser",
                 order: 3,
                 size: 12,
                 id: 4
@@ -125,8 +126,8 @@ define([
             {
                 page: "distribution",
                 widgetType: "hour_distribution",
-                widgetName: "DISTRIBUCION HORARIA",
-                endPoint: "hourWidgetDistributionDataApi",
+                widgetName: "DISTRIBUCION POR TIPO",
+                endPoint: "typeWidgetDistributionDataApi",
                 order: 3,
                 size: 6,
                 id: 5

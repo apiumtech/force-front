@@ -26,11 +26,41 @@ define([
 
     TableWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
     TableWidgetModel.prototype._reload = function () {
-        return this._baseReload().then(this.decorateServerData.bind(this));
+        return this._baseReload();
     };
 
-    TableWidgetModel.prototype.decorateServerData = function (data) {
+    TableWidgetModel.prototype.parseData = function (data, widgetOption) {
+        if( widgetOption && widgetOption == "userExtraFieldsDataParser" ) {
+            return this.userExtraFieldsDataParser(data);
+        }
 
+        return this.parseFlatStructure(data);
+    };
+
+    TableWidgetModel.prototype.userExtraFieldsDataParser = function (data) {
+        var responseData = {
+            columns: ["Id","Name"],
+            data: []
+        };
+
+        if(data.length > 0) {
+            data[0].extrafields.forEach(function (field) {
+                responseData.columns.push(field.Name);
+            });
+        }
+
+        data.forEach(function (row) {
+            var $row = [row.Id, row.Name];
+            row.extrafields.forEach(function (field) {
+                $row.push(field.Value);
+            });
+            responseData.data.push($row);
+        });
+
+        return responseData;
+    };
+
+    TableWidgetModel.prototype.parseFlatStructure = function(data){
         var responseData = {
             data: {
                 params: {
@@ -52,7 +82,7 @@ define([
             });
             responseData.data.params.data.push(arrayElement);
         });
-        return responseData;
+        return responseData.data.params;
     };
 
     TableWidgetModel.newInstance = function (ajaxService) {

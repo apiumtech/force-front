@@ -46,6 +46,8 @@ define([
             model.addUserFilter(filterValue);
             view.sendReloadCommandToChannel();
         };
+
+        view.event.parseData = model.parseData.bind(model);
     };
 
     return TableWidgetPresenter;

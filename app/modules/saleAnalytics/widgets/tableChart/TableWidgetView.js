@@ -82,6 +82,8 @@ define([
 
             self.renderChart();
         };
+
+        self.event.parseData = function(){};
     };
 
     TableWidgetView.prototype.assignColumnsData = function (inputData) {
@@ -179,7 +181,7 @@ define([
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
-        self.data = data.data.params;
+        self.data = this.event.parseData(data, this.widget.option);
         self.assignColumnsData(self.data.columns);
         self.renderChart();
     };
