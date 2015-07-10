@@ -19,6 +19,13 @@ define([
     WidgetEventBus.prototype.unsubscribeRemovingWidget = function () {
     };
 
+    WidgetEventBus.prototype.onExpandingWidget = function () {
+    };
+    WidgetEventBus.prototype.fireExpandingWidget = function () {
+    };
+    WidgetEventBus.prototype.unsubscribeExpandingWidget = function () {
+    };
+
     app._____WidgetEventBus = app._____WidgetEventBus || null;
 
     WidgetEventBus.getInstance = function () {

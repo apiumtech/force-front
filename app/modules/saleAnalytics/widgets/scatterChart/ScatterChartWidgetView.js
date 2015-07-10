@@ -6,23 +6,25 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
+    'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'shared/services/SimpleTemplateParser',
     'jquery'
-], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, GoogleChartService, SimpleTemplateParser, $) {
+], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, $) {
 
-    function ScatterChartWidgetView(scope, element, chartService, presenter) {
+    function ScatterChartWidgetView(scope, element, chartService, presenter, widgetEventBus) {
         presenter = presenter || new ScatterChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.widgetEventBus = widgetEventBus || WidgetEventBus.getInstance();
         self.chartService = chartService || GoogleChartService.newInstance();
         self.templateParser = SimpleTemplateParser.newInstance();
-        self.configureEvents();
         self.widgetName = '';
         self.axisXTitle = 'Sales';
         self.axisYTitle = 'Activity Scores';
         self.chart = null;
         self.chartData = null;
+        self.configureEvents();
     }
 
     ScatterChartWidgetView.inherits(WidgetBaseView, {
@@ -67,6 +69,8 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
+        self.widgetEventBus.onExpandingWidget(self.onWindowResize.bind(self));
+
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();
@@ -86,6 +90,10 @@ define([
         self.$scope.$on('destroy', function () {
             $(window).unbind('resize', self.onWindowResize.bind(self));
         });
+    };
+
+    ScatterChartWidgetView.prototype.onExpandingWidget = function(){
+
     };
 
     ScatterChartWidgetView.prototype.onWindowResize = function () {
