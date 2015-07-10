@@ -66,10 +66,12 @@ define(function () {
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
 
         userExtraFieldsDataApi: baseApi + '/api/userExtraFields',
+        //userExtraFieldsDataApi: baseApi + 'api/queries/stats/extrafields/extrafieldList',
 
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
         segmentWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
         hourWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
+        typeWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}AccountTypeDistributionByUsersAndPeriod',
         coverageWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
 
         //conversion activity/sales

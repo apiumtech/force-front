@@ -18,24 +18,20 @@ define([
         });
 
         describe('_reload', function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut.fetchPoint = "fake_url";
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
-                });
+            it('should call _baseReload', function () {
+                spyOn(sut, '_baseReload');
+                sut._reload();
+                expect(sut._baseReload).toHaveBeenCalled();
             });
         });
 
-        describe('decorateServerData', function () {
+        describe('parseFlatStructure', function () {
             describe('data is empty', function () {
                 it("should return empty", function () {
                     var emptyData = [];
 
                     expect(function () {
-                        sut.decorateServerData(emptyData);
+                        sut.parseFlatStructure(emptyData);
                     }).toThrow(new Error("No data received from server"));
                 });
             });
@@ -115,23 +111,19 @@ define([
                 ];
 
                 var expected = {
-                    data: {
-                        params: {
-                            columns: [
-                                "Id", "IdFm", "Name", "PhotoUrl", "ActivityIndex", "Visits", "Activities", "Activity", "PhoneCallsTime", "Emails", "Orders", "Quotes"
-                            ],
-                            data: [
-                                [1, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [2, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [3, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [4, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
-                                [5, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1]
-                            ]
-                        }
-                    }
+                    columns: [
+                        "Id", "IdFm", "Name", "PhotoUrl", "ActivityIndex", "Visits", "Activities", "Activity", "PhoneCallsTime", "Emails", "Orders", "Quotes"
+                    ],
+                    data: [
+                        [1, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [2, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [3, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [4, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1],
+                        [5, 1, "1_string", "1_string_2", 1, 1, 1, 1, 1, 1, 1, 1]
+                    ]
                 };
 
-                var output = sut.decorateServerData(input);
+                var output = sut.parseFlatStructure(input);
                 expect(output).toEqual(expected);
             });
         });
