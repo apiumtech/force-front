@@ -101,12 +101,12 @@ define([
         };
 
         self.fn.expandPanel = function () {
-            self.eventBusChannel.sendExpandingWidget();
             self.isExpanded = !self.isExpanded;
             if (self.isMinimized) {
                 self.isMinimized = !self.isMinimized;
                 self.element.find('.panel-body').slideToggle();
             }
+            self.eventBusChannel.sendExpandingWidget();
         };
 
         self.fn.reloadPanel = function () {
