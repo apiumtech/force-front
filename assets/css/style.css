@@ -7988,7 +7988,7 @@ body {
 .ic-arr-left,
 .ic-arr-right {
     position: relative;
-    top: 1px;
+    /*top: 1px;*/
 }
 .prev-buttons {
     margin-top: -22px;

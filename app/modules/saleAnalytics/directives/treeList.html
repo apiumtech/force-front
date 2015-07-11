@@ -3,11 +3,12 @@
                  class="clearfix accordion-tree-group">
     <accordion-heading class="clearfix">
 
-        <div class="item-container">
+        <div class="item-container" ng-click="$event.stopPropagation()">
 
             <div class="item-box col-xs-8" ng-class="{'checked': item.checked}">
 
                 <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
+                   ng-click="item.isOpen = !item.isOpen;$event.stopPropagation();"
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
                 <i class="pull-left m-t-2 m-r-10"
