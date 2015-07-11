@@ -6478,7 +6478,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
 }
 @media (max-width: 767px) {
     .page-header-fixed {
-        padding-top: 109px;
+        padding-top: 35px;
     }
     .page-with-right-sidebar .sidebar {
         left: auto;
