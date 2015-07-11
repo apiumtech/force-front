@@ -3,20 +3,18 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId"
         >
-    <div>
-        <div class="clearfix m-b-20 ">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20">
-                    <select class="form-control pull left" ng-model="selectedFilter" ng-change="fn.changeFilter(selectedFilter)">
-                        <option value="checkins">{{'MapChart.CheckIns' | i18next}}</option>
-                        <option value="users" ng-disabled="!fn.canDisplayUsersInMap()">{{'MapChart.Users' | i18next}}</option>
-                        <!--<option value="activity">{{'MapChart.Activity' | i18next}}</option>-->
-                    </select>
-                </div>
+    <div class="clearfix m-b-20 ">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20">
+                <select class="form-control pull left" ng-model="selectedFilter" ng-change="fn.changeFilter(selectedFilter)">
+                    <option value="checkins">{{'MapChart.CheckIns' | i18next}}</option>
+                    <option value="users" ng-disabled="!fn.canDisplayUsersInMap()">{{'MapChart.Users' | i18next}}</option>
+                    <!--<option value="activity">{{'MapChart.Activity' | i18next}}</option>-->
+                </select>
             </div>
         </div>
-        <div class="chart-place-holder height-sm map-chart">
+    </div>
+    <div class="chart-place-holder height-sm map-chart">
 
-        </div>
     </div>
 </widget-wrapper>
