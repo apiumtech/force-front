@@ -79,8 +79,17 @@ define([
         };
 
 
+        self.fn.searchWithQuery = function(query){
+            console.log("original", query);
+            self.awaitHelper.await(self.__searchWithQuery.bind(self, query), 1000);
+        }
 
+    };
 
+    AccountFilterView.prototype.__searchWithQuery = function(query){
+        var self = this;
+        console.log("query", query);
+        self.event.onSearchQueryChanged(query);
     };
 
     AccountFilterView.prototype.onAvailableFiltersLoaded = function(availableFilters){
