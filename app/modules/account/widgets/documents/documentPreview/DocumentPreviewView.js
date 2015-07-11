@@ -50,7 +50,7 @@ define([
     };
 
     DocumentPreviewView.prototype.deletionConfirmed = function (document) {
-        console.log("deletion confirmed", document);
+
     };
 
     return DocumentPreviewView;

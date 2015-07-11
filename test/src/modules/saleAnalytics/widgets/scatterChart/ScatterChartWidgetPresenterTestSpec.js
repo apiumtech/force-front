@@ -46,7 +46,7 @@ define([
                 });
 
             function onReloadWidgetStartTest() {
-                console.log("widgetStart", model);
+
                 beforeEach(function () {
                     view.widget = {
                         dataEndpoint: "/test/end/point"

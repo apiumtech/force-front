@@ -18,7 +18,7 @@ define([
     };
 
     DataTableService.prototype.refreshTable = function(table){
-        console.log(table['ajax']);
+
         table['ajax'].reload();
     };
 

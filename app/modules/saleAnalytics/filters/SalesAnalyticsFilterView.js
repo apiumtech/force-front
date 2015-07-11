@@ -134,14 +134,14 @@ define([
         });
 
         self.fn.openDatePickerStart = function (event) {
-            console.log(event, "opened start");
+
             event.stopPropagation();
             self.datePickerStartOpened = true;
             self.datePickerEndOpened = false;
         };
 
         self.fn.openDatePickerEnd = function (event) {
-            console.log(event, "opened end");
+
             event.stopPropagation();
             self.datePickerEndOpened = true;
             self.datePickerStartOpened = false;

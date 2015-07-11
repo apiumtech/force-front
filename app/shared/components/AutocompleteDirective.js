@@ -19,7 +19,7 @@ define([
 
         var linkElement = function (scope, $element, $attr, ctrl) {
             var url = $attr.autocomplete;
-            console.log("AUTO COMPLETE", url);
+
 
             scope.getAutocompleteOption = function (request, response) {
 
@@ -66,7 +66,7 @@ define([
             $.ui.autocomplete.prototype.____renderItem = $.ui.autocomplete.prototype._renderItem;
 
             $.ui.autocomplete.prototype._renderItem = function (ul, item) {
-                console.log("render item", item);
+
                 //$.ui.autocomplete.prototype.____renderItem.call(this, ul, item);
                 item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
                 $.ui.autocomplete.escapeRegex(this.term) +

@@ -25,7 +25,7 @@ define([
                     }
 
                     var regex = new RegExp("((" + scope.keywords + ")+)", 'gi');
-                    console.log("REGEX", regex);
+
 
                     // Find the words
                     var html = scope.highLightResult.replace(regex, replacer);

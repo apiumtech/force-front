@@ -174,7 +174,7 @@ define([
                 beforeEach(function () {
                     event = {};
                     sut.element = angular.element("<div class='search-box'><div class='inside-elem'>searchbox</div></div>");
-                    console.log(sut.element);
+
                 });
 
                 describe('event\'s target is outside the element', function () {

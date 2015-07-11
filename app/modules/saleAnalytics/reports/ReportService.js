@@ -15,7 +15,7 @@ define([
     ReportService.prototype.toggleFavouriteReport = function (reportId) {
 
         var url = Configuration.api.toggleFavouriteReport.format(reportId);
-        console.log("toggle fav report url",url);
+
         var params = {
             url: url,
             type: 'put',
@@ -30,7 +30,7 @@ define([
     ReportService.prototype.getReportURL = function (report) {
         var self = this;
         var url = Configuration.api.getReportUrl.format(report.Id);
-        console.log("get report url url",url, report.params);
+
         var params = {
             url: url,
             type: 'post',
@@ -43,7 +43,7 @@ define([
 
     ReportService.prototype.getParameterConfiguration = function (reportId) {
         var url = Configuration.api.getReportParameters.format(reportId);
-        console.log("report params url",url);
+
         var params = {
             url: url,
             type: 'get',
@@ -56,7 +56,7 @@ define([
 
     ReportService.prototype.loadPreviewImage = function (report) {
         var url = Configuration.api.previewReport.format(report.Id);
-        console.log("preview report url",url);
+
         var params = {
             url: url,
             type: 'post',
@@ -70,7 +70,7 @@ define([
 
     ReportService.prototype.searchReport = function(query){
         var url = Configuration.api.searchReport.format(query);
-        console.log("search report url",url);
+
         var params = {
             url: url,
             type: 'get',
@@ -83,7 +83,7 @@ define([
 
     ReportService.prototype.getReportListOfValues = function(list){
         var url = Configuration.api.getReportListOfValues.format(list);
-        console.log("getReportListOfValues url",url);
+
         var params = {
             url: url,
             type: 'get',

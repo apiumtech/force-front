@@ -103,7 +103,7 @@ define([
             scope = self.$scope,
             data = self.data;
 
-        console.log(data);
+
 
         if (!data.fields) return;
         if(!data.fields.length) data.fields = [];

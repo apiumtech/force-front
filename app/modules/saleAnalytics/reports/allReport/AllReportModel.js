@@ -29,7 +29,7 @@ define([
     AllReportModel.prototype._reload = function () {
         var self = this;
         var url = Configuration.api.getAllReports;
-        console.log("report url",url);
+
         var params = {
             url: url,
             type: 'GET',
@@ -41,8 +41,8 @@ define([
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
-        console.log("decorate", data);
-        //console.log("server",data);
+
+        //
         data = data.data;
         if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
         return this.arrayHelper.makeTree(data, 'IdParent', 'Id', 'children', -1);

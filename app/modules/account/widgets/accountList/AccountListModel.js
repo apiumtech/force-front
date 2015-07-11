@@ -50,7 +50,7 @@ define([
             }
         );
 
-        console.log(requestData);
+
 
         if (JSON.stringify(this.recentFilters) !== JSON.stringify(requestData.customFilter) ||
             JSON.stringify(this.recentOrder) !== JSON.stringify(requestData.order) ||
@@ -104,7 +104,7 @@ define([
     };
 
     AccountListModel.prototype.deleteAccount = function(account){
-        console.log(account);
+
         var self = this;
         var params = {
             url: Configuration.api.deleteAccount.format(account.id),

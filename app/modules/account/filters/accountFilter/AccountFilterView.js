@@ -75,12 +75,12 @@ define([
         self.$scope.$watch('$destroy', self.dispose.bind(self));
 
         self.fn.checkDropdown = function(event){
-          console.log(event.target);
+
         };
 
 
         self.fn.searchWithQuery = function(query){
-            console.log("original", query);
+
             self.awaitHelper.await(self.__searchWithQuery.bind(self, query), 1000);
         }
 
@@ -88,7 +88,7 @@ define([
 
     AccountFilterView.prototype.__searchWithQuery = function(query){
         var self = this;
-        console.log("query", query);
+
         self.event.onSearchQueryChanged(query);
     };
 

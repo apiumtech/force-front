@@ -324,7 +324,7 @@ define([
 
                 $scope.showCalendar = function manageShowCalendar() {
 
-                    console.log("selected", $scope.monthNumber);
+
                     $scope.setDaysInMonth($scope.monthNumber, $scope.year);
                     $scope.setInputValue();
 

@@ -139,7 +139,7 @@ define([
                 };
             });
 
-            console.log(error);
+
 
             return error.length == 0;
         };

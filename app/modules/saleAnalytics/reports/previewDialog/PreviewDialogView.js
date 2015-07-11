@@ -78,8 +78,7 @@ define([
     PreviewDialogView.prototype.onURLReceivedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
-        console.log(a);
-        //a.click();
+        a.click();
     };
 
     PreviewDialogView.prototype.onURLReceivedForSend = function (data) {

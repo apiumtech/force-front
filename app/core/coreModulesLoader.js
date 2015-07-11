@@ -18,5 +18,5 @@ define([
 ], function (NotificationService) {
     'use strict';
     NotificationService._diResolve();
-    console.log("initialized notification service");
+
 });

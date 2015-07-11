@@ -117,13 +117,13 @@ define([
         self.fn.sendFolderReportOpenCommand = function (item) {
             if (!self.fireOpenFolder || item.Type !== 'folder') return;
             var folderId = item.Id;
-            console.log("sending open folder command", item);
+
             self.reportEventBus.fireFolderReportSelected(folderId);
         };
 
         self.fn.sendReportOpenCommand = function (item) {
             if (!self.fireOpenFolder || item.Type !== 'report') return;
-            console.log("sending", item);
+
             var id = item.Id;
             self.reportEventBus.fireReportSelected(id);
         };
@@ -270,7 +270,7 @@ define([
     };
 
     ReportItemView.prototype.onParameterConfigurationLoaded = function (data) {
-        console.log("param loaded", data);
+
         var self = this;
         self.report.parameterConfigurations = data;
         if (!self.report.parameterConfigurations || self.report.parameterConfigurations.length <= 0) {
@@ -326,8 +326,7 @@ define([
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
-        console.log(data);
-        //a.click();
+        a.click();
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {

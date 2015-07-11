@@ -2,29 +2,32 @@
     <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
                      class="clearfix">
         <accordion-heading class="clearfix">
-            <i class="pull-left fa environment-collapse-icon"
-               ng-if="group.children && group.children.length"
-               ng-class="{'fa-caret-down': group.isOpen, 'fa-caret-right': !group.isOpen}"></i>
-
-            <input type="checkbox"
+            <div class="users-group-heading" ng-click="$event.stopPropagation();">
+                <i class="pull-left fa environment-collapse-icon"
                    ng-if="group.children && group.children.length"
-                   tri-state-check-box
-                   ng-model="group.checked"
-                   ng-change="fn.groupSelectAllChanged(group)"
-                   ng-click="$event.stopPropagation()"
-                   ng-value="group.Id"
-                   class="pull-left m-l-10 ">
+                   ng-click="group.isOpen = !group.isOpen;$event.stopPropagation();"
+                   ng-class="{'fa-caret-down': group.isOpen, 'fa-caret-right': !group.isOpen}"></i>
 
-            <input type="checkbox"
-                   ng-if="!group.children || !group.children.length"
-                   ng-model="group.checked"
-                   ng-change="fn.groupSelectAllChanged(group)"
-                   ng-click="group.checked=!group.checked;$event.stopPropagation()"
-                   ng-value="group.Id"
-                   class="pull-left m-l-10 ">
+                <input type="checkbox"
+                       ng-if="group.children && group.children.length"
+                       tri-state-check-box
+                       ng-model="group.checked"
+                       ng-change="fn.groupSelectAllChanged(group)"
+                       ng-click="$event.stopPropagation()"
+                       ng-value="group.Id"
+                       class="pull-left m-l-10 ">
 
-            <div class="pull-left m-l-10">
-                <strong>{{group.Name}}</strong>
+                <input type="checkbox"
+                       ng-if="!group.children || !group.children.length"
+                       ng-model="group.checked"
+                       ng-change="fn.groupSelectAllChanged(group)"
+                       ng-click="group.checked=!group.checked;$event.stopPropagation()"
+                       ng-value="group.Id"
+                       class="pull-left m-l-10 ">
+
+                <div class="pull-left m-l-10">
+                    <strong>{{group.Name}}</strong>
+                </div>
             </div>
         </accordion-heading>
         <ul ng-if="group.children && group.children.length">
