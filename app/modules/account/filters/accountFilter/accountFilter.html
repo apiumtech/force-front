@@ -199,7 +199,8 @@
                     <div class="input-group  m-t-40">
                         <input type="text" class="form-control"
                                ng-model="data.searchQuery"
-                               ng-change="event.onSearchQueryChanged(data.searchQuery)"
+                               ng-change="fn.searchWithQuery(data.searchQuery)"
+                               ng-model-options="{debounce: 1000}"
                                placeholder="Buscar"
                                 />
                   <span class="input-group-btn">

@@ -2,8 +2,9 @@ define([
     'config',
     'shared/services/ajax/AuthAjaxService',
     'shared/services/ajax/FakeAjaxService',
-    'shared/services/DataTableDataProvider'
-], function (Configuration, AuthAjaxService, FakeAjaxService, DataTableDataProvider) {
+    'shared/services/DataTableDataProvider',
+    'underscore'
+], function (Configuration, AuthAjaxService, FakeAjaxService, DataTableDataProvider, _) {
     'use strict';
 
     function AccountListModel(authAjaxService, dataTableDataProvider, fakeAjaxService) {
@@ -80,6 +81,7 @@ define([
 
     AccountListModel.prototype.remapAccountListData = function (option, requestData, settings, responseData) {
         var self = this;
+
         if (option.startFilter)
             option.startFilter = false;
 
@@ -90,7 +92,14 @@ define([
 
         var list = self.accountsList;
 
+        list = _.map(_.groupBy(list, function(account){
+            return account.id;
+        }), function(grouped){
+            return grouped[0];
+        });
+
         responseData.data = list;
+
         return responseData;
     };
 
