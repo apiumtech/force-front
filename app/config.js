@@ -66,7 +66,7 @@ define(function () {
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
         rankingWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod',
 
-        userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList?users={0}&table=tblUsuarios&language={1}',
+        userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList',
 
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
         segmentWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',

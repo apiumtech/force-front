@@ -100,7 +100,7 @@ define([
                 widgetType: "table",
                 widgetName: "User extra fields",
                 endPoint: "userExtraFieldsDataApi",
-                widgetOptions: "userExtraFieldsDataParser",
+                widgetOptions: "userExtraFieldsDecorator",
                 order: 3,
                 size: 12,
                 id: 4

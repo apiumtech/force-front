@@ -30,7 +30,7 @@ define([
     };
 
     TableWidgetModel.prototype.parseData = function (data, widgetOption) {
-        if( widgetOption && widgetOption == "userExtraFieldsDataParser" ) {
+        if( widgetOption && widgetOption == "userExtraFieldsDecorator" ) {
             return this.userExtraFieldsDataParser(data);
         }
 
@@ -83,6 +83,15 @@ define([
             responseData.data.params.data.push(arrayElement);
         });
         return responseData.data.params;
+    };
+
+    TableWidgetModel.prototype._baseBuildQueryString = WidgetBase.prototype.buildQueryString;
+    TableWidgetModel.prototype.buildQueryString = function () {
+        // TODO: make language dynamic (from sessionStorage)
+        var queries = this._baseBuildQueryString();
+        queries +=  "&language=es";
+        queries +=  "&table=tblUsuarios";
+        return queries;
     };
 
     TableWidgetModel.newInstance = function (ajaxService) {

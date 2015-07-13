@@ -129,9 +129,9 @@ define([
         });
 
         describe("parseData", function () {
-            it("should call userExtraFieldsDataParser when widget option is set to 'userExtraFieldsDataParser'", function () {
+            it("should call userExtraFieldsDataParser when widget option is set to 'userExtraFieldsDecorator'", function () {
                 spyOn(sut, "userExtraFieldsDataParser");
-                sut.parseData("some data", "userExtraFieldsDataParser");
+                sut.parseData("some data", "userExtraFieldsDecorator");
                 expect(sut.userExtraFieldsDataParser).toHaveBeenCalledWith("some data");
             });
 
