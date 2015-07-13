@@ -24,6 +24,7 @@ define([
         self.axisYTitle = 'Activity Scores';
         self.chart = null;
         self.chartData = null;
+        self.itemPerPage = 15;
         self.configureEvents();
     }
 
@@ -59,6 +60,30 @@ define([
             set: function (value) {
                 this.$scope.eventChannel = value;
             }
+        },
+        legends: {
+            get: function () {
+                return this.$scope.legends;
+            },
+            set: function (value) {
+                this.$scope.legends = value;
+            }
+        },
+        currentLegends: {
+            get: function () {
+                return this.$scope.currentLegends;
+            },
+            set: function (value) {
+                this.$scope.currentLegends = value;
+            }
+        },
+        currentPage: {
+            get: function () {
+                return this.$scope.currentPage;
+            },
+            set: function (value) {
+                this.$scope.currentPage = value;
+            }
         }
     });
 
@@ -85,6 +110,35 @@ define([
             self.refreshChart();
         };
 
+        self.fn.pageCount = function () {
+            return Math.ceil(self.legends.length / self.itemPerPage);
+        };
+
+
+        self.fn.setCurrentLegend = function(){
+            if(!self.legends) return [];
+            if(!self.currentPage) self.currentPage = 1;
+
+            var begin = ((self.currentPage - 1) * self.itemPerPage),
+                end = begin + self.itemPerPage;
+
+            return self.legends.slice(begin, end);
+        };
+
+        self.fn.nextPage = function(){
+            if(self.currentPage < self.fn.pageCount()) {
+                self.currentPage++;
+                self.currentLegends = self.fn.setCurrentLegend();
+            }
+        };
+
+        self.fn.prevPage = function(){
+            if(self.currentPage > 1) {
+                self.currentPage--;
+                self.currentLegends = self.fn.setCurrentLegend();
+            }
+        };
+
         $(window).on('resize', self.onWindowResize.bind(self));
 
         self.$scope.$on('destroy', function () {
@@ -106,8 +160,8 @@ define([
 
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
-        self.data = responseData.data;
-        self.widgetName = responseData.name;
+        self.data = responseData;
+        console.log(responseData);
         self.refreshChart();
     };
 
@@ -129,8 +183,7 @@ define([
         var self = this,
             data = self.data;
 
-
-        if (data && (Object.getOwnPropertyNames(data) && Object.getOwnPropertyNames(data).length !== 0))
+        if (data && data.chartData && (Object.getOwnPropertyNames(data.chartData) && Object.getOwnPropertyNames(data.chartData).length !== 0))
             self.paintChart(self.element.find('.chart-place-holder'), data);
     };
 
@@ -158,6 +211,12 @@ define([
 
         self.chart = chartService.createChart(element[0], 'scatter');
 
+        self.legends = self.data.legends;
+
+        self.currentLegends = self.fn.setCurrentLegend();
+
+        console.log(self.legends);
+
         self.chartOptions = {
             title: self.widgetName,
             selectionMode: 'none',
@@ -173,9 +232,12 @@ define([
                     'activity scores': {label: self.axisYTitle}
                 }
             },
+            chartArea: {width: '85%', height: '85%', top: 0},
 
             hAxis: {title: self.axisYTitle},
-            vAxis: {title: self.axisXTitle}
+            vAxis: {title: self.axisXTitle},
+            legend: 'none',
+            colors: self.data.colors
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);

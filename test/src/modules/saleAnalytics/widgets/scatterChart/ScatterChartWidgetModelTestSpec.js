@@ -78,36 +78,40 @@ define([
                 var tooltip = {'type': 'string', 'role': 'tooltip', 'p': {'html': true}};
 
                 var expectedOutput = {
-                    name: "WidgetName",
-                    data: {
-                        columns: [
-                            // The first column will always be x
-                            {type: 'number', name: 'x'},
-                            //
-                            {
-                                type: 'number',
-                                name: 'Salvador'
-                            },
-                            tooltip,
-                            //
-                            {
-                                type: 'number',
-                                name: 'test'
-                            },
-                            tooltip,
-                            //
-                            {
-                                type: 'number',
-                                name: 'userpruebasupdate'
-                            },
-                            tooltip
-                        ],
-                        rows: [
-                            [-2, -5, "tooltipHTML01", null, null, null, null],
-                            [-5, 2, "tooltipHTML01", null, null, null, null],
-                            [3, null, null, 1.55, "tooltipHTML01", null, null],
-                            [-5, null, null, null, null, 4, "tooltipHTML01"]
-                        ]
+                    chartData: {
+                        name: "WidgetName",
+                        data: {
+
+                            columns: [
+                                // The first column will always be x
+                                {type: 'number', name: 'x'},
+                                //
+                                {
+                                    type: 'number',
+                                    name: 'Salvador'
+                                },
+                                tooltip,
+                                //
+                                {
+                                    type: 'number',
+                                    name: 'test'
+                                },
+                                tooltip,
+                                //
+                                {
+                                    type: 'number',
+                                    name: 'userpruebasupdate'
+                                },
+                                tooltip
+                            ],
+                            rows: [
+                                [-2, -5, "tooltipHTML01", null, null, null, null],
+                                [-5, 2, "tooltipHTML01", null, null, null, null],
+                                [3, null, null, 1.55, "tooltipHTML01", null, null],
+                                [-5, null, null, null, null, 4, "tooltipHTML01"]
+                            ]
+
+                        }
                     }
                 };
                 //spyOn(sut, 'generateTooltip').and.returnValue('tooltipHTML01');
@@ -117,7 +121,7 @@ define([
                 };
                 spyOn(spyObj, 'spy').and.returnValue('tooltipHTML01');
                 var output = sut.decorateServerData(spyObj.spy, serverInput);
-                expect(output).toEqual(expectedOutput);
+                expect(output.chartData).toEqual(expectedOutput.chartData);
                 expect(spyObj.spy).toHaveBeenCalled();
             });
         });

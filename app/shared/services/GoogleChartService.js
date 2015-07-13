@@ -46,6 +46,9 @@ define([], function () {
     };
 
     GoogleChartService.prototype.createDataTable = function (data) {
+
+        data = data.chartData.data;
+
         var dataTable = new this.googleChart.DataTable();
 
         data.columns.forEach(function (c) {
@@ -66,6 +69,7 @@ define([], function () {
 
     GoogleChartService.prototype.drawChart = function (chart, data, options) {
         chart.draw(data, options);
+        console.log("CHART", chart.draw(data, options));
     };
 
     GoogleChartService.newInstance = function (googleChartService) {

@@ -94,7 +94,7 @@ define([
             it("Should assign data to scope", function () {
                 spyOn(sut.event, 'onReloadWidgetDone');
                 sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.data).toEqual(fakeResponseData.data);
+                expect(sut.data).toEqual(fakeResponseData);
             });
 
             it("should call refreshChart method", function () {
@@ -135,11 +135,13 @@ define([
                 beforeEach(function () {
                     spyOn(sut, 'paintChart');
                     sut.data = {
-                        fields: [
-                            {
-                                name: "pie1", data: [1, 2]
-                            }
-                        ]
+                        chartData: {
+                            fields: [
+                                {
+                                    name: "pie1", data: [1, 2]
+                                }
+                            ]
+                        }
                     };
                     sut.element = {
                         find: function () {

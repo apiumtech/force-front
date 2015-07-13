@@ -31,6 +31,10 @@ define([
 
         var serverData = data.Series[0].Points;
 
+        var colors = [];
+
+        var legends = [];
+
         var tooltip = {'type': 'string', 'role': 'tooltip', 'p': {'html': true}};
         returnData.data.columns.push({type: 'number', name: 'x'});
 
@@ -39,6 +43,10 @@ define([
         var numOfColumns = _.size(groups, 'UserId') * 2;
 
         _.each(groups, function (groupElems) {
+
+            var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+            colors.push(color);
+            legends.push({name: groupElems[0].Name, color: color});
 
             var groupData = {
                 type: 'number',
@@ -65,7 +73,7 @@ define([
 
         });
 
-        return returnData;
+        return {chartData: returnData, colors: colors, legends: legends};
     };
 
     ScatterChartWidgetModel.prototype.generateTooltip = function(element){
