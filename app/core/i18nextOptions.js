@@ -16,8 +16,10 @@ define([
             resGetPath: '/api/translations/__lng__'
         },
         prod: {
+            lng: 'en',
             useCookie: false,
             useLocalStorage: false,
+            fallbackLng: 'en',
             customLoad: function (lng, ns, options, loadComplete) {
                 if (!isFetching) {
                     isFetching = true;
@@ -36,6 +38,10 @@ define([
                         function (data) {
 
                             loadComplete(null, data);
+
+                            var $body = angular.element(document.body);
+                            var $rootScope = $body.injector().get('$rootScope');
+                            $rootScope.$broadcast('i18nextLanguageChange');
                         },
                         function (err) {
                             var msg = 'Error loading literals: ' + err;
