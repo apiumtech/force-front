@@ -1,13 +1,4 @@
 {
-  "BEGIN dev only block":0,
-  "label_user": "The User",
-  "key_empresa1": "Empresa 1",
-  "key_empresa2": "Empresa 2",
-  "key_calif1": "Calificación 1",
-  "key_calif2": "Calificación 2",
-  "END dev only block":0,
-
-
   "hello": "Hello",
   "validationMsg": {
     "required": "This field is required",

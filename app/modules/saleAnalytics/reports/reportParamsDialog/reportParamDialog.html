@@ -28,7 +28,7 @@
             <div class="col-md-10">
                 <select class="form-control" ng-model="report.params[paramConfig.Id]"
                         ng-init="fn.getReportListOfValues(paramConfig)"
-                        ng-options="value.Key for value in paramConfig.Value track by value.Value">
+                        ng-options="value.Description for value in paramConfig.Value track by value.Id">
                     <option value="">{{'Reports.Dialog.LoV.Select_Value' | i18next}}</option>
                 </select>
             </div>

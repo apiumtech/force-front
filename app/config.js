@@ -66,8 +66,7 @@ define(function () {
         rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
         rankingWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod',
 
-        userExtraFieldsDataApi: baseApi + '/api/userExtraFields',
-        //userExtraFieldsDataApi: baseApi + 'api/queries/stats/extrafields/extrafieldList',
+        userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList?users={0}&table=tblUsuarios&language={1}',
 
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
         segmentWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
@@ -90,7 +89,7 @@ define(function () {
         getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
         searchReport: baseUrl + '/api/queries/stats/reports/searchReports?searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
-        getReportListOfValues: baseApi + '/api/reportListOfValues/{0}',
+        getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',

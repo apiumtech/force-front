@@ -78,7 +78,7 @@ define([
             dataType: 'json'
         };
 
-        return this.authAjaxService.rawAjaxRequest(params).then(this.decorateServerData.bind(this));
+        return CQRSUnwrapper.unwrapData( this.authAjaxService.rawAjaxRequest(params) );//.then(this.decorateServerData.bind(this));
     };
 
     ReportService.prototype.getReportListOfValues = function(list){
@@ -91,7 +91,7 @@ define([
             dataType: 'json'
         };
 
-        return CQRSUnwrapper.unwrapData( this.authAjaxService.rawAjaxRequest(params) );
+        return this.authAjaxService.rawAjaxRequest(params);
     };
 
     ReportService.prototype.decorateServerData = function (serverData) {

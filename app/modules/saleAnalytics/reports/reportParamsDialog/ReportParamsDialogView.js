@@ -46,9 +46,9 @@ define([
 
         self.fn.getReportListOfValues = function(paramConfig){
             self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
-                listOfValues.forEach(function(item){
+                /*listOfValues.forEach(function(item){
                     item.Key = self.translator.translate(item.Key);
-                });
+                });*/
                 paramConfig.Value = listOfValues;
             });
         };

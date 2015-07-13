@@ -100,7 +100,7 @@ define([
                 widgetType: "table",
                 widgetName: "User extra fields",
                 endPoint: "userExtraFieldsDataApi",
-                widgetOption: "userExtraFieldsDataParser",
+                widgetOptions: "userExtraFieldsDataParser",
                 order: 3,
                 size: 12,
                 id: 4
@@ -144,7 +144,7 @@ define([
             {
                 page: "distribution",
                 widgetType: "bar",
-                widgetOption: 'tab',
+                widgetOptions: 'tab',
                 widgetName: "ANALISIS DE COBERTURA",
                 endPoint: "coverageWidgetDistributionDataApi",
                 order: 5,
@@ -163,7 +163,7 @@ define([
             {
                 page: "conversion",
                 widgetType: "bar",
-                widgetOption: 'dropdown',
+                widgetOptions: 'dropdown',
                 widgetName: "Efectividad visitas/venta",
                 endPoint: "visitWidgetConversionDataApi",
                 order: 1,
@@ -199,7 +199,7 @@ define([
                     size: widget.size
                 },
                 dataEndpoint: Configuration.api[widget.endPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
-                option: widget.widgetOption
+                option: widget.widgetOptions
             };
             list.push(w);
         });
