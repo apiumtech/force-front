@@ -32,7 +32,7 @@ define([
         self.event.customDataAccess = function(){};
         this.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
             self.event.customDataAccess(storedName, storedParams).then(function(result){
-                var event = new Event(callbackEventName, {'data': result});
+                var event = new CustomEvent(callbackEventName, {'detail': result});
                 window.dispatchEvent(event);
             });
         };
