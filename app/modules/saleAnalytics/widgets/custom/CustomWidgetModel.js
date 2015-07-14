@@ -9,6 +9,18 @@ define([
         this.authAjaxService = ajaxService;
     }
 
+    CustomWidgetModel.prototype.customDataAccess = function(storedName, storedParams) {
+        var params = {
+            url: Configuration.api.customDataAccess.format(storedName, storedParams),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+
+        return this.authAjaxService.rawAjaxRequest(params);
+    };
+
     CustomWidgetModel.prototype.reloadWidget = function() {
         var deferred = Q.defer();
 

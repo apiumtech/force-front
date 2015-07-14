@@ -94,6 +94,7 @@ define(function () {
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
+        customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
         changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',

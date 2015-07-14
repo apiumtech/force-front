@@ -17,6 +17,7 @@ define([
         it("should call model's reloadWidget on _executeLoadWidget", function () {
             var sut = new CustomWidgetPresenter();
             var view = mock(CustomWidgetView);
+            view.event = {customDataAccess: function(){}};
             sut.$view = view;
             spyOn(sut.model, "reloadWidget").and.returnValue(exerciseFakePromise());
             sut._executeLoadWidget();
@@ -26,6 +27,7 @@ define([
         it("should call view's onReloadWidgetSuccess on reloadWidget success", function () {
             var sut = new CustomWidgetPresenter();
             var view = mock(CustomWidgetView);
+            view.event = {customDataAccess: function(){}};
             sut.$view = view;
             spyOn(sut.model, "reloadWidget").and.returnValue(exerciseFakeOkPromise());
             sut._executeLoadWidget();
@@ -35,6 +37,7 @@ define([
         it("should call view's onReloadWidgetError on reloadWidget error", function () {
             var sut = new CustomWidgetPresenter();
             var view = mock(CustomWidgetView);
+            view.event = {customDataAccess: function(){}};
             sut.$view = view;
             spyOn(sut.model, "reloadWidget").and.returnValue(exerciseFakeKoPromise());
             sut._executeLoadWidget();

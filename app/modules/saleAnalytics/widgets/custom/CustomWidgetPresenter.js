@@ -18,6 +18,8 @@ define([
             $view.onReloadWidgetSuccess.bind($view),
             $view.onReloadWidgetError.bind($view)
         );
+
+        $view.event.customDataAccess = model.customDataAccess.bind(model);
     };
 
     CustomWidgetPresenter.prototype.showError = function (error) {

@@ -87,7 +87,7 @@ define([
             },
             {
                 page: "intensity",
-                widgetType: "custom",// change to "code"
+                widgetType: "code",
                 widgetName: "Custom",
                 endPoint: "",
                 order: 2,
@@ -191,7 +191,7 @@ define([
         var list = [];
         _.each(pageWidgets, function (widget) {
             var w = {
-                type: widget.widgetType,
+                type: (widget.widgetType == "code" ? "custom" : widget.widgetType),
                 widgetName: widget.widgetName,
                 widgetId: widget.id,
                 position: {
