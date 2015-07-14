@@ -92,6 +92,7 @@ define(function () {
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
+        fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',

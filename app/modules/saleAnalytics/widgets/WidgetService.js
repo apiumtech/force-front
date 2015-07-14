@@ -3,7 +3,6 @@
  */
 
 define([
-    //TODO: replace by real AjaxService when having real data from server
     'shared/services/ajax/FakeAjaxService',
     'shared/services/ajax/AuthAjaxService',
     'config',
@@ -12,7 +11,7 @@ define([
     'use strict';
 
     function WidgetService(ajaxService) {
-        this.authAjaxService = ajaxService || new AjaxService();
+        this.ajaxService = ajaxService || new AjaxService();
         this.fakeAjaxService = new FakeAjaxService();
     }
 
@@ -24,7 +23,7 @@ define([
 
 
         //TODO: remove when having real data from server
-        var widgets = self.getWidgetData(page);
+        /*var widgets = self.getWidgetData(page);
         var params = {
             result: {
                 data: {
@@ -32,32 +31,32 @@ define([
                 }
             }
         };
-        return this.fakeAjaxService.rawAjaxRequest(params);
+        return this.fakeAjaxService.rawAjaxRequest(params);*/
 
-        //var deferred = Q.defer();
-        //var params = {
-        //    url: Configuration.api.widgetList,
-        //    type: 'GET',
-        //    dataType: 'json',
-        //    contentType: 'application/json',
-        //    accept: 'application/json'
-        //};
-        //this.ajaxService.rawAjaxRequest(params).then(
-        //    function(res){
-        //        var data = self.getWidgetData(page, res.data);
-        //        deferred.resolve({data:{body:data}});
-        //    },
-        //    function (err) {
-        //        deferred.reject(err);
-        //    }
-        //);
-        //return deferred.promise;
+        var deferred = Q.defer();
+        var params = {
+            url: Configuration.api.widgetList,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json'
+        };
+        this.ajaxService.rawAjaxRequest(params).then(
+            function(res){
+                var data = self.getWidgetData(page, res.data);
+                deferred.resolve({data:{body:data}});
+            },
+            function (err) {
+                deferred.reject(err);
+            }
+        );
+        return deferred.promise;
     };
 
     WidgetService.prototype.updatePageWidgets = function (data) {
 
         //TODO: request updates to server when having real API
-        return this.authAjaxService.rawAjaxRequest();
+        return this.ajaxService.rawAjaxRequest();
     };
 
     WidgetService.newInstance = function (ajaxService) {
@@ -88,7 +87,7 @@ define([
             },
             {
                 page: "intensity",
-                widgetType: "custom",
+                widgetType: "custom",// change to "code"
                 widgetName: "Custom",
                 endPoint: "",
                 order: 2,

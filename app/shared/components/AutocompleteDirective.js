@@ -3,64 +3,45 @@
  */
 define([
     'app',
-    'shared/services/ajax/FakeAjaxService',
     'shared/services/ajax/AjaxService',
     'config',
     'jquery',
     'jquery_ui',
 
-], function (app, FakeAjaxService, AjaxService, Configuration, $) {
+], function (app, AjaxService, Configuration, $) {
     'use strict';
 
-    function AutocompleteDirective(fakeAjaxService, ajaxService) {
-        fakeAjaxService = ajaxService || new FakeAjaxService();
+    function AutocompleteDirective(ajaxService) {
         ajaxService = ajaxService || new AjaxService();
-
 
         var linkElement = function (scope, $element, $attr, ctrl) {
             var url = $attr.autocomplete;
 
-
             scope.getAutocompleteOption = function (request, response) {
+                var maxRowCount = 25;
+                var entity = "users";
+                var rurl = url.format(request.term, maxRowCount, entity);
+                var params = {
+                    url: rurl,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    accept: 'application/json'
+                };
 
-                if(!url){
-                    fakeAjaxService.rawAjaxRequest({
-                        result: [{
-                            id: 1,
-                            label: "param1",
-                            value: "param1"
-                        }, {
-                            id: 2,
-                            label: "param2",
-                            value: "param2"
-                        }, {
-                            id: 3,
-                            label: "param3",
-                            value: "param3"
-                        }, {
-                            id: 4,
-                            label: "param4",
-                            value: "param4"
-                        }]
-                    }).then(function (data) {
-                        response(data);
-                    });
-                }
-                else{
-                    var rurl = url.format(request.term);
-                    var params = {
-                        url: rurl,
-                        type: 'get',
-                        contentType: 'application/json',
-                        accept: 'application/json'
+                ajaxService.rawAjaxRequest(params).then(function (data) {
+                    var dataAdapter = function(item){
+                        return {
+                            id: item.Id,
+                            label: item.Name,
+                            value: item.Id
+                        };
                     };
-
-                    ajaxService.rawAjaxRequest(params).then(function (data) {
-                        response(data);
-                        request = "";
-                    });
-                }
-
+                    response(
+                        data.map(dataAdapter)
+                    );
+                    request = "";
+                });
             };
 
             $.ui.autocomplete.prototype.____renderItem = $.ui.autocomplete.prototype._renderItem;

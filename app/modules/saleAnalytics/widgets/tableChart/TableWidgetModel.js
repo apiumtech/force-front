@@ -87,9 +87,7 @@ define([
 
     TableWidgetModel.prototype._baseBuildQueryString = WidgetBase.prototype.buildQueryString;
     TableWidgetModel.prototype.buildQueryString = function () {
-        // TODO: make language dynamic (from sessionStorage)
         var queries = this._baseBuildQueryString();
-        queries +=  "&language=es";
         queries +=  "&table=tblUsuarios";
         return queries;
     };

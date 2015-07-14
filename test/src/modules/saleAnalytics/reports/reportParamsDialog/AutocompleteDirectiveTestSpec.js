@@ -1,27 +1,25 @@
 define([
     'shared/components/AutocompleteDirective',
-    'shared/services/ajax/FakeAjaxService',
     'shared/services/ajax/AjaxService',
     'angular',
     'jquery',
     'jquery_ui'
-], function (AutocompleteDirective, FakeAjaxService, AjaxService, angular, $) {
+], function (AutocompleteDirective, AjaxService, angular, $) {
     'use strict';
 
     describe('AutocompleteDirective', function () {
-        var $scope, ajaxService, fakeAjaxService;
+        var $scope, ajaxService;
 
         beforeEach(function () {
             inject(function ($rootScope) {
                 $scope = $rootScope.$new();
             });
-            fakeAjaxService = mock(FakeAjaxService);
             ajaxService = mock(AjaxService);
         });
 
         describe('construct', function () {
             it("should return restrict to EA and a linker function", function () {
-                var directive = new AutocompleteDirective(fakeAjaxService, ajaxService);
+                var directive = new AutocompleteDirective(ajaxService);
                 expect(directive.restrict).toEqual("EA");
             });
         });
@@ -52,18 +50,17 @@ define([
                         response = sinon.spy();
                     var fakeResponse;
                     beforeEach(function () {
-                        fakeResponse = [{}, {}, {}];
-                        fakeAjaxService.rawAjaxRequest.returns(exerciseFakeOkPromiseWithArg(fakeResponse));
+                        fakeResponse = [{Id:1,Name:"A name"}, {Id:2,Name:"B name"}, {Id:3,Name:"C name"}];
+                        ajaxService.rawAjaxRequest.returns(exerciseFakeOkPromiseWithArg(fakeResponse));
                     });
-                    //TODO: enable this when fakeAjaxService can be removed completely
-                    xit("should call ajaxService's rawAjaxRequest method", function () {
+                    it("should call ajaxService's rawAjaxRequest method", function () {
                         sourceFunc(request, response);
-                        expect(fakeAjaxService.rawAjaxRequest).toHaveBeenCalled();
+                        expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
                     });
-                    //TODO: enable this when fakeAjaxService can be removed completely
-                    xit("should call response method after ajaxRequest success", function () {
+                    it("should call response method after ajaxRequest success", function () {
+                        var adaptedFakeResponse = [{id:1,label:"A name", value:1},{id:2,label:"B name", value:2},{id:3,label:"C name", value:3}];
                         sourceFunc(request, response);
-                        expect(response).toHaveBeenCalledWith(fakeResponse);
+                        expect(response).toHaveBeenCalledWith(adaptedFakeResponse);
                     });
                 });
             });
