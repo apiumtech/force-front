@@ -24,8 +24,11 @@ define([
 
         var token = this.storageService.retrieve(Configuration.tokenStorageKey, true);
 
-        // TODO: get rid of it when proper login is implemented
-        var dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+        // TODO: get rid of it ASAP
+        var dev_token;
+        if(window.location.hostname == "127.0.0.1") {
+            dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+        }
 
         token = token || dev_token;
         request.headers = request.headers || {};
