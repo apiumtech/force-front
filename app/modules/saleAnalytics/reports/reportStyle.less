@@ -123,11 +123,19 @@
               &.folder {
                 color: @force_report_medium_grey
               }
+              &.tree-arrow {
+                width: 15px;
+                margin-right: 10px;
+              }
             }
 
             > div {
               font-size: 1.1em;
               padding-top: 20px;
+              > strong{
+                padding-left: 10px;
+                font-weight: 500;
+              }
             }
 
             .report-item {
@@ -330,7 +338,7 @@
   .createAccordionLevel((@level - 1));
 
   .accordion-level-@{level} {
-    @value: (15+(25*@level));
+    @value: (10+(25*@level));
     padding-left: ~'@{value}px' !important;
   }
 }
