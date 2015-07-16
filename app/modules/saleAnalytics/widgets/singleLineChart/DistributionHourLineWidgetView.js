@@ -8,13 +8,15 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'plots/SingleLineChart',
-    'plots/LineGraphPlot'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot) {
+    'plots/LineGraphPlot',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot, GraphColorService) {
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.colorService = new GraphColorService();
         self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
@@ -109,9 +111,11 @@ define([
         var chartFields = [];
 
         data.fields.forEach(function (field) {
-            var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field);
+            var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field, self.colorService.getNextColor());
             chartFields.push(lineGraph);
         });
+
+        this.colorService.initialize();
 
         self.paintChart(self.element.find('.chart-place-holder'), chartFields);
     };
@@ -123,8 +127,8 @@ define([
         SingleLineChart.getChart().draw();
     };
 
-    SingleLineChartWidgetView.getLineGraphInstance = function (field) {
-        return LineGraphPlot.newInstance(field.name, field.data, false, false);
+    SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
+        return LineGraphPlot.newInstance(field.name, field.data, false, false, color);
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {

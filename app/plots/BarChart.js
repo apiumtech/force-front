@@ -2,8 +2,9 @@
  * Created by justin on 1/26/15.
  */
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function ($, GraphColorService) {
 
     function BarChart(plotData, tickLabels, configuration, plotImpl) {
         this.plotData = plotData;
@@ -11,6 +12,9 @@ define([
         this.configuration = configuration;
         this.paintPlot = plotImpl;
         this.renderedElement = null;
+
+        this.colorService = new GraphColorService();
+        this.configuration.colors = this.colorService.$colors;
     }
 
     BarChart._isNotEmpty = function (e) {

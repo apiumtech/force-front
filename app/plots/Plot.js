@@ -2,13 +2,17 @@
  * Created by kevin on 1/13/15.
  */
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function ($, GraphColorService) {
     function Plot(labels, plots, configuration, plotImpl) {
         this.labels = labels;
         this.plots = plots;
         this.configuration = configuration;
         this.paintPlot = plotImpl;
+
+        this.colorService = new GraphColorService();
+        this.configuration.colors = this.colorService.$colors;
     }
 
     Plot._isNotEmpty = function (e) {

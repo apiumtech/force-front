@@ -408,8 +408,9 @@ define([
                     else {
                         it("should call getLineGraphInstance with correct arguments", function () {
                             GraphChartWidgetView.getLineGraphInstance = jasmine.createSpy();
+                            spyOn(sut.colorService, "getNextColor").and.returnValue("#FFFFFF");
                             sut.getLineGraph(field, displayFields, filledStatus);
-                            expect(GraphChartWidgetView.getLineGraphInstance).toHaveBeenCalledWith(field, hidden, filled);
+                            expect(GraphChartWidgetView.getLineGraphInstance).toHaveBeenCalledWith(field, hidden, filled, '#FFFFFF');
                         });
                     }
                 });

@@ -5,7 +5,7 @@ define(['plots/SingleLineChart'], function (SingleLineChart) {
     'use strict';
 
     describe("SingleLineChart", function () {
-        var sut, config;
+        var sut;
 
 
         describe("_isNotEmpty", function () {
@@ -43,7 +43,7 @@ define(['plots/SingleLineChart'], function (SingleLineChart) {
 
         describe("onHover", function () {
             it("should bind plothover event", function () {
-                sut = SingleLineChart.newInstance([{data: 1}], [], config, jasmine.createSpy());
+                sut = SingleLineChart.newInstance([{data: 1}], [], {}, jasmine.createSpy());
                 sut.renderedElement = {
                     bind: jasmine.createSpy()
                 };

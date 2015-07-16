@@ -8,8 +8,9 @@ define([
     'modules/widgets/WidgetEventBus',
     'plots/Plot',
     'plots/LineGraphPlot',
-    'jquery'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $) {
+    'jquery',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, GraphColorService) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
@@ -22,6 +23,7 @@ define([
         scope.selectedRangeOption = "hour";
         scope.currentChartType = LINE;
         var self = this;
+        self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.configureEvents();
     }
@@ -115,6 +117,8 @@ define([
             chartFields.push(lineGraph);
         });
 
+        this.colorService.initialize();
+
         self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
     };
 
@@ -163,10 +167,13 @@ define([
         if (hidden) return null;
 
         var filled = chartType === 'filled';
+        var color = this.colorService.getNextColor();
 
-        var lineGraph = GraphChartWidgetView.getLineGraphInstance(fieldData, hidden, filled);
+        var lineGraph = GraphChartWidgetView.getLineGraphInstance(fieldData, hidden, filled, color);
         return lineGraph;
     };
+
+
 
     GraphChartWidgetView.prototype.extractFilters = function () {
         var self = this;
@@ -214,8 +221,8 @@ define([
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
-    GraphChartWidgetView.getLineGraphInstance = function (field, hidden, filled) {
-        return LineGraphPlot.newInstance(field.name, field.data, hidden, filled);
+    GraphChartWidgetView.getLineGraphInstance = function (field, hidden, filled, color) {
+        return LineGraphPlot.newInstance(field.name, field.data, hidden, filled, color);
     };
 
     return GraphChartWidgetView;
