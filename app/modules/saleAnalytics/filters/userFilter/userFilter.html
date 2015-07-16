@@ -30,6 +30,7 @@
                            ng-change="fn.getFilteredUsersList()"
                            ng-click="$event.stopPropagation()"
                            ng-i18next="[placeholder]Filters.SearchOwner">
+                    <i class="fa ic-search search_owner_icon"></i>
                 </form>
             </li>
             <!-- END search users -->
@@ -49,7 +50,7 @@
                         {{'Filters.Team' | i18next}}
                     </button>
                 </div>
-                <span class="pull-right m-t-5">{{'commonText.Show' | i18next}}</span></li>
+                <span class="pull-right m-t-7">{{'commonText.Show' | i18next}}</span></li>
             <!-- recent added users -->
             <li class="media hide">
                 <h6>{{'Filters.RecentSelected' | i18next}}</h6>

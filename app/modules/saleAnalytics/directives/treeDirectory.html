@@ -11,8 +11,8 @@
                 <i ng-if="item.children && item.children.length > 0" class="pull-left fa environment-collapse-icon"
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
-                <i class="pull-left m-t-2 m-r-10 folder fa"
-                   ng-class="{'fa-folder-o m-l-10': item.children, 'fa-folder-open-o': item.isOpen}"
+                <i class="pull-left m-t-2 m-r-10 folder"
+                   ng-class="{'ic-folder-closed m-l-10': item.children, 'ic-folder-opened': item.isOpen}"
                         ></i>
 
                 <div class="m-l-10" ng-if="item.children">

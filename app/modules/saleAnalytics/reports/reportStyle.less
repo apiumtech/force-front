@@ -10,7 +10,7 @@
 
 @force_report_light_blue: #F0F3F5;
 
-@force_report_medium_grey: rgba(0, 0, 0, .5);
+@force_report_medium_grey: #A2A4A5;
 
 @white: #FFF;
 
@@ -35,28 +35,33 @@
   }
 
   .favourite-icon {
-    font-size: 1.2em;
+    float: left;
+    font-size: 24px;
     margin-right: 8px;
+    line-height: 40px;
   }
 
-  border: 1px solid @force_report_dark_grey;
+  //border: 1px solid @force_report_dark_grey;
 
   ul.nav.nav-tabs {
-    background: @force_report_dark_grey;
+    background: #3A3B3C;
     text-transform: uppercase;
     border-radius: 0;
 
     > li {
-      border-bottom: 1px solid @force_report_dark_grey;
+      //border-bottom: 1px solid @force_report_dark_grey;
       > a {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        line-height: 40px;
         margin: 0;
         color: @white !important;
         border-radius: 0;
       }
       &.active, :hover {
-        background: #aeaeae;
+        background: @force_report_dark_grey;
         > a {
-          background: #aeaeae;
+          background: @force_report_dark_grey;
         }
       }
     }
@@ -325,7 +330,7 @@
   .createAccordionLevel((@level - 1));
 
   .accordion-level-@{level} {
-    @value: (25+(25*@level));
+    @value: (15+(25*@level));
     padding-left: ~'@{value}px' !important;
   }
 }

@@ -139,9 +139,10 @@ define([
         };
 
         self.fn.toggled = function(open) {
+            // make dropdown fill the height of the page
             var button = $("#UserFilterDropDownButton");
             var y = button.offset().top + button.height();
-            var remainingHeight = $(window).height() - y - 25;
+            var remainingHeight = $(window).height() - y - 35;
             remainingHeight += $(document).scrollTop().valueOf();
             $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
         };

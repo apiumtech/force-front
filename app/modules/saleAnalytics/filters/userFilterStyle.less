@@ -1,4 +1,8 @@
 
+// -----------------
+// Environment View
+// -----------------
+
 .users-filter-list.environment {
   .environment-collapse-icon {
     float: left;
@@ -12,19 +16,27 @@
     background: #FFFFFF !important;
 
     h4 {
-      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      border-bottom: 1px solid #212121;
+      text-transform: none;
     }
 
     a {
       color: rgba(0, 0, 0, .8);
       div {
-        padding: 2px 0 4px 0;
+        padding: 2px 0 10px 0;
+        i {
+          width: 9px;
+        }
+      }
+      &>div {
+        padding: 2px 0 4px 20px;
       }
 
       &.accordion-toggle {
 
         overflow: hidden;
-        margin-bottom: 0 !important;
+        margin: -10px -15px;
+        padding: 10px 15px 4px 15px;
       }
     }
   }
@@ -32,9 +44,9 @@
   .panel-body {
     padding: 0 0 3px !important;
     ul {
-      padding: 4px 0 8px 15px;
+      padding: 1px 0 8px 65px;
       margin: 0 !important;
-      background-color: rgba(0, 0, 0, .05);
+      background-color: #F8F8F8;
     }
   }
 
@@ -46,6 +58,12 @@
   }
 }
 
+
+
+
+// -----------------
+// Team View
+// -----------------
 
 .users-filter-list.team-view {
   .panel-body {
@@ -60,6 +78,9 @@
 
   .panel-group {
     margin-bottom: 0 !important;
+    .panel+.panel {
+      margin-top: 0;
+    }
   }
 
   .panel-heading {
@@ -69,10 +90,15 @@
     }
 
     .item-box {
+      padding: 5px 0px 3px 0px;
+      letter-spacing: normal;
       &.checked {
-        background: rgba(0, 0, 0, 0.05);
+        background: #F8F8F8;
+        border-radius: 3px;
       }
-      padding: 5px 0 0 10px;
+      i {
+        width: 9px;
+      }
     }
 
     .select-box {
@@ -96,7 +122,7 @@
     a {
       padding: 4px 0 4px 15px !important;
       text-transform: none !important;
-      color: rgba(0, 0, 0, .8);
+      color: #54585A;
 
       div.item-container {
         padding: 2px 0 4px 0;
