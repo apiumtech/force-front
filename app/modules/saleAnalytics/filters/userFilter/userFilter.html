@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav row row m-t-10"
     ng-controller="UserFilterController"
     ng-init="fn.initializeFilters(multipleSelection)">
-    <li class="dropdown" dropdown is-open="userFilterOpened">
-        <a id="drop1"
+    <li class="dropdown" dropdown is-open="userFilterOpened" on-toggle="fn.toggled(open)">
+        <a id="UserFilterDropDownButton"
            href="javascript:"
            class="dropdown-toggle m-r-30"
            dropdown-toggle>
@@ -16,7 +16,7 @@
 
             <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu media-list animated fadeInDown width-md"
+        <ul id="UserFilterDropDown" class="dropdown-menu media-list animated fadeInDown width-md"
             ng-click="$event.stopPropagation()">
                             <span class="panel-loading isLoading" ng-if="data.isLoadingUsers">
                                 <i class="spinner"></i>

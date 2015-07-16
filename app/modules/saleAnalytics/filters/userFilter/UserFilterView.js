@@ -138,6 +138,14 @@ define([
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
         };
 
+        self.fn.toggled = function(open) {
+            var button = $("#UserFilterDropDownButton");
+            var y = button.offset().top + button.height();
+            var remainingHeight = $(window).height() - y - 25;
+            remainingHeight += $(document).scrollTop().valueOf();
+            $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
+        };
+
     };
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {

@@ -2,14 +2,18 @@
  * Created by justin on 2/2/15.
  */
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function ($, GraphColorService) {
     function SingleLineChart(plotData, tickLabels, configuration, plotImpl) {
         this.plotData = plotData;
         this.tickLabels = tickLabels;
         this.configuration = configuration;
         this.paintPlot = plotImpl;
         this.renderedElement = null;
+
+        this.colorService = new GraphColorService();
+        this.configuration.colors = this.colorService.$colors;
     }
 
     SingleLineChart._isNotEmpty = function (e) {

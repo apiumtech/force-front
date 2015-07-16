@@ -2,12 +2,16 @@
  * Created by justin on 1/26/15.
  */
 define([
-    'jquery'
-], function ($) {
+    'jquery',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function ($, GraphColorService) {
     function PieChart(plotData, configuration, plotImpl) {
         this.plotData = plotData;
         this.configuration = configuration;
         this.paintPlot = plotImpl;
+
+        this.colorService = new GraphColorService();
+        this.configuration.colors = this.colorService.$colors;
     }
 
     PieChart._isNotEmpty = function (e) {
