@@ -5,8 +5,8 @@
     <div class="col-md-7">
 
         <div class="form-inline name-form clearfix">
-            <!--<i class="fa pull-left bullet fa-star-o" ng-click="fn.toggleFavouriteReport()"
-               ng-class="{'favourite' : report.Favorite}"></i>-->
+            <i class="pull-left bullet" ng-click="fn.toggleFavouriteReport()"
+               ng-class="{'favourite ic-star-filled' : report.Favorite, 'ic-star-outline': !report.Favorite}"></i>
 
             <h5 ng-show="!editingName" class="pull-left"
                 ng-click="fn.startEditingName();">{{report.Name}}</h5>
@@ -39,18 +39,20 @@
 
         <div class="form-inline description-form clearfix" ng-show="!fireOpenFolder">
             <p ng-show="!editingDescription" class="pull-left"
-               ng-click="fn.startEditingDescription();">{{report.Description}}</p>
+               ng-click="fn.startEditingDescription();">
+                {{report.Description}}
+                <button class="btn btn-link edit-btn" type="button"
+                        ng-show="!editingDescription"
+                        ng-click="fn.startEditingDescription();">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+            </p>
             <input ng-show="editingDescription" ng-model="report.Description"
                    class="form-control inline clearfix"
                    type="text"
                    ng-keyup="$event.keyCode == 13 ? fn.saveDescription() : null"
                     />
             <div class="inline button-group">
-                <button class="btn btn-link edit-btn" type="button"
-                        ng-show="!editingDescription"
-                        ng-click="fn.startEditingDescription();">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </button>
                 <button class="btn btn-default"
                         ng-show="editingDescription" type="button" data-ng-click="fn.saveDescription();">
                     <i class="fa ic-accept"></i>
@@ -76,9 +78,10 @@
             <span class="reportType m-r-4"
                   ng-if="report.ReportType && report.ReportType.length == 1">{{selectedReportType}}</span>
 
-            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>
-            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.download()"><i class="glyphicon glyphicon-download-alt"></i></button>
-            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.send()"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-default btn-sm btn-view-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>
+            <div class="report-action-bar-hruler"></div>
+            <button class="btn btn-default btn-download-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.download()"><i class="ic-download"></i></button>
+            <button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.send()"><i class="ic-email"></i></button>
 
         </div>
     </div>

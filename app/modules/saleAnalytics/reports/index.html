@@ -10,12 +10,12 @@
             </tab-heading>
             <ng-include src="'app/modules/saleAnalytics/reports/allReport/index.html'"></ng-include>
         </tab>
-        <!--<tab select="fn.favReportSelected()">
+        <tab select="fn.favReportSelected()">
             <tab-heading>
                 <i class="ic-star-outline favourite-icon"></i> {{'Reports.FavouriteReports' | i18next}}
             </tab-heading>
             <ng-include src="'app/modules/saleAnalytics/reports/favouriteReport/index.html'"></ng-include>
-        </tab>-->
+        </tab>
         <tab ng-show="displaySearch" select="fn.searchReportSelected()" active="data.searchTabActivated">
             <tab-heading>
                 {{'Reports.SearchReports' | i18next}}

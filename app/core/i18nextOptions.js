@@ -30,6 +30,8 @@ define([
                             implementationCode: '-1',
                             deviceType: '108'
                         },
+                        crossDomain: true,
+                        jsonp: false,
                         type: 'GET',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         dataType: 'json'

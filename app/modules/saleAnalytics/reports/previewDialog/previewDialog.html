@@ -1,7 +1,9 @@
 <div class="modal-header">
+
     <button type="button" class="close" ng-click="fn.closePreview()">
         <span class="fa ic-close"></span>
     </button>
+
     <div class="modal-title">
         <div class="row">
             <div class="pull-left m-t-6">
@@ -24,7 +26,9 @@
             </div>
         </div>
     </div>
+
 </div>
+
 <div class="modal-body" ng-init="fn.init()">
     <carousel interval="myInterval">
         <slide ng-repeat="image in images">

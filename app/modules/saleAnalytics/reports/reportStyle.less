@@ -149,6 +149,20 @@
               .action-form {
                 padding-top: 10px;
                 padding-right: 30px;
+
+                .btn-view-report {
+                  margin-right: 10px;
+                }
+                .btn-download-report {
+                  margin-left: 10px;
+                }
+                .report-action-bar-hruler {
+                  display: inline-block;
+                  width: 1px;
+                  background-color: @force_report_light_grey;
+                  height: 34px;
+                  vertical-align: middle;
+                }
               }
             }
 
@@ -257,7 +271,10 @@
 
     .name-form {
       h5 {
-        font-weight: 600 !important;
+        font-weight: 500 !important;
+        color:#212121;
+        font-size: 16px;
+        letter-spacing: 0px;
       }
 
       i.bullet {
@@ -265,7 +282,7 @@
         margin-top: 10px;
         margin-right: 15px;
         font-size: 1.1em;
-        color: @force_report_medium_grey;
+        color: @force_report_dark_grey;
 
         &.favourite, &:hover {
           color: #ED8B00 !important;
@@ -295,9 +312,9 @@
     }
     &:hover {
       .edit-btn:not(.ng-hide) {
-        display: block;
-        margin: 5px 0 0 15px;
-        padding: 0 0 0 15px;
+        display: inline;
+        margin: 0; padding: 0;
+        padding-left: 10px;
         color: rgba(0, 0, 0, .5);
       }
     }
@@ -310,17 +327,24 @@
       }
     }
   }
+
   .description-form {
+    padding-bottom: 0 !important;
+    min-height: 40px;
 
     .edit-btn {
       margin-top: 0 !important;
       padding-top: 0;
     }
 
-    padding-bottom: 0 !important;
     > p {
-      margin-bottom: 2px !important;
+      line-height: 25px;
+      font-size: 14px;
+      color: #54585A;
+      letter-spacing: 0px;
+
     }
+
     :hover {
       .edit-btn:not(.ng-hide) {
         margin-top: 0 !important;
