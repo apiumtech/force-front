@@ -62,6 +62,10 @@ define([
             self.event.getReportURL(self.report, self.onURLReceivedForSend.bind(self));
         };
 
+        self.fn.expandDescription = function () {
+            $('.modal-title-description').toggleClass('with-ellipsis');
+        };
+
     };
 
     PreviewDialogView.prototype.onPreviewImageLoaded = function(data){

@@ -7,15 +7,19 @@
   background: transparent;
 
   .modal-header {
-    background: #000;
+    background: #1B1D1D;
     padding-top: 10px;
     padding-bottom: 10px;
+    min-height: 75px;
+
     .close {
       opacity: .7;
       color: #fff;
     }
 
     .modal-title {
+      color: #F0F0F0;
+
       i {
         cursor: pointer;
         &:hover, &.favourite {
@@ -25,10 +29,19 @@
           color: rgba(255, 255, 255, .5) !important;
         }
       }
+
       h5 {
         color: #F0F0F0;
       }
-      color: #F0F0F0;
+
+      .modal-title-description {
+        cursor: pointer;
+        &.with-ellipsis {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
 
       .button-group {
         i {
@@ -48,7 +61,8 @@
   }
 
   .modal-body {
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, .6);
+
     .carousel-inner {
       .item {
         height: initial !important;

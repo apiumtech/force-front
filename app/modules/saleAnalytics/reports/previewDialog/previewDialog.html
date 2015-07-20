@@ -1,29 +1,37 @@
 <div class="modal-header">
 
     <button type="button" class="close" ng-click="fn.closePreview()">
-        <span class="fa ic-close"></span>
+        <span class="ic-close"></span>
     </button>
 
     <div class="modal-title">
         <div class="row">
+
             <div class="pull-left m-t-6">
-                <i class="fa fa-star" ng-show = "!processingFavourite"
-                   ng-class="{'favourite': report.Favorite, 'not-favourite' : !report.Favorite }" data-ng-click="fn.toggleFavouriteReport()"></i>
+                <i  ng-show="!processingFavourite"
+                    ng-class="{'favourite ic-star-filled':  report.Favorite, 'ic-star-outline not-favourite' : !report.Favorite }"
+                    data-ng-click="fn.toggleFavouriteReport()"></i>
                 <i class="fa fa-spinner fa-spin" ng-show = "processingFavourite"></i>
             </div>
+
             <div class="col-md-5">
                 <h5>{{report.Name}}</h5>
-
-                <p>{{report.Description}}</p>
+                <p class="modal-title-description with-ellipsis"
+                   title="{{report.Description}}"
+                   ng-click="fn.expandDescription()">
+                    {{report.Description}}
+                </p>
             </div>
+
             <div class="text-center col-md-2 button-group">
                 <button class="btn btn-link right-separator" ng-click="fn.download()">
-                    <i class="fa fa-download download"></i>
+                    <i class="ic-download download"></i>
                 </button>
                 <button class="btn btn-link" ng-click="fn.send()">
-                    <i class="fa fa-envelope"></i>
+                    <i class="ic-email"></i>
                 </button>
             </div>
+
         </div>
     </div>
 
