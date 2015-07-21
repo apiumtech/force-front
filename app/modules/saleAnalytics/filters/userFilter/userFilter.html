@@ -17,6 +17,7 @@
             <span class="caret"></span>
         </a>
         <ul id="UserFilterDropDown" class="dropdown-menu media-list animated fadeInDown width-md"
+            onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';"
             ng-click="$event.stopPropagation()">
                             <span class="panel-loading isLoading" ng-if="data.isLoadingUsers">
                                 <i class="spinner"></i>
