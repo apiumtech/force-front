@@ -1,3 +1,26 @@
+// --------------------------------
+// Sales Analytics Date Filter
+// --------------------------------
+
+.SalesAnalyticsDateFilter {
+  .SalesAnalyticsDateFilterSelectionLabel {
+    color: #54585a;
+  }
+}
+
+#datePickerFromDate,
+#datePickerToDate {
+  border-radius: 3px;
+}
+#datePickerFromDate {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#datePickerToDate {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 
 // -----------------
 // Environment View
@@ -102,12 +125,14 @@
     }
 
     .select-box {
+      padding: 2px 13px 3px 0;
       a {
-        font-size: .7em;
-        padding: 2px 5px !important;
-        border: 1px solid #000;
+        font-size: 11px;
+        padding: 3px 11px 2px!important;
+        border: 1px solid #d8dde1;
         color: #000;
         border-radius: 4px;
+
 
         &.checked {
           border: 1px solid #ED8B00;
@@ -119,6 +144,7 @@
     border: none !important;
     padding: 2px;
     background: #FFF !important;
+
     a {
       padding: 4px 0 4px 15px !important;
       text-transform: none !important;
@@ -143,5 +169,15 @@
         padding-right: 0 !important;
       }
     }
+
   }
+}
+
+.users-filter-list.team-view .accordion-tree-group {
+  padding-top: 7px;
+}
+
+#UserFilterDropDown > li.users-tree > ng-include > accordion > div > div > div.accordion-tree-group {
+  border-top: 1px solid #EEE;
+  border-radius: 0;
 }

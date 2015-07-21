@@ -11,7 +11,8 @@
                 <div class="pull-left no-padding">
                     <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>
                 </div>
-                <div class="">
+
+                <div class="SalesAnalyticsDateFilter">
                     <ul class="nav navbar-nav m-t-10">
                         <li>
                         <span class="pull-left date-range m-r-10 inline">
@@ -22,7 +23,7 @@
                                  ng-click="fn.closeDatePickers($event);"
                                     >
 
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control SalesAnalyticsDateFilterSelectionLabel"
                                        ng-keypress="$event.preventDefault()"
                                        ng-click="dateRangeFilterOpened=!dateRangeFilterOpened"
                                        ng-attr-placeholder="{{dateRangePlaceholder}}">
@@ -35,7 +36,7 @@
                                     <ul class="dropdown-menu media-list pull-right haveDatePicker animated fadeInDown"
                                         ng-click="fn.closeDatePickers($event);"
                                         style="width:300px; max-width:300px;">
-                                        <li><h6 class="m-t-20">{{'Filters.SelectDateRange' | i18next}}</h6></li>
+                                        <li><h6 class="m-t-10">{{'Filters.SelectDateRange' | i18next}}</h6></li>
                                         <li class="divider"></li>
                                         <li>
                                             <div class="row">
@@ -48,7 +49,7 @@
                                                                 date-max-limit="{{isoStringMaxDateFromLimit()}}"
                                                                 year-range="2"
                                                                 date-format="{{datePickerFormat}}">
-                                                            <input type="text" class="form-control" name="start"
+                                                            <input id="datePickerFromDate" type="text" class="form-control" name="start"
                                                                    data-desc="calendar-input"
                                                                    ng-model="displayDateStart"/>
                                                         </force-date-picker>
@@ -59,7 +60,7 @@
                                                                 date-min-limit="{{isoStringDateEndLimit()}}"
                                                                 date-max-limit="{{isoStringMaxDateLimit()}}"
                                                                 date-format="{{datePickerFormat}}">
-                                                            <input type="text" class="form-control" name="end"
+                                                            <input id="datePickerToDate" type="text" class="form-control" name="end"
                                                                    data-desc="calendar-input"
                                                                    ng-model="displayDateEnd"/>
                                                         </force-date-picker>
@@ -86,7 +87,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <button type="button" class="btn btn-primary  btn-sm dropdown-toggle"
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle"
                                             data-toggle="dropdown">
                                         <span class="caret"></span>
                                     </button>

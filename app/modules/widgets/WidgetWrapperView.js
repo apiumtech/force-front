@@ -88,6 +88,14 @@ define([
             set: function (value) {
                 this.$scope.widgetId = value;
             }
+        },
+        isClosable: {
+            get: function () {
+                return this.$scope.isClosable || (this.$scope.isClosable = false);
+            },
+            set: function (value) {
+                this.$scope.isClosable = value;
+            }
         }
     });
 

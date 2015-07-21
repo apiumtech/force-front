@@ -17,7 +17,7 @@
                ng-click="fn.toggleCollapsePanel()">
                 <i class="fa fa-minus"></i>
             </a>
-            <a href="javascript:;"
+            <a href="javascript:;" ng-if="isClosable"
                class="btn btn-xs btn-icon btn-circle btn-danger"
                ng-click="fn.closeWidget()">
                 <i class="fa fa-times"></i>
@@ -35,7 +35,7 @@
         <div class="error-panel" ng-if="hasError">
             <p class="error-title">{{errorMessage.title}}</p>
             <p class="error-msg">{{errorMessage.message}}</p>
-            <button class="btn btn-refresh" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> Refresh</button>
+            <button class="btn btn-primary" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> Refresh</button>
         </div>
         <ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>
     </div>

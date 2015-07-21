@@ -28,6 +28,7 @@ define([
                         event.stopPropagation();
 
                         var selectState = parentItem.checked;
+                        parentItem.isOpen = true;
                         parentItem.checked = !selectState;
                         parentItem.children.forEach(function (n) {
                             if (n.children) {
@@ -37,8 +38,9 @@ define([
                             else n.checked = !selectState;
                         });
 
-                        if (!notFireEvent)
+                        if (!notFireEvent){
                             UserTreeListEventBus.fireNodeSelected();
+                        }
                     };
 
                     scope.toggleNode = function (item) {

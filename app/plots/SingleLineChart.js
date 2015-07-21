@@ -76,7 +76,7 @@ define([
             },
             legend: {
                 labelBoxBorderColor: '#ddd',
-                margin: 0,
+                margin: 5,
                 noColumns: 1,
                 show: true
             }

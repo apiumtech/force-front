@@ -1,8 +1,8 @@
 <accordion-group ng-repeat="item in treeList"
                  is-open="item.isOpen" is-disabled="!item.children"
                  class="clearfix accordion-tree-group accordion-heading-level-{{treeLevel}}"
-                 ng-class="{'highlight' : item.selected}"
-        >
+                 ng-class="{'highlight' : item.selected}">
+
     <accordion-heading class="clearfix">
         <div class="item-container accordion-level-{{treeLevel}}">
 
@@ -12,8 +12,7 @@
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
                 <i class="pull-left m-t-2 m-r-10 folder"
-                   ng-class="{'ic-folder-closed': item.children, 'ic-folder-opened': item.isOpen}"
-                        ></i>
+                   ng-class="{'ic-folder-closed': item.children, 'ic-folder-opened': item.isOpen}"></i>
 
                 <div class="m-l-10" ng-if="item.children">
                     <strong>{{item.Name}}</strong>
@@ -21,6 +20,7 @@
 
                 <report-item report="item" ng-if="!item.children"></report-item>
             </div>
+
         </div>
     </accordion-heading>
 
