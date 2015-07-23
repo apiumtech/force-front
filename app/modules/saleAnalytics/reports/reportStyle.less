@@ -68,7 +68,9 @@
   }
 
   .all-report, .favourite-report, .search-report {
-    border: 1px solid @force_report_light_grey;
+    border-top: 1px solid @force_report_light_grey;
+    border-left: 1px solid @force_report_light_grey;
+    border-right: 1px solid @force_report_light_grey;
   }
 
   .tab-content {
@@ -299,24 +301,21 @@
 
   }
 
-  .name-form, .description-form {
+  .name-form,
+  .description-form {
+
     .edit-btn:not(.ng-hide) {
       display: none;
     }
     &:hover {
       .edit-btn:not(.ng-hide) {
-        display: inline;
+        display: inline-block;
+        height: 0;
+        vertical-align: middle;
         margin: 0; padding: 0;
         padding-left: 10px;
         color: rgba(0, 0, 0, .5);
-      }
-    }
-  }
 
-  .name-form {
-    :hover {
-      .edit-btn:not(.ng-hide) {
-        //margin: 5px 0 0;
       }
     }
   }
@@ -326,7 +325,7 @@
     min-height: 40px;
 
     .edit-btn {
-      margin-top: 0 !important;
+      margin-top: -18px !important;
       padding-top: 0;
     }
 
@@ -336,13 +335,6 @@
       color: #54585A;
       letter-spacing: 0px;
 
-    }
-
-    :hover {
-      .edit-btn:not(.ng-hide) {
-        margin-top: 0 !important;
-        padding-top: 0
-      }
     }
   }
   .action-form {
@@ -377,3 +369,12 @@
   background: transparent;
 }
 .panel-title { letter-spacing:0px;}
+
+/*.accordion-heading-level-0:last-child > .panel-heading {
+  border-bottom: none!important;
+}*/
+
+/*div[class^="accordion-heading-level-"]:last-child > .panel-heading,
+div[class*=" accordion-heading-level-"]:last-child > .panel-heading, {
+  border-bottom: none!important;
+}*/

@@ -25,6 +25,14 @@ define([
                 this.$scope.data.showSearchResult = value;
             }
         },
+        isLoading: {
+            get: function () {
+                return this.$scope.data.isLoading;
+            },
+            set: function (value) {
+                this.$scope.data.isLoading = value;
+            }
+        },
         searchQuery: {
             get: function () {
                 return this.$scope.searchQuery;
@@ -45,6 +53,8 @@ define([
 
     ReportSearchBoxView.prototype.configureEvents = function () {
         var self = this;
+        var scope = self.$scope;
+
         self.fn.searchQueryKeyUp = function ($event) {
             if(!self.isValidKey($event)) return;
             ($event.keyCode == 13) ? self.fn.activateSearch() : self.fn.search();
@@ -64,7 +74,9 @@ define([
         };
 
         self.fn.__search = function(){
+            self.isLoading = true;
             self.event.onSearch(self.searchQuery);
+            scope.$apply();
         };
 
         self.fn.deactivateSearch = function () {
@@ -112,6 +124,7 @@ define([
 
     ReportSearchBoxView.prototype.onSearchResultLoaded = function (result) {
         var self = this;
+        self.isLoading = false;
         self.reports = result;
         self.searchResultLoaded = true;
         if(!self.searchActivated)

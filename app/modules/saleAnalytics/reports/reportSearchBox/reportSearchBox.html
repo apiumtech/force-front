@@ -1,21 +1,21 @@
 <div class="search-box input-group">
     <input class="form-control" ng-model="searchQuery" ng-keyup="fn.searchQueryKeyUp($event)"
             ng-click="fn.showSearchResult()"/>
-    <span class="fa fa-remove removeTextBoxBtn" ng-show="searchQuery"
+    <span class="ic-close removeTextBoxBtn" ng-show="searchQuery"
           ng-click="fn.deactivateSearch();$event.stopPropagation()"></span>
 
     <span class="input-group-btn">
-        <button class="btn" ng-class="{'btn-default': !searchQuery, 'btn-activated': searchQuery}"
+        <button class="btn" ng-class="{'btn-default': !searchQuery, 'btn-primary': searchQuery}"
                 ng-disabled="!searchQuery" type="button" ng-click="fn.activateSearch()"><i class="fa ic-search"></i></button>
     </span>
 </div>
 
-<div class="search-result-panel animated fadeIn" ng-show="data.showSearchResult">
+<div class="search-result-panel animated fadeIn" ng-show="data.showSearchResult || data.isLoading">
     {{showSearchResult}}
     <ul high-light-result>
         <li class="search-info" ng-click="fn.activateSearch()"><i class="fa fa-search"></i></i><span class="text">Searching for: {{searchQuery}}</span></li>
 
-        <div ng-show="!reports || reports.length <= 0" class="empty-search small">
+        <div ng-show="(!reports || reports.length <= 0) && !data.isLoading" class="empty-search small">
             <img src="assets/img/filter-icon.png" alt="" />
             <h4>We are sorry, your search did not return any result</h4>
         </div>
@@ -30,4 +30,7 @@
             <span class="pull-right report-date">{{report.Date | date: 'dd-MM-yyyy'}}</span>
         </li>
     </ul>
+    <span class="panel-loader" ng-show="data.isLoading">
+        <i class="spinner"></i>
+    </span>
 </div>
