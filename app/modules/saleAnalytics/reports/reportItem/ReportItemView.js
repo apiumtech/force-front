@@ -99,7 +99,7 @@ define([
         this.selectedReportType = this.report && this.report.ReportType ? this.report.ReportType[0] : '';
 
         self.fn.startEditingName = function () {
-            if (self.fireOpenFolder) return;
+            if (self.fireOpenFolder){ return; }
             self.originalName = self.report.Name;
             self.editingName = true;
         };
@@ -115,14 +115,14 @@ define([
         };
 
         self.fn.sendFolderReportOpenCommand = function (item) {
-            if (!self.fireOpenFolder || item.Type !== 'folder') return;
+            if (!self.fireOpenFolder || item.Type !== 'folder'){ return; }
             var folderId = item.Id;
 
             self.reportEventBus.fireFolderReportSelected(folderId);
         };
 
         self.fn.sendReportOpenCommand = function (item) {
-            if (!self.fireOpenFolder || item.Type !== 'report') return;
+            if (!self.fireOpenFolder || item.Type !== 'report'){ return; }
 
             var id = item.Id;
             self.reportEventBus.fireReportSelected(id);

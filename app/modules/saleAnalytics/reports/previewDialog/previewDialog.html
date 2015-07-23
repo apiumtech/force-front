@@ -24,10 +24,12 @@
             </div>
 
             <div class="text-center col-md-2 button-group">
-                <button class="btn btn-link right-separator" ng-click="fn.download()">
+                <button class="btn btn-link right-separator" ng-click="fn.download()"
+                        data-toggle="tooltip" data-placement="bottom" title="{{'action_download' | i18next}}">
                     <i class="ic-download download"></i>
                 </button>
-                <button class="btn btn-link" ng-click="fn.send()">
+                <button class="btn btn-link" ng-click="fn.send()"
+                        data-toggle="tooltip" data-placement="bottom" title="{{'action_sharebymail' | i18next}}">
                     <i class="ic-email"></i>
                 </button>
             </div>

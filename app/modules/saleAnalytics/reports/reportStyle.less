@@ -49,7 +49,16 @@
     border-radius: 0;
 
     > li {
-      //border-bottom: 1px solid @force_report_dark_grey;
+
+      &:nth-child(3).active,
+      &:nth-child(3).active,
+      &:nth-child(3).active:hover,
+      &:nth-child(3).active > a,
+      &:nth-child(3).active > a:hover,
+      &:nth-child(3).active > a > tab-heading {
+        background: #ED8B00 !important;
+      }
+
       > a {
         padding-top: 0px;
         padding-bottom: 0px;
@@ -58,6 +67,7 @@
         color: @white !important;
         border-radius: 0;
       }
+
       &.active, :hover {
         background: @force_report_dark_grey;
         > a {
@@ -232,6 +242,11 @@
       }
 
     }
+  }
+
+  .search-report .description-form {
+    padding-bottom: 0!important;
+    min-height: 30px;
   }
 
   i.bullet {

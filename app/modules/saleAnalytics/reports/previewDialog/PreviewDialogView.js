@@ -1,7 +1,8 @@
 define([
     'shared/BaseView',
-    'modules/saleAnalytics/reports/previewDialog/PreviewDialogPresenter'
-], function (BaseView, PreviewDialogPresenter) {
+    'modules/saleAnalytics/reports/previewDialog/PreviewDialogPresenter',
+    'jquery'
+], function (BaseView, PreviewDialogPresenter, $) {
     'use strict';
 
     function PreviewDialogView($scope, $modalInstance, presenter) {
@@ -46,6 +47,7 @@ define([
         };
 
         self.fn.init = function(){
+            $('[data-toggle=tooltip]').tooltip();
             self.event.onLoadingPreviewImage(self.report);
         };
 

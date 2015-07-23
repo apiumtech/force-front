@@ -8,11 +8,19 @@ define([
     function SearchReportView($scope, $presenter) {
         ReportTabBaseView.call(this, $scope, $presenter);
         this.awaitHelper = AwaitHelper.getInstance();
-        this.currentQueryString = "";
         this.configureEvents();
     }
 
-    SearchReportView.inherits(ReportTabBaseView, {});
+    SearchReportView.inherits(ReportTabBaseView, {
+        currentQueryString: {
+            get: function () {
+                return this.$scope.data.currentQueryString || (this.$scope.data.currentQueryString = "");
+            },
+            set: function (value) {
+                this.$scope.data.currentQueryString = value;
+            }
+        }
+    });
 
     SearchReportView.prototype.configureEvents = function () {
         this.__base__.configureEvents.call(this);

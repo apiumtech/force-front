@@ -1,20 +1,22 @@
-<div class="search-report panel"
-     ng-class="{'panel-loading': isLoading}"
-     ng-controller="SearchReportController"
+<div ng-controller="SearchReportController"
      ng-init="fn.loadReports(queryString)">
-    <div class="panel-body">
-        <div class="panel-loader" ng-show="isLoading">
-            <span class="spinner-small"></span>
-        </div>
-        <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
-            <div class="empty-search">
-                <img src="assets/img/filter-icon.png" alt="" />
-                <h4>We are sorry, your search did not return any result</h4>
-                <p>You can widen your search by checking that all words are spelt correctly</p>
+    <div><p>{{ reports.length }} results for "{{ data.currentQueryString }}"</p></div>
+    <div class="search-report panel"
+         ng-class="{'panel-loading': isLoading}">
+        <div class="panel-body">
+            <div class="panel-loader" ng-show="isLoading">
+                <span class="spinner-small"></span>
             </div>
-        </div>
-        <div class="report-item-box panel" ng-repeat="report in reports track by $index" ng-show="reports && reports.length > 0">
-            <report-item report="report" fire-open-folder="true" class="clearfix report-item"></report-item>
+            <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
+                <div class="empty-search">
+                    <img src="assets/img/filter-icon.png" alt="" />
+                    <h4>We are sorry, your search did not return any result</h4>
+                    <p>You can widen your search by checking that all words are spelt correctly</p>
+                </div>
+            </div>
+            <div class="report-item-box" ng-repeat="report in reports track by $index" ng-show="reports && reports.length > 0">
+                <report-item report="report" fire-open-folder="true" class="clearfix report-item"></report-item>
+            </div>
         </div>
     </div>
 </div>

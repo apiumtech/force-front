@@ -860,6 +860,9 @@
     padding: 0 0px !important;
 }
 /* LOOP - Margin & Padding */
+.m-t-45 {
+    margin-top:45px !important;
+}
 .m-40 {
     margin: 40px !important;
 }
