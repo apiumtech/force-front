@@ -69,8 +69,13 @@ define([
 
     Plot.basic = function (labels, plots, isStacked) {
         return Plot.newInstance(labels || [], plots, {
-            xaxis: {tickColor: '#ddd', tickSize: 10},
-            yaxis: {tickColor: '#ddd', tickSize: 10},
+            xaxis: {
+                tickColor: '#ddd',
+                rotateTicks: 25
+            },
+            yaxis: {
+                tickColor: '#ddd'
+            },
             series: {
                 stack: isStacked
             },
@@ -80,7 +85,11 @@ define([
                 clickable: true,
                 tickColor: "#ccc",
                 borderWidth: 1,
-                borderColor: '#ddd'
+                borderColor: '#ddd',
+                margin: {
+                    bottom: 40,
+                    right: 40
+                }
             },
             legend: {
                 labelBoxBorderColor: '#ddd',

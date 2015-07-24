@@ -10,6 +10,7 @@ module.exports = function (config) {
         files: [
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'node_modules/**/*.js', included: false},
+            {pattern: 'assets/js/**/*.js', included: false},
             {pattern: 'framework/**/*.js', included: false},
             {pattern: 'app/**/*.js', included: false},
 
