@@ -66,8 +66,8 @@ define([
                 borderWidth: 0,
                 borderColor: 'rgba(0,0,0,0.2)',
                 margin: {
-                    bottom: 40,
-                    right: 40
+                    bottom: 20,
+                    right: 20
                 }
             },
             series: {

@@ -87,8 +87,8 @@ define([
                 borderWidth: 1,
                 borderColor: '#ddd',
                 margin: {
-                    bottom: 40,
-                    right: 40
+                    bottom: 20,
+                    right: 20
                 }
             },
             legend: {
