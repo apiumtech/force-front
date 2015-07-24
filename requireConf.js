@@ -46,6 +46,7 @@ var requireConf = {
         'flot-pie': '../node_modules/flot/jquery.flot.pie',
         'flot-categories': '../node_modules/flot/jquery.flot.categories',
         'flot-crosshair': '../node_modules/flot/jquery.flot.crosshair',
+        'flot-tickrotor': '../assets/js/vendor/jquery.flot.tickrotor',
 
         // 3rd party
         'postal': '../node_modules/postal/lib/postal.min',
@@ -222,6 +223,11 @@ var requireConf = {
             exports: 'flotCrosshair',
             deps: ['flot']
         },
+
+        'flot-tickrotor': {
+            exports: 'flotTickrotor',
+            deps: ['flot']
+        },
         //endregion flot
 
         //region 3rd party libs
@@ -281,7 +287,7 @@ var requireConf = {
         'underscore', 'signals',
 
         /* Flot & stuffs */
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'crypto',
+        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'flot-tickrotor', 'crypto',
         'crypto.SHA1',
 
         /* Dependency Injection configuration loader */

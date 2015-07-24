@@ -61,7 +61,8 @@ define([
         return SingleLineChart.newInstance(plotData, tickLabels, {
             xaxis: {
                 tickColor: '#ddd',
-                tickSize: 2
+                tickSize: 2,
+                rotateTicks: 25
             },
             yaxis: {
                 tickColor: '#ddd',
@@ -72,7 +73,11 @@ define([
                 clickable: true,
                 tickColor: "#ccc",
                 borderWidth: 1,
-                borderColor: '#ddd'
+                borderColor: '#ddd',
+                margin: {
+                    bottom: 40,
+                    right: 40
+                }
             },
             legend: {
                 labelBoxBorderColor: '#ddd',

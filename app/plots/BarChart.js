@@ -53,7 +53,8 @@ define([
     BarChart.basic = function (plotData, tickLabels) {
         return BarChart.newInstance(plotData, tickLabels, {
             xaxis: {
-                tickColor: 'transparent'
+                tickColor: 'transparent',
+                rotateTicks: 25
             },
             yaxis: {
                 tickColor: '#ddd',
@@ -63,7 +64,11 @@ define([
                 hoverable: true,
                 tickColor: "#ccc",
                 borderWidth: 0,
-                borderColor: 'rgba(0,0,0,0.2)'
+                borderColor: 'rgba(0,0,0,0.2)',
+                margin: {
+                    bottom: 40,
+                    right: 40
+                }
             },
             series: {
                 stack: false,
