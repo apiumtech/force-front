@@ -90,6 +90,12 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        self.fn.init = function () {
+            setTimeout( function(){
+                $('[data-toggle=tooltip]').tooltip();
+            }, 2000 );
+        };
     };
 
     GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (data) {
@@ -137,8 +143,9 @@ define([
     GraphChartWidgetView.prototype.onChartHover = function (event, pos, chartItem) {
         function showTooltip(x, y, contents) {
             $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y - 45,
-                left: x - 55
+                top: y + 10,
+                left: x + 10,
+                opacity: 0.8
             }).appendTo("body").fadeIn(200);
         }
 
@@ -146,9 +153,10 @@ define([
             if (previousPoint !== chartItem.dataIndex) {
                 previousPoint = chartItem.dataIndex;
                 $("#tooltip").remove();
-                var y = chartItem.datapoint[1].toFixed(2);
+                var x = this.data.axis.x[chartItem.dataIndex];
+                var y = chartItem.datapoint[1];
 
-                var content = chartItem.series.label + " " + y;
+                var content = "<div>"+ chartItem.series.label +" - "+ x +"</div><div>"+ y +"</div>";
                 showTooltip(chartItem.pageX, chartItem.pageY, content);
             }
         } else {

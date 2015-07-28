@@ -1,7 +1,9 @@
 <ul class="nav navbar-nav row row m-t-10"
     ng-controller="UserFilterController"
     ng-init="fn.initializeFilters(multipleSelection)">
+
     <li class="dropdown" dropdown is-open="userFilterOpened" on-toggle="fn.toggled(open)">
+
         <a id="UserFilterDropDownButton"
            href="javascript:"
            class="dropdown-toggle m-r-30"
@@ -16,6 +18,7 @@
 
             <span class="caret"></span>
         </a>
+
         <ul id="UserFilterDropDown" class="dropdown-menu media-list animated fadeInDown width-md"
             onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';"
             ng-click="$event.stopPropagation()">
@@ -35,6 +38,8 @@
                 </form>
             </li>
             <!-- END search users -->
+
+            <!-- Buttonbar -->
             <li class="media">
                 <div class="btn-group pull-right">
 
@@ -51,7 +56,10 @@
                         {{'Filters.Team' | i18next}}
                     </button>
                 </div>
-                <span class="pull-right m-t-7">{{'commonText.Show' | i18next}}</span></li>
+                <span class="pull-right m-t-7">{{'commonText.Show' | i18next}}</span>
+            </li>
+            <!-- End Buttonbar -->
+
             <!-- recent added users -->
             <li class="media hide">
                 <h6>{{'Filters.RecentSelected' | i18next}}</h6>
@@ -62,6 +70,7 @@
                     <strong>{{'Filters.AllUsers' | i18next}}</strong></div>
             </li>
             <!-- END recent added users -->
+
             <!-- Starts users tree -->
             <li class="users-tree">
                 <div class="clearfix hide">
@@ -79,10 +88,9 @@
 
                 <ng-include ng-if="!multipleSelection"
                             src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html'"></ng-include>
-
-
             </li>
             <!-- END users tree -->
+
         </ul>
     </li>
 </ul>

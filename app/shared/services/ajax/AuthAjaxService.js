@@ -31,6 +31,7 @@ define([
         }
 
         token = token || dev_token;
+        token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
         request.headers = request.headers || {};
         request.headers.token = token;
         return request;

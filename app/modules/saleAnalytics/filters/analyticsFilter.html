@@ -8,10 +8,15 @@
                 <h6>
                     {{'Filters.FilterBy' | i18next}}</h6>
 
+
+                <!-- User Filter -->
                 <div class="pull-left no-padding">
                     <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html'"></ng-include>
                 </div>
+                <!-- End User Filter -->
 
+
+                <!-- Date Filter -->
                 <div class="SalesAnalyticsDateFilter">
                     <ul class="nav navbar-nav m-t-10">
                         <li>
@@ -96,6 +101,9 @@
                         </li>
                     </ul>
                 </div>
+                <!-- End Date Filter -->
+
+
             </div>
         </div>
         <!-- end filters-div -->

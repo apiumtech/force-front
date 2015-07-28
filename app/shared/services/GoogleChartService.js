@@ -69,7 +69,7 @@ define([], function () {
 
     GoogleChartService.prototype.drawChart = function (chart, data, options) {
         chart.draw(data, options);
-        console.log("CHART", chart.draw(data, options));
+        //console.log("CHART", chart.draw(data, options));
     };
 
     GoogleChartService.newInstance = function (googleChartService) {

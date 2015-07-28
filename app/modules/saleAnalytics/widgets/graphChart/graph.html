@@ -3,7 +3,7 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId"
         >
-    <div class="row">
+    <div class="row" ng-init="fn.init()">
         <div class="col-xs-12 col-sm-6 col-lg-4 m-b-20 ">
 
             <select class="form-control pull left"
@@ -51,7 +51,7 @@
                         {{'LineWidget.Filters.ShowFields' | i18next}}
                     </h6>
 
-                    <div class="checkbox">
+                    <div class="checkbox available-fields">
                         <label ng-repeat="field in availableFields" class="block">
                             <input type="checkbox"
                                    ng-checked="field.isDisplaying"
@@ -67,12 +67,16 @@
                         <button class="btn btn-white btn-sm"
                                 ng-click="fn.switchToLine()"
                                 ng-class="{'active': currentChartType=='line'}"
+                                data-toggle="tooltip" data-placement="bottom"
+                                ng-i18next="[title]action_data_display1"
                                 style="padding: 4px 8px!important;">
                             <img src="assets/img/graph-1.png" alt="">
                         </button>
                         <button class="btn btn-white btn-sm "
                                 ng-click="fn.switchToFilled()"
                                 ng-class="{'active': currentChartType=='filled'}"
+                                data-toggle="tooltip" data-placement="bottom"
+                                ng-i18next="[title]action_data_display2"
                                 style="padding: 4px 8px!important;">
                             <img src="assets/img/graph-2.png" alt="">
                         </button>

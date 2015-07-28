@@ -35,7 +35,7 @@
         <div class="error-panel" ng-if="hasError">
             <p class="error-title">{{errorMessage.title}}</p>
             <p class="error-msg">{{errorMessage.message}}</p>
-            <button class="btn btn-primary" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> Refresh</button>
+            <button class="btn btn-outline" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> Refresh</button>
         </div>
         <ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>
     </div>

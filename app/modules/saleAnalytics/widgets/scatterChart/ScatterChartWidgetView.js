@@ -9,8 +9,9 @@ define([
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'shared/services/SimpleTemplateParser',
+    'modules/saleAnalytics/widgets/GraphColorService',
     'jquery'
-], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, $) {
+], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, GraphColorService, $) {
 
     function ScatterChartWidgetView(scope, element, chartService, presenter, widgetEventBus) {
         presenter = presenter || new ScatterChartWidgetPresenter();
@@ -25,6 +26,7 @@ define([
         self.chart = null;
         self.chartData = null;
         self.itemPerPage = 15;
+        self.colorService = new GraphColorService();
         self.configureEvents();
     }
 
@@ -161,7 +163,6 @@ define([
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData;
-        console.log(responseData);
         self.refreshChart();
     };
 
@@ -215,13 +216,10 @@ define([
 
         self.currentLegends = self.fn.setCurrentLegend();
 
-        console.log(self.legends);
-
         self.chartOptions = {
             title: self.widgetName,
             selectionMode: 'none',
             aggregationTarget: 'category',
-            tooltip: {isHtml: false, trigger: 'selection'},
             series: {
                 0: {axis: self.axisXTitle},
                 1: {axis: self.axisYTitle}
@@ -232,12 +230,11 @@ define([
                     'activity scores': {label: self.axisYTitle}
                 }
             },
-            chartArea: {width: '85%', height: '85%', top: 0},
-
-            hAxis: {title: self.axisYTitle},
-            vAxis: {title: self.axisXTitle},
             legend: 'none',
-            colors: self.data.colors
+            hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
+            vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
+
+            colors: self.colorService.$colors.slice()
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
@@ -252,7 +249,7 @@ define([
 
     var previousPoint = null;
 
-    ScatterChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
+    /*ScatterChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
         function showTooltip(x, y, contents) {
             $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
                 top: y - 45,
@@ -274,7 +271,7 @@ define([
             previousPoint = null;
         }
         event.preventDefault();
-    };
+    };*/
 
     ScatterChartWidgetView.newInstance = function ($scope, $element, $chartService, $viewRepAspect, $logErrorAspect) {
 

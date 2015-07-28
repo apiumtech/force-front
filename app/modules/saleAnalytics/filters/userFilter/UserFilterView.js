@@ -142,7 +142,7 @@ define([
             // make dropdown fill the height of the page
             var button = $("#UserFilterDropDownButton");
             var y = button.offset().top + button.height();
-            var remainingHeight = $(window).height() - y - 35;
+            var remainingHeight = $(window).height() - y - 15;
             remainingHeight += $(document).scrollTop().valueOf();
             $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
         };
