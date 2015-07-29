@@ -55,7 +55,7 @@
                         <label ng-repeat="field in availableFields" class="block">
                             <input type="checkbox"
                                    ng-checked="field.isDisplaying"
-                                   ng-click="fn.toggleDisplayField(field.name)"
+                                   ng-click="fn.toggleDisplayField(field.name) ? null : $event.preventDefault()"
                                    value="{{field.name}}">{{field.name}}
                         </label>
                     </div>

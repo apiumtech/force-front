@@ -80,24 +80,32 @@ define([
         };
 
         self.fn.toggleDisplayField = function (fieldName) {
-            var count = 0;
-            self.availableFields.forEach(function (field) {
-                if( field.isDisplaying ) {
-                    count++;
-                }
-            });
 
-            if(count == 1){
-                return;
+            function isTheLastOneToBeChecked() {
+                var count = 0;
+                self.availableFields.forEach(function (field) {
+                    if( field.isDisplaying ) {
+                        count++;
+                    }
+                });
+                return count == 1;
             }
 
+            var shouldToggle = true;
             self.availableFields.forEach(function (field) {
                 if (field.name === fieldName) {
-                    field.isDisplaying = !field.isDisplaying;
+                    if( isTheLastOneToBeChecked() && field.isDisplaying ){
+                        shouldToggle = false;
+                    } else {
+                        field.isDisplaying = !field.isDisplaying;
+                    }
+                    return;
                 }
             });
 
             self.refreshChart();
+
+            return shouldToggle;
         };
 
         self.fn.refreshChart = function () {
