@@ -9,8 +9,9 @@ define([
     'plots/Plot',
     'plots/LineGraphPlot',
     'jquery',
-    'modules/saleAnalytics/widgets/GraphColorService'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, GraphColorService) {
+    'modules/saleAnalytics/widgets/GraphColorService',
+    'shared/services/GoogleChartService'
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, GraphColorService, GoogleChartService) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
@@ -25,6 +26,7 @@ define([
         var self = this;
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
+        self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
 
@@ -78,6 +80,17 @@ define([
         };
 
         self.fn.toggleDisplayField = function (fieldName) {
+            var count = 0;
+            self.availableFields.forEach(function (field) {
+                if( field.isDisplaying ) {
+                    count++;
+                }
+            });
+
+            if(count == 1){
+                return;
+            }
+
             self.availableFields.forEach(function (field) {
                 if (field.name === fieldName) {
                     field.isDisplaying = !field.isDisplaying;
@@ -111,8 +124,6 @@ define([
             scope = self.$scope,
             data = self.data;
 
-
-
         if (!data.fields) return;
         if(!data.fields.length) data.fields = [];
 
@@ -129,14 +140,64 @@ define([
     };
 
     GraphChartWidgetView.prototype.reDraw = function(){
-        if(!Plot.getChart()) return;
-        Plot.getChart().draw();
+        //if(!Plot.getChart()) return;
+        //Plot.getChart().draw();
+        var self = this,
+            scope = self.$scope,
+            data = self.data;
+        var chartFields = [];
+
+        data.fields.forEach(function (field) {
+            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
+            chartFields.push(lineGraph);
+        });
+        self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
     };
 
     GraphChartWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
-        var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED);
-        plot.paint($(element));
-        plot.onHover(this.onChartHover.bind(this));
+        //var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED);
+        //plot.paint($(element));
+        //plot.onHover(this.onChartHover.bind(this));
+
+        var self = this;
+        var scope = self.$scope;
+        var data = self.data;
+        var chartService = self.chartService;
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn('string', '---');
+        chartFields.forEach(function (serie) {
+            if(serie !== null && !serie.hidden) {
+                dataTable.addColumn('number', serie.label);
+            }
+        });
+        var columns = [];
+        var index = 0;
+        axisData.x.forEach(function(item){
+            var col = [item];
+            chartFields.forEach(function (serie) {
+                if(serie !== null && !serie.hidden) {
+                    col.push(serie.plotData[index]);
+                }
+            });
+            columns.push(col);
+            index = columns.length-1;
+        });
+        dataTable.addRows(columns);
+
+        self.chartData = dataTable;
+        self.chartOptions = {
+            title: self.widgetName
+        };
+
+        if(scope.currentChartType == "line") {
+            self.chart = chartService.createChart(element[0], 'line');
+        } else {
+            self.chartOptions.isStacked = true;
+            self.chart = chartService.createChart(element[0], 'area');
+        }
+
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
     var previousPoint = null;

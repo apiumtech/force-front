@@ -109,7 +109,7 @@ define([
 
 
     TopMenuWeb2View.prototype.adjustLinkToParentFolder = function (url) {
-        return "../" + url;
+        return "../views/" + url;
     };
 
     TopMenuWeb2View.prototype.getMenuTemplateName = function () {

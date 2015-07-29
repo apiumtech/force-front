@@ -8,14 +8,16 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/BarChart'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart){
+    'plots/BarChart',
+    'shared/services/GoogleChartService'
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart, GoogleChartService){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.widgetEventBus = EventBus.getInstance();
+        self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
 
@@ -98,14 +100,48 @@ define([
     };
 
     BarChartWidgetView.prototype.reDraw = function(){
-        if(!BarChart.getChart()) return;
-        BarChart.getChart().draw();
+        //if(!BarChart.getChart()) return;
+        //BarChart.getChart().draw();
+        self.paintChart(self.element.find('.chart-place-holder'));
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {
-        var plot = BarChart.basic(this.data, this.tickLabels);
-        plot.paint($(element));
-        plot.onHover(this.onPlotHover.bind(this));
+        //var plot = BarChart.basic(this.data, this.tickLabels);
+        //plot.paint($(element));
+        //plot.onHover(this.onPlotHover.bind(this));
+
+        var self = this;
+        var chartService = self.chartService;
+
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn('string', '---');
+        self.data.forEach(function(serie){
+            dataTable.addColumn('number', serie.label);
+        });
+
+        var index = 0;
+        var columns = [];
+        self.tickLabels.forEach(function(tick){
+            var col = [];
+            col.push(tick);
+            self.data.forEach(function(serie){
+                col.push( serie.data[index][1] );
+            });
+            columns.push(col);
+            index++;
+        });
+        console.log(columns);
+        dataTable.addRows(columns);
+
+        self.chartData = dataTable;
+        self.chart = chartService.createChart(element[0], 'bar');
+
+        self.chartOptions = {
+            title: self.widgetName
+        };
+
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
     var previousXValue = null;

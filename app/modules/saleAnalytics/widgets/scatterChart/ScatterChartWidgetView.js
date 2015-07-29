@@ -230,7 +230,6 @@ define([
                     'activity scores': {label: self.axisYTitle}
                 }
             },
-            legend: 'none',
             hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
             vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
 
