@@ -113,6 +113,9 @@ define([
                     }, {
                         name: "Visits",
                         isDisplaying: false
+                    }, {
+                        name: "Something",
+                        isDisplaying: true
                     }];
                 });
 
@@ -124,6 +127,12 @@ define([
                 it("should show field if it's hidden", function () {
                     sut.fn.toggleDisplayField("Visits");
                     expect(sut.availableFields[1].isDisplaying).toEqual(true);
+                });
+
+                it("should not hide field if it's the last one", function () {
+                    sut.availableFields[0].isDisplaying = false;
+                    sut.fn.toggleDisplayField("Something");
+                    expect(sut.availableFields[2].isDisplaying).toEqual(true);
                 });
             }
 

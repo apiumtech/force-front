@@ -6,14 +6,18 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/PieChart'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart) {
+    'plots/PieChart',
+    'shared/services/GoogleChartService',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart, GoogleChartService, GraphColorService) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
+        self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
 
@@ -87,14 +91,37 @@ define([
     };
 
     PieChartWidgetView.prototype.reDraw = function(){
-        if(PieChart.getChart())
-        PieChart.getChart().draw();
+        //if(PieChart.getChart())
+        //PieChart.getChart().draw();
+        self.paintChart(self.element.find('.chart-place-holder'));
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {
+        //var plot = PieChart.basic(this.data);
+        //plot.paint($(element));
 
-        var plot = PieChart.basic(this.data);
-        plot.paint($(element));
+        var self = this;
+        var chartService = self.chartService;
+
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn('string', '---');
+        dataTable.addColumn('number', '---');
+        var columns = [];
+        self.data.forEach(function(item){
+            columns.push([item.label, item.data]);
+        });
+        dataTable.addRows(columns);
+
+        self.chartData = dataTable;
+        self.chart = chartService.createChart(element[0], 'pie');
+
+        self.chartOptions = {
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
+        };
+
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
     PieChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {

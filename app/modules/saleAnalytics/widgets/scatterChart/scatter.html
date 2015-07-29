@@ -3,18 +3,19 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId"
         >
-    <div class="col-xs-9 col-md-10 col-lg-10 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px; height: 90%"></div>
-    <div class="col-xs-3 col-md-2 col-lg-2 scatter-legend">
-        <div ng-repeat="legend in currentLegends" class="legend-holder" title="{{legend.name}}">
-            <div ng-style="{'background-color': '{{legend.color}}'}" class="legend-point"></div>
-            <span class="legend-text">{{legend.name}}</span>
-        </div>
+    <div class="col-xs-12 col-md-12 col-lg-12 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px;"></div>
+    <!--<div class="col-xs-9 col-md-10 col-lg-10 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px; height: 90%"></div>
+    <div class="col-xs-3 col-md-2 col-lg-2 scatter-legend">-->
+        <!--<div ng-repeat="legend in currentLegends" class="legend-holder" title="{{legend.name}}">-->
+            <!--<div ng-style="{'background-color': '{{legend.color}}'}" class="legend-point"></div>-->
+            <!--<span class="legend-text">{{legend.name}}</span>-->
+        <!--</div>-->
 
-        <div class="scatter-legend-pagination text-center">
-            <a href="#" class="btn-paging" ng-click="$event.preventDefault();$event.stopPropagation();fn.prevPage()" ng-disabled="currentPage <= 1" ><i class="fa fa-angle-up"></i></a>
-            <a href="#" class="btn-paging right" ng-click="$event.preventDefault();$event.stopPropagation();fn.nextPage()" ng-disabled="currentPage >= fn.pageCount" ><i class="fa fa-angle-down"></i></a>
-        </div>
-    </div>
+        <!--<div class="scatter-legend-pagination text-center">-->
+            <!--<a href="#" class="btn-paging" ng-click="$event.preventDefault();$event.stopPropagation();fn.prevPage()" ng-disabled="currentPage <= 1" ><i class="fa fa-angle-up"></i></a>-->
+            <!--<a href="#" class="btn-paging right" ng-click="$event.preventDefault();$event.stopPropagation();fn.nextPage()" ng-disabled="currentPage >= fn.pageCount" ><i class="fa fa-angle-down"></i></a>-->
+        <!--</div>-->
+    <!--</div>-->
     <div id="popup_tooltip"
          class="hide">
         {Name}

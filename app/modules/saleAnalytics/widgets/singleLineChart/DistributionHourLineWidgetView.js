@@ -9,8 +9,9 @@ define([
     'modules/widgets/WidgetEventBus',
     'plots/SingleLineChart',
     'plots/LineGraphPlot',
-    'modules/saleAnalytics/widgets/GraphColorService'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot, GraphColorService) {
+    'modules/saleAnalytics/widgets/GraphColorService',
+    'shared/services/GoogleChartService'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot, GraphColorService, GoogleChartService) {
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
@@ -19,6 +20,7 @@ define([
         self.colorService = new GraphColorService();
         self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
+        self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
 
@@ -83,6 +85,7 @@ define([
 
     SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
+        console.log(responseData);
         self.data = responseData.data.params;
         self.extractFilters();
         self.refreshChart();
@@ -122,9 +125,11 @@ define([
 
     SingleLineChartWidgetView.prototype.reDraw = function(){
         var self = this;
-        if(!self.plot) return;
-        if(!SingleLineChart.getChart()) return;
-        SingleLineChart.getChart().draw();
+        //if(!self.plot) return;
+        //if(!SingleLineChart.getChart()) return;
+        //SingleLineChart.getChart().draw();
+
+        self.paintChart(self.element.find('.chart-place-holder'));
     };
 
     SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
@@ -132,10 +137,39 @@ define([
     };
 
     SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
+        //var self = this;
+        //self.plot = SingleLineChart.basic(chartFields, []);
+        //self.plot.paint($(element));
+        //self.plot.onHover(this.onPlotHover.bind(this));
+
         var self = this;
-        self.plot = SingleLineChart.basic(chartFields, []);
-        self.plot.paint($(element));
-        self.plot.onHover(this.onPlotHover.bind(this));
+        var chartService = self.chartService;
+
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn('number', 'Hora');
+        self.data.fields.forEach(function(serie){
+            dataTable.addColumn('number', serie.name);
+        });
+
+        var columns = [];
+        self.data.fields.forEach(function(serie){
+            var horas = 0;
+            serie.data.forEach(function(item) {
+                columns.push([horas++, item]);
+            });
+        });
+        dataTable.addRows(columns);
+
+        self.chartData = dataTable;
+        self.chart = chartService.createChart(element[0], 'line');
+
+        self.chartOptions = {
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
+        };
+
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
     var previousPoint = null;

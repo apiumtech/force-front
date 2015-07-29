@@ -111,7 +111,7 @@ define([
 
         it('should adjust link to parent folder correctly', function () {
             var view = exerciseCreateView();
-            expect(view.adjustLinkToParentFolder("contactslist.aspx")).toBe("../contactslist.aspx");
+            expect(view.adjustLinkToParentFolder("contactslist.aspx")).toBe("../views/contactslist.aspx");
         });
 
         it('should call logout on doProfileMenuAction when id is "logout"', function () {

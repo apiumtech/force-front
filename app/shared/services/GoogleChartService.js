@@ -24,6 +24,12 @@ define([], function () {
                     }
                 }
             },
+            ColumnChart: function () {
+                return {
+                    draw: function () {
+                    }
+                }
+            },
             events: {
                 addListener: function () {
                 }
@@ -40,6 +46,12 @@ define([], function () {
                 return new this.googleChart.ScatterChart(element);
             case 'pie':
                 return new this.googleChart.PieChart(element);
+            case 'bar':
+                return new this.googleChart.ColumnChart(element);
+            case 'line':
+                return new this.googleChart.LineChart(element);
+            case 'area':
+                return new this.googleChart.AreaChart(element);
             default:
                 throw new Error('This chart is not supported at the moment');
         }
