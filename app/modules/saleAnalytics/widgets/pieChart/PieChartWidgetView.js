@@ -7,13 +7,15 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'plots/PieChart',
-    'shared/services/GoogleChartService'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart, GoogleChartService) {
+    'shared/services/GoogleChartService',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart, GoogleChartService, GraphColorService) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
@@ -115,7 +117,8 @@ define([
         self.chart = chartService.createChart(element[0], 'pie');
 
         self.chartOptions = {
-            title: self.widgetName
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);

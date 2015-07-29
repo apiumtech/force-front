@@ -187,7 +187,8 @@ define([
 
         self.chartData = dataTable;
         self.chartOptions = {
-            title: self.widgetName
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
         };
 
         if(scope.currentChartType == "line") {

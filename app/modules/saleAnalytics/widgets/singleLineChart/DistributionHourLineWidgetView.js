@@ -165,7 +165,8 @@ define([
         self.chart = chartService.createChart(element[0], 'line');
 
         self.chartOptions = {
-            title: self.widgetName
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);

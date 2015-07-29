@@ -9,13 +9,15 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'plots/BarChart',
-    'shared/services/GoogleChartService'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart, GoogleChartService){
+    'shared/services/GoogleChartService',
+    'modules/saleAnalytics/widgets/GraphColorService'
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart, GoogleChartService, GraphColorService){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.colorService = new GraphColorService();
         self.widgetEventBus = EventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
@@ -138,7 +140,8 @@ define([
         self.chart = chartService.createChart(element[0], 'bar');
 
         self.chartOptions = {
-            title: self.widgetName
+            title: self.widgetName,
+            colors: self.colorService.$colors.slice()
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
