@@ -27,7 +27,7 @@ define([
 
     CustomWidgetView.prototype.configureEvents = function () {
         var self = this;
-        this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
+        //this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
 
         self.event.customDataAccess = function(){};
         this.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
@@ -36,7 +36,11 @@ define([
                 window.dispatchEvent(event);
             });
         };
-    };
+
+        this.event.onInit = function(){
+            self.onReloadWidgetSuccess(self.widget.widgetContent);
+        };
+    }
 
 
     CustomWidgetView.prototype.getCustomWidgetDivId = function(){

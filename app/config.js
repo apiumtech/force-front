@@ -81,13 +81,13 @@ define(function () {
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
         //report
-        getAllReports: baseUrl + '/api/queries/stats/reports/allReports',
+        getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
         toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
         updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
         getReportParameters: baseUrl + '/api/queries/stats/reports/{0}/parameters',
         getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
-        searchReport: baseUrl + '/api/queries/stats/reports/searchReports?searchQuery={0}',
+        searchReport: baseUrl + '/api/queries/stats/reports/searchReports?idCompany=0&idUser=1&idEnvironment=1&searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 

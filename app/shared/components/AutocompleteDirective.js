@@ -34,7 +34,7 @@ define([
                         return {
                             id: item.Id,
                             label: item.Name,
-                            value: item.Id
+                            value: item.Name
                         };
                     };
                     response(
@@ -49,9 +49,11 @@ define([
             $.ui.autocomplete.prototype._renderItem = function (ul, item) {
 
                 //$.ui.autocomplete.prototype.____renderItem.call(this, ul, item);
-                item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-                $.ui.autocomplete.escapeRegex(this.term) +
-                ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<span style='background: yellow'>$1</span>");
+                item.label = item.label.replace(
+                    new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"),
+                   "<span style='background: yellow'>$1</span>"
+                );
+
                 return $("<li></li>")
                     .data("item.autocomplete", item)
                     .append("<a>" + item.label + "</a>")
@@ -62,7 +64,9 @@ define([
                 minLength: 3,
                 source: scope.getAutocompleteOption,
                 select: function (event, ui) {
-                    if (ui.item) ctrl.$setViewValue(ui.item);
+                    if (ui.item) {
+                        ctrl.$setViewValue(ui.item);
+                    }
                 }
             });
         };

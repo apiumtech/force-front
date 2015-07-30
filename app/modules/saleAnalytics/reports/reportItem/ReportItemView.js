@@ -98,7 +98,11 @@ define([
 
         this.selectedReportType = this.report && this.report.ReportType ? this.report.ReportType[0] : '';
 
+        // TODO: Enable it back when functionality is in place
         self.fn.startEditingName = function () {
+
+            return;
+
             if (self.fireOpenFolder){ return; }
             self.originalName = self.report.Name;
             self.editingName = true;
@@ -134,7 +138,11 @@ define([
             self.editingName = false;
         };
 
+        // TODO: Enable it back when functionality is in place
         self.fn.startEditingDescription = function () {
+
+            return;
+
             self.originalDescription = self.report.Description;
             self.editingDescription = true;
         };

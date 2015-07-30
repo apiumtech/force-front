@@ -23,12 +23,13 @@ define([
             customLoad: function (lng, ns, options, loadComplete) {
                 if (!isFetching) {
                     isFetching = true;
+                    // TODO: pick the correct params.data values
                     var params = {
                         url: config.api.literalValueDictionary,
                         data: {
                             language: 'es',
                             implementationCode: '-1',
-                            deviceType: '108'
+                            platform: '108'
                         },
                         crossDomain: true,
                         jsonp: false,

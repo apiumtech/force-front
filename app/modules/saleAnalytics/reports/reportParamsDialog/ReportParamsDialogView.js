@@ -52,6 +52,11 @@ define([
                 paramConfig.Value = listOfValues;
             });
         };
+        self.fn.getEnvironmentsLoV = function(paramConfig){
+            self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
+                paramConfig.Value = listOfValues;
+            });
+        };
 	};
 
 	PreviewDialogView.prototype.validateParameterInput = function(){

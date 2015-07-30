@@ -12,17 +12,9 @@
 <div class="modal-body form-horizontal report-parameter-dialog">
     <div ng-repeat="paramConfig in report.parameterConfigurations">
 
-        <div class="form-group" ng-if="paramConfig.Type == 'textbox'">
-            <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
-            <div class="col-md-10 ui-widget">
-                <input class="form-control"
-                       ng-model="report.params[paramConfig.Id]"
-                       autocomplete="http://somewhere.api/backend/api/whatever"/>
-            </div>
-        </div>
-
-        <div class="form-group" ng-if="paramConfig.Type == 'singlevaluelist'"><!-- was 'selectbox' -->
+        <!--SINGLE VALUE LIST-->
+        <div class="form-group" ng-if="paramConfig.Type == 'singlevaluelist'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10">
@@ -34,37 +26,33 @@
             </div>
         </div>
 
-        <div class="form-group" ng-if="paramConfig.Type == 'range'">
+
+        <!--ENVIRONMENT-->
+        <div class="form-group" ng-if="paramConfig.Type == 'environment'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
             <div class="col-md-10">
-                <div class="col-md-12"
-                     value-range min="10"
-                     max="100"
-                     ng-model="report.params[paramConfig.Id]"
-                     min-value="from" max-value="to"></div>
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-md-5 col-md-push-2">
-                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].from"/>
-            </div>
-            <div class="col-md-5 col-md-push-2">
-                <input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].to"/>
+                <select class="form-control" ng-model="report.params[paramConfig.Id]"
+                        ng-init="fn.getEnvironmentsLoV(paramConfig)"
+                        ng-options="value.Description for value in paramConfig.Value track by value.Id">
+                    <option value="">{{'Reports.Dialog.LoV.Select_Value' | i18next}}</option>
+                </select>
             </div>
         </div>
 
+
+        <!--DATE-->
         <div class="form-group" ng-if="paramConfig.Type == 'date'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
-
             <div class="col-md-10">
                 <force-date-picker year-range="150" date-format="{{config.shortDateFormat.default}}">
-                    <input type="text" class="form-control"
-                           ng-model="report.params[paramConfig.Id]"/>
+                    <input type="text" class="form-control" ng-model="report.params[paramConfig.Id]"/>
                 </force-date-picker>
             </div>
         </div>
 
+
+        <!--DATE RANGE-->
         <div class="form-group" ng-if="paramConfig.Type == 'date_range'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
@@ -82,6 +70,8 @@
             </div>
         </div>
 
+
+        <!--USER-->
         <div class="form-group" ng-if="paramConfig.Type == 'user'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
 
@@ -92,10 +82,40 @@
             </div>
         </div>
 
+
+        <!--<div class="form-group" ng-if="paramConfig.Type == 'textbox'">-->
+        <!--<label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>-->
+        <!--<div class="col-md-10 ui-widget">-->
+        <!--<input class="form-control"-->
+        <!--ng-model="report.params[paramConfig.Id]"-->
+        <!--autocomplete="http://somewhere.api/backend/api/whatever"/>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="form-group" ng-if="paramConfig.Type == 'range'">-->
+        <!--<label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>-->
+        <!--<div class="col-md-10">-->
+        <!--<div class="col-md-12"-->
+        <!--value-range min="10"-->
+        <!--max="100"-->
+        <!--ng-model="report.params[paramConfig.Id]"-->
+        <!--min-value="from" max-value="to"></div>-->
+        <!--</div>-->
+        <!--<div class="clearfix"></div>-->
+        <!--<div class="col-md-5 col-md-push-2">-->
+        <!--<input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].from"/>-->
+        <!--</div>-->
+        <!--<div class="col-md-5 col-md-push-2">-->
+        <!--<input disabled type="text" class="form-control" ng-model="report.params[paramConfig.Id].to"/>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
     </div>
 </div>
-<div class="modal-footer">
 
+<div class="modal-footer">
     <button class="btn btn-sm btn-white" ng-click="fn.close()">
         {{'commonText.Cancel' | i18next}}
     </button>

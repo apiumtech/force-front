@@ -58,7 +58,11 @@ define([
                         expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
                     });
                     it("should call response method after ajaxRequest success", function () {
-                        var adaptedFakeResponse = [{id:1,label:"A name", value:1},{id:2,label:"B name", value:2},{id:3,label:"C name", value:3}];
+                        var adaptedFakeResponse = [
+                            {id:1,label:"A name", value:"A name"},
+                            {id:2,label:"B name", value:"B name"},
+                            {id:3,label:"C name", value:"C name"}
+                        ];
                         sourceFunc(request, response);
                         expect(response).toHaveBeenCalledWith(adaptedFakeResponse);
                     });

@@ -45,7 +45,8 @@ define([
                 };
             });
 
-            describe('fn.startEditingName', function () {
+            // TODO: reenable when
+            xdescribe('fn.startEditingName', function () {
                 describe('fireOpenReport is false', function () {
                     beforeEach(function () {
                         sut.fireOpenReport = false;
@@ -132,7 +133,8 @@ define([
                 });
             });
 
-            describe('fn.startEditingDescription', function () {
+            // TODO: reenable when functionality is activated
+            xdescribe('fn.startEditingDescription', function () {
 
                 beforeEach(function () {
                     sut.fn.startEditingDescription();

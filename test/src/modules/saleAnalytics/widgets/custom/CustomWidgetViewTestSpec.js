@@ -16,7 +16,7 @@ define([
     }
 
     describe('CustomWidgetView', function () {
-        it("should listen eventBus' onReloadCommandReceived on configureEvents", function(){
+        /*it("should listen eventBus' onReloadCommandReceived on configureEvents", function(){
             var configureEvents = CustomWidgetView.prototype.configureEvents;
             spyOn(CustomWidgetView.prototype, "configureEvents")
                 .and
@@ -33,7 +33,7 @@ define([
             sut.event.onReloading = jasmine.createSpy();
             sut.eventChannel.fireReloadCommandReceived();
             expect(sut.event.onReloading).toHaveBeenCalled();
-        });
+        });*/
 
         it('should inject the calculated HTML', function () {
             var sut = exerciseCreateView();

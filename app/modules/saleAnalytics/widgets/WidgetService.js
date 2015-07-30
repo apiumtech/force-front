@@ -43,7 +43,7 @@ define([
         };
         this.ajaxService.rawAjaxRequest(params).then(
             function(res){
-                var data = self.getWidgetData(page, res.data);
+                var data = self.getWidgetData(page, res);
                 deferred.resolve({data:{body:data}});
             },
             function (err) {
@@ -66,7 +66,7 @@ define([
     };
 
     WidgetService.prototype.getWidgetData = function (page, widgetList) {
-        widgetList = widgetList || [
+        /*widgetList = widgetList || [
             {
                 page: "intensity",
                 widgetType: "graph",
@@ -178,27 +178,28 @@ define([
                 size: 12,
                 id: 10
             }
-        ];
+        ];*/
 
         var pageWidgets = _.clone(_.filter(widgetList, function (widget) {
-            return widget.page === page;
+            return widget.Page === page;
         }));
 
         pageWidgets = _.sortBy(pageWidgets, function (widget) {
-            return widget.order;
+            return widget.Order;
         });
 
         var list = [];
         _.each(pageWidgets, function (widget) {
             var w = {
-                type: (widget.widgetType == "code" ? "custom" : widget.widgetType),
-                widgetName: widget.widgetName,
-                widgetId: widget.id,
+                type: (widget.WidgetType == "code" ? "custom" : widget.WidgetType),
+                widgetName: widget.WidgetName,
+                widgetId: widget.Id,
+                widgetContent: widget.WidgetContent,
                 position: {
-                    size: widget.size
+                    size: widget.Size
                 },
-                dataEndpoint: Configuration.api[widget.endPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
-                option: widget.widgetOptions
+                dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
+                option: widget.WidgetOptions
             };
             list.push(w);
         });
