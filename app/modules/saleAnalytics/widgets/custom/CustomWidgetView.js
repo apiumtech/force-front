@@ -27,7 +27,7 @@ define([
 
     CustomWidgetView.prototype.configureEvents = function () {
         var self = this;
-        //this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
+        this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
 
         self.event.customDataAccess = function(){};
         this.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
@@ -35,10 +35,6 @@ define([
                 var event = new CustomEvent(callbackEventName, {'detail': result});
                 window.dispatchEvent(event);
             });
-        };
-
-        this.event.onInit = function(){
-            self.onReloadWidgetSuccess(self.widget.widgetContent);
         };
     }
 
@@ -50,6 +46,7 @@ define([
         return $( this.getCustomWidgetDivId() );
     };
     CustomWidgetView.prototype.onReloadWidgetSuccess = function (data) {
+        data = this.widget.widgetContent;
         var htmlSrc = this.$compile(data)(this.$scope);
         this.getCustomWidgetDiv().html(htmlSrc);
     };

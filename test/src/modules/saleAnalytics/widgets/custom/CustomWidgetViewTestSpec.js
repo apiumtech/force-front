@@ -39,14 +39,16 @@ define([
             var sut = exerciseCreateView();
             sut.$compile = function(data){
                 return function(){
-                    return "<p>"+data+"</p>";
+                    return data;
                 };
             };
+            sut.widget = sut.widget || {};
+            sut.widget.widgetContent = "<p>hola ke ase</p>";
             var htmlElement = $("<div>");
             spyOn(htmlElement, "html");
             spyOn(sut, "getCustomWidgetDiv").and.returnValue(htmlElement);
-            sut.onReloadWidgetSuccess("hola");
-            expect(htmlElement.html).toHaveBeenCalledWith("<p>hola</p>");
+            sut.onReloadWidgetSuccess("blah");
+            expect(htmlElement.html).toHaveBeenCalledWith("<p>hola ke ase</p>");
         });
 
         it('should getCustomWidgetDiv correctly', function () {

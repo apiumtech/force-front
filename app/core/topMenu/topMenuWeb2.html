@@ -46,10 +46,15 @@
             <li class="dropdown profile-meu-dropdown" dropdown>
                 <a href="#" class="dropdown-toggle h" data-toggle="dropdown">
                     <div class="profile-pic"
-                         ng-style="{'background-image':'url(data:image/png;base64,'+data.userData.userPhoto+')'}"
+                         ng-style="{'background-image': 'url(data:image/png;base64,'+data.userData.userPhoto+'), url(assets/images/defaultUserPicture.png)'}"
                          data-placement="bottom"
                          data-original-title="{{ data.userData.userName }}">
                     </div>
+                    <!--<div class="profile-pic"-->
+                         <!--ng-style="{'background-image':'url(data:image/png;base64,'+data.userData.userPhoto+')'}"-->
+                         <!--data-placement="bottom"-->
+                         <!--data-original-title="{{ data.userData.userName }}">-->
+                    <!--</div>-->
                 </a>
                 <ul class="dropdown-menu">
                     <li ng-repeat="item in data.userOptions" ng-class="{ 'with-divider': $last }">

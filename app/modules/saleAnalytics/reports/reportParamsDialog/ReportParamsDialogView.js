@@ -32,12 +32,34 @@ define([
 		};
 
 		self.fn.submit = function(){
-			var paramList = Object.keys(self.report.params).map(function(key){
-				return {
-					key: key,
-					value: self.report.params[key]
-				};
-			});
+            var matchingParams = {
+                "[FECHADE]": "",
+                "[FECHAA]": "",
+                "[IDENVIRONMENT]": "idEntorno",
+                "[IDEXPEDIENTE]": "idExpediente",
+                "[IDUSUARIO]": "IdUser",
+                "[IDEMPRESA]": "idEmpresa"
+            };
+
+            var paramList = [];
+            for(var key in self.report.params){
+                var value = self.report.params[key];
+                if(key in matchingParams) {
+                    key = matchingParams[key];
+                }
+                paramList.push({Key:key, Value:value});
+            }
+
+			//var paramList = Object.keys(self.report.params).map(function(key){
+             //   var value = self.report.params[key];
+             //   if(key in matchingParams) {
+             //       key = matchingParams[key];
+             //   }
+			//	return {
+			//		key: key,
+			//		value: value
+			//	};
+			//});
 
 			self.report.params = paramList;
 

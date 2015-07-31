@@ -81,10 +81,13 @@ define([
                     testString: ".png/path/to/image.gif/abcdef_string", expected: false
                 }, {
                     testString: ".gif/path/to/image.png/abcdef_string", expected: false
-                }].forEach(function (test) {
+                }, {
+                    testString: "http://domain.com/path/to/image.png/abcdef_string", index:1, expected: true
+                }
+                ].forEach(function (test) {
                         describe("with test string: " + test.testString, function () {
                             it("should return " + test.expected + "", function () {
-                                expect(sut.fn.isImage(test.testString)).toEqual(test.expected);
+                                expect(sut.fn.isImage(test.testString, test.index)).toEqual(test.expected);
                             });
                         });
                     });

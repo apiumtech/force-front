@@ -116,6 +116,10 @@ define([
         return 'topMenuWeb2';
     };
 
+    //TopMenuWeb2View.prototype._getUserPhoto = function (userPhoto) {
+    //    return (userPhoto == "" || !userPhoto) ? 'url("../../assets/images/defaultUserPicture.png")' : 'url(data:image/png;base64,'+userPhoto+')';
+    //};
+
 
     TopMenuWeb2View.newInstance = function ($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};

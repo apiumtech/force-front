@@ -29,12 +29,15 @@ define([
 
     ReportService.prototype.getReportURL = function (report) {
         var self = this;
-        var url = Configuration.api.getReportUrl.format(report.Id);
+        var reportId = report.Id;
+        var reportName = report.Name;
+        var reportFormat = report.selectedReportType;
+        var params = JSON.stringify(report.params);
+        var url = Configuration.api.getReportUrl.format(reportId, reportName, reportFormat, params);
 
         var params = {
             url: url,
             type: 'post',
-            data: report.params,
             contentType: 'application/json',
             dataType: 'json'
         };

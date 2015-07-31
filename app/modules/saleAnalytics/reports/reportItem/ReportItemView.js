@@ -315,11 +315,13 @@ define([
 
     ReportItemView.prototype.sendReport = function () {
         var self = this;
+        self.report.selectedReportType = self.selectedReportType;
         self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self));
     };
 
     ReportItemView.prototype.downloadReport = function () {
         var self = this;
+        self.report.selectedReportType = self.selectedReportType;
         self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self));
     };
 

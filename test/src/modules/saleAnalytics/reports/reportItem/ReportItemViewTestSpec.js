@@ -520,6 +520,7 @@ define([
                     getReportURL: function () {
                     }
                 };
+                sut.selectedReportType = "PDF";
                 spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
                     callback(response);
                 });

@@ -24,15 +24,7 @@ define([
     CustomWidgetModel.prototype.reloadWidget = function() {
         var deferred = Q.defer();
 
-        /*
-         var deferred = Q.defer();
-        setTimeout(function(){
-            deferred.resolve("<div><h1>{{'LeftMenu.Intensity' | i18next}}</h1></div>");
-        }, 1000);
-        return deferred.promise;
-        */
-
-        var params = {
+        /*var params = {
             url: Configuration.api.getCustomWidget,
             type: 'GET',
             dataType: 'json',
@@ -48,7 +40,11 @@ define([
             function (err) {
                 deferred.reject(err);
             }
-        );
+        );*/
+
+        setTimeout(function(){
+            deferred.resolve("nada");
+        }, 100);
 
         return deferred.promise;
     };

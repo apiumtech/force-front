@@ -86,14 +86,14 @@ define(function () {
         toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
         updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
         getReportParameters: baseUrl + '/api/queries/stats/reports/{0}/parameters',
-        getReportUrl: baseUrl + '/api/queries/stats/reports/{0}/url',
+        getReportUrl: baseUrl + 'api/queries/stats/reports/downloadReport?idUser=-1&idReport={0}&idCompany=-1&idEnvironment=-1&ReportName={1}&ReportFormat={2}&Parameters={3}',
         searchReport: baseUrl + '/api/queries/stats/reports/searchReports?idCompany=0&idUser=1&idEnvironment=1&searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
-        getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
+        //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
 
         createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',

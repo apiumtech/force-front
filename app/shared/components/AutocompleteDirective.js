@@ -34,7 +34,7 @@ define([
                         return {
                             id: item.Id,
                             label: item.Name,
-                            value: item.Name
+                            value: item.Id
                         };
                     };
                     response(

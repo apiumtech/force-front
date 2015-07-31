@@ -54,11 +54,19 @@ define([
 
         eventChannel.onExpandingWidget(self.renderChart.bind(self));
 
-        self.fn.isImage = function (string) {
-            if (typeof string !== 'string') return false;
+        self.fn.isImage = function (string, index) {
+            if( typeof string !== 'string' ) {
+                return false;
+            }
 
             var isImgReg = new RegExp('\\.(?:jpg|gif|png)$');
-            return !!string.match(isImgReg);
+            var isImage = !!string.match(isImgReg);
+
+            if(index == 1 && !isImage) {
+                isImage = string.substr(0,7) == "http://" || string.substr(0,8) == "https://";
+            }
+
+            return isImage;
         };
 
         self.fn.toggleColumn = function (columnName, $event) {

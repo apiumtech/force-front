@@ -12,9 +12,9 @@ define([
         this.$window = $window;
 
         this.web3Urls = [
-            "localhost",
-            "127.0.0.1",
-            "54.171.216.35"
+            //"localhost",
+            //"127.0.0.1",
+            //"54.171.216.35"
         ];
     }
 
