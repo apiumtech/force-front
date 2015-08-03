@@ -521,6 +521,7 @@ define([
                     }
                 };
                 sut.selectedReportType = "PDF";
+                sut.report = {selectedReportType:""};
                 spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
                     callback(response);
                 });
@@ -538,6 +539,8 @@ define([
                     getReportURL: function () {
                     }
                 };
+                sut.selectedReportType = "PDF";
+                sut.report = {selectedReportType:""};
                 spyOn(sut.event, 'getReportURL').and.callFake(function (report, callback) {
                     callback(response);
                 });
