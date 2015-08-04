@@ -1,9 +1,24 @@
 define([
     'jquery',
-    'config'
-], function ($, config) {
+    'config',
+    'shared/services/JsonWebTokenService',
+    'shared/services/StorageService'
+], function ($, config, JsonWebTokenService, StorageService) {
+
+    var platform = '108';//web3
+    var language;
+    var implementationCode = '-1';
+    try {
+        var token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
+        var payload = new JsonWebTokenService(token).getPayload();
+        language = payload.language || 'en';
+        implementationCode = payload.implementationCode;
+    } catch(err){
+    }
+
     // FIXME: (joanllenas) for some reason prod's customLoad is being called three times. This is a hack to avoid it meanwhile.
     var isFetching = false;
+
     return {
         dev_local: {
             resGetPath: 'assets/translations/en.json'
@@ -23,13 +38,12 @@ define([
             customLoad: function (lng, ns, options, loadComplete) {
                 if (!isFetching) {
                     isFetching = true;
-                    // TODO: pick the correct params.data values
                     var params = {
                         url: config.api.literalValueDictionary,
                         data: {
-                            language: 'es',
-                            implementationCode: '-1',
-                            platform: '108'
+                            language: language,
+                            implementationCode: implementationCode,
+                            platform: platform
                         },
                         crossDomain: true,
                         jsonp: false,
