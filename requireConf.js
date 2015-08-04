@@ -62,6 +62,7 @@ var requireConf = {
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
 
+
         // TODO: delete or not
         'functional-option': '../framework/Option',
         'framework': '../framework/ApplicationFactory',
