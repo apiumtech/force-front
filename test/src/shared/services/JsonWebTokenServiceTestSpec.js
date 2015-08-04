@@ -3,7 +3,7 @@ define([
 ], function (JsonWebTokenService) {
     'use strict';
 
-    ddescribe("JsonWebTokenService", function () {
+    describe("JsonWebTokenService", function () {
 
         describe("constructor", function () {
             it("should throw when no token is provided", function () {
