@@ -33,8 +33,8 @@ define([
 
 		self.fn.submit = function(){
             var matchingParams = {
-                "[FECHADE]": "",
-                "[FECHAA]": "",
+                "[FECHADE]": "[FECHADE]",
+                "[FECHAA]": "[FECHAA]",
                 "[IDENVIRONMENT]": "idEntorno",
                 "[IDEXPEDIENTE]": "idExpediente",
                 "[IDUSUARIO]": "IdUser",

@@ -32,16 +32,22 @@ define([
         var reportId = report.Id;
         var reportName = report.Name;
         var reportFormat = report.selectedReportType;
-        var params = JSON.stringify(report.params);
-        var url = Configuration.api.getReportUrl.format(reportId, reportName, reportFormat, params);
+        var parameters = report.params.map(function(item){
+            return {
+                Key: item.Key,
+                Value: item.Value.value
+            };
+        });
+        parameters = JSON.stringify(parameters);
 
+        var url = Configuration.api.getReportUrl.format(reportId, reportName, reportFormat, parameters);
         var params = {
             url: url,
-            type: 'post',
+            type: 'GET',
             contentType: 'application/json',
             dataType: 'json'
         };
-        return self.authAjaxService.rawAjaxRequest(params);
+        return CQRSUnwrapper.unwrapData(self.authAjaxService.rawAjaxRequest(params));
     };
 
     ReportService.prototype.getParameterConfiguration = function (reportId) {

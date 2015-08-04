@@ -85,7 +85,7 @@ define([
                     });
                     sinon.stub(sut, 'onURLReceivedForDownload');
                     sut.fn.download();
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function), jasmine.any(Function));
                     expect(sut.onURLReceivedForDownload).toHaveBeenCalledWith(response);
                 })
             });
@@ -104,7 +104,7 @@ define([
                     });
                     sinon.stub(sut, 'onURLReceivedForSend');
                     sut.fn.send();
-                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                    expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function), jasmine.any(Function));
                     expect(sut.onURLReceivedForSend).toHaveBeenCalledWith(response);
                 })
             });

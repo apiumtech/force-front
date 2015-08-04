@@ -527,7 +527,7 @@ define([
                 });
                 sinon.stub(sut, 'onReportURLLoadedForSend');
                 sut.sendReport();
-                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function), jasmine.any(Function));
                 expect(sut.onReportURLLoadedForSend).toHaveBeenCalledWith(response);
             });
         });
@@ -546,7 +546,7 @@ define([
                 });
                 sinon.stub(sut, 'onReportURLLoadedForDownload');
                 sut.downloadReport();
-                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function));
+                expect(sut.event.getReportURL).toHaveBeenCalledWith(sut.report, jasmine.any(Function), jasmine.any(Function));
                 expect(sut.onReportURLLoadedForDownload).toHaveBeenCalledWith(response);
             });
         });

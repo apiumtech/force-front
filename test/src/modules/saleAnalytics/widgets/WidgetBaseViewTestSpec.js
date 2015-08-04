@@ -32,7 +32,6 @@ define([
             beforeEach(function () {
                 WidgetBaseView.prototype.___onReloadWidgetSuccess = WidgetBaseView.prototype.onReloadWidgetSuccess;
                 WidgetBaseView.prototype.onReloadWidgetSuccess = function () {
-                    console.log("nothing to do here")
                 }
             });
             afterEach(function () {

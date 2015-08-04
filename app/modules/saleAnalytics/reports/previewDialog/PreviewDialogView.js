@@ -57,11 +57,11 @@ define([
         };
 
         self.fn.download = function () {
-            self.event.getReportURL(self.report, self.onURLReceivedForDownload.bind(self));
+            self.event.getReportURL(self.report, self.onURLReceivedForDownload.bind(self), self.onURLReceivedError.bind(self));
         };
 
         self.fn.send = function () {
-            self.event.getReportURL(self.report, self.onURLReceivedForSend.bind(self));
+            self.event.getReportURL(self.report, self.onURLReceivedForSend.bind(self), self.onURLReceivedError.bind(self));
         };
 
         self.fn.expandDescription = function () {
@@ -85,6 +85,10 @@ define([
         var a = document.createElement("A");
         a.href = data;
         a.click();
+    };
+
+    PreviewDialogView.prototype.onURLReceivedError = function (err) {
+        console.error(err);
     };
 
     PreviewDialogView.prototype.onURLReceivedForSend = function (data) {

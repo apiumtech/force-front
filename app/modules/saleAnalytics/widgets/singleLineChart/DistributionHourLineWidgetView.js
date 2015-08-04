@@ -85,7 +85,6 @@ define([
 
     SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
-        console.log(responseData);
         self.data = responseData.data.params;
         self.extractFilters();
         self.refreshChart();

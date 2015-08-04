@@ -32,8 +32,8 @@ define([
         return this.reportService.getParameterConfiguration(reportId).then(callback);
     };
 
-    ReportItemModel.prototype.getReportURL = function (report, callback) {
-        return this.reportService.getReportURL(report).then(callback);
+    ReportItemModel.prototype.getReportURL = function (report) {
+        return this.reportService.getReportURL(report);
     };
 
     return ReportItemModel;

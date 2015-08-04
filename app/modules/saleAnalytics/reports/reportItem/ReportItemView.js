@@ -2,8 +2,10 @@ define([
     'shared/BaseView',
     'modules/saleAnalytics/reports/reportItem/ReportItemPresenter',
     'modules/saleAnalytics/reports/ReportEventBus',
-    'shared/services/ArrayHelper'
-], function (BaseView, ReportItemPresenter, ReportEventBus, ArrayHelper) {
+    'shared/services/ArrayHelper',
+    'shared/services/notification/ToastService',
+    'shared/services/TranslatorService'
+], function (BaseView, ReportItemPresenter, ReportEventBus, ArrayHelper, ToastService, TranslatorService) {
     'use strict';
 
     function ReportItemView($scope, $element, $presenter, eventBus) {
@@ -14,6 +16,8 @@ define([
         this.originalDescription = "";
         this.reportEventBus = eventBus || ReportEventBus.getInstance();
         this.modalService = $scope.$modal;
+        this.toastService = ToastService.getInstance();
+        this.translator = TranslatorService.newInstance();
 
         this.configureEvents();
     }
@@ -316,13 +320,17 @@ define([
     ReportItemView.prototype.sendReport = function () {
         var self = this;
         self.report.selectedReportType = self.selectedReportType;
-        self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self));
+        self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self), self.onGetReportURLError.bind(self));
     };
 
     ReportItemView.prototype.downloadReport = function () {
         var self = this;
         self.report.selectedReportType = self.selectedReportType;
-        self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self));
+        self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self), self.onGetReportURLError.bind(self));
+    };
+
+    ReportItemView.prototype.onGetReportURLError = function (err) {
+        this.toastService.error( this.translator.translate("Reports_Get_Download_Url_Error") );
     };
 
     ReportItemView.prototype.onReportURLLoadedForSend = function (data) {

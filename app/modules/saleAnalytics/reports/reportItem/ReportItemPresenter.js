@@ -30,8 +30,8 @@ define([
             self.model.getParameterConfiguration(reportId, callback);
         };
 
-        view.event.getReportURL = function(report, callback){
-            self.model.getReportURL(report, callback);
+        view.event.getReportURL = function(report, callback, errorCallback){
+            self.model.getReportURL(report).then(callback, errorCallback);
         }
     };
 

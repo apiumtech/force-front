@@ -11,8 +11,8 @@ define([
         return this.reportService.toggleFavouriteReport(reportId);
     };
 
-    PreviewDialogModel.prototype.getReportURL = function(report, callback){
-        this.reportService.getReportURL(report).then(callback);
+    PreviewDialogModel.prototype.getReportURL = function(report){
+        return this.reportService.getReportURL(report);
     };
 
     PreviewDialogModel.prototype.loadPreviewImage = function(report){

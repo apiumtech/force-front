@@ -18,8 +18,10 @@ define([
 				.then(view.onToggledFavouriteReport.bind(view), view.showError.bind(view));
 		};
 
-		view.event.getReportURL = function(report, callback){
-			self.model.getReportURL(report, callback);
+		view.event.getReportURL = function(report, callback, errorCallback){
+			self.model.getReportURL(report).then(callback, function(err){
+                errorCallback(err);
+            });
 		};
 
 		view.event.onLoadingPreviewImage = function(report){

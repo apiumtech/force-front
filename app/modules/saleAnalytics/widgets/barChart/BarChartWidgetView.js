@@ -133,7 +133,6 @@ define([
             columns.push(col);
             index++;
         });
-        console.log(columns);
         dataTable.addRows(columns);
 
         self.chartData = dataTable;

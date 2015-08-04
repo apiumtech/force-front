@@ -39,11 +39,9 @@ define([
 					Id: 123,
 					Name: "report 01"
 				};
-				var response = {};
-				var callback = sinon.stub();
-				reportService.getReportURL.returns(exerciseFakeOkPromiseWithArg(response));
-				sut.getReportURL(report, callback);
-				expect(callback).toHaveBeenCalledWith(response);
+                spyOn(sut.reportService,"getReportURL");
+				sut.getReportURL(report);
+				expect(sut.reportService.getReportURL).toHaveBeenCalledWith(report);
 			});
 		});
 
