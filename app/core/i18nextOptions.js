@@ -5,14 +5,21 @@ define([
     'shared/services/StorageService'
 ], function ($, config, JsonWebTokenService, StorageService) {
 
+    var saveUserCode = function (userCode) {
+        StorageService.newInstance().store(config.userCodeKey, userCode, true);
+    };
+
     var platform = '108';//web3
-    var language;
+    var language = config.defaultLiteralLang;
     var implementationCode = '-1';
     try {
         var token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
         var payload = new JsonWebTokenService(token).getPayload();
-        language = payload.language || 'en';
+        language = payload.language || config.defaultLiteralLang;
         implementationCode = payload.implementationCode;
+
+        saveUserCode(payload.userCode);
+
     } catch(err){
     }
 

@@ -36,8 +36,9 @@ define([
                 "[FECHADE]": "[FECHADE]",
                 "[FECHAA]": "[FECHAA]",
                 "[IDENVIRONMENT]": "idEntorno",
+                "[IDSUCURSAL]": "idEntorno",
                 "[IDEXPEDIENTE]": "idExpediente",
-                "[IDUSUARIO]": "IdUser",
+                "[IDUSUARIO]": "IdUsuario",
                 "[IDEMPRESA]": "idEmpresa"
             };
 
@@ -77,6 +78,7 @@ define([
         self.fn.getEnvironmentsLoV = function(paramConfig){
             self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
                 paramConfig.Value = listOfValues;
+                self.$scope.$apply();
             });
         };
 	};

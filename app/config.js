@@ -135,6 +135,7 @@ define(function () {
         tokenStorageKey: "fm_token",
         permissionsStorageKey: "fm_permissions",
         implementationCodeKey: "fm_implementationCode",
+        userCodeKey: "fm_userCode",
         defaultLiteralLang: "en",
         maxSizeUploadAllowed: 25,
         useAuthRequest: true

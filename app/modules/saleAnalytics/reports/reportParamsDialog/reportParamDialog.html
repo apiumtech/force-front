@@ -12,10 +12,6 @@
 <div class="modal-body form-horizontal report-parameter-dialog">
     <div ng-repeat="paramConfig in report.parameterConfigurations">
 
-        <div class="form-group" ng-if="paramConfig.Type in ['singlevaluelist',]">
-
-        </div>
-
         <!--SINGLE VALUE LIST-->
         <div class="form-group" ng-if="paramConfig.Type == 'singlevaluelist'">
             <label class="col-md-2 control-label">{{paramConfig.Label | i18next}}</label>
