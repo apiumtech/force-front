@@ -136,6 +136,8 @@ define(function () {
         permissionsStorageKey: "fm_permissions",
         implementationCodeKey: "fm_implementationCode",
         userCodeKey: "fm_userCode",
+        web3PlatformCode: '108',
+        noImplementationCode: '-1',
         defaultLiteralLang: "en",
         maxSizeUploadAllowed: 25,
         useAuthRequest: true

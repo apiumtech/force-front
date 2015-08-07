@@ -35,7 +35,7 @@ define([
         var parameters = report.params.map(function(item){
             return {
                 Key: item.Key,
-                Value: item.Value.value
+                Value: item.Value
             };
         });
         parameters = JSON.stringify(parameters);

@@ -9,15 +9,16 @@ define([
         StorageService.newInstance().store(config.userCodeKey, userCode, true);
     };
 
-    var platform = '108';//web3
+    var platform = config.web3PlatformCode;
     var language = config.defaultLiteralLang;
-    var implementationCode = '-1';
+    var implementationCode = config.noImplementationCode;
     try {
         var token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
         var payload = new JsonWebTokenService(token).getPayload();
         language = payload.language || config.defaultLiteralLang;
         implementationCode = payload.implementationCode;
 
+        // TODO: move this logic to a bootstrapping routine
         saveUserCode(payload.userCode);
 
     } catch(err){
@@ -31,17 +32,17 @@ define([
             resGetPath: 'assets/translations/en.json'
         },
         dev: {
-            lng: 'en',
+            lng: language,
             useCookie: false,
             useLocalStorage: false,
-            fallbackLng: 'en',
+            fallbackLng: config.defaultLiteralLang,
             resGetPath: '/api/translations/__lng__'
         },
         prod: {
-            lng: 'en',
+            lng: language,
             useCookie: false,
             useLocalStorage: false,
-            fallbackLng: 'en',
+            fallbackLng: config.defaultLiteralLang,
             customLoad: function (lng, ns, options, loadComplete) {
                 if (!isFetching) {
                     isFetching = true;

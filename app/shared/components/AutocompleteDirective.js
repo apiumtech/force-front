@@ -34,7 +34,7 @@ define([
                         return {
                             id: item.Id,
                             label: item.Name,
-                            value: item.Id
+                            value: item.Name
                         };
                     };
                     response(
@@ -65,7 +65,7 @@ define([
                 source: scope.getAutocompleteOption,
                 select: function (event, ui) {
                     if (ui.item) {
-                        ctrl.$setViewValue(ui.item);
+                        ctrl.$setViewValue(ui.item.id);
                     }
                 }
             });

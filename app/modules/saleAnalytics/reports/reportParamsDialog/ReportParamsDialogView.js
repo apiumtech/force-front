@@ -33,20 +33,21 @@ define([
 
 		self.fn.submit = function(){
             var matchingParams = {
-                "[FECHADE]": "[FECHADE]",
-                "[FECHAA]": "[FECHAA]",
-                "[IDENVIRONMENT]": "idEntorno",
-                "[IDSUCURSAL]": "idEntorno",
-                "[IDEXPEDIENTE]": "idExpediente",
-                "[IDUSUARIO]": "IdUsuario",
-                "[IDEMPRESA]": "idEmpresa"
+                "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
+                "[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
+                "[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
+                "[IDSUCURSAL]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
+                "[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
+                "[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
+                "[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}
             };
 
             var paramList = [];
-            for(var key in self.report.params){
+            for(var key in self.report.params) {
                 var value = self.report.params[key];
                 if(key in matchingParams) {
-                    key = matchingParams[key];
+                    value = matchingParams[key].valueAdapter.call(null, value);
+                    key = matchingParams[key].name;
                 }
                 paramList.push({Key:key, Value:value});
             }
