@@ -6,11 +6,12 @@ define([
     'shared/BaseView',
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
+    'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
 
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass,
+], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass, WidgetAdministrationEventBus,
              $, moment, _) {
     'use strict';
 
@@ -230,6 +231,9 @@ define([
             self.fn.getDatePlaceholder();
         };
 
+        self.fn.toggleWidgetAdministration = function(){
+            WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
+        };
     };
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {

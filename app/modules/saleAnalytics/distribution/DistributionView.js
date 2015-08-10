@@ -5,8 +5,9 @@
 define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
     'modules/saleAnalytics/distribution/DistributionPresenter',
+    'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
     'jquery'
-], function (WidgetDecoratedPageView, DistributionPresenter, $) {
+], function (WidgetDecoratedPageView, DistributionPresenter, WidgetAdministrationEventBus, $) {
 
     function DistributionView($scope, $presenter) {
         $presenter = $presenter || new DistributionPresenter();
@@ -44,6 +45,12 @@ define([
             self._moveElementToContainer(movingElement);
             self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
         };
+
+        WidgetAdministrationEventBus.getInstance().onToggleWidgetAdministration( self.onToggleWidgetAdministration.bind(this) );
+    };
+
+    DistributionView.prototype.onToggleWidgetAdministration = function () {
+        $("#WidgetAdministrationContainer").toggle();
     };
 
     DistributionView.prototype._moveElementToContainer = function (movingElement) {

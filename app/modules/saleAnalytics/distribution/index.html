@@ -1,13 +1,26 @@
 <ng-include src="'app/modules/saleAnalytics/header.html'"></ng-include>
 
+
 <!-- begin filters -->
 <ng-include src="'app/modules/saleAnalytics/filters/analyticsFilter.html'"></ng-include>
 <!-- end filters-->
+
+
+<!-- WidgetAdministration -->
+<div
+        id="WidgetAdministrationContainer"
+        ng-include="'app/modules/saleAnalytics/widgetAdministration/widgetAdmin.html'"
+        class="row"
+        style="display:none; margin-top:-20px; margin-bottom:20px;">
+</div>
+
 
 <div class="row fixedarea" as-sortable
      widget-hover="fn.makeFullSize($ui, $widget)"
      widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
 </div>
+
+
 <div class="row">
     <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html'"></ng-include>
     <div class="widgets-container"
