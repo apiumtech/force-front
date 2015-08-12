@@ -28,5 +28,5 @@ exports.config = {
 
     specs: ['src/**/*.test.js'],
 
-    baseUrl: 'http://localhost:8081'
+    baseUrl: 'http://localhost:8085'
 }

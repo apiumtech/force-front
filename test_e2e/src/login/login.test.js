@@ -1,6 +1,6 @@
 var LoginPage = require('./login.page');
 
-describe('Login page', function() {
+xdescribe('Login page', function() {
     var page;
 
     beforeEach(function(){
