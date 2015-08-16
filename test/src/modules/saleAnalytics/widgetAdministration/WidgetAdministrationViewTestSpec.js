@@ -51,15 +51,22 @@ define([
         });
 
         describe('onWidgetsLoaded', function(){
+            var payload;
+            beforeEach(function () {
+                payload = {
+                    pageName: "",
+                    widgets: [1,2,3]
+                };
+            });
             it('should be called when eventBus fires WidgetsLoaded', function () {
                 var sut = exerciseCreateView();
                 spyOn(sut, "onWidgetsLoaded");
-                sut.widgetAdministrationEventBus.fireWidgetsLoaded();
-                expect(sut.onWidgetsLoaded).toHaveBeenCalled();
+                sut.widgetAdministrationEventBus.fireWidgetsLoaded(payload);
+                expect(sut.onWidgetsLoaded).toHaveBeenCalledWith(payload);
             });
             it('widgetsAvailable should be true', function () {
                 var sut = exerciseCreateView();
-                sut.widgetAdministrationEventBus.fireWidgetsLoaded();
+                sut.widgetAdministrationEventBus.fireWidgetsLoaded(payload);
                 expect(sut.data.widgetsAvailable).toBe(true);
             });
         });
