@@ -38,6 +38,21 @@ define([
         self.fn.getWidgetSampleImage = function (widget) {
             return "assets/images/chart-sample.png";
         };
+
+        self.fn.toggleWidgetIsActive = function (widget) {
+            widget.isActive = !widget.isActive;
+            // TODO: server side / sessionStorage integration
+        };
+
+        self.fn.toggleWidgetSelected = function (widget) {
+            if(widget.$selected){
+                return;
+            }
+            self.data.widgets.forEach(function(wdg){
+                wdg.$selected = false;
+            });
+            widget.$selected = true;
+        };
     };
 
     WidgetAdministrationView.prototype.onToggleWidgetAdministration = function () {

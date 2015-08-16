@@ -186,6 +186,7 @@ define([
                 position: {
                     size: widget.Size
                 },
+                isActive: (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
                 dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
                 option: widget.WidgetOptions
             };

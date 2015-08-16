@@ -5,8 +5,21 @@
     <div class="WidgetAdministrationList" ng-if="data.widgetsAvailable">
         <ul class="list-inline">
             <li class="WidgetAdministrationListItem" ng-repeat="widget in data.widgets">
-                <div class="WidgetAdministrationListItem-widgetImage" ng-style="{'background-image': 'url('+ fn.getWidgetSampleImage(widget) +')'}"></div>
-                <div class="WidgetAdministrationListItem-widgetName">{{ widget.widgetName }}</div>
+                <div class="WidgetAdministrationListItem-widgetImage"
+                     ng-style="{'background-image': 'url('+ fn.getWidgetSampleImage(widget) +')'}"
+                     ng-click="fn.toggleWidgetSelected(widget)"></div>
+                <div class="WidgetAdministrationListItem-badge"
+                     ng-class="{'wdg-active': widget.isActive, 'wdg-inactive': !widget.isActive, 'wdg-selected': widget.$selected }"
+                     ng-click="fn.toggleWidgetIsActive(widget)">
+                    <p ng-if="widget.isActive">{{'WidgetAdmin.Widget.active.label' | i18next}}</p>
+                    <p ng-if="!widget.isActive">{{'WidgetAdmin.Widget.inactive.label' | i18next}}</p>
+                </div>
+                <div class="WidgetAdministrationListItem-widgetName" ng-if="!widget.$selected">
+                    {{ widget.widgetName }}
+                </div>
+                <div class="WidgetAdministrationListItem-toolbar" ng-if="widget.$selected">
+
+                </div>
             </li>
         </ul>
     </div>
