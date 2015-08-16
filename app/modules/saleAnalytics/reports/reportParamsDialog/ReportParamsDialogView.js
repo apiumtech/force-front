@@ -36,7 +36,7 @@ define([
                 "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
                 "[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
                 "[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
-                "[IDSUCURSAL]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
+                "[IDSUCURSAL]": {name:"idEnvironment", valueAdapter:function(val){return val.Id;}},
                 "[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
                 "[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
                 "[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}

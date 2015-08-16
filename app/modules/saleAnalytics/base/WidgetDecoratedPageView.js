@@ -5,6 +5,8 @@
 define([
     'shared/BaseView',
     'modules/widgets/WidgetEventBus',
+    'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
+    'angular',
 
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
@@ -15,7 +17,7 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective'
-], function (BaseView, WidgetEventBus) {
+], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -23,6 +25,7 @@ define([
         this.widgetContainerSelector = '.widgets-container[as-sortable]';
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
         this.eventBus = WidgetEventBus.getInstance();
+        this.widgetAdministrationEventBus = WidgetAdministrationEventBus.getInstance();
         this.configureEvents();
     }
 
@@ -48,6 +51,9 @@ define([
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
         self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
+        self.widgetAdministrationEventBus.onRequestWidgetsList(function(){
+            self.onRequestWidgetsList();
+        });
     };
 
     WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
@@ -67,6 +73,19 @@ define([
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
         this.decorateWidget.call(this, widgetsData.body);
         this.widgets = widgetsData.body;
+        this.widgetAdministrationEventBus.fireWidgetsLoaded({
+            widgets:angular.copy(this.widgets),
+            pageName:this.pageName
+        });
+    };
+
+    WidgetDecoratePageView.prototype.onRequestWidgetsList = function () {
+        if( this.widgets ){
+            this.widgetAdministrationEventBus.fireWidgetsLoaded({
+                widgets:angular.copy(this.widgets),
+                pageName:this.pageName
+            });
+        }
     };
 
     WidgetDecoratePageView.prototype.getElementIndex = function (element) {

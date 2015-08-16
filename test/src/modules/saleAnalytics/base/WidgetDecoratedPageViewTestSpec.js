@@ -63,7 +63,31 @@ define([
                 view.onWidgetsLoaded(widgetsData);
                 expect(view.widgets).toEqual(widgetsData.body);
             });
+
+            it('should fireWidgetsLoaded', function () {
+                spyOn(view.widgetAdministrationEventBus, 'fireWidgetsLoaded');
+                view.onWidgetsLoaded(widgetsData);
+                expect(view.widgetAdministrationEventBus.fireWidgetsLoaded).toHaveBeenCalled();
+            });
         });
 
+        describe("onRequestWidgetsList", function () {
+            var view;
+            beforeEach(function () {
+                view = exerciseCreateView({}, {});
+            });
+            it('should fireWidgetsLoaded when widgets has been set', function () {
+                spyOn(view.widgetAdministrationEventBus, 'fireWidgetsLoaded');
+                view.widgets = [1,2,3];
+                view.widgetAdministrationEventBus.fireRequestWidgetsList();
+                expect(view.widgetAdministrationEventBus.fireWidgetsLoaded).toHaveBeenCalled();
+            });
+            it('should not fireWidgetsLoaded when widgets has not been set', function () {
+                spyOn(view.widgetAdministrationEventBus, 'fireWidgetsLoaded');
+                view.widgets = null;
+                view.widgetAdministrationEventBus.fireRequestWidgetsList("abc");
+                expect(view.widgetAdministrationEventBus.fireWidgetsLoaded).not.toHaveBeenCalledWith("abc");
+            });
+        });
     });
 });

@@ -3,7 +3,7 @@ define([
 ], function(WidgetAdministrationView) {
     'use strict';
 
-    describe('WidgetAdministrationView Test', function() {
+    describe('WidgetAdministrationView', function() {
 
         function exerciseCreateView(){
             return new WidgetAdministrationView( mockAngularScope() );
@@ -43,5 +43,26 @@ define([
                 expect( container.css("display")).not.toBe("none");
             });
         });
+
+
+        it('widgetsAvailable should be false initially', function () {
+            var sut = exerciseCreateView();
+            expect(sut.data.widgetsAvailable).toBe(false);
+        });
+
+        describe('onWidgetsLoaded', function(){
+            it('should be called when eventBus fires WidgetsLoaded', function () {
+                var sut = exerciseCreateView();
+                spyOn(sut, "onWidgetsLoaded");
+                sut.widgetAdministrationEventBus.fireWidgetsLoaded();
+                expect(sut.onWidgetsLoaded).toHaveBeenCalled();
+            });
+            it('widgetsAvailable should be true', function () {
+                var sut = exerciseCreateView();
+                sut.widgetAdministrationEventBus.fireWidgetsLoaded();
+                expect(sut.data.widgetsAvailable).toBe(true);
+            });
+        });
+
     });
 });

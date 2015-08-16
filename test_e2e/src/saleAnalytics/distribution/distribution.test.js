@@ -1,20 +1,13 @@
-var DistributionPage = require('./distribution.page');
+var PageObject = require('./distribution.page');
 
 describe('Distribution page', function() {
     var page;
 
     beforeEach(function(){
-        page = new DistributionPage();
+        page = new PageObject();
     });
 
     it('should be in analytics/distribution', function() {
-        expect(browser.getCurrentUrl()).toMatch(/#\/analytics\/distribution/);
+        expect(browser.getCurrentUrl()).toMatch(page.urlHash);
     });
-
-    describe("WidgetAdministration", function () {
-        it('should be closed by default', function() {
-            expect( page.isWidgetAdministrationContainerOpen() ).toBe(false);
-        });
-    });
-
 });

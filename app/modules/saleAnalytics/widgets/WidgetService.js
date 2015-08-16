@@ -21,18 +21,6 @@ define([
         assertNotNull("Page name", page);
         var self = this;
 
-
-        //TODO: remove when having real data from server
-        /*var widgets = self.getWidgetData(page);
-        var params = {
-            result: {
-                data: {
-                    body: widgets
-                }
-            }
-        };
-        return this.fakeAjaxService.rawAjaxRequest(params);*/
-
         var deferred = Q.defer();
         var params = {
             url: Configuration.api.widgetList,

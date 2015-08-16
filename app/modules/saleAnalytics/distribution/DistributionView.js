@@ -46,6 +46,7 @@ define([
         };
     };
 
+
     DistributionView.prototype._moveElementToContainer = function (movingElement) {
         var self = this;
         $(movingElement.item).detach().prependTo(self.widgetContainerSelector);

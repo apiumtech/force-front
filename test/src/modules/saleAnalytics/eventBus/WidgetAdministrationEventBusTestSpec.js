@@ -19,7 +19,9 @@ define([
 
         describe("construct", function () {
             var events = [
-                "ToggleWidgetAdministration"
+                "ToggleWidgetAdministration",
+                "WidgetsLoaded",
+                "RequestWidgetsList"
             ];
 
             var sut;

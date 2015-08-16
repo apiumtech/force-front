@@ -1,4 +1,10 @@
+.WidgetAdministrationMessageBox {
+  position: relative;
+  height: 160px;
+}
+
 .WidgetAdministrationList {
+  position: relative;
   overflow-x:scroll;
   overflow-y:hidden;
   width:100%;
@@ -7,6 +13,7 @@
 }
 
 .WidgetAdministrationListItem {
+  position: relative;
   width:175px;
   height:160px;
   border:1px solid #DDD;
@@ -18,4 +25,22 @@
 .list-inline {
   white-space:nowrap;
   margin-left: 0;
+}
+
+.WidgetAdministrationListItem-widgetImage {
+  position: absolute;
+  left: 10px; right: 10px; top: 10px;
+  height: 84px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.WidgetAdministrationListItem-widgetName {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 0;
+  height: (160px - (84px + 10px + 9px));
+  padding: 5px;
+
+  white-space: normal;
 }

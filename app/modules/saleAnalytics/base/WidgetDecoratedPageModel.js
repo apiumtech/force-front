@@ -36,7 +36,7 @@ define([
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
-        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);// TODO: (joanllenas) changed localStorage for sessionStorage
+        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);
         if (pageLayoutData) {
             self.modelData = pageLayoutData;
             deferred.resolve(pageLayoutData);
