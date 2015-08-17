@@ -31,7 +31,7 @@
 .WidgetAdministrationListItem-widgetImage {
   position: absolute;
   left: 10px; right: 10px; top: 10px;
-  height: 84px;
+  height: 94px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -39,30 +39,38 @@
 
 .WidgetAdministrationListItem-widgetName {
   position: absolute;
-  left: 10px; right: 10px; bottom: 0;
-  height: (160px - (84px + 10px + 9px));
-  padding: 5px;
+  left: 10px; right: 10px; top: 116px; bottom: 0;
+  padding-left: 5px;
   font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+
+  &.wdg-inactive{
+    cursor: auto;
+    color: #DDD;
+  }
 }
 
 .WidgetAdministrationListItem-badge {
   position: absolute;
   right: 10px; top: 5px;
-  border-radius: 10px;
   max-width: 120px;
   height: 21px;
   line-height: 21px;
+  border-radius: 10px;
   padding-left: 5px;
   padding-right: 2px;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 
   &.wdg-active{
     border: 1px solid #ED8B00;
     background-color: #fff;
     color: #ED8B00;
+
     &.wdg-selected{
       border: 1px solid #FFF;
       background-color: #ED8B00;
@@ -79,7 +87,7 @@
 
 .WidgetAdministrationListItem-toolbar {
   position: absolute;
-  left: 0; right: 0; bottom: 0; height: 50px;
+  left: 0; right: 0; bottom: 0; height: 40px;
   background-color: #424648;
   opacity: 0.83;
   border-bottom-left-radius: 4px;
@@ -88,27 +96,25 @@
 
 .WidgetAdministrationListItem-toolbarButton {
   position: absolute;
-  width: 20px; height: 20px;
-  line-height: 20px;
-  text-align: center;
-  border: 1px solid #FFF;
-  border-radius: 2px;
+  width: 20px; height: 20px; line-height: 20px;
+  border: 1px solid #FFF;  border-radius: 4px;
   color: #fff;
   font-size: 12px;
+  text-align: center;
   cursor: pointer;
 
   &.moveLeft {
-    left: 10px; top: 15px;
+    left: 10px; top: 10px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   &.moveRight {
-    left: 29px; top: 15px;
+    left: 29px; top: 10px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
   &.infoButton {
-    right: 10px; top: 15px;
+    right: 10px; top: 10px;
     width: 20px; height: 20px;
     border-radius: 10px;
   }

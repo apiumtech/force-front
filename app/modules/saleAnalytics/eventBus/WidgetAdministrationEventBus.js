@@ -26,6 +26,16 @@ define([
     WidgetAdministrationEventBus.prototype.unsubscribeRequestWidgetsList = function () {};
 
 
+    WidgetAdministrationEventBus.prototype.onMoveWidgetLeft = function (callback) {};
+    WidgetAdministrationEventBus.prototype.fireMoveWidgetLeft = function () {};
+    WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetLeft = function () {};
+
+
+    WidgetAdministrationEventBus.prototype.onMoveWidgetRight = function (callback) {};
+    WidgetAdministrationEventBus.prototype.fireMoveWidgetRight = function () {};
+    WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetRight = function () {};
+
+
     WidgetAdministrationEventBus.getInstance = function () {
         return WidgetAdministrationEventBus.__instance || (WidgetAdministrationEventBus.__instance = new WidgetAdministrationEventBus());
     };

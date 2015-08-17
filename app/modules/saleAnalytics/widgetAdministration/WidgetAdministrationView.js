@@ -41,6 +41,9 @@ define([
 
         self.fn.toggleWidgetIsActive = function (widget) {
             widget.isActive = !widget.isActive;
+            if(!widget.isActive){
+                widget.$selected = false;
+            }
             // TODO: server side / sessionStorage integration
         };
 
@@ -53,9 +56,13 @@ define([
             });
             widget.$selected = true;
         };
+
         self.fn.moveWidgetLeft = function (widget) {
+            self.widgetAdministrationEventBus.fireMoveWidgetLeft(widget);
         };
+
         self.fn.moveWidgetRight = function (widget) {
+            self.widgetAdministrationEventBus.fireMoveWidgetRight(widget);
         };
     };
 

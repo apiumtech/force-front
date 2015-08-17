@@ -59,8 +59,7 @@ define([
             }
         ])
 
-        .
-        directive('asSortable', [
+        .directive('asSortable', [
             function () {
                 return {
                     restrict: 'A',
