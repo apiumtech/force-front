@@ -45,13 +45,17 @@ define([
         };
 
         self.fn.toggleWidgetSelected = function (widget) {
-            if(widget.$selected){
+            if(widget.$selected || !widget.isActive){
                 return;
             }
             self.data.widgets.forEach(function(wdg){
                 wdg.$selected = false;
             });
             widget.$selected = true;
+        };
+        self.fn.moveWidgetLeft = function (widget) {
+        };
+        self.fn.moveWidgetRight = function (widget) {
         };
     };
 

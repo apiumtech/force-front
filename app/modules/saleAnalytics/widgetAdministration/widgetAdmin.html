@@ -18,7 +18,9 @@
                     {{ widget.widgetName }}
                 </div>
                 <div class="WidgetAdministrationListItem-toolbar" ng-if="widget.$selected">
-
+                    <div class="WidgetAdministrationListItem-toolbarButton moveLeft" ng-click="fn.moveWidgetLeft(widget)">&lt;</div>
+                    <div class="WidgetAdministrationListItem-toolbarButton moveRight" ng-click="fn.moveWidgetRight(widget)">&gt;</div>
+                    <div class="WidgetAdministrationListItem-toolbarButton infoButton">i</div>
                 </div>
             </li>
         </ul>
