@@ -8,7 +8,7 @@ define([
         var view;
 
         function exerciseCreateView(presenter) {
-            return ConversionView.newInstance({}, presenter || mock(ConversionPresenter), false, false);
+            return ConversionView.newInstance(mockAngularScope(), presenter || mock(ConversionPresenter), false, false);
         }
 
         describe("show() method", function () {

@@ -4,7 +4,7 @@ define([
     'use strict';
     describe("WidgetDecoratedPageView", function () {
         function exerciseCreateView(model, presenter) {
-            return new WidgetDecoratedPageView({}, model, presenter || {
+            return new WidgetDecoratedPageView(mockAngularScope(), model, presenter || {
                     show: function () {
                     }
                 });

@@ -8,7 +8,7 @@ define([
         var view, presenter;
 
         function exerciseCreateView(_presenter) {
-            return DistributionView.newInstance({}, _presenter || mock(DistributionPresenter), false, false);
+            return DistributionView.newInstance(mockAngularScope(), _presenter || mock(DistributionPresenter), false, false);
         }
 
         describe("show() method", function () {
