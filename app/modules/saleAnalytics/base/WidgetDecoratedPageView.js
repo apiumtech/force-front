@@ -16,11 +16,13 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
-    'modules/saleAnalytics/widgets/custom/CustomWidgetDirective'
+    'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
+    'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
 ], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
+        this.$scope = $scope;
         this.dropZoneClassName = "dropzone";
         this.widgetContainerSelector = '.widgets-container[as-sortable]';
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
@@ -54,6 +56,17 @@ define([
         self.widgetAdministrationEventBus.onRequestWidgetsList(function(){
             self.onRequestWidgetsList();
         });
+        self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    WidgetDecoratePageView.prototype.onDisposing = function () {
+        var self = this;
+        self.widgetAdministrationEventBus.unsubscribeToggleWidgetAdministration();
+        self.widgetAdministrationEventBus.unsubscribeWidgetsLoaded();
+        self.widgetAdministrationEventBus.unsubscribeRequestWidgetsList();
+        self.widgetAdministrationEventBus.unsubscribeMoveWidgetLeft();
+        self.widgetAdministrationEventBus.unsubscribeMoveWidgetRight();
+        self.disposer();
     };
 
     WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){

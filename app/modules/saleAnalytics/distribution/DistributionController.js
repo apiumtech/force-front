@@ -5,8 +5,7 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetDirective',
     'modules/saleAnalytics/widgets/pieChart/PieWidgetDirective',
-    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetDirective',
-    'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetDirective'
 ], function (app, DistributionView) {
     'use strict';
 

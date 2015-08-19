@@ -1,8 +1,9 @@
 define([
     'shared/BaseView',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationPresenter',
-    'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus'
-], function (BaseView, WidgetAdministrationPresenter, WidgetAdministrationEventBus) {
+    'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
+    'jquery'
+], function (BaseView, WidgetAdministrationPresenter, WidgetAdministrationEventBus, $) {
     'use strict';
 
     function WidgetAdministrationView($scope, presenter) {
@@ -29,12 +30,6 @@ define([
             self.onWidgetsLoaded(payload);
         });
 
-        self.fn.onInit = function () {
-            if(!self.data.widgetsAvailable){
-                self.widgetAdministrationEventBus.fireRequestWidgetsList();
-            }
-        };
-
         self.fn.getWidgetSampleImage = function (widget) {
             return "assets/images/chart-sample.png";
         };
@@ -55,6 +50,9 @@ define([
                 wdg.$selected = false;
             });
             widget.$selected = true;
+            setTimeout( function(){
+                $('[data-toggle=tooltip]').tooltip();
+            }, 500 );
         };
 
         self.fn.moveWidgetLeft = function (widget) {
@@ -63,6 +61,12 @@ define([
 
         self.fn.moveWidgetRight = function (widget) {
             self.widgetAdministrationEventBus.fireMoveWidgetRight(widget);
+        };
+
+        self.fn.onInit = function () {
+            if(!self.data.widgetsAvailable){
+                self.widgetAdministrationEventBus.fireRequestWidgetsList();
+            }
         };
     };
 
