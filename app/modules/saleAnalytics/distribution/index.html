@@ -24,7 +24,9 @@
          widget-dropped="fn.removeHighlightDroppableZones()"
          widget-sorted="event.onWidgetDropped($ui, $widget)">
         <div ng-repeat="widget in widgets"
+             data-widgetid="widget-{{widget.widgetId}}"
              class="col-md-{{widget.position.size}} widget-container"
+             ng-class="{'hidden': !widget.isActive}"
              as-sortable-item sortable-widget="widget">
             <ng-include src="widget.template"></ng-include>
         </div>

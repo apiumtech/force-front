@@ -35,6 +35,14 @@ define([
     WidgetAdministrationEventBus.prototype.fireMoveWidgetRight = function () {};
     WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetRight = function () {};
 
+    WidgetAdministrationEventBus.prototype.onActivateWidget = function (callback) {};
+    WidgetAdministrationEventBus.prototype.fireActivateWidget = function () {};
+    WidgetAdministrationEventBus.prototype.unsubscribeActivateWidget = function () {};
+
+    WidgetAdministrationEventBus.prototype.onDeactivateWidget = function (callback) {};
+    WidgetAdministrationEventBus.prototype.fireDeactivateWidget = function () {};
+    WidgetAdministrationEventBus.prototype.unsubscribeDeactivateWidget = function () {};
+
 
     WidgetAdministrationEventBus.getInstance = function () {
         return WidgetAdministrationEventBus.__instance || (WidgetAdministrationEventBus.__instance = new WidgetAdministrationEventBus());

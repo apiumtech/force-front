@@ -7,6 +7,8 @@ define([
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
     'angular',
+    'jquery',
+    'underscore',
 
     'modules/widgets/WidgetWrapperDirective',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterController',
@@ -18,7 +20,7 @@ define([
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
-], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular) {
+], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular, $, _) {
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -53,10 +55,39 @@ define([
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
         self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
-        self.widgetAdministrationEventBus.onRequestWidgetsList(function(){
-            self.onRequestWidgetsList();
-        });
+
+        self.widgetAdministrationEventBus.onRequestWidgetsList( function(){self.onRequestWidgetsList(); });
+        self.widgetAdministrationEventBus.onMoveWidgetLeft( function(widget){self.onMoveWidgetLeft(widget);} );
+        self.widgetAdministrationEventBus.onMoveWidgetRight( function(widget){self.onMoveWidgetRight(widget);} );
+        self.widgetAdministrationEventBus.onActivateWidget( function(widget){self.toggleActivateWidget(widget, true);} );
+        self.widgetAdministrationEventBus.onDeactivateWidget( function(widget){self.toggleActivateWidget(widget, false);} );
+
+        self.event.onWidgetMoved = function(widget, newIndex){
+            // To be overriden by inheriting objects
+        };
+
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+
+    WidgetDecoratePageView.prototype.onMoveWidgetLeft = function (widget) {
+        var movingElement = $("[data-widgetid=widget-"+ widget.widgetId +"]");
+        var newIndex = Math.max(0, this.getElementIndex(movingElement)-1);
+        this.event.onWidgetMoved (widget, newIndex);
+    };
+
+    WidgetDecoratePageView.prototype.onMoveWidgetRight = function (widget) {
+        var movingElement = $("[data-widgetid=widget-"+ widget.widgetId +"]");
+        var newIndex = Math.min(this.widgets.length-1, this.getElementIndex(movingElement)+1);
+        this.event.onWidgetMoved (widget, newIndex);
+    };
+
+    WidgetDecoratePageView.prototype.toggleActivateWidget = function (widget, isActive) {
+        var self = this;
+        var currentWidget = _.findWhere(self.widgets, {widgetId: widget.widgetId});
+        if(currentWidget){
+            currentWidget.isActive = isActive;
+        }
     };
 
     WidgetDecoratePageView.prototype.onDisposing = function () {
@@ -66,6 +97,8 @@ define([
         self.widgetAdministrationEventBus.unsubscribeRequestWidgetsList();
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetLeft();
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetRight();
+        self.widgetAdministrationEventBus.unsubscribeActivateWidget();
+        self.widgetAdministrationEventBus.unsubscribeDeactivateWidget();
         self.disposer();
     };
 
@@ -86,19 +119,20 @@ define([
     WidgetDecoratePageView.prototype.onWidgetsLoaded = function (widgetsData) {
         this.decorateWidget.call(this, widgetsData.body);
         this.widgets = widgetsData.body;
-        this.widgetAdministrationEventBus.fireWidgetsLoaded({
-            widgets:angular.copy(this.widgets),
-            pageName:this.pageName
-        });
+        this._fireWidgetsLoaded();
     };
 
     WidgetDecoratePageView.prototype.onRequestWidgetsList = function () {
         if( this.widgets ){
-            this.widgetAdministrationEventBus.fireWidgetsLoaded({
-                widgets:angular.copy(this.widgets),
-                pageName:this.pageName
-            });
+            this._fireWidgetsLoaded();
         }
+    };
+
+    WidgetDecoratePageView.prototype._fireWidgetsLoaded = function () {
+        this.widgetAdministrationEventBus.fireWidgetsLoaded({
+            widgets:angular.copy(this.widgets),
+            pageName:this.pageName
+        });
     };
 
     WidgetDecoratePageView.prototype.getElementIndex = function (element) {

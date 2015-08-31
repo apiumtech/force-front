@@ -35,11 +35,14 @@ define([
         };
 
         self.fn.toggleWidgetIsActive = function (widget) {
-            widget.isActive = !widget.isActive;
-            if(!widget.isActive){
+            if(widget.isActive){
+                widget.isActive = false;
                 widget.$selected = false;
+                self.widgetAdministrationEventBus.fireDeactivateWidget(widget);
+            } else {
+                widget.isActive = true;
+                self.widgetAdministrationEventBus.fireActivateWidget(widget);
             }
-            // TODO: server side / sessionStorage integration
         };
 
         self.fn.toggleWidgetSelected = function (widget) {
