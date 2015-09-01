@@ -13,6 +13,7 @@ define([
         var self = this;
         self.widgetAdministrationEventBus = WidgetAdministrationEventBus.getInstance();
         self.data.widgetsAvailable = false;
+        self.data.selectedWidgetId = null;
 
         self.configureEvents();
     }
@@ -37,7 +38,7 @@ define([
         self.fn.toggleWidgetIsActive = function (widget) {
             if(widget.isActive){
                 widget.isActive = false;
-                widget.$selected = false;
+                self.data.selectedWidgetId = null;
                 self.widgetAdministrationEventBus.fireDeactivateWidget(widget);
             } else {
                 widget.isActive = true;
@@ -46,13 +47,10 @@ define([
         };
 
         self.fn.toggleWidgetSelected = function (widget) {
-            if(widget.$selected || !widget.isActive){
+            if(widget.widgetId == self.data.selectedWidgetId || !widget.isActive){
                 return;
             }
-            self.data.widgets.forEach(function(wdg){
-                wdg.$selected = false;
-            });
-            widget.$selected = true;
+            self.data.selectedWidgetId = widget.widgetId;
             setTimeout( function(){
                 $('[data-toggle=tooltip]').tooltip();
             }, 500 );
@@ -60,10 +58,12 @@ define([
 
         self.fn.moveWidgetLeft = function (widget) {
             self.widgetAdministrationEventBus.fireMoveWidgetLeft(widget);
+            self.widgetAdministrationEventBus.fireRequestWidgetsList();
         };
 
         self.fn.moveWidgetRight = function (widget) {
             self.widgetAdministrationEventBus.fireMoveWidgetRight(widget);
+            self.widgetAdministrationEventBus.fireRequestWidgetsList();
         };
 
         self.fn.onInit = function () {
@@ -71,19 +71,26 @@ define([
                 self.widgetAdministrationEventBus.fireRequestWidgetsList();
             }
         };
+
+        self.widgetAdministrationEventBus.onMoveWidgetToIndex(function(widget, index){
+            self.onMoveWidgetToIndex(widget, index);
+        });
     };
 
     WidgetAdministrationView.prototype.onToggleWidgetAdministration = function () {
         $("#WidgetAdministrationContainer").slideToggle("slow");
     };
 
+    WidgetAdministrationView.prototype.onMoveWidgetToIndex = function (widget, newIndex) {
+        $("[data-widgetid=widget-"+ widget.widgetId +"]").index(newIndex);
+        this.widgetAdministrationEventBus.fireRequestWidgetsList();
+    };
+
     WidgetAdministrationView.prototype.onWidgetsLoaded = function (payload) {
         var self = this;
-        if(!self.data.widgetsAvailable) {
-            self.pageName = payload.pageName;
-            self.data.widgets = payload.widgets;
-            self.data.widgetsAvailable = true;
-        }
+        self.pageName = payload.pageName;
+        self.data.widgets = payload.widgets;
+        self.data.widgetsAvailable = true;
     };
 
     WidgetAdministrationView.newInstance = function ($scope, model, presenter, viewRepaintAspect, logErrorAspect) {

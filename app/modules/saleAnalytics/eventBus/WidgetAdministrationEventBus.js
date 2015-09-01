@@ -26,6 +26,10 @@ define([
     WidgetAdministrationEventBus.prototype.unsubscribeRequestWidgetsList = function () {};
 
 
+    WidgetAdministrationEventBus.prototype.onMoveWidgetToIndex = function (callback) {};
+    WidgetAdministrationEventBus.prototype.fireMoveWidgetToIndex = function () {};
+    WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetToIndex = function () {};
+
     WidgetAdministrationEventBus.prototype.onMoveWidgetLeft = function (callback) {};
     WidgetAdministrationEventBus.prototype.fireMoveWidgetLeft = function () {};
     WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetLeft = function () {};

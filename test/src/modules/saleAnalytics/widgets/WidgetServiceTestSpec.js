@@ -35,7 +35,7 @@ define([
         });
 
         describe("updatePageWidgets", function () {
-            it("should call ajax from its ajaxService with correct params", function () {
+            xit("should call ajax from its ajaxService with correct params", function () {
                 //TODO: update when having real API
                 var updateData = {};
                 sut.updatePageWidgets(updateData);

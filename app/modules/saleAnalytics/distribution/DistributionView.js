@@ -28,9 +28,9 @@ define([
 
         self.__configureEvents.call(this);
 
-        self.fn.makeFullSize = function (movingElement, widget) {
-            widget.position.size = 12;
-        };
+        //self.fn.makeFullSize = function (movingElement, widget) {
+        //    widget.position.size = 12;
+        //};
 
         self.fn.highlightDroppableZones = function () {
             $(self.fixedAreaSelector).addClass(self.dropZoneClassName);
@@ -40,10 +40,10 @@ define([
             $(self.fixedAreaSelector).removeClass(self.dropZoneClassName);
         };
 
-        self.fn.moveWidgetToContainer = function (movingElement, widget) {
-            self._moveElementToContainer(movingElement);
-            self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
-        };
+        //self.fn.moveWidgetToContainer = function (movingElement, widget) {
+        //    self._moveElementToContainer(movingElement);
+        //    self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
+        //};
     };
 
     DistributionView.prototype._moveElementToContainer = function (movingElement) {

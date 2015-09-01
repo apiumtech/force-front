@@ -44,7 +44,11 @@ define([
     WidgetService.prototype.updatePageWidgets = function (data) {
 
         //TODO: request updates to server when having real API
-        return this.ajaxService.rawAjaxRequest();
+        var deferred = Q.defer();
+        setTimeout(deferred.reject.bind(deferred), 100, "WidgetService.updatePageWidgets dummy");
+        return deferred.promise;
+
+        //return this.ajaxService.rawAjaxRequest();
     };
 
     WidgetService.newInstance = function (ajaxService) {
@@ -186,7 +190,7 @@ define([
                 position: {
                     size: widget.Size
                 },
-                isActive: (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
+                isActive: true,// (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
                 dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
                 option: widget.WidgetOptions
             };

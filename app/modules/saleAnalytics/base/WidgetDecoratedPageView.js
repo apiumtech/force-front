@@ -57,6 +57,7 @@ define([
         self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
 
         self.widgetAdministrationEventBus.onRequestWidgetsList( function(){self.onRequestWidgetsList(); });
+        self.widgetAdministrationEventBus.onMoveWidgetToIndex( function(widget, index){self.onMoveWidgetToIndex(widget, index);} );
         self.widgetAdministrationEventBus.onMoveWidgetLeft( function(widget){self.onMoveWidgetLeft(widget);} );
         self.widgetAdministrationEventBus.onMoveWidgetRight( function(widget){self.onMoveWidgetRight(widget);} );
         self.widgetAdministrationEventBus.onActivateWidget( function(widget){self.toggleActivateWidget(widget, true);} );
@@ -66,9 +67,19 @@ define([
             // To be overriden by inheriting objects
         };
 
+        self.fn.onWidgetDropped = function($ui, $widget) {
+            var movingElement = $("[data-widgetid=widget-"+ $widget.widgetId +"]");
+            var dropElementIndex = $ui.item.index();
+            self.widgetAdministrationEventBus.fireMoveWidgetToIndex($widget, dropElementIndex);
+        };
+
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
     };
 
+
+    WidgetDecoratePageView.prototype.onMoveWidgetToIndex = function (widget, newIndex) {
+        this.event.onWidgetMoved (widget, newIndex);
+    };
 
     WidgetDecoratePageView.prototype.onMoveWidgetLeft = function (widget) {
         var movingElement = $("[data-widgetid=widget-"+ widget.widgetId +"]");
@@ -95,6 +106,7 @@ define([
         self.widgetAdministrationEventBus.unsubscribeToggleWidgetAdministration();
         self.widgetAdministrationEventBus.unsubscribeWidgetsLoaded();
         self.widgetAdministrationEventBus.unsubscribeRequestWidgetsList();
+        self.widgetAdministrationEventBus.unsubscribeMoveWidgetToIndex();
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetLeft();
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetRight();
         self.widgetAdministrationEventBus.unsubscribeActivateWidget();
