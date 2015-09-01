@@ -1,5 +1,5 @@
 /**
- * Created by justin on 1/23/15.
+ * @see https://github.com/a5hik/ng-sortable
  */
 define([
     'angular',

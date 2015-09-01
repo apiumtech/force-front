@@ -30,15 +30,6 @@ define([
     WidgetAdministrationEventBus.prototype.fireMoveWidgetToIndex = function () {};
     WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetToIndex = function () {};
 
-    WidgetAdministrationEventBus.prototype.onMoveWidgetLeft = function (callback) {};
-    WidgetAdministrationEventBus.prototype.fireMoveWidgetLeft = function () {};
-    WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetLeft = function () {};
-
-
-    WidgetAdministrationEventBus.prototype.onMoveWidgetRight = function (callback) {};
-    WidgetAdministrationEventBus.prototype.fireMoveWidgetRight = function () {};
-    WidgetAdministrationEventBus.prototype.unsubscribeMoveWidgetRight = function () {};
-
     WidgetAdministrationEventBus.prototype.onActivateWidget = function (callback) {};
     WidgetAdministrationEventBus.prototype.fireActivateWidget = function () {};
     WidgetAdministrationEventBus.prototype.unsubscribeActivateWidget = function () {};

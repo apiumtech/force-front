@@ -46,26 +46,6 @@ define([
             }
         };
 
-        self.fn.toggleWidgetSelected = function (widget) {
-            if(widget.widgetId == self.data.selectedWidgetId || !widget.isActive){
-                return;
-            }
-            self.data.selectedWidgetId = widget.widgetId;
-            setTimeout( function(){
-                $('[data-toggle=tooltip]').tooltip();
-            }, 500 );
-        };
-
-        self.fn.moveWidgetLeft = function (widget) {
-            self.widgetAdministrationEventBus.fireMoveWidgetLeft(widget);
-            self.widgetAdministrationEventBus.fireRequestWidgetsList();
-        };
-
-        self.fn.moveWidgetRight = function (widget) {
-            self.widgetAdministrationEventBus.fireMoveWidgetRight(widget);
-            self.widgetAdministrationEventBus.fireRequestWidgetsList();
-        };
-
         self.fn.onInit = function () {
             if(!self.data.widgetsAvailable){
                 self.widgetAdministrationEventBus.fireRequestWidgetsList();

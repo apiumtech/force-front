@@ -26,6 +26,7 @@
   background-color: #fff;
   margin-right: 10px;
   white-space: normal;
+  cursor: pointer;
 }
 
 .WidgetAdministrationListItem-widgetImage {
@@ -43,10 +44,8 @@
   padding-left: 5px;
   font-size: 14px;
   line-height: 16px;
-  cursor: pointer;
 
   &.wdg-inactive{
-    cursor: auto;
     color: #DDD;
   }
 }
@@ -64,7 +63,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  cursor: pointer;
 
   &.wdg-active{
     border: 1px solid #ED8B00;
@@ -85,37 +83,3 @@
   }
 }
 
-.WidgetAdministrationListItem-toolbar {
-  position: absolute;
-  left: 0; right: 0; bottom: 0; height: 40px;
-  background-color: #424648;
-  opacity: 0.83;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-.WidgetAdministrationListItem-toolbarButton {
-  position: absolute;
-  width: 20px; height: 20px; line-height: 20px;
-  border: 1px solid #FFF;  border-radius: 4px;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  cursor: pointer;
-
-  &.moveLeft {
-    left: 10px; top: 10px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  &.moveRight {
-    left: 29px; top: 10px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  &.infoButton {
-    right: 10px; top: 10px;
-    width: 20px; height: 20px;
-    border-radius: 10px;
-  }
-}

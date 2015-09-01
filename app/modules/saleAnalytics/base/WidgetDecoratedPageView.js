@@ -54,12 +54,10 @@ define([
 
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
-        self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
+        //self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
 
         self.widgetAdministrationEventBus.onRequestWidgetsList( function(){self.onRequestWidgetsList(); });
         self.widgetAdministrationEventBus.onMoveWidgetToIndex( function(widget, index){self.onMoveWidgetToIndex(widget, index);} );
-        self.widgetAdministrationEventBus.onMoveWidgetLeft( function(widget){self.onMoveWidgetLeft(widget);} );
-        self.widgetAdministrationEventBus.onMoveWidgetRight( function(widget){self.onMoveWidgetRight(widget);} );
         self.widgetAdministrationEventBus.onActivateWidget( function(widget){self.toggleActivateWidget(widget, true);} );
         self.widgetAdministrationEventBus.onDeactivateWidget( function(widget){self.toggleActivateWidget(widget, false);} );
 
@@ -81,18 +79,6 @@ define([
         this.event.onWidgetMoved (widget, newIndex);
     };
 
-    WidgetDecoratePageView.prototype.onMoveWidgetLeft = function (widget) {
-        var movingElement = $("[data-widgetid=widget-"+ widget.widgetId +"]");
-        var newIndex = Math.max(0, this.getElementIndex(movingElement)-1);
-        this.event.onWidgetMoved (widget, newIndex);
-    };
-
-    WidgetDecoratePageView.prototype.onMoveWidgetRight = function (widget) {
-        var movingElement = $("[data-widgetid=widget-"+ widget.widgetId +"]");
-        var newIndex = Math.min(this.widgets.length-1, this.getElementIndex(movingElement)+1);
-        this.event.onWidgetMoved (widget, newIndex);
-    };
-
     WidgetDecoratePageView.prototype.toggleActivateWidget = function (widget, isActive) {
         var self = this;
         var currentWidget = _.findWhere(self.widgets, {widgetId: widget.widgetId});
@@ -107,19 +93,17 @@ define([
         self.widgetAdministrationEventBus.unsubscribeWidgetsLoaded();
         self.widgetAdministrationEventBus.unsubscribeRequestWidgetsList();
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetToIndex();
-        self.widgetAdministrationEventBus.unsubscribeMoveWidgetLeft();
-        self.widgetAdministrationEventBus.unsubscribeMoveWidgetRight();
         self.widgetAdministrationEventBus.unsubscribeActivateWidget();
         self.widgetAdministrationEventBus.unsubscribeDeactivateWidget();
         self.disposer();
     };
 
-    WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
+    /*WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
         var self = this;
         self.widgets = self.widgets.filter(function(widget){
            return widget.widgetId !== widgetId;
         });
-    };
+    };*/
 
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
         var self = this;
