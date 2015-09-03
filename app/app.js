@@ -16,7 +16,7 @@ define([
 ], function (angular, config, $, i18nextOptions, diConfig) {
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
-        $i18nextProvider.options = i18nextOptions.prod;
+        $i18nextProvider.options = i18nextOptions.dev_local;
     }]);
 
     var app = angular.module(config.appName, [

@@ -141,8 +141,8 @@ define([
             }
         };
 
+        self.resizeInterval = null;
         $(window).on('resize', self.onWindowResize.bind(self));
-
         self.$scope.$on('destroy', function () {
             $(window).unbind('resize', self.onWindowResize.bind(self));
         });
@@ -155,9 +155,11 @@ define([
     ScatterChartWidgetView.prototype.onWindowResize = function () {
         // call refresh the chart
         var self = this;
-        setTimeout(function () {
+
+        clearTimeout(self.resizeInterval);
+        self.resizeInterval = setTimeout(function () {
             self.refreshChart();
-        }, 0);
+        }, 250);
     };
 
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {

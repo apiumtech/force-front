@@ -50,7 +50,9 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.refreshChart.bind(self));
+        eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
 
         self.fn.changeFilter = function (selectedFilter) {
             self.selectedFilter = selectedFilter;
@@ -62,12 +64,18 @@ define([
         };
 
         self.fn.canDisplayUsersInMap = self.canDisplayUsersInMap.bind(self);
+
+        self.resizeHandling();
     };
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
 
         self.refreshChart(responseData.data.params);
+    };
+
+    MapChartWidgetView.prototype.reDraw = function(){
+        this.refreshChart(self.mapData);
     };
 
     MapChartWidgetView.prototype.refreshChart = function (data) {

@@ -56,7 +56,9 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+        eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
@@ -117,6 +119,8 @@ define([
                 $('[data-toggle=tooltip]').tooltip();
             }, 2000 );
         };
+
+        self.resizeHandling();
     };
 
     GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (data) {

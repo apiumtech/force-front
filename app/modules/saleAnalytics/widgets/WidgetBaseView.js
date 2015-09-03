@@ -48,6 +48,18 @@ define([
         }
     });
 
+    WidgetBaseView.prototype.resizeHandling = function () {
+        var self = this;
+        var resizeInterval;
+        $(window).resize(function(){
+            clearTimeout(resizeInterval);
+            resizeInterval = setTimeout( self.reDraw.bind(self), 250+Math.random()*100 );
+        });
+        self.$scope.$on('destroy', function () {
+            $(window).unbind('resize', self.reDraw.bind(self));
+        });
+    };
+
     WidgetBaseView.prototype.initializeWidgetChannel = function () {
         if (this.widget && !this.channelInitialized) {
             this.channelInitialized = true;

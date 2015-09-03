@@ -65,7 +65,9 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+        eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -80,7 +82,11 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        self.resizeHandling();
     };
+
+
 
     BarChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
@@ -104,7 +110,9 @@ define([
     BarChartWidgetView.prototype.reDraw = function(){
         //if(!BarChart.getChart()) return;
         //BarChart.getChart().draw();
-        self.paintChart(self.element.find('.chart-place-holder'));
+        var self = this;
+        var element = self.element.find('.chart-place-holder');
+        self.paintChart(element);
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {

@@ -237,6 +237,16 @@
       }
     }
   },
+  "WidgetAdmin":{
+    "Widget":{
+      "active": {
+        "label": "Active"
+      },
+      "inactive": {
+        "label": "Inactive"
+      }
+    }
+  },
   "Contact": {
     "ContactTitle": "Contacts",
     "CreateContact": "Create Contact",

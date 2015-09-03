@@ -66,7 +66,9 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+        eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -81,6 +83,8 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        self.resizeHandling();
     };
 
     SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -128,7 +132,7 @@ define([
         //if(!SingleLineChart.getChart()) return;
         //SingleLineChart.getChart().draw();
 
-        self.paintChart(self.element.find('.chart-place-holder'));
+        self.refreshChart();
     };
 
     SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {

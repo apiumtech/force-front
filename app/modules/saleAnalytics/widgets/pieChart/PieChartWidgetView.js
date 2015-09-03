@@ -55,7 +55,9 @@ define([
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
-        eventChannel.onExpandingWidget(self.reDraw.bind(self));
+        eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -70,6 +72,8 @@ define([
         self.fn.refreshChart = function () {
             self.refreshChart();
         };
+
+        self.resizeHandling();
     };
 
     PieChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -93,6 +97,7 @@ define([
     PieChartWidgetView.prototype.reDraw = function(){
         //if(PieChart.getChart())
         //PieChart.getChart().draw();
+        var self = this;
         self.paintChart(self.element.find('.chart-place-holder'));
     };
 
