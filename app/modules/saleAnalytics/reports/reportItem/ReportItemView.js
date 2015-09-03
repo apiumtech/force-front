@@ -344,8 +344,8 @@ define([
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
-        //a.click();
-        window.alert("Link URL: " + data);
+        a.click();
+        //window.alert("Link URL: " + data);
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {
