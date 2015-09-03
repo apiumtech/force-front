@@ -63,9 +63,9 @@ define([
         var self = this;
         var element = $(movingElement.item);
 
-        if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
+        /*if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
             widget.position.size = 6;
-        }
+        }*/
 
         self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };

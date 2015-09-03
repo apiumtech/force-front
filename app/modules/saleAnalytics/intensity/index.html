@@ -14,10 +14,11 @@
     <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html'"></ng-include>
     <div class="widgets-container"
          as-sortable
-         widget-dropped="event.onWidgetDropped($ui, $widget)"
-            >
+         widget-dropped="fn.onWidgetDropped($ui, $widget)">
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
+             data-widgetid="widget-{{widget.widgetId}}"
+             ng-class="{'hidden': !widget.isActive}"
              as-sortable-item sortable-widget="widget">
             <ng-include src="widget.template"></ng-include>
         </div>

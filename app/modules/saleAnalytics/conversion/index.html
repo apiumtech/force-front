@@ -13,15 +13,17 @@
          as-sortable
          widget-drag-start="fn.highlightDroppableZones()"
          widget-dropped="fn.removeHighlightDroppableZones()"
-         widget-sorted="event.onWidgetDropped($ui, $widget)">
+         widget-sorted="fn.onWidgetDropped($ui, $widget)">
         <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
+             data-widgetid="widget-{{widget.widgetId}}"
+             ng-class="{'hidden': !widget.isActive}"
              as-sortable-item sortable-widget="widget">
             <ng-include src="widget.template"></ng-include>
         </div>
     </div>
 </div>
-<div class="row fixedarea" as-sortable
+<!--<div class="row fixedarea" as-sortable
      widget-hover="fn.makeFullSize($ui, $widget)"
      widget-sorted="fn.moveWidgetToContainer($ui, $widget)">
-</div>
+</div>-->

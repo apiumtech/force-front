@@ -29,7 +29,7 @@ define([
             });
         });
 
-        describe("configureEvents", function () {
+        xdescribe("configureEvents", function () {
             beforeEach(function () {
                 view = exerciseCreateView({}, {});
             });
