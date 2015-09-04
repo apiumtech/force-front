@@ -278,7 +278,7 @@ define([
     ReportItemView.prototype.getParameterConfiguration = function () {
         var self = this;
         self.reportEventBus.fireReportIsInProgress(self.report.Id, true);
-        self.event.getParameterConfiguration(self.report.Id, self.onParameterConfigurationLoaded.bind(self));
+        self.event.getParameterConfiguration(self.report.Id, self.onParameterConfigurationLoaded.bind(self), self.onParameterConfigurationError.bind(self));
     };
 
     ReportItemView.prototype.onParameterConfigurationLoaded = function (data) {
@@ -329,10 +329,6 @@ define([
         self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self), self.onGetReportURLError.bind(self));
     };
 
-    ReportItemView.prototype.onGetReportURLError = function (err) {
-        this.toastService.error( this.translator.translate("Reports_Get_Download_Url_Error") );
-    };
-
     ReportItemView.prototype.onReportURLLoadedForSend = function (data) {
         var a = document.createElement("A");
         var subject = "Report from Force Manager";
@@ -352,6 +348,18 @@ define([
         var self = this;
         self.report.params = data.params;
         self.currentActionForEmptyOrAssignedParameters();
+    };
+
+    ReportItemView.prototype.onGetReportURLError = function (err) {
+        this.toastService.error( this.translator.translate("Reports_Get_Download_Url_Error") );
+        this.inProgress = false;
+        this.reportEventBus.fireReportIsInProgress(this.report.Id, false);
+    };
+
+    ReportItemView.prototype.onParameterConfigurationError = function (err) {
+        this.toastService.error( this.translator.translate("Reports_Get_ParamConfig_Error") );
+        this.inProgress = false;
+        this.reportEventBus.fireReportIsInProgress(this.report.Id, false);
     };
 
     ReportItemView.newInstance = function ($scope, $element, $viewRepaintAspect, $logErrorAspect) {

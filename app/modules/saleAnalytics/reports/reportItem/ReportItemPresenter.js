@@ -26,8 +26,8 @@ define([
                 .then(view.onToggledFavouriteReport.bind(view), view.showError.bind(view));
         };
 
-        view.event.getParameterConfiguration = function(reportId, callback){
-            self.model.getParameterConfiguration(reportId, callback);
+        view.event.getParameterConfiguration = function(reportId, callback, failCallback){
+            self.model.getParameterConfiguration(reportId, callback, failCallback);
         };
 
         view.event.getReportURL = function(report, callback, errorCallback){

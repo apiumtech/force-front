@@ -28,8 +28,8 @@ define([
         return self.authAjaxService.rawAjaxRequest(params);
     };
 
-    ReportItemModel.prototype.getParameterConfiguration = function (reportId, callback) {
-        return this.reportService.getParameterConfiguration(reportId).then(callback);
+    ReportItemModel.prototype.getParameterConfiguration = function (reportId, callback, failCallback) {
+        return this.reportService.getParameterConfiguration(reportId).then(callback, failCallback);
     };
 
     ReportItemModel.prototype.getReportURL = function (report) {
