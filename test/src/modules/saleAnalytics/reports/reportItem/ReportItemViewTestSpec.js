@@ -405,7 +405,7 @@ define([
                 expect(eventBus.fireReportIsInProgress).toHaveBeenCalledWith(123, true);
             });
             it("should call view.event.getParameterConfiguration function and return the result to onParameterConfigurationLoaded", function () {
-                expect(sut.event.getParameterConfiguration).toHaveBeenCalledWith(123, jasmine.any(Function));
+                expect(sut.event.getParameterConfiguration).toHaveBeenCalledWith(123, jasmine.any(Function), jasmine.any(Function));
                 expect(sut.onParameterConfigurationLoaded).toHaveBeenCalledWith(response);
             });
         });
