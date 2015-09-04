@@ -44,7 +44,7 @@ define([
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
             customLoad: function (lng, ns, options, loadComplete) {
-                if (!isFetching) {
+                //if (!isFetching) {
                     isFetching = true;
                     var params = {
                         url: config.api.literalValueDictionary,
@@ -74,7 +74,7 @@ define([
                             loadComplete(msg);
                         }
                     );
-                }
+                //}
             }
         }
     };
