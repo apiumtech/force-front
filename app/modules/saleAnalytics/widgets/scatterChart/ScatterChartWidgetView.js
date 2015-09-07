@@ -232,8 +232,8 @@ define([
                     'activity scores': {label: self.axisYTitle}
                 }
             },
-            hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
-            vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a' },
+            hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
+            vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
 
             colors: self.colorService.$colors.slice()
         };

@@ -24,8 +24,6 @@ define([
     } catch(err){
     }
 
-    // FIXME: (joanllenas) for some reason prod's customLoad is being called three times. This is a hack to avoid it meanwhile.
-    var isFetching = false;
 
     return {
         dev_local: {
@@ -44,37 +42,34 @@ define([
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
             customLoad: function (lng, ns, options, loadComplete) {
-                //if (!isFetching) {
-                    isFetching = true;
-                    var params = {
-                        url: config.api.literalValueDictionary,
-                        data: {
-                            language: language,
-                            implementationCode: implementationCode,
-                            platform: platform
-                        },
-                        crossDomain: true,
-                        jsonp: false,
-                        type: 'GET',
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        dataType: 'json'
-                    };
-                    $.ajax(params).then(
-                        function (data) {
+                var params = {
+                    url: config.api.literalValueDictionary,
+                    data: {
+                        language: language,
+                        implementationCode: implementationCode,
+                        platform: platform
+                    },
+                    crossDomain: true,
+                    jsonp: false,
+                    type: 'GET',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    dataType: 'json'
+                };
+                $.ajax(params).then(
+                    function (data) {
 
-                            loadComplete(null, data);
+                        loadComplete(null, data);
 
-                            var $body = angular.element(document.body);
-                            var $rootScope = $body.injector().get('$rootScope');
-                            $rootScope.$broadcast('i18nextLanguageChange');
-                        },
-                        function (err) {
-                            var msg = 'Error loading literals: ' + err;
-                            console.error(msg);
-                            loadComplete(msg);
-                        }
-                    );
-                //}
+                        var $body = angular.element(document.body);
+                        var $rootScope = $body.injector().get('$rootScope');
+                        $rootScope.$broadcast('i18nextLanguageChange');
+                    },
+                    function (err) {
+                        var msg = 'Error loading literals: ' + err;
+                        console.error(msg);
+                        loadComplete(msg);
+                    }
+                );
             }
         }
     };
