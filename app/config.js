@@ -2,9 +2,9 @@
  * Created by kevin on 10/29/14.
  */
 define(function () {
-    
-    //var baseUrl = "http://localhost:1900";
-    var baseUrl = "https://backenddev.forcemanager.net";
+
+    var apiVersion = "1.1";
+    var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var baseApi = '';
