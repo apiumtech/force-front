@@ -48,6 +48,8 @@ define([], function () {
                 return new this.googleChart.PieChart(element);
             case 'bar':
                 return new this.googleChart.ColumnChart(element);
+            case 'hbar':
+                return new this.googleChart.BarChart(element);
             case 'line':
                 return new this.googleChart.LineChart(element);
             case 'area':
