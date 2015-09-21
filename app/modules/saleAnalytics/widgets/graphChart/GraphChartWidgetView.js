@@ -21,7 +21,7 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         scope.filters = [];
         scope.selectedFilter = "visits";
-        scope.selectedRangeOption = "hour";
+        scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
         var self = this;
         self.colorService = new GraphColorService();
