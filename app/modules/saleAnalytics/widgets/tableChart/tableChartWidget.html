@@ -1,4 +1,4 @@
-<widget-wrapper body-class=""
+<widget-wrapper body-class="table-chart-widget"
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
@@ -42,17 +42,25 @@
                 <thead>
                 <tr>
                     <th ng-repeat="column in columns" ng-if="column.isShown">
-                        {{column.name}}
+                        <a class="btn-link" ng-click="fn.sortColumnBy(column.name, $event)">
+                            {{fn.uncamelize(column.name)}}
+                            <i ng-class="{
+                                    'fa fa-sort':      sortingState.column !== column.name,
+                                    'fa fa-sort-asc':  sortingState.column === column.name && sortingState.asc,
+                                    'fa fa-sort-desc': sortingState.column === column.name && sortingState.desc
+                                }"
+                            />
+                        </a>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="gradeX" ng-repeat="record in dataSource">
                     <td ng-repeat="field in record track by $index" ng-class="{'photo': fn.isImage(field)}">
-                        <div ng-if="fn.isImage(field, $index)" class="img-user">
+                        <div ng-if="fn.isImage(field)" class="img-user">
                             <img ng-src="{{field}}" class="media-object" alt=""/>
                         </div>
-                        <p class="m-t-10" ng-if="!fn.isImage(field, $index)">{{field}}</p>
+                        <p class="m-t-10" ng-if="!fn.isImage(field)">{{field}}</p>
                     </td>
                 </tr>
                 </tbody>

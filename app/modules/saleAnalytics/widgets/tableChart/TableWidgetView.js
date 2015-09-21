@@ -5,8 +5,9 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetModel',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetPresenter',
-    'modules/widgets/BaseWidgetEventBus'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus) {
+    'modules/widgets/BaseWidgetEventBus',
+    'underscore'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, _) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
@@ -16,6 +17,11 @@ define([
         var self = this;
         self.enableIdColumn = false;
         self.configureEvents();
+        self.sortingState = {
+            column: null,
+            asc: false,
+            desc: false
+        }
     }
 
     TableWidgetView.inherits(WidgetBaseView, {
@@ -33,6 +39,14 @@ define([
             },
             set: function (value) {
                 this.$scope.dataSource = value;
+            }
+        },
+        sortingState: {
+            get: function () {
+                return this.$scope.sortingState;
+            },
+            set: function (value) {
+                this.$scope.sortingState = value;
             }
         },
         eventChannel: {
@@ -54,19 +68,33 @@ define([
 
         eventChannel.onExpandingWidget(self.renderChart.bind(self));
 
-        self.fn.isImage = function (string, index) {
-            if( typeof string !== 'string' ) {
+        self.fn.isImage = function (str, index) {
+            if( self._isNumeric(str) ) {
                 return false;
             }
 
             var isImgReg = new RegExp('\\.(?:jpg|gif|png)$');
-            var isImage = !!string.match(isImgReg);
+            var isImage = !!str.match(isImgReg);
 
-            if(index == 1 && !isImage) {
-                isImage = string.substr(0,7) == "http://" || string.substr(0,8) == "https://";
+            if(!isImage) {
+                isImage = str.substr(0,7) == "http://" || str.substr(0,8) == "https://";
             }
 
             return isImage;
+        };
+
+        self.fn.uncamelize = function(name){
+            return name[0].toUpperCase() + name.replace(/[A-Z]/g, ' $&').toLowerCase().substr(2);
+        };
+
+        self.fn.sortColumnBy = function (columnName, $event) {
+            if(columnName!==self.sortingState.column){
+                self.sortingState.asc = false;
+            }
+            self.sortingState.column = columnName;
+            self.sortingState.asc = !self.sortingState.asc;
+            self.sortingState.desc = !self.sortingState.asc;
+            self.renderChart();
         };
 
         self.fn.toggleColumn = function (columnName, $event) {
@@ -181,15 +209,72 @@ define([
         return result;
     };
 
+    TableWidgetView.prototype._isNumeric = function(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    };
+
     TableWidgetView.prototype.renderChart = function () {
         var self = this;
         var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
-        self.dataSource = self.getDisplayData(self.data.data, displayColumnIndices);
+        var ds = self.getDisplayData(self.data.data, displayColumnIndices);
+
+        var colIndex = self._getColumnIndexByName(self.sortingState.column);
+        if(self.sortingState.column !== null && colIndex > -1) {
+
+
+            var numberSortFunction = function(a, b) {
+                a = parseFloat(a[colIndex]); b = parseFloat(b[colIndex]);
+                if (a === b) { return 0; }
+                return (a < b) ? -1 : 1;
+            };
+
+            var stringSortFunction = function(a, b) {
+                a = a[colIndex].toLowerCase(); b = b[colIndex].toLowerCase();
+                if(a < b) return -1;
+                if(a > b) return 1;
+                return 0;
+            };
+
+            if( self._isNumeric(ds[0][colIndex]) ){
+                ds.sort(numberSortFunction);
+            } else {
+                ds.sort(stringSortFunction);
+            }
+
+
+            if(self.sortingState.desc){
+                ds.reverse();
+            }
+        }
+
+        self.dataSource = ds;
+    };
+
+    TableWidgetView.prototype._getColumnIndexByName = function (name) {
+        var index = 0;
+        var self = this;
+        var len = self.columns.length;
+        var pos = -1;
+
+        for(var i=0; i<len; i++){
+            var column = self.columns[i];
+            if(column.isAvailable && column.isShown){
+                if(column.name === name){
+                    pos = index;
+                    break;
+                }
+                index++;
+            }
+        }
+
+        return pos;
     };
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
-        self.data = this.event.parseData(data, this.widget.option);
+        var res = this.event.parseData(data, this.widget.option);
+        self.data.data = res.data;
+        self.data.columns = res.columns;
         self.assignColumnsData(self.data.columns);
         self.renderChart();
     };
