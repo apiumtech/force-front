@@ -5,6 +5,10 @@ define([
     'shared/services/StorageService'
 ], function ($, config, JsonWebTokenService, StorageService) {
 
+
+    // --------------------------------------------------------
+    //  TODO: move this logic to a bootstrapping module
+    // --------------------------------------------------------
     var saveUserCode = function (userCode) {
         StorageService.newInstance().store(config.userCodeKey, userCode, true);
     };
@@ -22,8 +26,6 @@ define([
         var payload = new JsonWebTokenService(token).getPayload();
         language = payload.language || config.defaultLiteralLang;
         implementationCode = payload.implementationCode;
-
-        // TODO: move this logic to a bootstrapping routine
         saveUserCode(payload.userCode);
 
     } catch(err){
@@ -33,6 +35,7 @@ define([
             doBadTokenRedirection();
         }
     }
+    // --------------------------------------------------------
 
 
 

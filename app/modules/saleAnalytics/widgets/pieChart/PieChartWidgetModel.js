@@ -16,6 +16,12 @@ define([
         }, {
             name: "Visits",
             key: "visits"
+        }, {
+            name: "Phone Calls",
+            key: "phoneCalls"
+        }, {
+            name: "Emails",
+            key: "emails"
         }];
     }
 
