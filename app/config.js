@@ -7,8 +7,6 @@ define(function () {
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
-    var baseApi = '';
-
     var api = {
         dataTableRequest: baseUrl + '/api/accounts/dataTables',
         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
@@ -69,10 +67,10 @@ define(function () {
         userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList',
 
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
-        segmentWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
-        hourWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
-        typeWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}AccountTypeDistributionByUsersAndPeriod',
-        coverageWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
+        segmentWidgetDistributionDataApi: baseUrl +      '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
+        hourWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
+        typeWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}AccountTypeDistributionByUsersAndPeriod',
+        coverageWidgetDistributionDataApi: baseUrl +     '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
 
         //conversion activity/sales
         activityWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/activitySalesConversionByUsersAndPeriod',
@@ -140,6 +138,10 @@ define(function () {
         noImplementationCode: '-1',
         defaultLiteralLang: "en",
         maxSizeUploadAllowed: 25,
-        useAuthRequest: true
+        useAuthRequest: true,
+        badTokenRedirectionPage: "Login.aspx",
+        isDevMode: function(){
+            return window.location.hostname == "127.0.0.1" || window.location.hostname == "localhost";
+        }
     };
 });

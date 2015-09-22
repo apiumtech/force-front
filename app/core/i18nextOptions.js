@@ -9,11 +9,16 @@ define([
         StorageService.newInstance().store(config.userCodeKey, userCode, true);
     };
 
+    function doBadTokenRedirection(){
+        window.location.href = "/"+ config.badTokenRedirectionPage;
+    }
+
+    var token;
     var platform = config.web3PlatformCode;
     var language = config.defaultLiteralLang;
     var implementationCode = config.noImplementationCode;
     try {
-        var token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
+        token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
         var payload = new JsonWebTokenService(token).getPayload();
         language = payload.language || config.defaultLiteralLang;
         implementationCode = payload.implementationCode;
@@ -22,7 +27,13 @@ define([
         saveUserCode(payload.userCode);
 
     } catch(err){
+    } finally {
+        if( !config.isDevMode() &&
+            (token === undefined || token === null || token === "") ){
+            doBadTokenRedirection();
+        }
     }
+
 
 
     return {

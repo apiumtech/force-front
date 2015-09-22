@@ -26,7 +26,7 @@ define([
 
         // TODO: get rid of it ASAP
         var dev_token;
-        if(window.location.hostname == "127.0.0.1") {
+        if(Configuration.isDevMode()) {
             dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
         }
 
