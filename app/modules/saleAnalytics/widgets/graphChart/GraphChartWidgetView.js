@@ -201,6 +201,7 @@ define([
         self.chartOptions = {
             title: self.widgetName,
             colors: self.colorService.$colors.slice()
+            /*legend:'none'*/
         };
 
         if(scope.currentChartType == "line") {
