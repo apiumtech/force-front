@@ -7,15 +7,23 @@ define([
 
 
     // --------------------------------------------------------
-    //  TODO: move this logic to a bootstrapping module
+    //  TODO: move all this logic to a bootstrapping module
     // --------------------------------------------------------
-    var saveUserCode = function (userCode) {
-        StorageService.newInstance().store(config.userCodeKey, userCode, true);
-    };
-
     function doBadTokenRedirection(){
         window.location.href = "/"+ config.badTokenRedirectionPage;
     }
+
+    $( document ).ajaxComplete(function( event, xhr, settings ) {
+        if(!config.isDevMode() && xhr.responseJSON && xhr.responseJSON.status === 'nack'){
+            if(xhr.responseJSON.message.code === '00.00.0.20' || xhr.responseJSON.message.code === '00.00.0.21'){
+                doBadTokenRedirection();
+            }
+        }
+    });
+
+    var saveUserCode = function (userCode) {
+        StorageService.newInstance().store(config.userCodeKey, userCode, true);
+    };
 
     var token;
     var platform = config.web3PlatformCode;
