@@ -177,7 +177,12 @@ define([
         var chartService = self.chartService;
         var dataTable = new google.visualization.DataTable();
 
-        dataTable.addColumn('string', '---');
+        var dateFormat = (self.$scope.selectedRangeOption === 'hour' ? 'timeofday' : 'date');
+        var isHours = function(){
+            return dateFormat === 'timeofday';
+        };
+
+        dataTable.addColumn(dateFormat, '');
         chartFields.forEach(function (serie) {
             if(serie !== null && !serie.hidden) {
                 dataTable.addColumn('number', serie.label);
@@ -185,8 +190,9 @@ define([
         });
         var columns = [];
         var index = 0;
-        axisData.x.forEach(function(item){
-            var col = [item];
+        axisData.x.forEach(function(date_str){
+            var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
+            var col = [date];
             chartFields.forEach(function (serie) {
                 if(serie !== null && !serie.hidden) {
                     col.push(serie.plotData[index]);
@@ -200,15 +206,33 @@ define([
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice()
+            colors: self.colorService.$colors.slice(),
             /*legend:'none'*/
         };
+        var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
+            self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
+            self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
+            self.$scope.selectedRangeOption === 'hour' ? 'HH:mm' : 'd/M/yy';
 
-        if(scope.currentChartType == "line") {
-            self.chart = chartService.createChart(element[0], 'line');
+        // For d3 time intervals
+        // @see http://stackoverflow.com/a/23957607/779529
+        self.chartOptions.hAxis = {
+            format: computedFormat,
+            gridlines: {
+                count: 8 /* max number of ticks */
+            }
+        };
+
+
+        if( isHours() ){
+            self.chart = chartService.createChart(element[0], 'bar');
         } else {
-            self.chartOptions.isStacked = true;
-            self.chart = chartService.createChart(element[0], 'area');
+            if(scope.currentChartType == "line") {
+                self.chart = chartService.createChart(element[0], 'line');
+            } else {
+                self.chartOptions.isStacked = true;
+                self.chart = chartService.createChart(element[0], 'area');
+            }
         }
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
