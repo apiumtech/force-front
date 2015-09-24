@@ -1,8 +1,8 @@
 <widget-wrapper body-class="height-md"
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
-                widget-id="widget.widgetId"
-        >
+                widget-id="widget.widgetId">
+
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
             <button ng-if="widget.option == 'tab'" class="btn btn-white btn-sm" ng-repeat="filter in tabs"
@@ -19,5 +19,9 @@
 
         </div>
     </div>
+
+
     <div class="chart-place-holder height-sm  map-fix"></div>
+
+
 </widget-wrapper>

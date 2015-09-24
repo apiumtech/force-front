@@ -155,6 +155,15 @@ define([
                 minValue: 0,
                 maxValue: 100,
                 ticks: [0, 20, 40, 60, 80, 100]
+            },
+            legend: { position: 'top', alignment: 'end' },
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "25%",
+                top: "10%",
+                height: "80%",
+                width: "65%"
             }
         };
 
