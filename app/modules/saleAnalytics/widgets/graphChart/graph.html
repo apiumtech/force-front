@@ -1,12 +1,14 @@
 <widget-wrapper body-class="graph-chart"
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
-                widget-id="widget.widgetId"
-        >
-    <div class="row" ng-init="fn.init()">
-        <div class="col-xs-12 col-sm-6 col-lg-4 m-b-20 ">
+                widget-id="widget.widgetId">
 
-            <select class="form-control pull left"
+    <!-- TOOLBAR -->
+    <div class="row" ng-init="fn.init()">
+
+        <div class="col-xs-12 col-md-4 m-b-20">
+            <!-- FILTERS dropdown -->
+            <select class="form-control"
                     ng-change="fn.changeFilter(selectedFilter)"
                     ng-model="selectedFilter">
                 <option value="{{filter.key}}"
@@ -14,7 +16,10 @@
                 </option>
             </select>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-8 m-b-20">
+
+
+        <div class="col-xs-12 col-md-8 m-b-20">
+            <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='hour'}"
@@ -37,55 +42,52 @@
                     {{'LineWidget.Filters.Month' | i18next}}
                 </button>
             </div>
+            <div class="pull-right" style="width:15px;height:10px;"></div>
+            <!-- FIELDS buttonbar -->
+            <div class="btn-group pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
+                        {{'LineWidget.Filters.ShowFields' | i18next}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="field in availableFields">
+                            <a class="small" data-value="{{field.name}}" tabIndex="-1" ng-click="fn.toggleDisplayField(field.name) ? null : $event.preventDefault()">
+                                <span class="glyphicon" style="color:#666666;" ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}"></span>
+                                &nbsp;{{field.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                            ng-click="fn.switchToLine()"
+                            ng-disabled="selectedRangeOption=='hour'"
+                            ng-class="{'active': currentChartType=='line'}"
+
+                            ng-i18next="[title]action_data_display1">
+                        <!--data-toggle="tooltip" data-placement="bottom"-->
+                        <img src="assets/img/graph-1.png" ng-style="{'opacity': (selectedRangeOption=='hour' ? 0.2 : 1) }">
+                    </button>
+                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                            ng-click="fn.switchToFilled()"
+                            ng-disabled="selectedRangeOption=='hour'"
+                            ng-class="{'active': currentChartType=='filled'}"
+
+                            ng-i18next="[title]action_data_display2">
+                        <!--data-toggle="tooltip" data-placement="bottom"-->
+                        <img src="assets/img/graph-2.png" ng-style="{'opacity': (selectedRangeOption=='hour' ? 0.2 : 1) }">
+                    </button>
+                </div>
+            </div>
         </div>
+
     </div>
+    <!-- END TOOLBAR -->
+
 
     <div class="row">
-        <div class="col-sm-8 col-lg-10">
+        <div class="col-xs-12">
             <div class="chart-place-holder height-sm"></div>
-        </div>
-        <div class="col-sm-4 col-lg-2 ">
-            <div class=" border-grey parameters clearfix" ng-show="availableFields && availableFields.length > 0">
-                <div class="clearfix m-b-20">
-                    <h6>
-                        {{'LineWidget.Filters.ShowFields' | i18next}}
-                    </h6>
-
-                    <div class="checkbox available-fields">
-                        <label ng-repeat="field in availableFields" class="block">
-                            <input type="checkbox"
-                                   ng-checked="field.isDisplaying"
-                                   ng-click="fn.toggleDisplayField(field.name) ? null : $event.preventDefault()"
-                                   value="{{field.name}}">{{field.name}}
-                        </label>
-                    </div>
-                </div>
-                <div class="clearfix">
-                    <h6>{{'LineWidget.DataDisplay' | i18next}}</h6>
-
-                    <div class="btn-group  m-t-10 m-b-10">
-                        <button class="btn btn-white btn-sm"
-                                ng-click="fn.switchToLine()"
-                                ng-class="{'active': currentChartType=='line'}"
-                                data-toggle="tooltip" data-placement="bottom"
-                                ng-i18next="[title]action_data_display1"
-                                style="padding: 4px 8px!important;">
-                            <img src="assets/img/graph-1.png" alt="">
-                        </button>
-                        <button class="btn btn-white btn-sm "
-                                ng-click="fn.switchToFilled()"
-                                ng-class="{'active': currentChartType=='filled'}"
-                                data-toggle="tooltip" data-placement="bottom"
-                                ng-i18next="[title]action_data_display2"
-                                style="padding: 4px 8px!important;">
-                            <img src="assets/img/graph-2.png" alt="">
-                        </button>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="empty-msg" ng-show="!availableFields || availableFields.length <= 0">No data to show</div>
         </div>
     </div>
 

@@ -101,7 +101,6 @@ define([
                     } else {
                         field.isDisplaying = !field.isDisplaying;
                     }
-                    return;
                 }
             });
 
@@ -207,7 +206,16 @@ define([
         self.chartOptions = {
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
-            /*legend:'none'*/
+            legend: { position: 'top', alignment: 'end' },
+            pointSize: 5,
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "3%",
+                top: "8%",
+                height: "80%",
+                width: "94%"
+            }
         };
         var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
             self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
@@ -225,6 +233,7 @@ define([
 
 
         if( isHours() ){
+            self.chartOptions.bar = {groupWidth: "75%"};
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
             if(scope.currentChartType == "line") {

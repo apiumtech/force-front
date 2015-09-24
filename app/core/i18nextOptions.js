@@ -15,7 +15,9 @@ define([
 
     $( document ).ajaxComplete(function( event, xhr, settings ) {
         if(!config.isDevMode() && xhr.responseJSON && xhr.responseJSON.status === 'nack'){
-            if(xhr.responseJSON.message.code === '00.00.0.20' || xhr.responseJSON.message.code === '00.00.0.21'){
+            if(xhr.responseJSON.message.code === '00.00.0.20' ||
+                xhr.responseJSON.message.code === '00.00.0.21' ||
+                xhr.responseJSON.message.code === '00.00.0.22'){
                 doBadTokenRedirection();
             }
         }
