@@ -21,7 +21,12 @@
     </div>
 
 
-    <div class="chart-place-holder height-sm  map-fix"></div>
+    <div class="chart-place-holder height-sm  map-fix" ng-hide="data.serverError===true"></div>
+
+    <ng-include
+            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
+            ng-if="data.serverError===true">
+    </ng-include>
 
 
 </widget-wrapper>

@@ -2,7 +2,8 @@
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
-    <div>
+
+    <div ng-hide="data.serverError===true">
         <div class="btn-group m-r-5 m-b-5  pull-right" is-open="filterDropdown"
              dropdown>
             <a data-toggle="dropdown" href="javascript:"
@@ -67,4 +68,10 @@
             </table>
         </div>
     </div>
+
+    <ng-include
+            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
+            ng-if="data.serverError===true">
+    </ng-include>
+
 </widget-wrapper>

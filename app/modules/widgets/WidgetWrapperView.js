@@ -117,9 +117,9 @@ define([
             self.eventBusChannel.sendExpandingWidget();
         };
 
-        self.fn.reloadPanel = function () {
+        /*self.fn.reloadPanel = function () {
             self.reloadPanel();
-        };
+        };*/
 
         self.fn.closeWidget = function () {
             self.element.remove();
@@ -140,10 +140,10 @@ define([
         }
     };
 
-    WidgetWrapperView.prototype.reloadPanel = function () {
+    /*WidgetWrapperView.prototype.reloadPanel = function () {
         var self = this;
         self.eventBusChannel.sendReloadCommand(true);
-    };
+    };*/
 
     WidgetWrapperView.prototype.handleScroll = function (event) {
         var offsetHeight = event.target.offsetHeight;
