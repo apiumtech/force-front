@@ -85,9 +85,17 @@
     <!-- END TOOLBAR -->
 
 
-    <div class="row" ng-hide="data.serverError===true">
+    <div class="row" ng-hide="data.serverError || data.noData">
         <div class="col-xs-12">
             <div class="chart-place-holder height-sm"></div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="data.noData">
+        <div class="col-xs-12">
+            <div class="height-sm">
+                <div class="alert alert-warning" role="alert">No data to display</div>
+            </div>
         </div>
     </div>
 

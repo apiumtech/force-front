@@ -125,7 +125,7 @@ define([
 
         var dataTable = new google.visualization.DataTable();
 
-        dataTable.addColumn('string', '---');
+        dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
             dataTable.addColumn('number', serie.label);
         });

@@ -27,6 +27,7 @@ define([
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
+        self.data.noData = false;
         self.configureEvents();
     }
 
@@ -124,7 +125,14 @@ define([
 
     GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
+
         self.data = data.data.params;
+
+        if( self.data.axis.length === 0 || self.data.fields.length === 0 ) {
+            self.data.noData = true;
+            return;
+        }
+
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
