@@ -145,6 +145,13 @@ define([
 
         self.chartData = dataTable;
         var barType = self.$scope.horizontal === true ? 'hbar' : 'bar';
+        var legend = self.$scope.legend || { position: 'top', alignment: 'end' };
+        var chartArea = self.$scope.chartArea || {
+                left: "25%",
+                top: "10%",
+                height: "80%",
+                width: "65%"
+            };
         self.chart = chartService.createChart(element[0], barType);
 
         self.chartOptions = {
@@ -156,15 +163,10 @@ define([
                 maxValue: 100,
                 ticks: [0, 20, 40, 60, 80, 100]
             },
-            legend: { position: 'top', alignment: 'end' },
+            legend: legend,
             width: '100%',
             height: '100%',
-            chartArea: {
-                left: "25%",
-                top: "10%",
-                height: "80%",
-                width: "65%"
-            }
+            chartArea: chartArea
         };
 
 

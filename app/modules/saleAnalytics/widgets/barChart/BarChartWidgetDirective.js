@@ -13,7 +13,9 @@ define([
             scope: {
                 widget: "=",
                 horizontal: "=", // true|false
-                stacked: "=" // true|false
+                stacked: "=", // true|false
+                legend: "=", // legend object
+                chartArea: "=" // chartArea object
             },
             templateUrl: 'app/modules/saleAnalytics/widgets/barChart/bar.html'
         };
