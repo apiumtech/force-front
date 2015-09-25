@@ -99,6 +99,7 @@ define([
 
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
+            self.userFiltered = [];
             self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };

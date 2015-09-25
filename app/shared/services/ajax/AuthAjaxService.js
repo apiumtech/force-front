@@ -27,7 +27,10 @@ define([
         // TODO: get rid of it ASAP
         var dev_token;
         if(Configuration.isDevMode()) {
-            dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+            //dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+
+            // token xavier
+            dev_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiI4NTBmOTg0OC1mZDNmLTRmNDktOTAxYS1hMzFkOTUxNTY0NWYiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjIiLCJpbXBsZW1lbnRhdGlvbkNvZGUiOiI2MDAzIiwibGFuZ3VhZ2UiOiJFTiIsImxvY2F0ZSI6ImVuLVVTIn0.nQOca2814ffj43-v2ljOe9-VgXGjckOsp4SXhfeG658";
         }
 
         token = token || dev_token;

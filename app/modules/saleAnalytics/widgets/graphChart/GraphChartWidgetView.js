@@ -128,8 +128,8 @@ define([
 
         self.data = data.data.params;
 
-        if( (self.data && self.data.axis && self.data.fields) &&
-            (self.data.axis.length === 0 || self.data.fields.length === 0) ) {
+        if( !self.data || !self.data.axis || !self.data.fields ||
+            self.data.axis.length === 0 || self.data.fields.length === 0 ) {
             self.data.noData = true;
             return;
         }
