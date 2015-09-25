@@ -178,6 +178,7 @@ define([
 
             it("Should assign server data's param to scope", function () {
                 sut.onReloadWidgetSuccess(fakeResponseData);
+                delete sut.data.serverError;
                 expect(sut.data).toEqual(fakeResponseData.data.params);
             });
 
