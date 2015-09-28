@@ -81,7 +81,7 @@
 
 
             <!-- Starts users tree -->
-            <li class="users-tree">
+            <li class="users-tree" ng-if="data.usersLoadedFailError===null">
                 <div class="clearfix hide">
                     <input type="checkbox" class="pull-left m-t-10 m-r-10"
                            ng-model="allUsersSelected"
@@ -99,6 +99,10 @@
                             src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html'"></ng-include>
             </li>
             <!-- END users tree -->
+
+            <div class="alert alert-danger" role="alert" ng-if="data.usersLoadedFailError!==null">
+                <strong>Error:</strong><br/>{{ data.usersLoadedFailError.toString() }}
+            </div>
 
         </ul>
     </li>

@@ -53,8 +53,12 @@ define([
                     }
                 }
 
-                var formattedData = self.decorateData(data);
-                deferred.resolve(formattedData);
+                try{
+                    var formattedData = self.decorateData(data);
+                    deferred.resolve(formattedData);
+                }catch(err){
+                    deferred.reject(err);
+                }
             },
             function (error) {
                 deferred.reject(error);

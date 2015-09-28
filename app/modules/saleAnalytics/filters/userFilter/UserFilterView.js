@@ -21,6 +21,7 @@ define([
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         this.awaitHelper = AwaitHelper.newInstance();
         this.data.isLoadingUsers = false;
+        this.data.usersLoadedFailError = null;
 
         this.configureEvents();
     }
@@ -99,6 +100,7 @@ define([
 
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
+            self.data.usersLoadedFailError = null;
             self.userFiltered = [];
             self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
@@ -106,6 +108,7 @@ define([
 
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
+            self.data.usersLoadedFailError = null;
             self.currentUserFilterGroup = UserFilterView.TEAM;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
@@ -265,7 +268,8 @@ define([
     };
 
     UserFilterView.prototype.onUsersLoadedFail = function (error) {
-        this.showError(error);
+        this.hideLoadingUsers();
+        this.data.usersLoadedFailError = error;
     };
 
     UserFilterView.newInstance = function ($scope, $presenter, viewRepaintAspect, logErrorAspect) {
