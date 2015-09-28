@@ -4,6 +4,7 @@
 define([
     'shared/services/notification/NotificationService',
     'core/topMenu/TopMenuController',
+    'core/sideMenu/SideMenuController',
 
     'shared/components/TriStateCheckBoxDirective',
     'shared/components/ScrollTopButtonDirective',

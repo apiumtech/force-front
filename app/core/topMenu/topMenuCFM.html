@@ -1,0 +1,43 @@
+<div id="header-cfm" class="navbar navbar-default navbar-fixed-top" ng-init="fn.onInit()">
+    <div class="container-fluid">
+        <!-- BRAND -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ data.userData.defaultAccessPage }}">
+                <img src="https://fmassets.s3.amazonaws.com/cfmpro/227/img/logo_pos.png" alt="ForceManager">
+            </a>
+        </div>
+        <!-- END BRAND -->
+
+
+
+        <!-- MENU SECTION -->
+
+        <!-- RIGHT MENU -->
+        <ul class="nav navbar-nav navbar-right">
+            <li class="implementation-info">
+                <!--<span class="navbar-text">{{data.userData.implementation}} {{data.userData.idImplementation}}</span>-->
+                <span class="navbar-text">ForceManager Demo 8004</span>
+            </li>
+            <!-- PROFILE -->
+            <li class="dropdown profile-meu-dropdown" dropdown>
+                <a href="#" class="dropdown-toggle h" data-toggle="dropdown">
+                    <!--<img src="{{data.userData.userImg}}" />-->
+                    <img src="http://be-sta.forcemanager.net/getuserpicture.ashx?userkey=7b414ab1746611d76c64d0b55a6cf5aaaaf865b3&strCellPhoneNumber=bruno_test@gmail.com&idUser=109" />
+                    <!--<span class="hidden-xs">{{data.userData.userFullName}}</span>-->
+                    <span class="hidden-xs">Bruno Ràfols</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="arrow"></li>
+                    <li>
+                        <span id="logOffContainer">
+                            <span>{{'Close'|i18next}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </li>
+            <!-- END PROFILE -->
+        </ul>
+        <!-- END RIGHT MENU -->
+    </div>
+</div>
