@@ -97,6 +97,19 @@ is run
 > grunt dev-server
 
 
+### Release Build generation
+
+First, increase the version number in package.json, then run:
+
+> grunt build
+
+This command will delete and regenerate everything within the build/ folder. Then upload the contents of
+
+> build/www/
+
+to the server.
+
+
 ### Feb 09 2015
 * jQuery version 1.8.x getting issue with drag and drop. The error can be fixed by the installed jquery using npm install (already in package.json)
 * added jQuery Migrate to have backward compatibility.
