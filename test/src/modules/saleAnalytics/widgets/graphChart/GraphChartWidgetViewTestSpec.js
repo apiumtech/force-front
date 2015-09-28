@@ -144,7 +144,7 @@ define([
             }
         });
 
-        describe("onReloadWidgetSuccess", function () {
+        xdescribe("onReloadWidgetSuccess", function () {
             var fakeResponseData = {
                 data: {
                     widgetType: "graph",
