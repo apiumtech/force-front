@@ -11,13 +11,17 @@ module.exports = function (grunt) {
                 {
                     expand: true,
                     cwd: 'assets',
-                    src: ['fonts/**', 'images/**', 'img/**', 'fonts/**'],
+                    src: ['fonts/**', 'images/**', 'img/**', 'fonts/**', 'favicon.ico'],
                     dest: 'build'
                 }
             ]
         },
         productionBuild: {
             files: [
+                {
+                    src: ['build/favicon.ico'],
+                    dest: buildPath + '/favicon.ico'
+                },
                 {
                     src: ['build/css/force-manager.min.css'],
                     dest: buildPath + '/build/css/force-manager.min.css'

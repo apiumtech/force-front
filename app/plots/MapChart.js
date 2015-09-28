@@ -7,7 +7,7 @@ define([
     'shared/services/GoogleMapService'
 ], function ($, GoogleMapService) {
 
-    var defaultImageUrl = "https://fmassets.s3-eu-west-1.amazonaws.com/pro/2122/img/default.png";
+    var defaultImageUrl = "assets/img/default.png";
 
     function MapChart(mapService) {
         var self = this;
