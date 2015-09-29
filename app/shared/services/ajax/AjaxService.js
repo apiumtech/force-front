@@ -36,7 +36,7 @@ define([
                 //dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
 
                 // token xavier
-                //dev_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiI4NTBmOTg0OC1mZDNmLTRmNDktOTAxYS1hMzFkOTUxNTY0NWYiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjIiLCJpbXBsZW1lbnRhdGlvbkNvZGUiOiI2MDAzIiwibGFuZ3VhZ2UiOiJFTiIsImxvY2F0ZSI6ImVuLVVTIn0.nQOca2814ffj43-v2ljOe9-VgXGjckOsp4SXhfeG658";
+                dev_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiI5NTM1OTM3Mi02MzljLTRiYWMtYjBjMi0xYWI1NGQ1NzEzMWEiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjIiLCJpbXBsZW1lbnRhdGlvbkNvZGUiOiI2MDAzIiwibGFuZ3VhZ2UiOiJFTiIsImxvY2F0ZSI6ImVuLVVTIn0.wI40ZiJTAzhFKFwTVLjVpV7q8hNfNdtxebeO_KrRwHA";
             }
 
             token = token || dev_token;

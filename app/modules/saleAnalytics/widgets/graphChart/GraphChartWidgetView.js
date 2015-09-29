@@ -9,9 +9,11 @@ define([
     'plots/Plot',
     'plots/LineGraphPlot',
     'jquery',
+    'moment',
+    'config',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, GraphColorService, GoogleChartService) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, moment, config, GraphColorService, GoogleChartService) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
@@ -194,16 +196,46 @@ define([
         chartFields.forEach(function (serie) {
             if(serie !== null && !serie.hidden) {
                 dataTable.addColumn('number', serie.label);
+                dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
             }
         });
+
+        var createTooltipForSerie = function(serie, date, plotData) {
+            var label = serie.label;
+            var dateOption = self.$scope.selectedRangeOption;
+            var formattedDate;
+            if(dateOption==='date') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
+            }
+            else if(dateOption==='week') {
+                var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
+                var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
+                var format = config.salesAnalytics.intensityActivityChartWeekFormat;
+                formattedDate = firstDayOfWeek.format(format) +" &RightArrow; "+ lastDayOfWeek.format(format);
+            }
+            else if(dateOption==='month') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
+            }
+            else if(dateOption==='hour') {
+                formattedDate = date[0] +":00";
+            }
+            else {
+                throw new Error("Unknown date option");
+            }
+
+            return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ plotData +'</strong></div>';
+        };
+
         var columns = [];
         var index = 0;
         axisData.x.forEach(function(date_str){
             var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
             var col = [date];
-            chartFields.forEach(function (serie) {
+            chartFields.forEach(function (serie, serieIndex) {
                 if(serie !== null && !serie.hidden) {
-                    col.push(serie.plotData[index]);
+                    var plotData = serie.plotData[index];
+                    col.push(plotData);
+                    col.push( createTooltipForSerie(serie, date, plotData) );
                 }
             });
             columns.push(col);
@@ -216,6 +248,9 @@ define([
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
             legend: { position: 'top', alignment: 'end' },
+            tooltip: {
+                isHtml: true
+            },
             pointSize: 5,
             width: '100%',
             height: '100%',

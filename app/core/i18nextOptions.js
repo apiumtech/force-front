@@ -14,10 +14,16 @@ define([
     }
 
     $( document ).ajaxComplete(function( event, xhr, settings ) {
-        if(!config.isDevMode() && xhr.responseJSON && xhr.responseJSON.status === 'nack'){
-            if(xhr.responseJSON.message.code === '00.00.0.20' ||
-                xhr.responseJSON.message.code === '00.00.0.21' ||
-                xhr.responseJSON.message.code === '00.00.0.22'){
+        var responseJSON;
+        if(xhr.responseJSON){
+            responseJSON = xhr.responseJSON;
+        } else if(xhr.responseText && xhr.responseText.indexOf("nack") > -1){
+            responseJSON = JSON.parse(xhr.responseText);
+        }
+        if(responseJSON && responseJSON.status === 'nack'){
+            if(responseJSON.message.code === '00.00.0.20' ||
+                responseJSON.message.code === '00.00.0.21' ||
+                responseJSON.message.code === '00.00.0.22'){
                 doBadTokenRedirection();
             }
         }

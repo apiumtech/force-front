@@ -143,6 +143,11 @@ define(function () {
         badTokenRedirectionPage: "Login.aspx",
         isDevMode: function(){
             return window.location.hostname == "127.0.0.1" || window.location.hostname == "localhost";
+        },
+        salesAnalytics: {
+            intensityActivityChartDateFormat: 'dddd D MMMM YYYY',
+            intensityActivityChartWeekFormat: 'D MMM YYYY',
+            intensityActivityChartMonthFormat: 'MMM YYYY'
         }
     };
 });
