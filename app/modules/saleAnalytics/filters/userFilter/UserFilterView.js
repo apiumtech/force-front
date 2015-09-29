@@ -22,6 +22,7 @@ define([
         this.awaitHelper = AwaitHelper.newInstance();
         this.data.isLoadingUsers = false;
         this.data.usersLoadedFailError = null;
+        this.APPLY_USER_FILTER_DELAY = 500;// ms.
 
         this.configureEvents();
     }
@@ -134,7 +135,7 @@ define([
         };
 
         self.fn.applyUserFilter = function () {
-            self.awaitHelper.await(self.fn.__applyUserFilter, 2000);
+            self.awaitHelper.await(self.fn.__applyUserFilter, self.APPLY_USER_FILTER_DELAY);
         };
 
         self.fn.__applyUserFilter = function () {
