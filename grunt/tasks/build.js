@@ -20,6 +20,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', function () {
+        grunt.task.run(['shell:bump-version']);
         grunt.task.run(['prepareBuild']);
         grunt.task.run(['remove-old-build']);
 
