@@ -31,7 +31,8 @@
                                 <input type="text" class="form-control SalesAnalyticsDateFilterSelectionLabel"
                                        ng-keypress="$event.preventDefault()"
                                        ng-click="dateRangeFilterOpened=!dateRangeFilterOpened"
-                                       ng-attr-placeholder="{{dateRangePlaceholder}}">
+                                       ng-model="dateRangePlaceholder"
+                                       >
 
                                 <div class="input-group-btn"
                                      dropdown

@@ -196,7 +196,7 @@ define([
         };
 
         self.fn.getDatePlaceholder = function () {
-            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + '-' + self.fn.getFormattedDate(self.dateRangeEnd);
+            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + ' → ' + self.fn.getFormattedDate(self.dateRangeEnd);
         };
 
         self.fn.getFormattedDate = function (date) {
