@@ -20,7 +20,7 @@ define([
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         var self = this;
         self.resetDate = true;
-        self.defaultPreviousDay = 30;
+        self.defaultPreviousDay = 90;
         self.$scope.datePickerFormat = "dd/MM/yyyy";
         self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90];
@@ -196,7 +196,7 @@ define([
         };
 
         self.fn.getDatePlaceholder = function () {
-            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + '-' + self.fn.getFormattedDate(self.dateRangeEnd);
+            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + ' → ' + self.fn.getFormattedDate(self.dateRangeEnd);
         };
 
         self.fn.getFormattedDate = function (date) {

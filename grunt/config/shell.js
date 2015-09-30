@@ -22,6 +22,9 @@ module.exports = function (grunt) {
             // needs a webdriver already running:
             // $ webdriver-manager update && webdriver-manager start
             command: 'protractor test_e2e/protractor.conf.js'
+        },
+        'bump-version': {
+            command: 'npm --no-git-tag-version version patch'
         }
     };
 };

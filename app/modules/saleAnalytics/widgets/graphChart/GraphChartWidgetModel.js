@@ -37,7 +37,7 @@ define([
             key: 'quotes'
         }];
 
-        this.queries.grouping = "hour";
+        this.queries.grouping = "week";
     }
 
     GraphChartWidgetModel.inherits(WidgetBase, {});

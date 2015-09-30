@@ -32,11 +32,12 @@
         <div class="panel-loader" ng-show="isLoading">
             <span class="spinner-small"></span>
         </div>
-        <div class="error-panel" ng-if="hasError">
+        <!--<div class="error-panel" ng-if="hasError">
             <p class="error-title">{{errorMessage.title}}</p>
             <p class="error-msg">{{errorMessage.message}}</p>
             <button class="btn btn-outline" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> Refresh</button>
-        </div>
-        <ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>
+        </div>-->
+        <!--<ng-transclude class="{{bodyClass}}" ng-if="!hasError"></ng-transclude>-->
+        <ng-transclude class="{{bodyClass}}"></ng-transclude>
     </div>
 </div>

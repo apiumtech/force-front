@@ -69,19 +69,48 @@ define([
                 }
             }
         };
-        if (!data.length) throw new Error("No data received from server");
+
+        if (!data.length){
+            throw new Error("No data received from server");
+        }
+
+        var calculateColumnAvailable = function(key){ return key !== 'Id' && key !== 'IdFm' && key !== 'PhotoUrl'; };
+        var calculateColumnType = function(key){
+            return  key === 'Name' ? 'profile' :
+                    key === 'PhotoUrl' ? 'img' :
+                    key === 'ActivityScore' ? 'float' :
+                    key === 'SalesScore' ? 'float' :
+                    key === 'SalesActivityRatio' ? 'float' :
+                    key === 'Sales' ? 'float' :
+                    key === 'Visits' ? 'int' :
+                    key === 'Activities' ? 'int' :
+                    key === 'ActivityScore' ? 'float' :
+                    key === 'PhoneCallsTime' ? 'seconds' :
+                    key === 'Emails' ? 'int' :
+                    key === 'Orders' ? 'int' :
+                    key === 'Quotes' ? 'int' : 'string';
+        };
 
         Object.keys(data[0]).forEach(function (key) {
-            responseData.data.params.columns.push(key);
+            //responseData.data.params.columns.push(key);
+            responseData.data.params.columns.push({
+                key: key,
+                name: key,
+                type: calculateColumnType(key),
+                sortable: true,
+                visible: true, // wether the column is visible at a particular moment.
+                available: calculateColumnAvailable(key) // wether the column is even available to be shown.
+            });
         });
 
-        data.forEach(function (d) {
+        /*data.forEach(function (d) {
             var arrayElement = [];
             Object.keys(d).forEach(function (key) {
                 arrayElement.push(d[key]);
             });
             responseData.data.params.data.push(arrayElement);
-        });
+        });*/
+        responseData.data.params.data = data;
         return responseData.data.params;
     };
 

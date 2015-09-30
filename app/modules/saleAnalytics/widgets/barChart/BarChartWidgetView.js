@@ -125,7 +125,7 @@ define([
 
         var dataTable = new google.visualization.DataTable();
 
-        dataTable.addColumn('string', '---');
+        dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
             dataTable.addColumn('number', serie.label);
         });
@@ -136,7 +136,7 @@ define([
             var col = [];
             col.push(tick);
             self.data.forEach(function(serie){
-                col.push( serie.data[index][1] );
+                col.push( serie.data[index][1]  );
             });
             columns.push(col);
             index++;
@@ -144,12 +144,32 @@ define([
         dataTable.addRows(columns);
 
         self.chartData = dataTable;
-        self.chart = chartService.createChart(element[0], 'bar');
+        var barType = self.$scope.horizontal === true ? 'hbar' : 'bar';
+        var legend = self.$scope.legend || { position: 'top', alignment: 'end' };
+        var chartArea = self.$scope.chartArea || {
+                left: "25%",
+                top: "10%",
+                height: "80%",
+                width: "65%"
+            };
+        self.chart = chartService.createChart(element[0], barType);
 
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice()
+            colors: self.colorService.$colors.slice(),
+            isStacked: self.$scope.stacked,
+            hAxis: {
+                minValue: 0,
+                maxValue: 100,
+                ticks: [0, 20, 40, 60, 80, 100]
+            },
+            legend: legend,
+            width: '100%',
+            height: '100%',
+            chartArea: chartArea
         };
+
+
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };

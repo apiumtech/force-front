@@ -3,7 +3,16 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId"
         >
-    <div class="col-xs-12 col-md-12 col-lg-12 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px;"></div>
+    <div class="col-xs-12 col-md-12 col-lg-12 no-padding chart-place-holder height-sm map-chart"
+         style="min-height: 356px;"
+         ng-hide="data.serverError===true">
+    </div>
+
+    <ng-include
+            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
+            ng-if="data.serverError===true">
+    </ng-include>
+
     <!--<div class="col-xs-9 col-md-10 col-lg-10 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px; height: 90%"></div>
     <div class="col-xs-3 col-md-2 col-lg-2 scatter-legend">-->
         <!--<div ng-repeat="legend in currentLegends" class="legend-holder" title="{{legend.name}}">-->

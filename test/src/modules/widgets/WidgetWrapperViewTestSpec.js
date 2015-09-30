@@ -59,18 +59,6 @@ define([
                 });
         });
 
-        describe("reloadPanel", function () {
-            it("should call sendReloadCommand on the channel", function () {
-                sut.eventBusChannel = {
-                    sendReloadCommand: function () {
-                    }
-                };
-                spyOn(sut.eventBusChannel, 'sendReloadCommand');
-                sut.reloadPanel();
-                expect(sut.eventBusChannel.sendReloadCommand).toHaveBeenCalledWith(true);
-            });
-        });
-
         describe("onReloadCommandReceived", function () {
             it("should turn on loading icon", function () {
                 sut.isLoading = false;
@@ -157,14 +145,6 @@ define([
                 sut.fn.expandPanel();
                 spyOn(sut.eventBusChannel, "sendExpandingWidget");
                 expect(sut.eventBusChannel.sendExpandingWidget).toHaveBeenCalled();
-            });
-        });
-
-        describe("fn.reloadPanel", function () {
-            it("should call reloadPanel", function () {
-                spyOn(sut, 'reloadPanel');
-                sut.fn.reloadPanel();
-                expect(sut.reloadPanel).toHaveBeenCalled();
             });
         });
 

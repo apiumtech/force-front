@@ -20,6 +20,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', function () {
+        grunt.task.run(['shell:bump-version']);
         grunt.task.run(['prepareBuild']);
         grunt.task.run(['remove-old-build']);
 
@@ -30,6 +31,7 @@ module.exports = function (grunt) {
         grunt.task.run(['copy:productionBuild']);
 
         grunt.task.run(['htmlbuild']);
+        grunt.task.run(['string-replace']);//appends a version number to the main script tag so it is cached only for that particular version.
 
         grunt.task.run(['delete.mainBuild']);
     });

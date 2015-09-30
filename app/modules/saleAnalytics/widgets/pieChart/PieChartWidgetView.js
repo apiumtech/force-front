@@ -123,7 +123,15 @@ define([
 
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice()
+            colors: self.colorService.$colors.slice(),
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "5%",
+                top: "5%",
+                height: "90%",
+                width: "90%"
+            }
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);

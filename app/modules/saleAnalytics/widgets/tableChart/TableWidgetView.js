@@ -5,8 +5,9 @@ define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetModel',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetPresenter',
-    'modules/widgets/BaseWidgetEventBus'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus) {
+    'modules/widgets/BaseWidgetEventBus',
+    'underscore'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, _) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
@@ -14,25 +15,29 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         this.dataSource = [];
         var self = this;
-        self.enableIdColumn = false;
         self.configureEvents();
+        self.sortingState = {
+            column: null,
+            asc: false,
+            desc: false
+        }
     }
 
     TableWidgetView.inherits(WidgetBaseView, {
-        columns: {
-            get: function () {
-                return this.$scope.columns || (this.$scope.columns = []);
-            },
-            set: function (value) {
-                this.$scope.columns = value;
-            }
-        },
         dataSource: {
             get: function () {
                 return this.$scope.dataSource;
             },
             set: function (value) {
                 this.$scope.dataSource = value;
+            }
+        },
+        sortingState: {
+            get: function () {
+                return this.$scope.sortingState;
+            },
+            set: function (value) {
+                this.$scope.sortingState = value;
             }
         },
         eventChannel: {
@@ -47,36 +52,31 @@ define([
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
-
         var eventChannel = self.eventChannel;
-
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-
         eventChannel.onExpandingWidget(self.renderChart.bind(self));
 
-        self.fn.isImage = function (string, index) {
-            if( typeof string !== 'string' ) {
-                return false;
+
+        self.fn.sortColumnBy = function (column, $event) {
+            var columnKey = column.key;
+            if(!self.sortingState.column || (self.sortingState.column.key !== columnKey)){
+                self.sortingState.asc = false;
             }
-
-            var isImgReg = new RegExp('\\.(?:jpg|gif|png)$');
-            var isImage = !!string.match(isImgReg);
-
-            if(index == 1 && !isImage) {
-                isImage = string.substr(0,7) == "http://" || string.substr(0,8) == "https://";
-            }
-
-            return isImage;
+            self.sortingState.column = column;
+            self.sortingState.asc = !self.sortingState.asc;
+            self.sortingState.desc = !self.sortingState.asc;
+            self.renderChart();
         };
 
-        self.fn.toggleColumn = function (columnName, $event) {
+        self.fn.toggleColumn = function (column, $event) {
             // prevent the popup from disappearing
-            if ($event && $event.stopPropagation)
+            if ($event && $event.stopPropagation){
                 $event.stopPropagation();
+            }
 
-            self.columns.forEach(function (column) {
-                if (column.name === columnName) {
-                    column.isShown = !column.isShown;
+            self.data.columns.forEach(function (col) {
+                if (col.key === column.key) {
+                    col.visible = !col.visible;
                 }
             });
 
@@ -84,115 +84,71 @@ define([
         };
 
         self.fn.restoreColumnDisplay = function () {
-            self.columns.forEach(function (column) {
-                column.isShown = true;
+            self.data.columns.forEach(function (column) {
+                column.visible = true;
             });
 
             self.renderChart();
         };
 
+        self.fn.secondsToTime = function (totalSeconds) {
+            var sec_num = parseInt(totalSeconds, 10);
+            var hours   = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            var time    = hours+':'+minutes+':'+seconds;
+
+            return time;
+        };
+
         self.event.parseData = function(){};
     };
 
-    TableWidgetView.prototype.assignColumnsData = function (inputData) {
-        var columnsToMerge = this.columns;
-        var self = this;
-
-        if (columnsToMerge.length != inputData.length)
-            columnsToMerge = [];
-
-        var newColumns = inputData.map(function (item) {
-            var isShown = true;
-            var isAvailable = true;
-            if(item == "Id" || item == "IdFm") {
-                isShown = false;
-                if(!self.enableIdColumn){
-                    isAvailable = false;
-                }
-            }
-            return {
-                name: item,
-                isShown: isShown,
-                isAvailable: isAvailable
-            }
-        });
-
-        newColumns.forEach(function (column) {
-            var isExisting = _.find(columnsToMerge, function (c) {
-                return c.name == column.name
-            });
-
-            if (undefined === isExisting)
-                columnsToMerge.push(column);
-        });
-
-        this.columns = columnsToMerge;
-    };
-
-    TableWidgetView.prototype.getDisplayColumnIndices = function (columns) {
-        if (!columns || !isArray(columns) || !columns.length) {
-            throw new Error("Data is not valid");
-        }
-
-        var result = [];
-
-        for (var i = 0; i < columns.length; i++) {
-            if (!columns[i].hasOwnProperty('isShown'))
-                throw new Error("Data is not valid");
-
-            if (columns[i].isShown)
-                result.push(i);
-        }
-
-        return result;
-    };
-
-
-    TableWidgetView.prototype.getDisplayData = function (data, displayColumnIndices) {
-        var dataFields;
-        for (var rowIndex in data) {
-            if (rowIndex == 0) continue;
-            dataFields = data[rowIndex].length;
-            if (dataFields !== data[rowIndex - 1].length)
-                throw new Error("Input data not valid")
-        }
-
-        if (dataFields < displayColumnIndices.length) {
-            throw new Error("Columns to display are greater than input data");
-        }
-
-        for (var index in displayColumnIndices) {
-            if (displayColumnIndices[index] > dataFields - 1) {
-                throw new Error("Display column index is greater than input data");
-            }
-        }
-
-        var result = data.map(function (rowData) {
-            var r = [];
-
-            for (var index in displayColumnIndices) {
-                var columnIndex = displayColumnIndices[index];
-                r.push(rowData[columnIndex]);
-            }
-
-            return r;
-        });
-
-        return result;
-    };
 
     TableWidgetView.prototype.renderChart = function () {
         var self = this;
-        var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
-        self.dataSource = self.getDisplayData(self.data.data, displayColumnIndices);
+
+        if(self.sortingState.column) {
+            var key = self.sortingState.column.key;
+            var numberSortFunction = function(a, b) {
+                a = parseFloat(a[key]); b = parseFloat(b[key]);
+                if (a === b) { return 0; }
+                return (a < b) ? -1 : 1;
+            };
+            var stringSortFunction = function(a, b) {
+                a = a[key].toLowerCase(); b = b[key].toLowerCase();
+                if(a < b) return -1;
+                if(a > b) return 1;
+                return 0;
+            };
+
+            if( ['int','float','seconds'].indexOf(self.sortingState.column.type) > -1 ){
+                self.data.data.sort(numberSortFunction);
+            } else {
+                self.data.data.sort(stringSortFunction);
+            }
+
+            if(self.sortingState.desc){
+                self.data.data.reverse();
+            }
+        }
+
+        self.dataSource = self.data.data;
     };
+
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
-        self.data = this.event.parseData(data, this.widget.option);
-        self.assignColumnsData(self.data.columns);
+        var res = this.event.parseData(data, this.widget.option);
+        self.data.data = res.data;
+        self.data.columns = res.columns;
         self.renderChart();
     };
+
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
     };
@@ -201,10 +157,9 @@ define([
         this.showError(error);
     };
 
+
     TableWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-
         var view = new TableWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

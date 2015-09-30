@@ -172,7 +172,7 @@ define([
                 it("should delay the call to __applyUserFilterTest for 2 seconds", function () {
                     spyOn(sut.awaitHelper, 'await');
                     sut.fn.applyUserFilter();
-                    expect(sut.awaitHelper.await).toHaveBeenCalledWith(sut.fn.__applyUserFilter, 2000);
+                    expect(sut.awaitHelper.await).toHaveBeenCalledWith(sut.fn.__applyUserFilter, sut.APPLY_USER_FILTER_DELAY);
                 })
             }
 

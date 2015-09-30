@@ -9,9 +9,11 @@ define([
     'plots/Plot',
     'plots/LineGraphPlot',
     'jquery',
+    'moment',
+    'config',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, GraphColorService, GoogleChartService) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, moment, config, GraphColorService, GoogleChartService) {
     'use strict';
 
     var LINE = 'line', FILLED = 'filled';
@@ -21,12 +23,13 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         scope.filters = [];
         scope.selectedFilter = "visits";
-        scope.selectedRangeOption = "hour";
+        scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
         var self = this;
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
+        self.data.noData = false;
         self.configureEvents();
     }
 
@@ -101,7 +104,6 @@ define([
                     } else {
                         field.isDisplaying = !field.isDisplaying;
                     }
-                    return;
                 }
             });
 
@@ -125,7 +127,15 @@ define([
 
     GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
+
         self.data = data.data.params;
+
+        if( !self.data || !self.data.axis || !self.data.fields ||
+            self.data.axis.length === 0 || self.data.fields.length === 0 ) {
+            self.data.noData = true;
+            return;
+        }
+
         self.extractFilters();
         self.extractDisplayFields();
         self.refreshChart();
@@ -177,19 +187,55 @@ define([
         var chartService = self.chartService;
         var dataTable = new google.visualization.DataTable();
 
-        dataTable.addColumn('string', '---');
+        var dateFormat = (self.$scope.selectedRangeOption === 'hour' ? 'timeofday' : 'date');
+        var isHours = function(){
+            return dateFormat === 'timeofday';
+        };
+
+        dataTable.addColumn(dateFormat, '');
         chartFields.forEach(function (serie) {
             if(serie !== null && !serie.hidden) {
                 dataTable.addColumn('number', serie.label);
+                dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
             }
         });
+
+        var createTooltipForSerie = function(serie, date, plotData) {
+            var label = serie.label;
+            var dateOption = self.$scope.selectedRangeOption;
+            var formattedDate;
+            if(dateOption==='date') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
+            }
+            else if(dateOption==='week') {
+                var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
+                var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
+                var format = config.salesAnalytics.intensityActivityChartWeekFormat;
+                formattedDate = firstDayOfWeek.format(format) +" &RightArrow; "+ lastDayOfWeek.format(format);
+            }
+            else if(dateOption==='month') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
+            }
+            else if(dateOption==='hour') {
+                formattedDate = date[0] +":00";
+            }
+            else {
+                throw new Error("Unknown date option");
+            }
+
+            return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ plotData +'</strong></div>';
+        };
+
         var columns = [];
         var index = 0;
-        axisData.x.forEach(function(item){
-            var col = [item];
-            chartFields.forEach(function (serie) {
+        axisData.x.forEach(function(date_str){
+            var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
+            var col = [date];
+            chartFields.forEach(function (serie, serieIndex) {
                 if(serie !== null && !serie.hidden) {
-                    col.push(serie.plotData[index]);
+                    var plotData = serie.plotData[index];
+                    col.push(plotData);
+                    col.push( createTooltipForSerie(serie, date, plotData) );
                 }
             });
             columns.push(col);
@@ -200,14 +246,46 @@ define([
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice()
+            colors: self.colorService.$colors.slice(),
+            legend: { position: 'top', alignment: 'end' },
+            tooltip: {
+                isHtml: true
+            },
+            pointSize: 5,
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "3%",
+                top: "8%",
+                height: "80%",
+                width: "94%"
+            }
+        };
+        var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
+            self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
+            self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
+            self.$scope.selectedRangeOption === 'hour' ? 'HH:mm' : 'd/M/yy';
+
+        // For d3 time intervals
+        // @see http://stackoverflow.com/a/23957607/779529
+        self.chartOptions.hAxis = {
+            format: computedFormat,
+            gridlines: {
+                count: 8 /* max number of ticks */
+            }
         };
 
-        if(scope.currentChartType == "line") {
-            self.chart = chartService.createChart(element[0], 'line');
+
+        if( isHours() ){
+            self.chartOptions.bar = {groupWidth: "75%"};
+            self.chart = chartService.createChart(element[0], 'bar');
         } else {
-            self.chartOptions.isStacked = true;
-            self.chart = chartService.createChart(element[0], 'area');
+            if(scope.currentChartType == "line") {
+                self.chart = chartService.createChart(element[0], 'line');
+            } else {
+                self.chartOptions.isStacked = true;
+                self.chart = chartService.createChart(element[0], 'area');
+            }
         }
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);

@@ -1,62 +1,89 @@
-<widget-wrapper body-class=""
+<widget-wrapper body-class="table-chart-widget"
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
-    <div>
-        <div class="btn-group m-r-5 m-b-5  pull-right" is-open="filterDropdown"
-             dropdown>
-            <a data-toggle="dropdown" href="javascript:"
-               class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
-                {{'TableWidget.AddColumns' | i18next}}
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu pull-right">
-                <li class="text-link">
-                    <a ng-click="fn.restoreColumnDisplay()"
-                       class="btn-link">
-                        {{'TableWidget.RestoreDefault' | i18next}}
-                    </a>
-                </li>
-                <li class="divider"></li>
 
+    <div ng-hide="data.serverError===true">
 
-                <li ng-repeat="column in columns" ng-if="column.isAvailable">
-                    <input type="checkbox"
-                           class="pull-left m-t-10 m-r-10 "
-                           ng-checked="column.isShown"
-                           ng-click="fn.toggleColumn(column.name, $event)">
+        <div class="col-xs-12">
+            <!-- dropdown-->
+            <div class="btn-group pull-right" is-open="filterDropdown" dropdown>
+                <a class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+                    {{'TableWidget.AddColumns' | i18next}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li class="text-link">
+                        <a ng-click="fn.restoreColumnDisplay()"
+                           class="btn-link">
+                            {{'TableWidget.RestoreDefault' | i18next}}
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li ng-repeat="column in data.columns" ng-if="column.available">
+                        <input type="checkbox"
+                               class="pull-left m-t-10 m-r-10 "
+                               ng-checked="column.visible"
+                               ng-click="fn.toggleColumn(column, $event)">
 
-                    <div class="media-body"
-                         ng-click="fn.toggleColumn(column.name, $event)">
-                        <p>{{column.name}}</p>
-                    </div>
-                </li>
-            </ul>
+                        <div class="media-body"
+                             ng-click="fn.toggleColumn(column, $event)">
+                            <p>{{column.name}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <!-- dropdown-->
+
 
 
         <div class="col-xs-12 table-responsive m-t-20">
             <table class="table table-striped  table-picture-40">
                 <thead>
-                <tr>
-                    <th ng-repeat="column in columns" ng-if="column.isShown">
-                        {{column.name}}
-                    </th>
-                </tr>
+                    <tr>
+                        <th ng-repeat="column in data.columns" ng-if="column.available && column.visible" style="text-align: center; border-right: 1px solid #e2e7eb;">
+                            <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
+                                {{ column.name }}
+                                <i ng-class="{
+                                        'fa fa-sort':      sortingState.column.key !== column.key,
+                                        'fa fa-sort-asc':  sortingState.column.key === column.key && sortingState.asc,
+                                        'fa fa-sort-desc': sortingState.column.key === column.key && sortingState.desc
+                                    }"
+                                />
+                            </a>
+                            <span ng-if="!column.sortable">{{ column.name }}</span>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr class="gradeX" ng-repeat="record in dataSource">
-                    <td ng-repeat="field in record track by $index" ng-class="{'photo': fn.isImage(field)}">
-                        <div ng-if="fn.isImage(field, $index)" class="img-user">
-                            <img ng-src="{{field}}" class="media-object" alt=""/>
-                        </div>
-                        <p class="m-t-10" ng-if="!fn.isImage(field, $index)">{{field}}</p>
-                    </td>
-                </tr>
+                    <tr class="gradeX" ng-repeat="record in dataSource">
+                        <td
+                            ng-repeat="col in data.columns"
+                            ng-class="{'photo': col.type==='profile'}"
+                            ng-if="col.available && col.visible"
+                            ng-switch="col.type"
+                            style="border-right: 1px solid #e2e7eb;">
+
+                            <div ng-switch-when="profile" class="img-user">
+                                <img ng-src="{{ record['PhotoUrl'] }}" class="media-object" style="display: inline-block;"/>
+                                <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
+                            </div>
+                            <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:2 }}</p>
+                            <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:0 }}</p>
+                            <p ng-switch-when="seconds" class="m-t-10" style="text-align:right;">{{ fn.secondsToTime(record[col.key]) }}</p>
+                            <p ng-switch-default class="m-t-10">{{ record[col.key] }}</p>
+
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <ng-include
+            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
+            ng-if="data.serverError===true">
+    </ng-include>
+
 </widget-wrapper>

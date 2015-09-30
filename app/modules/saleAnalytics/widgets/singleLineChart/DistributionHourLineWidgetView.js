@@ -165,11 +165,26 @@ define([
         dataTable.addRows(columns);
 
         self.chartData = dataTable;
-        self.chart = chartService.createChart(element[0], 'line');
+        //self.chart = chartService.createChart(element[0], 'line');
+        self.chart = chartService.createChart(element[0], 'bar');
 
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice()
+            colors: self.colorService.$colors.slice(),
+            hAxis: {
+                minValue: 0,
+                maxValue: 24,
+                ticks: [{v:0,f:"0h"}, {v:4,f:"4h"}, {v:8,f:"8h"}, {v:12,f:"12h"}, {v:16,f:"16h"}, {v:20,f:"20h"}, {v:24,f:"24h"}]
+            },
+            legend: { position: 'top', alignment: 'end' },
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "8%",
+                top: "10%",
+                height: "80%",
+                width: "86%"
+            }
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
