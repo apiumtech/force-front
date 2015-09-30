@@ -27,10 +27,10 @@ define([
         // TODO: get rid of it ASAP
         var dev_token;
         if(Configuration.isDevMode()) {
-            //dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
+            dev_token = "VNLSEIRUNSVLDNVHMCLSKD.JCMLSKJCRNXLKJSCRNXLSKJC.NXSKJDCRMNXKSJCDMNXC";
 
             // token xavier
-            dev_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiI5NTM1OTM3Mi02MzljLTRiYWMtYjBjMi0xYWI1NGQ1NzEzMWEiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjIiLCJpbXBsZW1lbnRhdGlvbkNvZGUiOiI2MDAzIiwibGFuZ3VhZ2UiOiJFTiIsImxvY2F0ZSI6ImVuLVVTIn0.wI40ZiJTAzhFKFwTVLjVpV7q8hNfNdtxebeO_KrRwHA";
+            //dev_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiI5NTM1OTM3Mi02MzljLTRiYWMtYjBjMi0xYWI1NGQ1NzEzMWEiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjIiLCJpbXBsZW1lbnRhdGlvbkNvZGUiOiI2MDAzIiwibGFuZ3VhZ2UiOiJFTiIsImxvY2F0ZSI6ImVuLVVTIn0.wI40ZiJTAzhFKFwTVLjVpV7q8hNfNdtxebeO_KrRwHA";
         }
 
         token = token || dev_token;
