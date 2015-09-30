@@ -68,31 +68,13 @@ define([
 
         eventChannel.onExpandingWidget(self.renderChart.bind(self));
 
-        self.fn.isImage = function (str, index) {
-            if( self._isNumeric(str) ) {
-                return false;
-            }
-
-            var isImgReg = new RegExp('\\.(?:jpg|gif|png)$');
-            var isImage = !!str.match(isImgReg);
-
-            if(!isImage) {
-                isImage = str.substr(0,7) == "http://" || str.substr(0,8) == "https://";
-            }
-
-            return isImage;
-        };
-
-        /*self.fn.uncamelize = function(name){
-            return name[0].toUpperCase() + name.replace(/[A-Z]/g, ' $&').toLowerCase().substr(2);
-        };*/
 
         self.fn.sortColumnBy = function (column, $event) {
             var columnKey = column.key;
-            if(columnKey!==self.sortingState.column){
+            if(!self.sortingState.column || (self.sortingState.column.key !== columnKey)){
                 self.sortingState.asc = false;
             }
-            self.sortingState.column = columnKey;
+            self.sortingState.column = column;
             self.sortingState.asc = !self.sortingState.asc;
             self.sortingState.desc = !self.sortingState.asc;
             self.renderChart();
@@ -104,7 +86,7 @@ define([
                 $event.stopPropagation();
             }
 
-            self.columns.forEach(function (col) {
+            self.data.columns.forEach(function (col) {
                 if (col.key === column.key) {
                     col.visible = !col.visible;
                 }
@@ -114,11 +96,25 @@ define([
         };
 
         self.fn.restoreColumnDisplay = function () {
-            self.columns.forEach(function (column) {
+            self.data.columns.forEach(function (column) {
                 column.visible = true;
             });
 
             self.renderChart();
+        };
+
+        self.fn.secondsToTime = function (totalSeconds) {
+            var sec_num = parseInt(totalSeconds, 10);
+            var hours   = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            var time    = hours+':'+minutes+':'+seconds;
+
+            return time;
         };
 
         self.event.parseData = function(){};
@@ -227,7 +223,7 @@ define([
 
     TableWidgetView.prototype.renderChart = function () {
         var self = this;
-        var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
+        /*var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
         var ds = self.getDisplayData(self.data.data, displayColumnIndices);
 
         var colIndex = self._getColumnIndexByKey(self.sortingState.column);
@@ -257,9 +253,30 @@ define([
             if(self.sortingState.desc){
                 ds.reverse();
             }
+        }*/
+
+        if(self.sortingState.column) {
+            var key = self.sortingState.column.key;
+            var numberSortFunction = function(a, b) {
+                a = parseFloat(a[key]); b = parseFloat(b[key]);
+                if (a === b) { return 0; }
+                return (a < b) ? -1 : 1;
+            };
+            var stringSortFunction = function(a, b) {
+                a = a[key].toLowerCase(); b = b[key].toLowerCase();
+                if(a < b) return -1;
+                if(a > b) return 1;
+                return 0;
+            };
+
+            if( ['int','float','seconds'].indexOf(self.sortingState.column.type) > -1 ){
+                self.data.data.sort(numberSortFunction);
+            } else {
+                self.data.data.sort(stringSortFunction);
+            }
         }
 
-        self.dataSource = ds;
+        self.dataSource = self.data.data;
     };
 
     TableWidgetView.prototype._getColumnIndexByKey = function (key) {
@@ -287,7 +304,7 @@ define([
         var res = this.event.parseData(data, this.widget.option);
         self.data.data = res.data;
         self.data.columns = res.columns;
-        self.assignColumnsData(self.data.columns);
+        //self.assignColumnsData(self.data.columns);
         self.renderChart();
     };
 

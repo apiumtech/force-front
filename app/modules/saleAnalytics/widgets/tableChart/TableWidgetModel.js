@@ -77,6 +77,7 @@ define([
         var calculateColumnAvailable = function(key){ return key !== 'Id' && key !== 'IdFm' && key !== 'PhotoUrl'; };
         var calculateColumnType = function(key){
             return  key === 'Name' ? 'profile' :
+                    key === 'PhotoUrl' ? 'img' :
                     key === 'ActivityScore' ? 'float' :
                     key === 'SalesScore' ? 'float' :
                     key === 'SalesActivityRatio' ? 'float' :
@@ -102,13 +103,14 @@ define([
             });
         });
 
-        data.forEach(function (d) {
+        /*data.forEach(function (d) {
             var arrayElement = [];
             Object.keys(d).forEach(function (key) {
                 arrayElement.push(d[key]);
             });
             responseData.data.params.data.push(arrayElement);
-        });
+        });*/
+        responseData.data.params.data = data;
         return responseData.data.params;
     };
 
