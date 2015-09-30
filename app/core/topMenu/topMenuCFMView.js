@@ -26,7 +26,8 @@ define([
 		this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);
         this.fn.onInit = this.onInit.bind(this);
         this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
-        this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
+        // this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
+		this.fn.onLogout = this.onLogout.bind(this);
 
         this.event.getUserDataInfo = function () {};
         this.event.getUserSections = function () {};
@@ -39,8 +40,9 @@ define([
 		this.event.getUserDataInfo();
 	};
 	
-	TopMenuCFMView.prototype.onLogut = function () {
-		this.$window.location.href = "/Login.aspx";	
+	TopMenuCFMView.prototype.onLogout = function () {
+		//this.$window.location.href = "/Login.aspx";
+		this.event.logout();	
 	};
 	
 	TopMenuCFMView.prototype.onLogoutError = function (error) {
@@ -56,7 +58,7 @@ define([
 		this.data.currentError = error;
 	};
 	
-	TopMenuCFMView.prototype.doProfileMenuAction = function (id, linkToGo, target) {
+	/*TopMenuCFMView.prototype.doProfileMenuAction = function (id, linkToGo, target) {
 		if (id === 'logout') {
 			this.event.logout();
 		} else {
@@ -66,7 +68,7 @@ define([
                 this.$window.location.href = linkToGo;
             }
         }
-	};
+	};*/
 	
 	TopMenuCFMView.prototype.adjustLinkToParentFolder = function (url) {
         return "../views/" + url;

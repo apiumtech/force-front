@@ -25,14 +25,14 @@ define([
         return isCFM;
     };
 	
-	SideMenuView.prototype.getViewImpl = function (scope) {
-        return SideMenuCFMView.newInstance(scope);
+	SideMenuView.prototype.getViewImpl = function (scope, window) {
+        return SideMenuCFMView.newInstance(scope, null, null, window);
     };
     
     SideMenuView.newInstance = function ($scope, $window) {
         var scope = $scope || {};
         var proxy = new SideMenuView($window);
-        var viewImpl = proxy.getViewImpl(scope);
+        var viewImpl = proxy.getViewImpl(scope, $window);
         return viewImpl;
     };
 

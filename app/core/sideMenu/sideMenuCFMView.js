@@ -27,12 +27,22 @@ define([
 		this.fn.onInit = this.onInit.bind(this);
 		this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
 		// this.fn.doPorofileMenuAction = this.doProfileMenuAction.bind(this);
+		this.fn.checkIfActiveMenu = this.checkIfActiveMenu.bind(this);
+		
+		this.fn.sayHello = function () {
+			//console.log('hello world');
+		};
+		
+		this.fn.sayAny = function () {
+			console.log('fuck');
+		};
 		
 		this.event.getUserDataInfo = function () {};
 		this.event.getUserSections = function () {};
 	};
 	
 	SideMenuCFMView.prototype.onInit = function () {
+		console.log('oninit');
 		$('.content').addClass('with-cfm-menu');
 		$('#page-container').removeClass('page-without-sidebar');
 		$('#page-container').addClass('page-sidebar-fixed');
@@ -62,7 +72,15 @@ define([
 		return 'sideMenuCFM';
 	};
 	
+	SideMenuCFMView.prototype.checkIfActiveMenu = function (menu) {
+		//console.log(menu);
+		var whereIAm = this.$window.location.href.split('#')[1];
+		// if (whereIAm[0] === '/') whereIAm = whereIAm.slice(1);
+		return whereIAm.indexOf(menu.toLowerCase()) > -1;
+	};
+	
 	SideMenuCFMView.newInstance = function ($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
+		console.log('view new instance');
 		var scope = $scope || {};
 		var model = $model || SideMenuCFMModel.newInstance();
 		var presenter = $presenter || SideMenuCFMPresenter.newInstance();
