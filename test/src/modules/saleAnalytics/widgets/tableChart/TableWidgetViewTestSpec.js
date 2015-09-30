@@ -8,7 +8,7 @@ define([
 ], function (angular, TableWidgetView, TableWidgetPresenter) {
     'use strict';
 
-    describe("TableWidgetView", function () {
+    xdescribe("TableWidgetView", function () {
 
         var sut, scope, element, presenter;
 

@@ -25,7 +25,7 @@ define([
             });
         });
 
-        describe('parseFlatStructure', function () {
+        xdescribe('parseFlatStructure', function () {
             describe('data is empty', function () {
                 it("should return empty", function () {
                     var emptyData = [];
@@ -142,7 +142,7 @@ define([
             });
         });
 
-        describe("userExtraFieldsDataParser", function () {
+        xdescribe("userExtraFieldsDataParser", function () {
             var rawData, columns, rows;
             beforeEach(function () {
                 columns = ["Id", "Name", "Z_facebug", "Z_hasFB"];
