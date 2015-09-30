@@ -21,14 +21,14 @@
                 <li class="divider"></li>
 
 
-                <li ng-repeat="column in columns" ng-if="column.isAvailable">
+                <li ng-repeat="column in columns" ng-if="column.available">
                     <input type="checkbox"
                            class="pull-left m-t-10 m-r-10 "
-                           ng-checked="column.isShown"
-                           ng-click="fn.toggleColumn(column.name, $event)">
+                           ng-checked="column.visible"
+                           ng-click="fn.toggleColumn(column, $event)">
 
                     <div class="media-body"
-                         ng-click="fn.toggleColumn(column.name, $event)">
+                         ng-click="fn.toggleColumn(column, $event)">
                         <p>{{column.name}}</p>
                     </div>
                 </li>
@@ -41,29 +41,30 @@
         <div class="col-xs-12 table-responsive m-t-20">
             <table class="table table-striped  table-picture-40">
                 <thead>
-                <tr>
-                    <th ng-repeat="column in columns" ng-if="column.isShown">
-                        <a class="btn-link" ng-click="fn.sortColumnBy(column.name, $event)">
-                            {{fn.uncamelize(column.name)}}
-                            <i ng-class="{
-                                    'fa fa-sort':      sortingState.column !== column.name,
-                                    'fa fa-sort-asc':  sortingState.column === column.name && sortingState.asc,
-                                    'fa fa-sort-desc': sortingState.column === column.name && sortingState.desc
-                                }"
-                            />
-                        </a>
-                    </th>
-                </tr>
+                    <tr>
+                        <th ng-repeat="column in columns" ng-if="column.available && column.visible">
+                            <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
+                                {{ column.name }}
+                                <i ng-class="{
+                                        'fa fa-sort':      sortingState.column !== column.key,
+                                        'fa fa-sort-asc':  sortingState.column === column.key && sortingState.asc,
+                                        'fa fa-sort-desc': sortingState.column === column.key && sortingState.desc
+                                    }"
+                                />
+                            </a>
+                            <span ng-if="!column.sortable">{{ column.name }}</span>
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr class="gradeX" ng-repeat="record in dataSource">
-                    <td ng-repeat="field in record track by $index" ng-class="{'photo': fn.isImage(field)}">
-                        <div ng-if="fn.isImage(field)" class="img-user">
-                            <img ng-src="{{field}}" class="media-object" alt=""/>
-                        </div>
-                        <p class="m-t-10" ng-if="!fn.isImage(field)">{{field}}</p>
-                    </td>
-                </tr>
+                    <tr class="gradeX" ng-repeat="record in dataSource">
+                        <td ng-repeat="field in record track by $index" ng-class="{'photo': fn.isImage(field)}">
+                            <div ng-if="fn.isImage(field)" class="img-user">
+                                <img ng-src="{{field}}" class="media-object" alt=""/>
+                            </div>
+                            <p class="m-t-10" ng-if="!fn.isImage(field)">{{field}}</p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

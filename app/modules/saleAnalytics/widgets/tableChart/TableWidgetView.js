@@ -15,7 +15,7 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         this.dataSource = [];
         var self = this;
-        self.enableIdColumn = false;
+        //self.enableIdColumn = false;
         self.configureEvents();
         self.sortingState = {
             column: null,
@@ -83,28 +83,30 @@ define([
             return isImage;
         };
 
-        self.fn.uncamelize = function(name){
+        /*self.fn.uncamelize = function(name){
             return name[0].toUpperCase() + name.replace(/[A-Z]/g, ' $&').toLowerCase().substr(2);
-        };
+        };*/
 
-        self.fn.sortColumnBy = function (columnName, $event) {
-            if(columnName!==self.sortingState.column){
+        self.fn.sortColumnBy = function (column, $event) {
+            var columnKey = column.key;
+            if(columnKey!==self.sortingState.column){
                 self.sortingState.asc = false;
             }
-            self.sortingState.column = columnName;
+            self.sortingState.column = columnKey;
             self.sortingState.asc = !self.sortingState.asc;
             self.sortingState.desc = !self.sortingState.asc;
             self.renderChart();
         };
 
-        self.fn.toggleColumn = function (columnName, $event) {
+        self.fn.toggleColumn = function (column, $event) {
             // prevent the popup from disappearing
-            if ($event && $event.stopPropagation)
+            if ($event && $event.stopPropagation){
                 $event.stopPropagation();
+            }
 
-            self.columns.forEach(function (column) {
-                if (column.name === columnName) {
-                    column.isShown = !column.isShown;
+            self.columns.forEach(function (col) {
+                if (col.key === column.key) {
+                    col.visible = !col.visible;
                 }
             });
 
@@ -113,7 +115,7 @@ define([
 
         self.fn.restoreColumnDisplay = function () {
             self.columns.forEach(function (column) {
-                column.isShown = true;
+                column.visible = true;
             });
 
             self.renderChart();
@@ -122,14 +124,23 @@ define([
         self.event.parseData = function(){};
     };
 
-    TableWidgetView.prototype.assignColumnsData = function (inputData) {
-        var columnsToMerge = this.columns;
+/*
+ key: key,
+ name: key,
+ type: 'string',
+ sortable: true,
+ visible: true,
+ available: true
+*/
+    TableWidgetView.prototype.assignColumnsData = function (newColumns) {
         var self = this;
+        var columnsToMerge = self.columns;
 
-        if (columnsToMerge.length != inputData.length)
+        if (columnsToMerge.length != newColumns.length){
             columnsToMerge = [];
+        }
 
-        var newColumns = inputData.map(function (item) {
+        /*var newColumns = inputData.map(function (item) {
             var isShown = true;
             var isAvailable = true;
             if(item == "Id" || item == "IdFm") {
@@ -139,15 +150,15 @@ define([
                 }
             }
             return {
-                name: item,
-                isShown: isShown,
-                isAvailable: isAvailable
+                name: item.name,
+                isShown: item.visible,
+                isAvailable: item.available,
             }
-        });
+        });*/
 
         newColumns.forEach(function (column) {
             var isExisting = _.find(columnsToMerge, function (c) {
-                return c.name == column.name
+                return c.key == column.key
             });
 
             if (undefined === isExisting)
@@ -165,11 +176,12 @@ define([
         var result = [];
 
         for (var i = 0; i < columns.length; i++) {
-            if (!columns[i].hasOwnProperty('isShown'))
+            if (!columns[i].hasOwnProperty('visible') || !columns[i].hasOwnProperty('available'))
                 throw new Error("Data is not valid");
 
-            if (columns[i].isShown)
+            if (columns[i].available && columns[i].visible){
                 result.push(i);
+            }
         }
 
         return result;
@@ -218,7 +230,7 @@ define([
         var displayColumnIndices = self.getDisplayColumnIndices(self.columns);
         var ds = self.getDisplayData(self.data.data, displayColumnIndices);
 
-        var colIndex = self._getColumnIndexByName(self.sortingState.column);
+        var colIndex = self._getColumnIndexByKey(self.sortingState.column);
         if(self.sortingState.column !== null && colIndex > -1) {
 
 
@@ -250,7 +262,7 @@ define([
         self.dataSource = ds;
     };
 
-    TableWidgetView.prototype._getColumnIndexByName = function (name) {
+    TableWidgetView.prototype._getColumnIndexByKey = function (key) {
         var index = 0;
         var self = this;
         var len = self.columns.length;
@@ -258,8 +270,8 @@ define([
 
         for(var i=0; i<len; i++){
             var column = self.columns[i];
-            if(column.isAvailable && column.isShown){
-                if(column.name === name){
+            if(column.available && column.visible){
+                if(column.key === key){
                     pos = index;
                     break;
                 }
