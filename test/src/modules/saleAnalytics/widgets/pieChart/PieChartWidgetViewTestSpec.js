@@ -5,9 +5,8 @@
 define([
     'angular',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetView',
-    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
-    'plots/PieChart'
-], function (angular, PieChartWidgetView, PieChartPresenter, PieChart) {
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter'
+], function (angular, PieChartWidgetView, PieChartPresenter) {
     'use strict';
     describe("PieChartWidgetView", function () {
         var sut, scope, presenter, element, pieChart;

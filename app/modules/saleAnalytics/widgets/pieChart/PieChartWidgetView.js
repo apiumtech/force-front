@@ -6,10 +6,9 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/PieChart',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart, GoogleChartService, GraphColorService) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
@@ -95,16 +94,11 @@ define([
     };
 
     PieChartWidgetView.prototype.reDraw = function(){
-        //if(PieChart.getChart())
-        //PieChart.getChart().draw();
         var self = this;
         self.paintChart(self.element.find('.chart-place-holder'));
     };
 
     PieChartWidgetView.prototype.paintChart = function (element) {
-        //var plot = PieChart.basic(this.data);
-        //plot.paint($(element));
-
         var self = this;
         var chartService = self.chartService;
 
