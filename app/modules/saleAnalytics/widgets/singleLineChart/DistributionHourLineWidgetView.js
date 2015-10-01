@@ -7,18 +7,15 @@ define([
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/SingleLineChart',
-    'plots/LineGraphPlot',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot, GraphColorService, GoogleChartService) {
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GraphColorService, GoogleChartService) {
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.colorService = new GraphColorService();
-        //self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
@@ -109,18 +106,12 @@ define([
     };
 
     SingleLineChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
+        var self = this;
+        var data = self.data;
 
-        if (!data || data === null) return;
-
-        //var chartFields = [];
-
-        /*data.fields.forEach(function (field) {
-            var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field, self.colorService.getNextColor());
-            chartFields.push(lineGraph);
-        });*/
-
+        if (!data || data === null) {
+            return;
+        }
         this.colorService.initialize();
 
         self.paintChart(self.element.find('.chart-place-holder'));
@@ -128,23 +119,11 @@ define([
 
     SingleLineChartWidgetView.prototype.reDraw = function(){
         var self = this;
-        //if(!self.plot) return;
-        //if(!SingleLineChart.getChart()) return;
-        //SingleLineChart.getChart().draw();
-
         self.refreshChart();
     };
 
-    /*SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
-        return LineGraphPlot.newInstance(field.name, field.data, false, false, color);
-    };*/
 
     SingleLineChartWidgetView.prototype.paintChart = function (element) {
-        //var self = this;
-        //self.plot = SingleLineChart.basic(chartFields, []);
-        //self.plot.paint($(element));
-        //self.plot.onHover(this.onPlotHover.bind(this));
-
         var self = this;
         var chartService = self.chartService;
 
@@ -165,7 +144,6 @@ define([
         dataTable.addRows(columns);
 
         self.chartData = dataTable;
-        //self.chart = chartService.createChart(element[0], 'line');
         self.chart = chartService.createChart(element[0], 'bar');
 
         self.chartOptions = {
@@ -190,31 +168,6 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    //var previousPoint = null;
-
-    /*SingleLineChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
-        function showTooltip(x, y, contents) {
-            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y - 45,
-                left: x - 55
-            }).appendTo("body").fadeIn(200);
-        }
-
-        if (chartItem) {
-            if (previousPoint !== chartItem.dataIndex) {
-                previousPoint = chartItem.dataIndex;
-                $("#tooltip").remove();
-                var y = chartItem.datapoint[1].toFixed(2);
-
-                var content = chartItem.series.label + " " + y;
-                showTooltip(chartItem.pageX, chartItem.pageY, content);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousPoint = null;
-        }
-        event.preventDefault();
-    };*/
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
         var view = new SingleLineChartWidgetView($scope, $element);
