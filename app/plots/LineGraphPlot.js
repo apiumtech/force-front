@@ -8,11 +8,11 @@ define([
         this.label = label;
         this.plotData = data;
         this.hidden = hidden || false;
-        this.filled = filled || false;
-        this.color = color || null;
+        //this.filled = filled || false;
+        //this.color = color || null;
     }
 
-    LineGraphPlot.prototype.rename = function (label) {
+    /*LineGraphPlot.prototype.rename = function (label) {
         return new LineGraphPlot(label, this.plotData, this.hidden, this.filled);
     };
 
@@ -58,7 +58,7 @@ define([
         result.points = {show: !this.hidden, radius: 3, fillColor: '#fff'};
         result.shadowSize = 0;
         return result;
-    };
+    };*/
 
     LineGraphPlot.newInstance = function (label, data, hidden, filled, color) {
         return new LineGraphPlot(label || None(), data || [], hidden || false, filled || false, color);

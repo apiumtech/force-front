@@ -40,7 +40,6 @@ define([
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        console.log( moment(dateStart).format('DD/MM/YYYY'), moment(dateEnd).format('DD/MM/YYYY') );
         this.addQuery("period", moment(dateStart).unix() + "," + moment(dateEnd).unix());
     };
 

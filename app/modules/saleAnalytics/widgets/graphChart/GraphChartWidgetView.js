@@ -6,30 +6,33 @@ define([
     'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/Plot',
     'plots/LineGraphPlot',
     'jquery',
     'moment',
     'config',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, Plot, LineGraphPlot, $, moment, config, GraphColorService, GoogleChartService) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, LineGraphPlot, $, moment, config, GraphColorService, GoogleChartService) {
     'use strict';
 
-    var LINE = 'line', FILLED = 'filled';
+    var LINE = 'line';
+    var FILLED = 'filled';
 
     function GraphChartWidgetView(scope, element, presenter) {
         presenter = presenter || new GraphWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
+
         scope.filters = [];
         scope.selectedFilter = "visits";
         scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
+
         var self = this;
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
+
         self.configureEvents();
     }
 
@@ -54,7 +57,6 @@ define([
 
     GraphChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
@@ -142,48 +144,44 @@ define([
     };
 
     GraphChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            scope = self.$scope,
-            data = self.data;
+        var self = this;
+        var data = self.data;
 
-        if (!data.fields) return;
-        if(!data.fields.length) data.fields = [];
+        if (!data.fields) {
+            return;
+        }
 
-        var chartFields = [];
-
-        data.fields.forEach(function (field) {
-            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
-            chartFields.push(lineGraph);
-        });
+        if(!data.fields.length){
+            data.fields = [];
+        }
 
         this.colorService.initialize();
 
-        self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
+        self.paintChart( $(self.element).find('.chart-place-holder') );
     };
 
     GraphChartWidgetView.prototype.reDraw = function(){
-        //if(!Plot.getChart()) return;
-        //Plot.getChart().draw();
-        var self = this,
-            scope = self.$scope,
-            data = self.data;
-        var chartFields = [];
-
-        data.fields.forEach(function (field) {
-            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
-            chartFields.push(lineGraph);
-        });
-        self.paintChart($(self.element).find('.chart-place-holder'), chartFields, data.axis);
+        this.paintChart( $(this.element).find('.chart-place-holder') );
     };
 
-    GraphChartWidgetView.prototype.paintChart = function (element, chartFields, axisData) {
+    GraphChartWidgetView.prototype.paintChart = function (element) {
         //var plot = Plot.basic(axisData.x, chartFields, this.$scope.currentChartType === FILLED);
         //plot.paint($(element));
         //plot.onHover(this.onChartHover.bind(this));
 
         var self = this;
         var scope = self.$scope;
+
         var data = self.data;
+
+        var chartFields = [];
+        data.fields.forEach(function (field) {
+            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
+            chartFields.push(lineGraph);
+        });
+
+        var axisData = data.axis;
+
         var chartService = self.chartService;
         var dataTable = new google.visualization.DataTable();
 
@@ -353,25 +351,12 @@ define([
 
     GraphChartWidgetView.prototype.extractDisplayFields = function () {
         var self = this;
-        var fieldsToMerge = [];
-            //fieldsToMerge = self.availableFields;
-
         var newFields = self.data.fields.map(function (item) {
             return {
                 name: item.name,
                 isDisplaying: true
             };
         });
-
-        //newFields.forEach(function (field) {
-        //    var isExisting = _.find(fieldsToMerge, function (c) {
-        //        return c.name == field.name
-        //    });
-        //
-        //    if (undefined === isExisting)
-        //        fieldsToMerge.push(field);
-        //});
-
         self.availableFields = newFields;
     };
 

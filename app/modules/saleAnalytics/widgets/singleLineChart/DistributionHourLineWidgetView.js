@@ -18,7 +18,7 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.colorService = new GraphColorService();
-        self.singleLineChart = SingleLineChart;
+        //self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
@@ -114,16 +114,16 @@ define([
 
         if (!data || data === null) return;
 
-        var chartFields = [];
+        //var chartFields = [];
 
-        data.fields.forEach(function (field) {
+        /*data.fields.forEach(function (field) {
             var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field, self.colorService.getNextColor());
             chartFields.push(lineGraph);
-        });
+        });*/
 
         this.colorService.initialize();
 
-        self.paintChart(self.element.find('.chart-place-holder'), chartFields);
+        self.paintChart(self.element.find('.chart-place-holder'));
     };
 
     SingleLineChartWidgetView.prototype.reDraw = function(){
@@ -135,11 +135,11 @@ define([
         self.refreshChart();
     };
 
-    SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
+    /*SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
         return LineGraphPlot.newInstance(field.name, field.data, false, false, color);
-    };
+    };*/
 
-    SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
+    SingleLineChartWidgetView.prototype.paintChart = function (element) {
         //var self = this;
         //self.plot = SingleLineChart.basic(chartFields, []);
         //self.plot.paint($(element));
@@ -190,9 +190,9 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    var previousPoint = null;
+    //var previousPoint = null;
 
-    SingleLineChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
+    /*SingleLineChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
         function showTooltip(x, y, contents) {
             $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
                 top: y - 45,
@@ -214,12 +214,10 @@ define([
             previousPoint = null;
         }
         event.preventDefault();
-    };
+    };*/
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-
         var view = new SingleLineChartWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
