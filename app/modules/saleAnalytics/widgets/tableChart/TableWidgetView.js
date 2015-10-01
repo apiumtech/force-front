@@ -23,6 +23,7 @@ define([
         }
     }
 
+
     TableWidgetView.inherits(WidgetBaseView, {
         dataSource: {
             get: function () {
@@ -50,12 +51,12 @@ define([
         }
     });
 
+
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
         var eventChannel = self.eventChannel;
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
         eventChannel.onExpandingWidget(self.renderChart.bind(self));
-
 
         self.fn.sortColumnBy = function (column, $event) {
             var columnKey = column.key;
@@ -73,13 +74,11 @@ define([
             if ($event && $event.stopPropagation){
                 $event.stopPropagation();
             }
-
             self.data.columns.forEach(function (col) {
                 if (col.key === column.key) {
                     col.visible = !col.visible;
                 }
             });
-
             self.renderChart();
         };
 
@@ -87,7 +86,6 @@ define([
             self.data.columns.forEach(function (column) {
                 column.visible = true;
             });
-
             self.renderChart();
         };
 
@@ -96,12 +94,10 @@ define([
             var hours   = Math.floor(sec_num / 3600);
             var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
             var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
             if (hours   < 10) {hours   = "0"+hours;}
             if (minutes < 10) {minutes = "0"+minutes;}
             if (seconds < 10) {seconds = "0"+seconds;}
             var time    = hours+':'+minutes+':'+seconds;
-
             return time;
         };
 
@@ -111,7 +107,6 @@ define([
 
     TableWidgetView.prototype.renderChart = function () {
         var self = this;
-
         if(self.sortingState.column) {
             var key = self.sortingState.column.key;
             var numberSortFunction = function(a, b) {
@@ -125,18 +120,15 @@ define([
                 if(a > b) return 1;
                 return 0;
             };
-
             if( ['int','float','seconds'].indexOf(self.sortingState.column.type) > -1 ){
                 self.data.data.sort(numberSortFunction);
             } else {
                 self.data.data.sort(stringSortFunction);
             }
-
-            if(self.sortingState.desc){
+            if(self.sortingState.desc) {
                 self.data.data.reverse();
             }
         }
-
         self.dataSource = self.data.data;
     };
 
@@ -152,6 +144,7 @@ define([
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
     };
+
 
     TableWidgetView.prototype.onMoveWidgetError = function (error) {
         this.showError(error);
