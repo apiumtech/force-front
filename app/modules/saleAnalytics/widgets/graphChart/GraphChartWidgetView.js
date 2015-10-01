@@ -144,6 +144,11 @@ define([
     };
 
 
+    GraphChartWidgetView.prototype.reDraw = function () {
+        this.paintChart();
+    };
+
+
     GraphChartWidgetView.prototype.paintChart = function () {
         var self = this;
         var scope = self.$scope;
@@ -239,8 +244,8 @@ define([
             width: '100%',
             height: '100%',
             chartArea: {
-                left: "3%",
-                top: "8%",
+                left: "5%",
+                top: "10%",
                 height: "80%",
                 width: "94%"
             }
