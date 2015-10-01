@@ -32,8 +32,7 @@ define([
                 {method: 'changeFilter', exercise: changeFilterTestExercise},
                 {method: 'switchToFilled', exercise: switchToFilledTestExercise},
                 {method: 'switchToLine', exercise: switchToLineTestExercise},
-                {method: 'toggleDisplayField', exercise: toggleDisplayFieldTestExercise},
-                {method: 'refreshChart', exercise: refreshChartTestExercise}
+                {method: 'toggleDisplayField', exercise: toggleDisplayFieldTestExercise}
             ].forEach(function (testCase) {
                     var method = testCase.method,
                         exercise = testCase.exercise;
@@ -41,7 +40,7 @@ define([
                     if (exercise)
                         describe("calling fn." + method, function () {
                             beforeEach(function () {
-                                spyOn(sut, 'refreshChart');
+                                spyOn(sut, 'paintChart');
                             });
 
                             exercise();
@@ -83,7 +82,7 @@ define([
                     expect(sut.$scope.currentChartType).toEqual('filled');
                 });
 
-                assertCallRefreshChart(function () {
+                assertCallPaintChart(function () {
                     sut.fn.switchToFilled();
                 });
             }
@@ -94,14 +93,8 @@ define([
                     expect(sut.$scope.currentChartType).toEqual('line');
                 });
 
-                assertCallRefreshChart(function () {
+                assertCallPaintChart(function () {
                     sut.fn.switchToLine();
-                });
-            }
-
-            function refreshChartTestExercise() {
-                assertCallRefreshChart(function () {
-                    sut.fn.refreshChart();
                 });
             }
 
@@ -136,121 +129,14 @@ define([
                 });
             }
 
-            function assertCallRefreshChart(exercise) {
-                it("should call refreshChart", function () {
+            function assertCallPaintChart(exercise) {
+                it("should call paintChart", function () {
                     exercise();
-                    expect(sut.refreshChart).toHaveBeenCalled();
+                    expect(sut.paintChart).toHaveBeenCalled();
                 });
             }
         });
 
-        xdescribe("onReloadWidgetSuccess", function () {
-            var fakeResponseData = {
-                data: {
-                    widgetType: "graph",
-                    params: {
-                        filters: ['abc', 'def'],
-                        fields: []
-                    }
-                }
-            };
-
-            beforeEach(function () {
-                sut = new GraphChartWidgetView(scope, {});
-                sut.event = {};
-                sut.event.onReloadWidgetDone = function () {
-                };
-
-                spyOn(sut, 'extractFilters');
-                spyOn(sut, 'extractDisplayFields');
-                spyOn(sut, 'refreshChart');
-            });
-
-            it("Should assign data to scope", function () {
-                spyOn(sut.event, 'onReloadWidgetDone');
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.data).toEqual(fakeResponseData.data.params);
-            });
-
-            it("should call extractFilters method", function () {
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.extractFilters).toHaveBeenCalled();
-            });
-
-            it("should call extractDisplayFields method", function () {
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.extractDisplayFields).toHaveBeenCalled();
-            });
-
-            it("should call refreshChart method", function () {
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.refreshChart).toHaveBeenCalled();
-            });
-        });
-
-        describe("extractDisplayFields", function () {
-
-            var fields = [{
-                name: 'field1', data: []
-            }, {
-                name: 'field2', data: []
-            }, {
-                name: 'field3', data: []
-            }, {
-                name: 'field4', data: []
-            }];
-
-
-            beforeEach(function () {
-                sut.data = {
-                    fields: fields
-                };
-            });
-
-            describe("availableFields is empty", function () {
-                it("should assign availableFields", function () {
-                    sut.$scope.availableFields = [];
-                    sut.extractDisplayFields();
-                    var expected = [{
-                        name: 'field1', isDisplaying: true
-                    }, {
-                        name: 'field2', isDisplaying: true
-                    }, {
-                        name: 'field3', isDisplaying: true
-                    }, {
-                        name: 'field4', isDisplaying: true
-                    }];
-                    expect(sut.$scope.availableFields).toEqual(expected);
-                });
-            });
-
-            xdescribe("availableFields is not empty", function () {
-                it("should keep the current fields setting", function () {
-                    sut.$scope.availableFields = [{
-                        name: 'field1', isDisplaying: true
-                    }, {
-                        name: 'field2', isDisplaying: false
-                    }, {
-                        name: 'field3', isDisplaying: true
-                    }, {
-                        name: 'field4', isDisplaying: false
-                    }];
-                    var expected = [{
-                        name: 'field1', isDisplaying: true
-                    }, {
-                        name: 'field2', isDisplaying: false
-                    }, {
-                        name: 'field3', isDisplaying: true
-                    }, {
-                        name: 'field4', isDisplaying: false
-                    }];
-
-
-                    sut.extractDisplayFields();
-                    expect(sut.$scope.availableFields).toEqual(expected);
-                });
-            });
-        });
 
         describe("extractFilters", function () {
 
@@ -307,123 +193,6 @@ define([
             });
         });
 
-        describe("refreshChart", function () {
-
-            beforeEach(function () {
-                sut.element = {
-                    find: jasmine.createSpy()
-                };
-            });
-
-            describe("data is invalid", function () {
-
-                [{
-                    testCase: "fields is not defined", widgetData: {}
-                }].forEach(function (test) {
-                        describe(test.testCase, function () {
-                            it("Should not call paintChart", function () {
-                                sut.data = test.widgetData;
-                                spyOn(sut, 'paintChart');
-                                sut.refreshChart();
-                                expect(sut.paintChart).not.toHaveBeenCalled();
-                            });
-                        });
-                    });
-            });
-
-            describe("data is valid", function () {
-                var spyOnLineGraph;
-                beforeEach(function () {
-                    sut.$scope.currentChartType = 'filled';
-                    spyOnLineGraph = spyOn(sut, 'getLineGraph');
-                    spyOn(sut, 'paintChart');
-                });
-
-                function performRefreshChart() {
-                    sut.data = {
-                        fields: [{
-                            name: 'abc',
-                            data: []
-                        }, {
-                            name: 'def',
-                            data: []
-                        }]
-                    };
-                    sut.refreshChart();
-                }
-
-                it("should call getLineGraph() correct times equivalent the available fields", function () {
-                    performRefreshChart();
-                    expect(sut.getLineGraph).toHaveBeenCalled();
-                    expect(spyOnLineGraph.calls.count()).toEqual(sut.data.fields.length);
-
-                    expect(spyOnLineGraph.calls.mostRecent().args[0]).toEqual(sut.data.fields[sut.data.fields.length - 1]);
-                    expect(spyOnLineGraph.calls.mostRecent().args[1]).toEqual(sut.$scope.availableFields);
-                    expect(spyOnLineGraph.calls.mostRecent().args[2]).toEqual('filled');
-                });
-
-                it("should call paintChart()", function () {
-                    performRefreshChart();
-                    expect(sut.paintChart).toHaveBeenCalled();
-                });
-            });
-        });
-
-        describe("getLineGraph", function () {
-
-            var displayFields = [{
-                name: "field1",
-                isDisplaying: true
-            }, {
-                name: "field2",
-                isDisplaying: true
-            }, {
-                name: "field3",
-                isDisplaying: false
-            }];
-            var fields = {
-                name: "field1", data: []
-            };
-
-            [{
-                field: {name: "field1", data: []},
-                hidden: false,
-                filledStatus: 'filled',
-                filled: true
-            }, {
-                field: {name: "field3", data: []},
-                hidden: true,
-                filledStatus: 'filled',
-                filled: true
-            }, {
-                field: {name: "field3", data: []},
-                hidden: true,
-                filledStatus: 'line',
-                filled: false
-            }].forEach(function (testCase) {
-                    var field = testCase.field,
-                        hidden = testCase.hidden,
-                        filledStatus = testCase.filledStatus,
-                        filled = testCase.filled;
-
-                    if (hidden) {
-                        it("should return null and not call getLineGraphInstance", function () {
-                            GraphChartWidgetView.getLineGraphInstance = jasmine.createSpy();
-                            var actual = sut.getLineGraph(field, displayFields, filledStatus);
-                            expect(GraphChartWidgetView.getLineGraphInstance).not.toHaveBeenCalled();
-                            expect(actual).toBeNull();
-                        });
-                    }
-                    else {
-                        it("should call getLineGraphInstance with correct arguments", function () {
-                            GraphChartWidgetView.getLineGraphInstance = jasmine.createSpy();
-                            spyOn(sut.colorService, "getNextColor").and.returnValue("#FFFFFF");
-                            sut.getLineGraph(field, displayFields, filledStatus);
-                            expect(GraphChartWidgetView.getLineGraphInstance).toHaveBeenCalledWith(field, hidden, filled, '#FFFFFF');
-                        });
-                    }
-                });
-        });
     });
 
 });
