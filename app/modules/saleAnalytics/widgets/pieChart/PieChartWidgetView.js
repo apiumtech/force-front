@@ -51,7 +51,6 @@ define([
 
     PieChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(

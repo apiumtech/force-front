@@ -40,7 +40,6 @@ define([
 
     ReportTabBaseView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
         self.event.onDateFilterApplied = function (filterValue) {

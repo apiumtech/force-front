@@ -46,7 +46,6 @@ define([
 
     MapChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
 
         var eventChannel = self.eventChannel;
 

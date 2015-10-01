@@ -21,6 +21,7 @@ define([
         self.configureEvents();
     }
 
+
     SingleLineChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
@@ -56,9 +57,9 @@ define([
         }
     });
 
+
     SingleLineChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
