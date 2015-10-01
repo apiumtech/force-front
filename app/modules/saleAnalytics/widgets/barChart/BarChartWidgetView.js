@@ -8,10 +8,9 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/BarChart',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart, GoogleChartService, GraphColorService){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
@@ -22,6 +21,7 @@ define([
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
+
 
     BarChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
@@ -58,15 +58,15 @@ define([
         }
     });
 
+
     BarChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         eventChannel.onExpandingWidget(function(){
-            setTimeout(self.reDraw.bind(self), 250);
+            setTimeout(self.paintChart.bind(self), 250);
         });
 
         self.fn.assignWidget = function (outerScopeWidget) {
@@ -80,12 +80,11 @@ define([
         };
 
         self.fn.refreshChart = function () {
-            self.refreshChart();
+            self.paintChart();
         };
 
         self.resizeHandling();
     };
-
 
 
     BarChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
@@ -94,34 +93,24 @@ define([
         self.tickLabels = responseData.data.params.axis.x;
         self.tabs = responseData.data.params.filters;
         self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
-
-        self.refreshChart();
+        self.paintChart();
     };
 
-    BarChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
 
-        if (!data || data === null || !isArray(data)) return;
-
-        self.paintChart(self.element.find('.chart-place-holder'));
+    BarChartWidgetView.prototype.reDraw = function () {
+        this.paintChart();
     };
 
-    BarChartWidgetView.prototype.reDraw = function(){
-        //if(!BarChart.getChart()) return;
-        //BarChart.getChart().draw();
+
+    BarChartWidgetView.prototype.paintChart = function () {
         var self = this;
-        var element = self.element.find('.chart-place-holder');
-        self.paintChart(element);
-    };
-
-    BarChartWidgetView.prototype.paintChart = function (element) {
-        //var plot = BarChart.basic(this.data, this.tickLabels);
-        //plot.paint($(element));
-        //plot.onHover(this.onPlotHover.bind(this));
-
-        var self = this;
+        var data = self.data;
         var chartService = self.chartService;
+        var element = self.element.find('.chart-place-holder');
+
+        if (!data || data === null || !isArray(data)) {
+            return;
+        }
 
         var dataTable = new google.visualization.DataTable();
 
@@ -174,33 +163,6 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    var previousXValue = null;
-    var previousYValue = null;
-
-    BarChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
-        function showTooltip2(x, y, contents) {
-            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y,
-                left: x + 35
-            }).appendTo("body").fadeIn(200);
-        }
-
-        if (chartItem) {
-            var y = chartItem.datapoint[1] - chartItem.datapoint[2];
-
-            if (previousXValue != chartItem.series.label || y != previousYValue) {
-                previousXValue = chartItem.series.label;
-                previousYValue = y;
-                $("#tooltip").remove();
-
-                showTooltip2(chartItem.pageX, chartItem.pageY, y + " " + chartItem.series.label);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousXValue = null;
-            previousYValue = null;
-        }
-    };
 
     BarChartWidgetView.prototype.extractFilters = function () {
         var self = this;
@@ -216,18 +178,18 @@ define([
                 self.filters[0].key;
     };
 
-    BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
 
+    BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
     };
+
 
     BarChartWidgetView.prototype.onMoveWidgetError = function (error) {
         this.showError(error);
     };
 
+
     BarChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-
         var view = new BarChartWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

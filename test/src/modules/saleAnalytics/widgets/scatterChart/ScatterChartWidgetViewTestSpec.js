@@ -36,8 +36,7 @@ define([
 
         describe("configureEvents", function () {
             [
-                {method: 'assignWidget', test: assignWidgetTestExercise},
-                {method: 'refreshChart', test: refreshChartTestExercise}
+                {method: 'assignWidget', test: assignWidgetTestExercise}
             ].forEach(function (test) {
                     var method = test.method;
                     describe("calling fn." + method, test.test);
@@ -67,14 +66,6 @@ define([
 
             }
 
-            function refreshChartTestExercise() {
-                it("should call funciton refresh chart", function () {
-                    spyOn(sut, 'refreshChart');
-                    sut.fn.refreshChart();
-                    expect(sut.refreshChart).toHaveBeenCalled();
-                });
-            }
-
         });
 
         describe("onReloadWidgetSuccess", function () {
@@ -87,7 +78,7 @@ define([
                 sut.event.onReloadWidgetDone = function () {
                 };
 
-                spyOn(sut, 'refreshChart');
+                spyOn(sut, 'paintChart');
                 spyOn(sut, '_onReloadWidgetSuccess');
             });
 
@@ -97,9 +88,9 @@ define([
                 expect(sut.data).toEqual(fakeResponseData);
             });
 
-            it("should call refreshChart method", function () {
+            it("should call paintChart method", function () {
                 sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.refreshChart).toHaveBeenCalled();
+                expect(sut.paintChart).toHaveBeenCalled();
             });
 
             it("Should call _onReloadWidgetSuccess on base", function () {
@@ -109,52 +100,5 @@ define([
             });
         });
 
-        describe("refreshChart", function () {
-
-            describe("data is invalid", function () {
-
-                [{
-                    testCase: "data is not defined", widgetData: undefined
-                }, {
-                    testCase: "data is null", widgetData: null
-                }].forEach(function (test) {
-                        describe(test.testCase, function () {
-
-                            it("Should not call paintChart", function () {
-                                sut.data = test.widgetData;
-                                spyOn(sut, 'paintChart');
-                                sut.refreshChart();
-                                expect(sut.paintChart).not.toHaveBeenCalled();
-                            });
-                        });
-                    });
-            });
-
-            describe("data is valid", function () {
-                var fakeElement = {"element returned": "element"};
-                beforeEach(function () {
-                    spyOn(sut, 'paintChart');
-                    sut.data = {
-                        chartData: {
-                            fields: [
-                                {
-                                    name: "pie1", data: [1, 2]
-                                }
-                            ]
-                        }
-                    };
-                    sut.element = {
-                        find: function () {
-                            return fakeElement;
-                        }
-                    }
-                });
-
-                it("should call paintChart()", function () {
-                    sut.refreshChart();
-                    expect(sut.paintChart).toHaveBeenCalled();
-                });
-            });
-        });
     });
 });

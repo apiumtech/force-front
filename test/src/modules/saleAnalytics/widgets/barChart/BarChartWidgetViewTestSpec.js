@@ -30,8 +30,7 @@ define([
         describe("configureEvents", function () {
             [
                 {method: 'assignWidget', exercise: assignWidgetTestExercise},
-                {method: 'changeFilter', exercise: changeTabTestExercise},
-                {method: 'refreshChart', exercise: refreshChartTestExercise}
+                {method: 'changeFilter', exercise: changeTabTestExercise}
             ].forEach(function (testCase) {
                     var method = testCase.method,
                         exercise = testCase.exercise;
@@ -44,7 +43,7 @@ define([
                     if (exercise)
                         describe("calling fn." + method, function () {
                             beforeEach(function () {
-                                spyOn(sut, 'refreshChart');
+                                spyOn(sut, 'paintChart');
                             });
 
                             exercise();
@@ -97,18 +96,6 @@ define([
                 });
             }
 
-            function refreshChartTestExercise() {
-                assertCallRefreshChart(function () {
-                    sut.fn.refreshChart();
-                });
-            }
-
-            function assertCallRefreshChart(exercise) {
-                it("should call refreshChart", function () {
-                    exercise();
-                    expect(sut.refreshChart).toHaveBeenCalled();
-                });
-            }
         });
 
         describe("onReloadWidgetSuccess", function () {
@@ -138,7 +125,7 @@ define([
 
             beforeEach(function(){
                 sut.event.onReloadWidgetDone=function(){};
-                sut.refreshChart = jasmine.createSpy();
+                sut.paintChart = jasmine.createSpy();
                 spyOn(sut, '_onReloadWidgetSuccess');
             });
 
@@ -174,9 +161,9 @@ define([
                 expect(sut.tickLabels).toEqual(fakeResponseData.data.params.axis.x);
             });
 
-            it("should call refreshChart method", function () {
+            it("should call paintChart method", function () {
                 sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.refreshChart).toHaveBeenCalled();
+                expect(sut.paintChart).toHaveBeenCalled();
             });
 
             it("Should call _onReloadWidgetSuccess on base", function () {
@@ -186,51 +173,6 @@ define([
             });
         });
 
-        describe("refreshChart", function () {
-
-            describe("data is invalid", function () {
-
-                [{
-                    testCase: "data is not defined", widgetData: undefined
-                }, {
-                    testCase: "data is null", widgetData: null
-                }, {
-                    testCase: "data is not array", widgetData: {fields: {blah: 123456}}
-                }].forEach(function (test) {
-                        describe(test.testCase, function () {
-                            it("Should not call paintChart", function () {
-                                sut.data = test.widgetData;
-                                spyOn(sut, 'paintChart');
-                                sut.refreshChart();
-                                expect(sut.paintChart).not.toHaveBeenCalled();
-                            });
-                        });
-                    });
-            });
-
-            describe("data is valid", function () {
-                var fakeElement = {"element returned": "element"};
-                beforeEach(function () {
-                    spyOn(sut, 'paintChart');
-                    sut.data = [
-                        {label: "pie1", data: 30},
-                        {label: "pie4", data: 15},
-                        {label: "pie3", data: 15},
-                        {label: "pie2", data: 40}
-                    ];
-                    sut.element = {
-                        find: function () {
-                            return fakeElement;
-                        }
-                    }
-                });
-
-                it("should call paintChart()", function () {
-                    sut.refreshChart();
-                    expect(sut.paintChart).toHaveBeenCalledWith(fakeElement);
-                });
-            });
-        });
     });
 
 });

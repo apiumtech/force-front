@@ -7,22 +7,20 @@ define([
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/SingleLineChart',
-    'plots/LineGraphPlot',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, SingleLineChart, LineGraphPlot, GraphColorService, GoogleChartService) {
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GraphColorService, GoogleChartService) {
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
         self.colorService = new GraphColorService();
-        self.singleLineChart = SingleLineChart;
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
+
 
     SingleLineChartWidgetView.inherits(WidgetBaseView, {
         filters: {
@@ -59,12 +57,14 @@ define([
         }
     });
 
+
     SingleLineChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
-        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        eventChannel.onReloadCommandReceived(
+            self.onReloadCommandReceived.bind(self)
+        );
 
         eventChannel.onExpandingWidget(function(){
             setTimeout(self.reDraw.bind(self), 250);
@@ -81,18 +81,20 @@ define([
         };
 
         self.fn.refreshChart = function () {
-            self.refreshChart();
+            self.paintChart();
         };
 
         self.resizeHandling();
     };
 
+
     SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData.data.params;
         self.extractFilters();
-        self.refreshChart();
+        self.paintChart();
     };
+
 
     SingleLineChartWidgetView.prototype.extractFilters = function () {
         var self = this;
@@ -108,48 +110,23 @@ define([
                 self.filters[0].key;
     };
 
-    SingleLineChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
-
-        if (!data || data === null) return;
-
-        var chartFields = [];
-
-        data.fields.forEach(function (field) {
-            var lineGraph = SingleLineChartWidgetView.getLineGraphInstance(field, self.colorService.getNextColor());
-            chartFields.push(lineGraph);
-        });
-
-        this.colorService.initialize();
-
-        self.paintChart(self.element.find('.chart-place-holder'), chartFields);
-    };
 
     SingleLineChartWidgetView.prototype.reDraw = function(){
-        var self = this;
-        //if(!self.plot) return;
-        //if(!SingleLineChart.getChart()) return;
-        //SingleLineChart.getChart().draw();
-
-        self.refreshChart();
+        this.paintChart();
     };
 
-    SingleLineChartWidgetView.getLineGraphInstance = function (field, color) {
-        return LineGraphPlot.newInstance(field.name, field.data, false, false, color);
-    };
 
-    SingleLineChartWidgetView.prototype.paintChart = function (element, chartFields) {
-        //var self = this;
-        //self.plot = SingleLineChart.basic(chartFields, []);
-        //self.plot.paint($(element));
-        //self.plot.onHover(this.onPlotHover.bind(this));
-
+    SingleLineChartWidgetView.prototype.paintChart = function () {
         var self = this;
         var chartService = self.chartService;
+        var element = self.element.find('.chart-place-holder');
 
+        if (!self.data || self.data === null) {
+            return;
+        }
+
+        self.colorService.initialize();
         var dataTable = new google.visualization.DataTable();
-
         dataTable.addColumn('number', 'Hora');
         self.data.fields.forEach(function(serie){
             dataTable.addColumn('number', serie.name);
@@ -165,7 +142,6 @@ define([
         dataTable.addRows(columns);
 
         self.chartData = dataTable;
-        //self.chart = chartService.createChart(element[0], 'line');
         self.chart = chartService.createChart(element[0], 'bar');
 
         self.chartOptions = {
@@ -190,36 +166,9 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    var previousPoint = null;
-
-    SingleLineChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
-        function showTooltip(x, y, contents) {
-            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y - 45,
-                left: x - 55
-            }).appendTo("body").fadeIn(200);
-        }
-
-        if (chartItem) {
-            if (previousPoint !== chartItem.dataIndex) {
-                previousPoint = chartItem.dataIndex;
-                $("#tooltip").remove();
-                var y = chartItem.datapoint[1].toFixed(2);
-
-                var content = chartItem.series.label + " " + y;
-                showTooltip(chartItem.pageX, chartItem.pageY, content);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousPoint = null;
-        }
-        event.preventDefault();
-    };
 
     SingleLineChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-
         var view = new SingleLineChartWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
