@@ -62,7 +62,9 @@ define([
         var self = this;
         var eventChannel = self.eventChannel;
 
-        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        eventChannel.onReloadCommandReceived(
+            self.onReloadCommandReceived.bind(self)
+        );
 
         eventChannel.onExpandingWidget(function(){
             setTimeout(self.reDraw.bind(self), 250);
@@ -79,18 +81,20 @@ define([
         };
 
         self.fn.refreshChart = function () {
-            self.refreshChart();
+            self.paintChart();
         };
 
         self.resizeHandling();
     };
 
+
     SingleLineChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData.data.params;
         self.extractFilters();
-        self.refreshChart();
+        self.paintChart();
     };
+
 
     SingleLineChartWidgetView.prototype.extractFilters = function () {
         var self = this;
@@ -106,30 +110,23 @@ define([
                 self.filters[0].key;
     };
 
-    SingleLineChartWidgetView.prototype.refreshChart = function () {
-        var self = this;
-        var data = self.data;
-
-        if (!data || data === null) {
-            return;
-        }
-        this.colorService.initialize();
-
-        self.paintChart(self.element.find('.chart-place-holder'));
-    };
 
     SingleLineChartWidgetView.prototype.reDraw = function(){
-        var self = this;
-        self.refreshChart();
+        this.paintChart();
     };
 
 
-    SingleLineChartWidgetView.prototype.paintChart = function (element) {
+    SingleLineChartWidgetView.prototype.paintChart = function () {
         var self = this;
         var chartService = self.chartService;
+        var element = self.element.find('.chart-place-holder');
 
+        if (!self.data || self.data === null) {
+            return;
+        }
+
+        self.colorService.initialize();
         var dataTable = new google.visualization.DataTable();
-
         dataTable.addColumn('number', 'Hora');
         self.data.fields.forEach(function(serie){
             dataTable.addColumn('number', serie.name);
