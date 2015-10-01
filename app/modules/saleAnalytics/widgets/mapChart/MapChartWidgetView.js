@@ -23,6 +23,7 @@ define([
         self.configureEvents();
     }
 
+
     MapChartWidgetView.inherits(WidgetBaseView, {
         selectedFilter: {
             get: function () {
@@ -41,6 +42,7 @@ define([
             }
         }
     });
+
 
     MapChartWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -80,10 +82,13 @@ define([
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
         var self = this;
-        if(data && data.length)
+        if(data && data.length){
             self.mapData = data;
+        }
 
-        if(!self.mapData) return;
+        if(!self.mapData) {
+            return;
+        }
 
         self.paintChart(self.element.find('.chart-place-holder'));
         self.mapChart.clearHeatMap();

@@ -30,6 +30,7 @@ define([
         self.configureEvents();
     }
 
+
     ScatterChartWidgetView.inherits(WidgetBaseView, {
         filters: {
             get: function () {
@@ -89,12 +90,15 @@ define([
         }
     });
 
+
     ScatterChartWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
-        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        eventChannel.onReloadCommandReceived(
+            self.onReloadCommandReceived.bind(self)
+        );
 
         eventChannel.onExpandingWidget(self.onWindowResize.bind(self));
 
@@ -109,7 +113,7 @@ define([
         };
 
         self.fn.refreshChart = function () {
-            self.refreshChart();
+            self.paintChart();
         };
 
         self.fn.pageCount = function () {
@@ -148,76 +152,39 @@ define([
         });
     };
 
-    ScatterChartWidgetView.prototype.onExpandingWidget = function(){
 
+    ScatterChartWidgetView.prototype.onExpandingWidget = function(){
+        this.paintChart();
     };
 
     ScatterChartWidgetView.prototype.onWindowResize = function () {
-        // call refresh the chart
         var self = this;
-
         clearTimeout(self.resizeInterval);
         self.resizeInterval = setTimeout(function () {
-            self.refreshChart();
+            self.paintChart();
         }, 250);
     };
 
     ScatterChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData;
-        self.refreshChart();
+        self.paintChart();
     };
 
-    ScatterChartWidgetView.prototype.extractFilters = function () {
+
+    ScatterChartWidgetView.prototype.reDraw = function(){
+        this.paintChart();
+    };
+
+
+    ScatterChartWidgetView.prototype.paintChart = function () {
         var self = this;
-        self.filters = self.data.filters;
-        var filterList = self.filters,
-            currentSelectedFilter = self.selectedFilter;
-
-        self.selectedFilter =
-            currentSelectedFilter && filterList.map(function (f) {
-                return f.key;
-            }).indexOf(currentSelectedFilter) !== -1 ?
-                currentSelectedFilter :
-                self.filters[0].key;
-    };
-
-    ScatterChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
-
-        if (data && data.chartData && (Object.getOwnPropertyNames(data.chartData) && Object.getOwnPropertyNames(data.chartData).length !== 0))
-            self.paintChart(self.element.find('.chart-place-holder'), data);
-    };
-
-
-    ScatterChartWidgetView.prototype.generateTooltip = function (element) {
-        var toolTipTemplate = $('#popup_tooltip').html();
-
-        return this.templateParser.parseTemplate(toolTipTemplate, element);
-    };
-
-    ScatterChartWidgetView.prototype.updateChart = function (element) {
-
-
-    };
-
-    ScatterChartWidgetView.prototype.paintChart = function (element, data) {
-
-        var self = this;
-
-        if (data) self.data = data;
-
+        var element = self.element.find('.chart-place-holder');
         var chartService = self.chartService;
-
         self.chartData = chartService.createDataTable(self.data);
-
         self.chart = chartService.createChart(element[0], 'scatter');
-
         self.legends = self.data.legends;
-
         self.currentLegends = self.fn.setCurrentLegend();
-
         self.chartOptions = {
             title: self.widgetName,
             selectionMode: 'none',
@@ -237,47 +204,18 @@ define([
 
             colors: self.colorService.$colors.slice()
         };
-
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    ScatterChartWidgetView.prototype.reDraw = function(){
-        var self = this;
 
-        //if(!self.chart || !self.chartData || !self.chartOptions) return;
-        //self.chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+    ScatterChartWidgetView.prototype.generateTooltip = function (element) {
+        var toolTipTemplate = $('#popup_tooltip').html();
+        return this.templateParser.parseTemplate(toolTipTemplate, element);
     };
 
-    var previousPoint = null;
-
-    /*ScatterChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
-        function showTooltip(x, y, contents) {
-            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y - 45,
-                left: x - 55
-            }).appendTo("body").fadeIn(200);
-        }
-
-        if (chartItem) {
-            if (previousPoint !== chartItem.dataIndex) {
-                previousPoint = chartItem.dataIndex;
-                $("#tooltip").remove();
-                var y = chartItem.datapoint[1].toFixed(2);
-
-                var content = chartItem.series.label + " " + y;
-                showTooltip(chartItem.pageX, chartItem.pageY, content);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousPoint = null;
-        }
-        event.preventDefault();
-    };*/
 
     ScatterChartWidgetView.newInstance = function ($scope, $element, $chartService, $viewRepAspect, $logErrorAspect) {
-
         var view = new ScatterChartWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 
