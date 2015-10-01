@@ -8,7 +8,7 @@ define([
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/MapChart',
+    'modules/saleAnalytics/widgets/mapChart/MapChart',
     'shared/services/config/PermissionsService'
 ], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService){
 

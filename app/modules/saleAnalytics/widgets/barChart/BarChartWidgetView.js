@@ -8,10 +8,9 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/BarChart',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, BarChart, GoogleChartService, GraphColorService){
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService){
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
@@ -108,18 +107,12 @@ define([
     };
 
     BarChartWidgetView.prototype.reDraw = function(){
-        //if(!BarChart.getChart()) return;
-        //BarChart.getChart().draw();
         var self = this;
         var element = self.element.find('.chart-place-holder');
         self.paintChart(element);
     };
 
     BarChartWidgetView.prototype.paintChart = function (element) {
-        //var plot = BarChart.basic(this.data, this.tickLabels);
-        //plot.paint($(element));
-        //plot.onHover(this.onPlotHover.bind(this));
-
         var self = this;
         var chartService = self.chartService;
 
@@ -174,33 +167,6 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
-    var previousXValue = null;
-    var previousYValue = null;
-
-    BarChartWidgetView.prototype.onPlotHover = function (event, position, chartItem) {
-        function showTooltip2(x, y, contents) {
-            $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css({
-                top: y,
-                left: x + 35
-            }).appendTo("body").fadeIn(200);
-        }
-
-        if (chartItem) {
-            var y = chartItem.datapoint[1] - chartItem.datapoint[2];
-
-            if (previousXValue != chartItem.series.label || y != previousYValue) {
-                previousXValue = chartItem.series.label;
-                previousYValue = y;
-                $("#tooltip").remove();
-
-                showTooltip2(chartItem.pageX, chartItem.pageY, y + " " + chartItem.series.label);
-            }
-        } else {
-            $("#tooltip").remove();
-            previousXValue = null;
-            previousYValue = null;
-        }
-    };
 
     BarChartWidgetView.prototype.extractFilters = function () {
         var self = this;
@@ -217,7 +183,6 @@ define([
     };
 
     BarChartWidgetView.prototype.onMoveWidgetSuccess = function (data) {
-
     };
 
     BarChartWidgetView.prototype.onMoveWidgetError = function (error) {
