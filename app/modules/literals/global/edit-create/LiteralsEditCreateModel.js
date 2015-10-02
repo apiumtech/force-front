@@ -44,8 +44,8 @@ define([
         return this.service.getLiteralTypeList();
     };
 
-    proto.getDeviceTypeList = function () {
-        return this.service.getDeviceTypeList();
+    proto.getPlatformList = function () {
+        return this.service.getPlatformList();
     };
 
     proto.isNew = function (literal) {

@@ -14,20 +14,20 @@ define([
     proto.initializeQueryDefaults = function(){
         this.__base__.initializeQueryDefaults.call(this);
         this.literalTypeId = "";
-        this.deviceTypeIds = [];
+        this.platformIds = [];
     };
 
     proto.resetPageHeuristicsBuilder = function(currentQuery) {
         var conditions = this.__base__.resetPageHeuristicsBuilder.call(this, currentQuery);
         conditions.push( currentQuery.filter.literalTypeId != this.lastQuery.filter.literalTypeId ||
-            !_.isEqual(currentQuery.filter.deviceTypeIds, this.lastQuery.filter.deviceTypeIds) );
+            !_.isEqual(currentQuery.filter.platformIds, this.lastQuery.filter.platformIds) );
         return conditions;
     };
 
     proto.createCurrentQuery = function() {
         var currentQuery = this.__base__.createCurrentQuery.call(this);
         currentQuery.filter.literalTypeId = this.literalTypeId;
-        currentQuery.filter.deviceTypeIds = this.deviceTypeIds;
+        currentQuery.filter.platformIds = this.platformIds;
         return currentQuery;
     };
 

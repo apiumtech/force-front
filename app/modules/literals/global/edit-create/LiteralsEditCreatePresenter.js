@@ -16,9 +16,9 @@ define([], function(){
             );
         };
 
-        view.event.getDeviceTypeList = function () {
-            model.getDeviceTypeList().then(
-                view.onGetDeviceTypeListSuccess.bind(view),
+        view.event.getPlatformList = function () {
+            model.getPlatformList().then(
+                view.onGetPlatformListSuccess.bind(view),
                 view.showError.bind(view)
             );
         };

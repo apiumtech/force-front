@@ -20,7 +20,7 @@ define([
                     filter: {
                         search: "",
                         literalTypeId: "",
-                        deviceTypeIds: []
+                        platformIds: []
                     },
                     sort: {},
                     tags: [BaseListQueryBuilder.TAG_TOTAL_COUNT]
@@ -33,13 +33,13 @@ define([
             it('should convert build result properties to JSON', function () {
                 var sut = exerciseCreateQueryBuilder();
                 sut.literalTypeId = 3;
-                sut.deviceTypeIds = ["id1", "id2", "id3"];
+                sut.platformIds = ["id1", "id2", "id3"];
                 var res = sut.build();
                 var headers = sut.toRequestHeaders(res);
                 expect(JSON.parse(headers.filter)).toEqual({
                     search: "",
                     literalTypeId: 3,
-                    deviceTypeIds:["id1", "id2", "id3"]
+                    platformIds:["id1", "id2", "id3"]
                 });
             });
         });
