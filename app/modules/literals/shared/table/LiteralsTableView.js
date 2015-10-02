@@ -29,7 +29,7 @@ define([
 
 
 	proto.configureEvents = function () {
-        this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
+        //this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
 		this.event.onInit = function () {};
         this.event.fireLiteralsDeleteRequest = function () {};
 		this.event.fireLiteralsRequest = function () {};
@@ -51,7 +51,7 @@ define([
     };
 
 
-    proto.deleteLiteralPrompt = function (literalId) {
+    /*proto.deleteLiteralPrompt = function (literalId) {
         var msg = this.translator.translate(
             "Literal.List.Table.Delete_Confirm_Message",
             {literalId: literalId}
@@ -64,7 +64,7 @@ define([
     proto._doDeleteLiteralPrompt = function (literalId) {
         this.clearTable();
         this.event.fireLiteralsDeleteRequest(literalId);
-    };
+    };*/
 
 
     proto.renderKeyColumn = function (data, type, row) {

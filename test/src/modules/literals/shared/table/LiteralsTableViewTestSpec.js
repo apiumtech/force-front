@@ -228,7 +228,7 @@ define([
             });
         });
 
-        describe('deleteLiteralPrompt', function () {
+        xdescribe('deleteLiteralPrompt', function () {
             var sut;
             beforeEach(function () {
                 sut = exerciseCreateView();

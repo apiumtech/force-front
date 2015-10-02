@@ -8,10 +8,9 @@ define([
 ], function(config, AuthAjaxService, Q, LiteralsSharedService, CQRSUnwrapper, _) {
     'use strict';
 
-    function CustomLiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper) {
+    function CustomLiteralsEditCreateService(ajaxService, sharedService) {
         this.authAjaxService = ajaxService;
         this.sharedService = sharedService;
-        this.cqrsUnwrapper = cqrsUnwrapper;
     }
 
     var proto = CustomLiteralsEditCreateService.prototype;
@@ -24,7 +23,7 @@ define([
     // ------------------------
 
     proto.createLiteral = function (body) {
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
                 url: config.api.createCustomLiteral,
                 data: body,
@@ -44,7 +43,7 @@ define([
             dataType: 'json',
             contentType: 'application/json'
         };
-        return this.cqrsUnwrapper.unwrap(
+        return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest(params)
         );
     };
@@ -82,7 +81,7 @@ define([
         var deferred = Q.defer();
         var self = this;
         var body = "id=" + id;
-        this.cqrsUnwrapper.unwrap(
+        CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
                 url: config.api.customLiteralById,
                 data: body,
@@ -135,11 +134,10 @@ define([
 
 
 
-    CustomLiteralsEditCreateService.newInstance = function (ajaxService, sharedService, cqrsUnwrapper) {
+    CustomLiteralsEditCreateService.newInstance = function (ajaxService, sharedService) {
         ajaxService = ajaxService || AuthAjaxService.newInstance();
         sharedService = sharedService || LiteralsSharedService.newInstance();
-        cqrsUnwrapper = cqrsUnwrapper || CQRSUnwrapper.newInstance();
-        return new CustomLiteralsEditCreateService(ajaxService, sharedService, cqrsUnwrapper);
+        return new CustomLiteralsEditCreateService(ajaxService, sharedService);
     };
 
     return CustomLiteralsEditCreateService;
