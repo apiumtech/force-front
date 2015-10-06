@@ -26,15 +26,15 @@ define([
         var body = {
             key: literal.Key,
             languageValues: {},
-            deviceTypeIds: [],
+            platformIds: [],
             literalTypeId: null,
             oldKey: ''
         };
         _.each(literal.LanguageValues, function(value, key){
             body.languageValues[key] = value;
         });
-        literal.DeviceTypes.forEach(function (deviceType) {
-            body.deviceTypeIds.push(deviceType.Id);
+        literal.Platforms.forEach(function (platform) {
+            body.platformIds.push(platform.Id);
         });
         body.literalTypeId = literal.LiteralType ? literal.LiteralType.Id : null;
         body.oldKey = literal.OldKey || '';
@@ -48,7 +48,7 @@ define([
         var body = this._createLiteralBody(literal);
         return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.createLiteral,
+                url: config.api.literals.generic.createLiteral,
                 data: body,
                 type: 'POST',
                 dataType: 'json',
@@ -64,7 +64,7 @@ define([
         delete body.key;
         body.id = literal.Id;
         var params = {
-            url: config.api.changeLiteralDetails,
+            url: config.api.literals.generic.changeLiteralDetails,
             data: body,
             type: 'POST',
             dataType: 'json',
@@ -111,7 +111,7 @@ define([
         var body = "id=" + id;
         CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.literalById,
+                url: config.api.literals.generic.literalById,
                 data: body,
                 type: 'GET',
                 dataType: 'json'
@@ -135,7 +135,7 @@ define([
     proto.getNullLiteral = function () {
         var deferred = Q.defer();
         var nullLiteral = {
-            DeviceTypes: [],
+            Platforms: [],
             Id: null,
             Key: "",
             LanguageValues: {},
@@ -163,8 +163,8 @@ define([
     };
 
 
-    proto.getDeviceTypeList = function () {
-        return this.sharedService.getDeviceTypeList();
+    proto.getPlatformList = function () {
+        return this.sharedService.getPlatformList();
     };
 
 

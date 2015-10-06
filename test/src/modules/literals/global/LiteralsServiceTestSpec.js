@@ -26,7 +26,7 @@ define([
             it("should call ajaxService's rawAjaxRequest with literalList url", function () {
                 var sut = exerciseCreateService();
                 spyOn(sut.authAjaxService, "rawAjaxRequest");
-                config.api.literalList = "getLiteralsList url";
+                config.api.literals.generic.literalList = "getLiteralsList url";
                 sut.getLiteralsList();
                 var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 var ajaxParams = args[0];
@@ -42,7 +42,7 @@ define([
             it("should call ajaxService's rawAjaxRequest with deleteLiteral url", function () {
                 var sut = exerciseCreateService();
                 spyOn(sut.authAjaxService, "rawAjaxRequest");
-                config.api.deleteLiteral = "deleteLiteral url";
+                config.api.literals.generic.deleteLiteral = "deleteLiteral url";
                 sut.deleteLiteral(1);
                 var args = sut.authAjaxService.rawAjaxRequest.calls.argsFor(0);
                 var ajaxParams = args[0];

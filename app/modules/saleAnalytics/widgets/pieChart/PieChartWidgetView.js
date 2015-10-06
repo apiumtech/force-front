@@ -6,10 +6,9 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/PieChart',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, PieChart, GoogleChartService, GraphColorService) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService) {
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
@@ -20,6 +19,7 @@ define([
         self.chartService = GoogleChartService.newInstance();
         self.configureEvents();
     }
+
 
     PieChartWidgetView.inherits(WidgetBaseView, {
         tabs: {
@@ -48,12 +48,14 @@ define([
         }
     });
 
+
     PieChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
         var eventChannel = self.eventChannel;
 
-        eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        eventChannel.onReloadCommandReceived(
+            self.onReloadCommandReceived.bind(self)
+        );
 
         eventChannel.onExpandingWidget(function(){
             setTimeout(self.reDraw.bind(self), 250);
@@ -70,43 +72,36 @@ define([
         };
 
         self.fn.refreshChart = function () {
-            self.refreshChart();
+            self.paintChart();
         };
 
         self.resizeHandling();
     };
+
 
     PieChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.data = responseData.data.params.params;
         self.tabs = responseData.data.params.filters;
         self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
-
-        self.refreshChart();
+        self.paintChart();
     };
 
-    PieChartWidgetView.prototype.refreshChart = function () {
-        var self = this,
-            data = self.data;
-
-        if (!data || data === null || !isArray(data)) return;
-
-        self.paintChart(self.element.find('.chart-place-holder'));
-    };
 
     PieChartWidgetView.prototype.reDraw = function(){
-        //if(PieChart.getChart())
-        //PieChart.getChart().draw();
-        var self = this;
-        self.paintChart(self.element.find('.chart-place-holder'));
+        this.paintChart();
     };
 
-    PieChartWidgetView.prototype.paintChart = function (element) {
-        //var plot = PieChart.basic(this.data);
-        //plot.paint($(element));
 
+    PieChartWidgetView.prototype.paintChart = function () {
         var self = this;
         var chartService = self.chartService;
+        var element = self.element.find('.chart-place-holder');
+        var data = self.data;
+
+        if (!data || data === null || !isArray(data)) {
+            return;
+        }
 
         var dataTable = new google.visualization.DataTable();
 
@@ -137,10 +132,9 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
+
     PieChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-
         var view = new PieChartWidgetView($scope, $element);
-
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

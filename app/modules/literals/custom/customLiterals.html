@@ -1,12 +1,16 @@
-<div class="Literals" ng-init="event.onInit()">
+<div class="Literals">
 
+    <!-- TITLE -->
     <h1 class="page-header">
         {{'CustomLiteral.List.Title' | i18next}}
     </h1>
 
 
-    <!-- FILTERS ZONE -->
 
+
+
+
+    <!-- FILTERS ZONE -->
     <div class="row filters-div">
         <!-- begin col-12 -->
         <div class="col-md-12">
@@ -23,63 +27,41 @@
                 </div>
 
             </div>
-            <div class="line-border clearfix m-b-30 "></div>
+            <div class="line-border clearfix m-b-15 "></div>
         </div>
     </div>
-
     <!-- END FILTERS ZONE -->
 
 
+    <div class="row">
+        <div class="col-xs-12">
 
-    <div class="col-md-12 ui-sortable">
-        <div class="panel panel-inverse">
+            <!-- Table -->
+            <div ng-include="'app/modules/literals/shared/table/table.html'"></div>
 
-            <!-- Panel header -->
-            <div class="panel-heading">
-                <div class="panel-heading-btn">
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"
-                       data-original-title="" title=""><i class="fa fa-expand"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"
-                       data-original-title="" title=""><i class="fa fa-repeat"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"
-                       data-original-title="" title=""><i class="fa fa-minus"></i></a>
-                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"
-                       data-original-title="" title=""><i class="fa fa-times"></i></a>
-                </div>
-                <h4 class="panel-title">
-                    {{'CustomLiteral.List.Table.Header' | i18next}}
-                </h4>
-            </div>
-
-            <!-- Panel body -->
-            <div class="panel-body">
-
-                <!-- Table -->
-                <div ng-include="'app/modules/literals/shared/table/table.html'"></div>
-
-
-            </div>
-            <!-- End Panel body -->
-
-        </div>
-
-        <!-- TEMPLATES -->
-        <div class="hide literalKeyColumnTemplate">
-            {Key}
-            <div>
-                <div class="edit-delete-div">
-                    <a href="#/custom-literals/{Id}/edit" ng-show="'{ImplementationCode}'=='-1'"><i class="fa ic-edit"></i>{{'CustomLiteral.List.Table.Edit_label' | i18next}}</a>
-                    <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')" ng-hide="'{ImplementationCode}'=='-1'"><i class="fa ic-trash"></i>{{'CustomLiteral.List.Table.Delete_label' | i18next}}</a>
+            <!-- TEMPLATES -->
+            <div class="hide literalKeyColumnTemplate">
+                {Key}
+                <div>
+                    <div class="edit-delete-div">
+                        <a href="#/custom-literals/{Id}/edit" ng-show="'{ImplementationCode}'=='-1'">
+                            <i class="fa ic-edit"></i>{{'CustomLiteral.List.Table.Edit_label' | i18next}}
+                        </a>
+                        <a class="brand-red-text" ng-click="fn.deleteLiteralPrompt('{Id}')" ng-hide="'{ImplementationCode}'=='-1'">
+                            <i class="fa ic-trash"></i>{{'CustomLiteral.List.Table.Delete_label' | i18next}}
+                        </a>
+                    </div>
                 </div>
             </div>
+            <div class="hide literalImplementationCodeColumnTemplate">
+                <p title="{ImplementationCode}" style="text-align:center;">
+                    <i ng-show="'{ImplementationCode}'=='-1'" class="fa ic-flag"></i>
+                    <i ng-show="'{ImplementationCode}'!='-1'" class="fa ic-flag-filled"></i>
+                </p>
+            </div>
+            <!-- END TEMPLATES -->
         </div>
-        <div class="hide literalImplementationCodeColumnTemplate">
-            <p ng-show="'{ImplementationCode}'=='-1'" style="text-align:center;"><i class="fa ic-flag"></i></p>
-            <p ng-hide="'{ImplementationCode}'=='-1'" style="text-align:center;"><i class="fa ic-flag-filled"></i></p>
-        </div>
-        <!-- END TEMPLATES -->
     </div>
-
 
 
 

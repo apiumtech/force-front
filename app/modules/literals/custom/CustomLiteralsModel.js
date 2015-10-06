@@ -18,8 +18,9 @@ define([
     proto.setUserImplementationCode = function() {
         var implementationCode = this.storageService.retrieve(config.implementationCodeKey, true);
 
-        //TODO: provisional while not properly integrated into web2
-        implementationCode = implementationCode || 8004;
+        if(config.isDevMode()){
+            implementationCode = implementationCode || 8004;
+        }
 
         this.queryBuilder.setImplementationCode(implementationCode);
     };

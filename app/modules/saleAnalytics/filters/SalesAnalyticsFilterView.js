@@ -7,12 +7,10 @@ define([
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
     'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
-
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass, WidgetAdministrationEventBus,
-             $, moment, _) {
+], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass, WidgetAdministrationEventBus, $, moment, _) {
     'use strict';
 
     function SalesAnalyticsFilterView($scope) {
@@ -154,7 +152,7 @@ define([
                 $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
         };
 
-        self.fn.loadPreviousLastDaysFilter = function (days, event) {
+        self.fn.loadPreviousLastDaysFilter = function (days) {
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(days, self.dateRangeEnd);
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);

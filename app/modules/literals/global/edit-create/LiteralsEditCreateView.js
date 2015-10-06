@@ -20,19 +20,19 @@ define([
         this.data.literalTypeList = null;
         this.data.selectedLiteralType = null;
 
-        // device Type
-        this.data.deviceTypeList = null;
-        this.data.selectedDeviceTypes = [];
-        this.data.deviceTypeListPrompt = this.translator.translate("Literal.Detail.Form.Select_Device_Type");
+        // Platform
+        this.data.platformList = null;
+        this.data.selectedPlatforms = [];
+        this.data.platformListPrompt = this.translator.translate("Literal.Detail.Form.Select_Platform");
     };
 
     proto.configureEvents = function () {
         this.__base__.configureEvents.call(this);
 
-        this.fn.onToggleDeviceType = this.onToggleDeviceType.bind(this);
+        this.fn.onTogglePlatform = this.onTogglePlatform.bind(this);
 
         this.event.getLiteralTypeList = function () {};
-        this.event.getDeviceTypeList = function () {};
+        this.event.getPlatformList = function () {};
     };
 
 
@@ -41,11 +41,11 @@ define([
     proto.onInit = function () {
         this.data.isLoading = true;
         this.event.getLiteralTypeList();
-        this.event.getDeviceTypeList();
+        this.event.getPlatformList();
     };
 
     proto.getLiteralById = function () {
-        if (this.data.deviceTypeList && this.data.literalTypeList) {
+        if (this.data.platformList && this.data.literalTypeList) {
             this.event.getLiteralById(this.routeParams.literalId);
         }
     };
@@ -57,7 +57,7 @@ define([
 
     proto.onSave = function () {
         this.data.isLoading = true;
-        this.data.literal.DeviceTypes = this.data.selectedDeviceTypes;
+        this.data.literal.Platforms = this.data.selectedPlatforms;
         if (this.isNew()) {
             this.event.createLiteral(this.data.literal);
         } else {
@@ -74,32 +74,32 @@ define([
     };
 
 
-    proto.onGetDeviceTypeListSuccess = function (res) {
-        this.data.deviceTypeList = res.data;
+    proto.onGetPlatformListSuccess = function (res) {
+        this.data.platformList = res.data;
         this.getLiteralById();
     };
 
     proto.showForm = function (literal) {
         var self = this;
-        literal.DeviceTypes.forEach(function(deviceType){
-            var deviceTypeFromList = _.findWhere(self.data.deviceTypeList, {Id: deviceType.Id});
-            self.onToggleDeviceType(deviceTypeFromList);
+        literal.Platforms.forEach(function(platform){
+            var platformFromList = _.findWhere(self.data.platformList, {Id: platform.Id});
+            self.onTogglePlatform(platformFromList);
         });
         this.data.literal = literal;
     };
 
-    proto.onToggleDeviceType = function (deviceType) {
-        deviceType.selected = !deviceType.selected;
-        if (deviceType.selected) {
-            this.data.selectedDeviceTypes.push(deviceType);
+    proto.onTogglePlatform = function (platform) {
+        platform.selected = !platform.selected;
+        if (platform.selected) {
+            this.data.selectedPlatforms.push(platform);
         } else {
-            var index = this.data.selectedDeviceTypes.indexOf(deviceType);
-            this.data.selectedDeviceTypes.splice(index, 1);
+            var index = this.data.selectedPlatforms.indexOf(platform);
+            this.data.selectedPlatforms.splice(index, 1);
         }
-        var names = this.data.selectedDeviceTypes.map(function (currentDeviceType) {
-            return currentDeviceType.Name;
+        var names = this.data.selectedPlatforms.map(function (currentPlatform) {
+            return currentPlatform.Name;
         });
-        this.data.deviceTypeListPrompt = names.length > 0 ? names.join(", ") : this.translator.translate("Literal.Detail.Form.Select_Device_Type");
+        this.data.platformListPrompt = names.length > 0 ? names.join(", ") : this.translator.translate("Literal.Detail.Form.Select_Platform");
     };
 
     proto.showError = function (err) {

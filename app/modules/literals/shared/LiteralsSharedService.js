@@ -23,7 +23,7 @@ define([
     proto.getLanguageList = function () {
         return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.languageList,
+                url: config.api.literals.languageList,
                 type: 'GET',
                 dataType: 'json'
             })
@@ -33,7 +33,7 @@ define([
 
     proto.getLiteralTypeList = function () {
         return this.authAjaxService.rawAjaxRequest({
-                url: config.api.literalTypeList,
+                url: config.api.literals.literalTypeList,
                 type: 'GET',
                 dataType: 'json'
             });
@@ -41,19 +41,19 @@ define([
     };
 
 
-    proto.getDeviceTypeList = function () {
+    proto.getPlatformList = function () {
+        var deferred = Q.defer();
         return this.authAjaxService.rawAjaxRequest({
-                url: config.api.deviceTypeList,
+                url: config.api.literals.platformList,
                 type: 'GET',
                 dataType: 'json'
             });
-
     };
 
     proto.getImplementationList = function () {
         return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.implementationList,
+                url: config.api.literals.implementationList,
                 type: 'GET',
                 dataType: 'json'
             })

@@ -8,7 +8,7 @@ define([
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
-    'plots/MapChart',
+    'modules/saleAnalytics/widgets/mapChart/MapChart',
     'shared/services/config/PermissionsService'
 ], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService){
 
@@ -22,6 +22,7 @@ define([
         self.selectedFilter = 'checkins';
         self.configureEvents();
     }
+
 
     MapChartWidgetView.inherits(WidgetBaseView, {
         selectedFilter: {
@@ -42,9 +43,9 @@ define([
         }
     });
 
+
     MapChartWidgetView.prototype.configureEvents = function () {
         var self = this;
-        self.isAssigned = false;
 
         var eventChannel = self.eventChannel;
 
@@ -80,10 +81,13 @@ define([
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
         var self = this;
-        if(data && data.length)
+        if(data && data.length){
             self.mapData = data;
+        }
 
-        if(!self.mapData) return;
+        if(!self.mapData) {
+            return;
+        }
 
         self.paintChart(self.element.find('.chart-place-holder'));
         self.mapChart.clearHeatMap();

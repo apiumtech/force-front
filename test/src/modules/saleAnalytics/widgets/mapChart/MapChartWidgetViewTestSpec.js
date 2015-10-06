@@ -6,7 +6,7 @@ define([
     'angular',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetView',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
-    'plots/MapChart',
+    'modules/saleAnalytics/widgets/mapChart/MapChart',
     'shared/services/config/PermissionsService'
 ], function (angular, MapChartWidgetView, MapChartWidgetPresenter, MapChart, PermissionsService) {
     'use strict';

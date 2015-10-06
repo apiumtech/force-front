@@ -95,16 +95,20 @@ define(function () {
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
 
-        createLiteral: baseUrl + '/api/commands/commons/literals/createLiteral',
-        changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeLiteralDetails',
-        deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteLiteral',
 
-        literalList: baseUrl + '/api/queries/commons/literals/literalList',
-        literalById: baseUrl + '/api/queries/commons/literals/literalById',
-
-        languageList: baseUrl + '/api/queries/commons/languages/languageList',
-        literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
-        deviceTypeList: baseUrl + '/api/queries/commons/devices/deviceTypeList',
+        literals: {
+            languageList: baseUrl + '/api/queries/commons/languages/languageList',
+            literalTypeList: baseUrl + '/api/queries/commons/literals/literalTypeList',
+            platformList: baseUrl + '/api/queries/commons/platforms/platformList',
+            implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
+            generic: {
+                createLiteral: baseUrl + '/api/commands/commons/literals/createGenericLiteral',
+                changeLiteralDetails: baseUrl + '/api/commands/commons/literals/changeGenericLiteralDetails',
+                literalById: baseUrl + '/api/queries/commons/literals/genericLiteralById',
+                literalList: baseUrl + '/api/queries/commons/literals/genericLiteralList',
+                deleteLiteral: baseUrl + '/api/commands/commons/literals/deleteGenericLiteral'
+            }
+        },
 
 
         createCustomLiteral: baseUrl + '/api/commands/commons/literals/createCustomLiteral',
@@ -114,7 +118,6 @@ define(function () {
         customLiteralList: baseUrl + '/api/queries/commons/literals/customLiteralList',
         customLiteralById: baseUrl + '/api/queries/commons/literals/customLiteralById',
 
-        implementationList: baseUrl + '/api/queries/commons/implementations/implementationList',
 
         literalValueDictionary: baseUrl + '/api/queries/commons/literalValues/literalValueObject'
 
@@ -129,8 +132,8 @@ define(function () {
             default: "dd/MM/yyyy"
         },
         corsEnabled: true,
-        pageSize: 10,
-        defaultDateSubtraction: 30,
+        pageSize: 7,
+        defaultDateSubtraction: 90,
         tokenStorageKey: "fm_token",
         permissionsStorageKey: "fm_permissions",
         implementationCodeKey: "fm_implementationCode",

@@ -28,7 +28,7 @@ define([
     proto.getLiteralsList = function(searchParams) {
         return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.literalList,
+                url: config.api.literals.generic.literalList,
                 headers: searchParams,
                 type: 'GET',
                 dataType: 'json'
@@ -44,7 +44,7 @@ define([
         };
         return CQRSUnwrapper.unwrap(
             this.authAjaxService.rawAjaxRequest({
-                url: config.api.deleteLiteral,
+                url: config.api.literals.generic.deleteLiteral,
                 data: body,
                 type: 'POST',
                 dataType: 'json',

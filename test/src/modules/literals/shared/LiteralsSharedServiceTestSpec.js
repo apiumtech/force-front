@@ -11,7 +11,7 @@ define([
         [
             'getLanguageList',
             'getLiteralTypeList',
-            'getDeviceTypeList',
+            'getPlatformList',
             'getImplementationList'
         ].forEach(function(methodName){
             it('should define ' + methodName, function(){

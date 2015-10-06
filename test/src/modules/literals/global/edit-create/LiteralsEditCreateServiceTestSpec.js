@@ -14,7 +14,7 @@ define([
             var someLiteral, sut, body;
             beforeEach(function () {
                 someLiteral = {
-                    DeviceTypes: [{Id:'dt-1'},{Id:'dt-2'}],
+                    Platforms: [{Id:'dt-1'},{Id:'dt-2'}],
                     Id: 'id-12345',
                     Key: "some_key",
                     LanguageValues: {
@@ -38,8 +38,8 @@ define([
                     "fr-fr": "some key fr"
                 });
             });
-            it('should create a literal body with the correct Device Types', function () {
-                expect(body.deviceTypeIds).toEqual(['dt-1','dt-2']);
+            it('should create a literal body with the correct Platforms', function () {
+                expect(body.platformIds).toEqual(['dt-1','dt-2']);
             });
             it('should create a literal body with the correct Literal Type Id', function () {
                 expect(body.literalTypeId).toBe('lt-1');
@@ -58,11 +58,11 @@ define([
                 var sut = exerciseCreateService();
                 spyOn(CQRSUnwrapper, "unwrap");
                 spyOn(sut.authAjaxService, "rawAjaxRequest");
-                sut.createLiteral({Key:"some_key", DeviceTypes:[], LiteralType:{Id:1}, LanguageValues:{}});
+                sut.createLiteral({Key:"some_key", Platforms:[], LiteralType:{Id:1}, LanguageValues:{}});
                 expect(sut.authAjaxService.rawAjaxRequest.calls.argsFor(0)[0].data).toEqual({
                     key: "some_key",
                     languageValues: {},
-                    deviceTypeIds: [],
+                    platformIds: [],
                     literalTypeId: 1,
                     oldKey: ''
                 });
@@ -79,7 +79,7 @@ define([
 
         [
             'getLiteralTypeList'
-            , 'getDeviceTypeList'
+            , 'getPlatformList'
         ].forEach(function (methodName) {
                 it('should define ' + methodName, function () {
                     var sut = exerciseCreateService();
