@@ -10,7 +10,6 @@ define([
     }
 
     Object.defineProperties(BaseListQueryBuilder, {
-        "TAG_TOTAL_COUNT": { value: "totalCount", writable: false },
         "LIMIT_GET_ALL_RESULTS": { value: 0, writable: false },
         "SORT_DESC": { value: -1, writable: false },
         "SORT_ASC": { value: 1, writable: false },
@@ -26,7 +25,7 @@ define([
         this.limit = config.pageSize;
         this.searchTerms = "";
         this.sort = {};
-        this.tags = [ BaseListQueryBuilder.TAG_TOTAL_COUNT ];
+        this.tags = [];
     };
 
     proto.setSearchTerms = function( searchTerms ) {
@@ -43,8 +42,8 @@ define([
             return;
         }
         var conditions = this.resetPageHeuristicsBuilder(currentQuery);
-        var shouldReset = conditions.reduce(function(a,b){
-            return a || b;
+        var shouldReset = conditions.reduce(function(accumulator, expr){
+            return accumulator || expr;
         });
         if( shouldReset ){
             this.resetPaging();
@@ -72,8 +71,8 @@ define([
     }
 
     proto.build = function() {
+        this.resetPageHeuristics(this.createCurrentQuery());
         var currentQuery = this.createCurrentQuery();
-        this.resetPageHeuristics(currentQuery);
         this.lastQuery = currentQuery;
         return this.lastQuery;
     };

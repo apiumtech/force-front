@@ -1,8 +1,8 @@
 define([
     'shared/BaseView',
     'shared/services/bus/ScrollEventBus',
-    'jquery'
-], function(BaseView, ScrollEventBus, $) {
+    'config'
+], function(BaseView, ScrollEventBus, config) {
     'use strict';
 
     function BaseLiteralsView($scope, $model, $presenter) {
@@ -10,7 +10,6 @@ define([
         this.disposer = null;
         this.data.currentError = null;
         this.isPagerActive = true;
-        this.lastScrollY = 0;
         this.configureEvents();
     }
 
@@ -30,7 +29,6 @@ define([
         this.event.onDisposing();
         ScrollEventBus.dispose();
         this.disposer();
-        this.resetScrollState();
     };
 
 
@@ -38,37 +36,23 @@ define([
         this.data.currentError = msg;
     };
 
+
     proto.onPageScrolledToBottom = function () {
         if(this.isPagerActive){
             this.event.nextPage();
         }
     };
 
-    proto.resetScrollState = function () {
-        $('body').css('min-height', 0);
-        $('html, body').scrollTop( 0 );
-    };
 
-    proto.saveScrollState = function () {
-        this.lastScrollY = $(document).scrollTop();
-        $('body').css('min-height', $(document).height()+"px");
+    proto.onLiteralsRequest = function(data){
         this.isPagerActive = false;
     };
 
-    proto.setScrollState = function () {
-        var self = this;
-        setTimeout(function(){
-            self.isPagerActive = true;
-        }, 1000);
-        $('html, body').scrollTop( this.lastScrollY - 15 );
-    };
 
-    proto.onLiteralsRequest = function(){
-        this.saveScrollState();
-    };
-
-    proto.onLiteralsRequestSuccess = function(){
-        this.setScrollState();
+    proto.onLiteralsRequestSuccess = function(result){
+        if(result.data.length >= config.pageSize){
+            this.isPagerActive = true;
+        }
     };
 
     return BaseLiteralsView;

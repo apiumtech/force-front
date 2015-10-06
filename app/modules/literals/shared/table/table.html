@@ -3,53 +3,55 @@
     ng-init="event.onInit()"
     ng-controller="LiteralsTableController">
 
-
-    <div class="panel-loader" ng-show="data.isLoading">
-        <span class="spinner-small"></span>
-    </div>
-
-
     <div class="alert alert-warning" ng-if="data.currentError != null">
         <i class="glyphicon glyphicon-warning-sign"></i>
         {{ data.currentError }}
     </div>
 
 
-    <div class="col-xs-12 table-responsive m-t-20" ng-hide="data.isLoading || data.currentError != null">
+    <div class="table-responsive m-t-20" ng-hide="data.currentError != null">
 
         <table id="data-table" class="table table-striped ">
             <thead>
-            <tr>
-                <th ng-repeat="column in data.columns" ng-if="column.available && column.visible" style="text-align: center; border-right: 1px solid #e2e7eb;">
-                    <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
-                        <span ng-bind-html="column.label"></span>
-                        <i ng-class="{
-                                'fa fa-sort':      data.sortingState.column.key !== column.key,
-                                'fa fa-sort-asc':  data.sortingState.column.key === column.key && data.sortingState.asc,
-                                'fa fa-sort-desc': data.sortingState.column.key === column.key && data.sortingState.desc
-                            }"
-                        />
-                    </a>
-                    <span ng-if="!column.sortable" ng-bind-html="column.label"></span>
-                </th>
-            </tr>
+                <tr>
+                    <th ng-repeat="column in data.columns"
+                        ng-if="column.available && column.visible"
+                        style="text-align: center; border-right: 1px solid #e2e7eb;"
+                        ng-style="{width: column.width}">
+                        <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
+                            <span ng-bind-html="column.label"></span>
+                            <i ng-class="{
+                                    'fa fa-sort':      data.sortingState.column.key !== column.key,
+                                    'fa fa-sort-asc':  data.sortingState.column.key === column.key && data.sortingState.asc,
+                                    'fa fa-sort-desc': data.sortingState.column.key === column.key && data.sortingState.desc
+                                }"
+                            />
+                        </a>
+                        <span ng-if="!column.sortable" ng-bind-html="column.label"></span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            <tr class="gradeX" ng-repeat="record in data.rows track by record.Id">
-                <td ng-repeat="col in data.columns track by col.key"
-                    ng-if="col.available && col.visible"
-                    ng-switch="col.key"
-                    style="border-right: 1px solid #e2e7eb;">
+                <tr class="gradeX" ng-repeat="record in data.rows track by record.Id">
+                    <td ng-repeat="col in data.columns track by col.key"
+                        ng-if="col.available && col.visible"
+                        ng-switch="col.key"
+                        style="border-right: 1px solid #e2e7eb;">
 
-                    <div ng-switch-when="Key" ng-bind-html="fn.renderLiteralKeyColumnTemplate(record)" cell-compiler></div>
-                    <div ng-switch-when="ImplementationCode" ng-bind-html="fn.renderImplementationCodeColumn(record)" cell-compiler></div>
+                        <div ng-switch-when="Key" ng-bind-html="fn.renderLiteralKeyColumnTemplate(record)" cell-compiler></div>
+                        <div ng-switch-when="ImplementationCode" ng-bind-html="fn.renderImplementationCodeColumn(record)" cell-compiler></div>
+                        <p ng-switch-default class="m-t-10">{{ record[col.key] }}</p>
 
-
-                    <p ng-switch-default class="m-t-10">{{ record[col.key] }}</p>
-
-                </td>
-            </tr>
+                    </td>
+                </tr>
             </tbody>
+            <tfoot>
+                <tr ng-show="data.isLoading">
+                    <td colspan="{{ data.columns.length-1 }}" style="position:relative; height: 60px;">
+                        <span class="spinner-small"></span>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 
     </div>

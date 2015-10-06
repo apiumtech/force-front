@@ -4,16 +4,16 @@ define([
 ], function(app, LiteralsTableView) {
 	'use strict';
 
-	function LiteralsTableController($scope, $compile, $sce) {
-        LiteralsTableController.configureView($scope, $compile, $sce);
+	function LiteralsTableController($scope, $sce) {
+        LiteralsTableController.configureView($scope, $sce);
 	}
 
-    LiteralsTableController.configureView = function ($scope, $compile, $sce) {
-		var view = LiteralsTableView.newInstance({scope: $scope, compile: $compile, sce: $sce});
+    LiteralsTableController.configureView = function ($scope, $sce) {
+		var view = LiteralsTableView.newInstance({scope: $scope, sce: $sce});
 		view.show();
 	};
 
-	app.register.controller('LiteralsTableController', ['$scope', '$compile', '$sce', LiteralsTableController]);
+	app.register.controller('LiteralsTableController', ['$scope', '$sce', LiteralsTableController]);
 
 	return LiteralsTableController;
 });

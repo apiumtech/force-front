@@ -43,21 +43,11 @@ define([
 
     proto.getPlatformList = function () {
         var deferred = Q.defer();
-        console.warn("fake getPlatformList");
-        setTimeout(function(){
-            var arr = [];
-            [1,2,3,4,5,6,7].forEach(function(item){
-                arr.push({Id:"p"+item, Name:"Fake Platform "+item});
-            });
-            deferred.resolve({data:arr});
-        }, 500);
-        return deferred.promise;
-
-        /*return this.authAjaxService.rawAjaxRequest({
+        return this.authAjaxService.rawAjaxRequest({
                 url: config.api.literals.platformList,
                 type: 'GET',
                 dataType: 'json'
-            });*/
+            });
     };
 
     proto.getImplementationList = function () {

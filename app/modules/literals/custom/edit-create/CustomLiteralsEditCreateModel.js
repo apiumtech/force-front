@@ -28,8 +28,16 @@ define([
         assertNotNull("literal", literal);
         assertNotNull("implementationCode", literal.ImplementationCode);
         var body = this.createLiteralBody(literal);
-        // TODO: remove 8004 when integration completed
-        body.implementationCode = this.storageService.retrieve(config.implementationCodeKey, true) || 8004;
+        body.implementationCode = this.storageService.retrieve(config.implementationCodeKey, true);
+
+        if(config.isDevMode()){
+            body.implementationCode = body.implementationCode || 8004;
+        }
+
+        if(!body.implementationCode){
+            throw new Error("No implementationCode found");
+        }
+
         return this.service.createLiteral(body);
     };
 

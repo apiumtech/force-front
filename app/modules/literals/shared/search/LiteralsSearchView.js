@@ -7,7 +7,7 @@ define([
 
     function LiteralsSearchView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.searchDelay = 2000;
+        this.searchDelay = 1000;
         this.performSearchTimeout = null;
         this.configureEvents();
     }

@@ -132,7 +132,7 @@ define(function () {
             default: "dd/MM/yyyy"
         },
         corsEnabled: true,
-        pageSize: 10,
+        pageSize: 7,
         defaultDateSubtraction: 90,
         tokenStorageKey: "fm_token",
         permissionsStorageKey: "fm_permissions",

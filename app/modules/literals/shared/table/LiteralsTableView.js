@@ -10,9 +10,8 @@ define([
 	'use strict';
 
 
-	function LiteralsTableView(scope, model, presenter, compile, templateParser, sce) {
+	function LiteralsTableView(scope, model, presenter, templateParser, sce) {
 		BaseView.call(this, scope, model, presenter);
-        this.compile = compile;
         this.sce = sce;
         this.templateParser = templateParser;
         this.translator = TranslatorService.newInstance();
@@ -55,10 +54,6 @@ define([
             return self.sce.trustAsHtml( parsed );
         };
 
-        self.fn.compile_createdCell = function (cell) {
-            self.compile_createdCell(cell);
-        }
-
         self.event.onInit = function () {};
         self.event.fireLiteralsDeleteRequest = function () {};
 		self.event.fireLiteralsRequest = function () {};
@@ -95,18 +90,20 @@ define([
             key: key,
             label: key,
             type: type,
-            sortable: true,
+            sortable: false,
             visible: true,
             available: true,
             width: '100px'
         };
     };
 
+    var KEY_COL_WIDTH = 25;
+    var IMPL_CODE_COL_WIDTH = 5;
 
     proto._createLanguageColumns = function (data) {
         var self = this;
-        var availableColumnWidth = 70;// 100% - keyCol - ImplCol
-        var colWidth = availableColumnWidth / data.length;
+        var availableColumnWidth = 100 - (KEY_COL_WIDTH + IMPL_CODE_COL_WIDTH);
+        var colWidth = Math.floor(availableColumnWidth / data.length);
         data.forEach(function (lang) {
             var col = self._createColumnDeclaration(lang.Name, "string");
             col.width = colWidth + "%";
@@ -118,7 +115,7 @@ define([
     proto._createKeyColumn = function() {
         var col = this._createColumnDeclaration("Key", "string");
         col.sortable = false;
-        col.width = "25%";
+        col.width = KEY_COL_WIDTH + "%";
         return col;
     };
 
@@ -130,22 +127,11 @@ define([
         col.visible = false;
         col.available = false;
         col.sortable = false;
-        col.width = "5%";
+        col.width = IMPL_CODE_COL_WIDTH + "%";
         return col;
     };
 
-    proto.compile_createdCell = function (cell) {
-        this.compile(cell)(this.$scope);
-    };
 
-    /*proto.onCreatedRow = function ( row, data, index ) {
-        if ( data.ImplementationCode == -1 ) {
-            $('td', row).addClass('highlight');
-            //$('td', row).css('background-color', 'red');
-        }
-    };*/
-
-    // Columns Request callbacks
     proto.onColumnsRequestSuccess = function(res) {
         var self = this;
         var data = res.data;
@@ -154,30 +140,7 @@ define([
         var KeyColumn = this._createKeyColumn();
         var ImplementationColumn = this._createImplementationColumn();
         var columns = [KeyColumn, ImplementationColumn];
-
         self.data.columns = columns.concat(this.languageColumns.slice());
-
-        /*var dataTableConfig = {
-            data: [],
-            paging: false,
-            info: false,
-            order: [],
-            columns: columns,
-            columnDefs: [
-                {
-                    targets: 0,
-                    render: self.renderKeyColumn.bind(self),
-                    createdCell: self.compile_createdCell.bind(self)
-                },
-                {
-                    targets: 1,
-                    render: self.renderImplementationCodeColumn.bind(self),
-                    createdCell: self.compile_createdCell.bind(self)
-                }
-            ],
-            createdRow: self.onCreatedRow.bind(self)
-        };*/
-
 
         this.event.fireLiteralsRequest();
     };
@@ -185,12 +148,6 @@ define([
 
     proto.onColumnsRequestError = function(err) {
         this.showError(err);
-    };
-
-
-    proto.onLiteralsRequest = function(res) {
-        this.data.isLoading = true;
-        this.data.currentError = null;
     };
 
 
@@ -216,7 +173,17 @@ define([
     };
 
 
-    // Literals Request callbacks
+    proto.clearTable = function() {
+        this.data.rows.splice(0);
+    };
+
+
+    proto.onLiteralsRequest = function() {
+        this.data.isLoading = true;
+        this.data.currentError = null;
+    };
+
+
     proto.onLiteralsRequestSuccess = function(res) {
         var self = this;
         self.data.isLoading = false;
@@ -231,8 +198,8 @@ define([
             implementationCodeColumn.available = isImplementationCodeColumnVisible;
             implementationCodeColumn.visible = isImplementationCodeColumnVisible;
         }
-        
-        self.data.rows = data;
+
+        self.data.rows = self.data.rows.concat(data);
         self._addTooltipsToEllipsis();
     };
 
@@ -273,7 +240,7 @@ define([
 		var model = namedParams.model || LiteralsTableModel.newInstance();
 		var presenter = namedParams.presenter || LiteralsTablePresenter.newInstance();
         var templateParser = namedParams.templateParser || SimpleTemplateParser.newInstance();
-		var view = new LiteralsTableView(scope, model, presenter, namedParams.compile, templateParser, namedParams.sce);
+		var view = new LiteralsTableView(scope, model, presenter, templateParser, namedParams.sce);
 
 		return view._injectAspects(namedParams.viewRepAspect, namedParams.logErrorAspect);
 	};

@@ -19,8 +19,10 @@ define([
 
     proto.resetPageHeuristicsBuilder = function(currentQuery) {
         var conditions = this.__base__.resetPageHeuristicsBuilder.call(this, currentQuery);
-        conditions.push( currentQuery.filter.literalTypeId != this.lastQuery.filter.literalTypeId ||
-            !_.isEqual(currentQuery.filter.platformIds, this.lastQuery.filter.platformIds) );
+        conditions.push(
+            currentQuery.filter.literalTypeId != this.lastQuery.filter.literalTypeId ||
+            !_.isEqual(currentQuery.filter.platformIds, this.lastQuery.filter.platformIds)
+        );
         return conditions;
     };
 

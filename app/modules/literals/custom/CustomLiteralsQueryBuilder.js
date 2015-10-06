@@ -16,17 +16,22 @@ define([
         this.implementationCode = null;
     };
 
+
     proto.resetPageHeuristicsBuilder = function(currentQuery) {
         var conditions = this.__base__.resetPageHeuristicsBuilder.call(this, currentQuery);
-        conditions.push( currentQuery.filter.implementationCode != this.lastQuery.filter.implementationCode );
+        conditions.push(
+            currentQuery.filter.implementationCode != this.lastQuery.filter.implementationCode
+        );
         return conditions;
     };
+
 
     proto.createCurrentQuery = function() {
         var currentQuery = this.__base__.createCurrentQuery.call(this);
         currentQuery.filter.implementationCode = this.implementationCode;
         return currentQuery;
     };
+
 
     proto.setImplementationCode = function(implementationCode) {
         this.implementationCode = implementationCode;
