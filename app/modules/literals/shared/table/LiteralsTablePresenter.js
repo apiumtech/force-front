@@ -37,7 +37,7 @@ define([
         this.eventBus.onLiteralsRequestSuccess(view.onLiteralsRequestSuccess.bind(view));
 		this.eventBus.onLiteralsRequestError(view.onLiteralsRequestError.bind(view));
 
-        this.eventBus.onLiteralsSearch(view.clearTable.bind(view));
+        //this.eventBus.onLiteralsSearch(view.clearTable.bind(view));
 	};
 
 

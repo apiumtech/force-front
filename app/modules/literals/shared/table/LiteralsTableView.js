@@ -2,25 +2,32 @@ define([
 	'shared/BaseView'
 	,'modules/literals/shared/table/LiteralsTablePresenter'
 	,'modules/literals/shared/table/LiteralsTableModel'
-	,'shared/services/DataTableService'
 	,'shared/services/SimpleTemplateParser'
     ,'jquery'
+    ,'underscore'
     ,'shared/services/TranslatorService'
-], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, DataTableService, SimpleTemplateParser, $, TranslatorService) {
+], function(BaseView, LiteralsTablePresenter, LiteralsTableModel, SimpleTemplateParser, $, _, TranslatorService) {
 	'use strict';
 
 
-	function LiteralsTableView(scope, model, presenter, compile, dataTableService, templateParser) {
+	function LiteralsTableView(scope, model, presenter, compile, templateParser, sce) {
 		BaseView.call(this, scope, model, presenter);
         this.compile = compile;
-        this.dataTableService = dataTableService;
+        this.sce = sce;
         this.templateParser = templateParser;
         this.translator = TranslatorService.newInstance();
 
+        this.data.scope = scope;
         this.data.currentError = null;
         this.data.isLoading = false;
+        this.data.columns = [];
+        this.data.rows = [];
+        this.data.sortingState = {
+            column: "",
+            asc: false,
+            desc: false
+        };
         this.languageColumns = [];
-        this.table = null;
 
 		this.configureEvents();
 	}
@@ -29,25 +36,42 @@ define([
 
 
 	proto.configureEvents = function () {
+        var self = this;
         //this.fn.deleteLiteralPrompt = this.deleteLiteralPrompt.bind(this);
-		this.event.onInit = function () {};
-        this.event.fireLiteralsDeleteRequest = function () {};
-		this.event.fireLiteralsRequest = function () {};
-        this.event.onDisposing = function () {};
+
+        self.fn.sortColumnBy = function(column, event){
+            console.warn("Sort not implemented");
+        };
+
+        self.fn.renderLiteralKeyColumnTemplate = function(row){
+            var colTemplate = $(".literalKeyColumnTemplate").html();
+            var parsed = self.templateParser.parseTemplate(colTemplate, row);
+            return self.sce.trustAsHtml( parsed );
+        };
+
+        self.fn.renderImplementationCodeColumn = function (row) {
+            var colTemplate = $(".literalImplementationCodeColumnTemplate").html();
+            var parsed = self.templateParser.parseTemplate(colTemplate, row);
+            return self.sce.trustAsHtml( parsed );
+        };
+
+        self.fn.compile_createdCell = function (cell) {
+            self.compile_createdCell(cell);
+        }
+
+        self.event.onInit = function () {};
+        self.event.fireLiteralsDeleteRequest = function () {};
+		self.event.fireLiteralsRequest = function () {};
+        self.event.onDisposing = function () {};
+
 
         this.disposer = this.$scope.$on("$destroy", this.onDisposing.bind(this));
 	};
 
 
     proto.onDisposing = function () {
-        this.table.destroy();
         this.event.onDisposing();
         this.disposer();
-    };
-
-
-    proto.clearTable = function () {
-        this.table.clear().draw();
     };
 
 
@@ -62,29 +86,19 @@ define([
     };
 
     proto._doDeleteLiteralPrompt = function (literalId) {
-        this.clearTable();
         this.event.fireLiteralsDeleteRequest(literalId);
     };*/
 
 
-    proto.renderKeyColumn = function (data, type, row) {
-        var colTemplate = $(".literalKeyColumnTemplate").html();
-        return this.templateParser.parseTemplate(colTemplate, row);
-    };
-
-    proto.renderImplementationCodeColumn = function (data, type, row) {
-        var colTemplate = $(".literalImplementationCodeColumnTemplate").html();
-        return this.templateParser.parseTemplate(colTemplate, row);
-    };
-
-
-    proto._createColumnDeclaration = function(name, type) {
+    proto._createColumnDeclaration = function(key, type) {
         return {
-            data: name,
-            title: name,
+            key: key,
+            label: key,
             type: type,
+            sortable: true,
             visible: true,
-            sortable: true
+            available: true,
+            width: '100px'
         };
     };
 
@@ -110,24 +124,26 @@ define([
 
 
     proto._createImplementationColumn = function() {
-        var col = this._createColumnDeclaration("ImplementationCode", "num");
-        col.title = "<i class='fa ic-flag-filled'></i>";
+        var col = this._createColumnDeclaration("ImplementationCode", "int");
+        col.key = "ImplementationCode";
+        col.label = "<i class='fa ic-flag-filled'></i>";
         col.visible = false;
+        col.available = false;
         col.sortable = false;
         col.width = "5%";
         return col;
     };
 
-    proto.compile_createdCell = function (cell, cellData, rowData, rowIndex, colIndex) {
+    proto.compile_createdCell = function (cell) {
         this.compile(cell)(this.$scope);
     };
 
-    proto.onCreatedRow = function ( row, data, index ) {
+    /*proto.onCreatedRow = function ( row, data, index ) {
         if ( data.ImplementationCode == -1 ) {
             $('td', row).addClass('highlight');
             //$('td', row).css('background-color', 'red');
         }
-    };
+    };*/
 
     // Columns Request callbacks
     proto.onColumnsRequestSuccess = function(res) {
@@ -138,9 +154,10 @@ define([
         var KeyColumn = this._createKeyColumn();
         var ImplementationColumn = this._createImplementationColumn();
         var columns = [KeyColumn, ImplementationColumn];
-        columns = columns.concat(this.languageColumns.slice());
 
-        var dataTableConfig = {
+        self.data.columns = columns.concat(this.languageColumns.slice());
+
+        /*var dataTableConfig = {
             data: [],
             paging: false,
             info: false,
@@ -159,9 +176,9 @@ define([
                 }
             ],
             createdRow: self.onCreatedRow.bind(self)
-        };
+        };*/
 
-        this.table = this.dataTableService.createDatatable("#data-table", dataTableConfig);
+
         this.event.fireLiteralsRequest();
     };
 
@@ -173,6 +190,7 @@ define([
 
     proto.onLiteralsRequest = function(res) {
         this.data.isLoading = true;
+        this.data.currentError = null;
     };
 
 
@@ -184,10 +202,10 @@ define([
         row.ImplementationCode = obj.ImplementationCode || 0;
         this.languageColumns.forEach(function (lang) {
             var langData = "";
-            if( obj.LanguageValues[lang.data] !== undefined ) {
-                langData = obj.LanguageValues[lang.data];
+            if( obj.LanguageValues[lang.key] !== undefined ) {
+                langData = obj.LanguageValues[lang.key];
             }
-            row[lang.data] = langData;
+            row[lang.key] = langData;
         });
         return row;
     };
@@ -201,17 +219,22 @@ define([
     // Literals Request callbacks
     proto.onLiteralsRequestSuccess = function(res) {
         var self = this;
-        this.data.isLoading = false;
+        self.data.isLoading = false;
         res.data = res.data || [];
-        if(res.data.length==0){
+        var data = res.data;
 
+        if(res.data.length > 0) {
+            data = res.data.map( self._createTableRow.bind(self) );
+            var implementationCodeColumnIndex = _.findIndex(self.data.columns, {key: 'ImplementationCode'});
+            var implementationCodeColumn = self.data.columns[implementationCodeColumnIndex];
+            var isImplementationCodeColumnVisible = self._implementationCodeColumnVisibility(data);
+            implementationCodeColumn.available = isImplementationCodeColumnVisible;
+            implementationCodeColumn.visible = isImplementationCodeColumnVisible;
         }
-        var data = res.data.map( this._createTableRow.bind(this) );
-        this.table.column(1).visible(
-            this._implementationCodeColumnVisibility(data)
-        );
-        this.table.rows.add(data).draw(false);
-        this.addTooltipsToEllipsis();
+
+        data[0].ImplementationCode = 8004;
+        self.data.rows = data;
+        self._addTooltipsToEllipsis();
     };
 
 
@@ -224,7 +247,7 @@ define([
             $this.attr('title', $this.text());
         }
     };
-    proto.addTooltipsToEllipsis = function() {
+    proto._addTooltipsToEllipsis = function() {
         $('#data-table td, #data-table th').bind('mouseenter', self.addTooltipsToEllipsisHandler);
     };
 
@@ -250,9 +273,8 @@ define([
 		var scope = namedParams.scope || {};
 		var model = namedParams.model || LiteralsTableModel.newInstance();
 		var presenter = namedParams.presenter || LiteralsTablePresenter.newInstance();
-        var dataTableService = namedParams.dataTableService || DataTableService.newInstance();
         var templateParser = namedParams.templateParser || SimpleTemplateParser.newInstance();
-		var view = new LiteralsTableView(scope, model, presenter, namedParams.compile, dataTableService, templateParser);
+		var view = new LiteralsTableView(scope, model, presenter, namedParams.compile, templateParser, namedParams.sce);
 
 		return view._injectAspects(namedParams.viewRepAspect, namedParams.logErrorAspect);
 	};
