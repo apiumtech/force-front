@@ -231,8 +231,7 @@ define([
             implementationCodeColumn.available = isImplementationCodeColumnVisible;
             implementationCodeColumn.visible = isImplementationCodeColumnVisible;
         }
-
-        data[0].ImplementationCode = 8004;
+        
         self.data.rows = data;
         self._addTooltipsToEllipsis();
     };
