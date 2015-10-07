@@ -51,7 +51,6 @@ define([
 		this.authAjaxService.rawAjaxRequest(params).then(
 			function (data) {
                 var userData = JSON.parse(data.d);
-                console.log('passo per aqui', userData.userData.idImplementation);
                 this.storageService.store(this.configuration.implementationCodeKey, userData.userData.idImplementation);
 				self.storeUserData(userData);
 				deferred.resolve();

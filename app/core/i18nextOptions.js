@@ -33,6 +33,10 @@ define([
         StorageService.newInstance().store(config.userCodeKey, userCode, true);
     };
 
+    var saveImplementationCode = function (implCode) {
+        StorageService.newInstance().store(config.implementationCodeKey, implCode, true);
+    };
+
     var token;
     var platform = config.web3PlatformCode;
     var language = config.defaultLiteralLang;
@@ -43,6 +47,7 @@ define([
         language = payload.language || config.defaultLiteralLang;
         implementationCode = payload.implementationCode;
         saveUserCode(payload.userCode);
+        saveImplementationCode(implementationCode);
 
     } catch(err){
     } finally {
