@@ -77,7 +77,7 @@ define([
     };
 
     proto.isNew = function (literal) {
-        return literal == null || literal.ImplementationCode == -1;
+        return literal === null || literal.ImplementationCode === -1;
     };
 
 
