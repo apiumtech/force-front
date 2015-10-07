@@ -41,8 +41,8 @@ define([
 	};
 	
 	TopMenuCFMView.prototype.onLogout = function () {
-		//this.$window.location.href = "/Login.aspx";
-		this.event.logout();	
+		//this.event.logout();
+		this.$window.location.href = "/Login.aspx";
 	};
 	
 	TopMenuCFMView.prototype.onLogoutError = function (error) {

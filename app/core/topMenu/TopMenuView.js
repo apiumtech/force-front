@@ -52,7 +52,7 @@ define([
             return TopMenuWeb3View.newInstance(scope);
         }
         else if (this.inCFM()) {
-            return TopMenuCFMView.newInstance(scope);
+            return TopMenuCFMView.newInstance(scope, null, null, this.$window);
         }
         else {
             return TopMenuWeb2View.newInstance(scope, null, null, this.$window);

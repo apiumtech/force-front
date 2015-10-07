@@ -14,13 +14,6 @@ define([], function () {
 				view.onGetUserDataInfoError.bind(view)					
 			);
 		};
-		
-		view.event.logout = function () {
-			model.logout().then(
-				view.onLogout.bind(view),
-				view.onLogoutError.bind(view)
-			);
-		}
 	};
 	
 	SideMenuCFMPresenter.newInstance = function () {
