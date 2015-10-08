@@ -25,8 +25,6 @@ define([
 	TopMenuCFMView.prototype.configureEvents = function () {
 		this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);
         this.fn.onInit = this.onInit.bind(this);
-        this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
-        // this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
 		this.fn.onLogout = this.onLogout.bind(this);
 
         this.event.getUserDataInfo = function () {};
@@ -57,22 +55,6 @@ define([
 	TopMenuCFMView.prototype.onGetUserDataInfoError = function (error) {
 		this.data.currentError = error;
 	};
-	
-	/*TopMenuCFMView.prototype.doProfileMenuAction = function (id, linkToGo, target) {
-		if (id === 'logout') {
-			this.event.logout();
-		} else {
-            if (target === '_blank') {
-                this.$window.open(linkToGo, target);
-            } else {
-                this.$window.location.href = linkToGo;
-            }
-        }
-	};*/
-	
-	TopMenuCFMView.prototype.adjustLinkToParentFolder = function (url) {
-        return "../views/" + url;
-    };
 	
 	TopMenuCFMView.prototype.getMenuTemplateName = function () {
 		return 'topMenuCFM';

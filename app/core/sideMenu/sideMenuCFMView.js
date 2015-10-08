@@ -56,6 +56,9 @@ define([
 	
     SideMenuCFMView.prototype.adjustLinkToParentFolder = function (url) {
         if (url === undefined) return '';
+		else if (url.indexOf('web3/index.html#') > -1 ) {
+			return url;
+		}
         else return '/web/views/specific/' + url;
     };
 	
