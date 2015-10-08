@@ -1,12 +1,21 @@
 define([
 	'modules/literals/shared/BaseLiteralsView',
 	'modules/literals/global/LiteralsPresenter',
-	'modules/literals/global/LiteralsModel'
-], function(BaseLiteralsView, LiteralsPresenter, LiteralsModel) {
+	'modules/literals/global/LiteralsModel',
+    'shared/services/StorageService',
+    'config'
+], function(BaseLiteralsView, LiteralsPresenter, LiteralsModel, StorageService, config) {
 	'use strict';
 
 	function LiteralsView($scope, $model, $presenter) {
         BaseLiteralsView.call(this, $scope, $model, $presenter);
+
+        // FIXME: Get rid of this harcoded permission
+        var userCode = StorageService.newInstance().retrieve(config.userCodeKey, true);
+        if( userCode !== 2 ) {
+            console.warn("Access not allowed");
+            window.location.href = "/"+ config.badTokenRedirectionPage;
+        }
 	}
 
     LiteralsView.inherits(BaseLiteralsView);

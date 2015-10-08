@@ -3,9 +3,9 @@
  */
 define(function () {
 
-    //var apiVersion = "1.1";
-    //var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
-    var baseUrl = "https://backenddev.forcemanager.net";
+    var apiVersion = "1.2";
+    var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
+    //var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var api = {
