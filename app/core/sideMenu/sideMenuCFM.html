@@ -21,13 +21,13 @@
 					<b ng-if="userSection.hasSubSections" class="caret pull-right"></b>
 					<span>{{userSection.name}}</span>
 				</a>
-				<!--<ul ng-if="userSection.hasSubSections" class="sub-menu">
+				<ul ng-if="userSection.hasSubSections" class="sub-menu">
 					<li ng-repeat="subSection in userSection.subsections" ng-class="{  }">
 						<a ng-href="{{fn.adjustLinkToParentFolder(subSection.url)}}">
 							<span>{{subSection.name}}</span>
 						</a>
 					</li>
-				</ul>-->
+				</ul>
 			</li>
 			<!--<li class="active">-->
 			<!--<li ng-class="{ 'active': fn.checkIfActiveMenu('literals') }">
