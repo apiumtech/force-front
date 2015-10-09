@@ -11,10 +11,13 @@ define([
         BaseLiteralsView.call(this, $scope, $model, $presenter);
 
         // FIXME: Get rid of this harcoded permission
-        var userCode = StorageService.newInstance().retrieve(config.userCodeKey, true);
-        if( userCode !== 2 ) {
-            console.warn("Access not allowed");
-            window.location.href = "/"+ config.badTokenRedirectionPage;
+        if( !config.isDevMode() ) {
+            var userCode = StorageService.newInstance().retrieve(config.userCodeKey, true);
+            var implCode = StorageService.newInstance().retrieve(config.implementationCodeKey, true);
+            if ( ["6003_2", "6003_160", "8004_309"].indexOf(implCode+"_"+userCode) === -1 ) {
+                console.warn("Access not allowed");
+                window.location.href = "/" + config.badTokenRedirectionPage;
+            }
         }
 	}
 

@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         inline: {
             files: {
-                'build/www/': 'build/www/index.html',
+                'build/www/': ['build/www/index.cfm.html', 'build/www/index.web.html'],
             },
             options: {
                 replacements: [
