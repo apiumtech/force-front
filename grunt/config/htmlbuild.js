@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
     return {
         dist: {
-            src: 'index.html',
+            src: ['index.cfm.html', 'index.web.html'],
             dest: 'build/www',
             options: {
                 beautify: true,
