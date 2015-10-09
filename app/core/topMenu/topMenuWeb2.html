@@ -17,7 +17,7 @@
 
         <!-- MENU SECTION -->
         <ul class="nav navbar-nav section-nav">
-            <li ng-class="{ active: item.section == 'sfm' }" ng-repeat="userSection in data.userSections">
+            <li ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
                 <a id="{{ userSection.id }}"
                    tooltip-placement="bottom"
                    tooltip="{{ userSection.name }}"
