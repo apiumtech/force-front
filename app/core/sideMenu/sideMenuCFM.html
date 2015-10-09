@@ -1,0 +1,44 @@
+<div id="sidebar" class="sidebar" ng-init="fn.onInit()">
+    <!-- begin sidebar scrollbar -->
+	{{fn.sayAny()}}
+    <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <ul class="nav">
+            <!-- begin sidebar minify button -->
+            <li>
+					<a class="sidebar-minify-btn" data-click="sidebar-minify" href="javascript:;">
+						<i class="fa ic-expand-left"></i>
+					</a>
+				</li>
+            <!-- end sidebar minify button -->
+        </ul>
+        <!-- end sidebar user -->
+        <!-- begin sidebar nav -->
+		<ul id="sidebarMenu" class="nav sidebarMenu">
+			<li ng-repeat="userSection in data.userSections" ng-class="{ 'has-sub': userSection.hasSubSections, 'active': fn.checkIfActiveMenu(userSection.name) }">
+				<a ng-href="{{fn.adjustLinkToParentFolder(userSection.url)}}">
+					<i class="fa ic-{{userSection.section}}"></i>
+					<b ng-if="userSection.hasSubSections" class="caret pull-right"></b>
+					<span>{{userSection.name}}</span>
+				</a>
+				<!--<ul ng-if="userSection.hasSubSections" class="sub-menu">
+					<li ng-repeat="subSection in userSection.subsections" ng-class="{  }">
+						<a ng-href="{{fn.adjustLinkToParentFolder(subSection.url)}}">
+							<span>{{subSection.name}}</span>
+						</a>
+					</li>
+				</ul>-->
+			</li>
+			<!--<li class="active">-->
+			<!--<li ng-class="{ 'active': fn.checkIfActiveMenu('literals') }">
+				<a ng-href="#/literals">
+					<i class="fa ic-dashboard"></i>
+					<span>Literals</span>
+				</a>
+			</li>-->
+		</ul>
+        <!-- end sidebar nav -->
+    </div>
+    <!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>

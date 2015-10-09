@@ -7,6 +7,7 @@ define([
     'config',
 
     'app',
+    'shared/AppsAdapter',
 
     // loading controllers & directives asynchronously
     'asyncModuleLoaderConf',
@@ -19,11 +20,11 @@ define([
 
     // validation config
     'validationConfig'
-], function ($, angular, config) {
+], function ($, angular, config, app, AppsAdapter) {
     'use strict';
 
     $.migrateMute = true;
     $(document).ready(function () {
-        angular.bootstrap(document, [config.appName]);
+        angular.bootstrap(document, [config.appName]);   
     });
 });
