@@ -32,17 +32,6 @@ define([
         });
 
 
-        describe('on instantiation', function () {
-            it('should have isPagerActive property set to true', function() {
-                var sut = exerciseCreateView();
-                expect(sut.isPagerActive).toBe(true);
-            });
-            it('should have lastScrollY property set to 0', function() {
-                var sut = exerciseCreateView();
-                expect(sut.lastScrollY).toBe(0);
-            });
-        });
-
         describe("onDisposing", function () {
             var sut, model;
             beforeEach(function () {
@@ -64,11 +53,6 @@ define([
                 spyOn(sut, "disposer");
                 sut.onDisposing();
                 expect(sut.disposer).toHaveBeenCalled();
-            });
-            it("should resetScrollState", function () {
-                spyOn(sut, "resetScrollState");
-                sut.onDisposing();
-                expect(sut.resetScrollState).toHaveBeenCalled();
             });
         });
 
@@ -96,14 +80,6 @@ define([
                 expect(sut.event.nextPage).not.toHaveBeenCalled();
             });
         });
-
-        describe("resetScrollState", function () {
-            xit("should reset previosly set scroll state", function () {
-                var sut = exerciseCreateView();
-                $('body').css('min-height', 1900);
-                $('html, body').scrollTop( 0 );
-            });
-        })
 
 	});
 });

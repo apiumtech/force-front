@@ -140,19 +140,13 @@ define([
             });
         });
 
-        describe("onLiteralsDeleteRequest", function(){
+        xdescribe("onLiteralsDeleteRequest", function(){
             var sut, view, model;
             beforeEach(function () {
                 sut = exerciseCreatePresenter();
                 view = mockView();
                 model = mockModel();
                 sut.show(view, model);
-                spyOn(view, "resetScrollState");
-            });
-            it("should reset view's scroll state", function(){
-                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakePromise());
-                sut.onLiteralsDeleteRequest();
-                expect(view.resetScrollState).toHaveBeenCalled();
             });
 
             it("should fire Literals Request when promise succeeds", function(){

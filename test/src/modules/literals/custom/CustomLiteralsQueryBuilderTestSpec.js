@@ -23,7 +23,7 @@ define([
                         implementationCode: null
                     },
                     sort: {},
-                    tags: [BaseListQueryBuilder.TAG_TOTAL_COUNT]
+                    tags: []
                 };
                 expect(sut.createCurrentQuery()).toEqual(defaults);
             });

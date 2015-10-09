@@ -15,22 +15,6 @@ define([
         });
     }
 
-    function mockRowsObject(){
-        return {
-            add: jasmine.createSpy().and.returnValue({
-                draw:function(){}
-            })
-        };
-    }
-
-    function mockColumnObject(){
-        return function(){
-            return {
-                visible: function(){}
-            }
-        };
-    }
-
     describe('LiteralsTableView', function () {
 
         describe('configureEvents', function () {
@@ -41,30 +25,12 @@ define([
             });
         });
 
-        describe('renderKeyColumn', function () {
-            it('should render key Column', function () {
-                var view = exerciseCreateView();
-                spyOn(view.templateParser, "parseTemplate");
-                var row = {row:"a row"};
-                var col = view.renderKeyColumn(null, null, row);
-                expect(view.templateParser.parseTemplate).toHaveBeenCalled();
-                expect(view.templateParser.parseTemplate.calls.argsFor(0)[1]).toBe(row);
-            });
-        });
-
         describe('onColumnsRequestSuccess', function () {
             it('should fireLiteralsRequest', function () {
                 var sut = exerciseCreateView();
-                spyOn(sut.dataTableService, "createDatatable");
                 spyOn(sut.event, "fireLiteralsRequest");
                 sut.onColumnsRequestSuccess({data: []})
                 expect(sut.event.fireLiteralsRequest).toHaveBeenCalled();
-            });
-            it("should call dataTableService's createDatatable", function () {
-                var sut = exerciseCreateView();
-                spyOn(sut.dataTableService, "createDatatable");
-                sut.onColumnsRequestSuccess({data: []})
-                expect(sut.dataTableService.createDatatable).toHaveBeenCalled();
             });
         });
 
@@ -74,58 +40,6 @@ define([
                 spyOn(sut, "showError");
                 sut.onColumnsRequestError("some error");
                 expect(sut.showError).toHaveBeenCalled();
-            });
-        });
-
-
-        describe('onLiteralsRequestSuccess', function () {
-            var sut, data;
-            beforeEach(function () {
-                sut = exerciseCreateView();
-                sut.languageColumns = [
-                    {data: "es-es"},
-                    {data: "en-us"},
-                    {data: "ca-es"},
-                    {data: "pt-pt"}
-                ];
-                data = [
-                    {
-                        Id: "id1", Key: "key1",
-                        LanguageValues: {
-                            "es-es": "es1",
-                            "en-us": "enus1",
-                            "ca-es": "caes1"
-                        }
-                    },
-                    {
-                        Id: "id2", Key: "key2",
-                        LanguageValues: {
-                            "es-es": "es2",
-                            "en-us": "enus2",
-                            "ca-es": "caes2",
-                            "pt-pt": "pt2"
-                        }
-                    }
-                ];
-                sut.table = {
-                    rows: mockRowsObject(),
-                    column: mockColumnObject()
-                };
-            });
-            it('should add literals', function () {
-                sut.onLiteralsRequestSuccess({data: data});
-                expect(sut.table.rows.add).toHaveBeenCalled();
-                var add_args = sut.table.rows.add.calls.mostRecent().args[0];
-                expect(add_args[0].Id).toBe("id1");
-                expect(add_args[1].Key).toBe("key2");
-                expect(add_args[0]["es-es"]).toBe("es1");
-            });
-            it('should fill the language gaps when there are less values than languages', function () {
-                sut.onLiteralsRequestSuccess({data: data});
-                expect(sut.table.rows.add).toHaveBeenCalled();
-                var add_args = sut.table.rows.add.calls.mostRecent().args[0];
-                expect(add_args[0]["pt-pt"]).toBeDefined();
-                expect(add_args[0]["pt-pt"]).toBe("");
             });
         });
 
@@ -151,10 +65,6 @@ define([
             it("should be false after onLiteralsRequestSuccess", function () {
                 var sut = exerciseCreateView();
                 sut.data.isLoading = true;
-                sut.table = {
-                    rows: mockRowsObject(),
-                    column: mockColumnObject()
-                };
                 sut.onLiteralsRequestSuccess({data:[]});
                 expect(sut.data.isLoading).toBe(false);
             });
@@ -169,13 +79,16 @@ define([
         describe("createColumnDeclaration", function () {
             it("should create the correct column", function () {
                 var sut = exerciseCreateView();
-                expect(sut._createColumnDeclaration("ColumnName", "num")).toEqual({
-                    data: "ColumnName",
-                    title: "ColumnName",
-                    type: "num",
+                var expected = {
+                    key: "ColumnName",
+                    label: "ColumnName",
+                    type: "int",
                     visible: true,
-                    sortable: true
-                });
+                    sortable: false,
+                    available: true,
+                    width: '100px'
+                };
+                expect(sut._createColumnDeclaration("ColumnName", "int")).toEqual(expected);
             });
         });
 
@@ -202,8 +115,8 @@ define([
                     LanguageValues: {'es-es':'espanyol', 'en-us':'inglishpitinglish'}
                 };
                 langCols = [
-                    {data: 'es-es'},
-                    {data: 'en-us'}
+                    {key: 'es-es'},
+                    {key: 'en-us'}
                 ];
             });
             it('should create columns correctly', function () {
@@ -270,14 +183,7 @@ define([
             var sut;
             beforeEach(function () {
                 sut = exerciseCreateView();
-                sut.table = {
-                    destroy: jasmine.createSpy()
-                };
                 sut.disposer = jasmine.createSpy();
-            });
-            it('should destroy table', function () {
-                sut.onDisposing();
-                expect(sut.table.destroy).toHaveBeenCalled();
             });
             it("should call event's onDisposing", function () {
                 spyOn(sut.event, 'onDisposing');
@@ -307,39 +213,13 @@ define([
 
         describe("clearTable", function(){
             it("call clear table", function () {
-                var draw = jasmine.createSpy();
-                var tableMock = {
-                    clear: jasmine.createSpy().and.returnValue({
-                        draw:draw
-                    })
-                };
                 var sut = exerciseCreateView();
-                sut.table = tableMock;
+                sut.data.rows.push("hola");
                 sut.clearTable();
-                expect(tableMock.clear).toHaveBeenCalled();
-                expect(draw).toHaveBeenCalled();
+                expect(sut.data.rows.length).toBe(0);
             });
         });
         
-        describe("renderKeyColumn", function () {
-            it("should resolve html template", function () {
-                var sut = exerciseCreateView();
-                $('<div class="literalKeyColumnTemplate">some html tags</div>').appendTo("body");
-                spyOn(sut.templateParser, "parseTemplate");
-                sut.renderKeyColumn(5,6,7);
-                expect(sut.templateParser.parseTemplate).toHaveBeenCalledWith("some html tags", 7);
-            });
-        });
-
-        describe("renderImplementationCodeColumn", function () {
-            it("should resolve html template", function () {
-                var sut = exerciseCreateView();
-                $('<div class="literalImplementationCodeColumnTemplate">some html</div>').appendTo("body");
-                spyOn(sut.templateParser, "parseTemplate");
-                sut.renderImplementationCodeColumn(1,2,3);
-                expect(sut.templateParser.parseTemplate).toHaveBeenCalledWith("some html", 3);
-            });
-        });
 
         describe("_createLanguageColumns", function () {
             it("should resolve html template", function () {
@@ -350,34 +230,6 @@ define([
             });
         });
 
-        describe("compile_createdCell", function () {
-            it("should call compile", function () {
-                var compile2 = jasmine.createSpy();
-                var compile = jasmine.createSpy().and.returnValue(compile2);
-                var sut = exerciseCreateView({compile: compile});
-                var cell = "the cell";
-                sut.compile_createdCell(cell);
-                expect(compile).toHaveBeenCalledWith(cell);
-                expect(compile2).toHaveBeenCalledWith(sut.$scope);
-            });
-        });
-
-        describe('onCreatedRow', function () {
-            it("should highlight rows when ImplementationCode equals -1", function () {
-                var sut = exerciseCreateView();
-                var data = {ImplementationCode:-1};
-                var row = $('<tr><td>td1</td></tr>');
-                sut.onCreatedRow(row, data);
-                expect( row.html() ).toMatch(/class="highlight"/);
-            });
-            it("should not highlight rows when ImplementationCode is not -1", function () {
-                var sut = exerciseCreateView();
-                var data = {ImplementationCode:8004};
-                var row = $('<tr><td>td1</td></tr>');
-                sut.onCreatedRow(row, data);
-                expect( row.html()).not.toMatch(/class="highlight"/);
-            });
-        });
 
         describe('addTooltipsToEllipsisHandler', function () {
             it("should set title attribute when text overflows container", function () {

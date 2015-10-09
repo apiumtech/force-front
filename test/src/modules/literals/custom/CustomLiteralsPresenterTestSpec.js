@@ -15,20 +15,5 @@ define([
             var sut = exerciseCreatePresenter();
             expect(sut).toEqual(jasmine.any(BaseLiteralsPresenter));
         });
-
-        it("should call model's setUserImplementationCode on onInit", function () {
-            var sut = exerciseCreatePresenter();
-            sut.show(
-                {
-                    event: {},
-                    onLiteralsRequestSuccess: function () {}
-                },
-                {
-                    setUserImplementationCode: jasmine.createSpy()
-                }
-            );
-            sut.onInit();
-            expect(sut.model.setUserImplementationCode).toHaveBeenCalled();
-        })
     });
 });
