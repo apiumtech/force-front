@@ -37,6 +37,7 @@ define([
         this.fn.getMenuTemplateName = this.getMenuTemplateName.bind(this);
         this.fn.onInit = this.onInit.bind(this);
         this.fn.adjustLinkToParentFolder = this.adjustLinkToParentFolder.bind(this);
+        this.fn.adjustDefaultAccessPageLink = this.adjustDefaultAccessPageLink.bind(this);
         this.fn.doProfileMenuAction = this.doProfileMenuAction.bind(this);
         this.fn.hasEventsOrTasksForToday = this.hasEventsOrTasksForToday.bind(this);
         this.fn.hasTasksForToday = this.hasTasksForToday.bind(this);
@@ -110,6 +111,10 @@ define([
 
     TopMenuWeb2View.prototype.adjustLinkToParentFolder = function (url) {
         return "../views/" + url;
+    };
+
+    TopMenuWeb2View.prototype.adjustDefaultAccessPageLink = function (url) {
+        return "../" + url;
     };
 
     TopMenuWeb2View.prototype.getMenuTemplateName = function () {
