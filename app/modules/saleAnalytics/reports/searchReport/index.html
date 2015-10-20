@@ -1,6 +1,6 @@
 <div ng-controller="SearchReportController"
      ng-init="fn.loadReports(queryString)">
-    <div><p>{{ reports.length }} results for "{{ data.currentQueryString }}"</p></div>
+    <div><p>{{ reports.length }} {{'Reports.SearchReport.resultsFor' | i18next}} "{{ data.currentQueryString }}"</p></div>
     <div class="search-report panel"
          ng-class="{'panel-loading': isLoading}">
         <div class="panel-body">
@@ -10,8 +10,8 @@
             <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
                 <div class="empty-search">
                     <img src="assets/img/filter-icon.png" alt="" />
-                    <h4>We are sorry, your search did not return any result</h4>
-                    <p>You can widen your search by checking that all words are spelt correctly</p>
+                    <h4>{{'commonText.NoSearchResultsMessage' | i18next}}</h4>
+                    <p>{{'Reports.widenSearchMessage'  | i18next}}</p>
                 </div>
             </div>
             <div class="report-item-box" ng-repeat="report in reports track by $index" ng-show="reports && reports.length > 0">

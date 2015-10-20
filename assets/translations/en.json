@@ -36,7 +36,10 @@
     "HourAgo": "__count__ hour ago",
     "HourAgo_plural": "__count__ hours ago",
     "NewEmailFrom": "New email from __from__",
-    "NoResultFound": "No result found"
+    "NoResultFound": "No result found",
+    "Refresh": "Refresh",
+    "NoSearchResultsMessage": "We are sorry, your search did not return any result",
+    "NoDataToDisplay": "No data to display"
   },
   "ConfirmationBox": {
     "Delete": {
@@ -200,7 +203,11 @@
       "Title": "No widget available",
       "Message": "You have closed all the widgets for this page"
     },
-    "LoadingWidgets": "Loading widgets"
+    "LoadingWidgets": "Loading widgets",
+    "GeneralServerError": {
+      "Title": "Server error",
+      "Message": "Error while requesting data."
+    }
   },
   "Header": {
     "EnterKeyword": "Enter keyword",
@@ -222,20 +229,39 @@
     "Customized": "Customized",
     "To": "to",
     "LastxxDays": "Last __count__ day",
-    "LastxxDays_plural": "Last __count__ days"
+    "LastxxDays_plural": "Last __count__ days",
+    "Widget": {
+      "Administration": "Widget Administration"
+    }
+  },
+  "WidgetAdmin": {
+    "Widget": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
   },
   "Intensity": {
   },
+  "lineChart": "Line Chart",
+  "areaChart": "Area Chart",
   "Reports": {
     "AllReports": "All Reports",
     "FavouriteReports": "Favourite Reports",
     "SearchReports": "Search Reports",
+    "SearchReport": {
+      "resultsFor": "results for"
+    },
+    "SearchBox": {
+      "SearchingFor": "Searching for:"
+    },
     "Dialog": {
       "ReportParameterTitle": "Report Parameters",
       "LoV": {
         "Select_Value": "Select Value"
       }
-    }
+    },
+    "SelectTeam": "SELECT TEAM",
+    "widenSearchMessage": "You can widen your search by checking that all words are spelt correctly"
   },
   "WidgetAdmin":{
     "Widget":{
@@ -303,8 +329,8 @@
         "Literal_Value_Placeholder": "Enter literal value for '__mylang__'",
         "Literal_Type": "Literal type",
         "Select_Literal_Type": "Select literal type",
-        "Device_Type": "Device type",
-        "Select_Device_Type": "Select device type",
+        "Platform": "Platform",
+        "Select_Platform": "Select Platform",
         "ListEmpty": "The list is empty",
         "Submit": "Save",
         "Cancel": "Cancel",
@@ -319,17 +345,13 @@
       "Title": "Custom Literals",
       "Table": {
         "Header": "Custom literals table",
-        "Edit_label": "Set",
-        "Delete_label": "Restore",
-        "Delete_Confirm_Message": "Are you sure you want to restore this custom literal with id '__literalId__' to its original state?"
+        "EditLabel": "Edit",
+        "SetLabel": "Set"
       }
     },
     "Detail": {
-      "Title": "Custom Literal",
-      "Header": {
-        "Edit": "Set custom literal",
-        "Form": "Form"
-      },
+      "Title_Set": "Set Custom Literal",
+      "Title_Edit": "Edit Custom Literal",
       "Form": {
         "Literal_Key": "Custom literal key",
         "Literal_Key_Placeholder": "Enter the custom literal key",

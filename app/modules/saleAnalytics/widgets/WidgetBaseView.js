@@ -5,12 +5,14 @@ define([
     'shared/BaseView',
     'meld',
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
+    'shared/services/TranslatorService',
     // TODO: This is deprecated
     'modules/saleAnalytics/eventBus/WidgetEventBus'
-], function (BaseView, meld, SalesAnalyticsFilterChannel, /*TODO: this is deprecated*/WidgetEventBus) {
+], function (BaseView, meld, SalesAnalyticsFilterChannel, TranslatorService, /*TODO: this is deprecated*/WidgetEventBus) {
 
     function WidgetBaseView(scope, element, presenter) {
         BaseView.call(this, scope, null, presenter);
+        this.translator = TranslatorService.newInstance();
         this.element = element || {};
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
@@ -123,8 +125,8 @@ define([
 
     WidgetBaseView.prototype.onReloadWidgetError = function (error) {
         var self = this;
-        var errorTitle = 'Server error';
-        var errorMessage = "Error while requesting data.";
+        var errorTitle = self.translator.translate("Errors.GeneralServerError.Title");
+        var errorMessage = self.translator.translate("Errors.GeneralServerError.Message");
 
         /*switch (error.readyState) {
             case 0:

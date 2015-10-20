@@ -27,9 +27,8 @@
                 <a ng-if="item.children && item.children.length"
                    href="#" class="clearfix"
                    ng-click="toggleSelectGroupItems(item, $event)"
-                   ng-class="{'checked': item.checked}"
-                        >
-                    SELECT TEAM
+                   ng-class="{'checked': item.checked}">
+                    {{'Reports.SelectTeam' | i18next}}
                     <span ng-show="item.checked" class="pull-right fa ic-close m-l-5"></span>
                 </a>
             </div>
