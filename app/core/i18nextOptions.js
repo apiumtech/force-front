@@ -62,16 +62,19 @@ define([
 
     return {
         dev_local: {
-            resGetPath: 'assets/translations/en.json'
+            resGetPath: 'assets/translations/en.json',
+            keyseparator: '.'
         },
         dev: {
             lng: language,
             useCookie: false,
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
-            resGetPath: '/api/translations/__lng__'
+            resGetPath: '/api/translations/__lng__',
+            keyseparator: '.'
         },
         prod: {
+            keyseparator: '::', // this is to make sure that keys with dot notation are parsed statically (don't need to be nested)
             lng: language,
             useCookie: false,
             useLocalStorage: false,
