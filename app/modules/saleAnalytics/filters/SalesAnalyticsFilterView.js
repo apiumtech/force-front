@@ -18,10 +18,10 @@ define([
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         var self = this;
         self.resetDate = true;
-        self.defaultPreviousDay = 90;
+        self.defaultPreviousDay = 180;
         self.$scope.datePickerFormat = "dd/MM/yyyy";
         self.momentFormat = 'DD/MM/YYYY';
-        self.$scope.dateOptionRange = [7, 15, 30, 90];
+        self.$scope.dateOptionRange = [7, 15, 30, 90, 180];
         self.$scope.multipleSelection = true;
 
         self.$scope.isoStringDateStart = function () {
