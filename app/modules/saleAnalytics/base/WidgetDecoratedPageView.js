@@ -31,6 +31,11 @@ define([
         this.eventBus = WidgetEventBus.getInstance();
         this.widgetAdministrationEventBus = WidgetAdministrationEventBus.getInstance();
         this.configureEvents();
+
+        var hash = window.location.hash.split('#')[1];
+        if( hash.indexOf("/analytics/reports") == -1 ){
+            this.setupFixedFilters();
+        }
     }
 
     WidgetDecoratePageView.inherits(BaseView, {
@@ -52,6 +57,47 @@ define([
         }
     });
 
+    WidgetDecoratePageView.prototype.setupFixedFilters = function () {
+        var contentDefaultMarginTop = parseInt($(".content").css("margin-top"), 10);
+        var navBarHeight = 60;
+        var submenuHeight = 94;
+        var paddingsYcosasDeEstas = 12;
+        var activateFixedFiltersScroll = (navBarHeight + submenuHeight) - (contentDefaultMarginTop+paddingsYcosasDeEstas);
+        var filtersHeight = 119;
+        var onScroll = function(evt) {
+            if ($(this).scrollTop() > activateFixedFiltersScroll) {
+                $(".sales-filters-div").css("top", navBarHeight + "px");
+                $(".content").css("margin-top", (contentDefaultMarginTop+filtersHeight)+"px");
+                $(".sales-filters-div").css({
+                    position: "fixed",
+                    zIndex: 1030,
+                    backgroundColor: "white",
+                    left: 0, right: 0,
+                    paddingLeft: "15px", paddingRight: "15px"
+                });
+            } else {
+                $(".content").css("margin-top", contentDefaultMarginTop+"px");
+                $(".sales-filters-div").css({
+                    position: "relative",
+                    top: "auto",
+                    zIndex: "auto",
+                    backgroundColor: "transparent",
+                    left: "auto", right: "auto",
+                    paddingLeft: "0", paddingRight: "0"
+                });
+            }
+        };
+        $(window).scroll(onScroll);
+
+        this.$scope.$on(
+            "$destroy",
+            function handleDestroyEvent() {
+                console.log("handleDestroyEvent");
+                $(window).off("scroll", onScroll);
+            }
+        );
+    };
+
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
         //self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
@@ -69,6 +115,10 @@ define([
             var movingElement = $("[data-widgetid=widget-"+ $widget.widgetId +"]");
             var dropElementIndex = $ui.item.index();
             self.widgetAdministrationEventBus.fireMoveWidgetToIndex($widget, dropElementIndex);
+        };
+
+        self.fn.toggleWidgetAdministration = function(){
+            WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
         };
 
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));

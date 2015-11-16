@@ -229,9 +229,9 @@ define([
             self.fn.getDatePlaceholder();
         };
 
-        self.fn.toggleWidgetAdministration = function(){
+        /*self.fn.toggleWidgetAdministration = function(){
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
-        };
+        };*/
     };
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {
