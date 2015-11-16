@@ -88,7 +88,8 @@ define([
                     key === 'PhoneCallsTime' ? 'seconds' :
                     key === 'Emails' ? 'int' :
                     key === 'Orders' ? 'int' :
-                    key === 'Quotes' ? 'int' : 'string';
+                    key === 'Quotes' ? 'int' :
+                    key === 'Opportunities' ? 'int' : 'string';
         };
 
         Object.keys(data[0]).forEach(function (key) {
