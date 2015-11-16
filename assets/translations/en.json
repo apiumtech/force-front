@@ -115,7 +115,7 @@
     "VisitsPerDay": "Visits / Day",
     "VisitsPerUserPerDay": "Visits / User / Day",
     "Filters": {
-      "Hour": "Hour",
+      "Hour": "Hour dist.",
       "Date": "Date",
       "Month": "Month",
       "Week": "Week",

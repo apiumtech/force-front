@@ -21,11 +21,11 @@
         <div class="col-xs-12 col-md-8 m-b-20">
             <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right">
-                <button class="btn btn-white btn-sm"
+                <!--<button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='hour'}"
                         ng-click="fn.changeFilterRange('hour')">
                     {{'LineWidget.Filters.Hour' | i18next}}
-                </button>
+                </button>-->
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')">
@@ -40,6 +40,14 @@
                         ng-class="{'active': selectedRangeOption=='month'}"
                         ng-click="fn.changeFilterRange('month')">
                     {{'LineWidget.Filters.Month' | i18next}}
+                </button>
+            </div>
+            <div class="pull-right" style="width:15px;height:10px;"></div>
+            <div class="btn-group pull-right">
+                <button class="btn btn-white btn-sm"
+                        ng-class="{'active': selectedRangeOption=='hour'}"
+                        ng-click="fn.changeFilterRange('hour')">
+                    {{'LineWidget.Filters.Hour' | i18next}}
                 </button>
             </div>
             <div class="pull-right" style="width:15px;height:10px;"></div>
