@@ -156,10 +156,11 @@ define([
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;
-        if (this.multipleSelection)
+        if (this.multipleSelection){
             self.checkStateForTeamList(selectedItem);
-        else
+        }else{
             self.singleSelect(selectedItem);
+        }
         self.fn.applyUserFilter();
     };
 
@@ -257,6 +258,7 @@ define([
         var self = this;
         self.usersList = data;
         self.fn.getFilteredUsersList();
+        self.fn.applyUserFilter();
         self.hideLoadingUsers();
     };
 
