@@ -75,6 +75,10 @@ define([
                     left: 0, right: 0,
                     paddingLeft: "15px", paddingRight: "15px"
                 });
+                $(".sales-filters-div .line-border").css({
+                    marginLeft: "-15px",
+                    marginRight: "-15px"
+                });
             } else {
                 $(".content").css("margin-top", contentDefaultMarginTop+"px");
                 $(".sales-filters-div").css({
@@ -84,6 +88,10 @@ define([
                     backgroundColor: "transparent",
                     left: "auto", right: "auto",
                     paddingLeft: "0", paddingRight: "0"
+                });
+                $(".sales-filters-div .line-border").css({
+                    marginLeft: "0",
+                    marginRight: "0"
                 });
             }
         };
