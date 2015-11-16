@@ -244,6 +244,7 @@
   },
   "lineChart": "Line Chart",
   "areaChart": "Area Chart",
+  "areaChartPercent": "Area Chart %",
   "Reports": {
     "AllReports": "All Reports",
     "FavouriteReports": "Favourite Reports",

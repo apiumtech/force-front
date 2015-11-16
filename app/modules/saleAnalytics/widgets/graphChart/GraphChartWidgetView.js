@@ -16,6 +16,7 @@ define([
 
     var LINE = 'line';
     var FILLED = 'filled';
+    var FILLED100 = 'filled100';
 
 
     function GraphChartWidgetView(scope, element, presenter) {
@@ -77,6 +78,11 @@ define([
             self.availableFields = [];
             self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
+        };
+
+        self.fn.switchToFilled100 = function () {
+            self.$scope.currentChartType = FILLED100;
+            self.paintChart();
         };
 
         self.fn.switchToFilled = function () {
@@ -223,7 +229,7 @@ define([
             chartFields.forEach(function (serie, serieIndex) {
                 if(serie !== null && !serie.hidden) {
                     var plotData = serie.plotData[index];
-                    col.push(plotData);
+                    col.push( plotData );
                     col.push( createTooltipForSerie(serie, date, plotData) );
                 }
             });
@@ -248,11 +254,17 @@ define([
                 top: "10%",
                 height: "80%",
                 width: "94%"
-            },
-            vAxis: {
-                ticks: self.getVaxisTicks(chartFields)
             }
         };
+
+        self.chartOptions.vAxis = {};
+        //if(self.selectedFilter !== "phoneCallsTime") {
+            if(isHours() || scope.currentChartType === LINE) {
+                self.chartOptions.vAxis.ticks = self.getVaxisTicks(chartFields);
+            } else if(scope.currentChartType === FILLED){
+                self.chartOptions.vAxis.ticks = self.getVaxisTicksFilled(chartFields);
+            }
+        //}
 
         var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
             self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
@@ -273,11 +285,16 @@ define([
             self.chartOptions.bar = {groupWidth: "75%"};
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
-            if(scope.currentChartType == "line") {
+            if(scope.currentChartType == LINE) {
                 self.chart = chartService.createChart(element[0], 'line');
-            } else {
+            } else if(scope.currentChartType == FILLED) {
                 self.chartOptions.isStacked = true;
                 self.chart = chartService.createChart(element[0], 'area');
+            } else if(scope.currentChartType == FILLED100) {
+                self.chartOptions.isStacked = "percent";
+                self.chart = chartService.createChart(element[0], 'area');
+            } else {
+                throw new Error("Unknown chart type '"+ scope.currentChartType +"'");
             }
         }
 
@@ -296,6 +313,28 @@ define([
             for( var j=0; j<yAxisPoints.plotData.length; j++ ) {
                 var plotValue = yAxisPoints.plotData[j];
                 totalMax = Math.max(plotValue, totalMax);
+            }
+        }
+        var ticks = [];
+        var maxTicks = Math.min(10, totalMax);
+        var incr = Math.ceil(totalMax / maxTicks);
+        for( i=0; i<=totalMax; i+=incr ) {
+            ticks.push(i);
+        }
+        return ticks;
+    };
+
+    GraphChartWidgetView.prototype.getVaxisTicksFilled = function(chartFields){
+        var totalMax = 1;
+        var points = [];
+        var dataPoints = chartFields[0].plotData.length;
+        for(var i=0; i<dataPoints; i++){
+            points[i] = 0;
+            for(var j=0; j<chartFields.length; j++) {
+                var field = chartFields[j];
+                var plotValue = field.plotData[i];
+                points[i] = points[i] + plotValue;
+                totalMax = Math.max(points[i], totalMax);
             }
         }
         var ticks = [];
