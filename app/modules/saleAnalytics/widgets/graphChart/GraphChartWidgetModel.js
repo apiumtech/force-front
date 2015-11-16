@@ -35,6 +35,9 @@ define([
         }, {
             name: 'Quotes',
             key: 'quotes'
+        }, {
+            name: 'Opportunities',
+            key: 'opportunities'
         }];
 
         this.queries.grouping = "week";
