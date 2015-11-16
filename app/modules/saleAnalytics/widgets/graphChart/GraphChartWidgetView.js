@@ -248,8 +248,12 @@ define([
                 top: "10%",
                 height: "80%",
                 width: "94%"
+            },
+            vAxis: {
+                ticks: self.getVaxisTicks(chartFields)
             }
         };
+
         var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
             self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
             self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
@@ -281,6 +285,27 @@ define([
     };
 
 
+    /*
+     * chartFields()
+     */
+    GraphChartWidgetView.prototype.getVaxisTicks = function(chartFields){
+        var totalMax = 1;
+        var yAxisPoints;
+        for( var i=0; i<chartFields.length; i++ ) {
+            yAxisPoints = chartFields[i];
+            for( var j=0; j<yAxisPoints.plotData.length; j++ ) {
+                var plotValue = yAxisPoints.plotData[j];
+                totalMax = Math.max(plotValue, totalMax);
+            }
+        }
+        var ticks = [];
+        var maxTicks = Math.min(10, totalMax);
+        var incr = Math.ceil(totalMax / maxTicks);
+        for( i=0; i<=totalMax; i+=incr ) {
+            ticks.push(i);
+        }
+        return ticks;
+    };
 
     GraphChartWidgetView.prototype.getLineGraph = function (fieldData, availableFields, chartType) {
 
