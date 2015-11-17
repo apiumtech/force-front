@@ -293,7 +293,10 @@ define([
 
         if( isHours() ){
             self.chartOptions.bar = {groupWidth: "75%"};
-            self.chartOptions.hAxis.gridlines.count = 24;
+            var hourTicks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map( function(n){
+                return {f:("0"+ n + "h").substr(-3), v:[n,0,0]};
+            });
+            self.chartOptions.hAxis = {ticks: hourTicks};
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
             if(scope.currentChartType == LINE) {
