@@ -199,23 +199,24 @@ define([
             var label = serie.label;
             var dateOption = self.$scope.selectedRangeOption;
             var formattedDate;
-            if(dateOption==='date') {
-                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
-            }
-            else if(dateOption==='week') {
-                var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
-                var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
-                var format = config.salesAnalytics.intensityActivityChartWeekFormat;
-                formattedDate = firstDayOfWeek.format(format) +" &RightArrow; "+ lastDayOfWeek.format(format);
-            }
-            else if(dateOption==='month') {
-                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
-            }
-            else if(dateOption==='hour') {
-                formattedDate = date[0] +":00";
-            }
-            else {
-                throw new Error("Unknown date option");
+
+            if(self.selectedFilter === "phoneCallsTime") {
+                formattedDate = self._secondsToHours(plotData);
+            } else {
+                if (dateOption === 'date') {
+                    formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
+                } else if (dateOption === 'week') {
+                    var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
+                    var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
+                    var format = config.salesAnalytics.intensityActivityChartWeekFormat;
+                    formattedDate = firstDayOfWeek.format(format) + " &RightArrow; " + lastDayOfWeek.format(format);
+                } else if (dateOption === 'month') {
+                    formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
+                } else if (dateOption === 'hour') {
+                    formattedDate = date[0] + ":00";
+                } else {
+                    throw new Error("Unknown date option");
+                }
             }
 
             return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ plotData +'</strong></div>';
@@ -258,13 +259,15 @@ define([
         };
 
         self.chartOptions.vAxis = {};
-        //if(self.selectedFilter !== "phoneCallsTime") {
+        if(self.selectedFilter === "phoneCallsTime") {
+            self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
+        } else {
             if(isHours() || scope.currentChartType === LINE) {
                 self.chartOptions.vAxis.ticks = self.getVaxisTicks(chartFields);
             } else if(scope.currentChartType === FILLED){
                 self.chartOptions.vAxis.ticks = self.getVaxisTicksFilled(chartFields);
             }
-        //}
+        }
 
         var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
             self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
@@ -316,13 +319,14 @@ define([
             }
         }
         var ticks = [];
-        var maxTicks = Math.min(10, totalMax);
+        var maxTicks = Math.min(5, totalMax);
         var incr = Math.ceil(totalMax / maxTicks);
         for( i=0; i<=totalMax; i+=incr ) {
             ticks.push(i);
         }
         return ticks;
     };
+
 
     GraphChartWidgetView.prototype.getVaxisTicksFilled = function(chartFields){
         var totalMax = 1;
@@ -338,13 +342,35 @@ define([
             }
         }
         var ticks = [];
-        var maxTicks = Math.min(10, totalMax);
+        var maxTicks = Math.min(5, totalMax);
         var incr = Math.ceil(totalMax / maxTicks);
         for( i=0; i<=totalMax; i+=incr ) {
             ticks.push(i);
         }
         return ticks;
     };
+
+
+    GraphChartWidgetView.prototype._secondsToHours = function(seconds, date) {
+        date = date || new Date(null);
+        date.setSeconds(seconds);
+        return date.toISOString().substr(11, 8);
+    };
+
+
+    GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks = function(chartFields) {
+        var self = this;
+        var ticks = self.getVaxisTicks(chartFields);
+        var date = new Date(null);
+        ticks = ticks.map(function(seconds){
+            return {
+                v: seconds,
+                f: self._secondsToHours(seconds, date)
+            };
+        });
+        return ticks;
+    };
+
 
     GraphChartWidgetView.prototype.getLineGraph = function (fieldData, availableFields, chartType) {
 
