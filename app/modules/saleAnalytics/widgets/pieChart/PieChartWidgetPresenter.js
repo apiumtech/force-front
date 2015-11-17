@@ -5,6 +5,7 @@
 define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
 ], function(PieChartWidgetModel){
+    'use strict';
 
     function PieChartWidgetPresenter(model) {
         this.model = model || new PieChartWidgetModel();
@@ -35,6 +36,11 @@ define([
             model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data = {};
             self._executeLoadWidget();
+        };
+
+        view.event.onTimeChartRequested = function () {
+            model.addQuery('grouping', view.$scope.selectedRangeOption);
+            view.sendReloadCommandToChannel();
         };
 
         view.event.onTabChanged = function () {

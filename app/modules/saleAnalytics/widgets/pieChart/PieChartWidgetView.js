@@ -74,28 +74,30 @@ define([
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
-            self.event.onFilterRangeChanged();
+            //self.event.onFilterRangeChanged();
+            self.event.onTimeChartRequested();
         };
 
         self.fn.switchToFilled100 = function () {
             self.$scope.currentChartType = FILLED100;
-            self.paintChart();
+            self.event.onTimeChartRequested();
         };
 
         self.fn.switchToFilled = function () {
             self.$scope.currentChartType = FILLED;
-            self.paintChart();
+            self.event.onTimeChartRequested();
         };
 
         self.fn.switchToLine = function () {
             self.$scope.currentChartType = LINE;
-            self.paintChart();
+            self.event.onTimeChartRequested();
         };
 
         self.fn.switchToPie = function () {
             self.$scope.currentChartType = PIE;
-            self.paintChart();
+            self.event.onTimeChartRequested();
         };
+
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -123,6 +125,7 @@ define([
 
     PieChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
+        self.data.serverError = false;
         self.data = responseData.data.params.params;
         self.tabs = responseData.data.params.filters;
         self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
@@ -146,7 +149,7 @@ define([
     };
 
     PieChartWidgetView.prototype.paintLineAreaChart = function () {
-
+        console.log("paintLineAreaChart");
     };
 
     PieChartWidgetView.prototype.paintPieChart = function () {
@@ -186,6 +189,13 @@ define([
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+    };
+
+
+    PieChartWidgetView.prototype.showError = function (err) {
+        this.data.serverError = true;
+        this.data.serverErrorTitle = "Error";
+        this.data.serverErrorMessage = "Something went wrong";
     };
 
 

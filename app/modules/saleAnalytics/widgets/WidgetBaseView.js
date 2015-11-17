@@ -9,6 +9,7 @@ define([
     // TODO: This is deprecated
     'modules/saleAnalytics/eventBus/WidgetEventBus'
 ], function (BaseView, meld, SalesAnalyticsFilterChannel, TranslatorService, /*TODO: this is deprecated*/WidgetEventBus) {
+    'use strict';
 
     function WidgetBaseView(scope, element, presenter) {
         BaseView.call(this, scope, null, presenter);
