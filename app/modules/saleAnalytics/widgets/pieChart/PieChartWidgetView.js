@@ -1,22 +1,33 @@
-/**
- * Created by apium on 5/12/15.
- */
+/* global google */
+
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
-    'modules/saleAnalytics/widgets/GraphColorService'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService) {
+    'modules/saleAnalytics/widgets/GraphColorService',
+    'jquery'
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $) {
+    'use strict';
+
+    var LINE = 'line';
+    var FILLED = 'filled';
+    var FILLED100 = 'filled100';
+    var PIE = 'pie';
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
+        scope.selectedRangeOption = "week";
+        scope.currentChartType = PIE;
+
         var self = this;
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
+        self.data.noData = false;
+
         self.configureEvents();
     }
 
@@ -61,6 +72,31 @@ define([
             setTimeout(self.reDraw.bind(self), 250);
         });
 
+        self.fn.changeFilterRange = function (value) {
+            self.$scope.selectedRangeOption = value;
+            self.event.onFilterRangeChanged();
+        };
+
+        self.fn.switchToFilled100 = function () {
+            self.$scope.currentChartType = FILLED100;
+            self.paintChart();
+        };
+
+        self.fn.switchToFilled = function () {
+            self.$scope.currentChartType = FILLED;
+            self.paintChart();
+        };
+
+        self.fn.switchToLine = function () {
+            self.$scope.currentChartType = LINE;
+            self.paintChart();
+        };
+
+        self.fn.switchToPie = function () {
+            self.$scope.currentChartType = PIE;
+            self.paintChart();
+        };
+
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
             self.event.onReloadWidgetStart();
@@ -73,6 +109,12 @@ define([
 
         self.fn.refreshChart = function () {
             self.paintChart();
+        };
+
+        self.fn.init = function () {
+            setTimeout( function(){
+                $('[data-toggle=tooltip]').tooltip();
+            }, 2000 );
         };
 
         self.resizeHandling();
@@ -95,11 +137,25 @@ define([
 
     PieChartWidgetView.prototype.paintChart = function () {
         var self = this;
+        var scope = self.$scope;
+        if(scope.currentChartType === PIE) {
+            this.paintPieChart();
+        } else {
+            this.paintLineAreaChart();
+        }
+    };
+
+    PieChartWidgetView.prototype.paintLineAreaChart = function () {
+
+    };
+
+    PieChartWidgetView.prototype.paintPieChart = function () {
+        var self = this;
         var chartService = self.chartService;
         var element = self.element.find('.chart-place-holder');
         var data = self.data;
 
-        if (!data || data === null || !isArray(data)) {
+        if (!data || data === null || !Array.isArray(data)) {
             return;
         }
 

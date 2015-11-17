@@ -441,3 +441,38 @@ a:link, a:hover{
   text-decoration: none !important;
 }
 
+
+
+/**
+ * Pull right based on media query
+ */
+
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+
+@media (min-width: @screen-sm-min) {
+  .pull-right-sm {
+    float: right;
+  }
+}
+@media (min-width: @screen-md-min) {
+  .pull-right-md {
+    float: right;
+  }
+}
+@media (min-width: @screen-lg-min) {
+  .pull-right-lg {
+    float: right;
+  }
+}
+
+
+select.form-control {
+  font-size: 14px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}

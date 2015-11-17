@@ -1,0 +1,25 @@
+{
+  "nonew": false,
+  "jquery": false,
+  "curly": true,
+  "latedef": "nofunc",
+  "unused": "vars",
+  "noarg": true,
+  "forin": true,
+  "noempty": true,
+  "eqeqeq": true,
+  "strict": true,
+  "undef": true,
+  "nocomma": true,
+  "bitwise": true,
+  "immed": true,
+  "browser": true,
+  "futurehostile": true,
+  "nonbsp": true,
+  "freeze": true,
+  "singleGroups": false,
+  "maxerr": 100,
+  "globals": {
+    "define": false
+  }
+}

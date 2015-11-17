@@ -7006,11 +7006,11 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
     border-bottom: 1px solid #babebf;
     height: 1px;
 }
-.filters-div.sales-filters-div ul li a.dropdown-toggle,
+/*.filters-div.sales-filters-div ul li a.dropdown-toggle,
 .filters-div.sales-filters-div ul li span.date-range {
     font-size: 20px;
     font-weight: 400;
-}
+}*/
 .filters-div .navbar-nav > li > a {
     padding: 5px 9px 5px !important;
 }

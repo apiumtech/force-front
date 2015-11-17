@@ -2,6 +2,7 @@
  * Created by kevin on 10/29/14.
  */
 define(function () {
+    'use strict';
 
     //var apiVersion = "1.2";
     //var baseUrl = "https://backend.forcemanager.net/" + apiVersion;

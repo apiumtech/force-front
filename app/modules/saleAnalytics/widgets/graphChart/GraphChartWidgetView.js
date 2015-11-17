@@ -1,6 +1,5 @@
-/**
- * Created by justin on 12/22/14.
- */
+/* global google */
+
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetPresenter',
@@ -10,8 +9,9 @@ define([
     'moment',
     'config',
     'modules/saleAnalytics/widgets/GraphColorService',
-    'shared/services/GoogleChartService'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, $, moment, config, GraphColorService, GoogleChartService) {
+    'shared/services/GoogleChartService',
+    'underscore'
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, $, moment, config, GraphColorService, GoogleChartService, _) {
     'use strict';
 
     var LINE = 'line';
@@ -103,7 +103,7 @@ define([
                         count++;
                     }
                 });
-                return count == 1;
+                return count === 1;
             };
             var shouldToggle = true;
             self.availableFields.forEach(function (field) {
@@ -228,7 +228,7 @@ define([
         axisData.x.forEach(function(date_str){
             var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
             var col = [date];
-            chartFields.forEach(function (serie, serieIndex) {
+            chartFields.forEach(function (serie) {
                 if(serie !== null && !serie.hidden) {
                     var plotData = serie.plotData[index];
                     col.push( plotData );
@@ -299,12 +299,12 @@ define([
             self.chartOptions.hAxis = {ticks: hourTicks};
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
-            if(scope.currentChartType == LINE) {
+            if(scope.currentChartType === LINE) {
                 self.chart = chartService.createChart(element[0], 'line');
-            } else if(scope.currentChartType == FILLED) {
+            } else if(scope.currentChartType === FILLED) {
                 self.chartOptions.isStacked = true;
                 self.chart = chartService.createChart(element[0], 'area');
-            } else if(scope.currentChartType == FILLED100) {
+            } else if(scope.currentChartType === FILLED100) {
                 self.chartOptions.isStacked = "percent";
                 self.chart = chartService.createChart(element[0], 'area');
             } else {
@@ -385,24 +385,19 @@ define([
     };
 
 
-    GraphChartWidgetView.prototype.getLineGraph = function (fieldData, availableFields, chartType) {
-
+    GraphChartWidgetView.prototype.getLineGraph = function (fieldData, availableFields) {
         var fieldStatus = _.find(availableFields, function (field) {
             return field.name === fieldData.name;
         });
-
         var hidden = !fieldStatus.isDisplaying;
         if (hidden) {
             return null;
         }
-
-        var lineGraph = {
+        return {
             label: fieldData.name,
             plotData: fieldData.data,
             hidden: false
         };
-
-        return lineGraph;
     };
 
 
@@ -426,13 +421,12 @@ define([
 
     GraphChartWidgetView.prototype.extractDisplayFields = function () {
         var self = this;
-        var newFields = self.data.fields.map(function (item) {
+        self.availableFields = self.data.fields.map(function (item) {
             return {
                 name: item.name,
                 isDisplaying: true
             };
         });
-        self.availableFields = newFields;
     };
 
 
