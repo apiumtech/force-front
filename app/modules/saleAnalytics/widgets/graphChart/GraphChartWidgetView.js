@@ -195,13 +195,14 @@ define([
             }
         });
 
+        var emptyDate = new Date(null);
         var createTooltipForSerie = function(serie, date, plotData) {
             var label = serie.label;
             var dateOption = self.$scope.selectedRangeOption;
             var formattedDate;
 
             if(self.selectedFilter === "phoneCallsTime") {
-                formattedDate = self._secondsToHours(plotData);
+                formattedDate = self._secondsToHours(plotData, emptyDate);
             } else {
                 if (dateOption === 'date') {
                     formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
@@ -286,6 +287,7 @@ define([
 
         if( isHours() ){
             self.chartOptions.bar = {groupWidth: "75%"};
+            self.chartOptions.hAxis.gridlines.count = 24;
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
             if(scope.currentChartType == LINE) {
