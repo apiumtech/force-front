@@ -259,9 +259,15 @@ define([
             }
         };
 
+        // ---------------------------
+        //  vAxis
+        // ---------------------------
+
         self.chartOptions.vAxis = {};
         if(self.selectedFilter === "phoneCallsTime") {
             self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
+        } else if(self.selectedFilter === "activityScores") {
+            self.chartOptions.vAxis.ticks = [1,2,3,4,5,6,7,8,9,10];
         } else {
             if(isHours() || scope.currentChartType === LINE) {
                 self.chartOptions.vAxis.ticks = self.getVaxisTicks(chartFields);
@@ -307,9 +313,13 @@ define([
     };
 
 
-    /*
-     * chartFields()
-     */
+    // -----------------
+    //
+    //  vAxis ticks
+    //
+    // -----------------
+
+    // Rounded number ticks
     GraphChartWidgetView.prototype.getVaxisTicks = function(chartFields){
         var totalMax = 1;
         var yAxisPoints;
@@ -329,7 +339,7 @@ define([
         return ticks;
     };
 
-
+    // Addition ticks
     GraphChartWidgetView.prototype.getVaxisTicksFilled = function(chartFields){
         var totalMax = 1;
         var points = [];
@@ -352,14 +362,7 @@ define([
         return ticks;
     };
 
-
-    GraphChartWidgetView.prototype._secondsToHours = function(seconds, date) {
-        date = date || new Date(null);
-        date.setSeconds(seconds);
-        return date.toISOString().substr(11, 8);
-    };
-
-
+    // hh:mm:ss ticks
     GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks = function(chartFields) {
         var self = this;
         var ticks = self.getVaxisTicks(chartFields);
@@ -371,6 +374,11 @@ define([
             };
         });
         return ticks;
+    };
+    GraphChartWidgetView.prototype._secondsToHours = function(seconds, date) {
+        date = date || new Date(null);
+        date.setSeconds(seconds);
+        return date.toISOString().substr(11, 8);
     };
 
 
