@@ -26,10 +26,10 @@ define([
         }, {
             name: 'Activity Scores',
             key: 'activityScores'
-        }, {
+        },/* {
             name: 'Users',
             key: 'users'
-        }, {
+        }*/ {
             name: 'Orders',
             key: 'orders'
         }, {
