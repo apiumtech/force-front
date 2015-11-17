@@ -266,7 +266,7 @@ define([
         self.chartOptions.vAxis = {};
         if(self.selectedFilter === "phoneCallsTime") {
             self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
-        } else if(self.selectedFilter === "activityScores") {
+        } else if(self.selectedFilter === "activityScores" && scope.currentChartType === LINE) {
             self.chartOptions.vAxis.ticks = [1,2,3,4,5,6,7,8,9,10];
         } else {
             if(isHours() || scope.currentChartType === LINE) {
