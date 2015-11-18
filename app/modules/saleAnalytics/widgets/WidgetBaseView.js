@@ -38,11 +38,11 @@ define([
         scope.$on('$destroy', this.unbindEventChannelEventListeners.bind(this));
 
 
-        meld.before(self, 'onReloadWidgetSuccess', function () {
+        /*meld.before(self, 'onReloadWidgetSuccess', function () {
             if(self.serverError===true) {
                 self.serverError = false;
             }
-        });
+        });*/
 
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);
@@ -93,6 +93,7 @@ define([
     };
 
     WidgetBaseView.prototype.onReloadCommandReceived = function () {
+        this.data.serverError = false;
         this.event.onReloading();
     };
 

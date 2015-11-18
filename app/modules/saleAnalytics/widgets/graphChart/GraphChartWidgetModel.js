@@ -7,6 +7,7 @@ define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'config'
 ], function (AuthAjaxService, WidgetBase, Configuration) {
+    'use strict';
 
     function GraphChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
@@ -48,11 +49,11 @@ define([
     GraphChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {
                 return filterValue.key;
-            }).indexOf(filter) == -1) {
+            }).indexOf(filter) === -1) {
             this.currentFilter = this.filters[0].key;
-        }
-        else
+        } else {
             this.currentFilter = filter;
+        }
     };
 
     GraphChartWidgetModel.prototype.getUrl = function () {

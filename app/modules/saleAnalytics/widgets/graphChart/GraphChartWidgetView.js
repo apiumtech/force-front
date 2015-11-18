@@ -133,17 +133,26 @@ define([
     };
 
 
-    GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (data) {
+    GraphChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
 
-        self.data = data.data.params;
+        var element = self.element.find('.chart-place-holder');
+        element.empty();
+        
+        if(self.data.serverError){
+            return;
+        }
 
-        if( !self.data || !self.data.axis || !self.data.fields ||
-            self.data.axis.length === 0 || self.data.fields.length === 0 ) {
+        self.data.noData = false;
+        var deepData = responseData.data.params;
+
+        if( !deepData || !deepData.axis || !deepData.fields ||
+            deepData.axis.length === 0 || deepData.fields.length === 0 ) {
             self.data.noData = true;
             return;
         }
 
+        self.data = _({}).extend(self.data, responseData.data.params);
         self.extractFilters();
         self.extractDisplayFields();
         self.paintChart();

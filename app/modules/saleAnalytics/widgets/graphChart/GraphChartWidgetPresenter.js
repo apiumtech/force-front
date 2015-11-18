@@ -32,7 +32,9 @@ define([
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(view.widget.dataEndpoint);
-            view.data = {};
+            view.data.axis = undefined;
+            view.data.fields = undefined;
+            view.data.filters = undefined;
             self._executeLoadWidget();
         };
 
