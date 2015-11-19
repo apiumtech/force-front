@@ -4,7 +4,7 @@ define([
     'shared/services/JsonWebTokenService',
     'shared/services/StorageService'
 ], function ($, config, JsonWebTokenService, StorageService) {
-
+    'use strict';
 
     // --------------------------------------------------------
     //  TODO: move all this logic to a bootstrapping module

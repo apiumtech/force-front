@@ -14,6 +14,7 @@ define([
     'angular-validation-rule',
     'angular_touch'
 ], function (angular, config, $, i18nextOptions, diConfig) {
+    'use strict';
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = i18nextOptions.dev_local;

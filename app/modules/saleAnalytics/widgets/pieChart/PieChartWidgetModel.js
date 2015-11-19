@@ -6,6 +6,7 @@ define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/ajax/AuthAjaxService'
 ], function (WidgetBase, AuthAjaxService) {
+    'use strict';
 
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
@@ -17,9 +18,21 @@ define([
             name: "Visits",
             key: "visits"
         }];
+
+        this.queries.grouping = "";
     }
 
     PieChartWidgetModel.inherits(WidgetBase, {});
+
+    PieChartWidgetModel.prototype.changeQueryFilter = function (filter) {
+        if (this.filters.map(function (filterValue) {
+                return filterValue.key;
+            }).indexOf(filter) === -1) {
+            this.currentFilter = this.filters[0].key;
+        } else {
+            this.currentFilter = filter;
+        }
+    };
 
     PieChartWidgetModel.prototype.getUrl = function () {
         return this.fetchPoint.format(this.currentFilter);
@@ -32,17 +45,18 @@ define([
             .then(this.decorateServerData.bind(this));
     };
 
-    PieChartWidgetModel.prototype.changeQueryFilter = function (filter) {
-        if (this.filters.map(function (filterValue) {
-                return filterValue.key;
-            }).indexOf(filter) == -1) {
-            this.currentFilter = this.filters[0].key;
+    PieChartWidgetModel.prototype.decorateServerData = function (data) {
+        var self = this;
+        var responseData;
+        if (self.queries.grouping === "") {// is pie chart
+            responseData = self.decoratePieChartServerData(data);
+        } else {
+            responseData = self.decorateLineAreaChartServerData(data);
         }
-        else
-            this.currentFilter = filter;
+        return responseData;
     };
 
-    PieChartWidgetModel.prototype.decorateServerData = function (data) {
+    PieChartWidgetModel.prototype.decoratePieChartServerData = function (data) {
         var responseData = {
             data: {
                 params: {
@@ -51,9 +65,7 @@ define([
                 }
             }
         };
-
         var labels = data.Labels[0];
-
         var series = data.Series[0];
         series.Points.forEach(function (point, index) {
             var decorated = {
@@ -62,9 +74,35 @@ define([
             };
             responseData.data.params.params.push(decorated);
         });
-
         return responseData;
     };
+
+    PieChartWidgetModel.prototype.decorateLineAreaChartServerData = function (data) {
+        var responseData = {
+            data: {
+                params: {
+                    axis: {
+                        x: [],
+                        y: ""
+                    },
+                    fields: [],
+                    filters: this.filters
+                }
+            }
+        };
+        responseData.data.params.axis.x = data.Labels[0];
+        data.Series.forEach(function (series) {
+            var decorated = {
+                name: series.Name,
+                data: series.Points.map(function (point) {
+                    return point.Y;
+                })
+            };
+            responseData.data.params.fields.push(decorated);
+        });
+        return responseData;
+    };
+
 
     PieChartWidgetModel.newInstance = function (ajaxService) {
         return new PieChartWidgetModel(ajaxService || AuthAjaxService.newInstance());

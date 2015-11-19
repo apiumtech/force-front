@@ -242,6 +242,7 @@
   },
   "Intensity": {
   },
+  "pieChart": "Pie Chart",
   "lineChart": "Line Chart",
   "areaChart": "Area Chart",
   "areaChartPercent": "Area Chart %",

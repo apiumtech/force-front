@@ -9,6 +9,7 @@ define([
     // TODO: This is deprecated
     'modules/saleAnalytics/eventBus/WidgetEventBus'
 ], function (BaseView, meld, SalesAnalyticsFilterChannel, TranslatorService, /*TODO: this is deprecated*/WidgetEventBus) {
+    'use strict';
 
     function WidgetBaseView(scope, element, presenter) {
         BaseView.call(this, scope, null, presenter);
@@ -37,11 +38,11 @@ define([
         scope.$on('$destroy', this.unbindEventChannelEventListeners.bind(this));
 
 
-        meld.before(self, 'onReloadWidgetSuccess', function () {
+        /*meld.before(self, 'onReloadWidgetSuccess', function () {
             if(self.serverError===true) {
                 self.serverError = false;
             }
-        });
+        });*/
 
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);
@@ -92,6 +93,7 @@ define([
     };
 
     WidgetBaseView.prototype.onReloadCommandReceived = function () {
+        this.data.serverError = false;
         this.event.onReloading();
     };
 
