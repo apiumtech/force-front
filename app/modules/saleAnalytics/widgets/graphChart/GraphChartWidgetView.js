@@ -138,7 +138,7 @@ define([
 
         var element = self.element.find('.chart-place-holder');
         element.empty();
-        
+
         if(self.data.serverError){
             return;
         }
