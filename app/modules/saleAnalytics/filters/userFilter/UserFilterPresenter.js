@@ -32,7 +32,7 @@ define([
         view.event.onFilteringUsers = function (usersList, currentUserFilterGroup, searchQuery) {
             var data = model.getFilteredData(usersList, currentUserFilterGroup, searchQuery);
             view.setFilteredData(data);
-        }
+        };
     };
 
     return UserFilterPresenter;

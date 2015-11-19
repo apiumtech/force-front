@@ -31,7 +31,7 @@
             </div>
         </accordion-heading>
         <ul ng-if="group.children && group.children.length">
-            <li class="clearfix" ng-repeat="user in group.children">
+            <li class="clearfix p-t-5 p-b-5 img-user-tree" ng-repeat="user in group.children">
                 <input type="checkbox"
                        value="{{user.Id}}"
                        ng-model="user.checked"
@@ -39,7 +39,11 @@
                        ng-click="$event.stopPropagation()"
                        class="pull-left m-t-10 m-r-10 ">
 
-                <div class="pull-left m-t-5">
+                <div class=" pull-left">
+                    <img class="media-object" ng-src="{{ fn.buildUserPictureUrl(user) }}">
+                </div>
+
+                <div class="pull-left m-t-5 m-l-10">
                     {{user.Name}}
                 </div>
             </li>

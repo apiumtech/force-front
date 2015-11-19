@@ -152,6 +152,13 @@ define([
             $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
         };
 
+        self.fn.buildUserPictureUrl = function(user) {
+            var UserKey = user.UserKey;
+            var idUser = user.Id;
+            var strCellPhoneNumber = user.strCellPhoneNumber;
+            return "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey="+ UserKey +"&amp;iduser="+ idUser +"&amp;strCellPhoneNumber="+ strCellPhoneNumber;
+        };
+
     };
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
@@ -165,14 +172,18 @@ define([
     };
 
     UserFilterView.prototype.setFilteredData = function (data) {
-        if (!data || data.length <= 0) throw new Error('Filtered data is empty, no change will be made');
+        if (!data || data.length <= 0){
+            throw new Error('Filtered data is empty, no change will be made');
+        }
         var self = this;
         self.userFiltered = data;
         self.userFiltered[0].isOpen = true;
     };
 
     UserFilterView.prototype.singleSelect = function (selectedNode) {
-        if (!selectedNode) return;
+        if (!selectedNode) {
+            return;
+        }
 
         var node_state = selectedNode.checked;
 
@@ -195,7 +206,9 @@ define([
     };
 
     UserFilterView.prototype.checkStateForTeamList = function (selectedNode, flattened, notRoot) {
-        if (!selectedNode) return;
+        if (!selectedNode) {
+            return;
+        }
         var self = this;
         var arrayHelper = self.arrayHelper;
         if (!flattened) {
@@ -204,29 +217,34 @@ define([
         }
 
         var nodeToCheck = _.find(flattened, function (n) {
-            return n.Id === selectedNode.Id
+            return n.Id === selectedNode.Id;
         });
-        if (!nodeToCheck || nodeToCheck.ParentId == -1) return;
+        if (!nodeToCheck || nodeToCheck.ParentId === -1){
+            return;
+        }
 
         var siblings = _.filter(flattened, function (n) {
-            return n.ParentId == nodeToCheck.ParentId
+            return n.ParentId === nodeToCheck.ParentId;
         });
-        if (!siblings || siblings.length == 0) return;
+        if (!siblings || siblings.length === 0){
+            return;
+        }
 
         var unselectedData = _.filter(siblings, function (node) {
             return !node.checked;
         }).length;
 
         var parentNode = _.find(flattened, function (n) {
-            return n.Id == nodeToCheck.ParentId;
+            return n.Id === nodeToCheck.ParentId;
         });
 
-        parentNode.checked = (unselectedData == siblings.length) ? false : ( (unselectedData === 0) ? true : null );
+        parentNode.checked = (unselectedData === siblings.length) ? false : ( (unselectedData === 0) ? true : null );
 
         self.checkStateForTeamList(parentNode, flattened, true);
 
-        if (!notRoot)
+        if (!notRoot){
             self.userFiltered = arrayHelper.makeTree(flattened, 'ParentId', 'Id', 'children', -1);
+        }
     };
 
     UserFilterView.prototype.checkSelectAllState = function () {
@@ -237,7 +255,7 @@ define([
                 return !user.checked;
             }).length;
 
-            group.checked = (unselectedData == group.children.length) ? false : ( (unselectedData === 0) ? true : null );
+            group.checked = (unselectedData === group.children.length) ? false : ( (unselectedData === 0) ? true : null );
         });
     };
 
