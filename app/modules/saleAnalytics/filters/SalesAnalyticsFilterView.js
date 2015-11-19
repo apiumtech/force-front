@@ -1,7 +1,3 @@
-/**
- * Created by justin on 2/3/15.
- */
-
 define([
     'shared/BaseView',
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
@@ -114,7 +110,7 @@ define([
         self.$scope.$watch('displayDateStart', function (value) {
             var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
-                console.error("Input date is not valid");
+                window.console.error("Input date is not valid");
                 return;
             }
             self.dateRangeStart = _date.toDate();
@@ -124,7 +120,7 @@ define([
         self.$scope.$watch('displayDateEnd', function (value) {
             var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
-                console.error("Input date is not valid");
+                window.console.error("Input date is not valid");
                 return;
             }
 
@@ -148,8 +144,9 @@ define([
 
         self.fn.closeDatePickers = function (event) {
             event.stopPropagation();
-            if(event.target && $(event.target).attr("data-desc") != "calendar-input")
+            if(event.target && $(event.target).attr("data-desc") !== "calendar-input"){
                 $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
+            }
         };
 
         self.fn.loadPreviousLastDaysFilter = function (days) {
@@ -173,7 +170,7 @@ define([
         self.fn.validateDateInput = function (event) {
             if ([46, 8, 9, 27, 13, 191, 111].indexOf(event.keyCode) !== -1 ||
                     // Allow: Ctrl+A
-                (event.keyCode == 65 && event.ctrlKey === true) ||
+                (event.keyCode === 65 && event.ctrlKey === true) ||
                     // Allow: home, end, left, right, down, up
                 (event.keyCode >= 35 && event.keyCode <= 40)) {
                 // let it happen, don't do anything
@@ -187,14 +184,16 @@ define([
         };
 
         self.fn.getPreviousDate = function (days, from) {
-            if (!from || !(from instanceof Date))
+            if (!from || !(from instanceof Date)){
                 return null;
+            }
 
             return moment(from).subtract(days, 'days').toDate();
         };
 
         self.fn.getDatePlaceholder = function () {
-            return self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + ' → ' + self.fn.getFormattedDate(self.dateRangeEnd);
+            self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + ' → ' + self.fn.getFormattedDate(self.dateRangeEnd);
+            return self.dateRangePlaceholder;
         };
 
         self.fn.getFormattedDate = function (date) {
@@ -243,7 +242,7 @@ define([
     };
 
     SalesAnalyticsFilterView.prototype.showError = function (error) {
-        console.error(error);
+        window.console.error(error);
     };
 
     SalesAnalyticsFilterView.newInstance = function ($scope, $viewRepAspect, $logErrorAspect) {
