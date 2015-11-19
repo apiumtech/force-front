@@ -139,8 +139,17 @@ define([
         };
 
         self.fn.__applyUserFilter = function () {
-            var filteredIds = self.getFilteredUserIdsList();
+            var flattenedUsers = self.getFilteredUsersList();
+
+            var filteredUsers = flattenedUsers.filter(function (node) {
+                return node.checked === true;
+            });
+            var filteredIds = _.pluck(filteredUsers, 'Id');
+
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
+
+            //self.eventBus.fireUsersFiltered(filteredUsers);
+            self.fireUsersFiltered();
         };
 
         self.fn.toggled = function(open) {
@@ -159,6 +168,48 @@ define([
             return "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey="+ UserKey +"&amp;iduser="+ idUser +"&amp;strCellPhoneNumber="+ strCellPhoneNumber;
         };
 
+    };
+
+
+    UserFilterView.prototype.fireUsersFiltered = function () {
+        var self = this;
+
+        var partiallySelected = self.userFiltered.filter(function (node) {
+            return node.checked === null;
+        });
+
+        var fullySelected = self.userFiltered.filter(function (node) {
+            return node.checked === true;
+        });
+
+        // none selected
+        if( partiallySelected.length === 0 && fullySelected.length === 0 ) {
+            self.eventBus.fireUsersFiltered([]);
+            return;
+        }
+
+        var flattenedUsers = self.getFilteredUsersList();
+        var filteredUsers = flattenedUsers.filter(function (node) {
+            return node.checked === true;
+        });
+
+        // multiple selected
+        if( partiallySelected.length > 1 || fullySelected.length > 1 || partiallySelected.length + fullySelected.length > 1) {
+            self.eventBus.fireUsersFiltered(filteredUsers);
+            return;
+        }
+
+        // single partial selection
+        if( partiallySelected.length === 1 ) {
+            self.eventBus.fireUsersFiltered(filteredUsers);
+            return;
+        }
+
+        // single fully selection
+        if( fullySelected.length === 1 ) {
+            self.eventBus.fireUsersFiltered( [fullySelected[0]] );
+            return;
+        }
     };
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
@@ -194,11 +245,12 @@ define([
         var flattened = arrayHelper.flatten(cloned, 'children');
 
         flattened.forEach(function (node) {
-            if (node.Id == selectedNode.Id) {
+            if (node.Id === selectedNode.Id) {
                 node.checked = node_state;
                 self.currentSelectedUser = node.checked ? node.Name : undefined;
+            } else{
+                node.checked = false;
             }
-            else node.checked = false;
         });
 
         self.userFiltered = arrayHelper.makeTree(flattened, 'ParentId', 'Id', 'children', -1);
@@ -259,17 +311,13 @@ define([
         });
     };
 
-    UserFilterView.prototype.getFilteredUserIdsList = function () {
+    UserFilterView.prototype.getFilteredUsersList = function () {
         var self = this;
 
         var cloned = this.arrayHelper.clone(self.userFiltered);
         var flattened = this.arrayHelper.flatten(cloned, 'children');
 
-        var result = _.pluck(flattened.filter(function (node) {
-            return node.checked === true;
-        }), 'Id');
-
-        return result;
+        return flattened;
     };
 
     UserFilterView.prototype.onUsersLoadedSuccess = function (data) {

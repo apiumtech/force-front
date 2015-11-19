@@ -1,6 +1,6 @@
 <accordion class="users-filter-list environment clearfix" close-others="false">
-    <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen"
-                     class="clearfix">
+    <accordion-group ng-repeat="group in userFiltered" is-open="group.isOpen" class="clearfix">
+
         <accordion-heading class="clearfix">
             <div class="users-group-heading" ng-click="$event.stopPropagation();">
                 <i class="pull-left fa environment-collapse-icon"
@@ -30,6 +30,7 @@
                 </div>
             </div>
         </accordion-heading>
+
         <ul ng-if="group.children && group.children.length">
             <li class="clearfix p-t-5 p-b-5 img-user-tree" ng-repeat="user in group.children">
                 <input type="checkbox"
@@ -48,5 +49,6 @@
                 </div>
             </li>
         </ul>
+
     </accordion-group>
 </accordion>

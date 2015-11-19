@@ -6,12 +6,14 @@ define([
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBusClass, WidgetAdministrationEventBus, $, moment, _) {
+], function (BaseView, SalesAnalyticsFilterChannel, UserTreeListEventBus, WidgetAdministrationEventBus, $, moment, _) {
     'use strict';
 
     function SalesAnalyticsFilterView($scope) {
         BaseView.call(this, $scope, null, null);
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
+        this.userTreeListEventBus = UserTreeListEventBus.getInstance();
+
         var self = this;
         self.resetDate = true;
         self.defaultPreviousDay = 180;
@@ -228,10 +230,55 @@ define([
             self.fn.getDatePlaceholder();
         };
 
+        self.userTreeListEventBus.onUsersFiltered(
+            self.onUsersFiltered.bind(self)
+        );
+
         /*self.fn.toggleWidgetAdministration = function(){
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
         };*/
     };
+
+    SalesAnalyticsFilterView.prototype.onUsersFiltered = function (selectionList) {
+        var self = this;
+
+        var len = selectionList.length;
+
+        if(len === 0)
+        {
+            self._userSelectionIsEmpty();
+        }
+        else if (len === 1)
+        {
+            var selection = selectionList[0];
+            if(selection.ParentId === -1)
+            {
+                self._userSelectionIsOneEnvironment(selection);
+            }
+            else
+            {
+                self._userSelectionIsOneNormalUser(selection);
+            }
+        }
+        else // len > 1
+        {
+            self._userSelectionIsMoreThanOne(selectionList.length);
+        }
+    };
+
+    SalesAnalyticsFilterView.prototype._userSelectionIsEmpty = function () {
+        window.console.log("_userSelectionIsEmpty");
+    };
+    SalesAnalyticsFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
+        window.console.log("_userSelectionIsOneNormalUser", user);
+    };
+    SalesAnalyticsFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
+        window.console.log("_userSelectionIsOneEnvironment", env);
+    };
+    SalesAnalyticsFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {
+        window.console.log("_userSelectionIsMoreThanOne", nSelectedUsers);
+    };
+
 
     SalesAnalyticsFilterView.prototype.validateDates = function () {
         var self = this;
