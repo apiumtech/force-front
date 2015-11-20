@@ -118,6 +118,7 @@ define([
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
             self.data.usersLoadedFailError = null;
+            self.data.selectionType = SELECTED_NONE;
             self.currentUserFilterGroup = UserFilterView.TEAM;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
@@ -246,25 +247,21 @@ define([
         }
     };
     UserFilterView.prototype._userSelectionIsEmpty = function () {
-        window.console.log("_userSelectionIsEmpty");
         this.data.userSelectionLabel = "";
         this.data.userSelectionPicture = "";
         this.data.selectionType = SELECTED_NONE;
     };
     UserFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
-        window.console.log("_userSelectionIsOneNormalUser", user);
         this.data.userSelectionLabel = user.Name;
         this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
         this.data.selectionType = SELECTED_ONE_USER;
     };
     UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
-        window.console.log("_userSelectionIsOneEnvironment", env);
         this.data.userSelectionLabel = env.Name;
         this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
         this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
     };
     UserFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {
-        window.console.log("_userSelectionIsMoreThanOne", nSelectedUsers);
         this.data.userSelectionLabel = nSelectedUsers + " selected";
         this.data.userSelectionPicture = "???";
         this.data.selectionType = SELECTED_MANY;
