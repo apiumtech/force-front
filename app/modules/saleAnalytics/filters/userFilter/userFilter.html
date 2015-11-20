@@ -11,12 +11,27 @@
            href="javascript:"
            class="dropdown-toggle m-r-30"
            dropdown-toggle>
-            <span ng-if="multipleSelection">
+            <span ng-if="data.selectionType==='SELECTED_NONE'">
+                {{'Filters.AllUsers' | i18next}}
+            </span>
+            <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_ONE_USER'">
+                <img ng-src="{{ data.userSelectionPicture }}" />
+                {{ data.userSelectionLabel }}
+            </span>
+            <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_ONE_ENVIRONMENT'">
+                <img src="" />
+                {{ data.userSelectionLabel }}
+            </span>
+            <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_MANY'">
+                <img src="" />
+                {{ data.userSelectionLabel }}
+            </span>
+            <!--<span ng-if="multipleSelection">
                 {{'Filters.AllUsers' | i18next}}
             </span>
             <span ng-if="!multipleSelection">
                 User: <span ng-if="currentSelectedUser">{{currentSelectedUser}}</span> <span ng-if="!currentSelectedUser">None</span>
-            </span>
+            </span>-->
             <span class="caret"></span>
         </a>
 
@@ -69,8 +84,16 @@
 
 
             <!-- recent added users -->
-            <li class="media hide">
+            <li class="media recent-added-users hide">
                 <h6>{{'Filters.RecentSelected' | i18next}}</h6>
+
+                <!--<div class="m-t-10 m-b-10">
+                    <span class="environment-tag" ng-repeat="environment in userFiltered | filter:{checked:true}">{{ environment.Name }}</span>
+                    <span ng-repeat="environment in userFiltered | filter:{checked:null}">
+                        <span class="user-tag" ng-repeat="user in environment.children | filter:{checked:true}">{{ user.Name }}</span>
+                    </span>
+                </div>-->
+
                 <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
                 <div class="pull-left m-t-5">
                     <strong>{{'Filters.AllUsers' | i18next}}</strong>

@@ -11,6 +11,11 @@ define([
 ], function (BaseView, SalesAnalyticsFilterChannel, UserFilterPresenter, AwaitHelper, ArrayHelper, UserTreeListEventBus, $, moment, _) {
     'use strict';
 
+    var SELECTED_NONE = "SELECTED_NONE";
+    var SELECTED_ONE_USER = "SELECTED_ONE_USER";
+    var SELECTED_ONE_ENVIRONMENT = "SELECTED_ONE_ENVIRONMENT";
+    var SELECTED_MANY = "SELECTED_MANY";
+
     function UserFilterView($scope, $presenter, eventBus) {
 
         $presenter = $presenter || new UserFilterPresenter();
@@ -23,6 +28,9 @@ define([
         this.data.isLoadingUsers = false;
         this.data.usersLoadedFailError = null;
         this.APPLY_USER_FILTER_DELAY = 500;// ms.
+
+        this.data.selectionType = SELECTED_NONE;
+        this.data.userSelectionLabel = "";
 
         this.configureEvents();
     }
@@ -149,6 +157,7 @@ define([
             self.filterChannel.sendUserFilterApplySignal(filteredIds);
 
             //self.eventBus.fireUsersFiltered(filteredUsers);
+            // TODO: no need to use eventBus!!! it's all in the same file!!!
             self.fireUsersFiltered();
         };
 
@@ -165,7 +174,7 @@ define([
             var UserKey = user.UserKey;
             var idUser = user.Id;
             var strCellPhoneNumber = user.strCellPhoneNumber;
-            return "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey="+ UserKey +"&amp;iduser="+ idUser +"&amp;strCellPhoneNumber="+ strCellPhoneNumber;
+            return "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey="+ UserKey +"&iduser="+ idUser +"&strCellPhoneNumber="+ strCellPhoneNumber;
         };
 
     };
@@ -184,7 +193,7 @@ define([
 
         // none selected
         if( partiallySelected.length === 0 && fullySelected.length === 0 ) {
-            self.eventBus.fireUsersFiltered([]);
+            self.onUsersFiltered([]);
             return;
         }
 
@@ -195,22 +204,73 @@ define([
 
         // multiple selected
         if( partiallySelected.length > 1 || fullySelected.length > 1 || partiallySelected.length + fullySelected.length > 1) {
-            self.eventBus.fireUsersFiltered(filteredUsers);
+            self.onUsersFiltered(filteredUsers);
             return;
         }
 
         // single partial selection
         if( partiallySelected.length === 1 ) {
-            self.eventBus.fireUsersFiltered(filteredUsers);
+            self.onUsersFiltered(filteredUsers);
             return;
         }
 
         // single fully selection
         if( fullySelected.length === 1 ) {
-            self.eventBus.fireUsersFiltered( [fullySelected[0]] );
+            self.onUsersFiltered( [fullySelected[0]] );
             return;
         }
     };
+    UserFilterView.prototype.onUsersFiltered = function (selectionList) {
+        var self = this;
+        var len = selectionList.length;
+
+        if(len === 0)
+        {
+            self._userSelectionIsEmpty();
+        }
+        else if (len === 1)
+        {
+            var selection = selectionList[0];
+            if(selection.ParentId === -1)
+            {
+                self._userSelectionIsOneEnvironment(selection);
+            }
+            else
+            {
+                self._userSelectionIsOneNormalUser(selection);
+            }
+        }
+        else // len > 1
+        {
+            self._userSelectionIsMoreThanOne(selectionList.length);
+        }
+    };
+    UserFilterView.prototype._userSelectionIsEmpty = function () {
+        window.console.log("_userSelectionIsEmpty");
+        this.data.userSelectionLabel = "";
+        this.data.userSelectionPicture = "";
+        this.data.selectionType = SELECTED_NONE;
+    };
+    UserFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
+        window.console.log("_userSelectionIsOneNormalUser", user);
+        this.data.userSelectionLabel = user.Name;
+        this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
+        this.data.selectionType = SELECTED_ONE_USER;
+    };
+    UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
+        window.console.log("_userSelectionIsOneEnvironment", env);
+        this.data.userSelectionLabel = env.Name;
+        this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
+        this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
+    };
+    UserFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {
+        window.console.log("_userSelectionIsMoreThanOne", nSelectedUsers);
+        this.data.userSelectionLabel = nSelectedUsers + " selected";
+        this.data.userSelectionPicture = "???";
+        this.data.selectionType = SELECTED_MANY;
+    };
+
+
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;

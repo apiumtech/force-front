@@ -22,14 +22,6 @@ define([
     };
 
 
-    UserTreeListEventBus.prototype.onUsersFiltered = function () {
-    };
-    UserTreeListEventBus.prototype.fireUsersFiltered = function () {
-    };
-    UserTreeListEventBus.prototype.unsubscribeUsersFiltered = function () {
-    };
-
-
     UserTreeListEventBus.getInstance = function () {
         if (UserTreeListEventBus.__instance) {
             return UserTreeListEventBus.__instance;
