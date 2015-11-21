@@ -33,6 +33,8 @@ define([
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
+
+        self.mainFilterFromDate = moment().subtract(config.defaultDateSubtraction, 'days').toDate();
         self.mainFilterToDate = new Date();
 
         self.configureEvents();
@@ -131,7 +133,7 @@ define([
         };
 
         self.filterChannel.onDateFilterApplySignalReceived(function(filterValue){
-            window.console.log(filterValue);
+            self.mainFilterFromDate = filterValue.dateStart;
             self.mainFilterToDate = filterValue.dateEnd;
         });
 
@@ -304,6 +306,7 @@ define([
             gridlines: {
                 count: 8 /* max number of ticks */
             },
+            minValue: self.mainFilterFromDate,
             maxValue: self.mainFilterToDate
         };
 
