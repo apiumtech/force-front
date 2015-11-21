@@ -33,6 +33,7 @@ define([
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
+        self.mainFilterToDate = new Date();
 
         self.configureEvents();
     }
@@ -128,6 +129,12 @@ define([
                 $('[data-toggle=tooltip]').tooltip();
             }, 2000 );
         };
+
+        self.filterChannel.onDateFilterApplySignalReceived(function(filterValue){
+            window.console.log(filterValue);
+            self.mainFilterToDate = filterValue.dateEnd;
+        });
+
 
         self.resizeHandling();
     };
@@ -296,7 +303,8 @@ define([
             format: computedFormat,
             gridlines: {
                 count: 8 /* max number of ticks */
-            }
+            },
+            maxValue: self.mainFilterToDate
         };
 
 
