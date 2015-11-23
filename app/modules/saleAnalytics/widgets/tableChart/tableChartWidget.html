@@ -69,6 +69,9 @@
                                 <img ng-src="{{ record['PhotoUrl'] }}" class="media-object" style="display: inline-block;"/>
                                 <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
                             </div>
+                            <div ng-switch-when="quesito" class="m-t-10">
+                                <img ng-src="{{ fn.generateQuesitoImageData(record[col.key]) }}" />
+                            </div>
                             <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:2 }}</p>
                             <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:0 }}</p>
                             <p ng-switch-when="seconds" class="m-t-10" style="text-align:right;">{{ fn.secondsToTime(record[col.key]) }}</p>

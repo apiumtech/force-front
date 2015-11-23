@@ -84,7 +84,7 @@ define([
                     key === 'Sales' ? 'float' :
                     key === 'Visits' ? 'int' :
                     key === 'Activities' ? 'int' :
-                    key === 'ActivityScore' ? 'float' :
+                    key === 'ActivityScore' ? 'quesito' :
                     key === 'PhoneCallsTime' ? 'seconds' :
                     key === 'Emails' ? 'int' :
                     key === 'Orders' ? 'int' :

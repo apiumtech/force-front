@@ -22,7 +22,7 @@ define([
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
-        scope.selectedRangeOption = "";
+        scope.selectedRangeOption = "pie";
         scope.currentChartType = PIE;
 
         var self = this;
@@ -101,7 +101,7 @@ define([
 
         self.fn.switchToPie = function () {
             self.$scope.currentChartType = PIE;
-            self.$scope.selectedRangeOption = "";
+            self.$scope.selectedRangeOption = "pie";
             self.event.onTimeChartRequested();
         };
 

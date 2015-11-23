@@ -25,7 +25,7 @@ define([
             key: "opportunities"
         }];
 
-        this.queries.grouping = "";
+        this.queries.grouping = "pie";
     }
 
     PieChartWidgetModel.inherits(WidgetBase, {});
@@ -54,7 +54,7 @@ define([
     PieChartWidgetModel.prototype.decorateServerData = function (data) {
         var self = this;
         var responseData;
-        if (self.queries.grouping === "") {// is pie chart
+        if (self.queries.grouping === "pie") {// is pie chart
             responseData = self.decoratePieChartServerData(data);
         } else {
             responseData = self.decorateLineAreaChartServerData(data);

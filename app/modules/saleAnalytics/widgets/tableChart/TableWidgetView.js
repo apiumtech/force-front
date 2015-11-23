@@ -93,6 +93,24 @@ define([
             return self._secondsToHM(totalSeconds);
         };
 
+
+        var canvas = document.createElement('canvas');
+        var r = 10;
+        canvas.width = r * 2;
+        canvas.height = r * 2;
+        var ctx = canvas.getContext('2d');
+        self.fn.generateQuesitoImageData = function (percentage) {
+            ctx.beginPath();
+            ctx.moveTo(r, r);
+            ctx.arc( r, r, 30, 0, 90* Math.PI/180 );
+            ctx.lineTo(r ,r);
+            ctx.closePath();
+            ctx.fill();
+            var imageData = canvas.toDataURL('image/png');
+            console.log(imageData);
+            return imageData;
+        };
+
         self.event.parseData = function(){};
     };
 
@@ -134,7 +152,7 @@ define([
                 if(a > b) return 1;
                 return 0;
             };
-            if( ['int','float','seconds'].indexOf(self.sortingState.column.type) > -1 ){
+            if( ['int','float','seconds', 'quesito'].indexOf(self.sortingState.column.type) > -1 ){
                 self.data.data.sort(numberSortFunction);
             } else {
                 self.data.data.sort(stringSortFunction);
