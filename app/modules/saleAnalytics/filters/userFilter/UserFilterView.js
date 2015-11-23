@@ -258,7 +258,7 @@ define([
     };
     UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
         this.data.userSelectionLabel = env.Name;
-        this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
+        //this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
         this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
     };
     UserFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {

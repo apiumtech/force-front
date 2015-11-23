@@ -20,7 +20,7 @@ define([
             column: null,
             asc: false,
             desc: false
-        }
+        };
     }
 
 
@@ -90,20 +90,34 @@ define([
         };
 
         self.fn.secondsToTime = function (totalSeconds) {
-            var sec_num = parseInt(totalSeconds, 10);
-            var hours   = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-            var seconds = sec_num - (hours * 3600) - (minutes * 60);
-            if (hours   < 10) {hours   = "0"+hours;}
-            if (minutes < 10) {minutes = "0"+minutes;}
-            if (seconds < 10) {seconds = "0"+seconds;}
-            var time    = hours+':'+minutes+':'+seconds;
-            return time;
+            return self._secondsToHM(totalSeconds);
         };
 
         self.event.parseData = function(){};
     };
 
+
+    TableWidgetView.prototype._secondsToHM = function (secs) {
+        if(secs===0){
+            return "0";
+        }
+
+        var t = this._secondsDescomposition(secs);
+        return t.h + "h " +
+            t.m + "m";
+    }
+
+    TableWidgetView.prototype._secondsDescomposition = function (secs) {
+        var sec_num = parseInt(secs, 10);
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+        return {
+            h: hours,
+            m: minutes,
+            s: seconds
+        };
+    };
 
     TableWidgetView.prototype.renderChart = function () {
         var self = this;

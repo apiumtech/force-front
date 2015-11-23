@@ -18,14 +18,17 @@
                 <img ng-src="{{ data.userSelectionPicture }}" />
                 {{ data.userSelectionLabel }}
             </span>
+
             <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_ONE_ENVIRONMENT'">
-                <img src="" />
-                {{ data.userSelectionLabel }}
+                <i class="ic-environment pull-left m-r-5"></i>
+                <span class="pull-left">{{ data.userSelectionLabel }}</span>
             </span>
+
             <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_MANY'">
-                <img src="" />
-                {{ data.userSelectionLabel }}
+                <i class="ic-users-1 pull-left m-r-5"></i>
+                <span class="pull-left">{{ data.userSelectionLabel }}</span>
             </span>
+
             <!--<span ng-if="multipleSelection">
                 {{'Filters.AllUsers' | i18next}}
             </span>

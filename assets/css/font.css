@@ -356,3 +356,9 @@
 .ic-literals:before {
     content: "\e00b";
 }
+.ic-environment:before {
+    content: "\e00c";
+}
+.ic-users-1:before {
+    content: "\e00d";
+}

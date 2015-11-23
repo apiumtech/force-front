@@ -4,10 +4,10 @@
 <ng-include src="'app/modules/saleAnalytics/filters/analyticsFilter.html'"></ng-include>
 <!-- end filters-->
 
-<div class="row m-t-30">
+<div class="row">
     <div class="col-md-12">
         <!-- Widget Administration Button -->
-        <button type="button" class="btn btn-default pull-right"
+        <button type="button" class="btn btn-default btn-xs pull-right btn-widget-administration"
                 ng-click="fn.toggleWidgetAdministration()">
             <i class="ic-settings"></i>
             {{'Filters.Widget.Administration' | i18next}}
@@ -19,7 +19,7 @@
 <!-- WidgetAdministration -->
 <ng-include src="'app/modules/saleAnalytics/widgetAdministration/widgetAdmin.html'"></ng-include>
 
-<div class="row m-t-30">
+<div class="row m-t-20">
     <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html'"></ng-include>
     <div class="widgets-container"
          as-sortable
