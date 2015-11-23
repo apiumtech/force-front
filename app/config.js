@@ -10,7 +10,7 @@ define(function () {
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var api = {
-        dataTableRequest: baseUrl + '/api/accounts/dataTables',
+        /*dataTableRequest: baseUrl + '/api/accounts/dataTables',
         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
         getAvailableEnvironments: baseUrl + '/api/accounts/environments',
         getAvailableViews: baseUrl + '/api/accounts/views',
@@ -49,7 +49,7 @@ define(function () {
 
         getDocuments: baseUrl + '/api/accounts/{0}/documents',
         deleteDocument: baseUrl + '/api/documents/{0}',
-        updateDocument: baseUrl + '/api/documents/{0}',
+        updateDocument: baseUrl + '/api/documents/{0}',*/
 
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
@@ -58,7 +58,6 @@ define(function () {
 
         intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
 
-        //userTreeFiltersApi: baseUrl + '/api/crm/users/users/users{0}TreeByAccountForStatsQuery',
         userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
 
         graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
@@ -71,8 +70,9 @@ define(function () {
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
         segmentWidgetDistributionDataApi: baseUrl +      '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
         hourWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
-        typeWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}AccountTypeDistributionByUsersAndPeriod',
+        typeWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TypeDistributionByUsersAndPeriod',
         coverageWidgetDistributionDataApi: baseUrl +     '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
+        stateWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}StateDistributionByUsersAndPeriod',
 
         //conversion activity/sales
         activityWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/activitySalesConversionByUsersAndPeriod',

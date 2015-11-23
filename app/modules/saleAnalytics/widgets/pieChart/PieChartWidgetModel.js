@@ -10,13 +10,19 @@ define([
 
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.currentFilter = 'allActivities';
+        this.currentFilter = 'activities';
         this.filters = [{
             name: "Total Activities",
-            key: "allActivities"
+            key: "activities"
         }, {
             name: "Visits",
             key: "visits"
+        }, {
+            name: "Accounts",
+            key: "accounts"
+        }, {
+            name: "Opportunities",
+            key: "opportunities"
         }];
 
         this.queries.grouping = "";

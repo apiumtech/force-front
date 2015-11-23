@@ -183,7 +183,7 @@ define([
         var list = [];
         _.each(pageWidgets, function (widget) {
             var w = {
-                type: (widget.WidgetType == "code" ? "custom" : widget.WidgetType),
+                type: (widget.WidgetType === "code" ? "custom" : widget.WidgetType),
                 widgetName: widget.WidgetName,
                 widgetId: widget.Id,
                 widgetContent: widget.WidgetContent,

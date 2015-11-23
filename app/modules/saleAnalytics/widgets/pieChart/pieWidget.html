@@ -46,33 +46,31 @@
             <div class="pull-right" style="width:15px;height:10px;"></div>
 
             <!-- FIELDS buttonbar -->
-            <div class="btn-group pull-right">
-                <div class="btn-group">
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToPie()"
-                            ng-class="{'active': currentChartType=='pie'}"
-                            ng-i18next="[title]pieChart">
-                        <img src="assets/img/graph-1.png">
-                    </button>
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToLine()"
-                            ng-class="{'active': currentChartType=='line'}"
-                            ng-i18next="[title]lineChart">
-                        <img src="assets/img/graph-1.png">
-                    </button>
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToFilled()"
-                            ng-class="{'active': currentChartType=='filled'}"
-                            ng-i18next="[title]areaChart">
-                        <img src="assets/img/graph-2.png">
-                    </button>
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToFilled100()"
-                            ng-class="{'active': currentChartType=='filled100'}"
-                            ng-i18next="[title]areaChartPercent">
-                        <img src="assets/img/graph-2.png">
-                    </button>
-                </div>
+            <div class="btn-group btn-group-xs pull-right">
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToPie()"
+                        ng-class="{'active': currentChartType=='pie'}"
+                        ng-i18next="[title]pieChart">
+                    <img src="assets/img/graph-1.png">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToLine()"
+                        ng-class="{'active': currentChartType=='line'}"
+                        ng-i18next="[title]lineChart">
+                    <img src="assets/img/graph-1.png">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToFilled()"
+                        ng-class="{'active': currentChartType=='filled'}"
+                        ng-i18next="[title]areaChart">
+                    <img src="assets/img/graph-2.png">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToFilled100()"
+                        ng-class="{'active': currentChartType=='filled100'}"
+                        ng-i18next="[title]areaChartPercent">
+                    <img src="assets/img/graph-2.png">
+                </button>
             </div>
         </div>
 
