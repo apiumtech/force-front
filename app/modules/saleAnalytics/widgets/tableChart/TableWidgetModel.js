@@ -78,13 +78,12 @@ define([
         var calculateColumnType = function(key){
             return  key === 'Name' ? 'profile' :
                     key === 'PhotoUrl' ? 'img' :
-                    key === 'ActivityScore' ? 'float' :
+                    key === 'ActivityScore' ? 'wedge' :
                     key === 'SalesScore' ? 'float' :
                     key === 'SalesActivityRatio' ? 'float' :
                     key === 'Sales' ? 'float' :
                     key === 'Visits' ? 'int' :
                     key === 'Activities' ? 'int' :
-                    key === 'ActivityScore' ? 'quesito' :
                     key === 'PhoneCallsTime' ? 'seconds' :
                     key === 'Emails' ? 'int' :
                     key === 'Orders' ? 'int' :

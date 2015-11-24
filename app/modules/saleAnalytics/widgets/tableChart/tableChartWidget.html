@@ -50,7 +50,7 @@
                                         'fa fa-sort-asc':  sortingState.column.key === column.key && sortingState.asc,
                                         'fa fa-sort-desc': sortingState.column.key === column.key && sortingState.desc
                                     }"
-                                />
+                                ></i>
                             </a>
                             <span ng-if="!column.sortable">{{ column.name }}</span>
                         </th>
@@ -69,8 +69,13 @@
                                 <img ng-src="{{ record['PhotoUrl'] }}" class="media-object" style="display: inline-block;"/>
                                 <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
                             </div>
-                            <div ng-switch-when="quesito" class="m-t-10">
-                                <img ng-src="{{ fn.generateQuesitoImageData(record[col.key]) }}" />
+                            <div ng-switch-when="wedge" class="m-t-10 text-center" ng-attr-title="{{ record[col.key] }}%">
+                                <img ng-style="{
+                                    width: '34px',
+                                    height: '34px',
+                                    'background-image': 'url('+ fn.generateWedgeImageData(record[col.key]) +')',
+                                    'background-size' : 'cover'
+                                }" />
                             </div>
                             <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:2 }}</p>
                             <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:0 }}</p>

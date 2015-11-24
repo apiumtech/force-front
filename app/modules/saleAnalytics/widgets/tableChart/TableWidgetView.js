@@ -94,20 +94,35 @@ define([
         };
 
 
+        var _toRadians = function(deg) {
+            return deg * Math.PI / 180;
+        };
         var canvas = document.createElement('canvas');
-        var r = 10;
-        canvas.width = r * 2;
-        canvas.height = r * 2;
+        var r = 40;
+        var xy = 44;
+        var wh = 88;
+        canvas.width = wh;
+        canvas.height = wh;
         var ctx = canvas.getContext('2d');
-        self.fn.generateQuesitoImageData = function (percentage) {
+        var startAngle = 0;
+        self.fn.generateWedgeImageData = function (percentage) {
+            ctx.clearRect(0, 0, wh, wh);
+
             ctx.beginPath();
-            ctx.moveTo(r, r);
-            ctx.arc( r, r, 30, 0, 90* Math.PI/180 );
-            ctx.lineTo(r ,r);
+            ctx.arc( xy, xy, r, 0, Math.PI*2);
+            ctx.stroke();
             ctx.closePath();
-            ctx.fill();
+
+            if(percentage >= 1) {
+                ctx.beginPath();
+                ctx.moveTo(xy, xy);
+                ctx.arc(xy, xy, r, startAngle, _toRadians(percentage * (360 / 100)));
+                ctx.lineTo(xy, xy);
+                ctx.closePath();
+                ctx.fill();
+            }
+
             var imageData = canvas.toDataURL('image/png');
-            console.log(imageData);
             return imageData;
         };
 
@@ -152,7 +167,7 @@ define([
                 if(a > b) return 1;
                 return 0;
             };
-            if( ['int','float','seconds', 'quesito'].indexOf(self.sortingState.column.type) > -1 ){
+            if( ['int','float','seconds', 'wedge'].indexOf(self.sortingState.column.type) > -1 ){
                 self.data.data.sort(numberSortFunction);
             } else {
                 self.data.data.sort(stringSortFunction);
