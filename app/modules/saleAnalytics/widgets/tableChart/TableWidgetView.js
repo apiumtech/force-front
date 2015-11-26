@@ -116,7 +116,7 @@ define([
             if(percentage >= 1) {
                 ctx.beginPath();
                 ctx.moveTo(xy, xy);
-                ctx.arc(xy, xy, r, startAngle, _toRadians(percentage * (360 / 100)));
+                ctx.arc(xy, xy, r, startAngle, _toRadians(percentage * (360 / 100)), false);
                 ctx.lineTo(xy, xy);
                 ctx.closePath();
                 ctx.fill();

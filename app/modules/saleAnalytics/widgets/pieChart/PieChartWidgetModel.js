@@ -40,6 +40,10 @@ define([
         }
     };
 
+    PieChartWidgetModel.prototype.getFilters = function () {
+        return this.filters.slice();
+    };
+
     PieChartWidgetModel.prototype.getUrl = function () {
         return this.fetchPoint.format(this.currentFilter);
     };
@@ -66,8 +70,7 @@ define([
         var responseData = {
             data: {
                 params: {
-                    params: [],
-                    filters: this.filters
+                    params: []
                 }
             }
         };
@@ -91,8 +94,7 @@ define([
                         x: [],
                         y: ""
                     },
-                    fields: [],
-                    filters: this.filters
+                    fields: []
                 }
             }
         };

@@ -66,7 +66,7 @@
                             style="border-right: 1px solid #e2e7eb;">
 
                             <div ng-switch-when="profile" class="img-user">
-                                <img ng-src="{{ record['PhotoUrl'] }}" class="media-object" style="display: inline-block;"/>
+                                <img ng-src="{{ record.PhotoUrl }}" class="media-object" style="display: inline-block;"/>
                                 <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
                             </div>
                             <div ng-switch-when="wedge" class="m-t-10 text-center" ng-attr-title="{{ record[col.key] }}%">

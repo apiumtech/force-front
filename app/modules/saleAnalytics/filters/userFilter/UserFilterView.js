@@ -7,8 +7,10 @@ define([
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
     'jquery',
     'moment',
-    'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, UserFilterPresenter, AwaitHelper, ArrayHelper, UserTreeListEventBus, $, moment, _) {
+    'underscore',
+    'config',
+    'shared/services/StorageService'
+], function (BaseView, SalesAnalyticsFilterChannel, UserFilterPresenter, AwaitHelper, ArrayHelper, UserTreeListEventBus, $, moment, _, config, StorageService) {
     'use strict';
 
     var SELECTED_NONE = "SELECTED_NONE";
@@ -170,14 +172,6 @@ define([
             remainingHeight += $(document).scrollTop().valueOf();
             $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
         };
-
-        self.fn.buildUserPictureUrl = function(user) {
-            var UserKey = user.UserKey;
-            var idUser = user.Id;
-            var strCellPhoneNumber = user.strCellPhoneNumber;
-            return "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey="+ UserKey +"&iduser="+ idUser +"&strCellPhoneNumber="+ strCellPhoneNumber;
-        };
-
     };
 
 

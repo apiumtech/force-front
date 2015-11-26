@@ -5,14 +5,16 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
-    'config'
-], function (AuthAjaxService, WidgetBase, Configuration) {
+    'shared/services/config/PermissionsService'
+], function (AuthAjaxService, WidgetBase, PermissionsService) {
     'use strict';
 
     function GraphChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.currentFilter = 'visits';
-        this.filters = [{
+
+        var self = this;
+        self.currentFilter = 'visits';
+        self.filters = [{
             name: 'Visits',
             key: 'visits'
         }, {
@@ -40,6 +42,21 @@ define([
             name: 'Opportunities',
             key: 'opportunities'
         }];
+
+        var ps = PermissionsService.newInstance();
+        self.filters = self.filters.filter(function(item){
+            var PHONE_CALLS = "getphonecalls.isEnabled";
+            var EMAILS      = "getemails.isEnabled";
+            var ORDERS      = "pedidos.isEnabled";
+            var QUOTES      = "ofertas.isEnabled";
+
+            var key = item.key;
+            return  key === 'phoneCallsTime' ? ps.getPermission(PHONE_CALLS, true) :
+                    key === 'emails' ? ps.getPermission(EMAILS, true) :
+                    key === 'orders' ? ps.getPermission(ORDERS, true) :
+                    key === 'quotes' ? ps.getPermission(QUOTES, true) :
+                    true;
+        });
 
         this.queries.grouping = "week";
     }

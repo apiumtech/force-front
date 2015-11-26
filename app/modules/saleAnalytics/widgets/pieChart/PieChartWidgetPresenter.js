@@ -64,6 +64,10 @@ define([
         view.event.onReloadWidgetDone = function (errMsg) {
             self.widgetEventChannel.sendReloadCompleteSignal(errMsg);
         };
+
+        view.event.getFilters = function(){
+            return model.getFilters();
+        };
     };
 
     return PieChartWidgetPresenter;

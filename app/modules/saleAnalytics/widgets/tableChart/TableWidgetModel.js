@@ -5,10 +5,10 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
+    'shared/services/config/PermissionsService',
     'config',
-    'moment',
-    'q'
-], function (AuthAjaxService, WidgetBase, Configuration, moment, Q) {
+    'moment'
+], function (AuthAjaxService, WidgetBase, PermissionsService, Configuration, moment) {
     'use strict';
 
     function TableWidgetModel(ajaxService) {
@@ -18,7 +18,7 @@ define([
             period: "",
             grouping: ""
         };
-
+        this.permissionsService = PermissionsService.newInstance();
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
@@ -30,7 +30,7 @@ define([
     };
 
     TableWidgetModel.prototype.parseData = function (data, widgetOption) {
-        if( widgetOption && widgetOption == "userExtraFieldsDecorator" ) {
+        if( widgetOption && widgetOption === "userExtraFieldsDecorator" ) {
             return this.userExtraFieldsDataParser(data);
         }
 
@@ -61,6 +61,8 @@ define([
     };
 
     TableWidgetModel.prototype.parseFlatStructure = function(data){
+        var self = this;
+
         var responseData = {
             data: {
                 params: {
@@ -74,7 +76,24 @@ define([
             throw new Error("No data received from server");
         }
 
-        var calculateColumnAvailable = function(key){ return key !== 'Id' && key !== 'IdFm' && key !== 'PhotoUrl'; };
+        var calculateColumnAvailable = function(key) {
+            var ps = self.permissionsService;
+
+            var PHONE_CALLS = "getphonecalls.isEnabled";
+            var EMAILS      = "getemails.isEnabled";
+            var ORDERS      = "pedidos.isEnabled";
+            var QUOTES      = "ofertas.isEnabled";
+
+            return  key === 'PhoneCallsTime' ? ps.getPermission(PHONE_CALLS, true) :
+                    key === 'Emails' ? ps.getPermission(EMAILS, true) :
+                    key === 'Orders' ? ps.getPermission(ORDERS, true) :
+                    key === 'Quotes' ? ps.getPermission(QUOTES, true) :
+                    key === 'Id' ? false :
+                    key === 'IdFm' ? false :
+                    key === 'PhotoUrl' ? false :
+                    true;
+        };
+
         var calculateColumnType = function(key){
             return  key === 'Name' ? 'profile' :
                     key === 'PhotoUrl' ? 'img' :

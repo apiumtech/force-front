@@ -126,6 +126,8 @@ define([
             }, 2000 );
         };
 
+        self.event.getFilters = function(){};
+
         self.resizeHandling();
     };
 
@@ -148,11 +150,18 @@ define([
         }
     };
 
+    PieChartWidgetView.prototype.fillFiltersCombo = function () {
+        var self = this;
+        self.tabs = self.event.getFilters();
+        self.selectedFilter = self.selectedFilter || self.tabs[0].key;
+    };
+
     PieChartWidgetView.prototype.onReloadWidgetSuccessPieChart = function (responseData) {
         var self = this;
         self.data = _({}).extend(self.data, responseData.data.params);
-        self.tabs = responseData.data.params.filters;
-        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
+        //self.tabs = responseData.data.params.filters;
+        //self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
+        self.fillFiltersCombo();
         self.paintChart();
     };
 
@@ -166,9 +175,14 @@ define([
         }
 
         self.data = _({}).extend(self.data, responseData.data.params);
-        self.tabs = responseData.data.params.filters;
-        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
+        //self.tabs = responseData.data.params.filters;
+        //self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
         self.paintChart();
+    };
+
+    PieChartWidgetView.prototype.onReloadWidgetError = function (error) {
+        this.fillFiltersCombo();
+        this.__base__.onReloadWidgetError.call(this, error);
     };
 
 
@@ -207,8 +221,10 @@ define([
 
         var chartFields = [];
         data.fields.forEach(function (field) {
-            var lineGraph = self.getLineGraph(field, scope.availableFields, scope.currentChartType);
-            chartFields.push(lineGraph);
+            chartFields.push({
+                label: field.name,
+                plotData: field.data
+            });
         });
 
         var axisData = data.axis;
@@ -322,21 +338,6 @@ define([
         }
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
-    };
-
-    PieChartWidgetView.prototype.getLineGraph = function (fieldData, availableFields) {
-        var fieldStatus = _.find(availableFields, function (field) {
-            return field.name === fieldData.name;
-        });
-        var hidden = !fieldStatus.isDisplaying;
-        if (hidden) {
-            return null;
-        }
-        return {
-            label: fieldData.name,
-            plotData: fieldData.data,
-            hidden: false
-        };
     };
 
     // Rounded number ticks
