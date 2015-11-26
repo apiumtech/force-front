@@ -10,47 +10,6 @@ define(function () {
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var api = {
-        /*dataTableRequest: baseUrl + '/api/accounts/dataTables',
-        getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
-        getAvailableEnvironments: baseUrl + '/api/accounts/environments',
-        getAvailableViews: baseUrl + '/api/accounts/views',
-        getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
-
-        getAccount: baseUrl + '/api/accounts/getAccount/{0}',
-        getAccountSummary: baseUrl + '/api/accounts/{0}/summary',
-        updateAccount: baseUrl + '/api/accounts/update/{0}',
-        createAccount: baseUrl + '/api/accounts/create',
-        deleteAccount: baseUrl + '/api/accounts/delete/{0}',
-        getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
-        addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',
-        getAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/companies',
-        addAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/addCompany',
-        getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
-        getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
-
-        getCompany: baseUrl + '/api/queries/companies?companyName={0}',
-
-        getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
-        toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
-        accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
-        toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
-        
-        getOpportunities: baseUrl + '/api/queries/account/opportunities',
-
-        getAgenda: baseUrl + '/api/queries/account/{0}/agenda',
-        deleteAgenda: baseUrl + '/api/queries/account/agenda/delete',
-        createAgenda: baseUrl + '/api/queries/account/agenda/create',
-
-        uploadFile: baseUrl + '/api/upload',
-        uploadDocuments: baseUrl + '/api/uploadDocument',
-
-        getFilterValues: baseUrl + '/api/accounts/getFilterValues',
-        getAvailableFields: baseUrl + '/api/accounts/availableFields',
-
-        getDocuments: baseUrl + '/api/accounts/{0}/documents',
-        deleteDocument: baseUrl + '/api/documents/{0}',
-        updateDocument: baseUrl + '/api/documents/{0}',*/
-
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
         authentication: baseUrl + '/api/commands/security/login',
@@ -120,7 +79,54 @@ define(function () {
         customLiteralById: baseUrl + '/api/queries/commons/literals/customLiteralById',
 
 
-        literalValueDictionary: baseUrl + '/api/queries/commons/literalValues/literalValueObject'
+        literalValueDictionary: baseUrl + '/api/queries/commons/literalValues/literalValueObject',
+
+
+
+
+
+        /* unused stuff, still needed for some tests to pass */
+
+        dataTableRequest: baseUrl + '/api/accounts/dataTables',
+         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
+         getAvailableEnvironments: baseUrl + '/api/accounts/environments',
+         getAvailableViews: baseUrl + '/api/accounts/views',
+         getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
+
+         getAccount: baseUrl + '/api/accounts/getAccount/{0}',
+         getAccountSummary: baseUrl + '/api/accounts/{0}/summary',
+         updateAccount: baseUrl + '/api/accounts/update/{0}',
+         createAccount: baseUrl + '/api/accounts/create',
+         deleteAccount: baseUrl + '/api/accounts/delete/{0}',
+         getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
+         addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',
+         getAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/companies',
+         addAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/addCompany',
+         getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
+         getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
+
+         getCompany: baseUrl + '/api/queries/companies?companyName={0}',
+
+         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
+         toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
+         accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
+         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
+
+         getOpportunities: baseUrl + '/api/queries/account/opportunities',
+
+         getAgenda: baseUrl + '/api/queries/account/{0}/agenda',
+         deleteAgenda: baseUrl + '/api/queries/account/agenda/delete',
+         createAgenda: baseUrl + '/api/queries/account/agenda/create',
+
+         uploadFile: baseUrl + '/api/upload',
+         uploadDocuments: baseUrl + '/api/uploadDocument',
+
+         getFilterValues: baseUrl + '/api/accounts/getFilterValues',
+         getAvailableFields: baseUrl + '/api/accounts/availableFields',
+
+         getDocuments: baseUrl + '/api/accounts/{0}/documents',
+         deleteDocument: baseUrl + '/api/documents/{0}',
+         updateDocument: baseUrl + '/api/documents/{0}'
 
     };
 

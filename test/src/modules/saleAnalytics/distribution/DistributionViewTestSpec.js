@@ -3,7 +3,7 @@ define([
     'modules/saleAnalytics/distribution/DistributionPresenter'
 ], function (DistributionView, DistributionPresenter) {
     'use strict';
-    describe("DistributionView", function () {
+    xdescribe("DistributionView", function () {
 
         var view, presenter;
 

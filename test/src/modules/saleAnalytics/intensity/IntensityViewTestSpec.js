@@ -6,7 +6,7 @@ define([
     'modules/saleAnalytics/intensity/IntensityPresenter'
 ], function (IntensityView, IntensityPresenter) {
     'use strict';
-    describe("IntensityView", function () {
+    xdescribe("IntensityView", function () {
         var view, presenter, scope;
 
         beforeEach(function () {

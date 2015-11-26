@@ -5,7 +5,7 @@ define([
 ], function (app, DistributionView, DistributionController) {
     'use strict';
 
-    describe("DistributionController", function () {
+    xdescribe("DistributionController", function () {
         var appName = app.name;
         beforeEach(module(appName));
 

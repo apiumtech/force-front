@@ -5,7 +5,7 @@ define([
 ], function (UserFilterView, UserFilterPresenter, UserTreeListEventBus) {
     'use strict';
 
-    describe('UserFilterView', function () {
+    xdescribe('UserFilterView', function () {
         var sut, $scope,
             presenter = mock(UserFilterPresenter),
             eventBus = mock(UserTreeListEventBus);

@@ -5,7 +5,7 @@ define([
 ], function (app, IntensityView, IntensityController) {
     'use strict';
 
-    describe("IntensityController", function () {
+    xdescribe("IntensityController", function () {
         var appName = app.name;
         beforeEach(module(appName));
 

@@ -5,7 +5,7 @@ define([
 ], function (app, ConversionView, ConversionController) {
     'use strict';
 
-    describe("ConversionController", function () {
+    xdescribe("ConversionController", function () {
         var appName = app.name;
         beforeEach(module(appName));
 

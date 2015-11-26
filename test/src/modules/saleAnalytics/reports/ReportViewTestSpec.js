@@ -5,7 +5,7 @@ define([
 ], function (ReportView, ReportPresenter, ReportEventBus) {
     'use strict';
 
-    describe('ReportView', function () {
+    xdescribe('ReportView', function () {
         var sut, $scope,
             presenter = mock(ReportPresenter),
             eventBus = mock(ReportEventBus);

@@ -6,7 +6,7 @@ define([
     "modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel"
 ], function (GraphChartWidgetPresenter, GraphChartWidgetModel) {
     'use strict';
-    describe("GraphChartWidgetPresenter", function () {
+    xdescribe("GraphChartWidgetPresenter", function () {
 
         var sut, model;
 

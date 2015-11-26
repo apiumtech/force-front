@@ -2,7 +2,7 @@ define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView'
 ], function (WidgetDecoratedPageView) {
     'use strict';
-    describe("WidgetDecoratedPageView", function () {
+    xdescribe("WidgetDecoratedPageView", function () {
         function exerciseCreateView(model, presenter) {
             return new WidgetDecoratedPageView(mockAngularScope(), model, presenter || {
                     show: function () {

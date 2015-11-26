@@ -3,7 +3,7 @@ define([
     'modules/saleAnalytics/conversion/ConversionPresenter'
 ], function (ConversionView, ConversionPresenter) {
     'use strict';
-    describe("ConversionView", function () {
+    xdescribe("ConversionView", function () {
 
         var view;
 

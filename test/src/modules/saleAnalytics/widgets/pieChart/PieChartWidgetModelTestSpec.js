@@ -5,7 +5,7 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
 ], function (PieChartWidgetModel) {
     'use strict';
-    describe("PieChartWidgetModel", function () {
+    xdescribe("PieChartWidgetModel", function () {
 
         var sut, ajaxService;
 

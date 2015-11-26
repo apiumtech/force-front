@@ -5,7 +5,7 @@ define([
 ], function (app, ReportView, ReportController) {
     'use strict';
 
-    describe("ReportController", function () {
+    xdescribe("ReportController", function () {
         var appName = app.name;
         beforeEach(module(appName));
 
