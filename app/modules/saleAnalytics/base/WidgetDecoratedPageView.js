@@ -33,8 +33,8 @@ define([
         this.configureEvents();
 
         var hash = window.location.hash.split('#')[1];
-        if( hash.indexOf("/analytics/reports") == -1 ){
-            this.setupFixedFilters();
+        if( hash.indexOf("/analytics/reports") === -1 ){
+            this.setupStickyFilters();
         }
     }
 
@@ -57,17 +57,15 @@ define([
         }
     });
 
-    WidgetDecoratePageView.prototype.setupFixedFilters = function () {
+    WidgetDecoratePageView.prototype.setupStickyFilters = function () {
         var contentDefaultMarginTop = parseInt($(".content").css("margin-top"), 10);
         var navBarHeight = 60;
-        var submenuHeight = 94;
-        var paddingsYcosasDeEstas = 12;
-        var activateFixedFiltersScroll = (navBarHeight + submenuHeight) - (contentDefaultMarginTop+paddingsYcosasDeEstas);
-        var filtersHeight = 119;
+        var marginTopAfterFixed = 70;
+        var activateFixedFiltersScroll = 110;
         var onScroll = function(evt) {
             if ($(this).scrollTop() > activateFixedFiltersScroll) {
                 $(".sales-filters-div").css("top", navBarHeight + "px");
-                $(".content").css("margin-top", (contentDefaultMarginTop+filtersHeight)+"px");
+                $(".content").css("margin-top", marginTopAfterFixed+"px");
                 $(".sales-filters-div").css({
                     position: "fixed",
                     zIndex: 1030,
