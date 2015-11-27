@@ -9,17 +9,26 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/widgets/mapChart/MapChart',
-    'shared/services/config/PermissionsService'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService){
+    'shared/services/config/PermissionsService',
+    'jquery'
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, $){
+    'use strict';
+
+    var HEAT_MAP = 'HEAT_MAP';
+    var POINT_MAP = 'POINT_MAP';
 
     function MapChartWidgetView(scope, element, mapChart, presenter, permissionsService) {
         presenter = presenter || new MapChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
+
         var self = this;
         self.widgetEventBus = EventBus.getInstance();
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
+
         self.selectedFilter = 'checkins';
+        self.$scope.selectedMapType = HEAT_MAP;
+
         self.configureEvents();
     }
 
@@ -64,6 +73,11 @@ define([
             self.refreshChart();
         };
 
+        self.fn.selectMapType = function (mapType) {
+            self.$scope.selectedMapType = mapType;
+            self.reDraw();
+        };
+
         self.fn.canDisplayUsersInMap = self.canDisplayUsersInMap.bind(self);
 
         self.resizeHandling();
@@ -71,12 +85,11 @@ define([
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
-
         self.refreshChart(responseData.data.params);
     };
 
     MapChartWidgetView.prototype.reDraw = function(){
-        this.refreshChart(self.mapData);
+        this.refreshChart(this.mapData);
     };
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
@@ -92,18 +105,17 @@ define([
         self.paintChart(self.element.find('.chart-place-holder'));
         self.mapChart.clearHeatMap();
         self.mapChart.clearPointMap();
-        switch (self.selectedFilter) {
-            case 'checkins':
+
+        if( self.selectedFilter === 'users' ) {
+            self.mapChart.createUserMap(self.mapData);
+        } else {
+            if(self.$scope.selectedMapType === HEAT_MAP) {
                 self.mapChart.applyHeatLayer(self.mapData);
-                break;
-            case 'users':
-                self.mapChart.createUserMap(self.mapData);
-                break;
-            //case 'activity':
-            //    self.mapChart.createPointMap(data);
-            //    break;
-            default:
-                break;
+            } else if(self.$scope.selectedMapType === POINT_MAP) {
+                self.mapChart.createPointMap(self.mapData);
+            } else {
+                throw new Error('Unknown map type');
+            }
         }
     };
 
@@ -117,7 +129,7 @@ define([
 
     MapChartWidgetView.newInstance = function ($scope, $element, $mapChart, permissionsService, $viewRepAspect, $logErrorAspect) {
         var mapChart = $mapChart || MapChart.newInstance();
-        var permissionsService = permissionsService || PermissionsService.newInstance();
+        permissionsService = permissionsService || PermissionsService.newInstance();
 
         var view = new MapChartWidgetView($scope, $element, mapChart, undefined, permissionsService);
 

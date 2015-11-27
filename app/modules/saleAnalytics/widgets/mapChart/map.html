@@ -12,6 +12,20 @@
                     <!--<option value="activity">{{'MapChart.Activity' | i18next}}</option>-->
                 </select>
             </div>
+            <div class="col-xs-6 col-sm-6 col-lg-8 m-b-20">
+                <div class="pull-right" ng-show="selectedFilter!=='users'">
+                    <label class="radio-inline">
+                        <input type="radio" value="HEAT_MAP"
+                               ng-model="selectedMapType"
+                               ng-click="fn.selectMapType('HEAT_MAP')"> Heat Map
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="POINT_MAP"
+                               ng-model="selectedMapType"
+                               ng-click="fn.selectMapType('POINT_MAP')"> Point Map
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
 

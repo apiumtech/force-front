@@ -1,13 +1,14 @@
-/**
- * Created by Justin on 2/11/2015.
- */
+/* global MarkerClusterer */
 
 define([
     'jquery',
-    'shared/services/GoogleMapService'
-], function ($, GoogleMapService) {
+    'shared/services/GoogleMapService',
+    'underscore'
+], function ($, GoogleMapService, _) {
+    'use strict';
 
     var defaultImageUrl = "assets/img/default.png";
+    var defaultPointImageUrl = "assets/img/chart.png";
 
     function MapChart(mapService) {
         var self = this;
@@ -18,16 +19,143 @@ define([
         self.markers = [];
     }
 
+
+    // ------------------------
+    //
+    //  Create
+    //
+    // ------------------------
+
     MapChart.prototype.createMap = function (mapCanvasId, mapOptions) {
         var canvas = mapCanvasId;
-        if (canvas instanceof String)
+        if (canvas instanceof String){
             canvas = document.getElementById(mapCanvasId);
+        }
 
         this.map = this.mapService.createMap(canvas, mapOptions || {
                 center: this.mapService.getLatLng(41.23, 2.11),
                 zoom: 7
             });
     };
+
+    MapChart.prototype.createPointMap = function (data) {
+        var self = this;
+
+        if (self.markerClusterer) {
+            self.markerClusterer.clearMarkers();
+        }
+
+        var latlngbounds = self.mapService.getLatLngBounds();
+
+        self.markers = data.map(function (r) {
+            var image = r.ImageB64;
+            if (!image){
+                image = defaultPointImageUrl;
+            }
+
+            var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
+            latlngbounds.extend(coordinate);
+
+            return self.mapService.createMarker({
+                position: coordinate,
+                label: r.Activity.toString(),
+                title: r.Activity.toString(),
+                /*icon: self.mapService.getMarkerIcon(image),*/
+                flat: true
+            });
+        });
+
+        self.markerCluster = new MarkerClusterer(self.map, self.markers, {
+            maxZoom: 15,
+            gridSize: 50
+        });
+        self.map.setCenter(latlngbounds.getCenter());
+        self.map.fitBounds(latlngbounds);
+    };
+
+    /*MapChart.prototype.createPointMap_ = function (data) {
+        var self = this;
+        this.markers = [];
+
+        data.forEach(function (c) {
+            var latLng = self.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
+
+            var marker = self.mapService.createMarker({
+                position: latLng,
+                title: ''
+            });
+            self.markers.push(marker);
+        });
+        self.markerClusterer = new MarkerClusterer(self.map, self.markers, {
+            maxZoom: 15,
+            gridSize: 50
+        });
+    };*/
+
+
+    MapChart.prototype.createUserMap = function (data) {
+        var self = this;
+
+        if (self.markerClusterer) {
+            self.markerClusterer.clearMarkers();
+        }
+
+        var latlngbounds = self.mapService.getLatLngBounds();
+
+        self.markers = data.map(function (r) {
+            var image = r.ImageB64;
+            if (!image){
+                image = defaultImageUrl;
+            }
+
+            var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
+            latlngbounds.extend(coordinate);
+
+            return self.mapService.createMarker({
+                position: coordinate,
+                icon: self.mapService.getMarkerIcon(image),
+                flat: true
+            });
+        });
+
+        self.markerCluster = new MarkerClusterer(self.map, self.markers, {
+            maxZoom: 15,
+            gridSize: 50
+        });
+        self.map.setCenter(latlngbounds.getCenter());
+        self.map.fitBounds(latlngbounds);
+    };
+
+
+    // ------------------------
+    //
+    //  Clear
+    //
+    // ------------------------
+
+    MapChart.prototype.clearHeatMap = function () {
+        var self = this;
+        if (self.heatMap) {
+            self.heatMap.setMap(null);
+            self.heatMap = null;
+        }
+    };
+
+    MapChart.prototype.clearPointMap = function () {
+        var self = this;
+
+        self.markers = [];
+        if (self.markerClusterer) {
+            self.markerClusterer.clearMarkers();
+        }
+    };
+
+
+    // ------------------------
+    //
+    //  Heat Map specific
+    //
+    // ------------------------
 
     MapChart.prototype.decorateHeatMapData = function (data) {
         var maxActivityRecord = _.max(data, function (record) {
@@ -40,8 +168,8 @@ define([
         var result = [];
 
         data.forEach(function (record) {
-            if (record.Latitude != null && record.Latitude != undefined && record.Latitude != "0" &&
-                record.Longitude != null && record.Longitude != undefined && record.Longitude != "0") {
+            if (record.Latitude !== null && record.Latitude !== undefined && record.Latitude !== "0" &&
+                record.Longitude !== null && record.Longitude !== undefined && record.Longitude !== "0") {
 
                 var CurrentActivity = (record.Activity / maxActivity) * 100000 + 100000;
 
@@ -63,8 +191,9 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
         var decoratedData = self.decorateHeatMapData(data);
         decoratedData.forEach(function (c) {
-            if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90)
+            if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90){
                 return;
+            }
 
             var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude)),
                 coordWeight = {
@@ -85,76 +214,12 @@ define([
         self.map.fitBounds(latlngbounds);
     };
 
-    MapChart.prototype.createPointMap = function (data) {
-        var self = this;
-        this.markers = [];
 
-        data.forEach(function (c) {
-            var latLng = self.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
-
-            var marker = self.mapService.createMarker({
-                position: latLng,
-                title: ''
-            });
-            self.markers.push(marker);
-        });
-        self.markerClusterer = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
-        });
-    };
-
-    MapChart.prototype.createUserMap = function (data) {
-        var self = this;
-
-        if (self.markerClusterer) {
-            self.markerClusterer.clearMarkers();
-        }
-
-        var latlngbounds = self.mapService.getLatLngBounds();
-
-        self.markers = data.map(function (r) {
-            var image = r.ImageB64;
-            if (!image)
-                image = defaultImageUrl;
-
-            var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
-            latlngbounds.extend(coordinate);
-
-            var iconMarker = self.mapService.createMarker({
-                position: coordinate,
-                icon: self.mapService.getMarkerIcon(image),
-                flat: true
-            });
-
-            return iconMarker;
-        });
-
-        self.markerCluster = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
-        });
-        self.map.setCenter(latlngbounds.getCenter());
-        self.map.fitBounds(latlngbounds);
-    };
-
-    MapChart.prototype.clearHeatMap = function () {
-        var self = this;
-        if (self.heatMap) {
-            self.heatMap.setMap(null);
-            self.heatMap = null;
-        }
-    };
-
-    MapChart.prototype.clearPointMap = function () {
-        var self = this;
-
-        self.markers = [];
-        if (self.markerClusterer) {
-            self.markerClusterer.clearMarkers();
-        }
-    };
-
+    // ------------------------
+    //
+    //  Misc
+    //
+    // ------------------------
 
     MapChart.prototype.getLatLng = function (lat, lng) {
         if (Math.abs(lat) > 180 || Math.abs(lng) > 90) {

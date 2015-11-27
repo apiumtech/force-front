@@ -2,6 +2,8 @@
  * Created by Justin on 2/11/2015.
  */
 define([], function () {
+    'use strict';
+
     var google = window.google || {};
     google.maps = google.maps || {
             MapTypeId: {ROADMAP: ""},
@@ -17,7 +19,7 @@ define([], function () {
                     },
                     fitBounds: function () {
                     }
-                }
+                };
             },
             LatLngBounds: function () {
                 return {
@@ -25,7 +27,7 @@ define([], function () {
                     },
                     extend: function () {
                     }
-                }
+                };
             },
             LatLng: function () {
             },
@@ -34,7 +36,7 @@ define([], function () {
                     return {
                         setMap: function () {
                         }
-                    }
+                    };
                 }
             },
             MVCArray: function () {
@@ -43,13 +45,13 @@ define([], function () {
                 return {
                     setMap: function () {
                     }
-                }
+                };
             },
             Marker: function () {
                 return {
                     setMap: function () {
                     }
-                }
+                };
             },
             Point: function () {
             },
@@ -99,7 +101,7 @@ define([], function () {
         return {
             scaledSize: new this.googleMap.Size(imgWidth || 32, imgHeight || 32),
             url: imgUrl
-        }
+        };
     };
 
     GoogleMapService.newInstance = function (googleMapService) {

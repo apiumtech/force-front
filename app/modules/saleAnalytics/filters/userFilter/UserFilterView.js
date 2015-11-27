@@ -242,22 +242,22 @@ define([
     };
     UserFilterView.prototype._userSelectionIsEmpty = function () {
         this.data.userSelectionLabel = "";
-        this.data.userSelectionPicture = "";
+        //this.data.userSelectionPicture = "";
         this.data.selectionType = SELECTED_NONE;
     };
     UserFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
         this.data.userSelectionLabel = user.Name;
-        this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
+        this.data.userSelectionPicture = user.PhotoUrl;
         this.data.selectionType = SELECTED_ONE_USER;
     };
     UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
         this.data.userSelectionLabel = env.Name;
-        //this.data.userSelectionPicture = this.fn.buildUserPictureUrl(user);
+        this.data.userSelectionPicture = env.PhotoUrl;
         this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
     };
     UserFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {
         this.data.userSelectionLabel = nSelectedUsers + " selected";
-        this.data.userSelectionPicture = "???";
+        this.data.userSelectionPicture = "moreThanOne";
         this.data.selectionType = SELECTED_MANY;
     };
 

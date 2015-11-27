@@ -62,8 +62,8 @@ define([
 
         var outputArray = serverData.Series[0].Points.map(function (record) {
             return {
-                Latitude: record.Y,
-                Longitude: record.X,
+                Latitude: Math.max(Math.min(record.Y, 85), -85),
+                Longitude: Math.max(Math.min(record.X, 180), -180),
                 Activity: record.Checkins
             };
         });
