@@ -265,16 +265,6 @@
     "SelectTeam": "SELECT TEAM",
     "widenSearchMessage": "You can widen your search by checking that all words are spelt correctly"
   },
-  "WidgetAdmin":{
-    "Widget":{
-      "active": {
-        "label": "Active"
-      },
-      "inactive": {
-        "label": "Inactive"
-      }
-    }
-  },
   "Contact": {
     "ContactTitle": "Contacts",
     "CreateContact": "Create Contact",

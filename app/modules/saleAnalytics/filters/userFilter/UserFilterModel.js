@@ -72,7 +72,9 @@ define([
     };
 
     UserFilterModel.prototype.decorateData = function (data) {
-        if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
+        if (!data || !(data instanceof Array) || data.length <= 0){
+            throw new Error("No data received from server");
+        }
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
 

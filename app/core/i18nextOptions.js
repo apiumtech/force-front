@@ -10,7 +10,10 @@ define([
     //  TODO: move all this logic to a bootstrapping module
     // --------------------------------------------------------
     function doBadTokenRedirection(){
-        window.location.href = "/"+ config.badTokenRedirectionPage;
+        window.console.error("Redirecting due to session error...");
+        setTimeout(function () {
+            window.location.href = "/"+ config.badTokenRedirectionPage;
+        },5000);
     }
 
     $( document ).ajaxComplete(function( event, xhr, settings ) {

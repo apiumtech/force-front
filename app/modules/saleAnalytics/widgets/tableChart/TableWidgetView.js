@@ -182,9 +182,14 @@ define([
 
     TableWidgetView.prototype.onReloadWidgetSuccess = function (data) {
         var self = this;
-        var res = this.event.parseData(data, this.widget.option);
-        self.data.data = res.data;
-        self.data.columns = res.columns;
+        if(data && data.length > 0) {
+            var res = this.event.parseData(data, this.widget.option);
+            self.data.data = res.data;
+            self.data.columns = res.columns;
+        } else {
+            self.data.data = [];
+        }
+        
         self.renderChart();
     };
 

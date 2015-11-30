@@ -21,6 +21,7 @@ define([
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
 ], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular, $, _) {
+    'use strict';
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
@@ -98,7 +99,6 @@ define([
         this.$scope.$on(
             "$destroy",
             function handleDestroyEvent() {
-                console.log("handleDestroyEvent");
                 $(window).off("scroll", onScroll);
             }
         );
@@ -118,7 +118,6 @@ define([
         };
 
         self.fn.onWidgetDropped = function($ui, $widget) {
-            var movingElement = $("[data-widgetid=widget-"+ $widget.widgetId +"]");
             var dropElementIndex = $ui.item.index();
             self.widgetAdministrationEventBus.fireMoveWidgetToIndex($widget, dropElementIndex);
         };
