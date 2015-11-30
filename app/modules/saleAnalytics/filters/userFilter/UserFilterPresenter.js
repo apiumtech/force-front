@@ -20,8 +20,10 @@ define([
 
         view.event.onFilterInitializing = function () {
             view.showLoadingUsers();
-            model.getUsers()
-                .then(view.onUsersLoadedSuccess.bind(view), view.onUsersLoadedFail.bind(view));
+            model.getUsers().then(
+                view.onUsersLoadedSuccess.bind(view),
+                view.onUsersLoadedFail.bind(view)
+            );
         };
 
         view.event.onFilterByGroup = function (groupName) {

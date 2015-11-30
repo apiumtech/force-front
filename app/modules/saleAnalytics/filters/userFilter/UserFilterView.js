@@ -30,6 +30,7 @@ define([
         this.data.isLoadingUsers = false;
         this.data.usersLoadedFailError = null;
         this.APPLY_USER_FILTER_DELAY = 500;// ms.
+        this.userFilterHasChanged = false;
 
         this.data.selectionType = SELECTED_NONE;
         this.data.userSelectionLabel = "";
@@ -111,6 +112,7 @@ define([
 
         self.fn.searchUsersByTeam = function (event) {
             event.stopPropagation();
+            self.userFilterHasChanged = true;
             self.data.usersLoadedFailError = null;
             self.userFiltered = [];
             self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
@@ -119,6 +121,7 @@ define([
 
         self.fn.searchUsersByHierarchy = function (event) {
             event.stopPropagation();
+            self.userFilterHasChanged = true;
             self.data.usersLoadedFailError = null;
             self.data.selectionType = SELECTED_NONE;
             self.currentUserFilterGroup = UserFilterView.TEAM;
@@ -375,7 +378,12 @@ define([
         var self = this;
         self.usersList = data;
         self.fn.getFilteredUsersList();
-        self.fn.applyUserFilter();
+
+        if(self.userFilterHasChanged) {
+            self.userFilterHasChanged = false;
+            self.fn.applyUserFilter();
+        }
+
         self.hideLoadingUsers();
     };
 
