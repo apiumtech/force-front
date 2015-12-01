@@ -284,7 +284,11 @@ define([
 
         self.chartOptions.vAxis = {};
         if(self.selectedFilter === "phoneCallsTime") {
-            self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
+            if(isHours() || scope.currentChartType === LINE) {
+                self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
+            } else if(scope.currentChartType === FILLED){
+                self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicksFilled(chartFields);
+            }
         } else if(self.selectedFilter === "activityScores" && scope.currentChartType === LINE) {
             self.chartOptions.vAxis.ticks = [1,2,3,4,5,6,7,8,9,10];
         } else {
@@ -354,13 +358,7 @@ define([
                 totalMax = Math.max(plotValue, totalMax);
             }
         }
-        var ticks = [];
-        var maxTicks = Math.min(5, totalMax);
-        var incr = Math.ceil(totalMax / maxTicks);
-        for( i=0; i<=totalMax; i+=incr ) {
-            ticks.push(i);
-        }
-        return ticks;
+        return this._getVaxisTicksFromMax(totalMax);
     };
 
     // Addition ticks
@@ -377,27 +375,21 @@ define([
                 totalMax = Math.max(points[i], totalMax);
             }
         }
+        return this._getVaxisTicksFromMax(totalMax);
+    };
+
+    GraphChartWidgetView.prototype._getVaxisTicksFromMax = function(totalMax){
         var ticks = [];
         var maxTicks = Math.min(5, totalMax);
-        var incr = Math.ceil(totalMax / maxTicks);
-        for( i=0; i<=totalMax; i+=incr ) {
-            ticks.push(i);
+        var increment = Math.ceil(totalMax / maxTicks);
+        var len = Math.ceil(totalMax / increment);
+        for( var i=0; i<=len; i++ ) {
+            ticks.push(i*increment);
         }
         return ticks;
     };
 
     // hh:mm:ss ticks
-    /*GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks_ = function(chartFields) {
-        var self = this;
-        var ticks = self.getVaxisTicks(chartFields);
-        ticks = ticks.map(function(seconds){
-            return {
-                v: seconds,
-                f: seconds === 0 ? "0" : self._secondsToHM(seconds)
-            };
-        });
-        return ticks;
-    };*/
     GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks = function(chartFields) {
         var self = this;
 
@@ -411,44 +403,55 @@ define([
                 totalMax = Math.max(plotValue, totalMax);
             }
         }
+        return self._getVaxisPhoneCallsTicksFromMax(totalMax);
+    };
 
-        var t = self._secondsDescomposition(totalMax);
-        var incr;
-        var skipMinutes = false;
-        if(t.h > 100) {
-            incr = 3600 * 50;
-            skipMinutes = true;
-        } else if(t.h > 50) {
-            incr = 3600 * 25;
-            skipMinutes = true;
-        } else if(t.h > 10) {
-            incr = 3600 * 5;
-            skipMinutes = true;
-        } else if(t.h > 1) {
-            incr = 3600;
-            skipMinutes = true;
-        } else if(t.h === 1) {
-            incr = 60*30;
-        } else if(t.m >  30) {
-            incr = 60*20;
-        } else if(t.m > 1 && t.m <  30) {
-            incr = 60*10;
-        } else {
-            incr = totalMax / 5;
+    GraphChartWidgetView.prototype.getVaxisPhoneCallsTicksFilled = function(chartFields) {
+        var self = this;
+        var totalMax = 1;
+        var points = [];
+        var dataPoints = chartFields[0].plotData.length;
+        for(var i=0; i<dataPoints; i++){
+            points[i] = 0;
+            for(var j=0; j<chartFields.length; j++) {
+                var field = chartFields[j];
+                var plotValue = field.plotData[i];
+                points[i] = points[i] + plotValue;
+                totalMax = Math.max(points[i], totalMax);
+            }
         }
+        return self._getVaxisPhoneCallsTicksFromMax(totalMax);
+    };
+
+    GraphChartWidgetView.prototype._getVaxisPhoneCallsTicksFromMax = function(totalMax) {
+        var self = this;
+        var t = self._secondsDescomposition(totalMax);
+        var increment;
+        var skipMinutes = false;
+        if(t.h > 1000) { increment = 3600 * 500; skipMinutes = true;
+        } else if(t.h > 300) { increment = 3600 * 100; skipMinutes = true;
+        } else if(t.h > 100) { increment = 3600 * 50; skipMinutes = true;
+        } else if(t.h > 50) { increment = 3600 * 25; skipMinutes = true;
+        } else if(t.h > 10) { increment = 3600 * 5; skipMinutes = true;
+        } else if(t.h > 1) { increment = 3600; skipMinutes = true;
+        } else if(t.h === 1) { increment = 60*30;
+        } else if(t.m >  30) { increment = 60*20;
+        } else if(t.m > 1 && t.m <  30) { increment = 60*10;
+        } else { increment = totalMax / 5; }
 
         var ticks = [];
-        for( i=0; i<=totalMax; i+=incr ) {
-            ticks.push(i);
+        var len = Math.ceil(totalMax/increment);
+        for( var i=0; i<=len; i++ ) {
+            ticks.push( increment * i );
         }
 
         ticks = ticks.map(function(seconds){
             return {
                 v: seconds,
                 f: seconds === 0 ? "0" :
-                   totalMax < 60 ? self._secondsToHHMMSS(seconds) :
-                   skipMinutes ? self._secondsDescomposition(seconds).h + "h" :
-                   self._secondsToHM(seconds)
+                    totalMax < 60 ? self._secondsToHHMMSS(seconds) :
+                        skipMinutes ? self._secondsDescomposition(seconds).h + "h" :
+                            self._secondsToHM(seconds)
             };
         });
         return ticks;
