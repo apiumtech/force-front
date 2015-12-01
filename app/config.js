@@ -152,7 +152,9 @@ define(function () {
         useAuthRequest: true,
         badTokenRedirectionPage: "Login.aspx",
         isDevMode: function(){
-            return window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" || window.location.hostname.indexOf("192.168") > -1;
+            return window.location.hostname === "127.0.0.1" ||
+                window.location.hostname === "localhost" ||
+                window.location.hostname.indexOf("192.168") > -1;
         },
         salesAnalytics: {
             intensityActivityChartDateFormat: 'dddd D MMMM YYYY',

@@ -56,9 +56,13 @@ define([
 
         data.Series.forEach(function (i) {
             responseData.data.params.axis.x.push(i.Name);
+            var ids = 1000;
             i.Points.forEach(function (point, index) {
                 var dataIndex = responseData.data.params.bars[index].data.length;
-                responseData.data.params.bars[index].data.push([dataIndex, point.Y]);
+                //responseData.data.params.bars[index].data.push([dataIndex, point.Y]);
+                point.total = Math.ceil(Math.random() * 100);
+                point.Id = ids++;
+                responseData.data.params.bars[index].data.push([dataIndex, point]);
             });
         });
 

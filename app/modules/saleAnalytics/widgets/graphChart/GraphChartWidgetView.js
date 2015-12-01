@@ -387,7 +387,7 @@ define([
     };
 
     // hh:mm:ss ticks
-    GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks_ = function(chartFields) {
+    /*GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks_ = function(chartFields) {
         var self = this;
         var ticks = self.getVaxisTicks(chartFields);
         ticks = ticks.map(function(seconds){
@@ -397,7 +397,7 @@ define([
             };
         });
         return ticks;
-    };
+    };*/
     GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks = function(chartFields) {
         var self = this;
 
@@ -415,7 +415,16 @@ define([
         var t = self._secondsDescomposition(totalMax);
         var incr;
         var skipMinutes = false;
-        if(t.h > 1) {
+        if(t.h > 100) {
+            incr = 3600 * 50;
+            skipMinutes = true;
+        } else if(t.h > 50) {
+            incr = 3600 * 25;
+            skipMinutes = true;
+        } else if(t.h > 10) {
+            incr = 3600 * 5;
+            skipMinutes = true;
+        } else if(t.h > 1) {
             incr = 3600;
             skipMinutes = true;
         } else if(t.h === 1) {
@@ -480,13 +489,13 @@ define([
             return field.name === fieldData.name;
         });
         var hidden = !fieldStatus.isDisplaying;
-        if (hidden) {
+        /*if (hidden) {
             return null;
-        }
+        }*/
         return {
             label: fieldData.name,
             plotData: fieldData.data,
-            hidden: false
+            hidden: hidden
         };
     };
 

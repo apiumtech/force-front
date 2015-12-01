@@ -117,7 +117,21 @@ define([
         dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
             dataTable.addColumn('number', serie.label);
+            //dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
+
+        var createTooltip = function(tick, serie, index){
+            var total = serie.data[index][1].total;
+            var percent = serie.data[index][1].Y;
+            //var id = serie.data[index][1].Id;
+            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+ serie.label +': <strong>'+ total +' | '+ percent +'%</strong></div>';
+            div += '<table class="table"><thead><tr><th>User</th><th>Total</th></tr></thead><tbody>';
+            ['Pedro', 'María', 'Juan', 'Jose', 'Alberto', 'Daniel'].forEach(function(item){
+                div += '<tr><td>'+ item +'</td><td>'+ (10+Math.round(Math.random()*100)) +'</td></tr>';
+            });
+            div += '</tbody></table>';
+            return div;
+        };
 
         var index = 0;
         var columns = [];
@@ -125,7 +139,8 @@ define([
             var col = [];
             col.push(tick);
             self.data.forEach(function(serie){
-                col.push( serie.data[index][1]  );
+                col.push( serie.data[index][1].Y  );
+                //col.push( createTooltip(tick, serie, index) );
             });
             columns.push(col);
             index++;
@@ -151,6 +166,9 @@ define([
                 minValue: 0,
                 maxValue: 100,
                 ticks: [0, 20, 40, 60, 80, 100]
+            },
+            tooltip: {
+                isHtml: true
             },
             legend: legend,
             width: '100%',
