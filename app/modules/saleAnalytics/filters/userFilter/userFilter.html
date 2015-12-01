@@ -67,6 +67,19 @@
 
             <!-- Buttonbar -->
             <li class="media">
+
+                <!-- Check/uncheck all -->
+                <div class="btn-group pull-left">
+                    <input type="checkbox"
+                           class="pull-left m-t-10 m-r-10"
+                           ng-change="fn.toggleAll(data.allUsersSelected)"
+                           ng-model="data.allUsersSelected">
+                    <div class="pull-left m-t-5">
+                        <strong>{{'Filters.AllUsers' | i18next}}</strong>
+                    </div>
+                </div>
+                <!-- End check/uncheck all -->
+
                 <div class="btn-group pull-right">
 
                     <button class="btn btn-white btn-sm"
@@ -82,7 +95,6 @@
                         {{'Filters.Team' | i18next}}
                     </button>
                 </div>
-                <span class="pull-right m-t-7">{{'commonText.Show' | i18next}}</span>
             </li>
             <!-- End Buttonbar -->
 
@@ -97,25 +109,12 @@
                         <span class="user-tag" ng-repeat="user in environment.children | filter:{checked:true}">{{ user.Name }}</span>
                     </span>
                 </div>-->
-
-                <input type="checkbox" class="pull-left m-t-10 m-r-10 ">
-                <div class="pull-left m-t-5">
-                    <strong>{{'Filters.AllUsers' | i18next}}</strong>
-                </div>
             </li>
             <!-- END recent added users -->
 
 
             <!-- Starts users tree -->
             <li class="users-tree" ng-if="data.usersLoadedFailError===null">
-                <div class="clearfix hide">
-                    <input type="checkbox" class="pull-left m-t-10 m-r-10"
-                           ng-model="allUsersSelected"
-                           ng-click="fn.allUserSelectionChanged($event)">
-                    <div class="m-t-5 pull-left">
-                        <strong>{{'Filters.AllUserSelectsAllEnvironments' | i18next}}</strong>
-                    </div>
-                </div>
 
                 <ng-include ng-if="multipleSelection"
                             src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html'"></ng-include>

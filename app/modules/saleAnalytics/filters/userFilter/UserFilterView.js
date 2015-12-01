@@ -29,6 +29,7 @@ define([
         this.awaitHelper = AwaitHelper.newInstance();
         this.data.isLoadingUsers = false;
         this.data.usersLoadedFailError = null;
+        this.data.allUsersSelected = false;
         this.APPLY_USER_FILTER_DELAY = 500;// ms.
         this.userFilterHasChanged = false;
 
@@ -174,6 +175,17 @@ define([
             var remainingHeight = $(window).height() - y - 15;
             remainingHeight += $(document).scrollTop().valueOf();
             $("#UserFilterDropDown").css("max-height", remainingHeight+"px");
+        };
+
+        self.fn.toggleAll = function(selected) {
+            var all = self.getFilteredUsersList();
+            all.forEach(function (user) {
+                user.checked = selected;
+            });
+
+            self.userFiltered = self.arrayHelper.makeTree(all, 'ParentId', 'Id', 'children', -1);
+            self.checkSelectAllState();
+            self.fn.applyUserFilter();
         };
     };
 
