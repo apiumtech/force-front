@@ -119,7 +119,7 @@
       "Date": "Date",
       "Month": "Month",
       "Week": "Week",
-      "ShowFields": "Show Fields"
+      "ShowFields": "Toggle fields"
     }
   },
   "TableWidget": {

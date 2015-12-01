@@ -19,13 +19,9 @@
 
 
         <div class="col-xs-12 col-md-8 m-b-20">
+
             <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right">
-                <!--<button class="btn btn-white btn-sm"
-                        ng-class="{'active': selectedRangeOption=='hour'}"
-                        ng-click="fn.changeFilterRange('hour')">
-                    {{'LineWidget.Filters.Hour' | i18next}}
-                </button>-->
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')">
@@ -42,7 +38,9 @@
                     {{'LineWidget.Filters.Month' | i18next}}
                 </button>
             </div>
+
             <div class="pull-right" style="width:15px;height:10px;"></div>
+
             <div class="btn-group pull-right">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='hour'}"
@@ -50,48 +48,48 @@
                     {{'LineWidget.Filters.Hour' | i18next}}
                 </button>
             </div>
-            <div class="pull-right" style="width:15px;height:10px;"></div>
-            <!-- FIELDS buttonbar -->
-            <div class="btn-group pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
-                        {{'LineWidget.Filters.ShowFields' | i18next}} <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="field in availableFields">
-                            <a class="small" data-value="{{field.name}}" tabIndex="-1" ng-click="fn.toggleDisplayField(field.name) ? null : $event.preventDefault()">
-                                <span class="glyphicon" style="color:#666666;" ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}"></span>
-                                &nbsp;{{field.name}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToLine()"
-                            ng-disabled="selectedRangeOption=='hour'"
-                            ng-class="{'active': currentChartType=='line'}"
-                            ng-i18next="[title]lineChart">
-                        <img src="assets/img/line.png" style="width: 24px; height: 24px; opacity: 0.5;">
-                    </button>
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToFilled()"
-                            ng-disabled="selectedRangeOption=='hour'"
-                            ng-class="{'active': currentChartType=='filled'}"
-                            ng-i18next="[title]areaChart">
-                        <img src="assets/img/area.png" style="width: 24px; height: 24px; opacity: 0.5;">
-                    </button>
-                    <button class="btn btn-white btn-sm p-t-5 p-b-5"
-                            ng-click="fn.switchToFilled100()"
-                            ng-disabled="selectedRangeOption=='hour'"
-                            ng-class="{'active': currentChartType=='filled100'}"
-                            ng-i18next="[title]areaChartPercent">
-                        <img src="assets/img/area-percent.png" style="width: 24px; height: 24px; opacity: 0.5;">
-                    </button>
-                </div>
-            </div>
-        </div>
 
+            <div class="pull-right" style="width:15px;height:10px;"></div>
+
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
+                    {{'LineWidget.Filters.ShowFields' | i18next}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="field in availableFields">
+                        <a class="small" data-value="{{field.name}}" tabIndex="-1" ng-click="fn.toggleDisplayField(field.name) ? null : $event.preventDefault()">
+                            <span class="glyphicon" style="color:#666666;" ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}"></span>
+                            &nbsp;{{field.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pull-right" style="width:15px;height:10px;"></div>
+
+            <!-- FIELDS buttonbar -->
+            <div class="btn-group pull-right" ng-hide="selectedRangeOption=='hour'">
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToLine()"
+                        ng-class="{'active': currentChartType=='line'}"
+                        ng-i18next="[title]lineChart">
+                    <img src="assets/img/line.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToFilled()"
+                        ng-class="{'active': currentChartType=='filled'}"
+                        ng-i18next="[title]areaChart">
+                    <img src="assets/img/area.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToFilled100()"
+                        ng-class="{'active': currentChartType=='filled100'}"
+                        ng-i18next="[title]areaChartPercent">
+                    <img src="assets/img/area-percent.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                </button>
+            </div>
+
+        </div>
     </div>
     <!-- END TOOLBAR -->
 
