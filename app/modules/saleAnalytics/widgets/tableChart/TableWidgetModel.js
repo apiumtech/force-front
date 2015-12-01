@@ -97,7 +97,7 @@ define([
         var calculateColumnType = function(key){
             return  key === 'Name' ? 'profile' :
                     key === 'PhotoUrl' ? 'img' :
-                    key === 'ActivityScore' ? 'wedge' :
+                    key === 'ActivityScore' ? 'doughnut' :
                     key === 'SalesScore' ? 'float' :
                     key === 'SalesActivityRatio' ? 'float' :
                     key === 'Sales' ? 'float' :
@@ -110,6 +110,21 @@ define([
                     key === 'Opportunities' ? 'int' : 'string';
         };
 
+        var calculateColumnOrder = function(key){
+            return  key === 'ActivityScore' ? 0 :
+                    key === 'Name' ? 1 :
+                    key === 'Visits' ? 2 :
+                    key === 'Activities' ? 3 :
+                    key === 'PhoneCallsTime' ? 4 :
+                    key === 'Emails' ? 5 :
+                    key === 'Orders' ? 6 :
+                    key === 'Quotes' ? 7 :
+                    key === 'Opportunities' ? 8 :
+                    key === 'SalesScore' ? 9 :
+                    key === 'SalesActivityRatio' ? 10 :
+                    key === 'Sales' ? 11 : 999;
+        };
+
         Object.keys(data[0]).forEach(function (key) {
             //responseData.data.params.columns.push(key);
             responseData.data.params.columns.push({
@@ -118,7 +133,8 @@ define([
                 type: calculateColumnType(key),
                 sortable: true,
                 visible: true, // wether the column is visible at a particular moment.
-                available: calculateColumnAvailable(key) // wether the column is even available to be shown.
+                available: calculateColumnAvailable(key), // wether the column is even available to be shown.
+                order: calculateColumnOrder(key) // position
             });
         });
 

@@ -69,10 +69,10 @@
                                 <img ng-src="{{ record.PhotoUrl }}" class="media-object" style="display: inline-block;"/>
                                 <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
                             </div>
-                            <div ng-switch-when="wedge" class="m-t-10 text-center" ng-attr-title="{{ record[col.key] }}%" style="width:32px; height:32px; overflow:hidden;margin: 1px auto;">
+                            <div ng-switch-when="doughnut" class="m-t-10 text-center" ng-attr-title="{{ record[col.key]*10 }}%" style="width:42px; height:42px; overflow:hidden;margin: 1px auto;">
                                 <img
-                                        style="width:34px; height:34px;background-size:cover;margin-left:-1px;margin-top:-1px"
-                                        ng-style="{'background-image': 'url('+ fn.generateWedgeImageData(record[col.key]) +')'}" />
+                                        style="width:44px; height:44px;background-size:cover;margin-left:-1px;margin-top:-1px"
+                                        ng-style="{'background-image': 'url('+ record.doughnut_cellData +')'}" />
                             </div>
                             <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:2 }}</p>
                             <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:0 }}</p>

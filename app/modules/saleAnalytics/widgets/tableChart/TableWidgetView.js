@@ -94,33 +94,77 @@ define([
         };
 
 
+
         var _toRadians = function(deg) {
             return deg * Math.PI / 180;
         };
         var canvas = document.createElement('canvas');
-        var r = 40;
-        var xy = 44;
-        var wh = 88;
+        var wh = 72;
         canvas.width = wh;
         canvas.height = wh;
         var ctx = canvas.getContext('2d');
-        var startAngle = 0;
-        self.fn.generateWedgeImageData = function (percentage) {
+        var context = ctx;
+
+        var X = 36;
+        var Y = 36;
+        var outterRadius = 30;
+        var innerRadius = 22;
+        function drawDonut(sRadian, eRadian){
+
+            context.beginPath();
+            context.arc(X, Y, outterRadius, sRadian, eRadian, false); // Outer: CCW
+            context.arc(X, Y, innerRadius, eRadian, sRadian, true); // Inner: CW
+            context.closePath();
+
+            // add shadow
+            addShadow();
+
+            context.fill();
+        }
+
+        function addShadow(){
+            context.shadowColor = "#333";
+            context.shadowBlur = 3;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+        }
+
+        function setRadialGradient(sgc, bgc){
+            var grd = context.createRadialGradient(X, Y, innerRadius + 5, X, Y, outterRadius);
+            grd.addColorStop(0,sgc);
+            grd.addColorStop(1,bgc);
+            context.fillStyle = grd;
+        }
+
+        self.fn.generateDoughnutImageData = function (score) {
+            score = Math.random()*10;
             ctx.clearRect(0, 0, wh, wh);
+            var percent = score * 10;
+            var percent360 = percent * (360/100);
 
-            ctx.beginPath();
-            ctx.arc( xy, xy, r, 0, Math.PI*2);
-            ctx.stroke();
-            ctx.closePath();
+            if(score === 0){
+                // GREEN
+                setRadialGradient("#84BC3D", "#5B8829");
+                drawDonut(0, _toRadians(360));
+            } else {
+                // RED
+                setRadialGradient("#DC1C29", "#B7161B");
+                drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
 
-            if(percentage >= 1) {
-                ctx.beginPath();
-                ctx.moveTo(xy, xy);
-                ctx.arc(xy, xy, r, startAngle, _toRadians(percentage * (360 / 100)), false);
-                ctx.lineTo(xy, xy);
-                ctx.closePath();
-                ctx.fill();
+                // GREEN
+                setRadialGradient("#84BC3D", "#5B8829");
+                drawDonut(_toRadians(percent360 - 90), _toRadians(-90));
             }
+
+            ctx.font = '13px Helvetica, Arial, sans-serif';
+            ctx.fillStyle = '#000000';
+            ctx.textBaseline = "middle";
+            ctx.textAlign = 'center';
+            var p = (percent).toFixed(1);
+            if(p.substr(-2) === '.0'){
+                p = p.split(".")[0];
+            }
+            ctx.fillText(p+"%", wh/2, wh/2);
 
             var imageData = canvas.toDataURL('image/png');
             return imageData;
@@ -128,6 +172,7 @@ define([
 
         self.event.parseData = function(){};
     };
+
 
 
     TableWidgetView.prototype._secondsToHM = function (secs) {
@@ -163,11 +208,11 @@ define([
             };
             var stringSortFunction = function(a, b) {
                 a = a[key].toLowerCase(); b = b[key].toLowerCase();
-                if(a < b) return -1;
-                if(a > b) return 1;
+                if(a < b) {return -1;}
+                if(a > b) {return 1;}
                 return 0;
             };
-            if( ['int','float','seconds', 'wedge'].indexOf(self.sortingState.column.type) > -1 ){
+            if( ['int','float','seconds', 'doughnut'].indexOf(self.sortingState.column.type) > -1 ){
                 self.data.data.sort(numberSortFunction);
             } else {
                 self.data.data.sort(stringSortFunction);
@@ -184,8 +229,13 @@ define([
         var self = this;
         if(data && data.length > 0) {
             var res = this.event.parseData(data, this.widget.option);
-            self.data.data = res.data;
+            self.data.data = self.precalculateCellRendererData(res.data);
             self.data.columns = res.columns;
+            self.data.columns.sort(function (a, b) {
+                if (a.order > b.order) { return 1; }
+                if (a.order < b.order) { return -1; }
+                return 0;
+            });
         } else {
             self.data.data = [];
         }
@@ -193,6 +243,16 @@ define([
         self.renderChart();
     };
 
+
+    TableWidgetView.prototype.precalculateCellRendererData = function (data) {
+        var self = this;
+        data.forEach(function(item){
+            if('ActivityScore' in item){
+                item.doughnut_cellData = self.fn.generateDoughnutImageData(item.ActivityScore);
+            }
+        });
+        return data;
+    };
 
     TableWidgetView.prototype.onMoveWidgetSuccess = function (data) {
     };
