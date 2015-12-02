@@ -1,6 +1,4 @@
-/**
- * Created by justin on 1/26/15.
- */
+/* globals google */
 
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
@@ -10,6 +8,7 @@ define([
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService'
 ], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GraphColorService, GoogleChartService) {
+    'use strict';
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
@@ -121,7 +120,7 @@ define([
         var chartService = self.chartService;
         var element = self.element.find('.chart-place-holder');
 
-        if (!self.data || self.data === null) {
+        if (!self.data || !self.data.fields) {
             return;
         }
 
