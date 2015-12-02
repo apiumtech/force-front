@@ -18,10 +18,7 @@ define([
             name: "Visits",
             key: "visits"
         }, {
-            name: "Accounts",
-            key: "accounts"
-        }, {
-            name: "Opportunities",
+            name: "New Opportunities",
             key: "opportunities"
         }];
 
