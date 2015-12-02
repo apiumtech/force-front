@@ -7,7 +7,9 @@ define([
     'use strict';
 
     var flatten = function (array, nestedProp, target) {
-        if (!target) target = [];
+        if (!target){
+            target = [];
+        }
 
         array.forEach(function (arr) {
             if (Array.isArray(arr[nestedProp])) {
@@ -22,7 +24,9 @@ define([
     };
 
     var findParents = function (flattenedArray, parentKey, elementIdentifier, parentValue, rootValue, output, notRecursive) {
-        if (!output) output = [];
+        if (!output) {
+            output = [];
+        }
 
         if (parentValue == rootValue) {
             return output;
@@ -49,7 +53,36 @@ define([
         return output;
     };
 
+    var queryFlatTree = function (flattened, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
+        //var newArray = clone(array);
+        //var flattened = flatten(newArray, nestedProp);
+
+        var sortFunction = function (nodeBefore, nodeAfter) {
+            return nodeBefore[sortBy] - nodeAfter[sortBy];
+        };
+
+        var queriedNodes = flattened.filter(function (node) {
+            return node[propToQuery].toLowerCase().indexOf(queryString.toLowerCase()) > -1;
+        }).sort(sortFunction);
+
+        if (!makeTreeAfterSearch)
+            return queriedNodes;
+
+        var allNodes = [];
+        queriedNodes.forEach(function (node) {
+            allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
+        });
+        allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
+
+        return allNodes;
+    };
+
     var queryTree = function (array, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
+        var allNodes = queryFlatTree(array, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue);
+        return makeTree(allNodes, parentKey, elementIdentifier, nestedProp, rootValue);
+    };
+
+    /*var queryTree__ = function (array, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
         var newArray = clone(array);
         var flattened = flatten(newArray, nestedProp);
 
@@ -71,7 +104,7 @@ define([
         allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
 
         return makeTree(allNodes, parentKey, elementIdentifier, nestedProp, rootValue);
-    };
+    };*/
 
     var clone = function (array) {
         return JSON.parse(JSON.stringify(array));
@@ -97,6 +130,7 @@ define([
         flatten: flatten,
         makeTree: makeTree,
         queryTree: queryTree,
+        queryFlatTree: queryFlatTree,
         clone: clone,
         findParents: findParents
     };

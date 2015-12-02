@@ -293,6 +293,7 @@ define([
             throw new Error('Filtered data is empty, no change will be made');
         }
         var self = this;
+        self.usersList = data;
         self.userFiltered = data;
         self.userFiltered[0].isOpen = true;
     };

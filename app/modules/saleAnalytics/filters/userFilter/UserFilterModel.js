@@ -75,6 +75,9 @@ define([
         if (!data || !(data instanceof Array) || data.length <= 0){
             throw new Error("No data received from server");
         }
+        data.forEach(function(item){
+            item.visible = true; // needed for the tree to display correctltly
+        });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
 
@@ -84,27 +87,90 @@ define([
     };
 
     UserFilterModel.prototype.getFilteredData = function (data, filter, searchQuery) {
-        if (!data || !(data instanceof Array) || data.length <= 0) throw new Error('Invalid data passed');
-        if (filter != ENVIRONMENT && filter != TEAM) throw new Error('Invalid filterGroup passed');
-        if (!searchQuery) return data;
+        if (!data || !(data instanceof Array) || data.length <= 0){
+            throw new Error('Invalid data passed');
+        }
+        if (filter !== ENVIRONMENT && filter !== TEAM){
+            throw new Error('Invalid filterGroup passed');
+        }
+        /*if (!searchQuery){
+            return data;
+        }*/
+
         var self = this;
         var clonedData = JSON.parse(JSON.stringify(data));
-        return self['getFilteredDataFor' + filter](clonedData, searchQuery);
+
+        //return self['getFilteredDataFor' + filter](clonedData, searchQuery);
+        return self.doGetFilteredData(clonedData, searchQuery);
+
         // TODO: Refactor to use same method
         //return this.arrayHelper.queryTree(clonedData, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
     };
 
-    UserFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(data, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
+    UserFilterModel.prototype.doGetFilteredData = function (data, searchQuery) {
+        var newArray = this.arrayHelper.clone(data);
+        var flattened = this.arrayHelper.flatten(newArray, "children");
+        var flatTree = this.arrayHelper.queryFlatTree(flattened,"children","Name",searchQuery,"Id",true,"ParentId","Id",-1);
+
+        flattened.forEach(function(item){
+            var index;
+            var foundItems = flatTree.filter(function(filtered, idx){
+                var found = filtered.Id === item.Id;
+                if(found){
+                    index = idx;
+                }
+                return found;
+            });
+            if(foundItems.length > 1) {
+                throw new Error("More than one user with same Id");
+            }
+            if(foundItems.length === 1) {
+                item.visible = true;
+                flatTree.splice(index, 1);
+            } else {
+                item.visible = false;
+            }
+        });
+
+        return this.arrayHelper.makeTree(
+            flattened,
+            "ParentId",
+            "Id",
+            "children",
+            -1
+        );
+    };
+
+    /*UserFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
+        return this.arrayHelper.queryTree(
+            data,
+            "children",
+            "Name",
+            searchQuery,
+            "Id",
+            true,
+            "ParentId",
+            "Id",
+            -1
+        );
     };
 
     UserFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(data, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
+        return this.arrayHelper.queryTree(
+            data,
+            "children",
+            "Name",
+            searchQuery,
+            "Id",
+            true,
+            "ParentId",
+            "Id",
+            -1
+        );
 
-    };
+    };*/
 
     UserFilterModel.ENVIRONMENT = ENVIRONMENT;
-
     UserFilterModel.TEAM = TEAM;
 
     return UserFilterModel;
