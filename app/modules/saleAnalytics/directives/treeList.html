@@ -1,4 +1,4 @@
-<accordion-group ng-repeat="item in treeList"
+<accordion-group ng-repeat="item in treeList | filter: { visible: true }"
                  is-open="item.isOpen" is-disabled="!item.children"
                  class="clearfix accordion-tree-group">
 
