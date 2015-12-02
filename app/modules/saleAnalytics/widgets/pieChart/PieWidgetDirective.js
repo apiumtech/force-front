@@ -11,7 +11,8 @@ define([
             restrict: "EAC",
             controller: PieChartWidgetController,
             scope: {
-                widget: "="
+                widget: "=",
+                onlyPieChart: "="
             },
             templateUrl: 'app/modules/saleAnalytics/widgets/pieChart/pieWidget.html'
         };
