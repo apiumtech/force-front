@@ -4,9 +4,12 @@
 
 define([
     'shared/services/ajax/AuthAjaxService',
+    'shared/services/ajax/AjaxCacheService',
     'moment',
-    'config'
-], function (AjaxService, moment, Configuration) {
+    'config',
+    'q'
+], function (AjaxService, AjaxCacheService, moment, Configuration, Q) {
+    'use strict';
 
     function WidgetBase(ajaxService) {
         this.authAjaxService = ajaxService || AjaxService.newInstance();
@@ -23,7 +26,9 @@ define([
         var queries = "";
 
         for (var prop in this.queries) {
-            if (queries !== "") queries += "&";
+            if (queries !== "") {
+                queries += "&";
+            }
             queries += prop + "=" + this.queries[prop];
         }
 
@@ -31,7 +36,9 @@ define([
     };
 
     WidgetBase.prototype.setFetchEndPoint = function (endpoint) {
-        if (!endpoint) throw new Error("Input data cannot be null");
+        if (!endpoint) {
+            throw new Error("Input data cannot be null");
+        }
         this.fetchPoint = endpoint;
     };
 
@@ -73,7 +80,21 @@ define([
             contentType: 'application/json'
         };
 
-        return this.authAjaxService.rawAjaxRequest(request);
+        var cache = AjaxCacheService.getByParams(request);
+        if( cache ) {
+            return Q.fcall(function () {
+                return cache;
+            });
+        } else {
+            return this.authAjaxService.rawAjaxRequest(request).then(
+                function(data) {
+                    AjaxCacheService.putByParams(request, data);
+                    return Q.fcall(function () {
+                        return data;
+                    });
+                }
+            );
+        }
     };
 
     return WidgetBase;

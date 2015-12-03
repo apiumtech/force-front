@@ -6,6 +6,7 @@ define([
 
     'shared/services/StorageService'
 ], function (Q, $, _, Configuration, StorageService) {
+    'use strict';
 
     function AjaxService(ajaxImpl, storageService) {
         this.ajaxImpl = ajaxImpl || $.ajax;
@@ -23,7 +24,7 @@ define([
     AjaxService.prototype.mapRequest = function (params) {
         var request = _.clone(params);
 
-        if (typeof request.data != "string") {
+        if (typeof request.data !== "string") {
             request.data = JSON.stringify(request.data);
         }
 

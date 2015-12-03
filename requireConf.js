@@ -61,6 +61,7 @@ var requireConf = {
         'moment': '../node_modules/moment/min/moment.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
+        'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
 
 
         // TODO: delete or not
@@ -236,6 +237,10 @@ var requireConf = {
             deps: ['crypto'],
             exports: 'cryptoSha1'
         },
+        'crypto.MD5': {
+            deps: ['crypto'],
+            exports: 'cryptoMd5'
+        },
         'crypto': {
             exports: 'crypto'
         },
@@ -289,7 +294,7 @@ var requireConf = {
 
         /* Flot & stuffs */
         'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'flot-tickrotor', 'crypto',
-        'crypto.SHA1',
+        'crypto.SHA1', 'crypto.MD5',
 
         /* Dependency Injection configuration loader */
         'diConfig'

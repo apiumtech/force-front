@@ -2,6 +2,7 @@ define([
     'app',
     'q'
 ], function (app, Q) {
+    'use strict';
 
     function CQRSUnwrapper() {
         this.deferred = Q.defer();
