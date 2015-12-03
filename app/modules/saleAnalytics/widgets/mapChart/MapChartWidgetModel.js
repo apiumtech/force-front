@@ -85,7 +85,8 @@ define([
             return {
                 Latitude: record.Y,
                 Longitude: record.X,
-                FullName: record.Name + " " + record.Surname
+                FullName: record.Name + " " + record.Surname,
+                PhotoUrl: record.PhotoUrl
             };
         });
 

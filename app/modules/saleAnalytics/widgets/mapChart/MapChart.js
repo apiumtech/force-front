@@ -103,7 +103,8 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
 
         self.markers = data.map(function (r) {
-            var image = r.ImageB64;
+            //var image = r.ImageB64;
+            var image = r.PhotoUrl;
             if (!image){
                 image = defaultImageUrl;
             }
@@ -111,11 +112,24 @@ define([
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
             latlngbounds.extend(coordinate);
 
-            return self.mapService.createMarker({
+            var marker = self.mapService.createMarker({
                 position: coordinate,
                 icon: self.mapService.getMarkerIcon(image),
                 flat: true
             });
+
+
+            // infowindow
+            var infowindow = new google.maps.InfoWindow({
+                content: r.FullName
+            });
+            marker.addListener('click', function() {
+                infowindow.open(self.map, marker);
+            });
+            // end infowindow
+
+
+            return marker;
         });
 
         self.markerCluster = new MarkerClusterer(self.map, self.markers, {
