@@ -1,18 +1,19 @@
 <widget-wrapper body-class=""
                 title="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
-                widget-id="widget.widgetId"
-        >
-    <div class="clearfix m-b-20 ">
+                widget-id="widget.widgetId">
+
+
+    <div class="clearfix m-b-10">
         <div class="row">
-            <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20">
+            <div class="col-xs-6 col-sm-6 col-lg-4">
                 <select class="form-control pull left" ng-model="selectedFilter" ng-change="fn.changeFilter(selectedFilter)">
                     <option value="checkins">{{'MapChart.CheckIns' | i18next}}</option>
                     <option value="users" ng-disabled="!fn.canDisplayUsersInMap()">{{'MapChart.Users' | i18next}}</option>
                     <!--<option value="activity">{{'MapChart.Activity' | i18next}}</option>-->
                 </select>
             </div>
-            <div class="col-xs-6 col-sm-6 col-lg-8 m-b-20">
+            <div class="col-xs-6 col-sm-6 col-lg-8">
                 <div class="pull-right" ng-show="selectedFilter!=='users'">
                     <label class="radio-inline">
                         <input type="radio" value="HEAT_MAP"
@@ -29,11 +30,14 @@
         </div>
     </div>
 
-    <div class="chart-place-holder height-sm map-chart" ng-hide="data.serverError===true"></div>
+
+    <div class="chart-place-holder height-md map-chart" ng-hide="data.serverError===true"></div>
+
 
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
     </ng-include>
+
 
 </widget-wrapper>
