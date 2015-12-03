@@ -20,10 +20,10 @@ define([
         var responseJSON;
         if(xhr.responseJSON){
             responseJSON = xhr.responseJSON;
-        } else if(xhr.responseText && xhr.responseText.indexOf("nack") > -1){
+        } else if(xhr.responseText && xhr.responseText.indexOf("success") > -1){
             responseJSON = JSON.parse(xhr.responseText);
         }
-        if(responseJSON && responseJSON.status === 'nack'){
+        if(responseJSON && responseJSON.success === false){
             if(responseJSON.message.code === '00.00.0.20' ||
                 responseJSON.message.code === '00.00.0.21' ||
                 responseJSON.message.code === '00.00.0.22'){

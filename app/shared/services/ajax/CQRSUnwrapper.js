@@ -33,7 +33,7 @@ define([
     };
 
     CQRSUnwrapper.prototype.onSuccess = function (res) {
-        if( res.status === "ack" ){
+        if( res.success === true ){
             if(this.unwrapData){
                 this.deferred.resolve(res.data);
             } else {
