@@ -137,7 +137,6 @@ define([
         }
 
         self.fn.generateDoughnutImageData = function (score) {
-            score = Math.random()*10;
             ctx.clearRect(0, 0, wh, wh);
             var percent = score * 10;
             var percent360 = percent * (360/100);
@@ -147,13 +146,13 @@ define([
                 setRadialGradient("#84BC3D", "#5B8829");
                 drawDonut(0, _toRadians(360));
             } else {
-                // RED
-                setRadialGradient("#DC1C29", "#B7161B");
-                drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
-
                 // GREEN
                 setRadialGradient("#84BC3D", "#5B8829");
                 drawDonut(_toRadians(percent360 - 90), _toRadians(-90));
+
+                // RED
+                setRadialGradient("#DC1C29", "#B7161B");
+                drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
             }
 
             ctx.font = '13px Helvetica, Arial, sans-serif';
@@ -201,8 +200,9 @@ define([
         var self = this;
         if(self.sortingState.column) {
             var key = self.sortingState.column.key;
-            var numberSortFunction = function(a, b) {
-                a = parseFloat(a[key]); b = parseFloat(b[key]);
+            var numberSortFunction = function(_a, _b) {
+                var a = parseFloat(_a[key]);
+                var b = parseFloat(_b[key]);
                 if (a === b) { return 0; }
                 return (a < b) ? -1 : 1;
             };
