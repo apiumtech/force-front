@@ -4,9 +4,9 @@
 define(function () {
     'use strict';
 
-    //var apiVersion = "1.2";
-    //var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
-    var baseUrl = "https://backenddev.forcemanager.net";
+    var apiVersion = "1.3";
+    var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
+    //var baseUrl = "https://backenddev.forcemanager.net";
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var api = {
@@ -154,8 +154,7 @@ define(function () {
         isDevMode: function(){
             return window.location.hostname === "127.0.0.1" ||
                 window.location.hostname === "localhost" ||
-                window.location.hostname.indexOf("192.168") > -1 ||
-                window.location.hostname.indexOf("websta.forcemanager.net") > -1;
+                window.location.hostname.indexOf("192.168") > -1;
         },
         salesAnalytics: {
             intensityActivityChartDateFormat: 'dddd D MMMM YYYY',
