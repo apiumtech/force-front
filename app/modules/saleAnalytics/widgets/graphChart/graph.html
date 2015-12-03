@@ -51,7 +51,7 @@
 
             <div class="pull-right" style="width:15px;height:10px;"></div>
 
-            <div class="btn-group pull-right">
+            <div class="btn-group pull-right" ng-hide="availableFields.length === 1">
                 <button type="button" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
                     {{'LineWidget.Filters.ShowFields' | i18next}} <span class="caret"></span>
                 </button>
@@ -68,7 +68,7 @@
             <div class="pull-right" style="width:15px;height:10px;"></div>
 
             <!-- FIELDS buttonbar -->
-            <div class="btn-group pull-right" ng-hide="selectedRangeOption=='hour'">
+            <div class="btn-group pull-right" ng-hide="selectedRangeOption=='hour' || availableFields.length === 1">
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
