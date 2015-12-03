@@ -14,7 +14,7 @@ define([
             restrict: "EA",
             controller: WidgetWrapperController,
             scope: {
-                title: "@",
+                wtitle: "@",
                 bodyClass: "@",
                 eventBusChannel: "=",
                 foreverScroll: "&",
