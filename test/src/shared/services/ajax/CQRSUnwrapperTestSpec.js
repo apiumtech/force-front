@@ -40,14 +40,14 @@ define([
 
         it("should resolve promise if CQRS result status is 'ack'", function () {
             revealSut(spyOnDeferredSutDecorator);
-            var res = {status:"ack"};
+            var res = {success:true};
             sut.onSuccess(res);
             expect(sut.deferred.resolve).toHaveBeenCalledWith(res);
         });
 
         it("should reject promise if CQRS result status is 'nack'", function () {
             revealSut(spyOnDeferredSutDecorator);
-            var res = {status:"nack"};
+            var res = {success:false};
             sut.onSuccess(res);
             expect(sut.deferred.reject).toHaveBeenCalledWith(res);
         });
