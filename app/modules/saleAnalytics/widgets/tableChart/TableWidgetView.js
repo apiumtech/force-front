@@ -142,16 +142,16 @@ define([
             var percent360 = percent * (360/100);
 
             if(score === 0){
-                // GREEN
-                setRadialGradient("#84BC3D", "#5B8829");
-                drawDonut(0, _toRadians(360));
-            } else {
-                // GREEN
-                setRadialGradient("#84BC3D", "#5B8829");
-                drawDonut(_toRadians(percent360 - 90), _toRadians(-90));
-
                 // RED
                 setRadialGradient("#DC1C29", "#B7161B");
+                drawDonut(0, _toRadians(360));
+            } else {
+                // RED
+                setRadialGradient("#DC1C29", "#B7161B");
+                drawDonut(_toRadians(percent360 - 90), _toRadians(-90));
+
+                // GREEN
+                setRadialGradient("#84BC3D", "#5B8829");
                 drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
             }
 
@@ -159,11 +159,11 @@ define([
             ctx.fillStyle = '#000000';
             ctx.textBaseline = "middle";
             ctx.textAlign = 'center';
-            var p = (percent).toFixed(1);
+            var p = (score).toFixed(1);
             if(p.substr(-2) === '.0'){
                 p = p.split(".")[0];
             }
-            ctx.fillText(p+"%", wh/2, wh/2);
+            ctx.fillText(p, wh/2, wh/2);
 
             var imageData = canvas.toDataURL('image/png');
             return imageData;
