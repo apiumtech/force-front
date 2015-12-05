@@ -53,6 +53,15 @@ define([
         return output;
     };
 
+    var removeAccents = function(lowercaseString){
+        return lowercaseString
+                    .replace( /[áàäâ]/g, 'a' )
+                    .replace( /[éèëê]/g, 'e' )
+                    .replace( /[íìïî]/g, 'i' )
+                    .replace( /[óòöô]/g, 'o' )
+                    .replace( /[úùüû]/g, 'u' );
+    };
+
     var queryFlatTree = function (flattened, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
         //var newArray = clone(array);
         //var flattened = flatten(newArray, nestedProp);
@@ -61,12 +70,19 @@ define([
             return nodeBefore[sortBy] - nodeAfter[sortBy];
         };
 
-        var queriedNodes = flattened.filter(function (node) {
-            return node[propToQuery].toLowerCase().indexOf(queryString.toLowerCase()) > -1;
-        }).sort(sortFunction);
+        var queriedNodes;
+        if(queryString && queryString !== ""){
+            queriedNodes = flattened.filter(function (node) {
+                return removeAccents(node[propToQuery].toLowerCase())
+                            .indexOf(removeAccents(queryString.toLowerCase())) > -1;
+            }).sort(sortFunction);
+        } else {
+            queriedNodes = flattened.sort(sortFunction);
+        }
 
-        if (!makeTreeAfterSearch)
+        if (!makeTreeAfterSearch){
             return queriedNodes;
+        }
 
         var allNodes = [];
         queriedNodes.forEach(function (node) {
