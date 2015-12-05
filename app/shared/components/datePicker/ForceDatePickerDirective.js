@@ -269,7 +269,7 @@ define([
                 $scope.setNewYear = function setNewYear(year) {
 
                     //deactivate selected day
-                    $scope.day = undefined;
+                    //$scope.day = undefined;
 
                     if (dateMaxLimit && $scope.year < Number(year)) {
 
@@ -288,6 +288,8 @@ define([
                     $scope.year = Number(year);
                     $scope.setDaysInMonth($scope.monthNumber, $scope.year);
                     $scope.paginateYears(year);
+                    var lastDayInMonth = $scope.days[$scope.days.length-1];
+                    $scope.day = $scope.day > lastDayInMonth ? $scope.days : $scope.day;
                 };
 
                 $scope.nextYear = function manageNextYear() {
