@@ -109,6 +109,7 @@ define([
         self.fn.getFilteredUsersList = function () {
             var clonedUserList = _.clone(self.usersList);
             self.event.onFilteringUsers(clonedUserList, self.currentUserFilterGroup, self.searchingUser);
+            self.$scope.allNodesOpened = self.searchingUser !== "";
         };
 
         self.fn.searchUsersByTeam = function (event) {

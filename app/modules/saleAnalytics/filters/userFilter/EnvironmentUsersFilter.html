@@ -1,5 +1,5 @@
 <accordion class="users-filter-list environment clearfix" close-others="false">
-    <accordion-group ng-repeat="group in userFiltered | filter: { visible: true }" is-open="group.isOpen" class="clearfix">
+    <accordion-group ng-repeat="group in userFiltered | filter: { visible: true }" is-open="group.isOpen || allNodesOpened" class="clearfix">
 
         <accordion-heading class="clearfix">
             <div class="users-group-heading" ng-click="$event.stopPropagation();">
