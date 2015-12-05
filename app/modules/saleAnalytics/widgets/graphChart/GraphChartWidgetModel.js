@@ -33,13 +33,13 @@ define([
             name: 'Users',
             key: 'users'
         }*/ {
-            name: 'Orders',
+            name: 'New Orders',
             key: 'orders'
         }, {
-            name: 'Quotes',
+            name: 'New Quotes',
             key: 'quotes'
         }, {
-            name: 'Opportunities',
+            name: 'New Opportunities',
             key: 'opportunities'
         }];
 
