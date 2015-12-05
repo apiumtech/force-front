@@ -19,7 +19,10 @@ define([
             users: "",
             period: ""
         };
-        this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
+        this.addDateFilter(
+            moment().startOf('day').subtract(Configuration.defaultDateSubtraction, 'days').toDate(),
+            moment().startOf('day').toDate()
+        );
     }
 
     WidgetBase.prototype.buildQueryString = function () {
@@ -47,7 +50,7 @@ define([
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        this.addQuery("period", moment(dateStart).unix() + "," + moment(dateEnd).unix());
+        this.addQuery("period", moment(dateStart).startOf('day').unix() + "," + moment(dateEnd).startOf('day').unix());
     };
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
