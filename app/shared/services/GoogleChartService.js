@@ -54,6 +54,8 @@ define([], function () {
                 return new this.googleChart.LineChart(element);
             case 'area':
                 return new this.googleChart.AreaChart(element);
+            case 'table':
+                return new this.googleChart.Table(element);
             default:
                 throw new Error('This chart is not supported at the moment');
         }

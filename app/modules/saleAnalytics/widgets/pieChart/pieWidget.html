@@ -71,6 +71,18 @@
                         ng-i18next="[title]areaChartPercent">
                     <img src="assets/img/area-percent.png" style="width: 24px; height: 24px; opacity: 0.5;">
                 </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.switchToTable()"
+                        ng-class="{'active': currentChartType=='table'}"
+                        ng-i18next="[title]tableChart">
+                    <img src="assets/img/table.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                </button>
+                <button class="btn btn-white btn-sm p-t-5 p-b-5"
+                        ng-click="fn.exportToCSV()"
+                        ng-if="currentChartType=='table'"
+                        title="CSV">
+                    <img src="assets/img/csv.png" style="width: 24px; height: 24px; opacity: 0.7">
+                </button>
             </div>
         </div>
 

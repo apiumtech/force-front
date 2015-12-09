@@ -18,6 +18,7 @@ define([
     var FILLED = 'filled';
     var FILLED100 = 'filled100';
     var PIE = 'pie';
+    var TABLE = 'table';
 
     function PieChartWidgetView(scope, element, presenter) {
         presenter = presenter || new PieChartWidgetPresenter();
@@ -105,6 +106,12 @@ define([
             self.event.onTimeChartRequested();
         };
 
+        self.fn.switchToTable = function () {
+            self.$scope.currentChartType = TABLE;
+            self.$scope.selectedRangeOption = "week";
+            self.event.onTimeChartRequested();
+        };
+
 
         self.fn.assignWidget = function (outerScopeWidget) {
             self.widget = outerScopeWidget;
@@ -118,6 +125,11 @@ define([
 
         self.fn.refreshChart = function () {
             self.paintChart();
+        };
+
+        self.fn.exportToCSV = function() {
+            var csv_out = self._dataTableToCSV(self.currentDataTable);
+            self._downloadCSV(csv_out);
         };
 
         self.fn.init = function () {
@@ -197,6 +209,8 @@ define([
         var scope = self.$scope;
         if(scope.currentChartType === PIE) {
             this.paintPieChart();
+        } else if(scope.currentChartType === TABLE) {
+            this.paintTableChart();
         } else {
             this.paintLineAreaChart();
         }
@@ -424,6 +438,104 @@ define([
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
 
+
+    // PAINT TABLE CHART
+    PieChartWidgetView.prototype.paintTableChart = function () {
+        var self = this;
+        var chartService = self.chartService;
+        var data = self.data;
+        var element = $(self.element).find('.chart-place-holder');
+
+        if (!data.fields) {
+            return;
+        }
+        if(!data.fields.length) {
+            data.fields = [];
+        }
+
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn('date', 'Date');
+
+        data.fields.forEach(function(field) {
+            dataTable.addColumn('number', field.name);
+        });
+
+        var rows = [];
+        data.axis.x.forEach(function(d, index){
+            var row = [new Date(d)];
+            data.fields.forEach(function(field) {
+                row.push(field.data[index]);
+            });
+            rows.push(row);
+        });
+        dataTable.addRows(rows);
+
+        var chartData = dataTable;
+        self.currentDataTable = dataTable;
+        var chart = chartService.createChart(element[0], 'table');
+        var chartOptions = {
+            width: '100%',
+            height: '100%',
+            frozenColumns: 0
+        };
+        chartService.drawChart( chart, chartData, chartOptions );
+
+        var components = [
+            {type: 'csv', datasource: 'https://spreadsheets.google.com/tq?key=pCQbetd-CptHnwJEfo8tALA'}
+        ];
+
+        var container = document.getElementById('toolbar_div');
+        google.visualization.drawToolbar(container, components);
+    };
+
+
+    /**
+     * Convert an instance of google.visualization.DataTable to CSV
+     * @param {google.visualization.DataTable} dataTable_arg DataTable to convert
+     * @return {String} Converted CSV String
+     */
+    PieChartWidgetView.prototype._dataTableToCSV = function(dataTable_arg) {
+        var dt_cols = dataTable_arg.getNumberOfColumns();
+        var dt_rows = dataTable_arg.getNumberOfRows();
+
+        var csv_cols = [];
+        var csv_out;
+
+        // Iterate columns
+        for (var i=0; i<dt_cols; i++) {
+            // Replace any commas in column labels
+            csv_cols.push(dataTable_arg.getColumnLabel(i).replace(/,/g,""));
+        }
+
+        // Create column row of CSV
+        csv_out = csv_cols.join(",")+"\r\n";
+
+        // Iterate rows
+        for (i=0; i<dt_rows; i++) {
+            var raw_col = [];
+            for (var j=0; j<dt_cols; j++) {
+                // Replace any commas in row values
+                raw_col.push(dataTable_arg.getFormattedValue(i, j, 'label').replace(/,/g,""));
+            }
+            // Add row to CSV text
+            csv_out += raw_col.join(",")+"\r\n";
+        }
+
+        return csv_out;
+    };
+
+    PieChartWidgetView.prototype._downloadCSV = function(csv_out) {
+        var blob = new Blob([csv_out], {type: 'text/csv;charset=utf-8'});
+        var url  = window.URL || window.webkitURL;
+        var link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+        link.href = url.createObjectURL(blob);
+        link.download = this.$scope.widget.widgetName.split(" ").join("_") +"-"+ this.$scope.selectedFilter +"-"+ this.$scope.selectedRangeOption + ".csv";
+
+        var event = document.createEvent("MouseEvents");
+        event.initEvent("click", true, false);
+        link.dispatchEvent(event);
+    };
 
     PieChartWidgetView.prototype.showError = function (err) {
         this.data.serverError = true;
