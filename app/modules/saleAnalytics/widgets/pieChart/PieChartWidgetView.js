@@ -480,13 +480,6 @@ define([
             frozenColumns: 0
         };
         chartService.drawChart( chart, chartData, chartOptions );
-
-        var components = [
-            {type: 'csv', datasource: 'https://spreadsheets.google.com/tq?key=pCQbetd-CptHnwJEfo8tALA'}
-        ];
-
-        var container = document.getElementById('toolbar_div');
-        google.visualization.drawToolbar(container, components);
     };
 
 

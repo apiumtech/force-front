@@ -130,6 +130,11 @@ define([
         self.fn.init = function () {
             setTimeout( function(){
                 $('[data-toggle=tooltip]').tooltip();
+                $('#seriesToggleDropdown .dropdown-menu').on({
+                    "click":function(e){
+                        e.stopPropagation();
+                    }
+                });
             }, 2000 );
         };
 
