@@ -105,6 +105,7 @@ define([
         var self = this;
 
         self.eventBus.onNodeSelected(self.onNodeSelected.bind(self));
+        self.eventBus.onSelectSingleNode(self.onSelectSingleNode.bind(self));
 
         self.fn.getFilteredUsersList = function () {
             var clonedUserList = _.clone(self.usersList);
@@ -286,6 +287,21 @@ define([
         }else{
             self.singleSelect(selectedItem);
         }
+        self.fn.applyUserFilter();
+    };
+
+    UserFilterView.prototype.onSelectSingleNode = function (selectedItem) {
+        var self = this;
+        var all = self.getFilteredUsersList();
+        all.forEach(function (user) {
+            if(user.Id === selectedItem.Id){
+                user.checked = true;
+            } else {
+                user.checked = false;
+            }
+        });
+        self.userFiltered = self.arrayHelper.makeTree(all, 'ParentId', 'Id', 'children', -1);
+        self.checkSelectAllState();
         self.fn.applyUserFilter();
     };
 

@@ -6,8 +6,10 @@ define([
     'modules/saleAnalytics/widgets/tableChart/TableWidgetModel',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
-    'underscore'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, _) {
+    'modules/saleAnalytics/eventBus/UserTreeListEventBus',
+    'underscore',
+    'jquery'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
@@ -93,7 +95,29 @@ define([
             return self._secondsToHM(totalSeconds);
         };
 
+        self.fn.tableInit = function() {
+            setTimeout(function(){
+                $('.userColumnLink').mouseover(function () {
+                    var icon = $(this).find('.glyphicon.glyphicon-filter');
+                    icon.css('visibility', 'visible');
+                });
+                $('.userColumnLink').mouseout(function () {
+                    var icon = $(this).find('.glyphicon.glyphicon-filter');
+                    icon.css('visibility', 'hidden');
+                });
+            }, 3000);
+        };
 
+        self.fn.singleSelectUser = function(row) {
+            UserTreeListEventBus.getInstance().fireSelectSingleNode({
+                Id: row.Id
+            });
+        };
+
+        /**
+         *
+         * Doughnut drawing
+         */
 
         var _toRadians = function(deg) {
             return deg * Math.PI / 180;

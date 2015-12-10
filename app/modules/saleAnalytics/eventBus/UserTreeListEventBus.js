@@ -14,11 +14,20 @@ define([
 
     UserTreeListEventBus.inherits(EventBase, {});
 
+
     UserTreeListEventBus.prototype.onNodeSelected = function () {
     };
     UserTreeListEventBus.prototype.fireNodeSelected = function () {
     };
     UserTreeListEventBus.prototype.unsubscribeNodeSelected = function () {
+    };
+
+
+    UserTreeListEventBus.prototype.onSelectSingleNode = function () {
+    };
+    UserTreeListEventBus.prototype.fireSelectSingleNode = function () {
+    };
+    UserTreeListEventBus.prototype.unsubscribeSelectSingleNode = function () {
     };
 
 

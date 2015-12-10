@@ -39,7 +39,7 @@
 
 
         <div class="col-xs-12 table-responsive m-t-20">
-            <table class="table table-striped  table-picture-40">
+            <table class="table table-striped  table-picture-40" ng-init="fn.tableInit()">
                 <thead>
                     <tr>
                         <th ng-repeat="column in data.columns" ng-if="column.available && column.visible" style="text-align: center; border-right: 1px solid #e2e7eb;">
@@ -67,7 +67,12 @@
 
                             <div ng-switch-when="profile" class="img-user">
                                 <img ng-src="{{ record.PhotoUrl }}" class="media-object" style="display: inline-block;"/>
-                                <span style="vertical-align: middle; padding-left: 10px;">{{ record[col.key] }}</span>
+                                <a class="userColumnLink" ng-click="fn.singleSelectUser(record)">
+                                    <span style="vertical-align: middle; padding-left: 10px;">
+                                        {{ record[col.key] }}
+                                        <span class="glyphicon glyphicon-filter" aria-hidden="true" style="visibility: hidden;"></span>
+                                    </span>
+                                </a>
                             </div>
                             <div ng-switch-when="doughnut" class="m-t-10 text-center" ng-attr-title="{{ record[col.key] }}" style="width:42px; height:42px; overflow:hidden;margin: 1px auto;">
                                 <img

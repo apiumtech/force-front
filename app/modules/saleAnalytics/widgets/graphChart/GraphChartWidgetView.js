@@ -130,6 +130,7 @@ define([
         self.fn.init = function () {
             setTimeout( function(){
                 $('[data-toggle=tooltip]').tooltip();
+                // keep dropdown opened while selecting options #WAR-734
                 $('#seriesToggleDropdown .dropdown-menu').on({
                     "click":function(e){
                         e.stopPropagation();
