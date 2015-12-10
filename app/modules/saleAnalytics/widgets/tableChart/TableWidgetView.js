@@ -129,8 +129,8 @@ define([
         var ctx = canvas.getContext('2d');
         var context = ctx;
 
-        var X = 36;
-        var Y = 36;
+        var X = wh/2;
+        var Y = wh/2;
         var outterRadius = 30;
         var innerRadius = 22;
         function drawDonut(sRadian, eRadian){
@@ -141,17 +141,17 @@ define([
             context.closePath();
 
             // add shadow
-            addShadow();
+            //addShadow();
 
             context.fill();
         }
 
-        function addShadow(){
+        /*function addShadow(){
             context.shadowColor = "#333";
             context.shadowBlur = 3;
             context.shadowOffsetX = 0;
             context.shadowOffsetY = 0;
-        }
+        }*/
 
         function setRadialGradient(sgc, bgc){
             var grd = context.createRadialGradient(X, Y, innerRadius + 5, X, Y, outterRadius);
@@ -166,20 +166,20 @@ define([
             var percent360 = percent * (360/100);
 
             if(score === 0){
-                // RED
-                setRadialGradient("#DC1C29", "#B7161B");
+                // BELOW
+                setRadialGradient("#91B7DA", "#91B7DA");
                 drawDonut(0, _toRadians(360));
             } else {
-                // RED
-                setRadialGradient("#DC1C29", "#B7161B");
+                // BELOW
+                setRadialGradient("#91B7DA", "#91B7DA");
                 drawDonut(_toRadians(percent360 - 90), _toRadians(-90));
 
-                // GREEN
-                setRadialGradient("#84BC3D", "#5B8829");
+                // AVOBE
+                setRadialGradient("#226EB4", "#226EB4");
                 drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
             }
 
-            ctx.font = '13px Helvetica, Arial, sans-serif';
+            ctx.font = '14px Roboto';
             ctx.fillStyle = '#000000';
             ctx.textBaseline = "middle";
             ctx.textAlign = 'center';

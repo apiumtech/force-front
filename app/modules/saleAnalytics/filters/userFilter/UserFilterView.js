@@ -59,14 +59,14 @@ define([
                 this.$scope.currentUserFilterGroup = value;
             }
         },
-        usersList: {
+        /*usersList: {
             get: function () {
                 return this.$scope.usersList || (this.$scope.usersList = []);
             },
             set: function (value) {
                 this.$scope.usersList = value;
             }
-        },
+        },*/
         userFiltered: {
             get: function () {
                 return this.$scope.userFiltered || (this.$scope.userFiltered = []);
@@ -108,7 +108,8 @@ define([
         self.eventBus.onSelectSingleNode(self.onSelectSingleNode.bind(self));
 
         self.fn.getFilteredUsersList = function () {
-            var clonedUserList = _.clone(self.usersList);
+            //var clonedUserList = _.clone(self.usersList);
+            var clonedUserList = _.clone(self.userFiltered);
             self.event.onFilteringUsers(clonedUserList, self.currentUserFilterGroup, self.searchingUser);
             self.$scope.allNodesOpened = self.searchingUser !== "";
         };
@@ -310,7 +311,7 @@ define([
             throw new Error('Filtered data is empty, no change will be made');
         }
         var self = this;
-        self.usersList = data;
+        //self.usersList = data;
         self.userFiltered = data;
         self.userFiltered[0].isOpen = true;
     };
@@ -406,7 +407,8 @@ define([
 
     UserFilterView.prototype.onUsersLoadedSuccess = function (data) {
         var self = this;
-        self.usersList = data;
+        //self.usersList = data;
+        self.userFiltered = data;
         self.fn.getFilteredUsersList();
 
         if(self.userFilterHasChanged) {
