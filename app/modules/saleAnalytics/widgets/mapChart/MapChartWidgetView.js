@@ -112,7 +112,7 @@ define([
             if(self.$scope.selectedMapType === HEAT_MAP) {
                 self.mapChart.applyHeatLayer(self.mapData);
             } else if(self.$scope.selectedMapType === POINT_MAP) {
-                self.mapChart.createPointMap(self.mapData);
+                self.mapChart.createPointMap(self.mapData, self.selectedFilter);
             } else {
                 throw new Error('Unknown map type');
             }
@@ -120,7 +120,7 @@ define([
     };
 
     MapChartWidgetView.prototype.canDisplayUsersInMap = function () {
-        return this.permissionsService.getPermission("geotrackviewenabled.isEnabled", true);
+        return this.permissionsService.getPermission("geotrackviewenabled.isEnabled", true) ;
     };
 
     MapChartWidgetView.prototype.paintChart = function (element) {

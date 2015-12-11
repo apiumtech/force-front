@@ -38,7 +38,7 @@ define([
             });
     };
 
-    MapChart.prototype.createPointMap = function (data) {
+    MapChart.prototype.createPointMap = function (data, selectedFilter) {
         var self = this;
 
         if (self.markerClusterer) {
@@ -48,19 +48,24 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
 
         self.markers = data.map(function (r) {
-            var image = r.ImageB64;
-            if (!image){
-                image = defaultPointImageUrl;
+            var image;
+            var imgWidth;
+            var imgHeight;
+            switch (selectedFilter){
+                case "checkins":
+                    image = "assets/img/icon-map-company-checkin.png";
+                    imgWidth = 44/1.5;
+                    imgHeight = 54/1.5;
+                    break;
+                default:
+                    image = defaultPointImageUrl;
             }
-
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
             latlngbounds.extend(coordinate);
 
             return self.mapService.createMarker({
                 position: coordinate,
-                label: r.Activity.toString(),
-                title: r.Activity.toString(),
-                /*icon: self.mapService.getMarkerIcon(image),*/
+                icon: self.mapService.getMarkerIcon(image, imgWidth, imgHeight),
                 flat: true
             });
         });
@@ -103,7 +108,6 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
 
         self.markers = data.map(function (r) {
-            //var image = r.ImageB64;
             var image = r.PhotoUrl;
             if (!image){
                 image = defaultImageUrl;
@@ -118,10 +122,8 @@ define([
                 flat: true
             });
 
-
-            // infowindow
             var infowindow = new google.maps.InfoWindow({
-                content: r.FullName
+                content: '<div style="text-align: center"><img src="'+ r.PhotoUrl +'"/><h1 style="font-size:12px;">'+ r.FullName +'</h1></div>'
             });
             marker.addListener('click', function() {
                 infowindow.open(self.map, marker);

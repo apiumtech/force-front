@@ -98,8 +98,10 @@ define([], function () {
     };
 
     GoogleMapService.prototype.getMarkerIcon = function (imgUrl, imgWidth, imgHeight) {
+        imgWidth = imgWidth || 32;
+        imgHeight = imgHeight || 32;
         return {
-            scaledSize: new this.googleMap.Size(imgWidth || 32, imgHeight || 32),
+            scaledSize: new this.googleMap.Size(imgWidth, imgHeight),
             url: imgUrl
         };
     };
