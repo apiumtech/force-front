@@ -272,7 +272,7 @@ define([
         var self = this;
         data.forEach(function(item){
             if('ActivityScore' in item){
-                item.doughnut_cellData = self.fn.generateDoughnutImageData(item.ActivityScore);
+                item.$doughnut_cellData = self.fn.generateDoughnutImageData(item.ActivityScore);
             }
         });
         return data;
