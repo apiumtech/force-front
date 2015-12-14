@@ -34,8 +34,9 @@ define([
                             if (n.children) {
                                 n.checked = selectState;
                                 scope.toggleSelectGroupItems(n, event, !notFireEvent);
+                            } else {
+                                n.checked = !selectState;
                             }
-                            else n.checked = !selectState;
                         });
 
                         if (!notFireEvent){
@@ -45,7 +46,11 @@ define([
 
                     scope.toggleNode = function (item) {
                         item.checked = !item.checked;
-                        if (item.children && scope.multipleSelection) return;
+
+                        /*if (item.children && scope.multipleSelection) {
+                            return;
+                        }*/
+
                         UserTreeListEventBus.fireNodeSelected(item);
                     };
                 });
