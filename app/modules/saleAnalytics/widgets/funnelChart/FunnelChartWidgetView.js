@@ -87,10 +87,10 @@ define([
         var columns = [];
         self.data.Series[0].Points.forEach(function(point, index){
             var col = [];
-            col.push(self.data.Labels[index]);
+            col.push(self.data.Labels[0][index]);
             col.push(50 - point.Y/2);
             col.push(point.Y);
-            var opacity = (100-index*10)/100;
+            var opacity = (100-index*5)/100;
             col.push('opacity: '+ opacity );
             columns.push(col);
         });
