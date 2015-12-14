@@ -19,6 +19,7 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
+    'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetDirective',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
 ], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular, $, _) {
     'use strict';
