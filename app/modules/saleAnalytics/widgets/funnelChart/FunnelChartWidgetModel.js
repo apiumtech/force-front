@@ -18,14 +18,14 @@ define([
     FunnelChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
 
     FunnelChartWidgetModel.prototype._reload = function () {
-        /*return Q.fcall(function () {
+        return Q.fcall(function () {
             return {
                 "Series": [
                     {
                         "Name": "",
                         "Points": [
-                            {"Y": 90},
-                            {"Y": 80},
+                            {"Y": 1750},
+                            {"Y": 230},
                             {"Y": 60},
                             {"Y": 50},
                             {"Y": 30},
@@ -42,7 +42,7 @@ define([
                     "Creadas en periodo con oportunidades ganadas"
                 ]]
             };
-        });*/
+        });
         return this._baseReload();
     };
 

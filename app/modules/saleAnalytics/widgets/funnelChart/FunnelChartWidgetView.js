@@ -84,13 +84,25 @@ define([
         dataTable.addColumn('number', 'Value');
         dataTable.addColumn({'type': 'string', 'role': 'style'});
 
+        var points = self.data.Series[0].Points.map(function(item){
+            return item.Y;
+        });
+        points = points.sort(function (a, b) {
+            return parseFloat(a) - parseFloat(b);
+        });
+        points.reverse();
+        var largestPoint = points[0];
+        var percentUnit = largestPoint / 100;
+
         var columns = [];
-        self.data.Series[0].Points.forEach(function(point, index){
+        var opacityIncrement = 100/points.length;
+        points.forEach(function(point, index){
             var col = [];
             col.push(self.data.Labels[0][index]);
-            col.push(50 - point.Y/2);
-            col.push(point.Y);
-            var opacity = (100-index*5)/100;
+            point = point / percentUnit;
+            col.push(50 - point/2);
+            col.push(point);
+            var opacity = (100-index*opacityIncrement)/100;
             col.push('opacity: '+ opacity );
             columns.push(col);
         });

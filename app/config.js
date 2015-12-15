@@ -55,7 +55,7 @@ define(function () {
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
 
-        customerCapture: baseUrl + '/api/queries/stats/dashboard/conversion/customerCaptureByUsersAndPeriod',
+        customerAcquisition: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
 
 
         literals: {
