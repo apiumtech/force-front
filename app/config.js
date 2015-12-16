@@ -50,12 +50,13 @@ define(function () {
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
-        widgetList: baseUrl + '/api/queries/stats/widgets/widgetList',
+        widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
 
-        customerAcquisition: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
+        customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
+        customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
 
 
         literals: {
