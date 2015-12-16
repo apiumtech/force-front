@@ -83,6 +83,12 @@ define([
         dataTable.addColumn('number', 'Transparent');
         dataTable.addColumn('number', 'Value');
         dataTable.addColumn({'type': 'string', 'role': 'style'});
+        dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+
+        var createTooltip = function(label, percent, originalPoint){
+            return '<div style="padding:10px;"><strong>'+ label +'</strong><br />'+
+                    originalPoint +' ('+ percent.toFixed(1) +'%)</div>';
+        };
 
         var points = self.data.Series[0].Points.map(function(item){
             return item.Y;
@@ -96,14 +102,16 @@ define([
 
         var columns = [];
         var opacityIncrement = 100/points.length;
-        points.forEach(function(point, index){
+        points.forEach(function(originalPoint, index){
             var col = [];
-            col.push(self.data.Labels[0][index]);
-            point = point / percentUnit;
-            col.push(50 - point/2);
-            col.push(point);
+            var label = self.data.Labels[0][index];
+            col.push(label);
+            var percent = originalPoint / percentUnit;
+            col.push(50 - percent/2);
+            col.push(percent);
             var opacity = (100-index*opacityIncrement)/100;
             col.push('opacity: '+ opacity );
+            col.push( createTooltip(label, percent, originalPoint) );
             columns.push(col);
         });
         dataTable.addRows(columns);
