@@ -25,11 +25,9 @@
 
         <div class="well well-lg">
             <div class="row text-center" ng-hide="data.serverError===true">
-                <div class="col-md-3">A->B 80%</div>
-                <div class="col-md-3">A->B 80%</div>
-                <div class="col-md-3">A->B 80%</div>
-                <div class="col-md-3">A->B 80%</div>
-                <div class="col-md-3">A->B 80%</div>
+                <div class="col-md-3" ng-repeat="conversionRate in data.conversionRates">
+                    <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
+                </div>
             </div>
         </div>
 

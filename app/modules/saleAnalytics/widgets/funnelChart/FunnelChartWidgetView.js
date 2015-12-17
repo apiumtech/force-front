@@ -93,28 +93,26 @@ define([
         var points = self.data.Series[0].Points.map(function(item){
             return item.Y;
         });
-        points = points.sort(function (a, b) {
-            return parseFloat(a) - parseFloat(b);
-        });
-        points.reverse();
         var largestPoint = points[0];
         var percentUnit = largestPoint / 100;
 
-        var columns = [];
+        var rows = [];
+        var conversionRateRows = [];
         var opacityIncrement = 100/points.length;
         points.forEach(function(originalPoint, index){
-            var col = [];
+            var row = [];
             var label = self.data.Labels[0][index];
-            col.push(label);
+            row.push(label);
             var percent = originalPoint / percentUnit;
-            col.push(50 - percent/2);
-            col.push(percent);
+            row.push(50 - percent/2);
+            row.push(percent);
             var opacity = (100-index*opacityIncrement)/100;
-            col.push('opacity: '+ opacity );
-            col.push( createTooltip(label, percent, originalPoint) );
-            columns.push(col);
+            row.push('opacity: '+ opacity );
+            row.push( createTooltip(label, percent, originalPoint) );
+            rows.push(row);
+            conversionRateRows.push({label: label, value: originalPoint});
         });
-        dataTable.addRows(columns);
+        dataTable.addRows(rows);
 
         self.chartData = dataTable;
 
@@ -147,9 +145,21 @@ define([
             chartArea: chartArea
         };
 
-
-
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+
+
+        // Paint Conversion Rates Table
+        var conversionRates = [];
+        var nRows = conversionRateRows.length;
+        for(var i=1; i<nRows; i++) {
+            var prevRow = conversionRateRows[i-1];
+            var currentRow = conversionRateRows[i];
+            conversionRates.push({
+                label: prevRow.label +">"+ currentRow.label,
+                value: Number(currentRow.label / prevRow.label).toFixed(1)
+            });
+        }
+        this.data.conversionRates = conversionRates;
     };
 
 
