@@ -99,9 +99,10 @@ define([
         var rows = [];
         var conversionRateRows = [];
         var opacityIncrement = 100/points.length;
+        var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
         points.forEach(function(originalPoint, index){
             var row = [];
-            var label = self.data.Labels[0][index];
+            var label = labels[index];
             row.push(label);
             var percent = originalPoint / percentUnit;
             row.push(50 - percent/2);
