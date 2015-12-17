@@ -217,7 +217,7 @@ define([
             if(serie !== null && !serie.hidden) {
                 dataTable.addColumn('number', serie.label);
                 dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-                dataTable.addColumn({'type': 'string', 'role': 'style'});
+                //dataTable.addColumn({'type': 'string', 'role': 'style'});
             }
         });
 
@@ -257,12 +257,12 @@ define([
             var col = [date];
             self.colorService.initialize();
             chartFields.forEach(function (serie) {
-                var color = self.colorService.getNextColor();
+                //var color = self.colorService.getNextColor();
                 if(serie !== null && !serie.hidden) {
                     var plotData = serie.plotData[index];
                     col.push( plotData );
                     col.push( createTooltipForSerie(serie, date, plotData) );
-                    col.push( 'color: '+ color );
+                    //col.push( 'color: '+ color );
                 }
             });
             columns.push(col);
@@ -273,6 +273,7 @@ define([
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
+            colors: self.colorService.$colors.slice(),
             legend: { position: 'top', alignment: 'end' },
             tooltip: {
                 isHtml: true
