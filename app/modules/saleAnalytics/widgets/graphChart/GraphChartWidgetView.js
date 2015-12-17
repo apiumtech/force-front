@@ -79,6 +79,7 @@ define([
 
         self.fn.changeFilter = function (selectedFilter) {
             self.selectedRangeOption = 'week';
+            self.$scope.currentChartType = LINE;
             self.availableFields = [];
             self.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
