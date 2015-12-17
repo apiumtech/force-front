@@ -117,17 +117,18 @@ define([
         dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
             dataTable.addColumn('number', serie.label);
-            //dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+            dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
 
         var createTooltip = function(tick, serie, index){
-            var total = serie.data[index][1].total;
+            var total = serie.data[index][1].amount || "--";
             var percent = serie.data[index][1].Y;
-            //var id = serie.data[index][1].Id;
-            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+ serie.label +': <strong>'+ total +' | '+ percent +'%</strong></div>';
-            div += '<table class="table"><thead><tr><th>User</th><th>Total</th></tr></thead><tbody>';
-            ['Pedro', 'María', 'Juan', 'Jose', 'Alberto', 'Daniel'].forEach(function(item){
-                div += '<tr><td>'+ item +'</td><td>'+ (10+Math.round(Math.random()*100)) +'</td></tr>';
+            var drillDown = serie.data[index][1].drillDown || [];
+            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+ serie.label +': '+ total +' ('+ percent.toFixed(1) +'%)</div>';
+            div += '<hr/>';
+            div += '<table style="width: 100%; text-align: center; margin-bottom: 10px"><thead><tr><th style="text-align: center;">User</th><th style="text-align: center;">Total</th></tr></thead><tbody>';
+            drillDown.forEach(function(user){
+                div += '<tr><td>'+ user.name +'</td><td>'+ user.amount +'</td></tr>';
             });
             div += '</tbody></table>';
             return div;
@@ -140,7 +141,7 @@ define([
             col.push(tick);
             self.data.forEach(function(serie){
                 col.push( serie.data[index][1].Y  );
-                //col.push( createTooltip(tick, serie, index) );
+                col.push( createTooltip(tick, serie, index) );
             });
             columns.push(col);
             index++;

@@ -119,10 +119,10 @@ define([
         self.chartData = dataTable;
 
         var chartArea = self.$scope.chartArea || {
-                left: "25%",
+                left: "10%",
                 top: "10%",
                 height: "80%",
-                width: "65%"
+                width: "80%"
             };
         self.chart = chartService.createChart(element[0], 'hbar');
 

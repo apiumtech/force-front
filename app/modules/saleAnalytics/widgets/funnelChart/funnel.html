@@ -23,6 +23,16 @@
 
     <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
 
+        <div class="well well-lg">
+            <div class="row text-center" ng-hide="data.serverError===true">
+                <div class="col-md-3">A->B 80%</div>
+                <div class="col-md-3">A->B 80%</div>
+                <div class="col-md-3">A->B 80%</div>
+                <div class="col-md-3">A->B 80%</div>
+                <div class="col-md-3">A->B 80%</div>
+            </div>
+        </div>
+
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
