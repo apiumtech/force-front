@@ -63,12 +63,19 @@ define([
     };
 
     var queryFlatTree = function (flattened, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
-        //var newArray = clone(array);
-        //var flattened = flatten(newArray, nestedProp);
-
-        var sortFunction = function (nodeBefore, nodeAfter) {
-            return nodeBefore[sortBy] - nodeAfter[sortBy];
-        };
+        var sortFunction;
+        if(String.prototype.localeCompare) {
+            sortFunction = function(a,b){
+                return a[sortBy].localeCompare(b[sortBy]);
+            };
+        } else {
+            sortFunction = function (a, b) {
+                //return a[sortBy] - b[sortBy]; // --> Numbers
+                if(a[sortBy] < b[sortBy]){ return -1; }
+                if(a[sortBy] > b[sortBy]){ return 1; }
+                return 0;
+            };
+        }
 
         var queriedNodes;
         if(queryString && queryString !== ""){

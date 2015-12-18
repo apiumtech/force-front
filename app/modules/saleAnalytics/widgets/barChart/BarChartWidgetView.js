@@ -121,14 +121,14 @@ define([
         });
 
         var createTooltip = function(tick, serie, index){
-            var total = serie.data[index][1].count || "--";
+            var total = serie.data[index][1].Count || "--";
             var percent = serie.data[index][1].Y;
-            var drillDown = serie.data[index][1].drillDown || [];
+            var drillDown = serie.data[index][1].DrillDown || [];
             var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+ serie.label +': '+ total +' ('+ percent.toFixed(1) +'%)</div>';
             div += '<hr/>';
             div += '<table style="width: 100%; text-align: center; margin-bottom: 10px"><thead><tr><th style="text-align: center;">User</th><th style="text-align: center;">Total</th></tr></thead><tbody>';
             drillDown.forEach(function(user){
-                div += '<tr><td>'+ user.name +'</td><td>'+ user.count +'</td></tr>';
+                div += '<tr><td>'+ user.name +'</td><td>'+ user.Count +'</td></tr>';
             });
             div += '</tbody></table>';
             return div;

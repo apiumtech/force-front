@@ -116,7 +116,7 @@
     "VisitsPerUserPerDay": "Visits / User / Day",
     "Filters": {
       "Hour": "Hour dist.",
-      "Date": "Date",
+      "Date": "Day",
       "Month": "Month",
       "Week": "Week",
       "ShowFields": "Toggle fields"

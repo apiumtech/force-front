@@ -39,286 +39,283 @@
 }
 
 .ic-accept:before {
-    content: "a";
+    content: "\61";
 }
 .ic-arr-left:before {
-    content: "e";
+    content: "\65";
 }
 .ic-arr-left2:before {
-    content: "f";
+    content: "\66";
 }
 .ic-arr-right:before {
-    content: "g";
+    content: "\67";
 }
 .ic-arr-right2:before {
-    content: "h";
+    content: "\68";
 }
 .ic-attachment:before {
-    content: "i";
+    content: "\69";
 }
 .ic-call-in:before {
-    content: "j";
+    content: "\6a";
 }
 .ic-call-missing:before {
-    content: "k";
+    content: "\6b";
 }
 .ic-call-out:before {
-    content: "l";
+    content: "\6c";
 }
 .ic-camera:before {
-    content: "m";
+    content: "\6d";
 }
 .ic-checkin:before {
-    content: "n";
+    content: "\6e";
 }
 .ic-conversion:before {
-    content: "r";
+    content: "\72";
 }
 .ic-conversion2:before {
-    content: "s";
+    content: "\73";
 }
 .ic-copy:before {
-    content: "t";
+    content: "\74";
 }
 .ic-dashboard:before {
-    content: "u";
+    content: "\75";
 }
 .ic-distribution:before {
-    content: "v";
+    content: "\76";
 }
 .ic-document-generic:before {
-    content: "w";
+    content: "\77";
 }
 .ic-edit:before {
-    content: "z";
+    content: "\7a";
 }
 .ic-edit-circle:before {
-    content: "A";
+    content: "\41";
 }
 .ic-email:before {
-    content: "B";
+    content: "\42";
 }
 .ic-email-in:before {
-    content: "C";
+    content: "\43";
 }
 .ic-email-out:before {
-    content: "D";
+    content: "\44";
 }
 .ic-enlarge:before {
-    content: "E";
+    content: "\45";
 }
 .ic-expand-left:before {
-    content: "F";
+    content: "\46";
 }
 .ic-expand-right:before {
-    content: "G";
+    content: "\47";
 }
 .ic-export:before {
-    content: "H";
+    content: "\48";
 }
 .ic-filter:before {
-    content: "I";
+    content: "\49";
 }
 .ic-flag:before {
-    content: "J";
-}
-.ic-flag-filled:before {
-    content: "K";
+    content: "\4a";
 }
 .ic-folder-closed:before {
-    content: "L";
+    content: "\4c";
 }
 .ic-goals:before {
-    content: "M";
+    content: "\4d";
 }
 .ic-help:before {
-    content: "N";
+    content: "\4e";
 }
 .ic-ic-account-checkin:before {
-    content: "O";
+    content: "\4f";
 }
 .ic-ic-lost:before {
-    content: "Q";
+    content: "\51";
 }
 .ic-ic-opportunity-checkin:before {
-    content: "R";
+    content: "\52";
 }
 .ic-ic-won:before {
-    content: "S";
+    content: "\53";
 }
 .ic-image:before {
-    content: "T";
+    content: "\54";
 }
 .ic-info:before {
-    content: "U";
+    content: "\55";
 }
 .ic-intensity:before {
-    content: "V";
+    content: "\56";
 }
 .ic-lock:before {
-    content: "W";
+    content: "\57";
 }
 .ic-logout:before {
-    content: "X";
+    content: "\58";
 }
 .ic-map-locator:before {
-    content: "Y";
+    content: "\59";
 }
 .ic-microphone:before {
-    content: "Z";
+    content: "\5a";
 }
 .ic-minus:before {
-    content: "0";
+    content: "\30";
 }
 .ic-minus-circle:before {
-    content: "1";
+    content: "\31";
 }
 .ic-notes:before {
-    content: "2";
+    content: "\32";
 }
 .ic-phone-settings:before {
-    content: "6";
+    content: "\36";
 }
 .ic-plus:before {
-    content: "7";
+    content: "\37";
 }
 .ic-plus-circle:before {
-    content: "8";
+    content: "\38";
 }
 .ic-print:before {
-    content: "9";
+    content: "\39";
 }
 .ic-prohibited:before {
-    content: "\"";
+    content: "\22";
 }
 .ic-reduce:before {
-    content: "#";
+    content: "\23";
 }
 .ic-refresh:before {
-    content: "$";
+    content: "\24";
 }
 .ic-refresh2:before {
-    content: "%";
+    content: "\25";
 }
 .ic-route:before {
-    content: "'";
+    content: "\27";
 }
 .ic-saleanalytics:before {
-    content: "(";
+    content: "\28";
 }
 .ic-search:before {
-    content: "*";
+    content: "\2a";
 }
 .ic-settings:before {
-    content: "+";
+    content: "\2b";
 }
 .ic-share:before {
-    content: ",";
+    content: "\2c";
 }
 .ic-shopping-cart:before {
-    content: "-";
+    content: "\2d";
 }
 .ic-success:before {
-    content: ".";
+    content: "\2e";
 }
 .ic-trash:before {
-    content: "/";
+    content: "\2f";
 }
 .ic-user-connection:before {
-    content: ";";
+    content: "\3b";
 }
 .ic-warning:before {
-    content: "<";
+    content: "\3c";
 }
 .ic-checkin-filled:before {
-    content: "=";
+    content: "\3d";
 }
 .ic-cron:before {
-    content: ">";
+    content: "\3e";
 }
 .ic-data:before {
-    content: "?";
+    content: "\3f";
 }
 .ic-devices:before {
-    content: "@";
+    content: "\40";
 }
 .ic-permissions:before {
-    content: "[";
+    content: "\5b";
 }
 .ic-parameters:before {
-    content: "]";
+    content: "\5d";
 }
 .ic-views:before {
-    content: "^";
+    content: "\5e";
 }
 .ic-users:before {
-    content: "_";
+    content: "\5f";
 }
 .ic-sqltester:before {
-    content: "`";
+    content: "\60";
 }
 .ic-massives:before {
-    content: "{";
+    content: "\7b";
 }
 .ic-trophy:before {
-    content: "|";
+    content: "\7c";
 }
 .ic-accounts:before {
-    content: "&";
+    content: "\26";
 }
 .ic-agenda:before {
-    content: "\\";
+    content: "\5c";
 }
 .ic-opportunities:before {
     content: "\e000";
 }
 .ic-contact:before {
-    content: "b";
+    content: "\62";
 }
 .ic-activity:before {
-    content: "5";
+    content: "\35";
 }
 .ic-documents:before {
-    content: "c";
+    content: "\63";
 }
 .ic-offers:before {
-    content: "p";
+    content: "\70";
 }
 .ic-orders:before {
-    content: "q";
+    content: "\71";
 }
 .ic-products:before {
-    content: "}";
+    content: "\7d";
 }
 .ic-folder-opened:before {
-    content: "d";
+    content: "\64";
 }
 .ic-salesforce:before {
-    content: "x";
+    content: "\78";
 }
 .ic-reports:before {
-    content: "P";
+    content: "\50";
 }
 .ic-notifications:before {
-    content: "3";
+    content: "\33";
 }
 .ic-star-filled:before {
-    content: "4";
+    content: "\34";
 }
 .ic-star-outline:before {
-    content: "!";
+    content: "\21";
 }
 .ic-thick:before {
-    content: "~";
+    content: "\7e";
 }
 .ic-download:before {
-    content: "y";
+    content: "\79";
 }
 .ic-upload:before {
-    content: ")";
+    content: "\29";
 }
 .ic-team-leader-filled:before {
-    content: ":";
+    content: "\3a";
 }
 .ic-sales-rep:before {
     content: "\e001";
@@ -351,7 +348,7 @@
     content: "\e00a";
 }
 .ic-close:before {
-    content: "o";
+    content: "\6f";
 }
 .ic-literals:before {
     content: "\e00b";
@@ -361,4 +358,19 @@
 }
 .ic-users-1:before {
     content: "\e00d";
+}
+.ic-flag-filled:before {
+    content: "\4b";
+}
+.ic-custom-widgets:before {
+    content: "\e00e";
+}
+.ic-columns:before {
+    content: "\e00f";
+}
+.ic-list:before {
+    content: "\e010";
+}
+.ic-map:before {
+    content: "\e011";
 }

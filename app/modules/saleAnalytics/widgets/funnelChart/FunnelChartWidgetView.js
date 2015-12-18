@@ -118,10 +118,10 @@ define([
         self.chartData = dataTable;
 
         var chartArea = self.$scope.chartArea || {
-                left: "10%",
+                left: "20%",
                 top: "10%",
                 height: "80%",
-                width: "80%"
+                width: "70%"
             };
         self.chart = chartService.createChart(element[0], 'hbar');
 
@@ -156,8 +156,8 @@ define([
             var prevRow = conversionRateRows[i-1];
             var currentRow = conversionRateRows[i];
             conversionRates.push({
-                label: prevRow.label +">"+ currentRow.label,
-                value: Number(currentRow.label / prevRow.label).toFixed(1)
+                label: prevRow.label +" > "+ currentRow.label,
+                value: Number((currentRow.value / prevRow.value)*100).toFixed(1)
             });
         }
         this.data.conversionRates = conversionRates;

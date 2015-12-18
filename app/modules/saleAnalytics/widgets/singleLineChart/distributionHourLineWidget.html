@@ -15,6 +15,14 @@
 
     <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
 
+
+    <div class="col-xs-12 p-l-20 p-r-20">
+        <div class="well" ng-if="widget.type=='hour_distribution_singleline'">
+            Muestra la distribución de la media de la actividad del usuario en el tiempo dentro del período seleccionado.
+        </div>
+    </div>
+
+
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">

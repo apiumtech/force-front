@@ -188,7 +188,7 @@ define([
                 widgetId: widget.Id,
                 widgetContent: widget.WidgetContent,
                 position: {
-                    size: widget.Size
+                    size: widget.NumColums
                 },
                 isActive: true,// (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
                 dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints

@@ -222,7 +222,13 @@ define([
             }
         });
 
-        var createTooltipForSerie = function(serie, date, plotData) {
+
+        // TOOLTIP GENERATION
+
+        var createMultiItemTooltip = function(date, plotDataIndex) {
+            return '<div>Hola</div>';
+        };
+        var createSingleItemTooltip = function(serie, date, plotData) {
             var label = serie.label;
             var dateOption = self.$scope.selectedRangeOption;
             var formattedDate;
@@ -250,6 +256,18 @@ define([
 
             return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ data +'</strong></div>';
         };
+        var createTooltipForSerie = function(serie, date, plotDataIndex) {
+            var plotData = serie.plotData[index];
+            return createSingleItemTooltip(serie, date, plotData);
+
+            // TODO: do it!!!!
+            if (scope.currentChartType === FILLED) {
+                return createMultiItemTooltip(serie, date, plotDataIndex);
+            } else {
+                var plotData = serie.plotData[index];
+                return createSingleItemTooltip(serie, date, plotData);
+            }
+        };
 
         var columns = [];
         var index = 0;
@@ -262,12 +280,12 @@ define([
                 if(serie !== null && !serie.hidden) {
                     var plotData = serie.plotData[index];
                     col.push( plotData );
-                    col.push( createTooltipForSerie(serie, date, plotData) );
+                    col.push( createTooltipForSerie(serie, date, index) );
                     //col.push( 'color: '+ color );
                 }
             });
             columns.push(col);
-            index = columns.length-1;
+            index = columns.length;
         });
         dataTable.addRows(columns);
 

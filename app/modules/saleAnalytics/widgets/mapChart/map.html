@@ -33,6 +33,16 @@
 
     <div class="chart-place-holder height-md map-chart" ng-hide="data.serverError===true"></div>
 
+    <div class="row">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well" ng-if="selectedFilter=='checkins'">
+                Distribución geográfica con los check-in registrados.
+            </div>
+            <div class="well" ng-if="selectedFilter=='users'">
+                Distribución geográfica de los usuarios según su última geolocalización.
+            </div>
+        </div>
+    </div>
 
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"

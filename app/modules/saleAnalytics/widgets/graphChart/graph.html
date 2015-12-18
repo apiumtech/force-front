@@ -77,19 +77,19 @@
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
                         ng-i18next="[title]lineChart">
-                    <img src="assets/img/line.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                    <img src="assets/img/line.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled()"
                         ng-class="{'active': currentChartType=='filled'}"
                         ng-i18next="[title]areaChart">
-                    <img src="assets/img/area.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                    <img src="assets/img/area.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled100()"
                         ng-class="{'active': currentChartType=='filled100'}"
                         ng-i18next="[title]areaChartPercent">
-                    <img src="assets/img/area-percent.png" style="width: 24px; height: 24px; opacity: 0.5;">
+                    <img src="assets/img/area-percent.png" style="width: 24px; height: 24px;">
                 </button>
             </div>
 
@@ -103,6 +103,17 @@
             <div class="chart-place-holder height-sm"></div>
         </div>
 
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well" ng-if="selectedFilter=='visits'">En Visitas estarán incluidas todas las gestiones geolocalizadas.</div>
+            <div class="well" ng-if="selectedFilter=='phoneCallsTime'">En el tiempo de llamada están incluidas las llamadas entrantes y salientes del usuario.</div>
+            <div class="well" ng-if="selectedFilter=='emails'">En emails estarán incluidos todos los correos, tanto enviados como recibido.</div>
+            <div class="well" ng-if="selectedFilter=='activities'">En Actividad verás todas las gestiones no geolocalizadas: comentarios de llamadas telefónicas, comentarios de una reunión...</div>
+            <div class="well" ng-if="selectedFilter=='activityScores'">Índice de actividad muestra cómo ha evolucionado la actividad de los usuarios durante el período establecido. Incluye la interacción que ha tenido el usuario en las últimas semanas: llamadas, check-in, correos.... Recuerda que, en ForceManager, cada actividad puede tener un peso según la importancia que tiene esa actividad para la empresa. Siempre tendrá más peso el nivel de actividad que el usuario ha tenido durante las últimas semanas, pero también se tiene en cuenta la inercia del usuario en los últimos meses, por tal de conseguir datos lo más reales posibles.</div>
+            <div class="well" ng-if="selectedFilter=='users'"></div>
+            <div class="well" ng-if="selectedFilter=='orders'">Nuevos pedidos creados por los usuarios seleccionados dentro del período establecido.</div>
+            <div class="well" ng-if="selectedFilter=='quotes'">Nuevas ofertas creadas por los usuarios seleccionados dentro del período establecido.</div>
+            <div class="well" ng-if="selectedFilter=='opportunities'">Nuevas oportunidades creadas por los usuarios seleccionados dentro del período establecido.</div>
+        </div>
 
         <!--<div class="col-xs-12 m-t-10">
             <span class="container-popover">

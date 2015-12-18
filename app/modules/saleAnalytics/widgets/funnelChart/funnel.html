@@ -24,8 +24,8 @@
     <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
 
         <div class="well well-lg">
-            <div class="row text-center" ng-hide="data.serverError===true">
-                <div class="col-md-3" ng-repeat="conversionRate in data.conversionRates">
+            <div class="row" ng-hide="data.serverError===true">
+                <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
                     <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
                 </div>
             </div>

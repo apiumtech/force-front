@@ -110,7 +110,8 @@ define([
     UserFilterModel.prototype.doGetFilteredData = function (data, searchQuery) {
         var newArray = this.arrayHelper.clone(data);
         var flattened = this.arrayHelper.flatten(newArray, "children");
-        var flatTree = this.arrayHelper.queryFlatTree(flattened,"children","Name",searchQuery,"Id",true,"ParentId","Id",-1);
+        //var flatTree = this.arrayHelper.queryFlatTree(flattened,"children","Name",searchQuery,"Id",true,"ParentId","Id",-1);
+        var flatTree = this.arrayHelper.queryFlatTree(flattened,"children","Name",searchQuery,"Name",true,"ParentId","Id",-1);
 
         flattened.forEach(function(item){
             var index;
