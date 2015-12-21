@@ -145,6 +145,12 @@ define([
             self.mainFilterToDate = filterValue.dateEnd;
         });
 
+        var columnsPerRow = 3;
+        self.fn.serieRollOver = function(field, fieldIndex){
+            console.log( "serieRollOver() columns", fieldIndex );
+            self.chart.setSelection([{'column': 1 + fieldIndex * columnsPerRow }]);
+        };
+
 
         self.resizeHandling();
     };
@@ -218,7 +224,7 @@ define([
             if(serie !== null && !serie.hidden) {
                 dataTable.addColumn('number', serie.label);
                 dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-                //dataTable.addColumn({'type': 'string', 'role': 'style'});
+                dataTable.addColumn({'type': 'string', 'role': 'style'});
             }
         });
 
@@ -257,11 +263,8 @@ define([
             return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ data +'</strong></div>';
         };
         var createTooltipForSerie = function(serie, date, plotDataIndex) {
-            var plotData = serie.plotData[index];
-            return createSingleItemTooltip(serie, date, plotData);
-
-            // TODO: do it!!!!
             if (scope.currentChartType === FILLED) {
+                // TODO: Do it!!
                 return createMultiItemTooltip(serie, date, plotDataIndex);
             } else {
                 var plotData = serie.plotData[index];
@@ -269,31 +272,44 @@ define([
             }
         };
 
-        var columns = [];
+        //var legend = [];
+        var rows = [];
         var index = 0;
         axisData.x.forEach(function(date_str){
             var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
-            var col = [date];
+            var row = [date];
             self.colorService.initialize();
+            var serieIndex = 0;
             chartFields.forEach(function (serie) {
-                //var color = self.colorService.getNextColor();
+                var color = self.colorService.getNextColor();
+                /*legend[serieIndex] = {
+                    label: serie.label,
+                    color: color
+                };*/
+                var field = _.find(self.availableFields, function (field) {
+                    return field.name === serie.label;
+                });
+                field.color = color;
                 if(serie !== null && !serie.hidden) {
                     var plotData = serie.plotData[index];
-                    col.push( plotData );
-                    col.push( createTooltipForSerie(serie, date, index) );
-                    //col.push( 'color: '+ color );
+                    row.push( plotData );
+                    row.push( createTooltipForSerie(serie, date, index) );
+                    row.push( 'color: '+ color );
+                    serieIndex++;
                 }
             });
-            columns.push(col);
-            index = columns.length;
+            rows.push(row);
+            index = rows.length;
         });
-        dataTable.addRows(columns);
+        dataTable.addRows(rows);
+        //scope.legend = legend;
 
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice(),
-            legend: { position: 'top', alignment: 'end' },
+            /*colors: self.colorService.$colors.slice(),*/
+            /*legend: { position: 'top', alignment: 'end' },*/
+            legend: 'none',
             tooltip: {
                 isHtml: true
             },
@@ -302,7 +318,7 @@ define([
             height: '100%',
             chartArea: {
                 left: "5%",
-                top: "10%",
+                top: "5%",
                 height: "80%",
                 width: "94%"
             }
