@@ -48,7 +48,9 @@ define([
                 if(key in matchingParams) {
                     value = matchingParams[key].valueAdapter.call(null, value);
                     key = matchingParams[key].name;
-                }
+                } else if( typeof value !== 'string' ){
+					value = value.Id;
+				}
                 paramList.push({Key:key, Value:value});
             }
 
