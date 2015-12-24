@@ -68,10 +68,11 @@ define([], function () {
         var dataTable = new this.googleChart.DataTable();
 
         data.columns.forEach(function (c) {
-            if (c.name)
+            if (c.name) {
                 dataTable.addColumn(c.type, c.name);
-            else
+            } else {
                 dataTable.addColumn(c);
+            }
         });
 
         dataTable.addRows(data.rows);

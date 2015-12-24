@@ -1,17 +1,39 @@
 <widget-wrapper body-class="height-md"
                 wtitle="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
-                widget-id="widget.widgetId"
-        >
-    <div class="col-xs-12 col-md-12 col-lg-12 no-padding chart-place-holder height-sm map-chart"
-         style="min-height: 356px;"
-         ng-hide="data.serverError===true">
-    </div>
+                widget-id="widget.widgetId">
 
-
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-        <div class="well">
-            El diagrama de actividad de ventas posiciona el equipo comercial en base al trabajo realizado y las ventas efectuadas.
+    <div class="row" ng-hide="data.serverError || data.noData">
+        <div class="col-xs-10 no-padding chart-place-holder height-sm map-chart"
+             style="min-height: 356px;"
+             ng-hide="data.serverError===true">
+        </div>
+        <div class="col-xs-2 height-sm" style="overflow-y: auto;">
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li
+                        style="padding-left:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                        ng-repeat="field in availableFields"
+                        >
+                    <!--ng-style="{'color':field.color}"-->
+                    <a
+                            ng-click="fn.toggleDisplayField(field.name)"
+                            ng-mouseover="fn.serieRollOver(field, $index)"
+                            ng-attr-title="{{ field.name }}">
+                        <!--ng-style="{'color':field.color}"-->
+                            <!--<span
+                                    class="glyphicon"
+                                    ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}">
+                            </span>-->
+                        &bullet;
+                        &nbsp;{{field.name}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well">
+                El diagrama de actividad de ventas posiciona el equipo comercial en base al trabajo realizado y las ventas efectuadas.
+            </div>
         </div>
     </div>
 
@@ -21,22 +43,4 @@
             ng-if="data.serverError===true">
     </ng-include>
 
-    <!--<div class="col-xs-9 col-md-10 col-lg-10 no-padding chart-place-holder height-sm map-chart" style="min-height: 356px; height: 90%"></div>
-    <div class="col-xs-3 col-md-2 col-lg-2 scatter-legend">-->
-        <!--<div ng-repeat="legend in currentLegends" class="legend-holder" title="{{legend.name}}">-->
-            <!--<div ng-style="{'background-color': '{{legend.color}}'}" class="legend-point"></div>-->
-            <!--<span class="legend-text">{{legend.name}}</span>-->
-        <!--</div>-->
-
-        <!--<div class="scatter-legend-pagination text-center">-->
-            <!--<a href="#" class="btn-paging" ng-click="$event.preventDefault();$event.stopPropagation();fn.prevPage()" ng-disabled="currentPage <= 1" ><i class="fa fa-angle-up"></i></a>-->
-            <!--<a href="#" class="btn-paging right" ng-click="$event.preventDefault();$event.stopPropagation();fn.nextPage()" ng-disabled="currentPage >= fn.pageCount" ><i class="fa fa-angle-down"></i></a>-->
-        <!--</div>-->
-    <!--</div>-->
-    <div id="popup_tooltip"
-         class="hide">
-        {Name}
-        Sales Score: {X}
-        Activity Score: {Y}
-    </div>
 </widget-wrapper>

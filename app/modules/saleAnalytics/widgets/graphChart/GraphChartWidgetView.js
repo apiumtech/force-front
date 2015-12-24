@@ -147,7 +147,6 @@ define([
 
         var columnsPerRow = 3;
         self.fn.serieRollOver = function(field, fieldIndex){
-            console.log( "serieRollOver() columns", fieldIndex );
             self.chart.setSelection([{'column': 1 + fieldIndex * columnsPerRow }]);
         };
 
@@ -272,7 +271,6 @@ define([
             }
         };
 
-        //var legend = [];
         var rows = [];
         var index = 0;
         axisData.x.forEach(function(date_str){
@@ -282,10 +280,6 @@ define([
             var serieIndex = 0;
             chartFields.forEach(function (serie) {
                 var color = self.colorService.getNextColor();
-                /*legend[serieIndex] = {
-                    label: serie.label,
-                    color: color
-                };*/
                 var field = _.find(self.availableFields, function (field) {
                     return field.name === serie.label;
                 });
@@ -302,13 +296,10 @@ define([
             index = rows.length;
         });
         dataTable.addRows(rows);
-        //scope.legend = legend;
 
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
-            /*colors: self.colorService.$colors.slice(),*/
-            /*legend: { position: 'top', alignment: 'end' },*/
             legend: 'none',
             tooltip: {
                 isHtml: true

@@ -12,6 +12,7 @@ define([
     'modules/saleAnalytics/widgets/GraphColorService',
     'jquery'
 ], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, GraphColorService, $) {
+    'use strict';
 
     function ScatterChartWidgetView(scope, element, chartService, presenter, widgetEventBus) {
         presenter = presenter || new ScatterChartWidgetPresenter();
@@ -63,30 +64,6 @@ define([
             set: function (value) {
                 this.$scope.eventChannel = value;
             }
-        },
-        legends: {
-            get: function () {
-                return this.$scope.legends;
-            },
-            set: function (value) {
-                this.$scope.legends = value;
-            }
-        },
-        currentLegends: {
-            get: function () {
-                return this.$scope.currentLegends;
-            },
-            set: function (value) {
-                this.$scope.currentLegends = value;
-            }
-        },
-        currentPage: {
-            get: function () {
-                return this.$scope.currentPage;
-            },
-            set: function (value) {
-                this.$scope.currentPage = value;
-            }
         }
     });
 
@@ -115,34 +92,13 @@ define([
             self.paintChart();
         };
 
-        self.fn.pageCount = function () {
-            return Math.ceil(self.legends.length / self.itemPerPage);
+        self.fn.serieRollOver = function (field, fieldIndex) {
+            self.chart.setSelection([{'row': fieldIndex }]);
         };
 
 
-        self.fn.setCurrentLegend = function(){
-            if(!self.legends) return [];
-            if(!self.currentPage) self.currentPage = 1;
 
-            var begin = ((self.currentPage - 1) * self.itemPerPage),
-                end = begin + self.itemPerPage;
 
-            return self.legends.slice(begin, end);
-        };
-
-        self.fn.nextPage = function(){
-            if(self.currentPage < self.fn.pageCount()) {
-                self.currentPage++;
-                self.currentLegends = self.fn.setCurrentLegend();
-            }
-        };
-
-        self.fn.prevPage = function(){
-            if(self.currentPage > 1) {
-                self.currentPage--;
-                self.currentLegends = self.fn.setCurrentLegend();
-            }
-        };
 
         self.resizeInterval = null;
         $(window).on('resize', self.onWindowResize.bind(self));
@@ -182,8 +138,12 @@ define([
         var chartService = self.chartService;
         self.chartData = chartService.createDataTable(self.data);
         self.chart = chartService.createChart(element[0], 'scatter');
-        self.legends = self.data.legends;
-        self.currentLegends = self.fn.setCurrentLegend();
+
+        self.$scope.availableFields = self.data.legends.map(function(item){
+            item.isDisplaying = true;
+            return item;
+        });
+
         self.chartOptions = {
             title: self.widgetName,
             selectionMode: 'none',
@@ -201,7 +161,15 @@ define([
             hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
             vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
 
-            colors: self.colorService.$colors.slice()
+            legend: 'none',
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "5%",
+                top: "5%",
+                height: "80%",
+                width: "90%"
+            }
         };
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
