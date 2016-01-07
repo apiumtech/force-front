@@ -139,9 +139,9 @@ define([
 
         var generateTooltip = function(point) {
             return '<div style="padding:10px;"><strong>'+ point.Name +' '+ point.Surname +'</strong><br />'+
-                        '<img src="'+ point.PhotoUrl +'" style="border:1px solid #CCC;width:100px;height:100px;"><br/>'+
+                        '<img src="'+ point.PhotoUrl +'" style="border:1px solid #CCC;width:50px;height:50px;"><br/>'+
                         point.Description +'<br />'+
-                        self.axisXTitle +': <strong>'+ point.X +'</strong> '+
+                        self.axisXTitle +': <strong>'+ point.X +'</strong><br />'+
                         self.axisYTitle +': <strong>'+ point.Y +'</strong>'+
                     '</div>';
         };
@@ -203,51 +203,6 @@ define([
         };
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
-
-    /*ScatterChartWidgetView.prototype.paintChart_old = function () {
-        var self = this;
-        if(!self.data.chartData){
-            return;
-        }
-        var element = self.element.find('.chart-place-holder');
-        var chartService = self.chartService;
-        self.chartData = chartService.createDataTable(self.data);
-        self.chart = chartService.createChart(element[0], 'scatter');
-
-        self.$scope.availableFields = self.data.legends.map(function(item){
-            item.isDisplaying = true;
-            return item;
-        });
-
-        self.chartOptions = {
-            title: self.widgetName,
-            selectionMode: 'none',
-            aggregationTarget: 'category',
-            series: {
-                0: {axis: self.axisXTitle},
-                1: {axis: self.axisYTitle}
-            },
-            axes: {
-                y: {
-                    'sales': {label: self.axisXTitle},
-                    'activity scores': {label: self.axisYTitle}
-                }
-            },
-            hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
-            vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
-
-            legend: 'none',
-            width: '100%',
-            height: '100%',
-            chartArea: {
-                left: "5%",
-                top: "5%",
-                height: "80%",
-                width: "90%"
-            }
-        };
-        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
-    };*/
 
 
     ScatterChartWidgetView.prototype.generateTooltip = function (element) {
