@@ -18,7 +18,6 @@ define([
     ScatterChartWidgetModel.inherits(WidgetBase, {});
 
     ScatterChartWidgetModel.prototype.decorateServerData = function (tooltipGenerator, data) {
-        var self = this;
         var returnData = {
             name: "",
             data: {
@@ -64,12 +63,16 @@ define([
                 var row = [];
                 row.push(elem.X);
                 for(var i = 0; i < numOfColumns; i++){
-                    if(i == index) row.push(elem.Y);
-                    else if(i == (index+1) ) row.push(tooltipGenerator(elem));
-                    else row.push(null);
+                    if(i === index){
+                        row.push(elem.Y);
+                    } else if(i === (index+1) ) {
+                        row.push(tooltipGenerator(elem));
+                    } else {
+                        row.push(null);
+                    }
                 }
                 returnData.data.rows.push(row);
-            })
+            });
 
         });
 
@@ -83,8 +86,8 @@ define([
     ScatterChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
 
     ScatterChartWidgetModel.prototype._reload = function (tooltipGenerator) {
-        return this._baseReload()
-            .then(this.decorateServerData.bind(this, tooltipGenerator));
+        return this._baseReload();
+            //.then(this.decorateServerData.bind(this, tooltipGenerator));
     };
 
     ScatterChartWidgetModel.newInstance = function (ajaxService) {

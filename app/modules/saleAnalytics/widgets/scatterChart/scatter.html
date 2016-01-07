@@ -13,19 +13,12 @@
                 <li
                         style="padding-left:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
                         ng-repeat="field in availableFields"
-                        >
-                    <!--ng-style="{'color':field.color}"-->
+                        ng-style="{'color':field.color}">
                     <a
-                            ng-click="fn.toggleDisplayField(field.name)"
-                            ng-mouseover="fn.serieRollOver(field, $index)"
+                            ng-mouseover="fn.serieRollOver($index)"
+                            ng-style="{'color':field.color}"
                             ng-attr-title="{{ field.name }}">
-                        <!--ng-style="{'color':field.color}"-->
-                            <!--<span
-                                    class="glyphicon"
-                                    ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}">
-                            </span>-->
-                        &bullet;
-                        &nbsp;{{field.name}}
+                      &bullet; {{field.name}}
                     </a>
                 </li>
             </ul>

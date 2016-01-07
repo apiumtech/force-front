@@ -1,6 +1,4 @@
-/**
- * Created by justin on 1/26/15.
- */
+/* globals google */
 
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
@@ -92,13 +90,9 @@ define([
             self.paintChart();
         };
 
-        self.fn.serieRollOver = function (field, fieldIndex) {
+        self.fn.serieRollOver = function (fieldIndex) {
             self.chart.setSelection([{'row': fieldIndex }]);
         };
-
-
-
-
 
         self.resizeInterval = null;
         $(window).on('resize', self.onWindowResize.bind(self));
@@ -134,6 +128,87 @@ define([
 
     ScatterChartWidgetView.prototype.paintChart = function () {
         var self = this;
+        if(!self.data.Series) {
+            return;
+        }
+
+        var element = self.element.find('.chart-place-holder');
+        var chartService = self.chartService;
+        self.chart = chartService.createChart(element[0], 'scatter');
+
+
+        var generateTooltip = function(point) {
+            return '<div style="padding:10px;"><strong>'+ point.Name +' '+ point.Surname +'</strong><br />'+
+                        '<img src="'+ point.PhotoUrl +'" style="border:1px solid #CCC;width:100px;height:100px;"><br/>'+
+                        point.Description +'<br />'+
+                        self.axisXTitle +': <strong>'+ point.X +'</strong> '+
+                        self.axisYTitle +': <strong>'+ point.Y +'</strong>'+
+                    '</div>';
+        };
+
+        var dataTable = new google.visualization.DataTable();
+        var points = self.data.Series[0].Points;
+        dataTable.addColumn({type: 'number', name: 'x'});
+        dataTable.addColumn({type: 'number', name: 'y'});
+        dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+        dataTable.addColumn({'type': 'string', 'role': 'style'});
+
+        var availableFields = [];
+        var rows = [];
+        self.colorService.initialize();
+        points.forEach(function(point){
+            var color = self.colorService.getNextColor();
+            rows.push([
+                point.X,
+                point.Y,
+                generateTooltip(point),
+                color
+            ]);
+            availableFields.push({
+                id: point.UserId,
+                name: point.Name +' '+ point.Surname,
+                color: color
+            });
+        });
+        dataTable.addRows(rows);
+        self.chartData = dataTable;
+        self.$scope.availableFields = availableFields;
+
+        self.chartOptions = {
+            title: self.widgetName,
+            series: {
+                0: {axis: self.axisXTitle},
+                1: {axis: self.axisYTitle}
+            },
+            axes: {
+                y: {
+                    'sales': {label: self.axisXTitle},
+                    'activity scores': {label: self.axisYTitle}
+                }
+            },
+            hAxis: { title: self.axisYTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
+            vAxis: { title: self.axisXTitle, titleTextStyle: {italic: false}, gridlines: {color:'#DDD'}, baselineColor: '#54585a', minValue: 0, maxValue: 10, baseline: 5 },
+            legend: 'none',
+            tooltip: {
+                isHtml: true
+            },
+            width: '100%',
+            height: '100%',
+            chartArea: {
+                left: "5%",
+                top: "5%",
+                height: "80%",
+                width: "90%"
+            }
+        };
+        chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+    };
+
+    /*ScatterChartWidgetView.prototype.paintChart_old = function () {
+        var self = this;
+        if(!self.data.chartData){
+            return;
+        }
         var element = self.element.find('.chart-place-holder');
         var chartService = self.chartService;
         self.chartData = chartService.createDataTable(self.data);
@@ -172,7 +247,7 @@ define([
             }
         };
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
-    };
+    };*/
 
 
     ScatterChartWidgetView.prototype.generateTooltip = function (element) {
