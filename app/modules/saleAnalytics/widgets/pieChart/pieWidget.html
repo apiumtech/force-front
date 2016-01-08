@@ -92,8 +92,24 @@
 
     <!-- CHART -->
     <div class="row" ng-hide="data.serverError || data.noData">
-        <div class="col-xs-12">
+        <div ng-class="onlyPieChart===true || currentChartType=='table' || currentChartType=='pie' ? 'col-xs-12' : 'col-xs-10'">
             <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
+        </div>
+        <div class="col-xs-2 height-sm" style="overflow-y: auto;"
+             ng-hide="onlyPieChart===true || currentChartType=='table' || currentChartType=='pie'">
+            <ul style="list-style:none;padding:0;margin:0;">
+                <li
+                        style="padding-left:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                        ng-repeat="field in availableFields"
+                        ng-style="{'color':field.color}">
+                    <a
+                            ng-mouseover="fn.serieRollOver(field, $index)"
+                            ng-style="{'color':field.color}"
+                            ng-attr-title="{{ field.name }}">
+                        &nbsp;{{field.name}}
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 

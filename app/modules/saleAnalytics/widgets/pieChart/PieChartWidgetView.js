@@ -138,6 +138,11 @@ define([
             }, 2000 );
         };
 
+        var columnsPerRow = 3;
+        self.fn.serieRollOver = function(field, fieldIndex){
+            self.chart.setSelection([{'column': 1 + fieldIndex * columnsPerRow }]);
+        };
+
         self.event.getFilters = function(){};
 
         self.resizeHandling();
@@ -171,8 +176,6 @@ define([
     PieChartWidgetView.prototype.onReloadWidgetSuccessPieChart = function (responseData) {
         var self = this;
         self.data = _({}).extend(self.data, responseData.data.params);
-        //self.tabs = responseData.data.params.filters;
-        //self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
         self.fillFiltersCombo();
         self.paintChart();
     };
@@ -187,8 +190,6 @@ define([
         }
 
         self.data = _({}).extend(self.data, responseData.data.params);
-        //self.tabs = responseData.data.params.filters;
-        //self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
         self.paintChart();
     };
 
@@ -254,28 +255,6 @@ define([
             dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
             dataTable.addColumn({'type': 'string', 'role': 'style'});
         });
-
-        /*var createTooltipForSerie = function(serie, date, plotData) {
-            var label = serie.label;
-            var dateOption = self.$scope.selectedRangeOption;
-            var formattedDate;
-
-            if (dateOption === 'date') {
-                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
-            } else if (dateOption === 'week') {
-                var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
-                var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
-                var format = config.salesAnalytics.intensityActivityChartWeekFormat;
-                formattedDate = firstDayOfWeek.format(format) + " &RightArrow; " + lastDayOfWeek.format(format);
-            } else if (dateOption === 'month') {
-                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
-            } else {
-                throw new Error("Unknown date option");
-            }
-
-
-            return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ plotData +'</strong></div>';
-        };*/
 
 
         // BEGIN TOOLTIP GENERATION
@@ -353,9 +332,14 @@ define([
         // END TOOLTIP GENERATION
 
 
+        scope.availableFields = [];
         chartFields.forEach(function (serie) {
             var color = self.colorService.getNextColor();
             serie.color = color;
+            scope.availableFields.push({
+                name: serie.label,
+                color: color
+            });
         });
 
         var rows = [];
@@ -364,11 +348,6 @@ define([
             var date = new Date(Date.parse(date_str));
             var row = [date];
             chartFields.forEach(function (serie) {
-                /*var field = _.find(self.availableFields, function (_field) {
-                    return _field.name === serie.label;
-                });
-                field.color = serie.color;*/
-
                 var plotData = serie.plotData[rowIndex];
                 row.push( plotData );
                 row.push( createTooltipForSerie(serie, date, rowIndex) );
