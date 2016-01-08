@@ -228,7 +228,7 @@ define([
         });
 
 
-        // TOOLTIP GENERATION
+        // BEGIN TOOLTIP GENERATION
 
         var getTooltipDateRange = function(date) {
             var dateOption = self.$scope.selectedRangeOption;
@@ -273,7 +273,7 @@ define([
             return chartFields.slice(fromIndex, toIndex+1);
         };
 
-        var createMultiItemTooltip = function(rolledOverSerie, date, plotDataIndex) {
+        var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {
             var formattedDate = getTooltipDateRange(date);
             var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
             var totalPlotData = computeTotalsForPercentage(plotDataIndex);
@@ -289,20 +289,7 @@ define([
                     '</li>';
             });
             tooltipContent += '</ul>';
-            return tooltipContent;
-        };
-
-        var createSingleItemTooltip = function(rolledOverSerie, date, plotDataIndex) {
-            var formattedDate = getTooltipDateRange(date);
-            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
-            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
-            var plotData = computePlotData(rolledOverSerie, plotDataIndex, totalPlotData);
-
-            var style = 'padding:2px;color:'+ rolledOverSerie.color;
-            tooltipContent += '<li style="'+ style +'"><strong>' +
-                    createTooltipSerieItem(rolledOverSerie, plotData) +
-                '</strong></li>';
-            return tooltipContent;
+            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
         };
 
         var createTooltipSerieItem = function(serie, plotData) {
@@ -313,15 +300,8 @@ define([
             return serie.label +': '+ plotData + (isPercent ? '%' : '');
         };
 
-        var createTooltipForSerie = function(serie, date, plotDataIndex) {
-            var tooltipContent;
-            if(self.selectedFilter === 'activityScores xxxxxx'){
-                tooltipContent = createSingleItemTooltip(serie, date, plotDataIndex);
-            } else {
-                tooltipContent = createMultiItemTooltip(serie, date, plotDataIndex);
-            }
-            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
-        };
+        // END TOOLTIP GENERATION
+
 
         chartFields.forEach(function (serie) {
             var color = self.colorService.getNextColor();
