@@ -250,13 +250,12 @@ define([
 
         dataTable.addColumn(dateFormat, '');
         chartFields.forEach(function (serie) {
-            if(serie !== null && !serie.hidden) {
-                dataTable.addColumn('number', serie.label);
-                dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-            }
+            dataTable.addColumn('number', serie.label);
+            dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+            dataTable.addColumn({'type': 'string', 'role': 'style'});
         });
 
-        var createTooltipForSerie = function(serie, date, plotData) {
+        /*var createTooltipForSerie = function(serie, date, plotData) {
             var label = serie.label;
             var dateOption = self.$scope.selectedRangeOption;
             var formattedDate;
@@ -276,30 +275,114 @@ define([
 
 
             return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ plotData +'</strong></div>';
+        };*/
+
+
+        // BEGIN TOOLTIP GENERATION
+
+        var getTooltipDateRange = function(date) {
+            var dateOption = self.$scope.selectedRangeOption;
+            var formattedDate;
+            if (dateOption === 'date') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
+            } else if (dateOption === 'week') {
+                var firstDayOfWeek = moment(date).startOf('week').isoWeekday(1);
+                var lastDayOfWeek = moment(date).startOf('week').isoWeekday(7);
+                var format = config.salesAnalytics.intensityActivityChartWeekFormat;
+                formattedDate = firstDayOfWeek.format(format) + " &RightArrow; " + lastDayOfWeek.format(format);
+            } else if (dateOption === 'month') {
+                formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartMonthFormat);
+            } else if (dateOption === 'hour') {
+                formattedDate = date[0] + ":00";
+            } else {
+                throw new Error("Unknown date option");
+            }
+            return formattedDate;
         };
 
-        var columns = [];
-        var index = 0;
+        var computeTotalsForPercentage = function(plotDataIndex) {
+            var total = 0;
+            chartFields.forEach(function (currentSerie) {
+                total += currentSerie.plotData[plotDataIndex];
+            });
+            return total;
+        };
+
+        var computePlotData = function(currentSerie, plotDataIndex, totalPlotData) {
+            var plotData = currentSerie.plotData[plotDataIndex];
+            if( scope.currentChartType === FILLED100 && plotData > 0 ) {
+                plotData = Math.round((plotData / totalPlotData) * 100);
+            }
+            return plotData;
+        };
+
+        var getSomeSurroundingSeries = function(rolledOverSerie, howManyOnEachSide) {
+            var rolledOverSerieIndex = chartFields.indexOf(rolledOverSerie);
+            var fromIndex = Math.max(rolledOverSerieIndex-howManyOnEachSide, 0);
+            var toIndex = Math.min(rolledOverSerieIndex+howManyOnEachSide, chartFields.length);
+            return chartFields.slice(fromIndex, toIndex+1);
+        };
+
+        var createTooltipSerieItem = function(serie, plotData) {
+            var isPercent = scope.currentChartType === FILLED100;
+            if(self.selectedFilter === "phoneCallsTime" && !isPercent) {
+                plotData = self._secondsToHHMMSS(plotData);
+            }
+            return serie.label +': '+ plotData + (isPercent ? '%' : '');
+        };
+
+        var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {
+            var formattedDate = getTooltipDateRange(date);
+            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
+            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
+            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, 8);
+            surroundingSeries.forEach(function (currentSerie) {
+                var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
+                var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
+                var style = 'padding:2px;color:'+ currentSerie.color;
+                tooltipContent += '<li style="'+ style +'">' +
+                    (isRolledOverSerie ? '<strong>' : '') +
+                    createTooltipSerieItem(currentSerie, plotData) +
+                    (isRolledOverSerie ? '</strong>' : '') +
+                    '</li>';
+            });
+            tooltipContent += '</ul>';
+            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
+        };
+
+        // END TOOLTIP GENERATION
+
+
+        chartFields.forEach(function (serie) {
+            var color = self.colorService.getNextColor();
+            serie.color = color;
+        });
+
+        var rows = [];
+        var rowIndex = 0;
         axisData.x.forEach(function(date_str){
             var date = new Date(Date.parse(date_str));
-            var col = [date];
+            var row = [date];
             chartFields.forEach(function (serie) {
-                if(serie !== null && !serie.hidden) {
-                    var plotData = serie.plotData[index];
-                    col.push( plotData );
-                    col.push( createTooltipForSerie(serie, date, plotData) );
-                }
+                /*var field = _.find(self.availableFields, function (_field) {
+                    return _field.name === serie.label;
+                });
+                field.color = serie.color;*/
+
+                var plotData = serie.plotData[rowIndex];
+                row.push( plotData );
+                row.push( createTooltipForSerie(serie, date, rowIndex) );
+                row.push( 'color: '+ serie.color );
             });
-            columns.push(col);
-            index = columns.length-1;
+            rows.push(row);
+            rowIndex = rows.length-1;
         });
-        dataTable.addRows(columns);
+        dataTable.addRows(rows);
 
         self.chartData = dataTable;
         self.chartOptions = {
             title: self.widgetName,
-            colors: self.colorService.$colors.slice(),
-            legend: { position: 'top', alignment: 'end' },
+            legend: 'none',
             tooltip: {
                 isHtml: true
             },

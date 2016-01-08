@@ -273,31 +273,31 @@ define([
             return chartFields.slice(fromIndex, toIndex+1);
         };
 
-        var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {
-            var formattedDate = getTooltipDateRange(date);
-            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
-            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
-            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, 5);
-            surroundingSeries.forEach(function (currentSerie) {
-                var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
-                var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
-                var style = 'padding:2px;color:'+ currentSerie.color;
-                tooltipContent += '<li style="'+ style +'">' +
-                        (isRolledOverSerie ? '<strong>' : '') +
-                        createTooltipSerieItem(currentSerie, plotData) +
-                        (isRolledOverSerie ? '</strong>' : '') +
-                    '</li>';
-            });
-            tooltipContent += '</ul>';
-            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
-        };
-
         var createTooltipSerieItem = function(serie, plotData) {
             var isPercent = scope.currentChartType === FILLED100;
             if(self.selectedFilter === "phoneCallsTime" && !isPercent) {
                 plotData = self._secondsToHHMMSS(plotData);
             }
             return serie.label +': '+ plotData + (isPercent ? '%' : '');
+        };
+
+        var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {
+            var formattedDate = getTooltipDateRange(date);
+            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
+            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
+            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, 8);
+            surroundingSeries.forEach(function (currentSerie) {
+                var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
+                var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
+                var style = 'padding:2px;color:'+ currentSerie.color;
+                tooltipContent += '<li style="'+ style +'">' +
+                    (isRolledOverSerie ? '<strong>' : '') +
+                    createTooltipSerieItem(currentSerie, plotData) +
+                    (isRolledOverSerie ? '</strong>' : '') +
+                    '</li>';
+            });
+            tooltipContent += '</ul>';
+            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
         };
 
         // END TOOLTIP GENERATION
@@ -313,10 +313,7 @@ define([
         axisData.x.forEach(function(date_str){
             var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
             var row = [date];
-            self.colorService.initialize();
-            var serieIndex = 0;
             chartFields.forEach(function (serie) {
-
                 var field = _.find(self.availableFields, function (field) {
                     return field.name === serie.label;
                 });
@@ -327,7 +324,6 @@ define([
                     row.push( plotData );
                     row.push( createTooltipForSerie(serie, date, rowIndex) );
                     row.push( 'color: '+ serie.color );
-                    serieIndex++;
                 }
             });
             rows.push(row);
