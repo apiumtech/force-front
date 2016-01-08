@@ -230,19 +230,9 @@ define([
 
         // TOOLTIP GENERATION
 
-        var createMultiItemTooltip = function(date, plotDataIndex) {
-            return '<div>Hola</div>';
-        };
-        var createSingleItemTooltip = function(serie, date, plotData) {
-            var label = serie.label;
+        var getTooltipDateRange = function(date) {
             var dateOption = self.$scope.selectedRangeOption;
             var formattedDate;
-            var data = plotData;
-
-            if(self.selectedFilter === "phoneCallsTime") {
-                data = self._secondsToHHMMSS(plotData);
-            }
-
             if (dateOption === 'date') {
                 formattedDate = moment(date).format(config.salesAnalytics.intensityActivityChartDateFormat);
             } else if (dateOption === 'week') {
@@ -257,43 +247,103 @@ define([
             } else {
                 throw new Error("Unknown date option");
             }
-
-
-            return '<div style="padding:10px;"><strong>'+ formattedDate +'</strong><br />'+ label +': <strong>'+ data +'</strong></div>';
+            return formattedDate;
         };
-        var createTooltipForSerie = function(serie, date, plotDataIndex) {
-            if (scope.currentChartType === FILLED) {
-                // TODO: Do it!!
-                return createMultiItemTooltip(serie, date, plotDataIndex);
-            } else {
-                var plotData = serie.plotData[index];
-                return createSingleItemTooltip(serie, date, plotData);
+
+        var computeTotalsForPercentage = function(plotDataIndex) {
+            var total = 0;
+            chartFields.forEach(function (currentSerie) {
+                total += currentSerie.plotData[plotDataIndex];
+            });
+            return total;
+        };
+
+        var computePlotData = function(currentSerie, plotDataIndex, totalPlotData) {
+            var plotData = currentSerie.plotData[plotDataIndex];
+            if( scope.currentChartType === FILLED100 && plotData > 0 ) {
+                plotData = Math.round((plotData / totalPlotData) * 100);
             }
+            return plotData;
         };
+
+        var createMultiItemTooltip = function(rolledOverSerie, date, plotDataIndex) {
+            var formattedDate = getTooltipDateRange(date);
+            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
+            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
+            chartFields.forEach(function (currentSerie) {
+                var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
+                var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
+                var style = 'padding:2px;color:'+ currentSerie.color;
+                tooltipContent += '<li style="'+ style +'">' +
+                        (isRolledOverSerie ? '<strong>' : '') +
+                        createTooltipSerieItem(currentSerie, plotData) +
+                        (isRolledOverSerie ? '</strong>' : '') +
+                    '</li>';
+            });
+            tooltipContent += '</ul>';
+            return tooltipContent;
+        };
+
+        var createSingleItemTooltip = function(rolledOverSerie, date, plotDataIndex) {
+            var formattedDate = getTooltipDateRange(date);
+            var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
+            var totalPlotData = computeTotalsForPercentage(plotDataIndex);
+            var plotData = computePlotData(rolledOverSerie, plotDataIndex, totalPlotData);
+
+            var style = 'padding:2px;color:'+ rolledOverSerie.color;
+            tooltipContent += '<li style="'+ style +'"><strong>' +
+                    createTooltipSerieItem(rolledOverSerie, plotData) +
+                '</strong></li>';
+            return tooltipContent;
+        };
+
+        var createTooltipSerieItem = function(serie, plotData) {
+            var isPercent = scope.currentChartType === FILLED100;
+            if(self.selectedFilter === "phoneCallsTime" && !isPercent) {
+                plotData = self._secondsToHHMMSS(plotData);
+            }
+            return serie.label +': '+ plotData + (isPercent ? '%' : '');
+        };
+
+        var createTooltipForSerie = function(serie, date, plotDataIndex) {
+            var tooltipContent;
+            if(self.selectedFilter === 'activityScores'){
+                tooltipContent = createSingleItemTooltip(serie, date, plotDataIndex);
+            } else {
+                tooltipContent = createMultiItemTooltip(serie, date, plotDataIndex);
+            }
+            return '<div style="padding:10px;">'+ tooltipContent +'</div>';
+        };
+
+        chartFields.forEach(function (serie) {
+            var color = self.colorService.getNextColor();
+            serie.color = color;
+        });
 
         var rows = [];
-        var index = 0;
+        var rowIndex = 0;
         axisData.x.forEach(function(date_str){
             var date = (isHours() ? [parseInt(date_str,10),0,0] : new Date(Date.parse(date_str)));
             var row = [date];
             self.colorService.initialize();
             var serieIndex = 0;
             chartFields.forEach(function (serie) {
-                var color = self.colorService.getNextColor();
+
                 var field = _.find(self.availableFields, function (field) {
                     return field.name === serie.label;
                 });
-                field.color = color;
+                field.color = serie.color;
+
                 if(serie !== null && !serie.hidden) {
-                    var plotData = serie.plotData[index];
+                    var plotData = serie.plotData[rowIndex];
                     row.push( plotData );
-                    row.push( createTooltipForSerie(serie, date, index) );
-                    row.push( 'color: '+ color );
+                    row.push( createTooltipForSerie(serie, date, rowIndex) );
+                    row.push( 'color: '+ serie.color );
                     serieIndex++;
                 }
             });
             rows.push(row);
-            index = rows.length;
+            rowIndex = rows.length;
         });
         dataTable.addRows(rows);
 
@@ -509,7 +559,7 @@ define([
         var t = this._secondsDescomposition(secs);
         return t.h + "h " +
                t.m + "m";
-    }
+    };
 
     GraphChartWidgetView.prototype._secondsDescomposition = function (secs) {
         var sec_num = parseInt(secs, 10);

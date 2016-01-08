@@ -1,6 +1,4 @@
-/**
- * Created by justin on 1/26/15.
- */
+/* global google */
 
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
@@ -11,6 +9,7 @@ define([
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService'
 ], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService){
+    'use strict';
 
     function BarChartWidgetView(scope, element, presenter) {
         presenter = presenter || new BarChartWidgetPresenter();
@@ -108,7 +107,7 @@ define([
         var chartService = self.chartService;
         var element = self.element.find('.chart-place-holder');
 
-        if (!data || data === null || !isArray(data)) {
+        if (!data || data === null || !Array.isArray(data)) {
             return;
         }
 
@@ -121,16 +120,22 @@ define([
         });
 
         var createTooltip = function(tick, serie, index){
-            var total = serie.data[index][1].Count || "--";
+            var total = serie.data[index][1].Count || "?";
             var percent = serie.data[index][1].Y;
             var drillDown = serie.data[index][1].DrillDown || [];
-            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+ serie.label +': '+ total +' ('+ percent.toFixed(1) +'%)</div>';
+            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+
+                serie.label +': '+ total +' ('+ percent.toFixed(1) +'%)</div>';
             div += '<hr/>';
-            div += '<table style="width: 100%; text-align: center; margin-bottom: 10px"><thead><tr><th style="text-align: center;">User</th><th style="text-align: center;">Total</th></tr></thead><tbody>';
-            drillDown.forEach(function(user){
-                div += '<tr><td>'+ user.name +'</td><td>'+ user.Count +'</td></tr>';
-            });
-            div += '</tbody></table>';
+            if(Array.isArray(drillDown) && drillDown.length > 0) {
+                div += '<table style="width: 100%; text-align: center; margin-bottom: 10px"><thead>' +
+                                '<tr><th style="text-align: center;">User</th>'+
+                                '<th style="text-align: center;">Total</th></tr>'+
+                            '</thead><tbody>';
+                drillDown.forEach(function(user){
+                    div += '<tr><td>'+ user.Name +'</td><td>'+ user.Count +'</td></tr>';
+                });
+                div += '</tbody></table>';
+            }
             return div;
         };
 
