@@ -266,11 +266,19 @@ define([
             return plotData;
         };
 
+        var getSomeSurroundingSeries = function(rolledOverSerie, howManyOnEachSide) {
+            var rolledOverSerieIndex = chartFields.indexOf(rolledOverSerie);
+            var fromIndex = Math.max(rolledOverSerieIndex-howManyOnEachSide, 0);
+            var toIndex = Math.min(rolledOverSerieIndex+howManyOnEachSide, chartFields.length);
+            return chartFields.slice(fromIndex, toIndex+1);
+        };
+
         var createMultiItemTooltip = function(rolledOverSerie, date, plotDataIndex) {
             var formattedDate = getTooltipDateRange(date);
             var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
             var totalPlotData = computeTotalsForPercentage(plotDataIndex);
-            chartFields.forEach(function (currentSerie) {
+            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, 5);
+            surroundingSeries.forEach(function (currentSerie) {
                 var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
                 var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
                 var style = 'padding:2px;color:'+ currentSerie.color;
@@ -307,7 +315,7 @@ define([
 
         var createTooltipForSerie = function(serie, date, plotDataIndex) {
             var tooltipContent;
-            if(self.selectedFilter === 'activityScores'){
+            if(self.selectedFilter === 'activityScores xxxxxx'){
                 tooltipContent = createSingleItemTooltip(serie, date, plotDataIndex);
             } else {
                 tooltipContent = createMultiItemTooltip(serie, date, plotDataIndex);
