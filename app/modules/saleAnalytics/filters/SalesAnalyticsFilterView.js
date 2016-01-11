@@ -13,13 +13,13 @@ define([
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
         var self = this;
-        self.defaultPreviousDay = 180;
-        self.$scope.datePickerFormat = "dd/MM/yyyy";
-        self.momentFormat = 'DD/MM/YYYY';
+        //self.defaultPreviousDay = 180;
+        //self.$scope.datePickerFormat = "dd/MM/yyyy";
+        /*self.momentFormat = 'DD/MM/YYYY';
         self.$scope.dateOptionRange = [7, 15, 30, 90, 180];
-        self.$scope.multipleSelection = true;
+        self.$scope.multipleSelection = true;*/
 
-        self.$scope.isoStringDateStart = function () {
+        /*self.$scope.isoStringDateStart = function () {
             return self.$scope.dateRangeStart.toString();
         };
         self.$scope.isoStringDateEnd = function () {
@@ -38,19 +38,20 @@ define([
             var date = new Date();
             date = date.setDate(date.getDate() - 1);
             return new Date(date).toString();
+        };*/
+
+
+
+
+
+
+        self.$scope.date = {
+            startDate: moment().subtract(179, "days"),
+            endDate: moment()
         };
-
-
-
-
 
         var currentLocale = moment.localeData();
         var now = moment();
-
-        self.$scope.date = {
-            startDate: moment().subtract(1, "days"),
-            endDate: moment()
-        };
         self.$scope.opts = {
             locale: {
                 applyClass: 'btn-green',
@@ -65,7 +66,20 @@ define([
             },
             ranges: {
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+                'Last 15 Days': [moment().subtract(14, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'Last 90 Days': [moment().subtract(89, 'days'), moment()],
+                'Last 180 Days': [moment().subtract(179, 'days'), moment()]
+            },
+            minDate: moment('2010-01-01'),
+            maxDate: moment(),
+            eventHandlers: {
+                'apply.daterangepicker': function(ev, picker){
+                    self.filterChannel.sendDateFilterApplySignal({
+                        dateStart: self.$scope.date.startDate.toDate(),
+                        dateEnd: self.$scope.date.endDate.toDate()
+                    });
+                }
             }
         };
 
@@ -76,7 +90,7 @@ define([
     }
 
     SalesAnalyticsFilterView.inherits(BaseView, {
-        dateRangeFilterOpened: {
+        /*dateRangeFilterOpened: {
             get: function () {
                 return this.$scope.dateRangeFilterOpened || (this.$scope.dateRangeFilterOpened = false);
             },
@@ -132,13 +146,20 @@ define([
             set: function (value) {
                 this.$scope.displayDateEnd = value;
             }
-        }
+        }*/
     });
 
     SalesAnalyticsFilterView.configureEvents = function (instance) {
         var self = instance;
+        self.fn.toggleDateRangePicker = function() {
+            if($('#myDateRangePicker').data('daterangepicker').isShowing){
+                //$('#myDateRangePicker').data('daterangepicker').hide();
+            } else {
+                $('#myDateRangePicker').data('daterangepicker').show();
+            }
+        };
 
-        self.$scope.$watch('displayDateStart', function (value) {
+        /*self.$scope.$watch('displayDateStart', function (value) {
             var _date = moment(value, self.momentFormat);
             if (!_date.isValid()) {
                 window.console.error("Input date is not valid");
@@ -178,17 +199,17 @@ define([
             if(event.target && $(event.target).attr("data-desc") !== "calendar-input"){
                 $(document).find('.force-datepicker-calendar').removeClass('force-datepicker-open');
             }
-        };
+        };*/
 
-        self.fn.loadPreviousLastDaysFilter = function (days) {
+        /*self.fn.loadPreviousLastDaysFilter = function (days) {
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(days, self.dateRangeEnd);
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
             self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.fn.applyDateFilter();
-        };
+        };*/
 
-        self.fn.validateDateInput = function (event) {
+        /*self.fn.validateDateInput = function (event) {
             if ([46, 8, 9, 27, 13, 191, 111].indexOf(event.keyCode) !== -1 ||
                     // Allow: Ctrl+A
                 (event.keyCode === 65 && event.ctrlKey === true) ||
@@ -202,49 +223,49 @@ define([
             if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && (event.keyCode < 96 || event.keyCode > 105)) {
                 event.preventDefault();
             }
-        };
+        };*/
 
-        self.fn.getPreviousDate = function (days, from) {
+        /*self.fn.getPreviousDate = function (days, from) {
             if (!from || !(from instanceof Date)){
                 return null;
             }
 
             return moment(from).subtract(days, 'days').toDate();
-        };
+        };*/
 
-        self.fn.getDatePlaceholder = function () {
+        /*self.fn.getDatePlaceholder = function () {
             self.dateRangePlaceholder = self.fn.getFormattedDate(self.dateRangeStart) + ' → ' + self.fn.getFormattedDate(self.dateRangeEnd);
             return self.dateRangePlaceholder;
-        };
+        };*/
 
-        self.fn.getFormattedDate = function (date) {
+        /*self.fn.getFormattedDate = function (date) {
             return moment(date).format(self.momentFormat);
-        };
+        };*/
 
-        self.fn.initializeFilters = function () {
+        /*self.fn.initializeFilters = function () {
             self.fn.resetDate();
-        };
+        };*/
 
-        self.fn.applyDateFilter = function () {
+        /*self.fn.applyDateFilter = function () {
             self.dateRangeFilterOpened = false;
             self.fn.getDatePlaceholder();
             self.filterChannel.sendDateFilterApplySignal({
                 dateStart: self.dateRangeStart,
                 dateEnd: self.dateRangeEnd
             });
-        };
+        };*/
 
-        self.fn.cancelFilter = function () {
+        /*self.fn.cancelFilter = function () {
             self.dateRangeFilterOpened = false;
-        };
+        };*/
 
-        self.fn.resetDate = function () {
+        /*self.fn.resetDate = function () {
             self.dateRangeEnd = new Date();
             self.dateRangeStart = self.fn.getPreviousDate(self.defaultPreviousDay, self.dateRangeEnd);
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
             self.displayDateStart = self.fn.getFormattedDate(self.dateRangeStart);
             self.fn.getDatePlaceholder();
-        };
+        };*/
 
         /*self.fn.toggleWidgetAdministration = function(){
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
@@ -254,13 +275,13 @@ define([
 
 
 
-    SalesAnalyticsFilterView.prototype.validateDates = function () {
+    /*SalesAnalyticsFilterView.prototype.validateDates = function () {
         var self = this;
         if (moment(self.dateRangeStart).isAfter(self.dateRangeEnd)) {
             self.dateRangeEnd = new Date(self.dateRangeStart.toString());
             self.displayDateEnd = self.fn.getFormattedDate(self.dateRangeEnd);
         }
-    };
+    };*/
 
     SalesAnalyticsFilterView.prototype.showError = function (error) {
         window.console.error(error);
