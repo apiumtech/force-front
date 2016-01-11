@@ -295,11 +295,27 @@ define([
             return plotData;
         };
 
-        var getSomeSurroundingSeries = function(rolledOverSerie, howManyOnEachSide) {
-            var rolledOverSerieIndex = chartFields.indexOf(rolledOverSerie);
-            var fromIndex = Math.max(rolledOverSerieIndex-howManyOnEachSide, 0);
-            var toIndex = Math.min(rolledOverSerieIndex+howManyOnEachSide, chartFields.length);
-            return chartFields.slice(fromIndex, toIndex+1);
+        var getSomeSurroundingSeries = function(rolledOverSerie, plotDataIndex) {
+            var plotData = rolledOverSerie.plotData[plotDataIndex];
+            var series = [];
+            var isLine = scope.currentChartType === LINE;
+            if(isLine) {
+                series = chartFields.filter(function(serie){
+                    return serie.plotData[plotDataIndex] === plotData;
+                });
+            } else {
+                var rolledOverSerieIndex = chartFields.indexOf(rolledOverSerie);
+                var index;
+                for(var i=rolledOverSerieIndex; i>=0; i--) {
+                    index = i;
+                    if(chartFields[i].plotData[plotDataIndex] > 0) {
+                        break;
+                    }
+                }
+                series = chartFields.slice(index, rolledOverSerieIndex+1);
+            }
+
+            return series;
         };
 
         var createTooltipSerieItem = function(serie, plotData) {
@@ -314,7 +330,7 @@ define([
             var formattedDate = getTooltipDateRange(date);
             var tooltipContent = '<strong>'+ formattedDate +'</strong><hr/><ul style="margin:0;padding-left:15px;">';
             var totalPlotData = computeTotalsForPercentage(plotDataIndex);
-            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, 8);
+            var surroundingSeries = getSomeSurroundingSeries(rolledOverSerie, plotDataIndex);
             surroundingSeries.forEach(function (currentSerie) {
                 var plotData = computePlotData(currentSerie, plotDataIndex, totalPlotData);
                 var isRolledOverSerie = rolledOverSerie.label === currentSerie.label;
