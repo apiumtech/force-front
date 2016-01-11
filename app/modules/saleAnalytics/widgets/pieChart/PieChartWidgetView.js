@@ -83,20 +83,26 @@ define([
         };
 
         self.fn.switchToFilled100 = function () {
+            if(self.$scope.currentChartType === PIE) {
+                self.$scope.selectedRangeOption = "week";
+            }
             self.$scope.currentChartType = FILLED100;
-            self.$scope.selectedRangeOption = "week";
             self.event.onTimeChartRequested();
         };
 
         self.fn.switchToFilled = function () {
+            if(self.$scope.currentChartType === PIE) {
+                self.$scope.selectedRangeOption = "week";
+            }
             self.$scope.currentChartType = FILLED;
-            self.$scope.selectedRangeOption = "week";
             self.event.onTimeChartRequested();
         };
 
         self.fn.switchToLine = function () {
+            if(self.$scope.currentChartType === PIE) {
+                self.$scope.selectedRangeOption = "week";
+            }
             self.$scope.currentChartType = LINE;
-            self.$scope.selectedRangeOption = "week";
             self.event.onTimeChartRequested();
         };
 
@@ -107,8 +113,10 @@ define([
         };
 
         self.fn.switchToTable = function () {
+            if(self.$scope.currentChartType === PIE) {
+                self.$scope.selectedRangeOption = "week";
+            }
             self.$scope.currentChartType = TABLE;
-            self.$scope.selectedRangeOption = "week";
             self.event.onTimeChartRequested();
         };
 
