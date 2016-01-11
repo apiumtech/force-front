@@ -13,7 +13,6 @@ define([
         this.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
 
         var self = this;
-        self.resetDate = true;
         self.defaultPreviousDay = 180;
         self.$scope.datePickerFormat = "dd/MM/yyyy";
         self.momentFormat = 'DD/MM/YYYY';
@@ -157,16 +156,6 @@ define([
             self.fn.applyDateFilter();
         };
 
-        self.fn.dateFilterToggled = function (isOpened) {
-            if (!isOpened) {
-                if (!self.resetDate) {
-                    self.resetDate = true;
-                    return;
-                }
-                self.fn.resetDate();
-            }
-        };
-
         self.fn.validateDateInput = function (event) {
             if ([46, 8, 9, 27, 13, 191, 111].indexOf(event.keyCode) !== -1 ||
                     // Allow: Ctrl+A
@@ -205,8 +194,6 @@ define([
         };
 
         self.fn.applyDateFilter = function () {
-
-            self.resetDate = false;
             self.dateRangeFilterOpened = false;
             self.fn.getDatePlaceholder();
             self.filterChannel.sendDateFilterApplySignal({
@@ -216,7 +203,6 @@ define([
         };
 
         self.fn.cancelFilter = function () {
-            self.resetDate = true;
             self.dateRangeFilterOpened = false;
         };
 
