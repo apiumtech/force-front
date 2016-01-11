@@ -33,7 +33,9 @@
     "jqueryui": "~1.11.4",
     "di4js": "~1.1.3",
     "angular-touch": "~1.4.0",
-    "toastr": "~2.1.1"
+    "toastr": "~2.1.1",
+    "angular-daterangepicker": "~0.2.2",
+    "bootstrap-daterangepicker": "~2.1.17"
   },
   "resolutions": {
     "angular": ">=1.2"

@@ -19,9 +19,21 @@
                 <div class="SalesAnalyticsDateFilter">
                     <ul class="nav navbar-nav m-t-10">
                         <li>
-                        <span class="pull-left date-range m-r-10 m-t-5 inline">
-                            {{'Filters.DateRange' | i18next}}
-                        </span>
+                            <span class="pull-left date-range m-r-10 m-t-5 inline">
+                                {{'Filters.DateRange' | i18next}}
+                            </span>
+                            <div class="input-group input-group-sm"
+                                 style="width:300px; margin-bottom: 4px; float:left">
+                                <input date-range-picker class="form-control date-picker" type="text" ng-model="date" options="opts" />
+                            </div>
+                        </li>
+                    </ul>
+                    <!--
+                    <ul class="nav navbar-nav m-t-10">
+                        <li>
+                            <span class="pull-left date-range m-r-10 m-t-5 inline">
+                                {{'Filters.DateRange' | i18next}}
+                            </span>
 
                             <div class="input-group input-group-sm"
                                  style="width:300px; margin-bottom: 4px; float:left"
@@ -98,6 +110,7 @@
                             </div>
                         </li>
                     </ul>
+                    -->
                 </div>
                 <!-- End Date Filter -->
 

@@ -1,13 +1,4 @@
-/**
- * Created by Justin on 5/27/2015.
- */
-
-define(function () {
-    if (undefined === window) global.window = {};
-    return requireConf;
-});
-
-var requireConf = {
+requirejs.config({
     'baseUrl': 'app/',
     'waitSeconds': 0,
     'paths': {
@@ -312,4 +303,4 @@ var requireConf = {
     callback: function () {
         require(['main']);
     }
-};
+});
