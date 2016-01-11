@@ -396,9 +396,7 @@ define([
         //  vAxis
         // ---------------------------
 
-        self.chartOptions.vAxis = {
-            baseline: 0
-        };
+        self.chartOptions.vAxis = {};
 
         if(scope.currentChartType === LINE) {
             self.chartOptions.vAxis.ticks = self.getVaxisTicks(chartFields);
@@ -412,19 +410,11 @@ define([
 
         // For d3 time intervals
         // @see http://stackoverflow.com/a/23957607/779529
-        var minDate = new Date(Date.parse(axisData.x[0]));
-        var maxDate = new Date(Date.parse(axisData.x[axisData.x.length-1]));
-        minDate.setDate(minDate.getDate()-1);
-        maxDate.setDate(maxDate.getDate()+1);
         self.chartOptions.hAxis = {
             format: computedFormat,
             gridlines: {
-                count: Math.max( Math.min( axisData.x.length, 8), 2 ) /* max number of ticks */
-            },
-            minValue: minDate,
-            maxValue: maxDate
-            /*minValue: self.mainFilterFromDate,
-             maxValue: self.mainFilterToDate*/
+                count: 8 /* max number of ticks */
+            }
         };
 
         if(scope.currentChartType === LINE) {
@@ -565,7 +555,10 @@ define([
         var chartOptions = {
             width: '100%',
             height: '100%',
-            frozenColumns: 0
+            frozenColumns: 1,
+            cssClassNames: {
+                headerCell: 'google-visualization-table-th text-center'
+            }
         };
         chartService.drawChart( chart, chartData, chartOptions );
     };
