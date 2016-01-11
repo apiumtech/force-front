@@ -78,10 +78,11 @@ define([
         };
 
         self.fn.changeFilter = function (selectedFilter) {
-            self.selectedRangeOption = 'week';
+            self.$scope.selectedRangeOption = 'week';
+            self.event.onFilterRangeChanged(true);
             self.$scope.currentChartType = LINE;
-            self.availableFields = [];
             self.selectedFilter = selectedFilter;
+            self.availableFields = [];
             self.event.onFilterChanged();
         };
 
@@ -372,6 +373,7 @@ define([
         self.chartOptions.vAxis = {
             baseline: 0
         };
+
         if(self.$scope.selectedFilter === "phoneCallsTime") {
             if(isHours() || scope.currentChartType === LINE) {
                 self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);

@@ -53,9 +53,11 @@ define([
             view.sendReloadCommandToChannel();
         };
 
-        view.event.onFilterRangeChanged = function () {
+        view.event.onFilterRangeChanged = function (dontSend) {
             model.addQuery('grouping', view.$scope.selectedRangeOption);
-            view.sendReloadCommandToChannel();
+            if(!dontSend) {
+                view.sendReloadCommandToChannel();
+            }
         };
     };
 
