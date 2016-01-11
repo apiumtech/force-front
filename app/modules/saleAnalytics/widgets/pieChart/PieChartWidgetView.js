@@ -591,7 +591,7 @@ define([
         }
 
         // Create column row of CSV
-        csv_out = csv_cols.join(";")+"\r\n";
+        csv_out = csv_cols.join("\t")+"\r\n";
 
         // Iterate rows
         for (i=0; i<dt_rows; i++) {
@@ -601,22 +601,27 @@ define([
                 raw_col.push(dataTable_arg.getFormattedValue(i, j, 'label').replace(/;/g,""));
             }
             // Add row to CSV text
-            csv_out += raw_col.join(";")+"\r\n";
+            csv_out += raw_col.join("\t")+"\r\n";
         }
 
         return csv_out;
     };
 
     PieChartWidgetView.prototype._downloadCSV = function(csv_out) {
-        var blob = new Blob([csv_out], {type: 'text/csv;charset=utf-8'});
-        var url  = window.URL || window.webkitURL;
-        var link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
-        link.href = url.createObjectURL(blob);
-        link.download = this.$scope.widget.widgetName.split(" ").join("_") +"-"+ this.$scope.selectedFilter +"-"+ this.$scope.selectedRangeOption + ".csv";
+        var is_safari = /Version\/[\d\.]+.*Safari/.test(navigator.userAgent);
+        if( is_safari ) {
+            window.open('data:attachment/csv;charset=utf-8,' + encodeURI(csv_out));
+        } else {
+            var blob = new Blob([csv_out], {type: 'text/csv;charset=utf-8'});
+            var url = window.URL || window.webkitURL;
+            var link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+            link.href = url.createObjectURL(blob);
+            link.download = this.$scope.widget.widgetName.split(" ").join("_") + "-" + this.$scope.selectedFilter + "-" + this.$scope.selectedRangeOption + ".csv";
 
-        var event = document.createEvent("MouseEvents");
-        event.initEvent("click", true, false);
-        link.dispatchEvent(event);
+            var event = document.createEvent("MouseEvents");
+            event.initEvent("click", true, false);
+            link.dispatchEvent(event);
+        }
     };
 
     PieChartWidgetView.prototype.showError = function (err) {
