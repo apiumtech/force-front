@@ -1,11 +1,12 @@
 {
   "name": "force-front",
   "author": "apiumtech",
-  "version": "0.1.100",
+  "version": "0.1.102",
   "engine": "node 0.12.0",
   "scripts": {
     "test": "grunt test",
     "build": "grunt build",
+    "buildCss": "grunt buildCss",
     "serve": "grunt dev-server"
   },
   "dependencies": {

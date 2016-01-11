@@ -22,6 +22,8 @@ var requireConf = {
 
         'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
         'angular-moment': '../bower_components/angular-moment/angular-moment.min',
+        'bootstrap-daterangepicker': '../bower_components/bootstrap-daterangepicker/daterangepicker',
+        'angular-daterangepicker': '../bower_components/angular-daterangepicker/js/angular-daterangepicker',
         'ng-i18next': '../bower_components/ng-i18next/dist/ng-i18next',
 
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
@@ -58,7 +60,7 @@ var requireConf = {
 
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
-        'moment': '../node_modules/moment/min/moment.min',
+        'moment': '../node_modules/moment/min/moment-with-locales.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
@@ -136,6 +138,11 @@ var requireConf = {
         'infinite-scroll': {
             deps: ['angular'],
             exports: 'infinite_scroll'
+        },
+
+        'angular-daterangepicker': {
+            deps: ['jquery', 'angular', 'moment', 'bootstrap-daterangepicker'],
+            exports: 'angular-daterangepicker'
         },
 
         //endregion
@@ -281,6 +288,9 @@ var requireConf = {
         'angular-moment', 'ng-i18next', 'infinite-scroll',
 
         'angularRecursion',
+
+        'angular-daterangepicker',
+        'bootstrap-daterangepicker',
 
         /*3rd party libs */
         'i18next',

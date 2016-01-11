@@ -7,14 +7,19 @@ define([
     'jquery',
     'core/i18nextOptions',
     'diConfig',
+    'moment',
     'routeResolverSvc',
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular-validation',
     'angular-validation-rule',
     'angular_touch'
-], function (angular, config, $, i18nextOptions, diConfig) {
+], function (angular, config, $, i18nextOptions, diConfig, moment) {
     'use strict';
+
+    var locale = window.navigator.userLanguage || window.navigator.language;
+    moment.locale(locale);
+    window.moment = moment;
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = i18nextOptions.dev_local;
@@ -33,7 +38,8 @@ define([
         'infinite-scroll',
         'validation',
         'validation.rule',
-        'RecursionHelper'
+        'RecursionHelper',
+        'daterangepicker'
     ]);
 
     app.register = {};
