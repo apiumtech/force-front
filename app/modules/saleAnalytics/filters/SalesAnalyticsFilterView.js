@@ -44,26 +44,24 @@ define([
 
 
 
+        var currentLocale = moment.localeData();
+        var now = moment();
+
         self.$scope.date = {
             startDate: moment().subtract(1, "days"),
             endDate: moment()
         };
         self.$scope.opts = {
-            /*locale: {
+            locale: {
                 applyClass: 'btn-green',
                 applyLabel: "Apply",
                 fromLabel: "From",
                 toLabel: "To",
                 cancelLabel: 'Cancel',
                 customRangeLabel: 'Custom Range',
-                daysOfWeek: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-                firstDay: 1,
-                monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září',
-                    'Říjen', 'Listopad', 'Prosinec'
-                ]
-            },*/
-            locale: {
-                firstDay: 1
+                daysOfWeek: currentLocale.weekdaysShort(now),
+                firstDay: currentLocale.firstDayOfWeek(),
+                monthNames: currentLocale.months(now)
             },
             ranges: {
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],

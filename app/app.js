@@ -17,6 +17,8 @@ define([
 ], function (angular, config, $, i18nextOptions, diConfig, moment) {
     'use strict';
 
+    var locale = window.navigator.userLanguage || window.navigator.language;
+    moment.locale(locale);
     window.moment = moment;
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {

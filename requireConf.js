@@ -60,7 +60,7 @@ var requireConf = {
 
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
-        'moment': '../node_modules/moment/min/moment.min',
+        'moment': '../node_modules/moment/min/moment-with-locales.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
