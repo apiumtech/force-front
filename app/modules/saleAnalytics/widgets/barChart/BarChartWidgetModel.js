@@ -7,6 +7,7 @@ define([
     'shared/services/ajax/AuthAjaxService',
     'config'
 ], function(WidgetBase, AjaxService, Configuration){
+    'use strict';
 
     function BarChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
@@ -25,11 +26,11 @@ define([
     BarChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {
                 return filterValue.key;
-            }).indexOf(filter) === -1) {
+            }).indexOf(filter.key) === -1) {
             this.currentFilter = this.filters[0].key;
+        } else {
+            this.currentFilter = filter.key;
         }
-        else
-            this.currentFilter = filter;
     };
 
     BarChartWidgetModel.prototype.getUrl = function () {
@@ -40,7 +41,7 @@ define([
         var responseData = {
             "data": {
                 "params": {
-                    "filters": this.filters,
+                    "filters": this.filters.slice(),
                     "axis": {"x": []},
                     "bars": []
                 }

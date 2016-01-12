@@ -37,7 +37,7 @@ define([
         };
 
         view.event.onFilterChanged = function () {
-            model.changeQueryFilter(view.selectedFilter);
+            model.changeQueryFilter(view.$scope.selectedFilter.key);
             view.sendReloadCommandToChannel();
         };
 

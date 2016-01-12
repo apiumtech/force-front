@@ -26,7 +26,10 @@ define([
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
 
-        self.selectedFilter = 'users'; // 'checkins';
+        self.$scope.selectedFilter = {
+            name: 'Sales Team',
+            key: 'users'
+        };
         self.$scope.selectedMapType = HEAT_MAP;
 
         self.configureEvents();
@@ -34,14 +37,6 @@ define([
 
 
     MapChartWidgetView.inherits(WidgetBaseView, {
-        selectedFilter: {
-            get: function () {
-                return this.$scope.selectedFilter;
-            },
-            set: function (value) {
-                this.$scope.selectedFilter = value;
-            }
-        },
         eventChannel: {
             get: function () {
                 return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
@@ -65,7 +60,7 @@ define([
         });
 
         self.fn.changeFilter = function (selectedFilter) {
-            self.selectedFilter = selectedFilter;
+            self.$scope.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
         };
 
@@ -85,6 +80,7 @@ define([
 
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
+        self.$scope.filters = responseData.data.filters;
         self.refreshChart(responseData.data.params);
     };
 
@@ -106,13 +102,13 @@ define([
         self.mapChart.clearHeatMap();
         self.mapChart.clearPointMap();
 
-        if( self.selectedFilter === 'users' ) {
+        if( self.$scope.selectedFilter.key === 'users' ) {
             self.mapChart.createUserMap(self.mapData);
         } else {
             if(self.$scope.selectedMapType === HEAT_MAP) {
                 self.mapChart.applyHeatLayer(self.mapData);
             } else if(self.$scope.selectedMapType === POINT_MAP) {
-                self.mapChart.createPointMap(self.mapData, self.selectedFilter);
+                self.mapChart.createPointMap(self.mapData, self.$scope.selectedFilter.key);
             } else {
                 throw new Error('Unknown map type');
             }

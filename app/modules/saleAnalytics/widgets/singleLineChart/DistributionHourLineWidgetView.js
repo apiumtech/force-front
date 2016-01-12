@@ -22,22 +22,6 @@ define([
 
 
     SingleLineChartWidgetView.inherits(WidgetBaseView, {
-        filters: {
-            get: function () {
-                return this.$scope.filters;
-            },
-            set: function (value) {
-                this.$scope.filters = value;
-            }
-        },
-        selectedFilter: {
-            get: function () {
-                return this.$scope.selectedFilter;
-            },
-            set: function (value) {
-                this.$scope.selectedFilter = value;
-            }
-        },
         tickLabels: {
             get: function () {
                 return this.$scope.tickLabels;
@@ -74,8 +58,8 @@ define([
             self.event.onReloadWidgetStart();
         };
 
-        self.fn.changeFilter = function (newTab) {
-            self.selectedFilter = newTab;
+        self.fn.changeFilter = function (selectedFilter) {
+            self.$scope.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
         };
 
@@ -97,16 +81,16 @@ define([
 
     SingleLineChartWidgetView.prototype.extractFilters = function () {
         var self = this;
-        self.filters = self.data.filters;
-        var filterList = self.filters,
-            currentSelectedFilter = self.selectedFilter;
+        self.$scope.filters = self.data.filters;
+        var filterList = self.$scope.filters;
+        var currentSelectedFilter = self.$scope.selectedFilter;
 
-        self.selectedFilter =
+        self.$scope.selectedFilter =
             currentSelectedFilter && filterList.map(function (f) {
                 return f.key;
-            }).indexOf(currentSelectedFilter) !== -1 ?
+            }).indexOf(currentSelectedFilter.key) !== -1 ?
                 currentSelectedFilter :
-                self.filters[0].key;
+                self.$scope.filters[0];
     };
 
 

@@ -5,11 +5,33 @@
         >
     <div class="clearfix ">
         <div class="col-xs-6 col-sm-6 col-lg-4 m-b-20  pull-right">
-            <select class="form-control pull left"
+
+            <!--<select class="form-control pull left"
                     ng-model="selectedFilter"
                     ng-change="fn.changeFilter(selectedFilter)">
                 <option ng-repeat="filter in filters" value="{{filter.key}}">{{filter.name}}</option>
-            </select>
+            </select>-->
+
+
+            <div class="dropdown pull-right">
+                <button class="btn btn-default dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    {{ selectedFilter.name }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="filter in filters"
+                        ng-class="{active: filter.key===selectedFilter.key}">
+                        <a href ng-click="fn.changeFilter(filter)">
+                            {{ filter.name }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 

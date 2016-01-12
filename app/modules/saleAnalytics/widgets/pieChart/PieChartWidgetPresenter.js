@@ -47,7 +47,7 @@ define([
         };
 
         view.event.onTabChanged = function () {
-            model.changeQueryFilter(view.selectedFilter);
+            model.changeQueryFilter(view.$scope.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 

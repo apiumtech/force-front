@@ -24,7 +24,10 @@ define([
         WidgetBaseView.call(this, scope, element, presenter);
 
         scope.filters = [];
-        scope.selectedFilter = "visits";
+        scope.selectedFilter = {
+            name: 'Visits',
+            key: 'visits'
+        };
         scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
 
@@ -81,7 +84,7 @@ define([
             self.$scope.selectedRangeOption = 'week';
             self.event.onFilterRangeChanged(true);
             self.$scope.currentChartType = LINE;
-            self.selectedFilter = selectedFilter;
+            self.$scope.selectedFilter = selectedFilter;
             self.availableFields = [];
             self.event.onFilterChanged();
         };
@@ -292,7 +295,7 @@ define([
 
         var createTooltipSerieItem = function(serie, plotData) {
             var isPercent = scope.currentChartType === FILLED100;
-            if(self.selectedFilter === "phoneCallsTime" && !isPercent) {
+            if(self.$scope.selectedFilter.key === "phoneCallsTime" && !isPercent) {
                 plotData = self._secondsToHHMMSS(plotData);
             }
             return serie.label +': '+ plotData + (isPercent ? '%' : '');
@@ -374,13 +377,13 @@ define([
             baseline: 0
         };
 
-        if(self.$scope.selectedFilter === "phoneCallsTime") {
+        if(self.$scope.selectedFilter.key === "phoneCallsTime") {
             if(isHours() || scope.currentChartType === LINE) {
                 self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicks(chartFields);
             } else if(scope.currentChartType === FILLED){
                 self.chartOptions.vAxis.ticks = self.getVaxisPhoneCallsTicksFilled(chartFields);
             }
-        } else if(self.selectedFilter === "activityScores" && scope.currentChartType === LINE) {
+        } else if(self.$scope.selectedFilter.key === "activityScores" && scope.currentChartType === LINE) {
             self.chartOptions.vAxis.ticks = [1,2,3,4,5,6,7,8,9,10];
         } else {
             if(isHours() || scope.currentChartType === LINE) {
@@ -604,17 +607,16 @@ define([
     GraphChartWidgetView.prototype.extractFilters = function () {
         var self = this;
         self.$scope.filters = self.data.filters;
-        var filterList = self.$scope.filters,
-            currentSelectedFilter = self.$scope.selectedFilter;
+        var filterList = self.$scope.filters;
+        var currentSelectedFilter = self.$scope.selectedFilter;
 
         var filterKeys = filterList.map(function (filter) {
             return filter.key;
         });
 
-        self.$scope.selectedFilter =
-            currentSelectedFilter && filterKeys.indexOf(currentSelectedFilter) !== -1 ?
+        self.$scope.selectedFilter = currentSelectedFilter && filterKeys.indexOf(currentSelectedFilter.key) !== -1 ?
                 currentSelectedFilter :
-                self.$scope.filters[0].key;
+                self.$scope.filters[0];
     };
 
 

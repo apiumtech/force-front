@@ -33,17 +33,16 @@ define([
     SingleLineChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function (filterValue) {
                 return filterValue.key;
-            }).indexOf(filter) === -1) {
+            }).indexOf(filter.key) === -1) {
             this.currentFilter = this.filters[0].key;
-        }
-        else{
-            this.currentFilter = filter;
+        } else {
+            this.currentFilter = filter.key;
         }
     };
 
-    SingleLineChartWidgetModel.prototype.changeFilterTab = function (tabName) {
+    /*SingleLineChartWidgetModel.prototype.changeFilterTab = function (tabName) {
         this.addQuery("selectedFilter", tabName);
-    };
+    };*/
 
     SingleLineChartWidgetModel.prototype.getUrl = function () {
         return Configuration.api.hourWidgetDistributionDataApi.format(this.currentFilter);

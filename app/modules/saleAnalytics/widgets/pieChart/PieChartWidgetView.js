@@ -37,22 +37,6 @@ define([
 
 
     PieChartWidgetView.inherits(WidgetBaseView, {
-        tabs: {
-            get: function () {
-                return this.$scope.tabs;
-            },
-            set: function (value) {
-                this.$scope.tabs = value;
-            }
-        },
-        selectedFilter: {
-            get: function () {
-                return this.$scope.selectedFilter;
-            },
-            set: function (value) {
-                this.$scope.selectedFilter = value;
-            }
-        },
         eventChannel: {
             get: function () {
                 return this.$scope.eventChannel || (this.$scope.eventChannel = BaseWidgetEventBus.newInstance());
@@ -127,7 +111,7 @@ define([
         };
 
         self.fn.changeFilter = function (newTab) {
-            self.selectedFilter = newTab;
+            self.$scope.selectedFilter = newTab;
             self.event.onTabChanged();
         };
 
@@ -177,8 +161,8 @@ define([
 
     PieChartWidgetView.prototype.fillFiltersCombo = function () {
         var self = this;
-        self.tabs = self.event.getFilters();
-        self.selectedFilter = self.selectedFilter || self.tabs[0].key;
+        self.$scope.filters = self.event.getFilters();
+        self.$scope.selectedFilter = self.$scope.selectedFilter || self.$scope.filters[0];
     };
 
     PieChartWidgetView.prototype.onReloadWidgetSuccessPieChart = function (responseData) {
@@ -328,7 +312,7 @@ define([
 
         var createTooltipSerieItem = function(serie, plotData) {
             var isPercent = scope.currentChartType === FILLED100;
-            if(self.selectedFilter === "phoneCallsTime" && !isPercent) {
+            if(self.$scope.selectedFilter.key === "phoneCallsTime" && !isPercent) {
                 plotData = self._secondsToHHMMSS(plotData);
             }
             return serie.label +': '+ plotData + (isPercent ? '%' : '');
@@ -616,7 +600,7 @@ define([
             var url = window.URL || window.webkitURL;
             var link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
             link.href = url.createObjectURL(blob);
-            link.download = this.$scope.widget.widgetName.split(" ").join("_") + "-" + this.$scope.selectedFilter + "-" + this.$scope.selectedRangeOption + ".csv";
+            link.download = this.$scope.widget.widgetName.split(" ").join("_") + "-" + this.$scope.selectedFilter.key + "-" + this.$scope.selectedRangeOption + ".csv";
 
             var event = document.createEvent("MouseEvents");
             event.initEvent("click", true, false);

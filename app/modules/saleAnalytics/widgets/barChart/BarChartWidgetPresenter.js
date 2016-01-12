@@ -37,8 +37,8 @@ define([
             self._executeLoadWidget();
         };
 
-        view.event.onTabChanged = function () {
-            model.changeQueryFilter(view.selectedFilter);
+        view.event.onFilterChanged = function () {
+            model.changeQueryFilter(view.$scope.selectedFilter);
             view.sendReloadCommandToChannel();
         };
 

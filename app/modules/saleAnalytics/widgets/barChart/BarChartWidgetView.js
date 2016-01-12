@@ -23,22 +23,6 @@ define([
 
 
     BarChartWidgetView.inherits(WidgetBaseView, {
-        tabs: {
-            get: function () {
-                return this.$scope.tabs;
-            },
-            set: function (value) {
-                this.$scope.tabs = value;
-            }
-        },
-        selectedFilter: {
-            get: function () {
-                return this.$scope.selectedFilter;
-            },
-            set: function (value) {
-                this.$scope.selectedFilter = value;
-            }
-        },
         tickLabels: {
             get: function () {
                 return this.$scope.tickLabels;
@@ -73,9 +57,9 @@ define([
             self.event.onReloadWidgetStart();
         };
 
-        self.fn.changeFilter = function (newTab) {
-            self.selectedFilter = newTab;
-            self.event.onTabChanged();
+        self.fn.changeFilter = function (selectedFilter) {
+            self.$scope.selectedFilter = selectedFilter;
+            self.event.onFilterChanged();
         };
 
         self.fn.refreshChart = function () {
@@ -90,8 +74,8 @@ define([
         var self = this;
         self.data = responseData.data.params.bars;
         self.tickLabels = responseData.data.params.axis.x;
-        self.tabs = responseData.data.params.filters;
-        self.selectedFilter = self.selectedFilter || responseData.data.params.filters[0].key;
+        self.$scope.filters = responseData.data.params.filters;
+        self.$scope.selectedFilter = self.$scope.selectedFilter || responseData.data.params.filters[0];
         self.paintChart();
     };
 
@@ -185,21 +169,6 @@ define([
 
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
-    };
-
-
-    BarChartWidgetView.prototype.extractFilters = function () {
-        var self = this;
-        self.filters = self.data.filters;
-        var filterList = self.filters,
-            currentSelectedFilter = self.selectedFilter;
-
-        self.selectedFilter =
-            currentSelectedFilter && filterList.map(function (f) {
-                return f.key;
-            }).indexOf(currentSelectedFilter) !== -1 ?
-                currentSelectedFilter :
-                self.filters[0].key;
     };
 
 

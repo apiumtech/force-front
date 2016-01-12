@@ -10,7 +10,10 @@ define([
 
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.currentFilter = 'activities';
+        this.currentFilter = {
+            name: "Total Activities",
+            key: "activities"
+        };
         this.filters = [{
             name: "Total Activities",
             key: "activities"
@@ -28,10 +31,8 @@ define([
     PieChartWidgetModel.inherits(WidgetBase, {});
 
     PieChartWidgetModel.prototype.changeQueryFilter = function (filter) {
-        if (this.filters.map(function (filterValue) {
-                return filterValue.key;
-            }).indexOf(filter) === -1) {
-            this.currentFilter = this.filters[0].key;
+        if (this.filters.map(function(filterValue) {return filterValue.key;}).indexOf(filter.key) === -1) {
+            this.currentFilter = this.filters[0];
         } else {
             this.currentFilter = filter;
         }
@@ -42,7 +43,7 @@ define([
     };
 
     PieChartWidgetModel.prototype.getUrl = function () {
-        return this.fetchPoint.format(this.currentFilter);
+        return this.fetchPoint.format(this.currentFilter.key);
     };
 
     PieChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
