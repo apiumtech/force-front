@@ -7,14 +7,24 @@
     <div class="row" ng-init="fn.init()">
 
         <div class="col-xs-12 col-md-4 m-b-20">
-            <!-- FILTERS dropdown -->
-            <select class="form-control"
-                    ng-change="fn.changeFilter(selectedFilter)"
-                    ng-model="selectedFilter">
-                <option value="{{filter.key}}"
-                        ng-repeat="filter in filters">{{filter.name}}
-                </option>
-            </select>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    {{ selectedFilter }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="filter in filters"
+                        ng-class="{active: filter.key===selectedFilter}">
+                        <a href ng-click="fn.changeFilter(filter.key)">
+                            {{ filter.name }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
