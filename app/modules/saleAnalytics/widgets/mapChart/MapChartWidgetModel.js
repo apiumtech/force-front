@@ -12,9 +12,9 @@ define([
     function MapChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
 
-        this.currentFilter = 'checkins';
+        this.currentFilter = 'users'; //'checkins';
         this.filters = [{
-            name: 'Users',
+            name: 'Sales Team',
             key: 'users'
         }, {
             name: 'Check-ins',

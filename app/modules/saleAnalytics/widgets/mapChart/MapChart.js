@@ -71,8 +71,28 @@ define([
         });
 
         self.markerCluster = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
+            maxZoom: 10,
+            gridSize: 50,
+            styles: [
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                },
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                },
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                }
+            ]
         });
         self.map.setCenter(latlngbounds.getCenter());
         self.map.fitBounds(latlngbounds);
@@ -135,8 +155,28 @@ define([
         });
 
         self.markerCluster = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
+            maxZoom: 10,
+            gridSize: 50,
+            styles: [
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                },
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                },
+                {
+                    textColor: 'white',
+                    url: 'assets/img/icon-map-group.png',
+                    height: 53,
+                    width: 52
+                }
+            ]
         });
         self.map.setCenter(latlngbounds.getCenter());
         self.map.fitBounds(latlngbounds);

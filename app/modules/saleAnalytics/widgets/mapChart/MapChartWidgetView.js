@@ -26,7 +26,7 @@ define([
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
 
-        self.selectedFilter = 'checkins';
+        self.selectedFilter = 'users'; // 'checkins';
         self.$scope.selectedMapType = HEAT_MAP;
 
         self.configureEvents();
