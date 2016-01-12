@@ -54,6 +54,8 @@ define([
         var now = moment();
         self.$scope.opts = {
             locale: {
+                format: currentLocale.longDateFormat('L'),
+                separator: " "+ String.fromCharCode(8594) +" ",
                 applyClass: 'btn-green',
                 applyLabel: "Apply",
                 fromLabel: "From",
