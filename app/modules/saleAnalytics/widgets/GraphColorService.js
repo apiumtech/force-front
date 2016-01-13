@@ -9,12 +9,10 @@ define([], function(){
             '#00a8be',
             '#226eb4',
             '#aa5b9c',
-            '#FFCE2E',
             '#E70F47',
             '#28BBCE',
             '#3383D4',
             '#FA4C80',
-            '#9BAF1D',
             '#BED62B',
             '#9BAF1D',
             '#7527CF',
@@ -28,12 +26,9 @@ define([], function(){
             '#90A4AE',
             '#A1887F',
             '#CEAC3A',
-            '#805781',
             '#566F42',
             '#F04540',
-            '#FC5D86',
-            '#9BAF1D',
-            '#BED62B'
+            '#FF5D86'
         ];
 
         this.initialize();
