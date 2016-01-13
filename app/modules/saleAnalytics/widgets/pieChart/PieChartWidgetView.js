@@ -388,7 +388,9 @@ define([
         //  vAxis
         // ---------------------------
 
-        self.chartOptions.vAxis = {};
+        self.chartOptions.vAxis = {
+            baseline: 0
+        };
 
         if(scope.currentChartType === LINE) {
             self.chartOptions.vAxis.ticks = self.getVaxisTicks(chartFields);
@@ -402,11 +404,17 @@ define([
 
         // For d3 time intervals
         // @see http://stackoverflow.com/a/23957607/779529
+        var minDate = new Date(Date.parse(axisData.x[0]));
+        var maxDate = new Date(Date.parse(axisData.x[axisData.x.length-1]));
+        minDate.setDate(minDate.getDate()-1);
+        maxDate.setDate(maxDate.getDate()+1);
         self.chartOptions.hAxis = {
             format: computedFormat,
             gridlines: {
-                count: 8 /* max number of ticks */
-            }
+                count: Math.max( Math.min( axisData.x.length, 8), 2 ) /* max number of ticks */
+            },
+            minValue: minDate,
+            maxValue: maxDate
         };
 
         if(scope.currentChartType === LINE) {

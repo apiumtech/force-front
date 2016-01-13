@@ -37,8 +37,8 @@ define([
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
 
-        self.mainFilterFromDate = moment().subtract(config.defaultDateSubtraction, 'days').toDate();
-        self.mainFilterToDate = new Date();
+        //self.mainFilterFromDate = moment().subtract(config.defaultDateSubtraction, 'days').toDate();
+        //self.mainFilterToDate = new Date();
 
         self.configureEvents();
     }
@@ -145,8 +145,8 @@ define([
         };
 
         self.filterChannel.onDateFilterApplySignalReceived(function(filterValue){
-            self.mainFilterFromDate = filterValue.dateStart;
-            self.mainFilterToDate = filterValue.dateEnd;
+            //self.mainFilterFromDate = filterValue.dateStart;
+            //self.mainFilterToDate = filterValue.dateEnd;
         });
 
         var columnsPerRow = 3;
