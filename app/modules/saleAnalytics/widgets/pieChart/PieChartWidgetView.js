@@ -433,7 +433,7 @@ define([
     };
 
     // Rounded number ticks
-    PieChartWidgetView.prototype.getVaxisTicks = function(chartFields){
+    /*PieChartWidgetView.prototype.getVaxisTicks = function(chartFields){
         var totalMax = 1;
         var yAxisPoints;
         for( var i=0; i<chartFields.length; i++ ) {
@@ -473,6 +473,48 @@ define([
             ticks.push(i);
         }
         return ticks;
+    };*/
+
+    // Rounded number ticks
+    PieChartWidgetView.prototype.getVaxisTicks = function(chartFields){
+        var totalMax = 1;
+        var yAxisPoints;
+        for( var i=0; i<chartFields.length; i++ ) {
+            yAxisPoints = chartFields[i];
+            for( var j=0; j<yAxisPoints.plotData.length; j++ ) {
+                var plotValue = yAxisPoints.plotData[j];
+                totalMax = Math.max(plotValue, totalMax);
+            }
+        }
+        return this._getVaxisTicksFromMax(totalMax);
+    };
+
+    // Addition ticks
+    PieChartWidgetView.prototype.getVaxisTicksFilled = function(chartFields){
+        var totalMax = 1;
+        var points = [];
+        var dataPoints = chartFields[0].plotData.length;
+        for(var i=0; i<dataPoints; i++){
+            points[i] = 0;
+            for(var j=0; j<chartFields.length; j++) {
+                var field = chartFields[j];
+                var plotValue = field.plotData[i];
+                points[i] = points[i] + plotValue;
+                totalMax = Math.max(points[i], totalMax);
+            }
+        }
+        return this._getVaxisTicksFromMax(totalMax);
+    };
+
+    PieChartWidgetView.prototype._getVaxisTicksFromMax = function(totalMax){
+        var ticks = [];
+        var maxTicks = Math.min(5, totalMax);
+        var increment = Math.ceil(totalMax / maxTicks);
+        var len = Math.ceil(totalMax / increment);
+        for( var i=0; i<=len; i++ ) {
+            ticks.push(i*increment);
+        }
+        return ticks;
     };
 
 
@@ -510,10 +552,17 @@ define([
                 top: "5%",
                 height: "90%",
                 width: "90%"
-            }
+            },
+            tooltip: { trigger: 'selection' }
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+        google.visualization.events.addListener(self.chart, 'onmouseover', function(e){
+            self.chart.setSelection([{row:e.row, column:null}]);
+        });
+        google.visualization.events.addListener(self.chart, 'onmouseout', function(e){
+            self.chart.setSelection([{}]);
+        });
     };
 
 

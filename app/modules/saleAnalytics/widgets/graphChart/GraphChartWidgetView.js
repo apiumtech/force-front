@@ -411,8 +411,6 @@ define([
             },
             minValue: minDate,
             maxValue: maxDate
-            /*minValue: self.mainFilterFromDate,
-            maxValue: self.mainFilterToDate*/
         };
 
 
