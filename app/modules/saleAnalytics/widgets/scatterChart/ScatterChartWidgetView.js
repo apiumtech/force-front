@@ -138,12 +138,11 @@ define([
 
 
         var generateTooltip = function(point) {
-            return '<div style="padding:10px;"><strong>'+ point.Name +' '+ point.Surname +'</strong><br />'+
-                        '<img src="'+ point.PhotoUrl +'" style="border:1px solid #CCC;width:50px;height:50px;"><br/>'+
-                        point.Description +'<br />'+
-                        self.axisXTitle +': <strong>'+ point.X +'</strong><br />'+
-                        self.axisYTitle +': <strong>'+ point.Y +'</strong>'+
-                    '</div>';
+            point.axisXTitle = self.axisXTitle;
+            point.axisYTitle = self.axisYTitle;
+            point.FullName = point.Name +" "+ point.Surname;
+            var template = $("#scatterCalloutTemplate").html();
+            return self.templateParser.parseTemplate(template, point);
         };
 
         var dataTable = new google.visualization.DataTable();
