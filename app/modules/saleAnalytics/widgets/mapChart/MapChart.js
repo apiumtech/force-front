@@ -3,8 +3,9 @@
 define([
     'jquery',
     'shared/services/GoogleMapService',
+    'shared/services/SimpleTemplateParser',
     'underscore'
-], function ($, GoogleMapService, _) {
+], function ($, GoogleMapService, SimpleTemplateParser, _) {
     'use strict';
 
     var defaultImageUrl = "assets/img/default.png";
@@ -12,7 +13,8 @@ define([
 
     function MapChart(mapService) {
         var self = this;
-        this.mapService = mapService;
+        self.mapService = mapService;
+        self.templateParser = SimpleTemplateParser.newInstance();
         self.map = null;
         self.heatMap = null;
         self.markerClusterer = null;
@@ -142,8 +144,19 @@ define([
                 flat: true
             });
 
+            /*
+                 Description: "INDUSTRIA ZONA A"
+                 Name: "Ricard"
+                 PhotoUrl: "http://be-pro.forcemanager.net/GetUserPicture.ashx?UserKey=cee3ce01d9f58cc48c6cb9682c90cb279cd7e5b3&iduser=110&strCellPhoneNumber=jll"
+                 Surname: "Marí"
+                 X: 2.155765
+                 Y: 41.397387
+            */
+            //var infoWindowContent = '<div><table><img src="'+ r.PhotoUrl +'"/><h1 style="font-size:12px;">'+ r.FullName +'</h1></table></div>';
+            var infoWindowTemplate = $("#userCalloutTemplate").html();
+            var infoWindowContent = self.templateParser.parseTemplate(infoWindowTemplate, r);
             var infowindow = new google.maps.InfoWindow({
-                content: '<div style="text-align: center"><img src="'+ r.PhotoUrl +'"/><h1 style="font-size:12px;">'+ r.FullName +'</h1></div>'
+                content: infoWindowContent
             });
             marker.addListener('click', function() {
                 infowindow.open(self.map, marker);
