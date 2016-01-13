@@ -358,5 +358,53 @@
         "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
       }
     }
-  }
+  },
+
+
+
+
+
+
+  "10543_widgetem_titleOportunities": "Families Oportunities and Warning",
+  "10543_widgetem_titleUpCrossSelling": "Up&Cross-Selling",
+  "10543_widgetem_titlePromotions": "Promotions",
+  "10543_widgetem_titleCommercialActivities": "Sales Activities",
+  "10543_widgetem_checkPresentation": "Presentation",
+  "10543_widgetem_checkPresented": "Presented",
+  "10543_widgetem_checkActivate": "Activate",
+  "10543_widgetem_columnFamily": "Family",
+  "10543_widgetem_columnSalesYTD": "Sales YTD",
+  "10543_widgetem_columnSalesYTD1": "Sales YTD-1",
+  "10543_widgetem_columnEurDif": "Gap in Value",
+  "10543_widgetem_columnPercentDif": "Gap in %",
+  "10543_widgetem_columnPotential": "Potential",
+  "10543_widgetem_columnCommercialPenetration": "Sales",
+  "10543_widgetem_columnTam12": "TAM12",
+  "10543_widgetem_columnOportunity": "Oportunity",
+  "10543_widgetem_columnLinkBrochure": "Link to PDF",
+  "10543_widgetem_columnRule": "Rule",
+  "10543_widgetem_columnDescription": "Description",
+  "10543_widgetem_columnCode": "Code",
+  "10543_widgetem_columnPresentation": "Presentation",
+  "10543_widgetem_columnActivation": "Activation",
+  "10543_widgetem_columnLink": "Link",
+  "10543_widgetem_columnPeriod": "Period",
+  "10543_widgetem_columnDocuments": "Documents",
+  "10543_widgetfv_selectAllBU": "All BU",
+  "10543_widgetfv_legendLoyaltyDefend": "Loyalty to defend",
+  "10543_widgetfv_legendLoyaltyProfit": "Loyalty to profit",
+  "10543_widgetfv_legendAttack": "Attack and develop",
+  "10543_widgetfv_legendQuestion": "Question mark: Develop or transfer",
+  "10543_widgetfv_atrClientNum": "Number of clients",
+  "10543_widgetfv_atrCobActv": "Cov. Act.",
+  "10543_widgetfv_atrPotential": "Potential",
+  "10543_widgetfv_atrPComercial": "S. Penetration",
+  "10543_widgetfv_atrSalesYTD": "Sales YTD",
+  "10543_widgetfv_atrSalesYTD1": "Sales YTD-1",
+  "10543_widgetfv_atrMarginYTD": "Margin YTD",
+  "10543_widgetfv_atrMarginYTD1": "Margin YTD-1",
+  "10543_widgetfv_totalLbl": "TOTAL",
+  "10543_widgetfv_tam12": "TAM12",
+  "10543_widgetfv_potencialEur": "Potential €",
+  "10543_widgetfv_PenetracionCom": "Sales %"
 }
