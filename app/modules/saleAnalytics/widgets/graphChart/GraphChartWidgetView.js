@@ -628,7 +628,6 @@ define([
         });
     };
 
-
     GraphChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
         var view = new GraphChartWidgetView($scope, $element);
         return view._injectAspects($viewRepAspect, $logErrorAspect);

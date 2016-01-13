@@ -85,6 +85,7 @@ define([
     };
 
     GraphChartWidgetModel.prototype.decorateServerData = function (data) {
+        var self = this;
         var responseData = {
             data: {
                 params: {
@@ -102,7 +103,7 @@ define([
 
         data.Series.forEach(function (series) {
             var decorated = {
-                name: series.Name,
+                name: self.camelizeName(series.Name),
                 data: series.Points.map(function (point) {
                     return point.Y;
                 })
@@ -111,6 +112,25 @@ define([
         });
 
         return responseData;
+    };
+
+    GraphChartWidgetModel.prototype.camelizeName = function(name){
+        var camelizedName = name;
+        if(name && name !== ""){
+            try {
+                camelizedName = name.split(" ")
+                    .filter(function(n){
+                        return n !== "";
+                    })
+                    .map(function (n) {
+                        return n[0].toUpperCase() + n.substr(1).toLowerCase();
+                    })
+                    .join(" ");
+            }catch(err){
+                console.error(err);
+            }
+        }
+        return camelizedName;
     };
 
     GraphChartWidgetModel.newInstance = function (ajaxService) {
