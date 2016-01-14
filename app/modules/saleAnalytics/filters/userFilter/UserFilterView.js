@@ -145,6 +145,7 @@ define([
                 savedUserFilterGroup = UserFilterView.ENVIRONMENT;
                 self.storageService.store('filterGroup', savedUserFilterGroup, true);
             }
+            //self.multipleSelection = savedUserFilterGroup === UserFilterView.TEAM;
             self.currentUserFilterGroup = savedUserFilterGroup;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
@@ -294,12 +295,12 @@ define([
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;
-        //if (this.multipleSelection){
-        if (self.currentUserFilterGroup===UserFilterView.ENVIRONMENT){
+        self.checkStateForTeamList(selectedItem);
+        /*if (self.currentUserFilterGroup===UserFilterView.ENVIRONMENT){
             self.checkStateForTeamList(selectedItem);
         }else{
             self.singleSelect(selectedItem);
-        }
+        }*/
         self.fn.applyUserFilter();
     };
 
@@ -325,7 +326,7 @@ define([
         var self = this;
         //self.usersList = data;
         self.userFiltered = data;
-        self.userFiltered[0].isOpen = true;
+        //self.userFiltered[0].isOpen = true;
     };
 
     UserFilterView.prototype.singleSelect = function (selectedNode) {
