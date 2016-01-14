@@ -7,11 +7,11 @@ define([
     'shared/services/RouteChangedStorage',
     'jquery',
     // route configurations
-    'modules/login/routes'
-    , 'modules/saleAnalytics/routes'
-    , 'modules/account/routes'
-    , 'modules/agenda/routes'
-    , 'modules/literals/routes'
+    'modules/login/routes',
+    'modules/saleAnalytics/routes',
+    'modules/account/routes',
+    'modules/agenda/routes',
+    'modules/literals/routes'
     // ==more---routes---config---here==
 ], function (app, RouteChangedEventHandlers, RouteChangedStorage, $) {
     'use strict';

@@ -42,90 +42,6 @@
                             </div>
                         </li>
                     </ul>
-
-                    <!--
-                    <ul class="nav navbar-nav m-t-10">
-                        <li>
-                            <span class="pull-left date-range m-r-10 m-t-5 inline">
-                                {{'Filters.DateRange' | i18next}}
-                            </span>
-
-                            <div class="input-group input-group-sm"
-                                 style="width:300px; margin-bottom: 4px; float:left"
-                                 ng-click="fn.closeDatePickers($event);">
-
-                                <input type="text" class="form-control SalesAnalyticsDateFilterSelectionLabel"
-                                       ng-keypress="$event.preventDefault()"
-                                       ng-click="dateRangeFilterOpened=!dateRangeFilterOpened"
-                                       ng-model="dateRangePlaceholder">
-
-                                <div class="input-group-btn"
-                                     dropdown
-                                     is-open="dateRangeFilterOpened"
-                                     dropdown-toggle>
-                                    <ul class="dropdown-menu media-list pull-right haveDatePicker animated fadeInDown"
-                                        ng-click="fn.closeDatePickers($event);"
-                                        style="width:300px; max-width:300px;">
-                                        <li><h6 class="m-t-10">{{'Filters.SelectDateRange' | i18next}}</h6></li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>{{'Filters.Customized' | i18next}}</p></div>
-                                                <div class="col-md-12">
-                                                    <div class="input-group input-daterange">
-                                                        <force-date-picker
-                                                                date-set="{{isoStringDateStart()}}"
-                                                                date-max-limit="{{isoStringMaxDateFromLimit()}}"
-                                                                year-range="2"
-                                                                date-format="{{datePickerFormat}}">
-                                                            <input id="datePickerFromDate" type="text" class="form-control" name="start"
-                                                                   data-desc="calendar-input"
-                                                                   ng-model="displayDateStart"/>
-                                                        </force-date-picker>
-                                                        <span class="input-group-addon">{{'Filters.To' | i18next}}</span>
-                                                        <force-date-picker
-                                                                date-set={{isoStringDateEnd()}}
-                                                                year-range="2"
-                                                                date-min-limit="{{isoStringDateEndLimit()}}"
-                                                                date-max-limit="{{isoStringMaxDateLimit()}}"
-                                                                date-format="{{datePickerFormat}}">
-                                                            <input id="datePickerToDate" type="text" class="form-control" name="end"
-                                                                   data-desc="calendar-input"
-                                                                   ng-model="displayDateEnd"/>
-                                                        </force-date-picker>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li class="m-t-10 m-b-5 text-link" ng-repeat="range in dateOptionRange">
-                                            <a ng-click="fn.loadPreviousLastDaysFilter(range)">
-                                                {{'Filters.LastxxDays' | i18next:{count: range} }}
-                                            </a>
-                                        </li>
-
-                                        <li class="divider"></li>
-                                        <li class="m-t-10 m-b-5 text-link clearfix">
-                                            <a class="btn btn-default btn-sm pull-left"
-                                               ng-click="fn.applyDateFilter()">
-                                                {{'commonText.Apply' | i18next}}
-                                            </a>
-                                            <a class="pull-left m-l-10 m-t-5"
-                                               ng-click="fn.cancelFilter()">
-                                                {{'commonText.Cancel' | i18next}}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle"
-                                            data-toggle="dropdown" title="Selecciona periodo">
-                                        <span class="caret"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    -->
                 </div>
                 <!-- End Date Filter -->
 
@@ -134,12 +50,6 @@
         </div>
         <!-- end filters-div -->
 
-        <!-- Widget Administration Button -->
-        <!--<button id="widgetAdministrationButton" type="button" class="btn btn-default btn-xs pull-right widget-administration-button"
-                ng-click="fn.toggleWidgetAdministration()">
-            <i class=" ic-settings"></i>
-            {{'Filters.Widget.Administration' | i18next}}
-        </button>-->
 
         <!-- Separation Line -->
         <div class="line-border clearfix"></div>

@@ -143,7 +143,7 @@ define(function () {
         },
         corsEnabled: true,
         pageSize: 25,
-        defaultDateSubtraction: 180,
+        defaultDateSubtraction: 179,
         tokenStorageKey: "fm_token",
         permissionsStorageKey: "fm_permissions",
         implementationCodeKey: "fm_implementationCode",

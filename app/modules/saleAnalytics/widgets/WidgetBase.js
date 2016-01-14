@@ -5,10 +5,11 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'shared/services/ajax/AjaxCacheService',
+    'shared/services/StorageService',
     'moment',
     'config',
     'q'
-], function (AjaxService, AjaxCacheService, moment, Configuration, Q) {
+], function (AjaxService, AjaxCacheService, StorageService, moment, Configuration, Q) {
     'use strict';
 
     function WidgetBase(ajaxService) {
@@ -19,9 +20,20 @@ define([
             users: "",
             period: ""
         };
+
+        this.storageService = StorageService.newInstance();
+        var savedDateFilter = this.storageService.retrieve('dateFilter', true);
+        if(savedDateFilter === null) {
+            savedDateFilter = {
+                startDate: moment().subtract(Configuration.defaultDateSubtraction, "days").toDate().getTime(),
+                endDate: moment().toDate().getTime()
+            };
+            this.storageService.store('dateFilter', savedDateFilter, true);
+        }
+
         this.addDateFilter(
-            moment().startOf('day').subtract(Configuration.defaultDateSubtraction, 'days').toDate(),
-            moment().endOf('day').toDate()
+            moment(savedDateFilter.startDate),
+            moment(savedDateFilter.endDate)
         );
     }
 
@@ -50,7 +62,10 @@ define([
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        this.addQuery("period", moment(dateStart).startOf('day').unix() + "," + moment(dateEnd).endOf('day').unix());
+        this.addQuery(
+            "period",
+            moment(dateStart).startOf('day').unix() + "," + moment(dateEnd).endOf('day').unix()
+        );
     };
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
