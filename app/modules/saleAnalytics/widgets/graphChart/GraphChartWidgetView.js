@@ -37,9 +37,6 @@ define([
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
 
-        //self.mainFilterFromDate = moment().subtract(config.defaultDateSubtraction, 'days').toDate();
-        //self.mainFilterToDate = new Date();
-
         self.configureEvents();
     }
 
@@ -448,11 +445,14 @@ define([
     // Rounded number ticks
     GraphChartWidgetView.prototype.getVaxisTicks = function(chartFields){
         var totalMax = 1;
-        var yAxisPoints;
+        var serie;
         for( var i=0; i<chartFields.length; i++ ) {
-            yAxisPoints = chartFields[i];
-            for( var j=0; j<yAxisPoints.plotData.length; j++ ) {
-                var plotValue = yAxisPoints.plotData[j];
+            serie = chartFields[i];
+            if(serie.hidden) {
+                continue;
+            }
+            for( var j=0; j<serie.plotData.length; j++ ) {
+                var plotValue = serie.plotData[j];
                 totalMax = Math.max(plotValue, totalMax);
             }
         }
@@ -467,8 +467,11 @@ define([
         for(var i=0; i<dataPoints; i++){
             points[i] = 0;
             for(var j=0; j<chartFields.length; j++) {
-                var field = chartFields[j];
-                var plotValue = field.plotData[i];
+                var serie = chartFields[j];
+                if(serie.hidden) {
+                    continue;
+                }
+                var plotValue = serie.plotData[i];
                 points[i] = points[i] + plotValue;
                 totalMax = Math.max(points[i], totalMax);
             }
@@ -490,14 +493,16 @@ define([
     // hh:mm:ss ticks
     GraphChartWidgetView.prototype.getVaxisPhoneCallsTicks = function(chartFields) {
         var self = this;
-
         var totalMax = 1;
-        var yAxisPoints;
+        var serie;
         var plotValue;
         for( var i=0; i<chartFields.length; i++ ) {
-            yAxisPoints = chartFields[i];
-            for( var j=0; j<yAxisPoints.plotData.length; j++ ) {
-                plotValue = yAxisPoints.plotData[j];
+            serie = chartFields[i];
+            if(serie.hidden) {
+                continue;
+            }
+            for( var j=0; j<serie.plotData.length; j++ ) {
+                plotValue = serie.plotData[j];
                 totalMax = Math.max(plotValue, totalMax);
             }
         }
@@ -512,8 +517,11 @@ define([
         for(var i=0; i<dataPoints; i++){
             points[i] = 0;
             for(var j=0; j<chartFields.length; j++) {
-                var field = chartFields[j];
-                var plotValue = field.plotData[i];
+                var serie = chartFields[j];
+                if(serie.hidden) {
+                    continue;
+                }
+                var plotValue = serie.plotData[i];
                 points[i] = points[i] + plotValue;
                 totalMax = Math.max(points[i], totalMax);
             }
