@@ -7,8 +7,9 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
-    'modules/saleAnalytics/widgets/GraphColorService'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService){
+    'modules/saleAnalytics/widgets/GraphColorService',
+    'shared/services/SimpleTemplateParser'
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, SimpleTemplateParser){
     'use strict';
 
     function BarChartWidgetView(scope, element, presenter) {
@@ -18,6 +19,7 @@ define([
         self.colorService = new GraphColorService();
         self.widgetEventBus = EventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
+        self.templateParser = SimpleTemplateParser.newInstance();
         self.configureEvents();
     }
 
@@ -103,8 +105,10 @@ define([
             dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
 
+
+        var originalTableTemplateString = $("#barChartCalloutTableTemplate").html();
         var createTooltip = function(tick, serie, index){
-            var total = serie.data[index][1].Count || "?";
+            /*var total = serie.data[index][1].Count || "?";
             var percent = serie.data[index][1].Y;
             var drillDown = serie.data[index][1].DrillDown || [];
             var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+
@@ -120,8 +124,47 @@ define([
                 });
                 div += '</tbody></table>';
             }
-            return div;
+            return div;*/
+
+            var total = serie.data[index][1].Count || "?";
+            var percent = serie.data[index][1].Y;
+            var drillDown = serie.data[index][1].DrillDown || [];
+
+            var row =   '<tr style="background-color:{RowBgColor}">'+
+                            '<td style="width:225px; height:20px; vertical-align:middle; padding-left:20px; color:#54585A; font-size:12px;">{Name}</td>'+
+                            '<td style="width:75px;  height:20px; vertical-align:middle; text-align:center; color:#54585A; font-size:12px;">{Count}</td>'+
+                        '</tr>';
+            var rows = [];
+            var odd = false;
+            drillDown.forEach(function(user){
+                rows.push(
+                    self.templateParser.parseTemplate( row, {
+                        Name: user.Name,
+                        Count: user.Count,
+                        RowBgColor: odd ? '#FFFFFF' : '#F8F8F8'
+                    })
+                );
+                odd = !odd;
+            });
+            var tableData = {
+                Agrupacion: tick,
+                ActivityType: serie.label,
+                ActivityCount: total,
+                ActivityPercentage: percent.toFixed(1)
+            };
+            $('#HeaderBgColor1').css('background-color', serie.color);
+            $('#HeaderBgColor2').css('background-color', serie.color);
+            $('#barChartCalloutTable').append(rows.join(""));
+            var tableTemplateString = $("#barChartCalloutTableTemplate").html();
+            $("#barChartCalloutTableTemplate").html(originalTableTemplateString);
+            var str = self.templateParser.parseTemplate(tableTemplateString, tableData);
+            return str;
         };
+
+        self.data.forEach(function(serie){
+            serie.color = self.colorService.getNextColor();
+        });
+        self.colorService.initialize();
 
         var index = 0;
         var columns = [];
