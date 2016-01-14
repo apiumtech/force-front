@@ -92,7 +92,6 @@
 
                     <button class="btn btn-white btn-sm"
                             ng-class="{'active': currentUserFilterGroup=='Hierarqhy'}"
-
                             ng-click="fn.searchUsersByHierarchy($event)">
                         {{'Filters.Team' | i18next}}
                     </button>
@@ -118,10 +117,12 @@
             <!-- Starts users tree -->
             <li class="users-tree" ng-if="data.usersLoadedFailError===null">
 
-                <ng-include ng-if="multipleSelection"
+                <!--ng-if="multipleSelection"-->
+                <ng-include  ng-if="currentUserFilterGroup=='Environment'"
                             src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html'"></ng-include>
 
-                <ng-include ng-if="!multipleSelection"
+                <!-- ng-if="!multipleSelection" -->
+                <ng-include ng-if="currentUserFilterGroup=='Hierarqhy'"
                             src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html'"></ng-include>
             </li>
             <!-- END users tree -->

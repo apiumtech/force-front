@@ -75,8 +75,12 @@ define([
         if (!data || !(data instanceof Array) || data.length <= 0){
             throw new Error("No data received from server");
         }
+
+        // Saved User Filter
+        var savedUserFilterArray = this.storageService.retrieve('userFilter', true) || [];
         data.forEach(function(item){
             item.visible = true; // needed for the tree to display correctltly
+            item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
         });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };

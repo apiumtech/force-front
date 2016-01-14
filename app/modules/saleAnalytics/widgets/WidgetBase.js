@@ -22,6 +22,9 @@ define([
         };
 
         this.storageService = StorageService.newInstance();
+
+
+        // Saved Date Filter
         var savedDateFilter = this.storageService.retrieve('dateFilter', true);
         if(savedDateFilter === null) {
             savedDateFilter = {
@@ -30,11 +33,16 @@ define([
             };
             this.storageService.store('dateFilter', savedDateFilter, true);
         }
-
         this.addDateFilter(
             moment(savedDateFilter.startDate),
             moment(savedDateFilter.endDate)
         );
+
+        // Saved User Filter
+        var savedUserFilter = this.storageService.retrieve('userFilter', true);
+        if(savedUserFilter !== null) {
+            this.addUserFilter(savedUserFilter);
+        }
     }
 
     WidgetBase.prototype.buildQueryString = function () {
@@ -69,6 +77,7 @@ define([
     };
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
+        this.storageService.store('userFilter', userIdsList, true);
         this.addQuery("users", userIdsList);
     };
 

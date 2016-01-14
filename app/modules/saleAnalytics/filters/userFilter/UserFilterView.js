@@ -32,6 +32,7 @@ define([
         this.data.allUsersSelected = false;
         this.APPLY_USER_FILTER_DELAY = 500;// ms.
         this.userFilterHasChanged = false;
+        this.storageService = StorageService.newInstance();
 
         this.data.selectionType = SELECTED_NONE;
         this.data.userSelectionLabel = "";
@@ -119,7 +120,9 @@ define([
             self.userFilterHasChanged = true;
             self.data.usersLoadedFailError = null;
             self.userFiltered = [];
+            self.storageService.store('userFilter', [], true);
             self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
+            self.storageService.store('filterGroup', self.currentUserFilterGroup, true);
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
@@ -127,14 +130,22 @@ define([
             event.stopPropagation();
             self.userFilterHasChanged = true;
             self.data.usersLoadedFailError = null;
+            self.userFiltered = [];
+            self.storageService.store('userFilter', [], true);
             self.data.selectionType = SELECTED_NONE;
             self.currentUserFilterGroup = UserFilterView.TEAM;
+            self.storageService.store('filterGroup', self.currentUserFilterGroup, true);
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
         self.fn.initializeFilters = function (multipleSelection) {
             self.multipleSelection = multipleSelection || false;
-            self.currentUserFilterGroup = UserFilterView.ENVIRONMENT;
+            var savedUserFilterGroup = self.storageService.retrieve('filterGroup', true);
+            if(!savedUserFilterGroup) {
+                savedUserFilterGroup = UserFilterView.ENVIRONMENT;
+                self.storageService.store('filterGroup', savedUserFilterGroup, true);
+            }
+            self.currentUserFilterGroup = savedUserFilterGroup;
             self.event.onFilterByGroup(self.currentUserFilterGroup);
         };
 
@@ -283,7 +294,8 @@ define([
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;
-        if (this.multipleSelection){
+        //if (this.multipleSelection){
+        if (self.currentUserFilterGroup===UserFilterView.ENVIRONMENT){
             self.checkStateForTeamList(selectedItem);
         }else{
             self.singleSelect(selectedItem);
@@ -386,13 +398,15 @@ define([
 
     UserFilterView.prototype.checkSelectAllState = function () {
         var self = this;
-
         self.userFiltered.forEach(function (group) {
-            var unselectedData = _.filter(group.children, function (user) {
-                return !user.checked;
-            }).length;
-
-            group.checked = (unselectedData === group.children.length) ? false : ( (unselectedData === 0) ? true : null );
+            if(group.children) {
+                var unselectedData = _.filter(group.children, function (user) {
+                    return !user.checked;
+                }).length;
+                group.checked = unselectedData === group.children.length ?
+                    false : unselectedData === 0 ?
+                    true : null;
+            }
         });
     };
 
@@ -413,8 +427,10 @@ define([
 
         if(self.userFilterHasChanged) {
             self.userFilterHasChanged = false;
-            self.fn.applyUserFilter();
+            //self.fn.applyUserFilter();
         }
+
+        self.fn.userSelectionChanged();
 
         self.hideLoadingUsers();
     };
