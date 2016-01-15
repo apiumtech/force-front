@@ -11,14 +11,17 @@ define([
 
     function BarChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.currentFilter = 'AccountType';
-        this.filters = [{
-            name: "Account Type",
-            key: "AccountType"
-        }, {
-            name: "Segment",
-            key: "Segment"
-        }];
+        this.currentFilter = 'Segment';
+        this.filters = [
+            {
+                name: "Segment",
+                key: "Segment"
+            },
+            {
+                name: "Account Type",
+                key: "AccountType"
+            }
+        ];
     }
 
     BarChartWidgetModel.inherits(WidgetBase, {});
