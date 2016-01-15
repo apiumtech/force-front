@@ -604,7 +604,6 @@ define([
         var chart = chartService.createChart(element[0], 'table');
         var chartOptions = {
             width: '100%',
-            height: '100%',
             frozenColumns: 1,
             cssClassNames: {
                 headerCell: 'google-visualization-table-th text-center'
