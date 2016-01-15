@@ -74,6 +74,9 @@ define([
 
         self.fn.changeFilterRange = function (value) {
             self.$scope.selectedRangeOption = value;
+            if(value==='hour') {
+                self.fn.switchToLine();
+            }
             self.event.onFilterRangeChanged();
         };
 
@@ -254,7 +257,9 @@ define([
         var computeTotalsForPercentage = function(plotDataIndex) {
             var total = 0;
             chartFields.forEach(function (currentSerie) {
-                total += currentSerie.plotData[plotDataIndex];
+                if(!currentSerie.hidden) {
+                    total += currentSerie.plotData[plotDataIndex];
+                }
             });
             return total;
         };
@@ -273,18 +278,21 @@ define([
             var isLine = scope.currentChartType === LINE;
             if(isLine) {
                 series = chartFields.filter(function(serie){
-                    return serie.plotData[plotDataIndex] === plotData;
+                    return !serie.hidden && serie.plotData[plotDataIndex] === plotData;
                 });
             } else {
                 var rolledOverSerieIndex = chartFields.indexOf(rolledOverSerie);
                 var index;
                 for(var i=rolledOverSerieIndex; i>=0; i--) {
                     index = i;
-                    if(chartFields[i].plotData[plotDataIndex] > 0) {
+                    var serie = chartFields[i];
+                    if(!serie.hidden && serie.plotData[plotDataIndex] > 0) {
                         break;
                     }
                 }
-                series = chartFields.slice(index, rolledOverSerieIndex+1);
+                series = chartFields.slice(index, rolledOverSerieIndex+1).filter(function(serie){
+                    return !serie.hidden;
+                });
             }
 
             return series;
