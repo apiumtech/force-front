@@ -67,6 +67,9 @@ define([
                         dateStart: self.$scope.date.startDate.toDate(),
                         dateEnd: self.$scope.date.endDate.toDate()
                     });
+                },
+                'show.daterangepicker': function() {
+                    $('#myDateRangePicker').data('daterangepicker').showCalendars();
                 }
             }
         };
