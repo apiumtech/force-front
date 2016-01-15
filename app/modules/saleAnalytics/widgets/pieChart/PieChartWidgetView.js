@@ -553,7 +553,8 @@ define([
                 height: "90%",
                 width: "90%"
             },
-            tooltip: { trigger: 'selection' }
+            tooltip: { trigger: 'selection' },
+            sliceVisibilityThreshold: 0
         };
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
