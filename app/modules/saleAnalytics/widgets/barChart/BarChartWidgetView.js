@@ -8,8 +8,9 @@ define([
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
-    'shared/services/SimpleTemplateParser'
-], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, SimpleTemplateParser){
+    'shared/services/SimpleTemplateParser',
+    'jquery'
+], function(WidgetBaseView, WidgetEventBus, BarChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, SimpleTemplateParser, $){
     'use strict';
 
     function BarChartWidgetView(scope, element, presenter) {
@@ -108,28 +109,12 @@ define([
 
         var originalTableTemplateString = $("#barChartCalloutTableTemplate").html();
         var createTooltip = function(tick, serie, index){
-            /*var total = serie.data[index][1].Count || "?";
-            var percent = serie.data[index][1].Y;
-            var drillDown = serie.data[index][1].DrillDown || [];
-            var div = '<div style="padding:10px;"><strong>'+ tick +'</strong><br />'+
-                serie.label +': '+ total +' ('+ percent.toFixed(1) +'%)</div>';
-            div += '<hr/>';
-            if(Array.isArray(drillDown) && drillDown.length > 0) {
-                div += '<table style="width: 100%; text-align: center; margin-bottom: 10px"><thead>' +
-                                '<tr><th style="text-align: center;">User</th>'+
-                                '<th style="text-align: center;">Total</th></tr>'+
-                            '</thead><tbody>';
-                drillDown.forEach(function(user){
-                    div += '<tr><td>'+ user.Name +'</td><td>'+ user.Count +'</td></tr>';
-                });
-                div += '</tbody></table>';
-            }
-            return div;*/
-
             var total = serie.data[index][1].Count || "?";
             var percent = serie.data[index][1].Y;
             var drillDown = serie.data[index][1].DrillDown || [];
-
+            if(drillDown.length===0) {
+                drillDown = [{Name:'-',Count:'-',RowBgColor:'#F8F8F8'}, {Name:'',Count:'',RowBgColor:'#FFFFFF'}];
+            }
             var row =   '<tr style="background-color:{RowBgColor}">'+
                             '<td style="width:225px; height:20px; vertical-align:middle; padding-left:20px; color:#54585A; font-size:12px;">{Name}</td>'+
                             '<td style="width:75px;  height:20px; vertical-align:middle; text-align:center; color:#54585A; font-size:12px;">{Count}</td>'+

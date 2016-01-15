@@ -110,7 +110,7 @@ define([
 
         self.colorService.initialize();
         var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('number', 'Hora');
+        dataTable.addColumn('timeofday', 'Hora');
         self.data.fields.forEach(function(serie){
             dataTable.addColumn('number', serie.name);
         });
@@ -119,7 +119,7 @@ define([
         self.data.fields.forEach(function(serie){
             var horas = 0;
             serie.data.forEach(function(item) {
-                columns.push([horas++, item]);
+                columns.push([[horas++,0,0], item]);
             });
         });
         dataTable.addRows(columns);
@@ -131,9 +131,11 @@ define([
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
             hAxis: {
-                minValue: 0,
-                maxValue: 24,
-                ticks: [{v:0,f:"0h"}, {v:4,f:"4h"}, {v:8,f:"8h"}, {v:12,f:"12h"}, {v:16,f:"16h"}, {v:20,f:"20h"}, {v:24,f:"24h"}]
+                format: "H'h'",
+                viewWindow: {
+                    min: [0, 0, 0],
+                    max: [24, 0, 0]
+                }
             },
             legend: { position: 'top', alignment: 'end' },
             width: '100%',
