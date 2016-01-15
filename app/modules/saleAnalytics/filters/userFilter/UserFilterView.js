@@ -431,7 +431,8 @@ define([
             //self.fn.applyUserFilter();
         }
 
-        self.fn.userSelectionChanged();
+        //self.fn.userSelectionChanged();
+        self.fireUsersFiltered();
 
         self.hideLoadingUsers();
     };

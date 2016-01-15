@@ -17,6 +17,7 @@ define([
     SalesAnalyticsFilterChannel.DateFilter = "DateFilter";
     SalesAnalyticsFilterChannel.UserFilter = "UserFilter";
 
+
     SalesAnalyticsFilterChannel.prototype.sendFilterApplySignal = function (filterName, filterValue) {
         this.send({
             filterApplied: true,
@@ -24,6 +25,11 @@ define([
             filterValue: filterValue
         });
     };
+
+
+    /*
+     * Date Filter Apply Signal
+     */
 
     SalesAnalyticsFilterChannel.prototype.sendDateFilterApplySignal = function (filterValue) {
         this.sendFilterApplySignal(SalesAnalyticsFilterChannel.DateFilter, filterValue);
@@ -37,6 +43,11 @@ define([
         });
     };
 
+
+    /*
+     * User Filter Apply Signal
+     */
+
     SalesAnalyticsFilterChannel.prototype.sendUserFilterApplySignal = function (filterValue) {
         this.sendFilterApplySignal(SalesAnalyticsFilterChannel.UserFilter, filterValue);
     };
@@ -48,6 +59,8 @@ define([
             }
         });
     };
+
+
 
     SalesAnalyticsFilterChannel._initChannel = function (widgetName) {
         return EventBus.createChannel("SalesAnalyticsFilterChannel", widgetName || "Global");
