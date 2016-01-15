@@ -62,7 +62,7 @@ define([
     // --------------------------------------------------------
 
 
-
+    // defaultValue: ''
     return {
         dev_local: {
             resGetPath: 'assets/translations/en.json',
