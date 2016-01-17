@@ -374,8 +374,8 @@ define([
                 isHtml: true
             },
             pointSize: 5,
-            width: '100%',
-            height: '100%',
+            /*width: '100%',
+            height: '100%',*/
             chartArea: {
                 left: "5%",
                 top: "10%",
@@ -545,8 +545,8 @@ define([
         self.chartOptions = {
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
-            width: '100%',
-            height: '100%',
+            /*width: '100%',
+            height: '100%',*/
             chartArea: {
                 left: "5%",
                 top: "5%",

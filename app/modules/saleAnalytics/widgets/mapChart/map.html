@@ -4,36 +4,32 @@
                 widget-id="widget.widgetId">
 
 
+    <!-- TOOLBAR -->
     <div class="clearfix m-b-10">
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-lg-4">
-
                 <!--<select class="form-control pull left" ng-model="selectedFilter" ng-change="fn.changeFilter(selectedFilter)">
                     <option value="users" ng-disabled="!fn.canDisplayUsersInMap()">{{'MapChart.Users' | i18next}}</option>
                     <option value="checkins">{{'MapChart.CheckIns' | i18next}}</option>
                 </select>-->
-
-
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle"
-                                type="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                            {{ selectedFilter.name }}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="filter in filters"
-                                ng-class="{active: filter.key===selectedFilter.key}">
-                                <a href ng-click="fn.changeFilter(filter)">
-                                    {{ filter.name }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        {{ selectedFilter.name }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="filter in filters"
+                            ng-class="{active: filter.key===selectedFilter.key}">
+                            <a href ng-click="fn.changeFilter(filter)">
+                                {{ filter.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-lg-8">
                 <div class="pull-right" ng-show="selectedFilter!=='users'">
@@ -51,26 +47,36 @@
             </div>
         </div>
     </div>
+    <!-- END TOOLBAR -->
 
-
-    <div class="chart-place-holder height-md map-chart" ng-hide="data.serverError===true"></div>
 
     <div class="row">
+        <!-- MAP -->
+        <div class="chart-place-holder height-md map-chart col-xs-12" ng-hide="data.serverError===true"></div>
+
+        <!-- DESCRIPTION -->
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-            <div class="well" ng-if="selectedFilter=='checkins'">
+            <div class="well" ng-if="selectedFilter.key=='checkins'">
                 Distribución geográfica con los check-in registrados.
             </div>
-            <div class="well" ng-if="selectedFilter=='users'">
+            <div class="well" ng-if="selectedFilter.key=='users'">
                 Distribución geográfica de los usuarios según su última geolocalización.
             </div>
         </div>
     </div>
 
+
+    <!-- ERROR -->
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
     </ng-include>
 
+
+
+    <!--
+        TEMPLATES
+    -->
 
     <div style="display:none;">
         <!--
@@ -107,5 +113,6 @@
             </table>
         </div>
     </div>
+
 
 </widget-wrapper>

@@ -111,11 +111,11 @@
 
 
     <!-- CHART -->
-    <div class="row" ng-hide="data.serverError || data.noData">
-        <div ng-class="onlyPieChart===true || currentChartType=='table' || currentChartType=='pie' ? 'col-xs-12' : 'col-xs-10'">
-            <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
+    <div class="row panel-content" ng-hide="data.serverError || data.noData">
+        <div class="panel-content-child" ng-class="onlyPieChart===true || currentChartType=='table' || currentChartType=='pie' ? 'col-xs-12' : 'col-xs-10'">
+            <div class="chart-place-holder map-fix panel-content-child" ng-hide="data.serverError===true"></div>
         </div>
-        <div class="col-xs-2 height-sm" style="overflow-y: auto;"
+        <div class="col-xs-2 panel-content-child" style="overflow-y: auto;"
              ng-hide="onlyPieChart===true || currentChartType=='table' || currentChartType=='pie'">
             <ul style="list-style:none;padding:0;margin:0;">
                 <li
@@ -150,11 +150,9 @@
     <!-- NO DATA -->
     <div class="row" ng-if="data.noData">
         <div class="col-xs-12">
-            <div class="height-sm">
-                <div class="alert alert-warning" role="alert">
-                    {{'commonText.NoDataToDisplay' | i18next}}
-                    <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> {{'commonText.Refresh' | i18next}}</button>
-                </div>
+            <div class="alert alert-warning" role="alert">
+                {{'commonText.NoDataToDisplay' | i18next}}
+                <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> {{'commonText.Refresh' | i18next}}</button>
             </div>
         </div>
     </div>
