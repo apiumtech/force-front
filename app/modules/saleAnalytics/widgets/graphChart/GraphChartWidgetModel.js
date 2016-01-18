@@ -5,41 +5,40 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
-    'shared/services/config/PermissionsService'
-], function (AuthAjaxService, WidgetBase, PermissionsService) {
+    'shared/services/config/PermissionsService',
+    'shared/services/TranslatorService'
+], function (AuthAjaxService, WidgetBase, PermissionsService, TranslatorService) {
     'use strict';
 
     function GraphChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
 
         var self = this;
+        self.translator = TranslatorService.newInstance();
         self.currentFilter = 'visits';
         self.filters = [{
-            name: 'Visits',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemVisits'),
             key: 'visits'
         }, {
-            name: 'Time of phone calls',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemTimeOfPhoneCalls'),
             key: 'phoneCallsTime'
         }, {
-            name: 'Emails',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemEmails'),
             key: 'emails'
         }, {
-            name: 'Activities',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemActivities'),
             key: 'activities'
         }, {
-            name: 'Activity Scores',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemActivityScores'),
             key: 'activityScores'
-        },/* {
-            name: 'Users',
-            key: 'users'
-        }*/ {
-            name: 'New Orders',
+        }, {
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemNewOrders'),
             key: 'orders'
         }, {
-            name: 'New Quotes',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemNewQuotes'),
             key: 'quotes'
         }, {
-            name: 'New Opportunities',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemNewOpportunities'),
             key: 'opportunities'
         }];
 

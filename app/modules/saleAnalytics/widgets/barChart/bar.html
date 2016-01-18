@@ -47,8 +47,9 @@
 
 
     <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well" ng-if="widget.widgetName=='ANALISIS DE COBERTURA'">
-            El análisis de cobertura muestra cómo ha sido la interacción con cada tipo de cliente.
+        <div class="well">
+            <span ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</span>
+            <span ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</span>
         </div>
     </div>
 

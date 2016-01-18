@@ -116,15 +116,14 @@
         </div>
 
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-            <div class="well" ng-if="selectedFilter.key=='visits'">En Visitas estarán incluidas todas las gestiones geolocalizadas.</div>
-            <div class="well" ng-if="selectedFilter.key=='phoneCallsTime'">En el tiempo de llamada están incluidas las llamadas entrantes y salientes del usuario.</div>
-            <div class="well" ng-if="selectedFilter.key=='emails'">En emails estarán incluidos todos los correos, tanto enviados como recibido.</div>
-            <div class="well" ng-if="selectedFilter.key=='activities'">En Actividad verás todas las gestiones no geolocalizadas: comentarios de llamadas telefónicas, comentarios de una reunión...</div>
-            <div class="well" ng-if="selectedFilter.key=='activityScores'">Índice de actividad muestra cómo ha evolucionado la actividad de los usuarios durante el período establecido. Incluye la interacción que ha tenido el usuario en las últimas semanas: llamadas, check-in, correos.... Recuerda que, en ForceManager, cada actividad puede tener un peso según la importancia que tiene esa actividad para la empresa. Siempre tendrá más peso el nivel de actividad que el usuario ha tenido durante las últimas semanas, pero también se tiene en cuenta la inercia del usuario en los últimos meses, por tal de conseguir datos lo más reales posibles.</div>
-            <div class="well" ng-if="selectedFilter.key=='users'"></div>
-            <div class="well" ng-if="selectedFilter.key=='orders'">Nuevos pedidos creados por los usuarios seleccionados dentro del período establecido.</div>
-            <div class="well" ng-if="selectedFilter.key=='quotes'">Nuevas ofertas creadas por los usuarios seleccionados dentro del período establecido.</div>
-            <div class="well" ng-if="selectedFilter.key=='opportunities'">Nuevas oportunidades creadas por los usuarios seleccionados dentro del período establecido.</div>
+            <div class="well" ng-if="selectedFilter.key=='visits'">{{'tabIntensity.activities.visits.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='phoneCallsTime'">{{'tabIntensity.activities.timeOfPhoneCalls.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='emails'">{{'tabIntensity.activities.emails.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='activities'">{{'tabIntensity.activities.activities.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='activityScores'">{{'tabIntensity.activities.activityScores.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='orders'">{{'tabIntensity.activities.newOrders.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='quotes'">{{'tabIntensity.activities.newQuotes.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='opportunities'">{{'tabIntensity.activities.newOpportunities.description' | i18next}}</div>
         </div>
 
     </div>

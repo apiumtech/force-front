@@ -4,24 +4,29 @@
 
 define([
     'modules/saleAnalytics/widgets/WidgetBase',
-    'shared/services/ajax/AuthAjaxService'
-], function (WidgetBase, AuthAjaxService) {
+    'shared/services/ajax/AuthAjaxService',
+    'shared/services/TranslatorService'
+], function (WidgetBase, AuthAjaxService, TranslatorService) {
     'use strict';
 
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
+
+        this.translator = TranslatorService.newInstance();
+
         this.currentFilter = {
-            name: "Total Activities",
+            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemTotalActivities'),
             key: "activities"
         };
+
         this.filters = [{
-            name: "Total Activities",
+            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemTotalActivities'),
             key: "activities"
         }, {
-            name: "Visits",
+            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemVisits'),
             key: "visits"
         }, {
-            name: "New Opportunities",
+            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemNewOpportunities'),
             key: "opportunities"
         }];
 

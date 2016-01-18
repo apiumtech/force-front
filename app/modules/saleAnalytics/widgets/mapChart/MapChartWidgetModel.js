@@ -5,27 +5,38 @@
 define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
+    'shared/services/TranslatorService',
     'config',
     'moment',
-], function(AuthAjaxService, WidgetBase, Configuration, moment){
+], function(AuthAjaxService, WidgetBase, TranslatorService, Configuration, moment){
+    'use strict';
 
     function MapChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
 
-        this.currentFilter = 'users'; //'checkins';
-        this.filters = [{
-            name: 'Sales Team',
+        var self = this;
+        self.translator = TranslatorService.newInstance();
+
+        self.currentFilter = 'users';
+
+        self.filters = [{
+            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
             key: 'users'
         }, {
-            name: 'Check-ins',
+            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.check-ins'),
             key: 'checkins'
         }];
-        this.queries = {
+
+        self.queries = {
             users: "",
             period: ""
         };
 
-        this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
+        // FIXME: este filtro debería ser el que hay en sessionStorage!!!
+        self.addDateFilter(
+            moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(),
+            moment().toDate()
+        );
     }
 
     MapChartWidgetModel.inherits(WidgetBase, {});

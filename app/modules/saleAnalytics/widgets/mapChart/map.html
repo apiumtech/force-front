@@ -36,12 +36,12 @@
                     <label class="radio-inline">
                         <input type="radio" value="HEAT_MAP"
                                ng-model="selectedMapType"
-                               ng-click="fn.selectMapType('HEAT_MAP')"> Heat Map
+                               ng-click="fn.selectMapType('HEAT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.heatMap' | i18next }}
                     </label>
                     <label class="radio-inline">
                         <input type="radio" value="POINT_MAP"
                                ng-model="selectedMapType"
-                               ng-click="fn.selectMapType('POINT_MAP')"> Point Map
+                               ng-click="fn.selectMapType('POINT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.pointMap' | i18next }}
                     </label>
                 </div>
             </div>
@@ -57,10 +57,10 @@
         <!-- DESCRIPTION -->
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="selectedFilter.key=='checkins'">
-                Distribución geográfica con los check-in registrados.
+                {{ 'tabDistribution.geographicalDistribution.check-ins.description' | i18next }}
             </div>
             <div class="well" ng-if="selectedFilter.key=='users'">
-                Distribución geográfica de los usuarios según su última geolocalización.
+                {{ 'tabDistribution.geographicalDistribution.salesTeam.description' | i18next }}
             </div>
         </div>
     </div>

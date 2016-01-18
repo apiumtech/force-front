@@ -5,20 +5,25 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/ajax/AuthAjaxService',
+    'shared/services/TranslatorService',
     'config'
-], function(WidgetBase, AjaxService, Configuration){
+], function(WidgetBase, AjaxService, TranslatorService, Configuration){
     'use strict';
 
     function BarChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
+
+        this.translator = TranslatorService.newInstance();
+
         this.currentFilter = 'Segment';
+
         this.filters = [
             {
-                name: "Segment",
+                name: this.translator.translate('tabDistribution.coverageAnalysis.selectButton.itemSegment'),
                 key: "Segment"
             },
             {
-                name: "Account Type",
+                name: this.translator.translate("tabDistribution.coverageAnalysis.selectButton.itemAccountType"),
                 key: "AccountType"
             }
         ];

@@ -10,8 +10,9 @@ define([
     'config',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/GoogleChartService',
+    'shared/services/TranslatorService',
     'underscore'
-], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, $, moment, config, GraphColorService, GoogleChartService, _) {
+], function (WidgetBaseView, GraphWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, $, moment, config, GraphColorService, GoogleChartService, TranslatorService, _) {
     'use strict';
 
     var LINE = 'line';
@@ -23,15 +24,17 @@ define([
         presenter = presenter || new GraphWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
 
+        var self = this;
+        self.translator = TranslatorService.newInstance();
         scope.filters = [];
         scope.selectedFilter = {
-            name: 'Visits',
+            name: self.translator.translate('tabIntensity.activities.dropDown.itemVisits'),
             key: 'visits'
         };
         scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
 
-        var self = this;
+
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();

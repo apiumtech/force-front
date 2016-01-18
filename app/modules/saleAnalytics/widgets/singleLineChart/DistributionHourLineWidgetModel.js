@@ -5,25 +5,29 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/ajax/AuthAjaxService',
+    'shared/services/TranslatorService',
     'config'
-], function (WidgetBase, AuthAjaxService, Configuration) {
+], function (WidgetBase, AuthAjaxService, Configuration, TranslatorService) {
     'use strict';
 
     function SingleLineChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
 
+        this.translator = TranslatorService.newInstance();
+
         this.currentFilter = 'allActivities';
+
         this.filters = [{
-            name: "Total Activities",
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemTotalActivities'),
             key: "allActivities"
         }, {
-            name: "Visits",
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemVisits'),
             key: "visits"
         }, {
-            name: "Emails",
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemEmails'),
             key: "emails"
         }, {
-            name: "Phone calls",
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemPhoneCalls'),
             key: "phoneCalls"
         }];
     }

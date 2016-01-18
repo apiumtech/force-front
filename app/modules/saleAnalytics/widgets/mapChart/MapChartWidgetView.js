@@ -10,8 +10,9 @@ define([
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/widgets/mapChart/MapChart',
     'shared/services/config/PermissionsService',
+    'shared/services/TranslatorService',
     'jquery'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, $){
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, TranslatorService, $) {
     'use strict';
 
     var HEAT_MAP = 'HEAT_MAP';
@@ -25,9 +26,10 @@ define([
         self.widgetEventBus = EventBus.getInstance();
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
+        self.translator = TranslatorService.newInstance();
 
         self.$scope.selectedFilter = {
-            name: 'Sales Team',
+            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
             key: 'users'
         };
         self.$scope.selectedMapType = HEAT_MAP;
