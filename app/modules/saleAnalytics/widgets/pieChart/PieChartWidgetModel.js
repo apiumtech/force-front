@@ -11,29 +11,38 @@ define([
 
     function PieChartWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-
         this.translator = TranslatorService.newInstance();
-
-        this.currentFilter = {
-            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemTotalActivities'),
-            key: "activities"
-        };
-
-        this.filters = [{
-            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemTotalActivities'),
-            key: "activities"
-        }, {
-            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemVisits'),
-            key: "visits"
-        }, {
-            name: this.translator.translate('tabDistribution.segmentDistribution.dropDown.itemNewOpportunities'),
-            key: "opportunities"
-        }];
-
         this.queries.grouping = "pie";
     }
 
     PieChartWidgetModel.inherits(WidgetBase, {});
+
+    PieChartWidgetModel.prototype.createFilters = function (widget) {
+        var literalPart;
+
+        if(widget.type === 'segment_distribution') {
+            literalPart = 'segmentDistribution';
+        } else if(widget.type === 'type_distribution') {
+            literalPart = 'typeDistribution';
+        } else if(widget.type === 'state_distribution') {
+            literalPart = 'stateDistribution';
+        }
+
+        this.currentFilter = {
+            name: this.translator.translate('tabDistribution.'+ literalPart +'.dropDown.itemTotalActivities'),
+            key: "activities"
+        };
+        this.filters = [{
+            name: this.translator.translate('tabDistribution.'+ literalPart +'.dropDown.itemTotalActivities'),
+            key: "activities"
+        }, {
+            name: this.translator.translate('tabDistribution.'+ literalPart +'.dropDown.itemVisits'),
+            key: "visits"
+        }, {
+            name: this.translator.translate('tabDistribution.'+ literalPart +'.dropDown.itemNewOpportunities'),
+            key: "opportunities"
+        }];
+    };
 
     PieChartWidgetModel.prototype.changeQueryFilter = function (filter) {
         if (this.filters.map(function(filterValue) {return filterValue.key;}).indexOf(filter.key) === -1) {

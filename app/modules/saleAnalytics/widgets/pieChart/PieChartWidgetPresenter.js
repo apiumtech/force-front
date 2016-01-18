@@ -68,6 +68,10 @@ define([
         view.event.getFilters = function(){
             return model.getFilters();
         };
+
+        view.event.createFilters = function(widget){
+            model.createFilters(widget);
+        };
     };
 
     return PieChartWidgetPresenter;

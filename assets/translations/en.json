@@ -1,364 +1,254 @@
 {
-  "hello": "Hello",
-  "validationMsg": {
-    "required": "This field is required",
-    "email": "Please enter valid email format",
-    "url": "Please enter valid URL format",
-    "number": "Please enter number"
-  },
-  "commonText": {
-    "more": "more",
-    "Email": "Email",
-    "Skype": "Skype",
-    "Export": "Export",
-    "Description": "Description",
-    "ViewMore": "View more",
-    "Apply": "Apply",
-    "Edit": "Edit",
-    "Create": "Create",
-    "Delete": "Delete",
-    "Cancel": "Cancel",
-    "Retry": "Retry",
-    "Save": "Save",
-    "SaveAndContinue": "Save And Continue",
-    "Show": "Show",
-    "FilterBy": "Filter by",
-    "Owner": "Owner",
-    "Search": "Search",
-    "RestoreDefault": "Restore default",
-    "LogOut": "Log out",
-    "Setting": "Setting",
-    "EditProfile": "Edit Profile",
-    "Inbox": "Inbox",
-    "Calendar": "Calendar",
-    "MinuteAgo": "__count__ minute ago",
-    "MinuteAgo_plural": "__count__ minutes ago",
-    "HourAgo": "__count__ hour ago",
-    "HourAgo_plural": "__count__ hours ago",
-    "NewEmailFrom": "New email from __from__",
-    "NoResultFound": "No result found",
-    "Refresh": "Refresh",
-    "NoSearchResultsMessage": "We are sorry, your search did not return any result",
-    "NoDataToDisplay": "No data to display"
-  },
-  "ConfirmationBox": {
-    "Delete": {
-    }
-  },
-  "Documents": {
-    "Title": "Title",
-    "Date": "Date",
-    "AddDocument": "Add Document",
-    "deleteDocumentConfirmationMsg": "<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
-    "deleteBtnConfirm": "Yes, delete it",
-    "cancelDelete": "No, thanks",
-    "UploadDocuments": {
-      "Title": "Add document",
-      "UploadingTitle": "Uploading",
-      "DocumentsAmount": "__count__ document",
-      "DocumentsAmount_plural": "__count__ documents",
-      "Heading_Instruction": "Drag & Drop your documents here",
-      "Heading_Instruction2": "Some help text appear here",
-      "UploadBtn": "Upload files",
-      "UploadBtn_AddMore": "Add more files",
-      "UploadBtn_Submit": "Upload Documents",
-      "UploadingMessage": "We're uploading your files. It will be a matter of milliseconds",
-      "UploadingSuccessTitle": "Uploaded Successfully!",
-      "UploadingSuccessMessage": "Your documents have been uploaded successfully",
-      "UploadingErrorTitle": "Sorry!",
-      "UploadingErrorMessage": "Some of your files cannot be uploaded, please try again!",
-      "OverSized": "Maximum file size is __size__MB. Please remove this file"
-    }
-  },
-  "DateTime": {
-    "Today": "Today",
-    "Yesterday": "Yesterday",
-    "DaysAgo": "__xx__ day ago",
-    "DaysAgo_plural": "__xx__ days ago",
-    "LastWeek": "Last week",
-    "WeeksAgo": "__xx__ week ago",
-    "WeeksAgo_plural": "__xx__ weeks ago",
-    "LastMonth": "Last month",
-    "MonthsAgo": "__xx__ month ago",
-    "MonthsAgo_plural": "__xx__ months ago",
-    "LastYear": "LastYear",
-    "YearsAgo": "__xx__ year ago",
-    "YearsAgo_plural": "__xx__ years ago"
-  },
-  "AccountDetail": {
-    "Address": "Address",
-    "Classification": "Classification",
-    "AccountType": "Account Type",
-    "Owner": "Owner",
-    "Mobile": "Mobile",
-    "LaneLine": "Lane Line",
-    "Web": "Web",
-    "RelatedContacts": "Related Contacts",
-    "AddContact": "Add Contacts",
-    "RelatedCompany": "Related Company",
-    "AddCompany": "Add Company",
-    "ExtraFields": "Extra Fields",
-    "RelatedContact": {
-      "Mobile": "Mobile",
-      "FixedLine": "Fixed Line"
-    },
-    "ActivityWidget": {
-      "EditActivity": "Edit activity"
-    },
-    "Dialog": {
-      "AddRelatedCompany": "Add Related Company"
-    }
-  },
-  "LineWidget": {
-    "DataDisplay": "Data display",
-    "TotalVisits": "Total Visits",
-    "VisitsPerDay": "Visits / Day",
-    "VisitsPerUserPerDay": "Visits / User / Day",
-    "Filters": {
-      "Hour": "Hour dist.",
-      "Date": "Day",
-      "Month": "Month",
-      "Week": "Week",
-      "ShowFields": "Toggle fields"
-    }
-  },
-  "TableWidget": {
-    "AddColumns": "Add Columns",
-    "RestoreDefault": "Restore default"
-  },
-  "MapChart": {
-    "CheckIns": "CheckIns",
-    "Users": "Sales Team",
-    "Activity": "Activity"
-  },
-  "LeftMenu": {
-    "Dashboard": "Dashboard",
-    "Accounts": "Accounts",
-    "Contacts": "Contacts",
-    "Opportunities": "Opportunities",
-    "Quotes": "Quotes",
-    "Agenda": "Agenda",
-    "Products": "Products",
-    "Documents": "Documents",
-    "Activity": "Activity",
-    "SaleAnalytics": "Sale Analytics",
-    "Overview": "Overview",
-    "Intensity": "Intensity",
-    "Distribution": "Distribution",
-    "Conversion": "Conversion",
-    "Reports": "Reports"
-  },
-  "Account": {
-    "AccountTitle": "Accounts",
-    "CreateAccount": "Create Account",
-    "CreateContact": "Create contact",
-    "EditAccount": "Edit Account",
-    "Table": {
-      "Header": "__count__ Result",
-      "Header_plural": "__count__ Results",
-      "FIELDS": "FIELDS",
-      "ShowMap": "Show Map"
-    },
-    "Filters": {
-      "AddFilter": "Add Filter",
-      "FilterBy": {
-        "MenuOwner": {
-          "Title": "Owner",
-          "SelectOwner": "Select owner",
-          "OwnerListEmpty": "No owner available",
-          "AvailableOwners": "Available Owners"
-        },
-        "MenuViews": {
-          "Title": "Views",
-          "AvailableFilter": "Available Views Filter",
-          "Filter": "Enter your filter",
-          "SelectView": "Select view",
-          "SaveCurrentView": "Save current view",
-          "DeleteView": "Delete view"
-        },
-        "MenuEnvironment": {
-          "Title": "Environment",
-          "EnvironmentListEmpty": "No environment available",
-          "FilterEnvironment": "Filter Environment",
-          "AvailableFilterEnvironment": "Available Environment Settings"
-        },
-        "MenuFilter": {
-          "Title": "Custom Filter"
-        },
-        "MenuAccountType": {
-          "Title": "Account Type",
-          "FilterAccountType": "Search Account Type",
-          "AvailableFilterAccountType": "Available Account Type"
-        }
-      },
-      "AddFilters": "Add Filters",
-      "SearchFilters": "Search Filters",
-      "AvailableFilters": "Available Filters"
-    }
-  },
-  "Errors": {
-    "IntensityViewCannotInstantiate": "Could not create IntensityView!",
-    "CannotInstantiateClass": "Cannot instantiate __class__",
-    "NoWidgetAvailable": {
-      "Title": "No widget available",
-      "Message": "You have closed all the widgets for this page"
-    },
-    "LoadingWidgets": "Loading widgets",
-    "GeneralServerError": {
-      "Title": "Server error",
-      "Message": "Error while requesting data."
-    }
-  },
-  "Header": {
-    "EnterKeyword": "Enter keyword",
-    "ServerErrorReports": "Server Error Reports",
-    "NewUserRegistered": "New User Registered"
-  },
-  "Filters": {
-    "FilterBy": "Filter by",
-    "AllUsers": "All Users",
-    "Team": "Team",
-    "Environment": "Environment",
-    "RecentSelected": "Recent selected",
-    "SearchOwner": "Select user",
-    "AllUserSelectsAllEnvironments": "All users (select all environments)",
-    "ForceES": "Force ES (Environment ES)",
-    "ForceUK": "Force UK (Environment ES)",
-    "DateRange": "In this date range",
-    "SelectDateRange": "Select the date range",
-    "Customized": "Customized",
-    "To": "to",
-    "LastxxDays": "Last __count__ day",
-    "LastxxDays_plural": "Last __count__ days",
-    "Widget": {
-      "Administration": "Widget Administration"
-    }
-  },
-  "WidgetAdmin": {
-    "Widget": {
-      "active": "Active",
-      "inactive": "Inactive"
-    }
-  },
-  "Intensity": {
-  },
-  "tableChart": "Table Chart",
-  "pieChart": "Pie Chart",
-  "lineChart": "Line Chart",
-  "areaChart": "Area Chart",
-  "areaChartPercent": "Area Chart %",
-  "Reports": {
-    "AllReports": "All Reports",
-    "FavouriteReports": "Favourite Reports",
-    "SearchReports": "Search Reports",
-    "SearchReport": {
-      "resultsFor": "results for"
-    },
-    "SearchBox": {
-      "SearchingFor": "Searching for:"
-    },
-    "Dialog": {
-      "ReportParameterTitle": "Report Parameters",
-      "LoV": {
-        "Select_Value": "Select Value"
-      }
-    },
-    "SelectTeam": "SELECT TEAM",
-    "widenSearchMessage": "You can widen your search by checking that all words are spelt correctly"
-  },
-  "Contact": {
-    "ContactTitle": "Contacts",
-    "CreateContact": "Create Contact",
-    "Table": {
-      "Header": "Contacts Management",
-      "FIELDS": "FIELDS",
-      "ShowMap": "Show Map"
-    },
-    "Filters": {
-      "FilterBy": {
-        "MenuAccount": {
-          "Title": "Account",
-          "SearchPrompt": "Search account",
-          "ListEmpty": "No accounts available"
-        },
-        "MenuRole": {
-          "Title": "Role",
-          "SearchPrompt": "Search role",
-          "ListEmpty": "No roles available"
-        },
-        "MenuPhoneNumber": {
-          "Title": "Tel. number",
-          "SearchPrompt": "Type in phone number"
-        },
-        "MenuAddFilter": {
-          "Title": "Add Filter",
-          "SearchPrompt": "Search Filter"
-        }
-      }
-    }
-  },
+"hello":"Hello",
+"validationMsg.required":"This field is required",
+"validationMsg.email":"Please enter valid email format",
+"validationMsg.url":"Please enter valid URL format",
+"validationMsg.number":"Please enter number",
+"commonText.more":"more",
+"commonText.Email":"Email",
+"commonText.Skype":"Skype",
+"commonText.Export":"Export",
+"commonText.Description":"Description",
+"commonText.ViewMore":"View more",
+"commonText.Apply":"Apply",
+"commonText.Edit":"Edit",
+"commonText.Create":"Create",
+"commonText.Delete":"Delete",
+"commonText.Cancel":"Cancel",
+"commonText.Retry":"Retry",
+"commonText.Save":"Save",
+"commonText.SaveAndContinue":"Save And Continue",
+"commonText.Show":"Show",
+"commonText.FilterBy":"Filter by",
+"commonText.Owner":"Owner",
+"commonText.Search":"Search",
+"commonText.RestoreDefault":"Restore default",
+"commonText.LogOut":"Log out",
+"commonText.Setting":"Setting",
+"commonText.EditProfile":"Edit Profile",
+"commonText.Inbox":"Inbox",
+"commonText.Calendar":"Calendar",
+"commonText.MinuteAgo":"__count__ minute ago",
+"commonText.MinuteAgo_plural":"__count__ minutes ago",
+"commonText.HourAgo":"__count__ hour ago",
+"commonText.HourAgo_plural":"__count__ hours ago",
+"commonText.NewEmailFrom":"New email from __from__",
+"commonText.NoResultFound":"No result found",
+"commonText.Refresh":"Refresh",
+"commonText.NoSearchResultsMessage":"We are sorry, your search did not return any result",
+"commonText.NoDataToDisplay":"No data to display",
+"ConfirmationBox.Delete":{},
+"Documents.Title":"Title",
+"Documents.Date":"Date",
+"Documents.AddDocument":"Add Document",
+"Documents.deleteDocumentConfirmationMsg":"<p>Are you sure want to delete the file &quot;__documentName__&quot;?</p><p><strong>Caution:</strong> this action can't be undone</p>",
+"Documents.deleteBtnConfirm":"Yes, delete it",
+"Documents.cancelDelete":"No, thanks",
+"Documents.UploadDocuments.Title":"Add document",
+"Documents.UploadDocuments.UploadingTitle":"Uploading",
+"Documents.UploadDocuments.DocumentsAmount":"__count__ document",
+"Documents.UploadDocuments.DocumentsAmount_plural":"__count__ documents",
+"Documents.UploadDocuments.Heading_Instruction":"Drag & Drop your documents here",
+"Documents.UploadDocuments.Heading_Instruction2":"Some help text appear here",
+"Documents.UploadDocuments.UploadBtn":"Upload files",
+"Documents.UploadDocuments.UploadBtn_AddMore":"Add more files",
+"Documents.UploadDocuments.UploadBtn_Submit":"Upload Documents",
+"Documents.UploadDocuments.UploadingMessage":"We're uploading your files. It will be a matter of milliseconds",
+"Documents.UploadDocuments.UploadingSuccessTitle":"Uploaded Successfully!",
+"Documents.UploadDocuments.UploadingSuccessMessage":"Your documents have been uploaded successfully",
+"Documents.UploadDocuments.UploadingErrorTitle":"Sorry!",
+"Documents.UploadDocuments.UploadingErrorMessage":"Some of your files cannot be uploaded, please try again!",
+"Documents.UploadDocuments.OverSized":"Maximum file size is __size__MB. Please remove this file",
+"DateTime.Today":"Today",
+"DateTime.Yesterday":"Yesterday",
+"DateTime.DaysAgo":"__xx__ day ago",
+"DateTime.DaysAgo_plural":"__xx__ days ago",
+"DateTime.LastWeek":"Last week",
+"DateTime.WeeksAgo":"__xx__ week ago",
+"DateTime.WeeksAgo_plural":"__xx__ weeks ago",
+"DateTime.LastMonth":"Last month",
+"DateTime.MonthsAgo":"__xx__ month ago",
+"DateTime.MonthsAgo_plural":"__xx__ months ago",
+"DateTime.LastYear":"LastYear",
+"DateTime.YearsAgo":"__xx__ year ago",
+"DateTime.YearsAgo_plural":"__xx__ years ago",
+"AccountDetail.Address":"Address",
+"AccountDetail.Classification":"Classification",
+"AccountDetail.AccountType":"Account Type",
+"AccountDetail.Owner":"Owner",
+"AccountDetail.Mobile":"Mobile",
+"AccountDetail.LaneLine":"Lane Line",
+"AccountDetail.Web":"Web",
+"AccountDetail.RelatedContacts":"Related Contacts",
+"AccountDetail.AddContact":"Add Contacts",
+"AccountDetail.RelatedCompany":"Related Company",
+"AccountDetail.AddCompany":"Add Company",
+"AccountDetail.ExtraFields":"Extra Fields",
+"AccountDetail.RelatedContact.Mobile":"Mobile",
+"AccountDetail.RelatedContact.FixedLine":"Fixed Line",
+"AccountDetail.ActivityWidget.EditActivity":"Edit activity",
+"AccountDetail.Dialog.AddRelatedCompany":"Add Related Company",
+"LineWidget.DataDisplay":"Data display",
+"LineWidget.TotalVisits":"Total Visits",
+"LineWidget.VisitsPerDay":"Visits / Day",
+"LineWidget.VisitsPerUserPerDay":"Visits / User / Day",
+"LineWidget.Filters.Hour":"Hour dist.",
+"LineWidget.Filters.Date":"Day",
+"LineWidget.Filters.Month":"Month",
+"LineWidget.Filters.Week":"Week",
+"LineWidget.Filters.ShowFields":"Toggle fields",
+"TableWidget.AddColumns":"Add Columns",
+"TableWidget.RestoreDefault":"Restore default",
+"MapChart.CheckIns":"CheckIns",
+"MapChart.Users":"Sales Team",
+"MapChart.Activity":"Activity",
+"LeftMenu.Dashboard":"Dashboard",
+"LeftMenu.Accounts":"Accounts",
+"LeftMenu.Contacts":"Contacts",
+"LeftMenu.Opportunities":"Opportunities",
+"LeftMenu.Quotes":"Quotes",
+"LeftMenu.Agenda":"Agenda",
+"LeftMenu.Products":"Products",
+"LeftMenu.Documents":"Documents",
+"LeftMenu.Activity":"Activity",
+"LeftMenu.SaleAnalytics":"Sale Analytics",
+"LeftMenu.Overview":"Overview",
+"LeftMenu.Intensity":"Intensity",
+"LeftMenu.Distribution":"Distribution",
+"LeftMenu.Conversion":"Conversion",
+"LeftMenu.Reports":"Reports",
+"Account.AccountTitle":"Accounts",
+"Account.CreateAccount":"Create Account",
+"Account.CreateContact":"Create contact",
+"Account.EditAccount":"Edit Account",
+"Account.Table.Header":"__count__ Result",
+"Account.Table.Header_plural":"__count__ Results",
+"Account.Table.FIELDS":"FIELDS",
+"Account.Table.ShowMap":"Show Map",
+"Account.Filters.AddFilter":"Add Filter",
+"Account.Filters.FilterBy.MenuOwner.Title":"Owner",
+"Account.Filters.FilterBy.MenuOwner.SelectOwner":"Select owner",
+"Account.Filters.FilterBy.MenuOwner.OwnerListEmpty":"No owner available",
+"Account.Filters.FilterBy.MenuOwner.AvailableOwners":"Available Owners",
+"Account.Filters.FilterBy.MenuViews.Title":"Views",
+"Account.Filters.FilterBy.MenuViews.AvailableFilter":"Available Views Filter",
+"Account.Filters.FilterBy.MenuViews.Filter":"Enter your filter",
+"Account.Filters.FilterBy.MenuViews.SelectView":"Select view",
+"Account.Filters.FilterBy.MenuViews.SaveCurrentView":"Save current view",
+"Account.Filters.FilterBy.MenuViews.DeleteView":"Delete view",
+"Account.Filters.FilterBy.MenuEnvironment.Title":"Environment",
+"Account.Filters.FilterBy.MenuEnvironment.EnvironmentListEmpty":"No environment available",
+"Account.Filters.FilterBy.MenuEnvironment.FilterEnvironment":"Filter Environment",
+"Account.Filters.FilterBy.MenuEnvironment.AvailableFilterEnvironment":"Available Environment Settings",
+"Account.Filters.FilterBy.MenuFilter.Title":"Custom Filter",
+"Account.Filters.FilterBy.MenuAccountType.Title":"Account Type",
+"Account.Filters.FilterBy.MenuAccountType.FilterAccountType":"Search Account Type",
+"Account.Filters.FilterBy.MenuAccountType.AvailableFilterAccountType":"Available Account Type",
+"Account.Filters.AddFilters":"Add Filters",
+"Account.Filters.SearchFilters":"Search Filters",
+"Account.Filters.AvailableFilters":"Available Filters",
+"Errors.IntensityViewCannotInstantiate":"Could not create IntensityView!",
+"Errors.CannotInstantiateClass":"Cannot instantiate __class__",
+"Errors.NoWidgetAvailable.Title":"No widget available",
+"Errors.NoWidgetAvailable.Message":"You have closed all the widgets for this page",
+"Errors.LoadingWidgets":"Loading widgets",
+"Errors.GeneralServerError.Title":"Server error",
+"Errors.GeneralServerError.Message":"Error while requesting data.",
+"Header.EnterKeyword":"Enter keyword",
+"Header.ServerErrorReports":"Server Error Reports",
+"Header.NewUserRegistered":"New User Registered",
+"Filters.FilterBy":"Filter by",
+"Filters.AllUsers":"All Users",
+"Filters.Team":"Team",
+"Filters.Environment":"Environment",
+"Filters.RecentSelected":"Recent selected",
+"Filters.SearchOwner":"Select user",
+"Filters.AllUserSelectsAllEnvironments":"All users (select all environments)",
+"Filters.ForceES":"Force ES (Environment ES)",
+"Filters.ForceUK":"Force UK (Environment ES)",
+"Filters.DateRange":"In this date range",
+"Filters.SelectDateRange":"Select the date range",
+"Filters.Customized":"Customized",
+"Filters.To":"to",
+"Filters.LastxxDays":"Last __count__ day",
+"Filters.LastxxDays_plural":"Last __count__ days",
+"Filters.Widget.Administration":"Widget Administration",
+"WidgetAdmin.Widget.active":"Active",
+"WidgetAdmin.Widget.inactive":"Inactive",
+"tableChart":"Table Chart",
+"pieChart":"Pie Chart",
+"lineChart":"Line Chart",
+"areaChart":"Area Chart",
+"areaChartPercent":"Area Chart %",
+"Reports.AllReports":"All Reports",
+"Reports.FavouriteReports":"Favourite Reports",
+"Reports.SearchReports":"Search Reports",
+"Reports.SearchReport.resultsFor":"results for",
+"Reports.SearchBox.SearchingFor":"Searching for:",
+"Reports.Dialog.ReportParameterTitle":"Report Parameters",
+"Reports.Dialog.LoV.Select_Value":"Select Value",
+"Reports.SelectTeam":"SELECT TEAM",
+"Reports.widenSearchMessage":"You can widen your search by checking that all words are spelt correctly",
+"Contact.ContactTitle":"Contacts",
+"Contact.CreateContact":"Create Contact",
+"Contact.Table.Header":"Contacts Management",
+"Contact.Table.FIELDS":"FIELDS",
+"Contact.Table.ShowMap":"Show Map",
+"Contact.Filters.FilterBy.MenuAccount.Title":"Account",
+"Contact.Filters.FilterBy.MenuAccount.SearchPrompt":"Search account",
+"Contact.Filters.FilterBy.MenuAccount.ListEmpty":"No accounts available",
+"Contact.Filters.FilterBy.MenuRole.Title":"Role",
+"Contact.Filters.FilterBy.MenuRole.SearchPrompt":"Search role",
+"Contact.Filters.FilterBy.MenuRole.ListEmpty":"No roles available",
+"Contact.Filters.FilterBy.MenuPhoneNumber.Title":"Tel. number",
+"Contact.Filters.FilterBy.MenuPhoneNumber.SearchPrompt":"Type in phone number",
+"Contact.Filters.FilterBy.MenuAddFilter.Title":"Add Filter",
+"Contact.Filters.FilterBy.MenuAddFilter.SearchPrompt":"Search Filter",
+"Literal.List.Create_label":"Create literal",
+"Literal.List.Title":"Literals",
+"Literal.List.Table.Header":"Literals table",
+"Literal.List.Table.Edit_label":"Edit",
+"Literal.List.Table.Delete_label":"Delete",
+"Literal.List.Table.Delete_Confirm_Message":"Are you sure you want to delete literal with id '__literalId__'?",
+"Literal.Detail.Title":"Literal",
+"Literal.Detail.Header.Create":"Create literal",
+"Literal.Detail.Header.Edit":"Edit literal",
+"Literal.Detail.Header.Form":"Form",
+"Literal.Detail.Form.Literal_Key":"Literal key",
+"Literal.Detail.Form.Literal_Key_Placeholder":"Enter the literal key",
+"Literal.Detail.Form.Literal_Value_Placeholder":"Enter literal value for '__mylang__'",
+"Literal.Detail.Form.Literal_Type":"Literal type",
+"Literal.Detail.Form.Select_Literal_Type":"Select literal type",
+"Literal.Detail.Form.Platform":"Platform",
+"Literal.Detail.Form.Select_Platform":"Select Platform",
+"Literal.Detail.Form.ListEmpty":"The list is empty",
+"Literal.Detail.Form.Submit":"Save",
+"Literal.Detail.Form.Cancel":"Cancel",
+"Literal.Detail.Form.SaveSuccessMessage":"Your literal has been saved successfully",
+"Literal.Detail.Form.SaveErrorMessage":"There has been an error and your literal couldn't be saved",
+"CustomLiteral.List.Title":"Custom Literals",
+"CustomLiteral.List.Table.Header":"Custom literals table",
+"CustomLiteral.List.Table.EditLabel":"Edit",
+"CustomLiteral.List.Table.SetLabel":"Set",
+"CustomLiteral.Detail.Title_Set":"Set Custom Literal",
+"CustomLiteral.Detail.Title_Edit":"Edit Custom Literal",
+"CustomLiteral.Detail.Form.Literal_Key":"Custom literal key",
+"CustomLiteral.Detail.Form.Literal_Key_Placeholder":"Enter the custom literal key",
+"CustomLiteral.Detail.Form.Literal_Value_Placeholder":"Enter custom literal value for '__mylang__'",
+"CustomLiteral.Detail.Form.Implementation_Code":"Implementation code",
+"CustomLiteral.Detail.Form.Select_Implementation_Code":"Select implementation code",
+"CustomLiteral.Detail.Form.ListEmpty":"The list is empty",
+"CustomLiteral.Detail.Form.Submit":"Save",
+"CustomLiteral.Detail.Form.Cancel":"Cancel",
+"CustomLiteral.Detail.Form.SaveSuccessMessage":"Your literal has been saved successfully",
+"CustomLiteral.Detail.Form.SaveErrorMessage":"There has been an error and your literal couldn't be saved",
 
-  "Literal": {
-    "List": {
-      "Create_label": "Create literal",
-      "Title": "Literals",
-      "Table": {
-        "Header": "Literals table",
-        "Edit_label": "Edit",
-        "Delete_label": "Delete",
-        "Delete_Confirm_Message": "Are you sure you want to delete literal with id '__literalId__'?"
-      }
-    },
-    "Detail": {
-      "Title": "Literal",
-      "Header": {
-        "Create": "Create literal",
-        "Edit": "Edit literal",
-        "Form": "Form"
-      },
-      "Form": {
-        "Literal_Key": "Literal key",
-        "Literal_Key_Placeholder": "Enter the literal key",
-        "Literal_Value_Placeholder": "Enter literal value for '__mylang__'",
-        "Literal_Type": "Literal type",
-        "Select_Literal_Type": "Select literal type",
-        "Platform": "Platform",
-        "Select_Platform": "Select Platform",
-        "ListEmpty": "The list is empty",
-        "Submit": "Save",
-        "Cancel": "Cancel",
-        "SaveSuccessMessage": "Your literal has been saved successfully",
-        "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
-      }
-    }
-  },
 
-  "CustomLiteral": {
-    "List": {
-      "Title": "Custom Literals",
-      "Table": {
-        "Header": "Custom literals table",
-        "EditLabel": "Edit",
-        "SetLabel": "Set"
-      }
-    },
-    "Detail": {
-      "Title_Set": "Set Custom Literal",
-      "Title_Edit": "Edit Custom Literal",
-      "Form": {
-        "Literal_Key": "Custom literal key",
-        "Literal_Key_Placeholder": "Enter the custom literal key",
-        "Literal_Value_Placeholder": "Enter custom literal value for '__mylang__'",
-        "Implementation_Code": "Implementation code",
-        "Select_Implementation_Code": "Select implementation code",
-        "ListEmpty": "The list is empty",
-        "Submit": "Save",
-        "Cancel": "Cancel",
-        "SaveSuccessMessage": "Your literal has been saved successfully",
-        "SaveErrorMessage": "There has been an error and your literal couldn't be saved"
-      }
-    }
-  },
+
+
+
+
+
 
 
 
@@ -381,6 +271,7 @@
   "tabIntensity.activities.newOrders.description": "Nuevos pedidos creados por los usuarios seleccionados dentro del período establecido.",
   "tabIntensity.activities.newQuotes.description": "Nuevas ofertas creadas por los usuarios seleccionados dentro del período establecido.",
   "tabIntensity.activities.newOpportunities.description": "Nuevas oportunidades creadas por los usuarios seleccionados dentro del período establecido.",
+
   "tabIntensity.ranking.title": "_BACKEND_",
   "tabIntensity.ranking.fieldActivityScore": "_BACKEND_",
   "tabIntensity.ranking.fieldName": "_BACKEND_",
@@ -392,6 +283,7 @@
   "tabIntensity.ranking.fieldQuotes": "_BACKEND_",
   "tabIntensity.ranking.fieldOpportunities": "_BACKEND_",
   "tabIntensity.ranking.description": "El ranking incluye datos de todos los usuarios, información sobre las actividades realizadas y la puntuación en referencia a toda la interacción que ha tenido. Podrás ordenar los usuarios por diferentes factores y seleccionar los tipos de actividad que quieres visualizar.",
+
   "tabDistribution.geographicalDistribution.title": "_BACKEND_",
   "tabDistribution.geographicalDistribution.dropDown.itemSalesTeam": "Sales Team",
   "tabDistribution.geographicalDistribution.dropDown.check-ins": "Check-ins",
@@ -400,38 +292,29 @@
   "tabDistribution.geographicalDistribution.salesTeam.description": "Distribución geográfica de los usuarios según su última geolocalización.",
   "tabDistribution.geographicalDistribution.check-ins.description": "Distribución geográfica con los check-in registrados.",
 
+  "tabDistribution.segmentDistribution.title": "_BACKEND_",
+  "tabDistribution.segmentDistribution.dropDown.itemTotalActivities": "Total Activities",
+  "tabDistribution.segmentDistribution.dropDown.itemVisits": "Visits",
+  "tabDistribution.segmentDistribution.dropDown.itemNewOpportunities": "New Opportunities",
+  "tabDistribution.segmentDistribution.activities.description": "Muestra cómo se ha distribuido toda la actividad por segmento según la potencialidad del cliente.",
+  "tabDistribution.segmentDistribution.visits.description": "Muestra cómo se ha distribuido la actividad visitas por segmento según la potencialidad del cliente.",
+  "tabDistribution.segmentDistribution.newOpportunities.description": "Muestra cómo se ha distribuido la actividad de nuevas oportunidades por segmento  según la potencialidad del cliente.",
 
+  "tabDistribution.typeDistribution.title": "_BACKEND_",
+  "tabDistribution.typeDistribution.dropDown.itemTotalActivities": "Total Activities",
+  "tabDistribution.typeDistribution.dropDown.itemVisits": "Visits",
+  "tabDistribution.typeDistribution.dropDown.itemNewOpportunities": "New Opportunities",
+  "tabDistribution.typeDistribution.activities.description": "Muestra cómo se ha distribuido toda la actividad por tipo según el estado del cliente.",
+  "tabDistribution.typeDistribution.visits.description": "Muestra cómo se ha distribuido la actividad de visitas por tipo según el estado del cliente.",
+  "tabDistribution.typeDistribution.newOpportunities.description": "Muestra cómo se ha distribuido la actividad de nuevas oportunidades por tipo según el estado del cliente.",
 
-"!!!!!!!!!!!!!!!!!!!!!!": "!!!!!!!!!!!!!!!!!!!!",
-
-"tabDistribution.segmentDistribution.title": "_BACKEND_",
-"tabDistribution.segmentDistribution.dropDown.itemTotalActivities": "Total Activities",
-"tabDistribution.segmentDistribution.dropDown.itemVisits": "Visits",
-"tabDistribution.segmentDistribution.dropDown.itemNewOpportunities": "New Opportunities",
-"tabDistribution.segmentDistribution.activities.description": "Muestra cómo se ha distribuido la actividad según la potencialidad del cliente.",
-"tabDistribution.segmentDistribution.visits.description": "X",
-"tabDistribution.segmentDistribution.newOpportunities.description": "X",
-
-"tabDistribution.typeDistribution.title": "_BACKEND_",
-"tabDistribution.typeDistribution.dropDown.itemTotalActivities": "_MAL_",
-"tabDistribution.typeDistribution.dropDown.itemVisits": "_MAL_",
-"tabDistribution.typeDistribution.dropDown.itemNewOpportunities": "_MAL_",
-"tabDistribution.typeDistribution.activities.description": "_MAL_",
-"tabDistribution.typeDistribution.visits.description": "_MAL_",
-"tabDistribution.typeDistribution.newOpportunities.description": "_MAL_",
-
-"tabDistribution.stateDistribution.title": "X",
-"tabDistribution.stateDistribution.dropDown.itemTotalActivities": "X",
-"tabDistribution.stateDistribution.dropDown.itemVisits": "X",
-"tabDistribution.stateDistribution.dropDown.itemNewOpportunities": "X",
-"tabDistribution.stateDistribution.activities.description": "X",
-"tabDistribution.stateDistribution.visits.description": "X",
-"tabDistribution.stateDistribution.newOpportunities.description": "X",
-
-"!!!!!!!!!!!!!!!!!!!!!!": "!!!!!!!!!!!!!!!!!!!!",
-
-
-
+  "tabDistribution.stateDistribution.title": "_BACKEND_",
+  "tabDistribution.stateDistribution.dropDown.itemTotalActivities": "Total Activities",
+  "tabDistribution.stateDistribution.dropDown.itemVisits": "Visits",
+  "tabDistribution.stateDistribution.dropDown.itemNewOpportunities": "New Opportunities",
+  "tabDistribution.stateDistribution.activities.description": "Muestra cómo se ha distribuido toda la actividad por estado según el tipo de cliente.",
+  "tabDistribution.stateDistribution.visits.description": "Muestra cómo se ha distribuido la actividad visitas por estado según el tipo de cliente.",
+  "tabDistribution.stateDistribution.newOpportunities.description": "Muestra cómo se ha distribuido la actividad de nuevas oportunidades por estado según el tipo de cliente.",
 
   "tabDistribution.timeDistribution.title": "_BACKEND_",
   "tabDistribution.timeDistribution.dropDown.itemTotalActivities": "Total Activities",
@@ -451,26 +334,26 @@
 
   "tabConversion.activitySalesConversion.title": "_BACKEND_",
   "tabConversion.activitySalesConversion.description": "El diagrama de actividad de ventas posiciona el equipo comercial en base al trabajo realizado y las ventas efectuadas.",
-  "tabConversion.accountTypeVisitsSalesConversion.title": "X",
-  "tabConversion.accountTypevisitsSalesConversion.description": "X",
-  "tabConversion.segmentVisitsSalesConversion.title": "X",
-  "tabConversion.segmentVisitsSalesConversion.description": "X",
-  "tabConversion.customerAcquisitionFunnel.title": "X",
-  "tabConversion.customerAcquisitionFunnel.description": "X",
+
+  "tabConversion.ranking.title": "_BACKEND_",
+  "tabConversion.ranking.fieldActivityScore": "_BACKEND_",
+  "tabConversion.ranking.fieldSaleScore": "_BACKEND_",
+  "tabConversion.ranking.fieldSalesActivityRatio": "_BACKEND_",
+  "tabConversion.ranking.fieldSales": "_BACKEND_",
+  "tabConversion.ranking.description": "El ranking (conversión) incluye datos de todos los usuarios, información sobre las actividades realizadas y la puntuación en referencia a toda la interacción que ha tenido. Podrás ordenar los usuarios por diferentes factores y seleccionar los tipos de actividad que quieres visualizar.",
+
+  "tabConversion.customerAcquisitionFunnel.title": "_BACKEND_",
+  "tabConversion.customerAcquisitionFunnel.description": "Descripción del customer Acquisition Funnel",
+
   "tabConversion.customerDevelopmentFunnel.title": "X",
-  "tabConversion.customerDevelopmentFunnel.description": "X",
-  "tabConversion.ranking.title": "X",
-  "tabConversion.ranking.fieldActivityScore": "X",
-  "tabConversion.ranking.fieldSaleScore": "X",
-  "tabConversion.ranking.fieldSalesActivityRatio": "X",
-  "tabConversion.ranking.fieldSales": "X",
-  "tabConversion.ranking.description": "X",
-  "commonText.dates.last7days": "X",
-  "commonText.dates.last15days": "X",
-  "commonText.dates.last30days": "X",
-  "commonText.dates.last90days": "X",
-  "commonText.dates.last180days": "X",
-  "commonText.dates.customRange": "X",
+  "tabConversion.customerDevelopmentFunnel.description": "Descripción del customer Development Funnel",
+
+  "commonText.dates.last7days": "Last 7 Days",
+  "commonText.dates.last15days": "Last 15 Days",
+  "commonText.dates.last30days": "Last 30 Days",
+  "commonText.dates.last90days": "Last 90 Days",
+  "commonText.dates.last180days": "Last 180 Days",
+  "commonText.dates.customRange": "Custom Range",
 
 
 

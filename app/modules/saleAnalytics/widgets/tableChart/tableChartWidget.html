@@ -95,7 +95,8 @@
 
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                {{'tabIntensity.ranking.description' | i18next}}
+                <span ng-if="widget.endPoint=='rankingWidgetIntensityDataApi'">{{ 'tabIntensity.ranking.description' | i18next }}</span>
+                <span ng-if="widget.endPoint=='rankingWidgetConversionDataApi'">{{ 'tabConversion.ranking.description' | i18next }}</span>
             </div>
         </div>
     </div>

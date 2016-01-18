@@ -7,7 +7,7 @@ define([
     'shared/services/ajax/AuthAjaxService',
     'shared/services/TranslatorService',
     'config'
-], function (WidgetBase, AuthAjaxService, Configuration, TranslatorService) {
+], function (WidgetBase, AuthAjaxService, TranslatorService, Configuration) {
     'use strict';
 
     function SingleLineChartWidgetModel(ajaxService) {

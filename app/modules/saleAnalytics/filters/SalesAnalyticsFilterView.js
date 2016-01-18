@@ -3,18 +3,20 @@ define([
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
     'shared/services/StorageService',
+    'shared/services/TranslatorService',
     'config',
     'jquery',
     'moment',
     'underscore'
-], function (BaseView, SalesAnalyticsFilterChannel, WidgetAdministrationEventBus, StorageService, config, $, moment, _) {
+], function (BaseView, SalesAnalyticsFilterChannel, WidgetAdministrationEventBus, StorageService, TranslatorService, config, $, moment, _) {
     'use strict';
 
-    function SalesAnalyticsFilterView($scope) {
+    function SalesAnalyticsFilterView($scope, $rootScope) {
         BaseView.call(this, $scope, null, null);
         var self = this;
         self.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         self.storageService = StorageService.newInstance();
+        self.translator = TranslatorService.newInstance();
 
 
         var savedDateFilter = self.storageService.retrieve('dateFilter', true);
@@ -34,7 +36,7 @@ define([
 
         var currentLocale = moment.localeData();
         var now = moment();
-        self.$scope.opts = {
+        var opts = {
             locale: {
                 format: currentLocale.longDateFormat('L'),
                 separator: " "+ String.fromCharCode(8594) +" ",
@@ -43,17 +45,9 @@ define([
                 fromLabel: "From",
                 toLabel: "To",
                 cancelLabel: 'Cancel',
-                customRangeLabel: 'Custom Range',
                 daysOfWeek: currentLocale.weekdaysShort(now),
                 firstDay: currentLocale.firstDayOfWeek(),
                 monthNames: currentLocale.months(now)
-            },
-            ranges: {
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 15 Days': [moment().subtract(14, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'Last 90 Days': [moment().subtract(89, 'days'), moment()],
-                'Last 180 Days': [moment().subtract(179, 'days'), moment()]
             },
             minDate: moment('2010-01-01'),
             maxDate: moment(),
@@ -73,6 +67,25 @@ define([
                 }
             }
         };
+
+        opts.ranges = {};
+        $rootScope.$on('i18nextLanguageChange', function(ev) {
+            [
+                { label: self.translator.translate('commonText.dates.last7days'), dateRange: [moment().subtract(6, 'days'), moment()] },
+                { label: self.translator.translate('commonText.dates.last15days'), dateRange: [moment().subtract(14, 'days'), moment()] },
+                { label: self.translator.translate('commonText.dates.last30days'), dateRange: [moment().subtract(29, 'days'), moment()] },
+                { label: self.translator.translate('commonText.dates.last90days'), dateRange: [moment().subtract(89, 'days'), moment()] },
+                { label: self.translator.translate('commonText.dates.last180days'), dateRange: [moment().subtract(179, 'days'), moment()] }
+            ].forEach(function(range){
+                if(range.label && range.label.length > 0) {
+                    opts.ranges[range.label] = range.dateRange;
+                }
+            });
+
+            opts.locale.customRangeLabel = self.translator.translate('commonText.dates.customRange');
+
+            self.$scope.opts = opts;
+        });
 
         SalesAnalyticsFilterView.configureEvents(this);
     }
@@ -94,8 +107,8 @@ define([
         window.console.error(error);
     };
 
-    SalesAnalyticsFilterView.newInstance = function ($scope, $viewRepAspect, $logErrorAspect) {
-        var view = new SalesAnalyticsFilterView($scope);
+    SalesAnalyticsFilterView.newInstance = function ($scope, $rootScope, $viewRepAspect, $logErrorAspect) {
+        var view = new SalesAnalyticsFilterView($scope, $rootScope);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

@@ -23,13 +23,18 @@
 
     <div class="chart-place-holder height-sm map-fix" ng-hide="data.serverError===true"></div>
 
-        <div class="well well-lg">
-            <div class="row" ng-hide="data.serverError===true">
-                <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
-                    <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
-                </div>
+    <div class="well well-lg">
+        <div class="row" ng-hide="data.serverError===true">
+            <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
+                <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
             </div>
         </div>
+    </div>
+
+    <div class="well well-lg">
+        <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'">{{ 'tabConversion.customerAcquisitionFunnel.description' | i18next }}</span>
+        <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'">{{ 'tabConversion.customerDevelopmentFunnel.description' | i18next }}</span>
+    </div>
 
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"

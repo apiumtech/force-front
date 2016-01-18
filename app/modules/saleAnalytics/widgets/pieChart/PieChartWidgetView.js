@@ -47,6 +47,12 @@ define([
         }
     });
 
+    PieChartWidgetView.prototype.___show = WidgetBaseView.prototype.show;
+    PieChartWidgetView.prototype.show = function () {
+        this.___show.call(this);
+        this.event.createFilters(this.widget);
+    }
+
 
     PieChartWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -125,6 +131,7 @@ define([
         };
 
         self.fn.init = function () {
+            self.event.createFilters = function(){};
             setTimeout( function(){
                 $('[data-toggle=tooltip]').tooltip();
             }, 2000 );

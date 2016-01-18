@@ -46,9 +46,9 @@ define([
                 return filterValue.key;
             }).indexOf(filter) == -1) {
             this.currentFilter = this.filters[0].key;
-        }
-        else
+        } else {
             this.currentFilter = filter;
+        }
     };
 
 
