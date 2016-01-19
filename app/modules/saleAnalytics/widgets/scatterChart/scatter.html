@@ -1,14 +1,13 @@
-<widget-wrapper body-class="height-md"
+<widget-wrapper body-class="height-md no-toolbar"
                 wtitle="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
-    <div class="row" ng-hide="data.serverError || data.noData">
-        <div class="col-xs-10 no-padding chart-place-holder height-sm map-chart"
-             style="min-height: 356px;"
-             ng-hide="data.serverError===true">
+    <div class="row panel-content" ng-hide="data.serverError || data.noData">
+        <div class="panel-content-child col-xs-10">
+            <div class="chart-place-holder panel-content-child map-fix"></div>
         </div>
-        <div class="col-xs-2 height-sm" style="overflow-y: auto;">
+        <div class="panel-content-child col-xs-2" style="overflow-y: auto;">
             <ul style="list-style:none;padding:0;margin:0;">
                 <li
                         style="padding-left:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
@@ -23,19 +22,35 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-            <div class="well">
-                {{ 'tabConversion.activitySalesConversion.description' | i18next }}
+    </div>
+
+
+    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
+        <div class="well">
+            {{ 'tabConversion.activitySalesConversion.description' | i18next }}
+        </div>
+    </div>
+
+
+    <!-- NO DATA -->
+    <div class="row" ng-if="data.noData">
+        <div class="col-xs-12">
+            <div class="alert alert-warning" role="alert">
+                {{'commonText.NoDataToDisplay' | i18next}}
+                <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> {{'commonText.Refresh' | i18next}}</button>
             </div>
         </div>
     </div>
 
 
+    <!-- SERVER ERROR -->
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
     </ng-include>
 
+
+    <!-- TEMPLATES -->
     <div style="display:none;">
         <!--
             Scatter Callout Template
