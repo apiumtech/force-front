@@ -12,7 +12,7 @@ define([
     'use strict';
 
     function MapChartWidgetModel(ajaxService) {
-        WidgetBase.call(this, ajaxService);
+
 
         var self = this;
         self.translator = TranslatorService.newInstance();
@@ -32,11 +32,7 @@ define([
             period: ""
         };
 
-        // FIXME: este filtro debería ser el que hay en sessionStorage!!!
-        self.addDateFilter(
-            moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(),
-            moment().toDate()
-        );
+        WidgetBase.call(self, ajaxService);
     }
 
     MapChartWidgetModel.inherits(WidgetBase, {});
