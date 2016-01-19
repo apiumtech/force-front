@@ -1,11 +1,15 @@
 <widget-wrapper body-class="height-md"
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{ 'tabDistribution.coverageAnalysis.header.title.tooltip' | i18next }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
     <div class="clearfix m-b-20 ">
         <div class="btn-group pull-right">
-            <button ng-if="widget.option == 'tab'" class="btn btn-white btn-sm" ng-repeat="filter in filters"
+            <button ng-if="widget.option == 'tab'"
+                    class="btn btn-white btn-sm"
+                    ng-repeat="filter in filters"
+                    ng-attr-title="{{ filter.tooltip }}"
                     ng-click="fn.changeFilter(filter)"
                     ng-class="{'active':selectedFilter.key==filter.key}">
                 {{filter.name}}

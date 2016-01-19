@@ -1,5 +1,10 @@
 <widget-wrapper body-class="height-md"
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{
+                 widget.type == 'segment_distribution' ? ('tabDistribution.segmentDistribution.header.title.tooltip' | i18next) :
+                    widget.type == 'type_distribution' ? ('tabDistribution.typeDistribution.header.title.tooltip' | i18next) :
+                    widget.type == 'state_distribution' ? ('tabDistribution.statusDistribution.header.title.tooltip' | i18next) : ''
+                }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
@@ -20,7 +25,9 @@
                         type="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        ng-i18next="[title]commonText.charts.dropDown.activities.tooltip"
+                >
                     {{ selectedFilter.name }}
                     <span class="caret"></span>
                 </button>
@@ -41,7 +48,8 @@
 
 
             <!-- DATE RANGE buttonbar -->
-            <div class="btn-group pull-right">
+            <div class="btn-group pull-right"
+                 ng-i18next="[title]commonText.graph.buttonbar.dateFilter.tooltip">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')"
@@ -70,37 +78,37 @@
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToPie()"
                         ng-class="{'active': currentChartType=='pie'}"
-                        ng-i18next="[title]pieChart">
+                        ng-i18next="[title]commonText.pieChart.tooltip">
                     <img src="assets/img/pie.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
-                        ng-i18next="[title]lineChart">
+                        ng-i18next="[title]commonText.lineChart.tooltip">
                     <img src="assets/img/line.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled()"
                         ng-class="{'active': currentChartType=='filled'}"
-                        ng-i18next="[title]areaChart">
+                        ng-i18next="[title]commonText.areaChart.tooltip">
                     <img src="assets/img/area.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled100()"
                         ng-class="{'active': currentChartType=='filled100'}"
-                        ng-i18next="[title]areaChartPercent">
+                        ng-i18next="[title]commonText.stackedAreaChart.tooltip">
                     <img src="assets/img/area-percent.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToTable()"
                         ng-class="{'active': currentChartType=='table'}"
-                        ng-i18next="[title]tableChart">
+                        ng-i18next="[title]commonText.tableChart.tooltip">
                     <img src="assets/img/table.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.exportToCSV()"
                         ng-if="currentChartType=='table'"
-                        title="CSV">
+                        ng-i18next="[title]commonText.tableChart.button.csvDownload.tooltip">
                     <img src="assets/img/csv.png" style="width: 24px; height: 24px;">
                 </button>
             </div>

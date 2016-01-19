@@ -1,5 +1,6 @@
 <widget-wrapper body-class=""
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{ 'tabDistribution.geographicalDistribution.header.title.tooltip' | i18next }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
@@ -33,12 +34,14 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-lg-8">
                 <div class="pull-right" ng-show="selectedFilter!=='users'">
-                    <label class="radio-inline">
+                    <label class="radio-inline"
+                           ng-i18next="[title]tabDistribution.geographicalDistribution.toggle.heatMap.tooltip">
                         <input type="radio" value="HEAT_MAP"
                                ng-model="selectedMapType"
                                ng-click="fn.selectMapType('HEAT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.heatMap' | i18next }}
                     </label>
-                    <label class="radio-inline">
+                    <label class="radio-inline"
+                           ng-i18next="[title]tabDistribution.geographicalDistribution.toggle.pointMap.tooltip">
                         <input type="radio" value="POINT_MAP"
                                ng-model="selectedMapType"
                                ng-click="fn.selectMapType('POINT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.pointMap' | i18next }}

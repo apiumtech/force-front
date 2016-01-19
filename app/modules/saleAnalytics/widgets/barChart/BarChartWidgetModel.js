@@ -20,11 +20,13 @@ define([
         this.filters = [
             {
                 name: this.translator.translate('tabDistribution.coverageAnalysis.selectButton.itemSegment'),
-                key: "Segment"
+                key: "Segment",
+                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.segment.tooltip')
             },
             {
                 name: this.translator.translate("tabDistribution.coverageAnalysis.selectButton.itemAccountType"),
-                key: "AccountType"
+                key: "AccountType",
+                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.accountType.tooltip')
             }
         ];
     }

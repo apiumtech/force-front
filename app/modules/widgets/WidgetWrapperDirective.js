@@ -15,6 +15,7 @@ define([
             controller: WidgetWrapperController,
             scope: {
                 wtitle: "@",
+                wtooltip: "@",
                 bodyClass: "@",
                 eventBusChannel: "=",
                 foreverScroll: "&",

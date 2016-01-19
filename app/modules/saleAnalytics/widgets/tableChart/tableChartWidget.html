@@ -1,14 +1,18 @@
 <widget-wrapper body-class="table-chart-widget"
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{ 'tabIntensity.ranking.header.title.tooltip' | i18next }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
     <div ng-hide="data.serverError===true">
 
         <div class="col-xs-12">
+
             <!-- dropdown-->
             <div class="btn-group pull-right" is-open="filterDropdown" dropdown>
-                <a class="btn btn-default btn-sm dropdown-toggle" dropdown-toggle>
+                <a class="btn btn-default btn-sm dropdown-toggle"
+                   dropdown-toggle
+                   ng-i18next="[title]commonText.table.dropDown.addColumns.tooltip">
                     {{'TableWidget.AddColumns' | i18next}}
                     <span class="caret"></span>
                 </a>
@@ -43,9 +47,10 @@
                 <thead>
                     <tr>
                         <th
-                                ng-repeat="column in data.columns | filter:{key:'!$'}"
-                                ng-if="column.available && column.visible"
-                                style="text-align: center; border-right: 1px solid #e2e7eb;">
+                           ng-repeat="column in data.columns | filter:{key:'!$'}"
+                           ng-attr-title="{{ column.tooltip }}"
+                           ng-if="column.available && column.visible"
+                           style="text-align: center; border-right: 1px solid #e2e7eb;">
                             <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
                                 {{ column.name }}
                                 <i ng-class="{

@@ -1,5 +1,6 @@
 <widget-wrapper body-class="height-md"
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{ 'tabDistribution.hourDistribution.header.title.tooltip' | i18next }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId"
         >
@@ -15,6 +16,7 @@
 
             <div class="dropdown pull-right">
                 <button class="btn btn-default dropdown-toggle"
+                        ng-i18next="[title]commonText.charts.dropDown.activities.tooltip"
                         type="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"

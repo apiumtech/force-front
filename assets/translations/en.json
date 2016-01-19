@@ -359,6 +359,54 @@
 
 
 
+"!!!!!!!!!!!!! TOOLTIPS": "!!!!!!!!!!!!!!!!!!!!!",
+
+  "tabIntensity.ranking.header.title.tooltip": "Ránquing de usuarios",
+  "tabIntensity.activities.button.hourDistribution.tooltip": "Controla la distribución horaria de la actividad",
+  "tabIntensity.activities.header.title.tooltip": "Analiza los tipos de actividad comercial en el periodo seleccionado",
+
+  "tabDistribution.geographicalDistribution.header.title.tooltip": "Distribución geográfica",
+  "tabDistribution.geographicalDistribution.toggle.heatMap.tooltip": "Mapa de calor: muestra las zonas de mayor concentración de actividad",
+  "tabDistribution.geographicalDistribution.toggle.pointMap.tooltip": "Mapa de puntos: muestra los check-in registrados y agrupados por cantidad",
+
+  "tabDistribution.segmentDistribution.header.title.tooltip": "Distribución por segmento",
+  "tabDistribution.typeDistribution.header.title.tooltip": "Distribución por tipo",
+  "tabDistribution.statusDistribution.header.title.tooltip": "Distribución por estado",
+  "tabDistribution.hourDistribution.header.title.tooltip": "Distribución horaria",
+
+  "tabDistribution.coverageAnalysis.header.title.tooltip": "Análisis de cobertura",
+  "tabDistribution.coverageAnalysis.tabFilter.accountType.tooltip": "Tipo de empresa",
+  "tabDistribution.coverageAnalysis.tabFilter.segment.tooltip": "Tipo de cliente",
+
+  "commonText.graph.buttonbar.dateFilter.tooltip": "Visualiza el gráfico por día, semana o mes",
+  "commonText.charts.dropDown.activities.tooltip": "Selecciona actividad",
+  "commonText.table.column.ActivityScore.tooltip": "Índice de actividad: tiene en cuenta las interacciones que ha tenido el usuario en los últimos meses pero da máxima relevancia a lo que pasa en las últimas semanas. Podrás ver quien trabaja más y quien menos, ya que se asigna una puntuación según el trabajo realizado y ordena los usuarios de 0 a 10.",
+  "commonText.table.column.Name.tooltip": "Selecciona un usuario para ver su análisis de ventas",
+  "commonText.table.column.Visits.tooltip": "Visitas realizadas",
+  "commonText.table.column.Activities.tooltip": "Actividades no geolocalizadas",
+  "commonText.table.column.PhoneCallsTime.tooltip": "Llamadas externas",
+  "commonText.table.column.Emails.tooltip": "Emails enviados y recibidos con el cliente",
+  "commonText.table.column.Orders.tooltip": "Pedidos realizados",
+  "commonText.table.column.Quotes.tooltip": "Ofertas dadas de alta",
+  "commonText.table.column.Opportunities.tooltip": "Oportunidades creadas",
+  "commonText.table.dropDown.addColumns.tooltip": "Gestiona las columnas",
+  "commonText.userFilter.tooltip": "Filtra por usuarios, equipos de venta o entornos",
+  "commonText.dateFilter.tooltip": "Selecciona un periodo",
+  "commonText.pieChart.tooltip": "Gráfica de pastel",
+  "commonText.lineChart.tooltip": "Gráfica con valores absolutos",
+  "commonText.areaChart.tooltip": "Gráfica agregada de valores absolutos",
+  "commonText.stackedAreaChart.tooltip": "Gráfica con la distribución porcentual",
+  "commonText.tableChart.tooltip": "Ver los datos en formato table",
+  "commonText.tableChart.button.csvDownload.tooltip": "Descarga los datos en formato CSV para Excel",
+
+"!!!!!!!!!!!!! END TOOLTIPS": "!!!!!!!!!!!!!!!!!!!!!",
+
+
+
+
+
+
+
 
   "10543_widgetem_titleOportunities": "Families Oportunities and Warning",
   "10543_widgetem_titleUpCrossSelling": "Up&Cross-Selling",

@@ -1,5 +1,6 @@
 <widget-wrapper body-class="graph-chart"
                 wtitle="{{widget.widgetName}}"
+                wtooltip="{{ 'tabDistribution.hourDistribution.header.title.tooltip' | i18next }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
@@ -31,7 +32,8 @@
         <div class="col-xs-12 col-md-8 m-b-20">
 
             <!-- DATE RANGE buttonbar -->
-            <div class="btn-group pull-right">
+            <div class="btn-group pull-right"
+                 ng-i18next="[title]commonText.graph.buttonbar.dateFilter.tooltip">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')">
@@ -54,6 +56,7 @@
             <div class="btn-group pull-right"
                  ng-show="selectedFilter.key !== 'orders' && selectedFilter.key !== 'quotes' && selectedFilter.key !== 'opportunities'">
                 <button class="btn btn-white btn-sm"
+                        ng-i18next="[title]tabIntensity.activities.button.hourDistribution.tooltip"
                         ng-class="{'active': selectedRangeOption=='hour'}"
                         ng-click="fn.changeFilterRange('hour')">
                     {{'LineWidget.Filters.Hour' | i18next}}
@@ -68,19 +71,19 @@
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
-                        ng-i18next="[title]lineChart">
+                        ng-i18next="[title]commonText.lineChart.tooltip">
                     <img src="assets/img/line.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled()"
                         ng-class="{'active': currentChartType=='filled'}"
-                        ng-i18next="[title]areaChart">
+                        ng-i18next="[title]commonText.areaChart.tooltip">
                     <img src="assets/img/area.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled100()"
                         ng-class="{'active': currentChartType=='filled100'}"
-                        ng-i18next="[title]areaChartPercent">
+                        ng-i18next="[title]commonText.stackedAreaChart.tooltip">
                     <img src="assets/img/area-percent.png" style="width: 24px; height: 24px;">
                 </button>
             </div>

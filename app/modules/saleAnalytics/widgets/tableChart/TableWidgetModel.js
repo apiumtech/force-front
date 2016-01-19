@@ -6,9 +6,10 @@ define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/config/PermissionsService',
+    'shared/services/TranslatorService',
     'config',
     'moment'
-], function (AuthAjaxService, WidgetBase, PermissionsService, Configuration, moment) {
+], function (AuthAjaxService, WidgetBase, PermissionsService, TranslatorService, Configuration, moment) {
     'use strict';
 
     function TableWidgetModel(ajaxService) {
@@ -18,6 +19,7 @@ define([
             period: "",
             grouping: ""
         };
+        this.translator = TranslatorService.newInstance();
         this.permissionsService = PermissionsService.newInstance();
         this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
@@ -134,7 +136,8 @@ define([
                 sortable: true,
                 visible: true, // wether the column is visible at a particular moment.
                 available: calculateColumnAvailable(key), // wether the column is even available to be shown.
-                order: calculateColumnOrder(key) // position
+                order: calculateColumnOrder(key), // position
+                tooltip: self.translator.translate('commonText.table.column.'+ key +'.tooltip')
             });
         });
 
