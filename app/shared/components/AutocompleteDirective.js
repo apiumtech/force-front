@@ -29,7 +29,10 @@ define([
                     accept: 'application/json'
                 };
 
+                scope.isLoading = true;
+
                 ajaxService.rawAjaxRequest(params).then(function (data) {
+                    scope.isLoading = false;
                     var dataAdapter = function(item){
                         return {
                             id: item.Id,
@@ -67,11 +70,25 @@ define([
                     if (ui.item) {
                         ctrl.$setViewValue(ui.item.id);
                     }
+                },
+                search: function(){
+                    if(scope.onLoading) {
+                        scope.onLoading();
+                    }
+                },
+                response: function(){
+                    if(scope.onLoaded) {
+                        scope.onLoaded();
+                    }
                 }
             });
         };
 
         return {
+            scope: {
+                onLoaded: "=",
+                onLoading: "="
+            },
             restrict: "EA",
             require: 'ngModel',
             link: linkElement

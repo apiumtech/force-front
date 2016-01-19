@@ -84,6 +84,16 @@ define([
                 self.$scope.$apply();
             });
         };
+
+		self.data.isLoading = false;
+		self.fn.onAutocompleteLoaded = function(){
+			self.data.isLoading = false;
+			self.$scope.$apply();
+		};
+		self.fn.onAutocompleteLoading = function(){
+			self.data.isLoading = true;
+			self.$scope.$apply();
+		};
 	};
 
 	PreviewDialogView.prototype.validateParameterInput = function(){

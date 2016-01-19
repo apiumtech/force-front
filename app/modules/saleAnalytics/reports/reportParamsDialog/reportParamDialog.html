@@ -77,7 +77,10 @@
             <div class="col-md-10 ui-widget">
                 <input class="form-control"
                        ng-model="report.params[paramConfig.Id]"
+                       on-loaded="fn.onAutocompleteLoaded"
+                       on-loading="fn.onAutocompleteLoading"
                        autocomplete="{{ config.api.fuzzysearch }}"/>
+                <span class="spinner-small" ng-if="data.isLoading"></span>
             </div>
         </div>
 
