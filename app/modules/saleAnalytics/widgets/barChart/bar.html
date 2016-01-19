@@ -4,50 +4,59 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
-    <div class="clearfix m-b-20 ">
-        <div class="btn-group pull-right">
-            <button ng-if="widget.option == 'tab'"
-                    class="btn btn-white btn-sm"
-                    ng-repeat="filter in filters"
-                    ng-attr-title="{{ filter.tooltip }}"
-                    ng-click="fn.changeFilter(filter)"
-                    ng-class="{'active':selectedFilter.key==filter.key}">
-                {{filter.name}}
-            </button>
 
-            <!--<select ng-if="widget.option == 'dropdown'" class="form-control pull left"
-                    ng-model="selectedFilter"
-                    ng-change="fn.changeFilter(selectedFilter)">
-                <option ng-repeat="filter in tabs" value="{{filter.key}}">{{filter.name}}</option>
-            </select>-->
+    <!-- TOOLBAR -->
+    <div class="row" ng-init="fn.init()">
+        <div class="col-xs-12 m-b-20">
+            <div class="btn-group pull-right">
+                <button ng-if="widget.option == 'tab'"
+                        class="btn btn-white btn-sm"
+                        ng-repeat="filter in filters"
+                        ng-attr-title="{{ filter.tooltip }}"
+                        ng-click="fn.changeFilter(filter)"
+                        ng-class="{'active':selectedFilter.key==filter.key}">
+                    {{filter.name}}
+                </button>
 
-            <div class="form-control pull left"
-                 ng-if="widget.option == 'dropdown'">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                        {{ selectedFilter.name }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="filter in filters"
-                            ng-class="{active: filter.key===selectedFilter.key}">
-                            <a href ng-click="fn.changeFilter(filter)">
-                                {{ filter.name }}
-                            </a>
-                        </li>
-                    </ul>
+                <!--<select ng-if="widget.option == 'dropdown'" class="form-control pull left"
+                        ng-model="selectedFilter"
+                        ng-change="fn.changeFilter(selectedFilter)">
+                    <option ng-repeat="filter in tabs" value="{{filter.key}}">{{filter.name}}</option>
+                </select>-->
+
+                <div class="form-control pull left"
+                     ng-if="widget.option == 'dropdown'">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle"
+                                type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            {{ selectedFilter.name }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="filter in filters"
+                                ng-class="{active: filter.key===selectedFilter.key}">
+                                <a href ng-click="fn.changeFilter(filter)">
+                                    {{ filter.name }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
+    <!-- END TOOLBAR -->
 
 
-    <div class="chart-place-holder height-sm  map-fix" ng-hide="data.serverError===true"></div>
+    <div class="row panel-content" ng-hide="data.serverError || data.noData">
+        <div class="panel-content-child col-xs-12">
+            <div class="chart-place-holder panel-content-child map-fix"></div>
+        </div>
+    </div>
 
 
     <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
@@ -58,6 +67,18 @@
     </div>
 
 
+    <!-- NO DATA -->
+    <div class="row" ng-if="data.noData">
+        <div class="col-xs-12">
+            <div class="alert alert-warning" role="alert">
+                {{'commonText.NoDataToDisplay' | i18next}}
+                <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> {{'commonText.Refresh' | i18next}}</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SERVER ERROR -->
     <ng-include
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
@@ -65,6 +86,7 @@
 
 
 
+    <!-- TEMPLATES -->
     <div style="display:none;">
         <!--
             Bar chart Callout Table Template

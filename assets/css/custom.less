@@ -481,13 +481,30 @@ button:disabled {
 /**
  * Panel stuff
  */
-/*.panel.panel-expand > .panel-body {
+/* Make not expanded panels to be like this */
+.panel > .panel-body {
   .panel-content {
-    height: 70%;
-    min-height: 70%;
+    height: 60%;
+    min-height: 60%;
     .panel-content-child {
       height: 100%;
       min-height: 100%;
     }
   }
-}*/
+}
+/* Make expanded panels to be like this */
+.panel.panel-expand > .panel-body {
+  .panel-content {
+    height: 70%;
+    min-height: 70%;
+  }
+}
+/* Make not expanded panels that are 12 cols to be like this */
+.widget-container.col-md-12 .panel:not(.panel-expand)>.panel-body {
+  &.height-md.no-toolbar {
+    .panel-content {
+      height: 80%;
+      min-height: 80%;
+    }
+  }
+}
