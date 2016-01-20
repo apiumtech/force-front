@@ -20,7 +20,7 @@ define([
     var FILLED100 = 'filled100';
 
 
-    function GraphChartWidgetView(scope, element, presenter) {
+    function GraphChartWidgetView(scope, element, presenter, $rootScope) {
         presenter = presenter || new GraphWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
 
@@ -28,9 +28,12 @@ define([
         self.translator = TranslatorService.newInstance();
         scope.filters = [];
         scope.selectedFilter = {
-            name: self.translator.translate('tabIntensity.activities.dropDown.itemVisits'),
+            name: 'Visits',
             key: 'visits'
         };
+        $rootScope.$on('i18nextLanguageChange', function() {
+            scope.selectedFilter.name = self.translator.translate('tabIntensity.activities.dropDown.itemVisits');
+        });
         scope.selectedRangeOption = "week";
         scope.currentChartType = LINE;
 
@@ -647,8 +650,8 @@ define([
         });
     };
 
-    GraphChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-        var view = new GraphChartWidgetView($scope, $element);
+    GraphChartWidgetView.newInstance = function ($scope, $element, $rootScope, $viewRepAspect, $logErrorAspect) {
+        var view = new GraphChartWidgetView($scope, $element, undefined, $rootScope);
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

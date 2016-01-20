@@ -7,12 +7,12 @@ define([
 ], function (app, GraphChartWidgetView) {
     'use strict';
 
-    function GraphChartWidgetController($scope, $element) {
-        GraphChartWidgetController.configureView($scope, $element);
+    function GraphChartWidgetController($scope, $element, $rootScope) {
+        GraphChartWidgetController.configureView($scope, $element, $rootScope);
     }
 
-    GraphChartWidgetController.configureView = function ($scope, $element) {
-        this.view = GraphChartWidgetView.newInstance($scope, $element);
+    GraphChartWidgetController.configureView = function ($scope, $element, $rootScope) {
+        this.view = GraphChartWidgetView.newInstance($scope, $element, $rootScope);
         this.view.show();
     };
 

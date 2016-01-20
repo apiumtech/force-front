@@ -22,7 +22,7 @@ define([
     window.moment = moment;
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
-        $i18nextProvider.options = i18nextOptions.dev_local;
+        $i18nextProvider.options = i18nextOptions.prod;
     }]);
 
     var app = angular.module(config.appName, [

@@ -103,6 +103,7 @@ define([
 
                         var $body = angular.element(document.body);
                         var $rootScope = $body.injector().get('$rootScope');
+                        $rootScope.i18nextLanguageReady = true;
                         $rootScope.$broadcast('i18nextLanguageChange');
                     },
                     function (err) {

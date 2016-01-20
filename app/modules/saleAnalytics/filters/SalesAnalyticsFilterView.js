@@ -69,7 +69,7 @@ define([
         };
 
         opts.ranges = {};
-        $rootScope.$on('i18nextLanguageChange', function(ev) {
+        $rootScope.$on('i18nextLanguageChange', function() {
             [
                 { label: self.translator.translate('commonText.dates.last7days'), dateRange: [moment().subtract(6, 'days'), moment()] },
                 { label: self.translator.translate('commonText.dates.last15days'), dateRange: [moment().subtract(14, 'days'), moment()] },

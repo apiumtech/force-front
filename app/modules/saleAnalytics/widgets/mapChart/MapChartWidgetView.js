@@ -29,7 +29,7 @@ define([
         self.translator = TranslatorService.newInstance();
 
         self.$scope.selectedFilter = {
-            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
+            name: 'Sales Team',
             key: 'users'
         };
         self.$scope.selectedMapType = HEAT_MAP;
@@ -83,6 +83,10 @@ define([
     MapChartWidgetView.prototype.onReloadWidgetSuccess = function (responseData) {
         var self = this;
         self.$scope.filters = responseData.data.filters;
+        self.$scope.selectedFilter = {
+            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
+            key: 'users'
+        };
         self.refreshChart(responseData.data.params);
     };
 

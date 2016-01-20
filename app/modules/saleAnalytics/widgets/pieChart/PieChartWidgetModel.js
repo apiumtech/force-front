@@ -13,11 +13,20 @@ define([
         WidgetBase.call(this, ajaxService);
         this.translator = TranslatorService.newInstance();
         this.queries.grouping = "pie";
+        this.currentFilter = {
+            name: "Activities",
+            key: "activities"
+        };
     }
 
     PieChartWidgetModel.inherits(WidgetBase, {});
 
-    PieChartWidgetModel.prototype.createFilters = function (widget) {
+    PieChartWidgetModel.prototype.setWidget = function (widget) {
+        this.widget = widget;
+    };
+
+    PieChartWidgetModel.prototype.createFilters = function () {
+        var widget = this.widget;
         var literalPart;
 
         if(widget.type === 'segment_distribution') {
@@ -69,6 +78,7 @@ define([
 
     PieChartWidgetModel.prototype.decorateServerData = function (data) {
         var self = this;
+        self.createFilters();
         var responseData;
         if (self.queries.grouping === "pie") {// is pie chart
             responseData = self.decoratePieChartServerData(data);

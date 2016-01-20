@@ -16,19 +16,6 @@ define([
         this.translator = TranslatorService.newInstance();
 
         this.currentFilter = 'Segment';
-
-        this.filters = [
-            {
-                name: this.translator.translate('tabDistribution.coverageAnalysis.selectButton.itemSegment'),
-                key: "Segment",
-                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.segment.tooltip')
-            },
-            {
-                name: this.translator.translate("tabDistribution.coverageAnalysis.selectButton.itemAccountType"),
-                key: "AccountType",
-                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.accountType.tooltip')
-            }
-        ];
     }
 
     BarChartWidgetModel.inherits(WidgetBase, {});
@@ -47,7 +34,23 @@ define([
         return this.fetchPoint.format(this.currentFilter);
     };
 
+    BarChartWidgetModel.prototype.createFilters = function () {
+        this.filters = [
+            {
+                name: this.translator.translate('tabDistribution.coverageAnalysis.selectButton.itemSegment'),
+                key: "Segment",
+                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.segment.tooltip')
+            },
+            {
+                name: this.translator.translate("tabDistribution.coverageAnalysis.selectButton.itemAccountType"),
+                key: "AccountType",
+                tooltip: this.translator.translate('tabDistribution.coverageAnalysis.tabFilter.accountType.tooltip')
+            }
+        ];
+    };
+
     BarChartWidgetModel.prototype.decorateServerData = function (data) {
+        this.createFilters();
         var responseData = {
             "data": {
                 "params": {

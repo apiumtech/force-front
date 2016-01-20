@@ -69,8 +69,8 @@ define([
             return model.getFilters();
         };
 
-        view.event.createFilters = function(widget){
-            model.createFilters(widget);
+        view.event.setWidget = function(widget){
+            model.setWidget(widget);
         };
     };
 

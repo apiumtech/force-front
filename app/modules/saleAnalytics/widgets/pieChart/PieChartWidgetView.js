@@ -50,7 +50,7 @@ define([
     PieChartWidgetView.prototype.___show = WidgetBaseView.prototype.show;
     PieChartWidgetView.prototype.show = function () {
         this.___show.call(this);
-        this.event.createFilters(this.widget);
+        this.event.setWidget(this.widget);
     }
 
 
