@@ -28,7 +28,8 @@ define([
             self.storageService.store('dateFilter', savedDateFilter, true);
         }
 
-        self.$scope.date = {
+        $scope.datePicker = $scope.datePicker || {};
+        self.$scope.datePicker.date = {
             startDate: moment(savedDateFilter.startDate),
             endDate: moment(savedDateFilter.endDate)
         };
@@ -47,7 +48,8 @@ define([
                 cancelLabel: 'Cancel',
                 daysOfWeek: currentLocale.weekdaysShort(now),
                 firstDay: currentLocale.firstDayOfWeek(),
-                monthNames: currentLocale.months(now)
+                monthNames: currentLocale.months(now),
+                customRangeLabel: self.translator.translate('commonText.dates.customRange')
             },
             minDate: moment('2010-01-01'),
             maxDate: moment(),
@@ -69,23 +71,21 @@ define([
         };
 
         opts.ranges = {};
-        $rootScope.$on('i18nextLanguageChange', function() {
-            [
-                { label: self.translator.translate('commonText.dates.last7days'), dateRange: [moment().subtract(6, 'days'), moment()] },
-                { label: self.translator.translate('commonText.dates.last15days'), dateRange: [moment().subtract(14, 'days'), moment()] },
-                { label: self.translator.translate('commonText.dates.last30days'), dateRange: [moment().subtract(29, 'days'), moment()] },
-                { label: self.translator.translate('commonText.dates.last90days'), dateRange: [moment().subtract(89, 'days'), moment()] },
-                { label: self.translator.translate('commonText.dates.last180days'), dateRange: [moment().subtract(179, 'days'), moment()] }
-            ].forEach(function(range){
-                if(range.label && range.label.length > 0) {
-                    opts.ranges[range.label] = range.dateRange;
-                }
-            });
 
-            opts.locale.customRangeLabel = self.translator.translate('commonText.dates.customRange');
-
-            self.$scope.opts = opts;
+        [
+            { label: self.translator.translate('commonText.dates.last7days'), dateRange: [moment().subtract(6, 'days'), moment()] },
+            { label: self.translator.translate('commonText.dates.last15days'), dateRange: [moment().subtract(14, 'days'), moment()] },
+            { label: self.translator.translate('commonText.dates.last30days'), dateRange: [moment().subtract(29, 'days'), moment()] },
+            { label: self.translator.translate('commonText.dates.last90days'), dateRange: [moment().subtract(89, 'days'), moment()] },
+            { label: self.translator.translate('commonText.dates.last180days'), dateRange: [moment().subtract(179, 'days'), moment()] }
+        ].forEach(function(range){
+            if(range.label && range.label.length > 0) {
+                opts.ranges[range.label] = range.dateRange;
+            }
         });
+
+        self.$scope.datePicker.opts = opts;
+
 
         SalesAnalyticsFilterView.configureEvents(this);
     }

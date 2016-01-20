@@ -5,15 +5,23 @@
 define([
     'app',
     'modules/saleAnalytics/filters/SalesAnalyticsFilterView',
+    'moment',
 
     'modules/saleAnalytics/directives/TreeListDirective'
-], function (app, SalesAnalyticsFilterView) {
+], function (app, SalesAnalyticsFilterView, moment) {
     'use strict';
 
     function SalesAnalyticsFilterController($scope, $rootScope) {
         if($rootScope.i18nextLanguageReady === true){
             SalesAnalyticsFilterController.configureView($scope, $rootScope);
         } else {
+            $scope.datePicker = {
+                date: {
+                    minDate: moment('2010-01-01'),
+                    maxDate: moment()
+                },
+                opts: {}
+            };
             $rootScope.$on('i18nextLanguageChange', function(){
                 SalesAnalyticsFilterController.configureView($scope, $rootScope);
             });
