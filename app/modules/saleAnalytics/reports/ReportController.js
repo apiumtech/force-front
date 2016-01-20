@@ -11,8 +11,14 @@ define([
 ], function (app, ReportView) {
     'use strict';
 
-    function ReportController($scope) {
-        ReportController.configureView($scope);
+    function ReportController($scope, $rootScope) {
+        if($rootScope.i18nextLanguageReady === true){
+            ReportController.configureView($scope);
+        } else {
+            $rootScope.$on('i18nextLanguageChange', function(){
+                ReportController.configureView($scope);
+            });
+        }
     }
 
     ReportController.configureView = function ($scope) {
@@ -20,7 +26,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('ReportController', ['$scope', ReportController]);
+    app.register.controller('ReportController', ['$scope', '$rootScope', ReportController]);
 
     return ReportController;
 });

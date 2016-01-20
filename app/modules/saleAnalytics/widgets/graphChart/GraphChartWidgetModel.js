@@ -16,67 +16,6 @@ define([
         var self = this;
         self.translator = TranslatorService.newInstance();
         self.currentFilter = 'visits';
-        self.queries.grouping = "week";
-    }
-
-    GraphChartWidgetModel.inherits(WidgetBase, {});
-
-    GraphChartWidgetModel.prototype.changeQueryFilter = function (filter) {
-        if (this.filters.map(function (filterValue) {
-                return filterValue.key;
-            }).indexOf(filter) === -1) {
-            this.currentFilter = this.filters[0].key;
-        } else {
-            this.currentFilter = filter;
-        }
-    };
-
-    GraphChartWidgetModel.prototype.getUrl = function () {
-        return this.fetchPoint.format(this.currentFilter);
-    };
-
-    GraphChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
-
-    GraphChartWidgetModel.prototype._reload = function () {
-        return this._baseReload()
-            .then(this.decorateServerData.bind(this));
-    };
-
-    GraphChartWidgetModel.prototype.decorateServerData = function (data) {
-        var self = this;
-
-        self.createFilters();
-
-        var responseData = {
-            data: {
-                params: {
-                    axis: {
-                        x: [],
-                        y: ""
-                    },
-                    fields: [],
-                    filters: self.filters
-                }
-            }
-        };
-
-        responseData.data.params.axis.x = data.Labels[0];
-
-        data.Series.forEach(function (series) {
-            var decorated = {
-                name: self.camelizeName(series.Name),
-                data: series.Points.map(function (point) {
-                    return point.Y;
-                })
-            };
-            responseData.data.params.fields.push(decorated);
-        });
-
-        return responseData;
-    };
-
-    GraphChartWidgetModel.prototype.createFilters = function() {
-        var self = this;
         self.filters = [{
             name: self.translator.translate('tabIntensity.activities.dropDown.itemVisits'),
             key: 'visits'
@@ -112,11 +51,66 @@ define([
 
             var key = item.key;
             return  key === 'phoneCallsTime' ? ps.getPermission(PHONE_CALLS, true) :
-                key === 'emails' ? ps.getPermission(EMAILS, true) :
+                    key === 'emails' ? ps.getPermission(EMAILS, true) :
                     key === 'orders' ? ps.getPermission(ORDERS, true) :
-                        key === 'quotes' ? ps.getPermission(QUOTES, true) :
-                            true;
+                    key === 'quotes' ? ps.getPermission(QUOTES, true) :
+                    true;
         });
+
+        this.queries.grouping = "week";
+    }
+
+    GraphChartWidgetModel.inherits(WidgetBase, {});
+
+    GraphChartWidgetModel.prototype.changeQueryFilter = function (filter) {
+        if (this.filters.map(function (filterValue) {
+                return filterValue.key;
+            }).indexOf(filter) === -1) {
+            this.currentFilter = this.filters[0].key;
+        } else {
+            this.currentFilter = filter;
+        }
+    };
+
+    GraphChartWidgetModel.prototype.getUrl = function () {
+        return this.fetchPoint.format(this.currentFilter);
+    };
+
+    GraphChartWidgetModel.prototype._baseReload = WidgetBase.prototype._reload;
+
+    GraphChartWidgetModel.prototype._reload = function () {
+        return this._baseReload()
+            .then(this.decorateServerData.bind(this));
+    };
+
+    GraphChartWidgetModel.prototype.decorateServerData = function (data) {
+        var self = this;
+        var responseData = {
+            data: {
+                params: {
+                    axis: {
+                        x: [],
+                        y: ""
+                    },
+                    fields: [],
+                    filters: this.filters
+                }
+            }
+        };
+
+        responseData.data.params.axis.x = data.Labels[0];
+
+        data.Series.forEach(function (series) {
+            var decorated = {
+                name: self.camelizeName(series.Name),
+                data: series.Points.map(function (point) {
+                    return point.Y;
+                })
+            };
+            responseData.data.params.fields.push(decorated);
+        });
+
+        return responseData;
     };
 
     GraphChartWidgetModel.prototype.camelizeName = function(name){
@@ -132,7 +126,7 @@ define([
                     })
                     .join(" ");
             }catch(err){
-                window.console.error(err);
+                console.error(err);
             }
         }
         return camelizedName;

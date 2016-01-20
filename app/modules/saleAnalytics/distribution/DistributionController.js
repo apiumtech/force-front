@@ -9,8 +9,14 @@ define([
 ], function (app, DistributionView) {
     'use strict';
 
-    function DistributionController($scope) {
-        DistributionController.configureView($scope);
+    function DistributionController($scope, $rootScope) {
+        if($rootScope.i18nextLanguageReady === true){
+            DistributionController.configureView($scope);
+        } else {
+            $rootScope.$on('i18nextLanguageChange', function(){
+                DistributionController.configureView($scope);
+            });
+        }
     }
 
     DistributionController.configureView = function ($scope) {
@@ -18,7 +24,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('DistributionController', ['$scope', DistributionController]);
+    app.register.controller('DistributionController', ['$scope', '$rootScope', DistributionController]);
 
     return DistributionController;
 });

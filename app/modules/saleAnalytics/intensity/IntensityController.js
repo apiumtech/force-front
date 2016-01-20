@@ -9,8 +9,14 @@ define([
 ], function (app, IntensityView) {
     'use strict';
 
-    function IntensityController($scope) {
-        IntensityController.configureView($scope);
+    function IntensityController($scope, $rootScope) {
+        if($rootScope.i18nextLanguageReady === true){
+            IntensityController.configureView($scope);
+        } else {
+            $rootScope.$on('i18nextLanguageChange', function(){
+                IntensityController.configureView($scope);
+            });
+        }
     }
 
     IntensityController.configureView = function ($scope) {
@@ -18,7 +24,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('IntensityController', ['$scope', IntensityController]);
+    app.register.controller('IntensityController', ['$scope', '$rootScope', IntensityController]);
 
     return IntensityController;
 });

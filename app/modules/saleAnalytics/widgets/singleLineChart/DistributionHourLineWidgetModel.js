@@ -16,6 +16,20 @@ define([
         this.translator = TranslatorService.newInstance();
 
         this.currentFilter = 'allActivities';
+
+        this.filters = [{
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemTotalActivities'),
+            key: "allActivities"
+        }, {
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemVisits'),
+            key: "visits"
+        }, {
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemEmails'),
+            key: "emails"
+        }, {
+            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemPhoneCalls'),
+            key: "phoneCalls"
+        }];
     }
 
     SingleLineChartWidgetModel.inherits(WidgetBase, {});
@@ -39,21 +53,6 @@ define([
     };
 
     SingleLineChartWidgetModel.prototype.decorateServerData = function (data) {
-
-        this.filters = [{
-            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemTotalActivities'),
-            key: "allActivities"
-        }, {
-            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemVisits'),
-            key: "visits"
-        }, {
-            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemEmails'),
-            key: "emails"
-        }, {
-            name: this.translator.translate('tabDistribution.timeDistribution.dropDown.itemPhoneCalls'),
-            key: "phoneCalls"
-        }];
-
         var responseData = {
             data: {
                 params: {

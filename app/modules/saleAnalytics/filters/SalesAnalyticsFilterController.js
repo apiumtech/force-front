@@ -11,7 +11,13 @@ define([
     'use strict';
 
     function SalesAnalyticsFilterController($scope, $rootScope) {
-        SalesAnalyticsFilterController.configureView($scope, $rootScope);
+        if($rootScope.i18nextLanguageReady === true){
+            SalesAnalyticsFilterController.configureView($scope, $rootScope);
+        } else {
+            $rootScope.$on('i18nextLanguageChange', function(){
+                SalesAnalyticsFilterController.configureView($scope, $rootScope);
+            });
+        }
     }
 
     SalesAnalyticsFilterController.configureView = function ($scope, $rootScope) {

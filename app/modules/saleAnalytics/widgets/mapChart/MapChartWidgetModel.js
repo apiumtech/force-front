@@ -19,13 +19,13 @@ define([
 
         self.currentFilter = 'users';
 
-        /*self.filters = [{
+        self.filters = [{
             name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
             key: 'users'
         }, {
             name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.check-ins'),
             key: 'checkins'
-        }];*/
+        }];
 
         self.queries = {
             users: "",
@@ -105,15 +105,6 @@ define([
 
     MapChartWidgetModel.prototype.decorateServerData = function (serverData) {
         var self = this;
-
-        self.filters = [{
-            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
-            key: 'users'
-        }, {
-            name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.check-ins'),
-            key: 'checkins'
-        }];
-
         switch (self.currentFilter) {
             case 'checkins' :
                 return self.decorateCheckins(serverData);

@@ -5,8 +5,14 @@ define([
 ], function (app, ConversionView) {
     'use strict';
 
-    function ConversionController($scope) {
-        ConversionController.configureView($scope);
+    function ConversionController($scope, $rootScope) {
+        if($rootScope.i18nextLanguageReady === true){
+            ConversionController.configureView($scope);
+        } else {
+            $rootScope.$on('i18nextLanguageChange', function(){
+                ConversionController.configureView($scope);
+            });
+        }
     }
 
     ConversionController.configureView = function ($scope) {
@@ -14,7 +20,7 @@ define([
         this.view.show();
     };
 
-    app.register.controller('ConversionController', ['$scope', ConversionController]);
+    app.register.controller('ConversionController', ['$scope', '$rootScope', ConversionController]);
 
     return ConversionController;
 });
