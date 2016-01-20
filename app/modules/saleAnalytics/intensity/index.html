@@ -1,8 +1,14 @@
-<ng-include src="'app/modules/saleAnalytics/header.html'"></ng-include>
+<ng-include
+        src="'app/modules/saleAnalytics/header.html'"
+        ng-show="i18nextLanguageReady===true">
+</ng-include>
 
 
 <!-- begin filters -->
-<ng-include src="'app/modules/saleAnalytics/filters/analyticsFilter.html'"></ng-include>
+<ng-include
+        src="'app/modules/saleAnalytics/filters/analyticsFilter.html'"
+        ng-show="i18nextLanguageReady===true">
+</ng-include>
 <!-- end filters-->
 
 <!--

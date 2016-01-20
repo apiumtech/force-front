@@ -1,6 +1,13 @@
-<ng-include src="'app/modules/saleAnalytics/header.html'"></ng-include>
+<ng-include
+        src="'app/modules/saleAnalytics/header.html'"
+        ng-show="i18nextLanguageReady===true">
+</ng-include>
 
-<ng-include src="'app/modules/saleAnalytics/reports/reportFilter/index.html'"></ng-include>
+<ng-include
+        src="'app/modules/saleAnalytics/reports/reportFilter/index.html'"
+        ng-show="i18nextLanguageReady===true">
+</ng-include>
+
 
 <div class="sale-analytics-reports m-t-45">
     <tabset>
