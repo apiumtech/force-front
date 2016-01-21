@@ -4,8 +4,9 @@ define([
     'jquery',
     'shared/services/GoogleMapService',
     'shared/services/SimpleTemplateParser',
+    'shared/services/StorageService',
     'underscore'
-], function ($, GoogleMapService, SimpleTemplateParser, _) {
+], function ($, GoogleMapService, SimpleTemplateParser, StorageService, _) {
     'use strict';
 
     var defaultImageUrl = "assets/img/default.png";
@@ -15,6 +16,7 @@ define([
         var self = this;
         self.mapService = mapService;
         self.templateParser = SimpleTemplateParser.newInstance();
+        self.storageService = StorageService.newInstance();
         self.map = null;
         self.heatMap = null;
         self.markerClusterer = null;
@@ -28,16 +30,49 @@ define([
     //
     // ------------------------
 
+    MapChart.prototype.getSavedMapZoom = function () {
+        var zoom = this.storageService.retrieve('mapZoom', true);
+        console.log("getSavedMapZoom", zoom);
+        return zoom || 7;
+    };
+
+    MapChart.prototype.getSavedMapCenter = function () {
+        var center = this.storageService.retrieve('mapCenter', true);
+        console.log("getSavedMapCenter",center);
+        return center || this.mapService.getLatLng(41.23, 2.11);
+    };
+
     MapChart.prototype.createMap = function (mapCanvasId, mapOptions) {
+        var self = this;
         var canvas = mapCanvasId;
         if (canvas instanceof String){
             canvas = document.getElementById(mapCanvasId);
         }
 
-        this.map = this.mapService.createMap(canvas, mapOptions || {
+        this.map = this.mapService.createMap(
+            canvas,
+            mapOptions || {
                 center: this.mapService.getLatLng(41.23, 2.11),
                 zoom: 7
-            });
+            }
+        );
+
+        /*mapOptions = mapOptions || {};
+        mapOptions.minZoom = 2;
+        mapOptions.center = self.getSavedMapCenter();
+        mapOptions.zoom = self.getSavedMapZoom();
+
+        self.map = self.mapService.createMap(
+            canvas,
+            mapOptions
+        );
+
+        var changeHandler = function() {
+            self.storageService.store('mapZoom', self.map.getZoom(), true);
+            self.storageService.store('mapCenter', self.map.getCenter(), true);
+        };
+        self.map.addListener('center_changed', changeHandler);
+        self.map.addListener('zoom_changed', changeHandler);*/
     };
 
     MapChart.prototype.createPointMap = function (data, selectedFilter) {

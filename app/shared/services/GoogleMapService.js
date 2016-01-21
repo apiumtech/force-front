@@ -71,6 +71,14 @@ define([], function () {
         return new this.googleMap.Map(element, options);
     };
 
+    GoogleMapService.prototype.getZoom = function () {
+        return new this.googleMap.getZoom();
+    };
+
+    GoogleMapService.prototype.getCenter = function () {
+        return new this.googleMap.getCenter();
+    };
+
     GoogleMapService.prototype.getLatLng = function (latitude, longitude) {
         return new this.googleMap.LatLng(latitude, longitude);
     };

@@ -5,8 +5,12 @@ define(function () {
     'use strict';
 
     var apiVersion = "1.3";
-    var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
+    var baseUrl = "https://backenddev.forcemanager.net";
+    if(window.location.hostname  === 'webapp.forcemanager.net') {
+        baseUrl = "https://backend.forcemanager.net/" + apiVersion;
+    }
     //var baseUrl = "https://backenddev.forcemanager.net";
+
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
     var api = {
