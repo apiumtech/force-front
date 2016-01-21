@@ -2,8 +2,8 @@
                 wtitle="{{widget.widgetName}}"
                 wtooltip="{{
                  widget.type == 'segment_distribution' ? ('tabDistribution.segmentDistribution.header.title.tooltip' | i18next) :
-                    widget.type == 'type_distribution' ? ('tabDistribution.typeDistribution.header.title.tooltip' | i18next) :
-                    widget.type == 'state_distribution' ? ('tabDistribution.statusDistribution.header.title.tooltip' | i18next) : ''
+                 (widget.type == 'hour_distribution' || widget.type == 'type_distribution') ? ('tabDistribution.typeDistribution.header.title.tooltip' | i18next) :
+                 widget.type == 'state_distribution' ? ('tabDistribution.statusDistribution.header.title.tooltip' | i18next) : ''
                 }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
@@ -153,7 +153,7 @@
             <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.typeDistribution.visits.description' | i18next }}</span>
             <span ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.typeDistribution.newOpportunities.description' | i18next }}</span>
         </div>
-        <div class="well" ng-if="widget.type=='type_distribution'">
+        <div class="well" ng-if="widget.type=='type_distribution' || widget.type=='hour_distribution'">
             <span ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.stateDistribution.activities.description' | i18next }}</span>
             <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.stateDistribution.visits.description' | i18next }}</span>
             <span ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.stateDistribution.newOpportunities.description' | i18next }}</span>

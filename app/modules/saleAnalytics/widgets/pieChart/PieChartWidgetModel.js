@@ -26,7 +26,7 @@ define([
 
         if(widget.type === 'segment_distribution') {
             literalPart = 'segmentDistribution';
-        } else if(widget.type === 'type_distribution') {
+        } else if(widget.type === 'type_distribution' || widget.type === 'hour_distribution') {
             literalPart = 'typeDistribution';
         } else if(widget.type === 'state_distribution') {
             literalPart = 'stateDistribution';
