@@ -11,7 +11,7 @@ define([
 ], function (BaseView, SalesAnalyticsFilterChannel, WidgetAdministrationEventBus, StorageService, TranslatorService, config, $, moment, _) {
     'use strict';
 
-    function SalesAnalyticsFilterView($scope, $rootScope) {
+    function SalesAnalyticsFilterView($scope) {
         BaseView.call(this, $scope, null, null);
         var self = this;
         self.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
@@ -29,7 +29,7 @@ define([
         }
 
         $scope.datePicker = $scope.datePicker || {};
-        self.$scope.datePicker.date = {
+        $scope.datePicker.date = {
             startDate: moment(savedDateFilter.startDate),
             endDate: moment(savedDateFilter.endDate)
         };
@@ -56,12 +56,12 @@ define([
             eventHandlers: {
                 'apply.daterangepicker': function(ev, picker){
                     self.storageService.store('dateFilter', {
-                        startDate: self.$scope.date.startDate.toDate().getTime(),
-                        endDate: self.$scope.date.endDate.toDate().getTime()
+                        startDate: $scope.datePicker.date.startDate.toDate().getTime(),
+                        endDate: $scope.datePicker.date.endDate.toDate().getTime()
                     }, true);
                     self.filterChannel.sendDateFilterApplySignal({
-                        dateStart: self.$scope.date.startDate.toDate(),
-                        dateEnd: self.$scope.date.endDate.toDate()
+                        dateStart: $scope.datePicker.date.startDate.toDate(),
+                        dateEnd: $scope.datePicker.date.endDate.toDate()
                     });
                 },
                 'show.daterangepicker': function() {
@@ -84,7 +84,7 @@ define([
             }
         });
 
-        self.$scope.datePicker.opts = opts;
+        $scope.datePicker.opts = opts;
 
 
         SalesAnalyticsFilterView.configureEvents(this);
