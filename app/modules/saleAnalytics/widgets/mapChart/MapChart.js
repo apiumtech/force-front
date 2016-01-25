@@ -32,13 +32,11 @@ define([
 
     MapChart.prototype.getSavedMapZoom = function () {
         var zoom = this.storageService.retrieve('mapZoom', true);
-        console.log("getSavedMapZoom", zoom);
         return zoom || 7;
     };
 
     MapChart.prototype.getSavedMapCenter = function () {
         var center = this.storageService.retrieve('mapCenter', true);
-        console.log("getSavedMapCenter",center);
         return center || this.mapService.getLatLng(41.23, 2.11);
     };
 

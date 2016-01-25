@@ -51,7 +51,7 @@ define([
     PieChartWidgetView.prototype.show = function () {
         this.___show.call(this);
         this.event.createFilters(this.widget);
-    }
+    };
 
 
     PieChartWidgetView.prototype.configureEvents = function () {
@@ -382,13 +382,13 @@ define([
             },
             pointSize: 5,
             width: '100%',
-            height: '100%'/*,
+            height: '100%',
             chartArea: {
-                left: "5%",
-                top: "10%",
-                height: "80%",
-                width: "94%"
-            }*/
+                left: "10%",
+                top: "5%",
+                height: "85%",
+                width: "85%"
+            }
         };
 
         // ---------------------------
@@ -554,12 +554,12 @@ define([
             colors: self.colorService.$colors.slice(),
             width: '100%',
             height: '100%',
-            /*chartArea: {
-                left: "5%",
+            chartArea: {
+                left: "10%",
                 top: "5%",
-                height: "90%",
-                width: "90%"
-            },*/
+                height: "85%",
+                width: "85%"
+            },
             tooltip: { trigger: 'selection' },
             sliceVisibilityThreshold: 0
         };
@@ -611,6 +611,7 @@ define([
         var chart = chartService.createChart(element[0], 'table');
         var chartOptions = {
             width: '100%',
+            height: '100%',
             frozenColumns: 1,
             cssClassNames: {
                 headerCell: 'google-visualization-table-th text-center'

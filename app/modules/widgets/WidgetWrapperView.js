@@ -163,8 +163,8 @@ define([
     WidgetWrapperView.prototype.onReloadCompleteCommandReceived = function (message) {
         var self = this;
         self.errorMessage = {
-            title: "Oops! Hubo un error",
-            message: "Tus datos volveran aprecer muy pronto"
+            title: "There has been an error",
+            message: "Your data will be back soon"
         };
         self.hasError = !!message;
         self.isLoading = false;

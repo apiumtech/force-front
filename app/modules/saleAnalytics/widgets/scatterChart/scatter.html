@@ -3,11 +3,13 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
-    <div class="row panel-content" ng-hide="data.serverError || data.noData">
-        <div class="panel-content-child col-xs-10" style="position:relative;z-index:100;">
-            <div class="chart-place-holder panel-content-child map-fix"></div>
+
+    <!-- CONTENT -->
+    <div class="row panel-content height-md" ng-hide="data.serverError || data.noData">
+        <div class="panel-content-child col-xs-10 height-md" style="position:relative;z-index:100;">
+            <div class="chart-place-holder panel-content-child map-fix height-md"></div>
         </div>
-        <div class="panel-content-child col-xs-2" style="overflow-y: auto;">
+        <div class="panel-content-child col-xs-2 height-md" style="overflow-y: auto;">
             <ul style="list-style:none;padding:0;margin:0;">
                 <li
                         style="padding-left:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
@@ -25,9 +27,12 @@
     </div>
 
 
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well">
-            {{ 'tabConversion.activitySalesConversion.description' | i18next }}
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError===true">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well">
+                {{ 'tabConversion.activitySalesConversion.description' | i18next }}
+            </div>
         </div>
     </div>
 

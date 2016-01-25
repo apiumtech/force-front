@@ -481,30 +481,49 @@ button:disabled {
 /**
  * Panel stuff
  */
+.panel:not(.panel-expand)>.panel-body {
+  position: relative;
+  &.height-xs {
+    height: auto !important;
+    min-height: 150px !important;
+  }
+  &.height-sm {
+    height: auto !important;
+    min-height: 300px !important;
+  }
+  &.height-md {
+    height: auto !important;
+    min-height: 450px !important;
+  }
+  &.height-lg {
+    height: auto !important;
+    min-height: 600px !important;
+  }
+}
 /* Make not expanded panels to be like this */
-.panel > .panel-body {
+/*.panel > .panel-body {
   .panel-content {
-    height: 60%;
-    min-height: 60%;
+    height: 80%;
+    min-height: 80%;
     .panel-content-child {
       height: 100%;
       min-height: 100%;
     }
   }
-}
+}*/
 /* Make expanded panels to be like this */
 .panel.panel-expand > .panel-body {
   .panel-content {
-    height: 70%;
-    min-height: 70%;
+    height: 85% !important;
+    min-height: 85% !important;
   }
 }
 /* Make not expanded panels that are 12 cols to be like this */
-.widget-container.col-md-12 .panel:not(.panel-expand)>.panel-body {
+/*.widget-container.col-md-12 .panel:not(.panel-expand)>.panel-body {
   &.height-md.no-toolbar {
     .panel-content {
       height: 80%;
       min-height: 80%;
     }
   }
-}
+}*/

@@ -53,11 +53,15 @@
     <!-- END TOOLBAR -->
 
 
-    <div class="row">
-        <!-- MAP -->
-        <div class="chart-place-holder height-md map-chart col-xs-12" ng-hide="data.serverError===true"></div>
+    <!-- CONTENT -->
+    <div class="row panel-content height-lg" ng-hide="data.serverError===true || data.noData">
+        <div class="panel-content-child col-xs-12 height-lg">
+            <div class="chart-place-holder map-chart height-lg"></div>
+        </div>
+    </div>
 
-        <!-- DESCRIPTION -->
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="selectedFilter.key=='checkins'">
                 {{ 'tabDistribution.geographicalDistribution.check-ins.description' | i18next }}

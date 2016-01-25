@@ -127,7 +127,26 @@ define([
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
         };
 
+        //self.interval = setInterval( self.adjustWidgetSizes.bind(self), 250 );
+
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
+    };
+
+    WidgetDecoratePageView.prototype.adjustWidgetSizes = function () {
+        var smallWidgets = $('div.widget-container.col-md-6:not(.hidden)');
+        var maxHeight = 0;
+        var anyIsExpanded = false;
+        smallWidgets.each(function() {
+            anyIsExpanded = $(this).find('.panel-expand');
+            maxHeight = Math.max( $(this).height(), maxHeight );
+        });
+        if( !anyIsExpanded ){
+            smallWidgets.each(function() {
+                if( $(this).height() !== maxHeight ) {
+                    $(this).height(maxHeight);
+                }
+            });
+        }
     };
 
 
@@ -151,6 +170,7 @@ define([
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetToIndex();
         self.widgetAdministrationEventBus.unsubscribeActivateWidget();
         self.widgetAdministrationEventBus.unsubscribeDeactivateWidget();
+        clearInterval(self.interval);
         self.disposer();
     };
 
