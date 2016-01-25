@@ -127,7 +127,7 @@ define([
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
         };
 
-        //self.interval = setInterval( self.adjustWidgetSizes.bind(self), 250 );
+        self.interval = setInterval( self.adjustWidgetSizes.bind(self), 250 );
 
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
     };
@@ -137,7 +137,7 @@ define([
         var maxHeight = 0;
         var anyIsExpanded = false;
         smallWidgets.each(function() {
-            anyIsExpanded = $(this).find('.panel-expand');
+            anyIsExpanded = $(this).find('.panel-expand').length > 0 || anyIsExpanded;
             maxHeight = Math.max( $(this).height(), maxHeight );
         });
         if( !anyIsExpanded ){

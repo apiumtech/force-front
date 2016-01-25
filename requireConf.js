@@ -38,6 +38,7 @@ var requireConf = {
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
         'fullcalendar': '../bower_components/fullcalendar/dist/fullcalendar',
         'toastr': '../bower_components/toastr/toastr',
+        'readmore-js': '../node_modules/readmore-js/readmore',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
 
@@ -278,7 +279,7 @@ var requireConf = {
     'deps': [
         /* jquery & its plugins */
         'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar',
-        'datatables',
+        'datatables', 'readmore-js',
 
         /* Angular & Its plugins */
         'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload',

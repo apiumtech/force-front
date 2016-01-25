@@ -481,23 +481,26 @@ button:disabled {
 /**
  * Panel stuff
  */
-.panel:not(.panel-expand)>.panel-body {
-  position: relative;
-  &.height-xs {
-    height: auto !important;
-    min-height: 150px !important;
-  }
-  &.height-sm {
-    height: auto !important;
-    min-height: 300px !important;
-  }
-  &.height-md {
-    height: auto !important;
-    min-height: 450px !important;
-  }
-  &.height-lg {
-    height: auto !important;
-    min-height: 600px !important;
+.panel:not(.panel-expand) {
+  height: 97%;
+  &>.panel-body {
+    position: relative;
+    &.height-xs {
+      height: auto !important;
+      min-height: 150px !important;
+    }
+    &.height-sm {
+      height: auto !important;
+      min-height: 300px !important;
+    }
+    &.height-md {
+      height: auto !important;
+      min-height: 450px !important;
+    }
+    &.height-lg {
+      height: auto !important;
+      min-height: 600px !important;
+    }
   }
 }
 /* Make not expanded panels to be like this */

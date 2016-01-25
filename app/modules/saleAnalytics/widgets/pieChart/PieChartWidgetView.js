@@ -8,10 +8,11 @@ define([
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
     'jquery',
+    'readmore-js',
     'underscore',
     'moment',
     'config'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $, _, moment, config) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $, readmore, _, moment, config) {
     'use strict';
 
     var LINE = 'line';
@@ -134,7 +135,8 @@ define([
             self.event.createFilters = function(){};
             setTimeout( function(){
                 $('[data-toggle=tooltip]').tooltip();
-            }, 2000 );
+                $('.row.panel-description .well > div').readmore({collapsedHeight: 40});
+            }, 1000 );
         };
 
         var columnsPerRow = 3;

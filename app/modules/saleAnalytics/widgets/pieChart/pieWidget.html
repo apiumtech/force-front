@@ -146,19 +146,19 @@
     <div class="row panel-description">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="widget.type=='segment_distribution'">
-                <span ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.segmentDistribution.activities.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.segmentDistribution.visits.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.segmentDistribution.newOpportunities.description' | i18next }}</span>
+                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.segmentDistribution.activities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.segmentDistribution.visits.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.segmentDistribution.newOpportunities.description' | i18next }}</div>
             </div>
             <div class="well" ng-if="widget.type=='state_distribution'">
-                <span ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.typeDistribution.activities.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.typeDistribution.visits.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.typeDistribution.newOpportunities.description' | i18next }}</span>
+                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.typeDistribution.activities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.typeDistribution.visits.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.typeDistribution.newOpportunities.description' | i18next }}</div>
             </div>
             <div class="well" ng-if="widget.type=='type_distribution' || widget.type=='hour_distribution'">
-                <span ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.stateDistribution.activities.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.stateDistribution.visits.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.stateDistribution.newOpportunities.description' | i18next }}</span>
+                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.stateDistribution.activities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.stateDistribution.visits.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.stateDistribution.newOpportunities.description' | i18next }}</div>
             </div>
         </div>
     </div>
