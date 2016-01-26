@@ -33,7 +33,8 @@
 
             <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right"
-                 ng-i18next="[title]commonText.graph.buttonbar.dateFilter.tooltip">
+                 tooltip="{{ 'commonText.graph.buttonbar.dateFilter.tooltip' | i18next }}"
+                 tooltip-placement="bottom">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')">
@@ -56,7 +57,8 @@
             <div class="btn-group pull-right"
                  ng-show="selectedFilter.key !== 'orders' && selectedFilter.key !== 'quotes' && selectedFilter.key !== 'opportunities'">
                 <button class="btn btn-white btn-sm"
-                        ng-i18next="[title]tabIntensity.activities.button.hourDistribution.tooltip"
+                        tooltip="{{ 'tabIntensity.activities.button.hourDistribution.tooltip' | i18next }}"
+                        tooltip-placement="bottom"
                         ng-class="{'active': selectedRangeOption=='hour'}"
                         ng-click="fn.changeFilterRange('hour')">
                     {{'LineWidget.Filters.Hour' | i18next}}
@@ -71,19 +73,19 @@
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
-                        ng-i18next="[title]commonText.lineChart.tooltip">
+                        tooltip="{{ 'commonText.lineChart.tooltip' | i18next }}" tooltip-placement="bottom">
                     <img src="assets/img/line.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled()"
                         ng-class="{'active': currentChartType=='filled'}"
-                        ng-i18next="[title]commonText.areaChart.tooltip">
+                        tooltip="{{ 'commonText.areaChart.tooltip' | i18next }}" tooltip-placement="bottom">
                     <img src="assets/img/area.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled100()"
                         ng-class="{'active': currentChartType=='filled100'}"
-                        ng-i18next="[title]commonText.stackedAreaChart.tooltip">
+                        tooltip="{{ 'commonText.stackedAreaChart.tooltip' | i18next }}" tooltip-placement="bottom">
                     <img src="assets/img/area-percent.png" style="width: 24px; height: 24px;">
                 </button>
             </div>
@@ -108,7 +110,7 @@
                         ng-click="fn.toggleDisplayField(field.name)"
                         ng-mouseover="fn.serieRollOver(field, $index)"
                         ng-style="{'color':field.color}"
-                        ng-attr-title="{{ field.name }}">
+                        tooltip="{{ field.name }}" tooltip-placement="bottom" tooltip-popup-delay="1000">
                         <span
                             class="glyphicon"
                             ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}">

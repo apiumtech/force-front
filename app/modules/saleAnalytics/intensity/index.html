@@ -33,7 +33,7 @@ WidgetAdministration
     <div class="widgets-container"
          as-sortable
          widget-dropped="fn.onWidgetDropped($ui, $widget)">
-        <div ng-repeat="widget in widgets"
+        <div ng-repeat="widget in ::widgets"
              class="col-md-{{widget.position.size}} widget-container"
              data-widgetid="widget-{{widget.widgetId}}"
              ng-class="{'hidden': !widget.isActive}"

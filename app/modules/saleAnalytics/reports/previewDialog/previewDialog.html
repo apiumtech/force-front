@@ -16,20 +16,25 @@
 
             <div class="col-md-5">
                 <h5>{{report.Name}}</h5>
-                <p class="modal-title-description with-ellipsis"
-                   title="{{report.Description}}"
-                   ng-click="fn.expandDescription()">
+                <p
+                    class="modal-title-description with-ellipsis"
+                    tooltip="{{ report.Description }}"
+                    ng-click="fn.expandDescription()">
                     {{report.Description}}
                 </p>
             </div>
 
             <div class="text-center col-md-2 button-group">
-                <button class="btn btn-link right-separator" ng-click="fn.download()"
-                        data-toggle="tooltip" data-placement="bottom" title="{{'action_download' | i18next}}">
+                <button
+                        class="btn btn-link right-separator"
+                        ng-click="fn.download()"
+                        tooltip="{{ 'action_download' | i18next }}">
                     <i class="ic-download download"></i>
                 </button>
-                <button class="btn btn-link" ng-click="fn.send()"
-                        data-toggle="tooltip" data-placement="bottom" title="{{'action_sharebymail' | i18next}}">
+                <button
+                        class="btn btn-link"
+                        ng-click="fn.send()"
+                        tooltip="{{'action_sharebymail' | i18next}}">
                     <i class="ic-email"></i>
                 </button>
             </div>

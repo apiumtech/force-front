@@ -15,7 +15,7 @@
                 <div class="btn-group pull-right" is-open="filterDropdown" dropdown>
                     <a class="btn btn-default btn-sm dropdown-toggle"
                        dropdown-toggle
-                       ng-i18next="[title]commonText.table.dropDown.addColumns.tooltip">
+                       tooltip="{{ 'commonText.table.dropDown.addColumns.tooltip' | i18next }}">
                         {{'TableWidget.AddColumns' | i18next}}
                         <span class="caret"></span>
                     </a>
@@ -52,7 +52,7 @@
                         <tr>
                             <th
                                ng-repeat="column in data.columns | filter:{key:'!$'}"
-                               ng-attr-title="{{ column.tooltip }}"
+                               tooltip="{{ column.tooltip }}" tooltip-placement="bottom"
                                ng-if="column.available && column.visible"
                                style="text-align: center; border-right: 1px solid #e2e7eb;">
                                 <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
@@ -86,7 +86,9 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div ng-switch-when="doughnut" class="text-center" ng-attr-title="{{ record[col.key] }}" style="width:42px; height:42px; overflow:hidden;margin: 1px auto;">
+                                <div ng-switch-when="doughnut" class="text-center"
+                                     tooltip="{{ record[col.key] }}" tooltip-placement="bottom"
+                                     style="width:42px; height:42px; overflow:hidden;margin: 1px auto;">
                                     <img
                                             style="width:44px; height:44px;background-size:cover;margin-left:-1px;margin-top:-1px"
                                             ng-style="{'background-image': 'url('+ record.$doughnut_cellData +')'}" />

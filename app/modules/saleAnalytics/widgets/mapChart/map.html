@@ -35,13 +35,13 @@
             <div class="col-xs-6 col-sm-6 col-lg-8">
                 <div class="pull-right" ng-show="selectedFilter.key!=='users'">
                     <label class="radio-inline"
-                           ng-i18next="[title]tabDistribution.geographicalDistribution.toggle.heatMap.tooltip">
+                           tooltip="{{ 'tabDistribution.geographicalDistribution.toggle.heatMap.tooltip' | i18next }}">
                         <input type="radio" value="HEAT_MAP"
                                ng-model="selectedMapType"
                                ng-click="fn.selectMapType('HEAT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.heatMap' | i18next }}
                     </label>
                     <label class="radio-inline"
-                           ng-i18next="[title]tabDistribution.geographicalDistribution.toggle.pointMap.tooltip">
+                           tooltip="{{ 'tabDistribution.geographicalDistribution.toggle.pointMap.tooltip' | i18next }}">
                         <input type="radio" value="POINT_MAP"
                                ng-model="selectedMapType"
                                ng-click="fn.selectMapType('POINT_MAP')"> {{ 'tabDistribution.geographicalDistribution.radioButton.pointMap' | i18next }}

@@ -47,7 +47,6 @@ define([
         };
 
         self.fn.init = function(){
-            $('[data-toggle=tooltip]').tooltip();
             self.event.onLoadingPreviewImage(self.report);
         };
 

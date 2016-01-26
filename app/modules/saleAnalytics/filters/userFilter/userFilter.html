@@ -11,7 +11,7 @@
            href="javascript:"
            class="dropdown-toggle m-r-30"
            dropdown-toggle
-           ng-i18next="[title]commonText.userFilter.tooltip"
+           tooltip="{{ 'commonText.userFilter.tooltip' | i18next }}"
         >
             <span ng-if="data.selectionType==='SELECTED_NONE'">
                 {{'Filters.AllUsers' | i18next}}

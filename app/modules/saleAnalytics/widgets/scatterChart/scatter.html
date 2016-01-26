@@ -18,7 +18,7 @@
                     <a
                             ng-mouseover="fn.serieRollOver($index)"
                             ng-style="{'color':field.color}"
-                            ng-attr-title="{{ field.name }}">
+                            tooltip="{{ field.name }}" tooltip-placement="bottom">
                       &bullet; {{field.name}}
                     </a>
                 </li>

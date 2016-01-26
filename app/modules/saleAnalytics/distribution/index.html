@@ -41,7 +41,7 @@ WidgetAdministration
          widget-drag-start="fn.highlightDroppableZones()"
          widget-dropped="fn.removeHighlightDroppableZones()"
          widget-sorted="fn.onWidgetDropped($ui, $widget)">
-        <div ng-repeat="widget in widgets"
+        <div ng-repeat="widget in ::widgets"
              data-widgetid="widget-{{widget.widgetId}}"
              class="col-md-{{widget.position.size}} widget-container"
              ng-class="{'hidden': !widget.isActive}"

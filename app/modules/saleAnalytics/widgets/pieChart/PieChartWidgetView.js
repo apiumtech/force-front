@@ -134,11 +134,6 @@ define([
 
         self.fn.init = function () {
             self.event.createFilters = function(){};
-            // tooltip="{{dynamicTooltip}}"
-            var initDelayed = function(){
-                $('[data-toggle=tooltip]').tooltip();
-            };
-            setTimeout( initDelayed, 1000 );
         };
 
         var columnsPerRow = 3;
