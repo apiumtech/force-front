@@ -27,7 +27,6 @@ var requireConf = {
         'ng-i18next': '../bower_components/ng-i18next/dist/ng-i18next',
 
         'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-        'ngFileUpload': '../node_modules/angular-file-upload/dist/angular-file-upload.min',
 
         // jquery & stuffs
         'jquery': '../bower_components/jquery/dist/jquery.min',
@@ -36,7 +35,6 @@ var requireConf = {
         'bootstrap': '../bower_components/bootstrap/dist/js/bootstrap.min',
         'slimscroll': '../bower_components/jquery-slimscroll/jquery.slimscroll.min',
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
-        'fullcalendar': '../bower_components/fullcalendar/dist/fullcalendar',
         'toastr': '../bower_components/toastr/toastr',
         'readmore-js': '../node_modules/readmore-js/readmore',
 
@@ -55,6 +53,9 @@ var requireConf = {
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
+
+        'd3': "../node_modules/d3/d3.min",
+        'd3-funnel': "../node_modules/d3-funnel/dist/d3-funnel.min",
 
 
         // TODO: delete or not
@@ -101,11 +102,6 @@ var requireConf = {
             exports: 'angular_route'
         },
 
-        'ngFileUpload': {
-            deps: ['angular'],
-            exports: 'ngFileUpload'
-        },
-
         'angular-moment': {
             deps: ['angular', 'moment'],
             exports: 'angular_moment'
@@ -150,11 +146,6 @@ var requireConf = {
         'selectToAutocomplete': {
             deps: ['jquery'],
             exports: 'selectToAutocomplete'
-        },
-
-        'fullcalendar': {
-            deps: ['jquery'],
-            exports: 'fullcalendar'
         },
 
         'jquery_ui': {
@@ -227,10 +218,12 @@ var requireConf = {
 
     'deps': [
         /* jquery & its plugins */
-        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar', 'readmore-js',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete',
+
+        'readmore-js', 'd3', 'd3-funnel',
 
         /* Angular & Its plugins */
-        'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload',
+        'angular', 'angular_touch', 'ngSanitize',
         'angular-route', 'angular-validation', 'angular-validation-rule',
 
         'angular-bootstrap',
