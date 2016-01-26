@@ -90,6 +90,7 @@ define([
             self.$scope.selectedFilter = selectedFilter;
             self.availableFields = [];
             self.event.onFilterChanged();
+            self.applyWidgetDescription();
         };
 
         self.fn.switchToFilled100 = function () {

@@ -8,10 +8,11 @@ define([
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
     'jquery',
+    'readmore-js',
     'underscore',
     'moment',
     'config'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $, _, moment, config) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $, readmore, _, moment, config) {
     'use strict';
 
     var LINE = 'line';
@@ -51,7 +52,7 @@ define([
     PieChartWidgetView.prototype.show = function () {
         this.___show.call(this);
         this.event.createFilters(this.widget);
-    }
+    };
 
 
     PieChartWidgetView.prototype.configureEvents = function () {
@@ -119,6 +120,7 @@ define([
         self.fn.changeFilter = function (newTab) {
             self.$scope.selectedFilter = newTab;
             self.event.onTabChanged();
+            self.applyWidgetDescription();
         };
 
         self.fn.refreshChart = function () {
@@ -132,9 +134,11 @@ define([
 
         self.fn.init = function () {
             self.event.createFilters = function(){};
-            setTimeout( function(){
+            // tooltip="{{dynamicTooltip}}"
+            var initDelayed = function(){
                 $('[data-toggle=tooltip]').tooltip();
-            }, 2000 );
+            };
+            setTimeout( initDelayed, 1000 );
         };
 
         var columnsPerRow = 3;
@@ -382,13 +386,13 @@ define([
             },
             pointSize: 5,
             width: '100%',
-            height: '100%'/*,
+            height: '100%',
             chartArea: {
-                left: "5%",
-                top: "10%",
-                height: "80%",
-                width: "94%"
-            }*/
+                left: "10%",
+                top: "5%",
+                height: "85%",
+                width: "85%"
+            }
         };
 
         // ---------------------------
@@ -554,12 +558,12 @@ define([
             colors: self.colorService.$colors.slice(),
             width: '100%',
             height: '100%',
-            /*chartArea: {
-                left: "5%",
+            chartArea: {
+                left: "10%",
                 top: "5%",
-                height: "90%",
-                width: "90%"
-            },*/
+                height: "85%",
+                width: "85%"
+            },
             tooltip: { trigger: 'selection' },
             sliceVisibilityThreshold: 0
         };
@@ -611,6 +615,7 @@ define([
         var chart = chartService.createChart(element[0], 'table');
         var chartOptions = {
             width: '100%',
+            height: '100%',
             frozenColumns: 1,
             cssClassNames: {
                 headerCell: 'google-visualization-table-th text-center'

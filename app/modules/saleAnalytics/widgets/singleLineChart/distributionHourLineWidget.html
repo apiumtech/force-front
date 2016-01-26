@@ -6,7 +6,7 @@
 
 
     <!-- TOOLBAR -->
-    <div class="row" ng-init="fn.init()">
+    <div class="row panel-toolbar" ng-init="fn.init()">
         <div class="col-xs-6 col-lg-4 m-b-20 pull-right">
 
             <!--<select class="form-control pull left"
@@ -40,18 +40,24 @@
     </div>
     <!-- END TOOLBAR -->
 
-    <div class="row panel-content" ng-hide="data.serverError || data.noData">
-        <div class="panel-content-child col-xs-12">
-            <div class="chart-place-holder panel-content-child map-fix" ng-hide="data.serverError===true"></div>
+
+    <!-- CONTENT -->
+    <div class="row panel-content height-md" ng-hide="data.serverError || data.noData">
+        <div class="panel-content-child col-xs-12 height-md">
+            <div class="chart-place-holder panel-content-child map-fix height-md" ng-hide="data.serverError===true"></div>
         </div>
     </div>
 
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well" ng-if="widget.type=='hour_distribution_singleline'">
-            <span ng-if="selectedFilter.key=='allActivities'">{{ 'tabDistribution.timeDistribution.activities.description' | i18next }}</span>
-            <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.timeDistribution.visits.description' | i18next }}</span>
-            <span ng-if="selectedFilter.key=='emails'">{{ 'tabDistribution.timeDistribution.emails.description' | i18next }}</span>
-            <span ng-if="selectedFilter.key=='phoneCalls'">{{ 'tabDistribution.timeDistribution.phonecalls.description' | i18next }}</span>
+
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError===true">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well" ng-if="widget.type=='hour_distribution_singleline'">
+                <div ng-if="selectedFilter.key=='allActivities'">{{ 'tabDistribution.timeDistribution.activities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.timeDistribution.visits.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='emails'">{{ 'tabDistribution.timeDistribution.emails.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='phoneCalls'">{{ 'tabDistribution.timeDistribution.phonecalls.description' | i18next }}</div>
+            </div>
         </div>
     </div>
 
@@ -72,5 +78,6 @@
             src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
             ng-if="data.serverError===true">
     </ng-include>
+
 
 </widget-wrapper>

@@ -6,7 +6,7 @@
 
 
     <!-- TOOLBAR -->
-    <div class="row" ng-init="fn.init()">
+    <div class="row panel-toolbar" ng-init="fn.init()">
         <div class="col-xs-12 m-b-20">
             <div class="btn-group pull-right">
                 <button ng-if="widget.option == 'tab'"
@@ -52,17 +52,21 @@
     <!-- END TOOLBAR -->
 
 
-    <div class="row panel-content" ng-hide="data.serverError || data.noData" style="position:relative;z-index:100;">
-        <div class="panel-content-child col-xs-10">
-            <div class="chart-place-holder panel-content-child map-fix"></div>
+    <!-- CONTENT -->
+    <div class="row panel-content height-md" ng-hide="data.serverError || data.noData" style="position:relative;z-index:100;">
+        <div class="panel-content-child col-xs-10 height-md">
+            <div class="chart-place-holder panel-content-child map-fix height-md"></div>
         </div>
     </div>
 
 
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well">
-            <span ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</span>
-            <span ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</span>
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError===true">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well">
+                <div ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</div>
+            </div>
         </div>
     </div>
 

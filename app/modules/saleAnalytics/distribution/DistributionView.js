@@ -7,6 +7,7 @@ define([
     'modules/saleAnalytics/distribution/DistributionPresenter',
     'jquery'
 ], function (WidgetDecoratedPageView, DistributionPresenter, $) {
+    'use strict';
 
     function DistributionView($scope, $presenter) {
         $presenter = $presenter || new DistributionPresenter();

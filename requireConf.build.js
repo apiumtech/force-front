@@ -1,13 +1,4 @@
-/**
- * Created by Justin on 5/27/2015.
- */
-
-define(function () {
-    if (undefined === window) global.window = {};
-    return requireConf;
-});
-
-var requireConf = {
+requirejs.config({
     'baseUrl': 'app/',
     'waitSeconds': 0,
     'paths': {
@@ -38,7 +29,6 @@ var requireConf = {
         'selectToAutocomplete': '../bower_components/selectToAutocomplete/jquery.select-to-autocomplete',
         'fullcalendar': '../bower_components/fullcalendar/dist/fullcalendar',
         'toastr': '../bower_components/toastr/toastr',
-        'readmore-js': '../node_modules/readmore-js/readmore',
 
         'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
 
@@ -279,7 +269,7 @@ var requireConf = {
     'deps': [
         /* jquery & its plugins */
         'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar',
-        'datatables', 'readmore-js',
+        'datatables',
 
         /* Angular & Its plugins */
         'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload',
@@ -313,4 +303,4 @@ var requireConf = {
     callback: function () {
         require(['main']);
     }
-};
+});
