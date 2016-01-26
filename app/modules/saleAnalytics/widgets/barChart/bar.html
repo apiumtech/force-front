@@ -64,7 +64,7 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                <div ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.segment.description' | i18next }}</div>
                 <div ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</div>
             </div>
         </div>
@@ -83,10 +83,7 @@
 
 
     <!-- SERVER ERROR -->
-    <ng-include
-            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
-            ng-if="data.serverError===true">
-    </ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster" ng-if="data.serverError===true"></ng-include>
 
 
 
@@ -110,8 +107,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:250px; height:40px; vertical-align:middle; padding-left:20px; color:#212121; font-size:13px; font-weight:400;">User</td>
-                        <td style="width:50px;  height:40px; vertical-align:middle; text-align:center; color:#212121; font-size:13px; font-weight:400;">Total</td>
+                        <td style="width:250px; height:40px; vertical-align:middle; padding-left:20px; color:#212121; font-size:13px; font-weight:400;">{{ 'label_user' | i18next }}</td>
+                        <td style="width:50px;  height:40px; vertical-align:middle; text-align:center; color:#212121; font-size:13px; font-weight:400;">{{ 'label_total' | i18next }}</td>
                     </tr>
                 </tbody>
             </table>

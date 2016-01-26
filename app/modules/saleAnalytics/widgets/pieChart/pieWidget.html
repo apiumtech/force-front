@@ -176,9 +176,6 @@
 
 
     <!-- SERVER ERROR -->
-    <ng-include
-            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
-            ng-if="data.serverError===true">
-    </ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster" ng-if="data.serverError===true"></ng-include>
 
 </widget-wrapper>

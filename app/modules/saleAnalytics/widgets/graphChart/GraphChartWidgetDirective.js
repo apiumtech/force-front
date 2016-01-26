@@ -7,18 +7,18 @@ define([
 ], function (app, GraphChartWidgetController) {
     'use strict';
 
-    function GraphChartWidgetDirective() {
+    function GraphChartWidgetDirective($rootScope) {
         return {
             restrict: "EAC",
             controller: GraphChartWidgetController,
             scope: {
                 widget: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/graphChart/graph.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/graphChart/graph.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('graphChartWidget', [GraphChartWidgetDirective]);
+    app.register.directive('graphChartWidget', ['$rootScope', GraphChartWidgetDirective]);
 
     return GraphChartWidgetDirective;
 });

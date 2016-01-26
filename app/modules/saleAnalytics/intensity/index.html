@@ -1,14 +1,8 @@
-<ng-include
-        src="'app/modules/saleAnalytics/header.html'"
-        ng-show="i18nextLanguageReady===true">
-</ng-include>
+<ng-include src="'app/modules/saleAnalytics/header.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 
 
 <!-- begin filters -->
-<ng-include
-        src="'app/modules/saleAnalytics/filters/analyticsFilter.html'"
-        ng-show="i18nextLanguageReady===true">
-</ng-include>
+<ng-include src="'app/modules/saleAnalytics/filters/analyticsFilter.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 <!-- end filters-->
 
 <!--
@@ -29,7 +23,7 @@ WidgetAdministration
 -->
 
 <div class="row m-t-20">
-    <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html'"></ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html?v='+cacheBuster"></ng-include>
     <div class="widgets-container"
          as-sortable
          widget-dropped="fn.onWidgetDropped($ui, $widget)">
@@ -38,7 +32,7 @@ WidgetAdministration
              data-widgetid="widget-{{widget.widgetId}}"
              ng-class="{'hidden': !widget.isActive}"
              as-sortable-item sortable-widget="widget">
-            <ng-include src="widget.template"></ng-include>
+            <ng-include src="widget.template+'?v='+cacheBuster"></ng-include>
         </div>
     </div>
 </div>

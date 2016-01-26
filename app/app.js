@@ -53,6 +53,7 @@ define([
     app.run([
         '$rootScope', '$location', '$modal',
         function ($rootScope, $location, $modal) {
+            $rootScope.cacheBuster = $('body').attr('id');
             diConfig.register('$locationService').instance($location);
             diConfig.register('$rootScope').instance($rootScope);
             diConfig.register("modalService").instance($modal);

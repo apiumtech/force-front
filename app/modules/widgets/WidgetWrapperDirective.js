@@ -9,7 +9,7 @@ define([
 ], function (app, WidgetWrapperController) {
     'use strict';
 
-    function WidgetWrapperDirective() {
+    function WidgetWrapperDirective($rootScope) {
         return {
             restrict: "EA",
             controller: WidgetWrapperController,
@@ -22,11 +22,11 @@ define([
                 widgetId: "="
             },
             transclude: true,
-            templateUrl: "app/modules/widgets/widgetWrapper.html"
+            templateUrl: "app/modules/widgets/widgetWrapper.html?v="+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('widgetWrapper', [WidgetWrapperDirective]);
+    app.register.directive('widgetWrapper', ['$rootScope', WidgetWrapperDirective]);
 
     return WidgetWrapperDirective;
 });

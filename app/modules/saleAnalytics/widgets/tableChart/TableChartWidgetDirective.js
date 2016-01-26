@@ -9,18 +9,18 @@ define([
 ], function (app, TableChartWidgetController) {
     'use strict';
 
-    function IntensityRankingWidgetDirective() {
+    function IntensityRankingWidgetDirective($rootScope) {
         return {
             restrict: "EAC",
             controller: TableChartWidgetController,
             scope: {
                 widget: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/tableChart/tableChartWidget.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/tableChart/tableChartWidget.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('tableChartWidget', [IntensityRankingWidgetDirective]);
+    app.register.directive('tableChartWidget', ['$rootScope', IntensityRankingWidgetDirective]);
 
     return IntensityRankingWidgetDirective;
 });

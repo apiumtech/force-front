@@ -10,7 +10,9 @@ define([
             ConversionController.configureView($scope);
         } else {
             $rootScope.$on('i18nextLanguageChange', function(){
-                ConversionController.configureView($scope);
+                setTimeout(function(){
+                    ConversionController.configureView($scope);
+                }, 250);
             });
         }
     }

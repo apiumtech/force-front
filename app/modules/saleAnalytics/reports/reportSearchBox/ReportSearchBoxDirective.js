@@ -7,15 +7,15 @@ define([
 ], function (app, ReportSearchBoxController) {
     'use strict';
 
-    function ReportSearchBoxDirective() {
+    function ReportSearchBoxDirective($rootScope) {
         return {
             restrict: "EA",
             controller: ReportSearchBoxController,
-            templateUrl: 'app/modules/saleAnalytics/reports/reportSearchBox/reportSearchBox.html'
+            templateUrl: 'app/modules/saleAnalytics/reports/reportSearchBox/reportSearchBox.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('reportSearchBox', [ReportSearchBoxDirective]);
+    app.register.directive('reportSearchBox', ['$rootScope', ReportSearchBoxDirective]);
 
     return ReportSearchBoxDirective;
 });
