@@ -40,16 +40,6 @@ var requireConf = {
         'toastr': '../bower_components/toastr/toastr',
         'readmore-js': '../node_modules/readmore-js/readmore',
 
-        'datatables': '../node_modules/datatables/media/js/jquery.dataTables',
-
-        // flot & stuffs
-        'flot': '../node_modules/flot/jquery.flot',
-        'flot-resize': '../node_modules/flot/jquery.flot.resize',
-        'flot-stack': '../node_modules/flot/jquery.flot.stack',
-        'flot-pie': '../node_modules/flot/jquery.flot.pie',
-        'flot-categories': '../node_modules/flot/jquery.flot.categories',
-        'flot-crosshair': '../node_modules/flot/jquery.flot.crosshair',
-        'flot-tickrotor': '../assets/js/vendor/jquery.flot.tickrotor',
 
         // 3rd party
         'postal': '../node_modules/postal/lib/postal.min',
@@ -181,10 +171,6 @@ var requireConf = {
             exports: 'bootstrap'
         },
 
-        'datatables': {
-            deps: ['jquery']
-        },
-
         'toastr': {
             deps: ['jquery', 'jquery_migrate'],
             exports: 'toastr'
@@ -202,43 +188,6 @@ var requireConf = {
             exports: 'ApplicationFactory'
         },
         //endregion
-
-        //region Flot & stuffs
-        'flot': {
-            deps: ['jquery'],
-            exports: 'flot'
-        },
-
-        'flot-resize': {
-            deps: ['jquery', 'flot'],
-            exports: 'flot_resize'
-        },
-
-        'flot-stack': {
-            deps: ['jquery', 'flot'],
-            exports: 'flot_stack'
-        },
-
-        'flot-pie': {
-            deps: ['jquery', 'flot'],
-            exports: 'flot_pie'
-        },
-
-        'flot-categories': {
-            exports: 'flotCategories',
-            deps: ['flot']
-        },
-
-        'flot-crosshair': {
-            exports: 'flotCrosshair',
-            deps: ['flot']
-        },
-
-        'flot-tickrotor': {
-            exports: 'flotTickrotor',
-            deps: ['flot']
-        },
-        //endregion flot
 
         //region 3rd party libs
         'crypto.SHA1': {
@@ -278,8 +227,7 @@ var requireConf = {
 
     'deps': [
         /* jquery & its plugins */
-        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar',
-        'datatables', 'readmore-js',
+        'jquery', 'jquery_migrate', 'jquery_ui', 'bootstrap', 'slimscroll', 'selectToAutocomplete', 'fullcalendar', 'readmore-js',
 
         /* Angular & Its plugins */
         'angular', 'angular_touch', 'ngSanitize', 'ngFileUpload',
@@ -303,9 +251,8 @@ var requireConf = {
 
         'underscore', 'signals',
 
-        /* Flot & stuffs */
-        'flot', 'flot-categories', 'flot-crosshair', 'flot-resize', 'flot-pie', 'flot-stack', 'flot-tickrotor', 'crypto',
-        'crypto.SHA1', 'crypto.MD5',
+
+        'crypto', 'crypto.SHA1', 'crypto.MD5',
 
         /* Dependency Injection configuration loader */
         'diConfig'
