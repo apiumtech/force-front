@@ -46,9 +46,12 @@ define([
         return $( this.getCustomWidgetDivId() );
     };
     CustomWidgetView.prototype.onReloadWidgetSuccess = function (data) {
-        data = this.widget.widgetContent;
-        var htmlSrc = this.$compile(data)(this.$scope);
-        this.getCustomWidgetDiv().html(htmlSrc);
+        if(!this.isHTMLAlreadyInjected) {
+            data = this.widget.widgetContent;
+            var htmlSrc = this.$compile(data)(this.$scope);
+            this.getCustomWidgetDiv().html(htmlSrc);
+            this.isHTMLAlreadyInjected = true;
+        }
     };
 
 
