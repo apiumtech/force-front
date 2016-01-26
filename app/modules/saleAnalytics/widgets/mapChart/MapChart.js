@@ -47,15 +47,16 @@ define([
             canvas = document.getElementById(mapCanvasId);
         }
 
-        this.map = this.mapService.createMap(
+        /*this.map = this.mapService.createMap(
             canvas,
             mapOptions || {
                 center: this.mapService.getLatLng(41.23, 2.11),
                 zoom: 7
             }
-        );
+        );*/
 
-        /*mapOptions = mapOptions || {};
+        // Saved center, zoom
+        mapOptions = mapOptions || {};
         mapOptions.minZoom = 2;
         mapOptions.center = self.getSavedMapCenter();
         mapOptions.zoom = self.getSavedMapZoom();
@@ -70,7 +71,7 @@ define([
             self.storageService.store('mapCenter', self.map.getCenter(), true);
         };
         self.map.addListener('center_changed', changeHandler);
-        self.map.addListener('zoom_changed', changeHandler);*/
+        self.map.addListener('zoom_changed', changeHandler);
     };
 
     MapChart.prototype.createPointMap = function (data, selectedFilter) {
@@ -140,8 +141,8 @@ define([
                 }
             ]
         });
-        self.map.setCenter(latlngbounds.getCenter());
-        self.map.fitBounds(latlngbounds);
+        //self.map.setCenter(latlngbounds.getCenter());
+        //self.map.fitBounds(latlngbounds);
     };
 
     /*MapChart.prototype.createPointMap_ = function (data) {
@@ -224,8 +225,8 @@ define([
                 }
             ]
         });
-        self.map.setCenter(latlngbounds.getCenter());
-        self.map.fitBounds(latlngbounds);
+        //self.map.setCenter(latlngbounds.getCenter());
+        //self.map.fitBounds(latlngbounds);
     };
 
 
@@ -312,8 +313,8 @@ define([
             opacity: 1
         });
         self.heatMap.setMap(self.map);
-        self.map.setCenter(latlngbounds.getCenter());
-        self.map.fitBounds(latlngbounds);
+        //self.map.setCenter(latlngbounds.getCenter());
+        //self.map.fitBounds(latlngbounds);
     };
 
 
