@@ -64,8 +64,8 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                <span ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</span>
+                <div ng-if="selectedFilter.key=='Segment'">{{ 'tabDistribution.coverageAnalysis.selectButton.itemSegment' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='AccountType'">{{ 'tabDistribution.coverageAnalysis.accountType.description' | i18next }}</div>
             </div>
         </div>
     </div>

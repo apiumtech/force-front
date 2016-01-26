@@ -3,28 +3,36 @@
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
+    <!-- CONTENT -->
     <div class="row panel-content" ng-hide="data.serverError || data.noData">
         <div class="panel-content-child col-xs-12">
             <div class="chart-place-holder panel-content-child map-fix"></div>
         </div>
     </div>
 
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well well-lg">
-            <div class="row">
-                <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
-                    <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
+    <!-- DATA EXPLANATION -->
+    <div class="row" ng-hide="data.serverError || data.noData">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
+                        <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-hide="data.serverError===true">
-        <div class="well">
-            <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'">{{ 'tabConversion.customerAcquisitionFunnel.description' | i18next }}</span>
-            <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'">{{ 'tabConversion.customerDevelopmentFunnel.description' | i18next }}</span>
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError || data.noData">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well">
+                <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'">{{ 'tabConversion.customerAcquisitionFunnel.description' | i18next }}</span>
+                <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'">{{ 'tabConversion.customerDevelopmentFunnel.description' | i18next }}</span>
+            </div>
         </div>
     </div>
+
 
     <!-- NO DATA -->
     <div class="row" ng-if="data.noData">

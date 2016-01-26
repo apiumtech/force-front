@@ -53,10 +53,10 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="widget.type=='hour_distribution_singleline'">
-                <span ng-if="selectedFilter.key=='allActivities'">{{ 'tabDistribution.timeDistribution.activities.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.timeDistribution.visits.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='emails'">{{ 'tabDistribution.timeDistribution.emails.description' | i18next }}</span>
-                <span ng-if="selectedFilter.key=='phoneCalls'">{{ 'tabDistribution.timeDistribution.phonecalls.description' | i18next }}</span>
+                <div ng-if="selectedFilter.key=='allActivities'">{{ 'tabDistribution.timeDistribution.activities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.timeDistribution.visits.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='emails'">{{ 'tabDistribution.timeDistribution.emails.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='phoneCalls'">{{ 'tabDistribution.timeDistribution.phonecalls.description' | i18next }}</div>
             </div>
         </div>
     </div>

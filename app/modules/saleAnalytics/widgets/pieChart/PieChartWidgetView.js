@@ -120,6 +120,7 @@ define([
         self.fn.changeFilter = function (newTab) {
             self.$scope.selectedFilter = newTab;
             self.event.onTabChanged();
+            self.applyWidgetDescription();
         };
 
         self.fn.refreshChart = function () {
@@ -133,10 +134,11 @@ define([
 
         self.fn.init = function () {
             self.event.createFilters = function(){};
-            setTimeout( function(){
+            // tooltip="{{dynamicTooltip}}"
+            var initDelayed = function(){
                 $('[data-toggle=tooltip]').tooltip();
-                $('.row.panel-description .well > div').readmore({collapsedHeight: 40});
-            }, 1000 );
+            };
+            setTimeout( initDelayed, 1000 );
         };
 
         var columnsPerRow = 3;

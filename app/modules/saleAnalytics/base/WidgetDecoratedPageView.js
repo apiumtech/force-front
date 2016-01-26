@@ -127,7 +127,7 @@ define([
             WidgetAdministrationEventBus.getInstance().fireToggleWidgetAdministration();
         };
 
-        self.interval = setInterval( self.adjustWidgetSizes.bind(self), 250 );
+        self.adjustWidgetSizesInterval = setInterval( self.adjustWidgetSizes.bind(self), 250 );
 
         self.disposer = self.$scope.$on("$destroy", self.onDisposing.bind(self));
     };
@@ -170,7 +170,7 @@ define([
         self.widgetAdministrationEventBus.unsubscribeMoveWidgetToIndex();
         self.widgetAdministrationEventBus.unsubscribeActivateWidget();
         self.widgetAdministrationEventBus.unsubscribeDeactivateWidget();
-        clearInterval(self.interval);
+        clearInterval(self.adjustWidgetSizesInterval);
         self.disposer();
     };
 

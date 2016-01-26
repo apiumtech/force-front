@@ -93,6 +93,7 @@
     <!-- END TOOLBAR -->
 
 
+    <!-- CONTENT -->
     <div class="row" ng-hide="data.serverError || data.noData">
         <div class="col-xs-10">
             <div class="chart-place-holder height-sm"></div>
@@ -117,18 +118,20 @@
                 </li>
             </ul>
         </div>
+    </div>
 
+    <!-- DESCRIPTION -->
+    <div class="row panel-description" ng-hide="data.serverError || data.noData">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-            <div class="well" ng-if="selectedFilter.key=='visits'">{{'tabIntensity.activities.visits.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='phoneCallsTime'">{{'tabIntensity.activities.timeOfPhoneCalls.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='emails'">{{'tabIntensity.activities.emails.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='activities'">{{'tabIntensity.activities.activities.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='activityScores'">{{'tabIntensity.activities.activityScores.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='orders'">{{'tabIntensity.activities.newOrders.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='quotes'">{{'tabIntensity.activities.newQuotes.description' | i18next}}</div>
-            <div class="well" ng-if="selectedFilter.key=='opportunities'">{{'tabIntensity.activities.newOpportunities.description' | i18next}}</div>
+            <div class="well" ng-if="selectedFilter.key=='visits'"><div>{{'tabIntensity.activities.visits.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='phoneCallsTime'"><div>{{'tabIntensity.activities.timeOfPhoneCalls.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='emails'"><div>{{'tabIntensity.activities.emails.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='activities'"><div>{{'tabIntensity.activities.activities.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='activityScores'"><div>{{'tabIntensity.activities.activityScores.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='orders'"><div>{{'tabIntensity.activities.newOrders.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='quotes'"><div>{{'tabIntensity.activities.newQuotes.description' | i18next}}</div></div>
+            <div class="well" ng-if="selectedFilter.key=='opportunities'"><div>{{'tabIntensity.activities.newOpportunities.description' | i18next}}</div></div>
         </div>
-
     </div>
 
 

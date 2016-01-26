@@ -63,6 +63,7 @@ define([
         self.fn.changeFilter = function (selectedFilter) {
             self.$scope.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
+            self.applyWidgetDescription();
         };
 
         self.fn.refreshChart = function () {

@@ -6,9 +6,10 @@ define([
     'meld',
     'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'shared/services/TranslatorService',
+    'jquery',
     // TODO: This is deprecated
     'modules/saleAnalytics/eventBus/WidgetEventBus'
-], function (BaseView, meld, SalesAnalyticsFilterChannel, TranslatorService, /*TODO: this is deprecated*/WidgetEventBus) {
+], function (BaseView, meld, SalesAnalyticsFilterChannel, TranslatorService, $, /*TODO: this is deprecated*/WidgetEventBus) {
     'use strict';
 
     function WidgetBaseView(scope, element, presenter) {
@@ -46,6 +47,7 @@ define([
 
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);
+            self.applyWidgetDescription();
         });
     }
 
@@ -63,6 +65,12 @@ define([
             }
         }
     });
+
+    WidgetBaseView.prototype.applyWidgetDescription = function () {
+        $('.row.panel-description .well > div').readmore({
+            collapsedHeight: 40
+        });
+    };
 
     WidgetBaseView.prototype.resizeHandling = function () {
         var self = this;
