@@ -6,7 +6,10 @@
     <!-- CONTENT -->
     <div class="row panel-content" ng-hide="data.serverError || data.noData">
         <div class="panel-content-child col-xs-12">
-            <div class="chart-place-holder panel-content-child map-fix"></div>
+            <div
+                ng-attr-id="wid-{{ widget.widgetId }}"
+                class="chart-place-holder panel-content-child map-fix">
+            </div>
         </div>
     </div>
 
