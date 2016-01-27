@@ -6,7 +6,7 @@ define(function () {
 
     var apiVersion = "1.3";
     var baseUrl = "https://backenddev.forcemanager.net";
-    if(window.location.hostname  === 'webapp.forcemanager.net') {
+    if(window.location.hostname  === 'webapp.forcemanager.net' || window.location.hostname  === '127.0.0.1') {
         baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     }
     //var baseUrl = "https://backenddev.forcemanager.net";

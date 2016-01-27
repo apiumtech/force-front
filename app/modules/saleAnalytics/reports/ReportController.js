@@ -18,7 +18,7 @@ define([
             $rootScope.$on('i18nextLanguageChange', function(){
                 setTimeout(function(){
                     ReportController.configureView($scope);
-                }, 250);
+                }, 500);
             });
         }
     }

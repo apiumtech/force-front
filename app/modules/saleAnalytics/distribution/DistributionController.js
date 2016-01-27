@@ -16,7 +16,7 @@ define([
             $rootScope.$on('i18nextLanguageChange', function(){
                 setTimeout(function(){
                     DistributionController.configureView($scope);
-                }, 250);
+                }, 500);
             });
         }
     }
