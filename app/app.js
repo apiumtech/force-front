@@ -34,7 +34,6 @@ define([
         'jm.i18next',
         'forcefront.sortable',
         'angularMoment',
-        'angularFileUpload',
         'infinite-scroll',
         'validation',
         'validation.rule',
@@ -52,11 +51,11 @@ define([
     app.di = diConfig;
 
     app.run([
-        '$rootScope', '$location', '$upload', '$modal',
-        function ($rootScope, $location, $upload, $modal) {
+        '$rootScope', '$location', '$modal',
+        function ($rootScope, $location, $modal) {
+            $rootScope.cacheBuster = $('body').attr('id');
             diConfig.register('$locationService').instance($location);
             diConfig.register('$rootScope').instance($rootScope);
-            diConfig.register("$uploadService").instance($upload);
             diConfig.register("modalService").instance($modal);
         }
     ]);

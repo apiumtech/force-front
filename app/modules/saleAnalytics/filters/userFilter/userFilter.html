@@ -118,12 +118,10 @@
             <li class="users-tree" ng-if="data.usersLoadedFailError===null">
 
                 <!--ng-if="multipleSelection"-->
-                <ng-include  ng-if="currentUserFilterGroup=='Environment'"
-                            src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html'"></ng-include>
+                <ng-include  ng-if="currentUserFilterGroup=='Environment'" src="'app/modules/saleAnalytics/filters/userFilter/'+currentUserFilterGroup+'UsersFilter.html?v='+cacheBuster"></ng-include>
 
                 <!-- ng-if="!multipleSelection" -->
-                <ng-include ng-if="currentUserFilterGroup=='Hierarqhy'"
-                            src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html'"></ng-include>
+                <ng-include ng-if="currentUserFilterGroup=='Hierarqhy'" src="'app/modules/saleAnalytics/filters/userFilter/HierarqhyUsersFilter.html?v='+cacheBuster"></ng-include>
             </li>
             <!-- END users tree -->
 

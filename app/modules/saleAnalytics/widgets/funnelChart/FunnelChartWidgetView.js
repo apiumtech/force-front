@@ -5,8 +5,10 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
-    'modules/saleAnalytics/widgets/GraphColorService'
-], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService){
+    'modules/saleAnalytics/widgets/GraphColorService',
+    'd3-funnel',
+    'jquery'
+], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, D3Funnel, $){
     'use strict';
 
     function FunnelChartWidgetView(scope, element, presenter) {
@@ -66,6 +68,30 @@ define([
         this.paintChart();
     };
 
+
+    FunnelChartWidgetView.prototype.paintChart_new = function () {
+        var data = [
+            ['Plants',     5000],
+            ['Flowers',    2500],
+            ['Perennials', 200],
+            ['Roses',      50],
+        ];
+        D3Funnel.defaults = $.extend({
+            block: {
+                dynamicHeight: true,
+                fill: {
+                    type: 'gradient'
+                }
+            },
+            label: {
+                format: '{l}: ${f}'
+            }
+        }, D3Funnel.defaults);
+        var options = {};
+
+        var chart = new D3Funnel('#wid-'+ this.widget.widgetId);
+        chart.draw(data, options);
+    };
 
     FunnelChartWidgetView.prototype.paintChart = function () {
         var self = this;

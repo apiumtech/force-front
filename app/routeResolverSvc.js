@@ -3,12 +3,14 @@
  */
 define([
     'angular',
-    'require'
-], function (angular, require) {
+    'require',
+    'jquery'
+], function (angular, require, $) {
     'use strict';
 
     angular.module('routeResolver', []).provider('routeResolverSvc', function () {
         var self = this;
+        var cacheBuster = $('body').attr('id');
         self.$get = function () {
             return self;
         };
@@ -42,6 +44,7 @@ define([
             var resolve = function (controllerName, viewName) {
                     var routeDef = {};
                     routeDef.templateUrl = routeConfig.getViewsDirectory() + viewName + '.html';
+                    routeDef.templateUrl += '?' + cacheBuster;
                     if (controllerName === undefined || controllerName === null) {
                         routeDef.controller = viewName.substr(viewName.lastIndexOf('/') + 1);
                     } else {

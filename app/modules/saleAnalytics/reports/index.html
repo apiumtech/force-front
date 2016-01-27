@@ -1,12 +1,6 @@
-<ng-include
-        src="'app/modules/saleAnalytics/header.html'"
-        ng-show="i18nextLanguageReady===true">
-</ng-include>
+<ng-include src="'app/modules/saleAnalytics/header.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 
-<ng-include
-        src="'app/modules/saleAnalytics/reports/reportFilter/index.html'"
-        ng-show="i18nextLanguageReady===true">
-</ng-include>
+<ng-include src="'app/modules/saleAnalytics/reports/reportFilter/index.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 
 
 <div class="sale-analytics-reports m-t-45">
@@ -15,7 +9,7 @@
             <tab-heading>
                 {{'Reports.AllReports' | i18next}}
             </tab-heading>
-            <ng-include src="'app/modules/saleAnalytics/reports/allReport/index.html'"></ng-include>
+            <ng-include src="'app/modules/saleAnalytics/reports/allReport/index.html?v='+cacheBuster"></ng-include>
         </tab>
         <!--<tab select="fn.favReportSelected()">
             <tab-heading>
@@ -27,7 +21,7 @@
             <tab-heading>
                 {{'Reports.SearchReports' | i18next}}
             </tab-heading>
-            <ng-include src="'app/modules/saleAnalytics/reports/searchReport/index.html'"></ng-include>
+            <ng-include src="'app/modules/saleAnalytics/reports/searchReport/index.html?v='+cacheBuster"></ng-include>
         </tab>
     </tabset>
 </div>

@@ -6,7 +6,7 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetController'
 ], function(app, PieChartWidgetController){
 
-    function PieChartWidgetDirective() {
+    function PieChartWidgetDirective($rootScope) {
         return {
             restrict: "EAC",
             controller: PieChartWidgetController,
@@ -14,11 +14,11 @@ define([
                 widget: "=",
                 onlyPieChart: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/pieChart/pieWidget.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/pieChart/pieWidget.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('pieChartWidget', [PieChartWidgetDirective]);
+    app.register.directive('pieChartWidget', ['$rootScope', PieChartWidgetDirective]);
 
     return PieChartWidgetDirective;
 });

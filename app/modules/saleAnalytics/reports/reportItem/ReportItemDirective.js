@@ -4,7 +4,7 @@ define([
 ], function (app, ReportItemController) {
     'use strict';
 
-    function ReportItemDirective() {
+    function ReportItemDirective($rootScope) {
         return {
             restrict: "EA",
             require: "treeDirectory",
@@ -13,11 +13,11 @@ define([
                 fireOpenFolder: "="
             },
             controller: 'ReportItemController',
-            templateUrl: 'app/modules/saleAnalytics/reports/reportItem/reportItem.html'
-        }
+            templateUrl: 'app/modules/saleAnalytics/reports/reportItem/reportItem.html?v='+ $rootScope.cacheBuster
+        };
     }
 
-    app.register.directive('reportItem', [ReportItemDirective]);
+    app.register.directive('reportItem', ['$rootScope', ReportItemDirective]);
 
     return ReportItemDirective;
 });

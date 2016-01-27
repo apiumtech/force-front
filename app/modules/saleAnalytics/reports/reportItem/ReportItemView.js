@@ -4,8 +4,9 @@ define([
     'modules/saleAnalytics/reports/ReportEventBus',
     'shared/services/ArrayHelper',
     'shared/services/notification/ToastService',
-    'shared/services/TranslatorService'
-], function (BaseView, ReportItemPresenter, ReportEventBus, ArrayHelper, ToastService, TranslatorService) {
+    'shared/services/TranslatorService',
+    'jquery'
+], function (BaseView, ReportItemPresenter, ReportEventBus, ArrayHelper, ToastService, TranslatorService, $) {
     'use strict';
 
     function ReportItemView($scope, $element, $presenter, eventBus) {
@@ -257,7 +258,7 @@ define([
     ReportItemView.prototype.openParamsDialog = function (callback) {
         var self = this;
         var paramDialog = self.modalService.open({
-            templateUrl: 'app/modules/saleAnalytics/reports/reportParamsDialog/reportParamDialog.html',
+            templateUrl: 'app/modules/saleAnalytics/reports/reportParamsDialog/reportParamDialog.html?v='+ $('body').attr('id'),
             backdrop: 'static',
             keyboard: false,
             controller: 'ReportParamsDialogController',
@@ -304,8 +305,8 @@ define([
     ReportItemView.prototype.previewReport = function () {
         var self = this;
         self.modalService.open({
-            templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html',
-            windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html',
+            templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html?v='+ $('body').attr('id'),
+            windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html?v='+ $('body').attr('id'),
             backdrop: 'static',
             keyboard: false,
             controller: 'PreviewDialogController',

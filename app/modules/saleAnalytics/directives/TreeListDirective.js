@@ -11,7 +11,7 @@ define([
 
     var UserTreeListEventBus = UserTreeListEventBusClass.getInstance();
 
-    function TreeListDirective(RecursionHelper) {
+    function TreeListDirective(RecursionHelper, $rootScope) {
         return {
             restrict: 'AE',
             scope: {
@@ -20,7 +20,7 @@ define([
                 selectionChanged: "&",
                 multipleSelection: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/directives/treeList.html',
+            templateUrl: 'app/modules/saleAnalytics/directives/treeList.html?v='+ $rootScope.cacheBuster,
             compile: function (element) {
                 return RecursionHelper.compile(element, function (scope, iElement, iAttrs, controller, transcludeFn) {
 
@@ -58,7 +58,7 @@ define([
         };
     }
 
-    app.register.directive('treeList', ['RecursionHelper', TreeListDirective]);
+    app.register.directive('treeList', ['RecursionHelper', '$rootScope', TreeListDirective]);
 
     return TreeListDirective;
 });

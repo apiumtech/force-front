@@ -3,8 +3,7 @@
  */
 define([
     'jquery',
-    'moment',
-    'fullcalendar'
+    'moment'
 ], function ($, moment) {
 
     function FullCalendarService() {

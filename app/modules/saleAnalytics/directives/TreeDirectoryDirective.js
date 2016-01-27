@@ -7,14 +7,14 @@ define([
 ], function (app) {
     'use strict';
 
-    function TreeDirectoryDirective(RecursionHelper) {
+    function TreeDirectoryDirective(RecursionHelper, $rootScope) {
         return {
             restrict: 'AE',
             scope: {
                 treeList: '=treeDirectory',
                 treeLevel: "=treeLevel"
             },
-            templateUrl: 'app/modules/saleAnalytics/directives/treeDirectory.html',
+            templateUrl: 'app/modules/saleAnalytics/directives/treeDirectory.html?v='+ $rootScope.cacheBuster,
             compile: function (element) {
                 return RecursionHelper.compile(element, function (scope, iElement, iAttrs, controller, transcludeFn) {
                     if (!scope.treeLevel) {
@@ -25,7 +25,7 @@ define([
         };
     }
 
-    app.register.directive('treeDirectory', ['RecursionHelper', TreeDirectoryDirective]);
+    app.register.directive('treeDirectory', ['RecursionHelper', '$rootScope', TreeDirectoryDirective]);
 
     return TreeDirectoryDirective;
 });

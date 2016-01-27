@@ -16,6 +16,10 @@ module.exports = function (grunt) {
                     {
                         pattern: '<link href="build/css/force-manager.min.css" rel="stylesheet">',
                         replacement: '<link href="build/css/force-manager.min.css?v=<%= pkg.version %>" rel="stylesheet">'
+                    },
+                    {
+                        pattern: '<body id="v0.0.0">',
+                        replacement: '<body id="v<%= pkg.version %>">'
                     }
                 ]
             }

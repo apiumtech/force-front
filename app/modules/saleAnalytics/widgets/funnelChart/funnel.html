@@ -6,7 +6,10 @@
     <!-- CONTENT -->
     <div class="row panel-content" ng-hide="data.serverError || data.noData">
         <div class="panel-content-child col-xs-12">
-            <div class="chart-place-holder panel-content-child map-fix"></div>
+            <div
+                ng-attr-id="wid-{{ widget.widgetId }}"
+                class="chart-place-holder panel-content-child map-fix">
+            </div>
         </div>
     </div>
 
@@ -46,10 +49,7 @@
 
 
     <!-- SERVER ERROR -->
-    <ng-include
-            src="'app/modules/saleAnalytics/base/serverErrorAlert.html'"
-            ng-if="data.serverError===true">
-    </ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster" ng-if="data.serverError===true"></ng-include>
 
 
 </widget-wrapper>

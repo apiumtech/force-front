@@ -14,7 +14,9 @@ define([
             IntensityController.configureView($scope);
         } else {
             $rootScope.$on('i18nextLanguageChange', function(){
-                IntensityController.configureView($scope);
+                setTimeout(function(){
+                    IntensityController.configureView($scope);
+                }, 250);
             });
         }
     }

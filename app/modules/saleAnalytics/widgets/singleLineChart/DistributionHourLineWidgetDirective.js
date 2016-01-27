@@ -6,18 +6,18 @@ define([
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetController'
 ], function(app, DistributionHourLineWidgetController){
 
-    function DistributionHourLineWidgetDirective() {
+    function DistributionHourLineWidgetDirective($rootScope) {
         return {
             restrict: "EAC",
             controller: DistributionHourLineWidgetController,
             scope: {
                 widget: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/singleLineChart/distributionHourLineWidget.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/singleLineChart/distributionHourLineWidget.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('distributionHourLineWidget', [DistributionHourLineWidgetDirective]);
+    app.register.directive('distributionHourLineWidget', ['$rootScope', DistributionHourLineWidgetDirective]);
 
     return DistributionHourLineWidgetDirective;
 });

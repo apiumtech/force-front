@@ -6,7 +6,7 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetController'
 ], function (app, BarChartWidgetController) {
 
-    function BarChartWidgetDirective() {
+    function BarChartWidgetDirective($rootScope) {
         return {
             restrict: "EAC",
             controller: BarChartWidgetController,
@@ -17,11 +17,11 @@ define([
                 legend: "=", // legend object
                 chartArea: "=" // chartArea object
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/barChart/bar.html'
+            templateUrl: 'app/modules/saleAnalytics/widgets/barChart/bar.html?v='+ $rootScope.cacheBuster
         };
     }
 
-    app.register.directive('barChartWidget', [BarChartWidgetDirective]);
+    app.register.directive('barChartWidget', ['$rootScope', BarChartWidgetDirective]);
 
     return BarChartWidgetDirective;
 });

@@ -68,7 +68,9 @@ define([
 
     WidgetBaseView.prototype.applyWidgetDescription = function () {
         $('.row.panel-description .well > div').readmore({
-            collapsedHeight: 40
+            collapsedHeight: 40,
+            moreLink: '<a href="#">'+ this.translator.translate('action_show') +'</a>',
+            lessLink: '<a href="#">'+ this.translator.translate('action_close') +'</a>'
         });
     };
 
