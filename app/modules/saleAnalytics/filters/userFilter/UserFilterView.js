@@ -431,6 +431,7 @@ define([
             //self.fn.applyUserFilter();
         }
 
+        self.checkSelectAllState();
         //self.fn.userSelectionChanged();
         self.fireUsersFiltered();
 
