@@ -9,11 +9,12 @@ define([
     // --------------------------------------------------------
     //  TODO: move all this logic to a bootstrapping module
     // --------------------------------------------------------
-    function doBadTokenRedirection(){
-        window.console.error("Redirecting due to session error...");
+    function doBadTokenRedirection(reason){
+        window.console.error("Server error: " + reason);
+        /*window.console.error("Redirecting due to session error...");
         setTimeout(function () {
             window.location.href = "/"+ config.badTokenRedirectionPage;
-        },5000);
+        },5000);*/
     }
 
     $( document ).ajaxComplete(function( event, xhr, settings ) {
@@ -27,7 +28,7 @@ define([
             if(responseJSON.message.code === '00.00.0.20' ||
                 responseJSON.message.code === '00.00.0.21' ||
                 responseJSON.message.code === '00.00.0.22'){
-                doBadTokenRedirection();
+                doBadTokenRedirection(responseJSON.message.code);
             }
         }
     });
@@ -56,7 +57,7 @@ define([
     } finally {
         if( !config.isDevMode() &&
             (token === undefined || token === null || token === "") ){
-            doBadTokenRedirection();
+            doBadTokenRedirection("Error processing token");
         }
     }
     // --------------------------------------------------------
