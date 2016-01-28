@@ -71,24 +71,34 @@ define([
     FunnelChartWidgetView.prototype.paintChart = function () {
         // D3 Funnel: https://github.com/jakezatecky/d3-funnel
         var self = this;
+
         var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
         var data = self.data.Series[0].Points.map(function(item, index){
             return [labels[index], item.Y];
         });
+
+        var largestPoint = data[0][1];
+        var percentUnit = largestPoint / 100;
+
         var options = {
             block: {
-                dynamicHeight: true,
+                dynamicHeight: false,
                 fill: {
+                    type: 'gradient',
                     scale: self.colorService.$colors.slice()
                 },
                 minHeight: 20
             },
             label: {
-                format: '{l}: {f}'
+                fill: '#333333',
+                format: function(label, value){
+                    var percent = self._round(value/percentUnit, 1);
+                    return label + ': ' + value + ' ('+percent+'%)';
+                }
             }
         };
 
-        var chart = new D3Funnel('#wid-'+ this.widget.widgetId);
+        var chart = new D3Funnel('#wid-'+ self.widget.widgetId);
         chart.draw(data, options);
 
 
@@ -98,13 +108,34 @@ define([
         for(var i=1; i<nRows; i++) {
             var prevRow = data[i-1];
             var currentRow = data[i];
-            var value = Number((currentRow[1] / prevRow[1])*100).toFixed(1);
+            var value = self._round( (currentRow[1]/prevRow[1])*100, 1 );
             conversionRates.push({
                 label: prevRow[0] +" > "+ currentRow[0],
                 value: isNaN(value) ? '0' : value
             });
         }
-        this.data.conversionRates = conversionRates;
+        self.data.conversionRates = conversionRates;
+    };
+
+    // @see http://stackoverflow.com/a/21323330/779529
+    FunnelChartWidgetView.prototype._round = function (value, exp) {
+        if (typeof exp === 'undefined' || +exp === 0){
+            return Math.round(value);
+        }
+
+        value = +value;
+        exp = +exp;
+
+        if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+            return NaN;
+
+        // Shift
+        value = value.toString().split('e');
+        value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+        // Shift back
+        value = value.toString().split('e');
+        return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
     };
 
     /*FunnelChartWidgetView.prototype.paintChart_old = function () {

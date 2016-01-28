@@ -8,6 +8,7 @@ define([], function(){
             '#ffd632',
             '#00a8be',
             '#226eb4',
+            '#aacccc',
             '#aa5b9c',
             '#E70F47',
             '#28BBCE',
