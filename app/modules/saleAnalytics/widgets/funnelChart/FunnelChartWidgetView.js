@@ -69,6 +69,7 @@ define([
 
 
     FunnelChartWidgetView.prototype.paintChart = function () {
+        // D3 Funnel: https://github.com/jakezatecky/d3-funnel
         var self = this;
         var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
         var data = self.data.Series[0].Points.map(function(item, index){
@@ -80,7 +81,7 @@ define([
                 fill: {
                     scale: self.colorService.$colors.slice()
                 },
-                minHeight: 14
+                minHeight: 20
             },
             label: {
                 format: '{l}: {f}'
@@ -106,7 +107,7 @@ define([
         this.data.conversionRates = conversionRates;
     };
 
-    FunnelChartWidgetView.prototype.paintChart_old = function () {
+    /*FunnelChartWidgetView.prototype.paintChart_old = function () {
         var self = this;
         var data = self.data;
         var chartService = self.chartService;
@@ -200,7 +201,7 @@ define([
             });
         }
         this.data.conversionRates = conversionRates;
-    };
+    };*/
 
 
     FunnelChartWidgetView.prototype.extractFilters = function () {
