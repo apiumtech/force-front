@@ -6,9 +6,8 @@ define([
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
-    'd3-funnel',
-    'jquery'
-], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, D3Funnel, $){
+    'd3-funnel'
+], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, D3Funnel){
     'use strict';
 
     function FunnelChartWidgetView(scope, element, presenter) {
@@ -69,31 +68,45 @@ define([
     };
 
 
-    FunnelChartWidgetView.prototype.paintChart_new = function () {
-        var data = [
-            ['Plants',     5000],
-            ['Flowers',    2500],
-            ['Perennials', 200],
-            ['Roses',      50],
-        ];
-        D3Funnel.defaults = $.extend({
+    FunnelChartWidgetView.prototype.paintChart = function () {
+        var self = this;
+        var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
+        var data = self.data.Series[0].Points.map(function(item, index){
+            return [labels[index], item.Y];
+        });
+        var options = {
             block: {
                 dynamicHeight: true,
                 fill: {
-                    type: 'gradient'
-                }
+                    scale: self.colorService.$colors.slice()
+                },
+                minHeight: 14
             },
             label: {
-                format: '{l}: ${f}'
+                format: '{l}: {f}'
             }
-        }, D3Funnel.defaults);
-        var options = {};
+        };
 
         var chart = new D3Funnel('#wid-'+ this.widget.widgetId);
         chart.draw(data, options);
+
+
+        // Paint Conversion Rates Table
+        var conversionRates = [];
+        var nRows = data.length;
+        for(var i=1; i<nRows; i++) {
+            var prevRow = data[i-1];
+            var currentRow = data[i];
+            var value = Number((currentRow[1] / prevRow[1])*100).toFixed(1);
+            conversionRates.push({
+                label: prevRow[0] +" > "+ currentRow[0],
+                value: isNaN(value) ? '0' : value
+            });
+        }
+        this.data.conversionRates = conversionRates;
     };
 
-    FunnelChartWidgetView.prototype.paintChart = function () {
+    FunnelChartWidgetView.prototype.paintChart_old = function () {
         var self = this;
         var data = self.data;
         var chartService = self.chartService;
