@@ -87,7 +87,6 @@ define([
 
         $scope.datePicker.opts = opts;
 
-
         SalesAnalyticsFilterView.configureEvents(this);
     }
 
@@ -99,6 +98,7 @@ define([
             if($('#myDateRangePicker').data('daterangepicker').isShowing){
                 //$('#myDateRangePicker').data('daterangepicker').hide();
             } else {
+                $('.daterangepicker.dropdown-menu .ranges > ul > li:last-child').hide();
                 $('#myDateRangePicker').data('daterangepicker').show();
             }
         };
