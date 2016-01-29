@@ -32,12 +32,12 @@ define([
 
     MapChart.prototype.getSavedMapZoom = function () {
         var zoom = this.storageService.retrieve('mapZoom', true);
-        return zoom || 7;
+        return zoom;// || 7;
     };
 
     MapChart.prototype.getSavedMapCenter = function () {
         var center = this.storageService.retrieve('mapCenter', true);
-        return center || this.mapService.getLatLng(41.23, 2.11);
+        return center;// || this.mapService.getLatLng(41.23, 2.11);
     };
 
     MapChart.prototype.createMap = function (mapCanvasId, mapOptions) {
@@ -141,8 +141,11 @@ define([
                 }
             ]
         });
-        //self.map.setCenter(latlngbounds.getCenter());
-        //self.map.fitBounds(latlngbounds);
+
+        if( !self.getSavedMapCenter() ){
+            self.map.setCenter(latlngbounds.getCenter());
+            self.map.fitBounds(latlngbounds);
+        }
     };
 
     /*MapChart.prototype.createPointMap_ = function (data) {
@@ -225,8 +228,10 @@ define([
                 }
             ]
         });
-        //self.map.setCenter(latlngbounds.getCenter());
-        //self.map.fitBounds(latlngbounds);
+        if( !self.getSavedMapCenter() ) {
+            self.map.setCenter(latlngbounds.getCenter());
+            self.map.fitBounds(latlngbounds);
+        }
     };
 
 
@@ -251,6 +256,12 @@ define([
         if (self.markerClusterer) {
             self.markerClusterer.clearMarkers();
         }
+    };
+
+    MapChart.prototype.clearSavedZoomAndCenter = function () {
+        var self = this;
+        self.storageService.remove('mapZoom', true);
+        self.storageService.remove('mapCenter', true);
     };
 
 
@@ -313,8 +324,11 @@ define([
             opacity: 1
         });
         self.heatMap.setMap(self.map);
-        //self.map.setCenter(latlngbounds.getCenter());
-        //self.map.fitBounds(latlngbounds);
+
+        if( !self.getSavedMapCenter() ) {
+            self.map.setCenter(latlngbounds.getCenter());
+            self.map.fitBounds(latlngbounds);
+        }
     };
 
 
