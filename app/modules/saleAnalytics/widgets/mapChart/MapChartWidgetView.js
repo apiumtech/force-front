@@ -11,8 +11,9 @@ define([
     'modules/saleAnalytics/widgets/mapChart/MapChart',
     'shared/services/config/PermissionsService',
     'shared/services/TranslatorService',
+    'shared/services/StorageService',
     'jquery'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, TranslatorService, $) {
+], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, TranslatorService, StorageService, $) {
     'use strict';
 
     var HEAT_MAP = 'HEAT_MAP';
@@ -27,6 +28,10 @@ define([
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
         self.translator = TranslatorService.newInstance();
+        self.storageService = StorageService.newInstance();
+
+        self.storageService.remove('mapZoom', true);
+        self.storageService.remove('mapCenter', true);
 
         self.$scope.selectedFilter = {
             name: self.translator.translate('tabDistribution.geographicalDistribution.dropDown.itemSalesTeam'),
@@ -62,6 +67,7 @@ define([
         });
 
         self.fn.changeFilter = function (selectedFilter) {
+            self.mapChart.clearSavedZoomAndCenter();
             self.$scope.selectedFilter = selectedFilter;
             self.event.onFilterChanged();
             self.applyWidgetDescription();
