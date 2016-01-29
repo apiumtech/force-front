@@ -51,6 +51,7 @@ define([
                 monthNames: currentLocale.months(now),
                 customRangeLabel: self.translator.translate('commonText.dates.customRange')
             },
+            autoApply: true,
             minDate: moment('2010-01-01'),
             maxDate: moment(),
             eventHandlers: {
