@@ -131,8 +131,8 @@ define([
 
         var X = wh/2;
         var Y = wh/2;
-        var outterRadius = 30;
-        var innerRadius = 22;
+        var outterRadius = 36;
+        var innerRadius = 26;
         function drawDonut(sRadian, eRadian){
 
             context.beginPath();
@@ -179,7 +179,7 @@ define([
                 drawDonut(_toRadians(-90), _toRadians(percent360 - 90));
             }
 
-            ctx.font = '14px Roboto';
+            ctx.font = '16px Roboto';
             ctx.fillStyle = '#000000';
             ctx.textBaseline = "middle";
             ctx.textAlign = 'center';
