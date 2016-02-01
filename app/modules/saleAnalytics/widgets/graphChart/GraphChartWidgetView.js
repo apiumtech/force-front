@@ -421,6 +421,32 @@ define([
             maxValue: maxDate
         };
 
+        /*
+         self.chartOptions.hAxis = {
+         viewWindow: {
+         min: minDate,
+         max: maxDate
+         },
+         gridlines: {
+         count: -1,
+         units: {
+         years: {format: ['yyyy', 'yy']},
+         months: {format: ['d/M/yy', 'M/yy', 'M']},
+         days: {format: ['d/M/yy', 'd/M', 'd']}
+         },
+         color: '#666666'
+         },
+         minorGridlines: {
+         units: {
+         months: {format: ['M/yy', 'M']},
+         days: {format: ['d/M', 'd']},
+         hours: {format: [""]}
+         },
+         color: '#DDDDDD'
+         }
+         };
+        */
+
 
         if( isHours() ){
             self.chartOptions.bar = {groupWidth: "75%"};
