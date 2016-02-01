@@ -18,7 +18,7 @@
                     <a
                             ng-mouseover="fn.serieRollOver($index)"
                             ng-style="{'color':field.color}"
-                            tooltip="{{ field.name }}" tooltip-placement="bottom">
+                            tooltip="{{ field.name }}" tooltip-placement="bottom" tooltip-append-to-body="true">
                       &bullet; {{field.name}}
                     </a>
                 </li>
@@ -31,7 +31,7 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                {{ 'tabConversion.activitySalesConversion.description' | i18next }}
+                <p ng-i18next="[html]tabConversion.activitySalesConversion.description"></p>
             </div>
         </div>
     </div>

@@ -30,8 +30,8 @@
     <div class="row panel-description" ng-hide="data.serverError || data.noData">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'">{{ 'tabConversion.customerAcquisitionFunnel.description' | i18next }}</span>
-                <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'">{{ 'tabConversion.customerDevelopmentFunnel.description' | i18next }}</span>
+                <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'" ng-i18next="[html]tabConversion.customerAcquisitionFunnel.description"></span>
+                <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'" ng-i18next="[html]tabConversion.customerDevelopmentFunnel.description"></span>
             </div>
         </div>
     </div>

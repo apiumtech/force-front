@@ -1,10 +1,5 @@
 <widget-wrapper body-class="height-md"
                 wtitle="{{widget.widgetName}}"
-                wtooltip="{{
-                 widget.type == 'segment_distribution' ? ('tabDistribution.segmentDistribution.header.title.tooltip' | i18next) :
-                 (widget.type == 'hour_distribution' || widget.type == 'type_distribution') ? ('tabDistribution.typeDistribution.header.title.tooltip' | i18next) :
-                 widget.type == 'state_distribution' ? ('tabDistribution.statusDistribution.header.title.tooltip' | i18next) : ''
-                }}"
                 event-bus-channel="eventChannel"
                 widget-id="widget.widgetId">
 
@@ -49,7 +44,8 @@
 
             <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right"
-                 tooltip="{{ 'commonText.graph.buttonbar.dateFilter.tooltip' | i18next }}">
+                 tooltip="{{ 'commonText.graph.buttonbar.dateFilter.tooltip' | i18next }}"
+                 tooltip-append-to-body="true">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
                         ng-click="fn.changeFilterRange('date')"
@@ -78,37 +74,37 @@
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToPie()"
                         ng-class="{'active': currentChartType=='pie'}"
-                        tooltip="{{ 'commonText.pieChart.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.pieChart.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/pie.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToLine()"
                         ng-class="{'active': currentChartType=='line'}"
-                        tooltip="{{ 'commonText.lineChart.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.lineChart.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/line.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled()"
                         ng-class="{'active': currentChartType=='filled'}"
-                        tooltip="{{ 'commonText.areaChart.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.areaChart.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/area.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToFilled100()"
                         ng-class="{'active': currentChartType=='filled100'}"
-                        tooltip="{{ 'commonText.stackedAreaChart.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.stackedAreaChart.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/area-percent.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.switchToTable()"
                         ng-class="{'active': currentChartType=='table'}"
-                        tooltip="{{ 'commonText.tableChart.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.tableChart.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/table.png" style="width: 24px; height: 24px;">
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.exportToCSV()"
                         ng-if="currentChartType=='table'"
-                        tooltip="{{ 'commonText.tableChart.button.csvDownload.tooltip' | i18next }}">
+                        tooltip="{{ 'commonText.tableChart.button.csvDownload.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/csv.png" style="width: 24px; height: 24px;">
                 </button>
             </div>
@@ -146,19 +142,19 @@
     <div class="row panel-description">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="widget.type=='segment_distribution'">
-                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.segmentDistribution.activities.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.segmentDistribution.visits.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.segmentDistribution.newOpportunities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='activities'"><p ng-i18next="[html]tabDistribution.segmentDistribution.activities.description"></p></div>
+                <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.segmentDistribution.visits.description"></p></div>
+                <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.segmentDistribution.newOpportunities.description"></p></div>
             </div>
             <div class="well" ng-if="widget.type=='state_distribution'">
-                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.typeDistribution.activities.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.typeDistribution.visits.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.typeDistribution.newOpportunities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='activities'"><p ng-i18next="[html]tabDistribution.typeDistribution.activities.description"></p></div>
+                <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.typeDistribution.visits.description"></p></div>
+                <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.typeDistribution.newOpportunities.description"></p></div>
             </div>
             <div class="well" ng-if="widget.type=='type_distribution' || widget.type=='hour_distribution'">
-                <div ng-if="selectedFilter.key=='activities'">{{ 'tabDistribution.stateDistribution.activities.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='visits'">{{ 'tabDistribution.stateDistribution.visits.description' | i18next }}</div>
-                <div ng-if="selectedFilter.key=='opportunities'">{{ 'tabDistribution.stateDistribution.newOpportunities.description' | i18next }}</div>
+                <div ng-if="selectedFilter.key=='activities'"><p ng-i18next="[html]tabDistribution.stateDistribution.activities.description"></p></div>
+                <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.stateDistribution.visits.description"></p></div>
+                <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.stateDistribution.newOpportunities.description"></p></div>
             </div>
         </div>
     </div>

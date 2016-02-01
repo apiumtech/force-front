@@ -64,10 +64,10 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well" ng-if="selectedFilter.key=='checkins'">
-                {{ 'tabDistribution.geographicalDistribution.check-ins.description' | i18next }}
+                <p ng-i18next="[html]tabDistribution.geographicalDistribution.check-ins.description"></p>
             </div>
             <div class="well" ng-if="selectedFilter.key=='users'">
-                {{ 'tabDistribution.geographicalDistribution.salesTeam.description' | i18next }}
+                <p ng-i18next="[html]tabDistribution.geographicalDistribution.salesTeam.description"></p>
             </div>
         </div>
     </div>

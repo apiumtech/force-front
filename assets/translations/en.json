@@ -263,7 +263,7 @@
   "tabIntensity.activities.dropDown.itemNewOrders": "New Orders",
   "tabIntensity.activities.dropDown.itemNewQuotes": "New Quotes",
   "tabIntensity.activities.dropDown.itemNewOpportunities": "New Opportunities",
-  "tabIntensity.activities.visits.description": "En Visitas estarán incluidas todas las gestiones geolocalizadas.",
+  "tabIntensity.activities.visits.description": "En <b>Visitas</b> estarán incluidas todas las gestiones geolocalizadas.",
   "tabIntensity.activities.timeOfPhoneCalls.description": "En el tiempo de llamada están incluidas las llamadas entrantes y salientes del usuario.",
   "tabIntensity.activities.emails.description": "En emails estarán incluidos todos los correos, tanto enviados como recibido.",
   "tabIntensity.activities.activities.description": "En Actividad verás todas las gestiones no geolocalizadas: comentarios de llamadas telefónicas, comentarios de una reunión...",
