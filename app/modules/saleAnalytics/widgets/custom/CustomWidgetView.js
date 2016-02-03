@@ -40,7 +40,7 @@ define([
 
 
         this._dateFilterApplySignal = (function(dateRange){
-            console.log("dateFilterApplySignal",dateRange)
+            //console.log("dateFilterApplySignal",dateRange)
             var event = new CustomEvent('dateRangeChanged', {'detail': dateRange});
             window.dispatchEvent(event);
         }).bind(this);

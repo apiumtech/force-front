@@ -14,14 +14,16 @@ define([
             },
             templateUrl: 'app/modules/saleAnalytics/widgets/custom/customWidget.html?v='+ $rootScope.cacheBuster,
             link: function(scope, element, attrs){
-                if(window.initCustomWidgetHandler) {
-                    window.initCustomWidgetHandler();
-                }
-                scope.$on('$destroy', function(){
-                   if(window.destroyCustomWidgetHandler) {
-                       window.destroyCustomWidgetHandler();
-                   }
-                });
+                setTimeout(function(){
+                    if(window.initCustomWidgetHandler) {
+                        window.initCustomWidgetHandler.call(window);
+                    }
+                    scope.$on('$destroy', function(){
+                       if(window.destroyCustomWidgetHandler) {
+                           window.destroyCustomWidgetHandler.call(window);
+                       }
+                    });
+                }, 250);
             }
         };
     }

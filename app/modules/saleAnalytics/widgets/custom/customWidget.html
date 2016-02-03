@@ -6,18 +6,17 @@
         <!-- Content dynamically created from server -->
     </div>
     <script>
+        console.log("template loaded");
+        function dateRangeChangedHandler(e){
+            console.log("date changed", e.detail);
+        }
         function initCustomWidgetHandler () {
-            //console.log("ready");
-            /*window.addEventListener(
-                    'dateRangeChanged',
-                    function (e) {
-                        console.log(e.detail);
-                    },
-                    false
-            );*/
+            console.log("initCustomWidgetHandler");
+            window.addEventListener('dateRangeChanged',dateRangeChangedHandler, false);
         }
         function destroyCustomWidgetHandler () {
-            //console.log("destroy");
+            console.log("destroyCustomWidgetHandler");
+            window.removeEventListener('dateRangeChanged',dateRangeChangedHandler, false);
         }
     </script>
 </widget-wrapper>
