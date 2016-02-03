@@ -61,6 +61,8 @@ define(function () {
         customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
         customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
 
+        opportunityFunnelDataApi: baseUrl + 'api/queries/stats/dashboard/conversion/opportunityPipelineConversionByUsersAndPeriod',
+
 
         literals: {
             languageList: baseUrl + '/api/queries/commons/languages/languageList',

@@ -146,12 +146,12 @@
                 <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.segmentDistribution.visits.description"></p></div>
                 <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.segmentDistribution.newOpportunities.description"></p></div>
             </div>
-            <div class="well" ng-if="widget.type=='state_distribution'">
+            <div class="well" ng-if="widget.type=='type_distribution' || widget.type=='hour_distribution'">
                 <div ng-if="selectedFilter.key=='activities'"><p ng-i18next="[html]tabDistribution.typeDistribution.activities.description"></p></div>
                 <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.typeDistribution.visits.description"></p></div>
                 <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.typeDistribution.newOpportunities.description"></p></div>
             </div>
-            <div class="well" ng-if="widget.type=='type_distribution' || widget.type=='hour_distribution'">
+            <div class="well" ng-if="widget.type=='state_distribution'">
                 <div ng-if="selectedFilter.key=='activities'"><p ng-i18next="[html]tabDistribution.stateDistribution.activities.description"></p></div>
                 <div ng-if="selectedFilter.key=='visits'"><p ng-i18next="[html]tabDistribution.stateDistribution.visits.description"></p></div>
                 <div ng-if="selectedFilter.key=='opportunities'"><p ng-i18next="[html]tabDistribution.stateDistribution.newOpportunities.description"></p></div>

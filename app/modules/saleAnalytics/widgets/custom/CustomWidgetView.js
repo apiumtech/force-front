@@ -11,6 +11,7 @@ define([
         presenter = presenter || new CustomWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         this.$compile = $compile;
+        scope.$on('$destroy', this.onDestroy.bind(this));
         this.configureEvents();
     }
 
@@ -27,17 +28,35 @@ define([
 
     CustomWidgetView.prototype.configureEvents = function () {
         var self = this;
-        this.eventChannel.onReloadCommandReceived(this.onReloadCommandReceived.bind(this));
+        self.eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
 
         self.event.customDataAccess = function(){};
-        this.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
+        self.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
             self.event.customDataAccess(storedName, storedParams).then(function(result){
                 var event = new CustomEvent(callbackEventName, {'detail': result});
                 window.dispatchEvent(event);
             });
         };
-    }
 
+
+        this._dateFilterApplySignal = (function(dateRange){
+            console.log("dateFilterApplySignal",dateRange)
+            var event = new CustomEvent('dateRangeChanged', {'detail': dateRange});
+            window.dispatchEvent(event);
+        }).bind(this);
+        self.filterChannel.onDateFilterApplySignalReceived(this._dateFilterApplySignal);
+
+        this._userFilterApplySignal = (function(users){
+            var event = new CustomEvent('userFilterChanged', {'detail': users});
+            window.dispatchEvent(event);
+        }).bind(self);
+        self.filterChannel.onUserFilterApplySignalReceived(this._userFilterApplySignal);
+    };
+
+    CustomWidgetView.prototype.onDestroy = function() {
+        this.filterChannel.unsubscribeCallback(this._dateFilterApplySignal);
+        this.filterChannel.unsubscribeCallback(this._userFilterApplySignal);
+    };
 
     CustomWidgetView.prototype.getCustomWidgetDivId = function(){
         return '#customWidget' + this.widget.widgetId;

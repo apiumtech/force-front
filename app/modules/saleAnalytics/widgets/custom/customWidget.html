@@ -5,4 +5,19 @@
     <div ng-attr-id="customWidget{{ widget.widgetId }}">
         <!-- Content dynamically created from server -->
     </div>
+    <script>
+        function initCustomWidgetHandler () {
+            //console.log("ready");
+            /*window.addEventListener(
+                    'dateRangeChanged',
+                    function (e) {
+                        console.log(e.detail);
+                    },
+                    false
+            );*/
+        }
+        function destroyCustomWidgetHandler () {
+            //console.log("destroy");
+        }
+    </script>
 </widget-wrapper>

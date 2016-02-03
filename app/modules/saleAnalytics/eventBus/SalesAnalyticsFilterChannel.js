@@ -9,6 +9,7 @@ define([
 
     function SalesAnalyticsFilterChannel(widgetName) {
         this.channel = SalesAnalyticsFilterChannel._initChannel(widgetName);
+        this.unsubscribers = [];
 
         this.send = this.channel.send;
         this.listen = this.channel.listen;
@@ -36,10 +37,14 @@ define([
     };
 
     SalesAnalyticsFilterChannel.prototype.onDateFilterApplySignalReceived = function (callback) {
-        this.listen(function (event) {
+        var unsubscribeHandler = this.listen(function (event) {
             if (event.filterApplied && event.filterName === SalesAnalyticsFilterChannel.DateFilter) {
                 callback(event.filterValue);
             }
+        });
+        this.unsubscribers.push({
+            callback: callback,
+            unsubscribe: unsubscribeHandler
         });
     };
 
@@ -53,11 +58,32 @@ define([
     };
 
     SalesAnalyticsFilterChannel.prototype.onUserFilterApplySignalReceived = function (callback) {
-        this.listen(function (event) {
+        var unsubscribeHandler = this.listen(function (event) {
             if (event.filterApplied && event.filterName === SalesAnalyticsFilterChannel.UserFilter) {
                 callback(event.filterValue);
             }
         });
+        this.unsubscribers.push({
+            callback: callback,
+            unsubscribe: unsubscribeHandler
+        });
+    };
+
+
+    /*
+     * Unsubscriber
+     */
+    SalesAnalyticsFilterChannel.prototype.unsubscribeCallback = function (callback) {
+        var foundIndex = -1;
+        this.unsubscribers.forEach(function(unsubscriber, index){
+            if(unsubscriber.callback === callback){
+                unsubscriber.unsubscribe();
+                foundIndex = index;
+            }
+        });
+        if(foundIndex > -1){
+            this.unsubscribers.splice(foundIndex, 1);
+        }
     };
 
 

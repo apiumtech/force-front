@@ -12,7 +12,17 @@ define([
             scope: {
                 widget: "="
             },
-            templateUrl: 'app/modules/saleAnalytics/widgets/custom/customWidget.html?v='+ $rootScope.cacheBuster
+            templateUrl: 'app/modules/saleAnalytics/widgets/custom/customWidget.html?v='+ $rootScope.cacheBuster,
+            link: function(scope, element, attrs){
+                if(window.initCustomWidgetHandler) {
+                    window.initCustomWidgetHandler();
+                }
+                scope.$on('$destroy', function(){
+                   if(window.destroyCustomWidgetHandler) {
+                       window.destroyCustomWidgetHandler();
+                   }
+                });
+            }
         };
     }
 

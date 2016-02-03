@@ -4,14 +4,14 @@
 define([
     'postal'
 ], function (postal) {
+    'use strict';
 
     function EventBus() {
-
     }
 
     EventBus.prototype.subscribe = function (parameters) {
         return {
-            unsubscribe: postal.subscribe(parameters).unsubscribe,
+            unsubscribe: postal.unsubscribe.bind(postal, postal.subscribe(parameters)),
             channel: parameters.channel,
             topic: parameters.topic
         };
@@ -29,12 +29,12 @@ define([
             },
 
             listen: function (callback) {
-                instance.subscribe({channel: channel, topic: topic, callback: callback});
-            },
-
-            unsubscribe: function (callback) {
-                instance.subscribe({channel: channel, topic: topic, callback: callback}).unsubscribe();
+                return instance.subscribe({channel: channel, topic: topic, callback: callback}).unsubscribe;
             }
+
+            /*unsubscribe: function (callback) {
+                instance.subscribe({channel: channel, topic: topic, callback: callback}).unsubscribe();
+            }*/
         };
     };
 
