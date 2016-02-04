@@ -45,23 +45,21 @@
             <!-- DATE RANGE buttonbar -->
             <div class="btn-group pull-right"
                  tooltip="{{ 'commonText.graph.buttonbar.dateFilter.tooltip' | i18next }}"
-                 tooltip-append-to-body="true">
+                 tooltip-append-to-body="true"
+                 ng-if="currentChartType!=='pie'">
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='date'}"
-                        ng-click="fn.changeFilterRange('date')"
-                        ng-disabled="currentChartType==='pie'">
+                        ng-click="fn.changeFilterRange('date')">
                     {{'LineWidget.Filters.Date' | i18next}}
                 </button>
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='week'}"
-                        ng-click="fn.changeFilterRange('week')"
-                        ng-disabled="currentChartType==='pie'">
+                        ng-click="fn.changeFilterRange('week')">
                     {{'LineWidget.Filters.Week' | i18next}}
                 </button>
                 <button class="btn btn-white btn-sm"
                         ng-class="{'active': selectedRangeOption=='month'}"
-                        ng-click="fn.changeFilterRange('month')"
-                        ng-disabled="currentChartType==='pie'">
+                        ng-click="fn.changeFilterRange('month')">
                     {{'LineWidget.Filters.Month' | i18next}}
                 </button>
             </div>
