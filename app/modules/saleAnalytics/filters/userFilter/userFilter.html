@@ -49,9 +49,9 @@
             onmouseout="document.body.style.overflow='auto';"
             ng-click="$event.stopPropagation()">
 
-            <span class="panel-loading isLoading" ng-if="data.isLoadingUsers">
+            <span class="panel-loading isLoading" ng-if="data.isLoadingUsers" style="z-index: 3">
                 <i class="spinner"></i>
-             </span>
+            </span>
 
             <!-- search users -->
             <li class="m-t-10 m-b-10">
