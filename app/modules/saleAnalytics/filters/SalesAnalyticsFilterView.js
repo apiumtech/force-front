@@ -72,6 +72,8 @@ define([
             }
         };
 
+
+
         opts.ranges = {};
 
         [
@@ -87,6 +89,12 @@ define([
         });
 
         $scope.datePicker.opts = opts;
+
+
+        setTimeout(function(){
+            var datePickerInstance = $('#myDateRangePicker').data('daterangepicker');
+            datePickerInstance.container.find('.applyBtn, .cancelBtn').removeClass('hide');
+        }, 1000);
 
         SalesAnalyticsFilterView.configureEvents(this);
     }
