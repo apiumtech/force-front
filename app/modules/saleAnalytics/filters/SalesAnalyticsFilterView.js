@@ -67,6 +67,7 @@ define([
                 },
                 'show.daterangepicker': function() {
                     $('#myDateRangePicker').data('daterangepicker').showCalendars();
+                    $('.daterangepicker.dropdown-menu .ranges > ul > li:last-child').hide();
                 }
             }
         };
@@ -98,7 +99,6 @@ define([
             if($('#myDateRangePicker').data('daterangepicker').isShowing){
                 //$('#myDateRangePicker').data('daterangepicker').hide();
             } else {
-                $('.daterangepicker.dropdown-menu .ranges > ul > li:last-child').hide();
                 $('#myDateRangePicker').data('daterangepicker').show();
             }
         };
