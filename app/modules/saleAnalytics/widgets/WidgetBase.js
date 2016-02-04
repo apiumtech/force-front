@@ -70,9 +70,18 @@ define([
     };
 
     WidgetBase.prototype.addDateFilter = function (dateStart, dateEnd) {
-        this.addQuery(
+        /*this.addQuery(
             "period",
             moment(dateStart).startOf('day').unix() + "," + moment(dateEnd).endOf('day').unix()
+        );*/
+
+        dateStart = moment(dateStart).toDate();
+        dateEnd = moment(dateEnd).toDate();
+        var utcDateStart = Date.UTC(dateStart.getFullYear(), dateStart.getMonth(), dateStart.getDate(), 0, 0, 0, 0) / 1000;
+        var utcDateEnd = Date.UTC(dateEnd.getFullYear(), dateEnd.getMonth(), dateEnd.getDate(), 23, 59, 59, 0) / 1000;
+        this.addQuery(
+            "period",
+            utcDateStart.toString() +","+ utcDateEnd.toString()
         );
     };
 

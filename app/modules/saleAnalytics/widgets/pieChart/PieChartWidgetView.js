@@ -359,7 +359,8 @@ define([
         var rows = [];
         var rowIndex = 0;
         axisData.x.forEach(function(date_str){
-            var date = new Date(Date.parse(date_str));
+            //var date = new Date(Date.parse(date_str));
+            var date = moment(date_str).toDate();
             var row = [date];
             chartFields.forEach(function (serie) {
                 var plotData = serie.plotData[rowIndex];
@@ -410,10 +411,14 @@ define([
 
         // For d3 time intervals
         // @see http://stackoverflow.com/a/23957607/779529
-        var minDate = new Date(Date.parse(axisData.x[0]));
-        var maxDate = new Date(Date.parse(axisData.x[axisData.x.length-1]));
-        minDate.setDate(minDate.getDate()-1);
-        maxDate.setDate(maxDate.getDate()+1);
+        var minDate = moment(axisData.x[0]).toDate();
+        var maxDate = moment(axisData.x[axisData.x.length-1]).toDate();
+
+        if(axisData.x.length===1) {
+            minDate.setDate(minDate.getDate() - 1);
+            maxDate.setDate(maxDate.getDate() + 1);
+        }
+
         self.chartOptions.hAxis = {
             format: computedFormat,
             gridlines: {
@@ -597,7 +602,7 @@ define([
 
         var rows = [];
         data.axis.x.forEach(function(d, index){
-            var row = [new Date(d)];
+            var row = [moment(d).toDate()];
             data.fields.forEach(function(field) {
                 row.push(field.data[index]);
             });
