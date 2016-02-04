@@ -60,6 +60,7 @@ define([
         mapOptions.minZoom = 2;
         mapOptions.center = self.getSavedMapCenter();
         mapOptions.zoom = self.getSavedMapZoom();
+        mapOptions.scrollwheel = false;
 
         self.map = self.mapService.createMap(
             canvas,
