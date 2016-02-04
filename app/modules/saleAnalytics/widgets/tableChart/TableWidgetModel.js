@@ -14,14 +14,14 @@ define([
 
     function TableWidgetModel(ajaxService) {
         WidgetBase.call(this, ajaxService);
-        this.queries = {
+        /*this.queries = {
             users: "",
             period: "",
             grouping: ""
-        };
+        };*/
         this.translator = TranslatorService.newInstance();
         this.permissionsService = PermissionsService.newInstance();
-        this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
+        //this.addDateFilter(moment().subtract(Configuration.defaultDateSubtraction, 'days').toDate(), moment().toDate());
     }
 
     TableWidgetModel.inherits(WidgetBase, {});
