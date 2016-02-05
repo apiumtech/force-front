@@ -105,7 +105,13 @@ define([
 
         self.fn.toggleCollapsePanel = function () {
             self.isMinimized = !self.isMinimized;
-            self.element.find('.panel-body').slideToggle();
+            var body = self.element.find('.panel-body');
+            body.slideToggle();
+            if(self.isMinimized) {
+                body.addClass('panel-is-minimized');
+            } else {
+                body.removeClass('panel-is-minimized');
+            }
         };
 
         self.fn.expandPanel = function () {
