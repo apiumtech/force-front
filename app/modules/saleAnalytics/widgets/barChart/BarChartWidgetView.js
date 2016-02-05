@@ -78,6 +78,7 @@ define([
         var self = this;
         self.data = responseData.data.params.bars;
         self.tickLabels = responseData.data.params.axis.x;
+        self.cycleLabels = responseData.data.params.axis.cycle;
         self.$scope.filters = responseData.data.params.filters;
         self.$scope.selectedFilter = self.$scope.selectedFilter || responseData.data.params.filters[0];
         self.paintChart();
@@ -106,6 +107,7 @@ define([
             dataTable.addColumn('number', serie.label);
             dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
+        dataTable.addColumn({type:'string', role:'annotation'});
 
 
         var originalTableTemplateString = $("#barChartCalloutTableTemplate").html();
@@ -153,18 +155,19 @@ define([
         self.colorService.initialize();
 
         var index = 0;
-        var columns = [];
+        var rows = [];
         self.tickLabels.forEach(function(tick){
-            var col = [];
-            col.push(tick);
+            var row = [];
+            row.push(tick);
             self.data.forEach(function(serie){
-                col.push( serie.data[index][1].Y  );
-                col.push( createTooltip(tick, serie, index) );
+                row.push( serie.data[index][1].Y  );
+                row.push( createTooltip(tick, serie, index) );
             });
-            columns.push(col);
+            row.push(self.cycleLabels[index]);
+            rows.push(row);
             index++;
         });
-        dataTable.addRows(columns);
+        dataTable.addRows(rows);
 
         self.chartData = dataTable;
         var barType = self.$scope.horizontal === true ? 'hbar' : 'bar';

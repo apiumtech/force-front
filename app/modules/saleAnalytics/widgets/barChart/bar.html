@@ -64,8 +64,13 @@
     <div class="row panel-description" ng-hide="data.serverError===true">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                <div ng-if="selectedFilter.key=='Segment'"><p ng-i18next="[html]tabDistribution.coverageAnalysis.segment.description"></p></div>
-                <div ng-if="selectedFilter.key=='AccountType'"><p ng-i18next="[html]tabDistribution.coverageAnalysis.accountType.description"></p></div>
+                <div ng-if="widget.endPoint=='coverageWidgetDistributionDataApi'">
+                    <div ng-if="selectedFilter.key=='Segment'"><p ng-i18next="[html]tabDistribution.coverageAnalysis.segment.description"></p></div>
+                    <div ng-if="selectedFilter.key=='AccountType'"><p ng-i18next="[html]tabDistribution.coverageAnalysis.accountType.description"></p></div>
+                </div>
+                <div ng-if="widget.endPoint=='cycleCoverageWidgetDistributionDataApi'">
+                    <div><p ng-i18next="[html]tabDistribution.cycleCoverageAnalysis.description"></p></div>
+                </div>
             </div>
         </div>
     </div>

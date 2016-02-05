@@ -33,7 +33,10 @@ define(function () {
         segmentWidgetDistributionDataApi: baseUrl +      '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
         hourWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
         typeWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TypeDistributionByUsersAndPeriod',
+
         coverageWidgetDistributionDataApi: baseUrl +     '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
+        cycleCoverageWidgetDistributionDataApi: baseUrl +'/api/queries/stats/dashboard/distribution/cycleCoverageSegmentDistributionByUsersAndPeriod',
+
         stateWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}StateDistributionByUsersAndPeriod',
 
         //conversion activity/sales

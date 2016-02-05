@@ -6,8 +6,8 @@ define([
     'modules/saleAnalytics/widgets/WidgetBase',
     'shared/services/ajax/AuthAjaxService',
     'shared/services/TranslatorService',
-    'config'
-], function(WidgetBase, AjaxService, TranslatorService, Configuration){
+    'moment'
+], function(WidgetBase, AjaxService, TranslatorService, moment){
     'use strict';
 
     function BarChartWidgetModel(ajaxService) {
@@ -52,7 +52,7 @@ define([
             "data": {
                 "params": {
                     "filters": this.filters.slice(),
-                    "axis": {"x": []},
+                    "axis": {"x": [], "cycle": []},
                     "bars": []
                 }
             }
@@ -65,8 +65,12 @@ define([
             });
         });
 
+        var currentLocale = moment.localeData();
+        var dateFormat = currentLocale.longDateFormat('L');
         data.Series.forEach(function (i) {
             responseData.data.params.axis.x.push(i.Name);
+            //i.Cycle = {FromDate:'2015-08-17T00:00:00.000', ToDate:'2015-08-27T00:00:00.000'}
+            responseData.data.params.axis.cycle.push( i.Cycle ? moment(i.Cycle.FromDate).format(dateFormat) +' - '+ moment(i.Cycle.ToDate).format(dateFormat) : '' );
 
             i.Points.forEach(function (point, index) {
                 var dataIndex = responseData.data.params.bars[index].data.length;
