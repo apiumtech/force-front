@@ -178,6 +178,7 @@ define([
 
         var latlngbounds = self.mapService.getLatLngBounds();
 
+        var infowindow = null;
         self.markers = data.map(function (r) {
             var image = r.PhotoUrl;
             if (!image){
@@ -195,10 +196,15 @@ define([
 
             var infoWindowTemplate = $("#userCalloutTemplate").html();
             var infoWindowContent = self.templateParser.parseTemplate(infoWindowTemplate, r);
-            var infowindow = new google.maps.InfoWindow({
-                content: infoWindowContent
-            });
+
+
             marker.addListener('click', function() {
+                if (infowindow) {
+                    infowindow.close();
+                }
+                infowindow = new google.maps.InfoWindow({
+                    content: infoWindowContent
+                });
                 infowindow.open(self.map, marker);
             });
 
