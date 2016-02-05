@@ -8,8 +8,9 @@ define([
     'shared/services/GoogleChartService',
     'shared/services/SimpleTemplateParser',
     'modules/saleAnalytics/widgets/GraphColorService',
+    'shared/services/TranslatorService',
     'jquery'
-], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, GraphColorService, $) {
+], function (WidgetBaseView, ScatterChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, SimpleTemplateParser, GraphColorService, TranslatorService, $) {
     'use strict';
 
     function ScatterChartWidgetView(scope, element, chartService, presenter, widgetEventBus) {
@@ -19,9 +20,10 @@ define([
         self.widgetEventBus = widgetEventBus || WidgetEventBus.getInstance();
         self.chartService = chartService || GoogleChartService.newInstance();
         self.templateParser = SimpleTemplateParser.newInstance();
+        self.translator = TranslatorService.newInstance();
         self.widgetName = '';
-        self.axisXTitle = 'Sales';
-        self.axisYTitle = 'Activity Scores';
+        self.axisXTitle = self.translator.translate('label_sales'); // 'Sales';
+        self.axisYTitle = self.translator.translate('label_activity_score'); //'Activity Scores';
         self.chart = null;
         self.chartData = null;
         self.itemPerPage = 15;

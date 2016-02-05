@@ -127,11 +127,26 @@ define([
                     key === 'Sales' ? 11 : 999;
         };
 
+        var calculateColumnLabel = function(key){
+            return  key === 'ActivityScore' ? 'tabIntensity.ranking.fieldActivityScore' :
+                    key === 'Name' ? 'tabIntensity.ranking.fieldName' :
+                    key === 'Visits' ? 'tabIntensity.ranking.fieldVisits' :
+                    key === 'Activities' ? 'tabIntensity.ranking.fieldActivities' :
+                    key === 'PhoneCallsTime' ? 'tabIntensity.ranking.fieldPhoneCallsTime' :
+                    key === 'Emails' ? 'tabIntensity.ranking.fieldEmails' :
+                    key === 'Orders' ? 'tabIntensity.ranking.fieldOrders' :
+                    key === 'Quotes' ? 'tabIntensity.ranking.fieldQuotes' :
+                    key === 'Opportunities' ? 'tabIntensity.ranking.fieldOpportunities' :
+                    key === 'SalesScore' ? 'tabConversion.ranking.fieldSaleScore' :
+                    key === 'SalesActivityRatio' ? 'tabConversion.ranking.fieldSalesActivityRatio' :
+                    key === 'Sales' ? 'tabConversion.ranking.fieldSales' : key;
+        };
+
         Object.keys(data[0]).forEach(function (key) {
             //responseData.data.params.columns.push(key);
             responseData.data.params.columns.push({
                 key: key,
-                name: key,
+                name: self.translator.translate(calculateColumnLabel(key)),
                 type: calculateColumnType(key),
                 sortable: true,
                 visible: true, // wether the column is visible at a particular moment.

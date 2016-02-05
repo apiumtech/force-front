@@ -139,6 +139,18 @@ define([
         smallWidgets.each(function() {
             anyIsExpanded = $(this).find('.panel-expand').length > 0 || anyIsExpanded;
             maxHeight = Math.max( $(this).height(), maxHeight );
+            /*var toolbar = $(this).find('.panel-toolbar');
+            var content = $(this).find('.panel-content');
+            var description = $(this).find('.panel-description');
+            var totalHeight = 0;
+            if(toolbar.length>0){
+                totalHeight += $(toolbar).outerHeight(true);
+            }
+            totalHeight += $(content).outerHeight(true);
+            if(description.length>0){
+                totalHeight += $(description).outerHeight(true);
+            }
+            maxHeight = Math.max( totalHeight, maxHeight );*/
         });
         if( !anyIsExpanded ){
             smallWidgets.each(function() {
