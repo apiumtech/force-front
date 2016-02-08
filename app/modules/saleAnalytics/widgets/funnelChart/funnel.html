@@ -11,10 +11,8 @@
                 class="chart-place-holder panel-content-child map-fix">
             </div>
         </div>
-    </div>
 
-    <!-- DATA EXPLANATION -->
-    <div class="row" ng-hide="data.serverError || data.noData">
+
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well well-lg">
                 <div class="row">
@@ -24,7 +22,21 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+    <!-- DATA EXPLANATION -->
+    <!--<div class="row" ng-hide="data.serverError || data.noData">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
+                        <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
 
     <!-- DESCRIPTION -->
     <div class="row panel-description" ng-hide="data.serverError || data.noData">

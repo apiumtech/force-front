@@ -84,7 +84,7 @@ define([
             block: {
                 dynamicHeight: false,
                 fill: {
-                    type: 'gradient',
+                    type: 'solid',
                     scale: self.colorService.$colors.slice()
                 },
                 minHeight: 20

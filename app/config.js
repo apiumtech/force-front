@@ -4,7 +4,7 @@
 define(function () {
     'use strict';
 
-    var apiVersion = "1.3";
+    var apiVersion = "1.4";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
         baseUrl = "https://backenddev.forcemanager.net";
@@ -64,7 +64,7 @@ define(function () {
         customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
         customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
 
-        opportunityFunnelDataApi: baseUrl + 'api/queries/stats/dashboard/conversion/opportunityPipelineConversionByUsersAndPeriod',
+        opportunityFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod',
 
 
         literals: {
