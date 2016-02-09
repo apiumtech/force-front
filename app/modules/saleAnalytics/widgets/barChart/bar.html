@@ -90,35 +90,4 @@
     <!-- SERVER ERROR -->
     <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster" ng-if="data.serverError===true"></ng-include>
 
-
-
-    <!-- TEMPLATES -->
-    <div style="display:none;">
-        <!--
-            Bar chart Callout Table Template
-        -->
-        <div id="barChartCalloutTableTemplate">
-            <table id="barChartCalloutTable" style="margin:-5px; width:300px; padding:10px; background-color:white; border: 1px solid #DDDDDD;">
-                <tbody>
-                    <tr id="HeaderBgColor1" style="height:35px;">
-                        <td colspan="2" style="padding-left:20px; vertical-align:middle; color:#FFFFFF; font-size:15px; font-weight:400;">
-                            {Agrupacion}
-                        </td>
-                    </tr>
-                    <tr id="HeaderBgColor2" style="height:30px;;">
-                        <td colspan="2" style="padding-left:20px; vertical-align:middle; color:#FFFFFF;">
-                            <span style="font-size:13px;">{ActivityType}: {ActivityCount}</span>
-                            <span style="font-size:15px; font-weight:400;">({ActivityPercentage}%)</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width:250px; height:40px; vertical-align:middle; padding-left:20px; color:#212121; font-size:13px; font-weight:400;">{{ 'label_user' | i18next }}</td>
-                        <td style="width:50px;  height:40px; vertical-align:middle; text-align:center; color:#212121; font-size:13px; font-weight:400;">{{ 'label_total' | i18next }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
 </widget-wrapper>
