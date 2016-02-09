@@ -1,0 +1,284 @@
+//== CFM
+//#  Custom variables Imported from the Kami CSS Framework
+
+@font-size-base:        14px;
+@letter-spacing:		0.5px;
+@body-font-weight:      200;
+@big-font-weight:		400;
+
+@screen-sm-min:     768px;
+@screen-xs-max:     (@screen-sm-min - 1);
+@grid-gutter-width:  30px;
+
+@gutter: (@grid-gutter-width / 2);
+
+@horizontal-breakpoint: @screen-sm-min;
+@vertical-breakpoint: 650px;
+
+//== Media Queries
+@tablet: ~"(max-width: @{horizontal-breakpoint}), (max-height: @{vertical-breakpoint})";
+@desktop: ~"(min-width: @{horizontal-breakpoint}) and (min-height: @{vertical-breakpoint})";
+@phone: ~"(max-width: @{screen-sm-min})";
+
+//== Colours
+@slate:                     #54585a;
+@fantasma:                  #f8f8f8;
+@ceniza:                    #DDDDDD;
+@lobo:                      #636363;
+
+
+// Text styles
+.standard-text {
+  font-size: @font-size-base;
+  color: @lobo;
+  letter-spacing: @letter-spacing;
+  font-weight: @body-font-weight;
+}
+
+.big-labels {
+  .standard-text;
+  text-transform: uppercase;
+  font-weight: @big-font-weight;
+}
+
+///// -end- Kami Variables
+
+
+
+
+/* Navigation: nav.less */
+//== Styling for the primary navigation bar, that is the vertical menu bar that is visible on all pages in the application
+//# The navigation menu is a modified version of the Bootstrap 3 collapsible navbar component, modified to handle icon based links rather than text.
+
+
+// Vertical Nav Bar
+@vertical-nav-width: 50px;  // CHANGE ME TO CHANGE NAV-BAR SIZE - new paddings and margins will be automatically calculated.
+
+// Override the default navbar variables as they are based around the base font-size, we need it to be based around the icon font-size.
+@vertical-nav-height:                    50px;
+@vertical-nav-margin-bottom:             0;
+@vertical-nav-border-radius:             0;
+@vertical-nav-padding-horizontal:        ((@vertical-nav-width - @nav-icon-size) - @vertical-nav-margin-bottom * 2) / 2;
+@vertical-nav-padding-vertical:          ((@vertical-nav-height - @nav-icon-size) - @vertical-nav-margin-bottom * 2) / 2;
+@vertical-nav-collapse-max-height:       340px;
+
+
+@nav-icon-size: 21px;    // The font-size of our icons. We use this to position them centrally
+
+nav {
+
+  [class^="ic-"] {
+    font-size: @nav-icon-size;
+
+    -webkit-font-smoothing: antialiased;
+
+    top: 0;
+  }
+}
+
+
+@media @tablet {
+
+  body {
+    padding-top: @vertical-nav-height;
+  }
+
+  .sld-panel {
+    top: @vertical-nav-height;
+  }
+}
+
+.page {
+
+  @media @desktop {
+    margin-left: @vertical-nav-width;
+  }
+}
+
+.page-header.fixed-top {
+
+  @media @desktop {
+    padding-right: @vertical-nav-width + @grid-gutter-width + (@grid-gutter-width / 2);
+  }
+}
+
+nav {
+
+  .agenda-notifications,
+  .user-notifications {
+    display: none;
+  }
+
+  @media @desktop {
+
+    & {
+      height: 100%;
+      width: @vertical-nav-width;
+
+      box-shadow: 1px 0 1px gainsboro;
+
+      ul > li {
+        height: @vertical-nav-height;
+      }
+    }
+
+    .navbar-nav {
+      li > a {
+        height: @vertical-nav-height;
+        width: @vertical-nav-width;
+        padding: @vertical-nav-padding-vertical @vertical-nav-padding-horizontal; // bootstrap by default only sets vertical padding, also set horizontal
+
+      }
+
+      li.user-dropdown {
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        a {
+          @picture-size: 35px;
+          padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);
+        }
+
+        &.open a {
+          &:focus, &:active{
+            background-color: darken(@slate, 5%) !important;
+          }
+        }
+      }
+    }
+
+    .dropdown-menu {
+
+      left: 39px!important;
+      bottom: 6px !important;
+      min-width: 300px;
+
+      li {
+        height: 40px !important;
+
+        &:first-child{
+          height: 50px !important;
+        }
+
+        &.divider{
+          height: 1px !important;
+          margin: 0px !important;
+        }
+
+        a{
+          .standard-text;
+          padding: 13px @gutter 7px !important;
+          height: 40px;
+          width: 297px;
+          &:hover{
+            background-color: @fantasma;
+          }
+        }
+
+        h3.popover-title{
+          .big-labels;
+          padding: 17px 15px;
+          background-color: transparent;
+          border-bottom: 1px solid @ceniza;
+          min-height: 40px;
+        }
+      }
+    }
+  }
+
+  @media @tablet {
+
+    .dropup .dropdown-menu {
+      // Fix dropdown (drop-up) menus on small screens
+      top: 100%;
+      bottom: initial;
+    }
+
+  }
+
+  .navbar-brand {
+    @logo-size: 30px;
+    padding: ((@vertical-nav-height - @logo-size) / 2) ((@vertical-nav-width - @logo-size) / 2);
+  }
+
+  .navbar-collapse {
+
+    @media (max-width: @screen-xs-max) {   // Put our navbar into column mode when it is collapsed
+
+      //.make-xs-column(12, 90px);
+      // CFM: This is the equivalent of the bootstrap 3 mixin above
+      position: relative;
+      float: left;
+      width: 100%;
+      min-height: 1px;
+      padding-left: 45px;
+      padding-right: 45px;
+
+      .nav > li {
+
+        display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
+
+        padding-bottom: (@vertical-nav-padding-vertical / 2);
+
+        a {
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+  .navbar-right {
+
+    margin-right: 0 !important;
+  }
+
+  .navbar-nav {
+
+    > li {
+      > a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+    }
+
+    li.user-dropdown {
+      a {
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
+    }
+
+  }
+
+
+}
+
+.navbar-inverse {
+  background-color: @slate;
+  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.50);
+  .navbar-nav > li > a{
+    &:hover,&:focus{
+      background-color: darken(@slate, 5%)
+
+    }
+  }
+
+}
+
+
+
+/*--- end nav ---*/
+
+
+
+
+/*--- SFM integration ---*/
+.content.web4 {
+  margin-left: 50px;
+}
+@media (max-height: 650px) {
+  .content.web4 {
+    margin-left: 0;
+  }
+}

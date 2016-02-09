@@ -1,0 +1,71 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-init="fn.onInit()">
+
+        <div class="">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation-bar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img alt="ForceManager CRM" class="img-responsive" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/3.test/img/logo-symbol-only.png"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-navigation-bar">
+
+                <!-- primary navigation -->
+                <ul class="nav navbar-nav main-nav">
+                    <li class="active"><a id="company-top-menu-spa" data-placement="right" data-section="company-spa" href="companies.aspx" data-original-title="生意" class="toggle-true"><i class="ic-accounts-filled"></i></a></li>
+                    <li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
+                    <li><a id="opps-top-menu" data-placement="right" data-section="opportunity" href="opportunitylist.aspx" data-original-title="Oportunidades" class="toggle-true"><i class="ic-opportunity-filled"></i></a></li>
+                    <li><a id="activty-top-menu" data-placement="right" data-section="activity" href="activitylist.aspx" data-original-title="Actividades" class="toggle-true"><i class="ic-activity-filled"></i></a></li>
+                    <li><a id="agenda-top-menu" data-placement="right" data-section="calendar" href="calendar.aspx" data-original-title="Calendario" class="toggle-true"><i class="ic-agenda-filled"></i></a></li>
+                    <li><a id="prod-top-menu" data-placement="right" data-section="product" href="productlist.aspx" data-original-title="Productos" class="toggle-true"><i class="ic-product-filled"></i></a></li>
+                    <li><a id="documents-top-menu" data-placement="right" data-section="file" href="filesmanager.aspx" data-original-title="Documentos" class="toggle-true"><i class="ic-documents-filled"></i></a></li>
+                    <li><a id="offers-top-menu" data-placement="right" data-section="offer" href="offerslist.aspx" data-original-title="Ofertas" class="toggle-true"><i class="ic-quotes-filled"></i></a></li>
+                    <li><a id="order-top-menu" data-placement="right" data-section="order" href="orderslist.aspx" data-original-title="Pedidos" class="toggle-true"><i class="ic-orders-filled"></i></a></li>
+                    <li><a id="informe-top-menu" data-placement="right" data-section="report" href="reportlist.aspx" data-original-title="Informes" class="toggle-true"><i class="ic-reports-filled"></i></a></li>
+                    <li><a id="sfm-top-menu" data-placement="right" data-section="sfm" href="../web3/index.html" data-original-title="Análisis de ventas" class="toggle-true"><i class="ic-salesforce-filled"></i></a></li>
+                    <li><a id="page-top-menu" data-placement="right" data-section="page" href="custompage.aspx" data-original-title="Custom page" class="toggle-true"><i class="ic-custom-widgets-filled"></i></a></li>
+                </ul>
+
+                <!-- session info -->
+                <!-- REMOVED -->
+
+                <!-- user-tools -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="upgrade"></li>
+                    <li class="agenda-notifications hide"></li>
+                    <li id="unreadNotifications" class="user-notifications">
+                        <a href="#"><i class="icon-alert-notify ic-notifications"></i><span class="badge">756</span></a>
+                    </li>
+                    <li class="dropup user-dropdown">
+                        <!--<button class="btn btn-default btn-icon dropdown-toggle" type="button" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             User
+                             <span class="caret"></span>
+                        </button>-->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><div class="photouser">
+                            <img width="35" height="35" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/2130/img/profile.png" alt="" class="img-circle">
+                        </div>
+                            <!--<span class="caret"></span>-->
+                            <!--<span class="name-user">Javier</span>--></a>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdownMenu"><li><h3 class="popover-title">Javier</h3></li>
+                            <li>
+                                <a id="profile" href="../views/settings.aspx" target="">Mi perfil</a>
+                            </li>
+                            <li>
+                                <a id="admin" href="https://cfm.forcemanager.net" target="_blank">Administración</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a id="logout" href="#">Desconectar</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
