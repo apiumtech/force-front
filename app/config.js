@@ -6,7 +6,9 @@ define(function () {
 
     var apiVersion = "1.4";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
-    if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
+    if(window.location.hostname  === 'webpre.forcemanager.net') {
+        baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
+    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
         baseUrl = "https://backenddev.forcemanager.net";
     }
 

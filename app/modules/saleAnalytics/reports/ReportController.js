@@ -1,6 +1,7 @@
 define([
     'app',
     'modules/saleAnalytics/reports/ReportView',
+    'shared/services/config/PermissionsService',
 
     'modules/saleAnalytics/reports/allReport/AllReportController',
     'modules/saleAnalytics/reports/favouriteReport/FavouriteReportController',
@@ -8,18 +9,24 @@ define([
     'modules/saleAnalytics/reports/reportFilter/ReportFilterController',
 
     'modules/saleAnalytics/reports/reportItem/ReportItemDirective'
-], function (app, ReportView) {
+], function (app, ReportView, PermissionsService) {
     'use strict';
 
     function ReportController($scope, $rootScope) {
-        if($rootScope.i18nextLanguageReady === true){
-            ReportController.configureView($scope);
+        var permissionsService = PermissionsService.newInstance();
+        var isReportsVisible = permissionsService.getPermission("Reports_sfm", true);
+        if(!isReportsVisible) {
+            location.href = "#/analytics/intensity";
         } else {
-            $rootScope.$on('i18nextLanguageChange', function(){
-                setTimeout(function(){
-                    ReportController.configureView($scope);
-                }, 1000);
-            });
+            if($rootScope.i18nextLanguageReady === true){
+                ReportController.configureView($scope);
+            } else {
+                $rootScope.$on('i18nextLanguageChange', function(){
+                    setTimeout(function(){
+                        ReportController.configureView($scope);
+                    }, 1000);
+                });
+            }
         }
     }
 

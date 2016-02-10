@@ -10,7 +10,9 @@
         <li ng-class="{'active': pageName=='intensity'}"><a href="#/analytics/intensity">{{'LeftMenu.Intensity' | i18next}}</a></li>
         <li ng-class="{'active': pageName=='distribution'}"><a href="#/analytics/distribution">{{'LeftMenu.Distribution' | i18next}}</a></li>
         <li ng-class="{'active': pageName=='conversion'}"><a href="#/analytics/conversion">{{'LeftMenu.Conversion' | i18next}}</a></li>
-        <li ng-class="{'active': pageName=='reports'}"><a href="#/analytics/reports">{{'LeftMenu.Reports' | i18next}}</a></li>
+        <li ng-class="{'active': pageName=='reports'}" ng-if="isReportsVisible">
+            <a href="#/analytics/reports">{{'LeftMenu.Reports' | i18next}}</a>
+        </li>
     </ul>
 </div>
 
