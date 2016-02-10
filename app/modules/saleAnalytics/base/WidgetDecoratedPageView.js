@@ -64,38 +64,37 @@ define([
     });
 
     WidgetDecoratePageView.prototype.setupStickyFilters = function () {
-        var contentDefaultMarginTop = parseInt($(".content").css("margin-top"), 10);
-        var navBarHeight = 0;//60;
-        var marginTopAfterFixed = 70;
-        var activateFixedFiltersScroll = 110;
+        var navBarHeight = 0;
+        var navBarLeft = 0;
+        var activateFixedFiltersScroll = 115;
+        //var contentDiv = $(".content.web4");
         var onScroll = function(evt) {
             if ($(this).scrollTop() > activateFixedFiltersScroll) {
-                $(".sales-filters-div").css("top", navBarHeight + "px");
-                $(".content").css("margin-top", marginTopAfterFixed+"px");
+                if( $(".content.web4").css("margin-left") === '0px' ){
+                    navBarHeight = 55;
+                    navBarLeft = 0;
+                } else {
+                    navBarHeight = 0;
+                    navBarLeft = 50;
+                }
                 $(".sales-filters-div").css({
                     position: "fixed",
                     zIndex: 1030,
-                    backgroundColor: "white",
-                    left: 0, right: 0,
-                    paddingLeft: "15px", paddingRight: "15px"
-                });
-                $(".sales-filters-div .line-border").css({
-                    marginLeft: "-15px",
-                    marginRight: "-15px"
+                    backgroundColor: "#fff",
+                    top: navBarHeight,
+                    left: navBarLeft,
+                    right: 0,
+                    paddingLeft: "15px", paddingRight: "15px",
+                    borderBottom: "1px solid #ccc"
                 });
             } else {
-                $(".content").css("margin-top", contentDefaultMarginTop+"px");
                 $(".sales-filters-div").css({
                     position: "relative",
-                    top: "auto",
+                    top: "auto", left: "auto", right: "auto",
                     zIndex: "auto",
                     backgroundColor: "transparent",
-                    left: "auto", right: "auto",
-                    paddingLeft: "0", paddingRight: "0"
-                });
-                $(".sales-filters-div .line-border").css({
-                    marginLeft: "0",
-                    marginRight: "0"
+                    paddingLeft: "0", paddingRight: "0",
+                    borderBottom: "none"
                 });
             }
         };
