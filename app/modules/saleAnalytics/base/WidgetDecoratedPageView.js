@@ -65,7 +65,7 @@ define([
 
     WidgetDecoratePageView.prototype.setupStickyFilters = function () {
         var contentDefaultMarginTop = parseInt($(".content").css("margin-top"), 10);
-        var navBarHeight = 60;
+        var navBarHeight = 0;//60;
         var marginTopAfterFixed = 70;
         var activateFixedFiltersScroll = 110;
         var onScroll = function(evt) {
