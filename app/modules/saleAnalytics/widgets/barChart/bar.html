@@ -12,7 +12,9 @@
                 <button ng-if="widget.option == 'tab'"
                         class="btn btn-white btn-sm"
                         ng-repeat="filter in filters"
-                        tooltip="{{ filter.tooltip }}" tooltip-placement="bottom"
+                        tooltip="{{ filter.tooltip }}"
+                        tooltip-placement="bottom"
+                        tooltip-append-to-body="true"
                         ng-click="fn.changeFilter(filter)"
                         ng-class="{'active':selectedFilter.key==filter.key}">
                     {{filter.name}}

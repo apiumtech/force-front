@@ -3,7 +3,7 @@
 <ng-include src="'app/modules/saleAnalytics/reports/reportFilter/index.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 
 
-<div class="sale-analytics-reports m-t-45">
+<div class="sale-analytics-reports m-t-45" ng-if="isReportsVisible">
     <tabset>
         <tab select="fn.allReportSelected()" active="data.firstTabActivated">
             <tab-heading>

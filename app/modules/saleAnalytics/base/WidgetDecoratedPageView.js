@@ -6,6 +6,7 @@ define([
     'shared/BaseView',
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
+    'shared/services/config/PermissionsService',
     'angular',
     'jquery',
     'underscore',
@@ -21,7 +22,7 @@ define([
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
     'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetDirective',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
-], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, angular, $, _) {
+], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, PermissionsService, angular, $, _) {
     'use strict';
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
@@ -32,12 +33,15 @@ define([
         this.fixedAreaSelector = '.fixedarea[as-sortable]';
         this.eventBus = WidgetEventBus.getInstance();
         this.widgetAdministrationEventBus = WidgetAdministrationEventBus.getInstance();
+        this.permissionsService = PermissionsService.newInstance();
         this.configureEvents();
 
         var hash = window.location.hash.split('#')[1];
         if( hash.indexOf("/analytics/reports") === -1 ){
             this.setupStickyFilters();
         }
+
+        $scope.isReportsVisible = this.permissionsService.getPermission("Reports_sfm", true);
     }
 
     WidgetDecoratePageView.inherits(BaseView, {
