@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img alt="ForceManager CRM" class="img-responsive" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/3.test/img/logo-symbol-only.png"></a>
+                <a class="navbar-brand" href="{{ fn.adjustDefaultAccessPageLink(data.userData.defaultAccessPage) }}"><img alt="ForceManager CRM" class="img-responsive" src="assets/img/logo-symbol-only.png"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,8 +18,19 @@
 
                 <!-- primary navigation -->
                 <ul class="nav navbar-nav main-nav">
-                    <li class="active"><a id="company-top-menu-spa" data-placement="right" data-section="company-spa" href="companies.aspx" data-original-title="生意" class="toggle-true"><i class="ic-accounts-filled"></i></a></li>
-                    <li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
+                    <li ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
+                        <a id="{{ userSection.id }}"
+                           data-placement="right"
+                           data-section="{{ userSection.name }}"
+                           tooltip-placement="right"
+                           tooltip="{{ userSection.name }}"
+                           href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
+                           data-original-title="{{ userSection.name }}"
+                           class="toggle-true">
+                            <i class="ic-{{ userSection.icon }}"></i>
+                        </a>
+                    </li>
+                    <!--<li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
                     <li><a id="opps-top-menu" data-placement="right" data-section="opportunity" href="opportunitylist.aspx" data-original-title="Oportunidades" class="toggle-true"><i class="ic-opportunity-filled"></i></a></li>
                     <li><a id="activty-top-menu" data-placement="right" data-section="activity" href="activitylist.aspx" data-original-title="Actividades" class="toggle-true"><i class="ic-activity-filled"></i></a></li>
                     <li><a id="agenda-top-menu" data-placement="right" data-section="calendar" href="calendar.aspx" data-original-title="Calendario" class="toggle-true"><i class="ic-agenda-filled"></i></a></li>
@@ -29,7 +40,7 @@
                     <li><a id="order-top-menu" data-placement="right" data-section="order" href="orderslist.aspx" data-original-title="Pedidos" class="toggle-true"><i class="ic-orders-filled"></i></a></li>
                     <li><a id="informe-top-menu" data-placement="right" data-section="report" href="reportlist.aspx" data-original-title="Informes" class="toggle-true"><i class="ic-reports-filled"></i></a></li>
                     <li><a id="sfm-top-menu" data-placement="right" data-section="sfm" href="../web3/index.html" data-original-title="Análisis de ventas" class="toggle-true"><i class="ic-salesforce-filled"></i></a></li>
-                    <li><a id="page-top-menu" data-placement="right" data-section="page" href="custompage.aspx" data-original-title="Custom page" class="toggle-true"><i class="ic-custom-widgets-filled"></i></a></li>
+                    <li><a id="page-top-menu" data-placement="right" data-section="page" href="custompage.aspx" data-original-title="Custom page" class="toggle-true"><i class="ic-custom-widgets-filled"></i></a></li>-->
                 </ul>
 
                 <!-- session info -->
@@ -47,12 +58,15 @@
                              User
                              <span class="caret"></span>
                         </button>-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><div class="photouser">
-                            <img width="35" height="35" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/2130/img/profile.png" alt="" class="img-circle">
-                        </div>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <div class="photouser">
+                                <img width="35" height="35" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/2130/img/profile.png" alt="" class="img-circle">
+                            </div>
                             <!--<span class="caret"></span>-->
-                            <!--<span class="name-user">Javier</span>--></a>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdownMenu"><li><h3 class="popover-title">Javier</h3></li>
+                            <!--<span class="name-user">Javier</span>-->
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
+                            <!--<li><h3 class="popover-title">Javier</h3></li>
                             <li>
                                 <a id="profile" href="../views/settings.aspx" target="">Mi perfil</a>
                             </li>
@@ -62,6 +76,12 @@
                             <li class="divider"></li>
                             <li>
                                 <a id="logout" href="#">Desconectar</a>
+                            </li>-->
+                            <li ng-repeat="item in data.userOptions" ng-class="{ 'with-divider': $last }">
+                                <a id="{{ item.id }}" href="#"
+                                   ng-click="fn.doProfileMenuAction(item.id, item.linkToGo, item.target)">
+                                    {{ item.name }}
+                                </a>
                             </li>
                         </ul>
                     </li>
