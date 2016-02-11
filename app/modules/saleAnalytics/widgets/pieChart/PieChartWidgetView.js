@@ -643,8 +643,10 @@ define([
             csv_cols.push(dataTable_arg.getColumnLabel(i));
         }
 
+        csv_out = "sep=,\r\n";
+
         // Create column row of CSV
-        csv_out = '"'+ csv_cols.join('","') + '"' + "\r\n";
+        csv_out += '"'+ csv_cols.join('","') + '"' + "\r\n";
 
         // Iterate rows
         for (i=0; i<dt_rows; i++) {
