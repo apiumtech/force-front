@@ -640,21 +640,21 @@ define([
         // Iterate columns
         for (var i=0; i<dt_cols; i++) {
             // Replace any commas in column labels
-            csv_cols.push(dataTable_arg.getColumnLabel(i).replace(/;/g,""));
+            csv_cols.push(dataTable_arg.getColumnLabel(i));
         }
 
         // Create column row of CSV
-        csv_out = csv_cols.join("\t")+"\r\n";
+        csv_out = '"'+ csv_cols.join('","') + '"' + "\r\n";
 
         // Iterate rows
         for (i=0; i<dt_rows; i++) {
             var raw_col = [];
             for (var j=0; j<dt_cols; j++) {
                 // Replace any commas in row values
-                raw_col.push(dataTable_arg.getFormattedValue(i, j, 'label').replace(/;/g,""));
+                raw_col.push(dataTable_arg.getFormattedValue(i, j, 'label'));
             }
             // Add row to CSV text
-            csv_out += raw_col.join("\t")+"\r\n";
+            csv_out += '"'+ raw_col.join('","') + '"' + "\r\n";
         }
 
         return csv_out;
