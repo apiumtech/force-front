@@ -71,14 +71,21 @@ define([
 		};
 
         self.fn.getReportListOfValues = function(paramConfig){
+			paramConfig.Value = [{
+				Description: self.translator.translate('wait_loading')
+			}];
             self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
                 /*listOfValues.forEach(function(item){
                     item.Key = self.translator.translate(item.Key);
                 });*/
                 paramConfig.Value = listOfValues;
+				self.$scope.$apply();
             });
         };
         self.fn.getEnvironmentsLoV = function(paramConfig){
+			paramConfig.Value = [{
+				Description: self.translator.translate('wait_loading')
+			}];
             self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
                 paramConfig.Value = listOfValues;
                 self.$scope.$apply();
