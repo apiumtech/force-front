@@ -63,7 +63,7 @@ define([
     // --------------------------------------------------------
 
 
-    // defaultValue: ''
+    // defaultValue: '' // make literal placeholders empty while loading
     return {
         dev_local: {
             resGetPath: 'assets/translations/en.json',
@@ -83,7 +83,6 @@ define([
             useCookie: false,
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
-            defaultValue: '', // make literal placeholders empty while loading
             customLoad: function (lng, ns, options, loadComplete) {
                 var params = {
                     url: config.api.literalValueDictionary,
