@@ -1,55 +1,6 @@
-//== CFM
-//#  Custom variables Imported from the Kami CSS Framework
-
-@font-size-base:        14px;
-@letter-spacing:		0.5px;
-@body-font-weight:      200;
-@big-font-weight:		400;
-
-@screen-sm-min:     768px;
-@screen-xs-max:     (@screen-sm-min - 1);
-@grid-gutter-width:  30px;
-
-@gutter: (@grid-gutter-width / 2);
-
-@horizontal-breakpoint: @screen-sm-min;
-@vertical-breakpoint: 650px;
-
-//== Media Queries
-@tablet: ~"(max-width: @{horizontal-breakpoint}), (max-height: @{vertical-breakpoint})";
-@desktop: ~"(min-width: @{horizontal-breakpoint}) and (min-height: @{vertical-breakpoint})";
-@phone: ~"(max-width: @{screen-sm-min})";
-
-//== Colours
-@slate:                     #54585a;
-@fantasma:                  #f8f8f8;
-@ceniza:                    #DDDDDD;
-@lobo:                      #636363;
-@rosa:                      rgb(214, 52, 52);
-
-// Text styles
-.standard-text {
-  font-size: @font-size-base;
-  color: @lobo;
-  letter-spacing: @letter-spacing;
-  font-weight: @body-font-weight;
-}
-
-.big-labels {
-  .standard-text;
-  text-transform: uppercase;
-  font-weight: @big-font-weight;
-}
-
-///// -end- Kami Variables
-
-
-
-
 /* Navigation: nav.less */
 //== Styling for the primary navigation bar, that is the vertical menu bar that is visible on all pages in the application
 //# The navigation menu is a modified version of the Bootstrap 3 collapsible navbar component, modified to handle icon based links rather than text.
-
 
 // Vertical Nav Bar
 @vertical-nav-width: 50px;  // CHANGE ME TO CHANGE NAV-BAR SIZE - new paddings and margins will be automatically calculated.
@@ -138,7 +89,7 @@ nav {
         height: 45px; //Needs a fixed height to avoid a flash on pageload
       }
     }
-
+    
 
     .navbar-nav {
 
@@ -150,25 +101,25 @@ nav {
         padding-bottom: 0px;
         padding: 12px @vertical-nav-padding-horizontal;
         line-height: 1px ;
-      }
+              }
 
-      li.user-dropdown {
+              li.user-dropdown {
 
-        position: absolute;
-        bottom: 0;
-        left: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
 
-        a {
-          @picture-size: 35px;
-          padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);
-        }
+                a {
+                  @picture-size: 35px;
+                  padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);                 
+                }
 
-        &.open a {
-          &:focus, &:active{
-            background-color: darken(@slate, 5%) !important;
-          }
-        }
-      }
+                &.open a {
+                 &:focus, &:active{
+                  background-color: darken(@slate, 5%) !important;
+                }
+              }
+            }
 
             li.agenda-notifications {  // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects VERTICAL STATE in desktop/tablet.
 
@@ -187,62 +138,63 @@ nav {
               height: 1px !important;
             }
           }
-    }
-
-    .dropdown-menu {
-
-      left: 39px!important;
-      bottom: 6px !important;
-      min-width: 300px;
-
-      li {
-        height: 40px !important;
-
-        &:first-child{
-          height: 50px !important;
         }
 
-        &.divider{
-          height: 1px !important;
-          margin: 0px !important;
-        }
+        .dropdown-menu {
 
-        a{
-          .standard-text;
-          padding: 13px @gutter 7px !important;
-          height: 40px;
-          width: 297px;
-          &:hover{
-            background-color: @fantasma;
+          left: 39px!important;
+          bottom: 6px !important;
+          min-width: 300px;
+
+          li {
+            height: 40px !important;
+
+            &:first-child{
+              height: 50px !important;
+            }
+            
+            &.divider{
+              height: 1px !important;
+              margin: 0px !important;
+            }
+
+            a{
+              .standard-text;
+              padding: 13px @gutter 7px !important;
+              height: 40px;
+              width: 297px;
+              &:hover{
+                background-color: @fantasma;
+              }
+            }
+
+            h3.popover-title{
+              .big-labels;
+              padding: 17px 15px;
+              background-color: transparent;
+              border-bottom: 1px solid @ceniza;
+              min-height: 40px;
+            }  
           }
         }
-
-        h3.popover-title{
-          .big-labels;
-          padding: 17px 15px;
-          background-color: transparent;
-          border-bottom: 1px solid @ceniza;
-          min-height: 40px;
-        }
       }
-    }
-  }
+      
 
-  @media @tablet {
+      @media @tablet {
 
-    .dropup .dropdown-menu {
-      // Fix dropdown (drop-up) menus on small screens
-      top: 100%;
-      bottom: initial;
-    }
+        .dropup .dropdown-menu {
+            // Fix dropdown (drop-up) menus on small screens
+            top: 100%;
+            bottom: initial;
+          }
 
-  }
+        }
 
-  .navbar-brand {
+        .navbar-brand {
 
-    @logo-size: 30px;
-    padding: ((@vertical-nav-height - @logo-size) / 2) ((@vertical-nav-width - @logo-size) / 2);
-  }
+          @logo-size: 30px;
+          padding: ((@vertical-nav-height - @logo-size) / 2) ((@vertical-nav-width - @logo-size) / 2);
+        }
 
         .navbar-toggle {
 
@@ -253,76 +205,69 @@ nav {
 
       }
 
-  .navbar-collapse {
+      .navbar-collapse {
 
-    @media (max-width: @screen-xs-max) {   // Put our navbar into column mode when it is collapsed
+        @media (max-width: @screen-xs-max) {   // Put our navbar into column mode when it is collapsed
 
-      //.make-xs-column(12, 90px);
-      // CFM: This is the equivalent of the bootstrap 3 mixin above
-      position: relative;
-      float: left;
-      width: 100%;
-      min-height: 1px;
-      padding-left: 45px;
-      padding-right: 45px;
+         .make-xs-column(12, 90px);
 
-      .nav > li {
+         .nav > li {
 
-        display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
+                 display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
 
-        padding-bottom: (@vertical-nav-padding-vertical / 2);
+                 padding-bottom: (@vertical-nav-padding-vertical / 2);
 
-        a {
-          border-radius: 15px;
-        }
-      }
-    }
-  }
+                 a {
+                   border-radius: 15px;
+                 }
+               }
+             }
+           }
 
-  .navbar-right {
+           .navbar-right {
+             
+             margin-right: 0 !important;
+           }
 
-    margin-right: 0 !important;
-  }
+           .navbar-nav {
 
-  .navbar-nav {
+             > li {
 
-    > li {
-
-      > a {
+               > a {
 
                  //padding-top: 12px;
                 // padding-bottom: 12px;
 
-      }
+               }
 
-    }
+             }
 
-    li.user-dropdown {
+             li.user-dropdown {
 
-      a {
+               a {
 
-        padding-top: 7px;
-        padding-bottom: 7px;
+                 padding-top: 7px;
+                 padding-bottom: 7px;
 
-    }
+               }
 
-  }
+             }
 
            }
 
-}
+         }
 
-.navbar-inverse {
-  background-color: @slate;
-  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.50);
-  .navbar-nav > li > a{
-    &:hover,&:focus{
-      background-color: darken(@slate, 5%)
+         .navbar-inverse {
+          background-color: @slate;
+          box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.50);
+          .navbar-nav > li > a{
+            &:hover,&:focus{
+              background-color: darken(@slate, 5%)
 
-    }
-  }
+            }
+          }
 
-}
+        }
 
 //== Nav Notifications
 
@@ -354,7 +299,7 @@ nav {
 
   .badge {
     left: 15px;
-
+    
   }
 
   a {
@@ -380,9 +325,9 @@ nav {
 .user-notifications {
 
   .badge {
-
+    
     left: 26px;
-
+    
   }
 
   @media @desktop {
@@ -413,7 +358,7 @@ nav {
         }
 
         .icon-alert-notify.unread {
-          background-image: url("assets/img/icon_alert.png");
+          background-image: url("@{resources}/img/icon_alert.png");
           background-position: 0px 0px;
         }
 
@@ -423,34 +368,3 @@ nav {
 
 
 /*--- end nav ---*/
-
-
-
-
-/*--- SFM integration ---*/
-.content.web4 {
-  margin-left: 50px;
-}
-
-@media (max-height: 650px) {
-  .content.web4 {
-    margin-left: 0;
-  }
-}
-
-.navbar-brand {
-  width: 50px !important;
-}
-
-.navbar.navbar-inverse .navbar-brand {
-  background-color: transparent!important;
-}
-.navbar.navbar-inverse {
-  background-color: #54585a!important;
-  //box-shadow: 0 2px 3px 1px rgba(0,0,0,.5);
-}
-
-#main-navigation-bar ul li>a {
-  color: #fff;
-  //width: 50px;
-}
