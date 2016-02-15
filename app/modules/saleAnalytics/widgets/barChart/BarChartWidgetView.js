@@ -212,7 +212,8 @@ define([
                 ticks: [0, 20, 40, 60, 80, 100]
             },
             tooltip: {
-                isHtml: true
+                isHtml: true,
+                trigger: 'selection'
             },
             legend: legend,
             width: '100%',
