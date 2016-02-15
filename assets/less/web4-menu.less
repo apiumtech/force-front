@@ -1,16 +1,16 @@
 //== CFM
 //#  Custom variables Imported from the Kami CSS Framework
 
-@font-size-base:        14px;
-@letter-spacing:		0.5px;
-@body-font-weight:      200;
-@big-font-weight:		400;
+@font-size-base: 13px;
+@letter-spacing: 0.5px;
+@body-font-weight: 200;
+@big-font-weight: 400;
 
-@screen-sm-min:     768px;
-@screen-xs-max:     (@screen-sm-min - 1);
-@grid-gutter-width:  30px;
+@screen-sm-min: 768px;
+@screen-xs-max: @screen-sm-min - 1;
+@grid-gutter-width: 30px;
 
-@gutter: (@grid-gutter-width / 2);
+@gutter: @grid-gutter-width / 2;
 
 @horizontal-breakpoint: @screen-sm-min;
 @vertical-breakpoint: 650px;
@@ -21,11 +21,11 @@
 @phone: ~"(max-width: @{screen-sm-min})";
 
 //== Colours
-@slate:                     #54585a;
-@fantasma:                  #f8f8f8;
-@ceniza:                    #DDDDDD;
-@lobo:                      #636363;
-@rosa:                      rgb(214, 52, 52);
+@slate: #54585a;
+@fantasma: #f8f8f8;
+@ceniza: #DDDDDD;
+@lobo: #636363;
+@rosa: rgb(214, 52, 52);
 
 // Text styles
 .standard-text {
@@ -43,27 +43,22 @@
 
 ///// -end- Kami Variables
 
-
-
-
 /* Navigation: nav.less */
 //== Styling for the primary navigation bar, that is the vertical menu bar that is visible on all pages in the application
 //# The navigation menu is a modified version of the Bootstrap 3 collapsible navbar component, modified to handle icon based links rather than text.
 
-
 // Vertical Nav Bar
-@vertical-nav-width: 50px;  // CHANGE ME TO CHANGE NAV-BAR SIZE - new paddings and margins will be automatically calculated.
+@vertical-nav-width: 50px; // CHANGE ME TO CHANGE NAV-BAR SIZE - new paddings and margins will be automatically calculated.
 
 // Override the default navbar variables as they are based around the base font-size, we need it to be based around the icon font-size.
-@vertical-nav-height:                    50px;
-@vertical-nav-margin-bottom:             0;
-@vertical-nav-border-radius:             0;
-@vertical-nav-padding-horizontal:        ((@vertical-nav-width - @nav-icon-size) - @vertical-nav-margin-bottom * 2) / 2;
-@vertical-nav-padding-vertical:          ((@vertical-nav-height - @nav-icon-size) - @vertical-nav-margin-bottom * 2) / 2;
-@vertical-nav-collapse-max-height:       340px;
+@vertical-nav-height: 50px;
+@vertical-nav-margin-bottom: 0;
+@vertical-nav-border-radius: 0;
+@vertical-nav-padding-horizontal: ( ( @vertical-nav-width - @nav-icon-size ) - @vertical-nav-margin-bottom * 2 ) / 2;
+@vertical-nav-padding-vertical: ( ( @vertical-nav-height - @nav-icon-size ) - @vertical-nav-margin-bottom * 2 ) / 2;
+@vertical-nav-collapse-max-height: 340px;
 
-
-@nav-icon-size: 21px;    // The font-size of our icons. We use this to position them centrally
+@nav-icon-size: 21px; // The font-size of our icons. We use this to position them centrally
 
 nav {
 
@@ -76,54 +71,53 @@ nav {
     top: 0;
   }
 
-       li.agenda-notifications {  // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects ORIZONTAL STATE in desktop.
-       position: absolute;
-       top: 37px;
-       left: 267px;
+  li.agenda-notifications { // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects ORIZONTAL STATE in desktop.
+    position: absolute;
+    top: 37px;
+    left: 267px;
 
-       i{
-        display: none;
+    i {
+      display: none;
+    }
+
+    a {
+      width: 1px !important;
+      padding: 0px !important;
+      height: 1px !important;
+
+      &:hover {
+        background-color: transparent !important;
       }
-
-      a{
-        width: 1px !important;
-        padding: 0px !important;
-        height: 1px !important;
-
-        &:hover{
-          background-color: transparent !important;
-        }
-      }
     }
   }
+}
 
+@media @tablet {
 
-  @media @tablet {
-
-    body {
-      padding-top: @vertical-nav-height;
-    }
-
-    .sld-panel {
-      top: @vertical-nav-height;
-    }
+  body {
+    padding-top: @vertical-nav-height;
   }
 
-  .page {
-
-    @media @desktop {
-      margin-left: @vertical-nav-width;
-    }
+  .sld-panel {
+    top: @vertical-nav-height;
   }
+}
 
-  .page-header.fixed-top {
+.page {
 
-   @media @desktop {
-     padding-right: @vertical-nav-width + @grid-gutter-width + (@grid-gutter-width / 2);
-   }
- }
+  @media @desktop {
+    margin-left: @vertical-nav-width;
+  }
+}
 
- nav {
+.page-header.fixed-top {
+
+  @media @desktop {
+    padding-right: @vertical-nav-width + @grid-gutter-width + ( @grid-gutter-width / 2 );
+  }
+}
+
+nav {
 
   @media @desktop {
 
@@ -139,17 +133,14 @@ nav {
       }
     }
 
-
     .navbar-nav {
 
       li > a {
-       // height: @vertical-nav-height;
         width: @vertical-nav-width;
-        //padding: @vertical-nav-padding-vertical @vertical-nav-padding-horizontal; // bootstrap by default only sets vertical padding, also set horizontal
-        padding-top: 0px;
         padding-bottom: 0px;
-        padding: 12px @vertical-nav-padding-horizontal;
-        line-height: 1px ;
+        padding-top: 12px;
+        padding-right: @vertical-nav-padding-horizontal;
+        line-height: 1px;
       }
 
       li.user-dropdown {
@@ -160,64 +151,64 @@ nav {
 
         a {
           @picture-size: 35px;
-          padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);
+          padding-top: ( @vertical-nav-height - @picture-size ) / 2;
+          padding-right: ( @vertical-nav-width - @picture-size ) / 2;
         }
 
         &.open a {
-          &:focus, &:active{
+          &:focus, &:active {
             background-color: darken(@slate, 5%) !important;
           }
         }
       }
 
-            li.agenda-notifications {  // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects VERTICAL STATE in desktop/tablet.
+      li.agenda-notifications { // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects VERTICAL STATE in desktop/tablet.
 
+        top: 264px;
+        left: 11px;
+        position: absolute;
 
-            top: 264px;
-            left: 11px;
-            position: absolute;
+        i {
+          display: none;
+        }
 
-            i{
-              display: none;
-            }
-
-            a{
-              width: 1px !important;
-              padding: 0px !important;
-              height: 1px !important;
-            }
-          }
+        a {
+          width: 1px !important;
+          padding: 0px !important;
+          height: 1px !important;
+        }
+      }
     }
 
     .dropdown-menu {
 
-      left: 39px!important;
+      left: 39px !important;
       bottom: 6px !important;
       min-width: 300px;
 
       li {
         height: 40px !important;
 
-        &:first-child{
+        &:first-child {
           height: 50px !important;
         }
 
-        &.divider{
+        &.divider {
           height: 1px !important;
           margin: 0px !important;
         }
 
-        a{
+        a {
           .standard-text;
           padding: 13px @gutter 7px !important;
           height: 40px;
           width: 297px;
-          &:hover{
+          &:hover {
             background-color: @fantasma;
           }
         }
 
-        h3.popover-title{
+        h3.popover-title {
           .big-labels;
           padding: 17px 15px;
           background-color: transparent;
@@ -239,24 +230,15 @@ nav {
   }
 
   .navbar-brand {
-
     @logo-size: 30px;
-    padding: ((@vertical-nav-height - @logo-size) / 2) ((@vertical-nav-width - @logo-size) / 2);
+    padding-top: ( @vertical-nav-height - @logo-size ) / 2 ;
+    padding-right: ( @vertical-nav-width - @logo-size ) / 2;
   }
-
-        .navbar-toggle {
-
-        /*margin-top: 10px;
-        margin-bottom: 8px;
-        margin-right: 0;
-        padding: 12px 11px;*/
-
-      }
 
   .navbar-collapse {
 
-    @media (max-width: @screen-xs-max) {   // Put our navbar into column mode when it is collapsed
-
+    @media (max-width: @screen-xs-max) {
+      // Put our navbar into column mode when it is collapsed
       //.make-xs-column(12, 90px);
       // CFM: This is the equivalent of the bootstrap 3 mixin above
       position: relative;
@@ -270,7 +252,7 @@ nav {
 
         display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
 
-        padding-bottom: (@vertical-nav-padding-vertical / 2);
+        padding-bottom: @vertical-nav-padding-vertical / 2;
 
         a {
           border-radius: 15px;
@@ -285,38 +267,21 @@ nav {
   }
 
   .navbar-nav {
-
-    > li {
-
-      > a {
-
-                 //padding-top: 12px;
-                // padding-bottom: 12px;
-
-      }
-
-    }
-
     li.user-dropdown {
-
       a {
-
         padding-top: 7px;
         padding-bottom: 7px;
-
+      }
     }
-
   }
-
-           }
 
 }
 
 .navbar-inverse {
   background-color: @slate;
-  box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.50);
-  .navbar-nav > li > a{
-    &:hover,&:focus{
+  box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.50);
+  .navbar-nav > li > a {
+    &:hover, &:focus {
       background-color: darken(@slate, 5%)
 
     }
@@ -326,106 +291,93 @@ nav {
 
 //== Nav Notifications
 
-
-
-
-
-
 nav {
 
- .badge {
-  background-color: @rosa;
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  line-height: 20px;
-  text-align: center;
-  margin-top: -13px;
-}
-
-
-.agenda-notifications {
-
-  margin-right: 30px;
-  width: auto;
-
   .badge {
+    background-color: @rosa;
+    position: absolute;
+    top: 50%;
     left: 15px;
-
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    line-height: 20px;
+    text-align: center;
+    margin-top: -13px;
   }
 
-  a {
-    position: relative;
-    line-height: 60px;
+  .agenda-notifications {
+
+    margin-right: 30px;
+    width: auto;
+
+    .badge {
+      left: 15px;
+
+    }
+
+    a {
+      position: relative;
+      line-height: 60px;
+    }
+
+    a:hover {
+      text-decoration: none;
+      background-color: inherit;
+    }
+
+    span {
+      /*margin-top: 5px;*/
+      display: inline-block;
+      vertical-align: top;
+    }
+    span.notification {
+      color: #f08d00;
+    }
   }
 
-  a:hover {
-    text-decoration: none;
-    background-color: inherit;
-  }
+  .user-notifications {
 
-  span {
-    /*margin-top: 5px;*/
-    display: inline-block;
-    vertical-align: top;
-  }
-  span.notification{
-    color: #f08d00;
-  }
-}
+    .badge {
 
-.user-notifications {
+      left: 26px;
 
-  .badge {
+    }
 
-    left: 26px;
+    @media @desktop {
 
-  }
+      & {
+        position: absolute;
+        bottom: 50px; // clear the user dropdown
+        right: 0;
+      }
+    }
 
-  @media @desktop {
+    @media @tablet {
 
+      .popover { // fix popover display on small screens
 
-    & {
-      position: absolute;
-                bottom: 50px;      // clear the user dropdown
-                right: 0;
-              }
-            }
+        top: 40px !important;
+        left: -250px !important;
 
-            @media @tablet {
-
-            .popover {  // fix popover display on small screens
-
-              top: 40px !important;
-              left: -250px !important;
-
-              .arrow {
-                display: none !important;
-              }
-
-            }
-
-          }
-
-        }
-
-        .icon-alert-notify.unread {
-          background-image: url("assets/img/icon_alert.png");
-          background-position: 0px 0px;
+        .arrow {
+          display: none !important;
         }
 
       }
 
+    }
 
+  }
 
+  .icon-alert-notify.unread {
+    background-image: url("assets/img/icon_alert.png");
+    background-position: 0px 0px;
+  }
+
+}
 
 /*--- end nav ---*/
-
-
-
 
 /*--- SFM integration ---*/
 .content.web4 {
@@ -440,17 +392,22 @@ nav {
 
 .navbar-brand {
   width: 50px !important;
+  height: 50px;
 }
 
 .navbar.navbar-inverse .navbar-brand {
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
+
 .navbar.navbar-inverse {
-  background-color: #54585a!important;
+  background-color: #54585a !important;
   //box-shadow: 0 2px 3px 1px rgba(0,0,0,.5);
 }
 
-#main-navigation-bar ul li>a {
-  color: #fff;
-  //width: 50px;
+#main-navigation-bar ul li {
+  & > a {
+    color: #fff;
+    width: 50px;
+    height: 45px;
+  }
 }
