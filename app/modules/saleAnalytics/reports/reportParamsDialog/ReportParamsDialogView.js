@@ -1,7 +1,7 @@
 define([
 	'shared/BaseView',
 	'modules/saleAnalytics/reports/reportParamsDialog/ReportParamsDialogPresenter',
-	'shared/services/TranslatorService'
+    'shared/services/TranslatorService'
 ], function (BaseView, PreviewDialogPresenter, TranslatorService) {
 	'use strict';
 
@@ -9,7 +9,7 @@ define([
 		presenter = presenter || new PreviewDialogPresenter();
 		BaseView.call(this, $scope, null, presenter);
 		this.$modalInstance = $modalInstance;
-		this.translator = TranslatorService.newInstance();
+        this.translator = TranslatorService.newInstance();
 		this.configureEvents();
 	}
 
@@ -32,33 +32,33 @@ define([
 		};
 
 		self.fn.submit = function(){
-			var matchingParams = {
-				"[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
-				"[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
-				"[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
-				"[IDSUCURSAL]": {name:"idEnvironment", valueAdapter:function(val){return val.Id;}},
-				"[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
-				"[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
-				"[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}
-			};
+            var matchingParams = {
+                "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
+                "[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
+                "[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
+                "[IDSUCURSAL]": {name:"idEnvironment", valueAdapter:function(val){return val.Id;}},
+                "[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
+                "[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
+                "[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}
+            };
 
-			var paramList = [];
-			for(var key in self.report.params) {
-				var value = self.report.params[key];
-				if(key in matchingParams) {
-					value = matchingParams[key].valueAdapter.call(null, value);
-					key = matchingParams[key].name;
-				} else if( typeof value !== 'string' ){
+            var paramList = [];
+            for(var key in self.report.params) {
+                var value = self.report.params[key];
+                if(key in matchingParams) {
+                    value = matchingParams[key].valueAdapter.call(null, value);
+                    key = matchingParams[key].name;
+                } else if( typeof value !== 'string' ){
 					value = value.Id;
 				}
-				paramList.push({Key:key, Value:value});
-			}
+                paramList.push({Key:key, Value:value});
+            }
 
 			//var paramList = Object.keys(self.report.params).map(function(key){
-			//   var value = self.report.params[key];
-			//   if(key in matchingParams) {
-			//       key = matchingParams[key];
-			//   }
+             //   var value = self.report.params[key];
+             //   if(key in matchingParams) {
+             //       key = matchingParams[key];
+             //   }
 			//	return {
 			//		key: key,
 			//		value: value
@@ -70,27 +70,27 @@ define([
 			self.$modalInstance.close(self.report);
 		};
 
-		self.fn.getReportListOfValues = function(paramConfig){
+        self.fn.getReportListOfValues = function(paramConfig){
 			paramConfig.Value = [{
 				Description: self.translator.translate('wait_loading')
 			}];
-			self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
-				/*listOfValues.forEach(function(item){
-				 item.Key = self.translator.translate(item.Key);
-				 });*/
-				paramConfig.Value = listOfValues;
+            self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
+                /*listOfValues.forEach(function(item){
+                    item.Key = self.translator.translate(item.Key);
+                });*/
+                paramConfig.Value = listOfValues;
 				self.$scope.$apply();
-			});
-		};
-		self.fn.getEnvironmentsLoV = function(paramConfig){
+            });
+        };
+        self.fn.getEnvironmentsLoV = function(paramConfig){
 			paramConfig.Value = [{
 				Description: self.translator.translate('wait_loading')
 			}];
-			self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
-				paramConfig.Value = listOfValues;
-				self.$scope.$apply();
-			});
-		};
+            self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
+                paramConfig.Value = listOfValues;
+                self.$scope.$apply();
+            });
+        };
 
 		self.data.isLoading = false;
 		self.fn.onAutocompleteLoaded = function(){

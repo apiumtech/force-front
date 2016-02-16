@@ -169,25 +169,25 @@ define([
         element.empty();
 
         try {
-        if(self.data.serverError){
+            if(self.data.serverError){
                 //return;
                 throw new Error();
-        }
+            }
 
-        self.data.noData = false;
-        var deepData = responseData.data.params;
+            self.data.noData = false;
+            var deepData = responseData.data.params;
 
-        if( !deepData || !deepData.axis || !deepData.fields ||
-            deepData.axis.length === 0 || deepData.fields.length === 0 ) {
-            self.data.noData = true;
+            if( !deepData || !deepData.axis || !deepData.fields ||
+                deepData.axis.length === 0 || deepData.fields.length === 0 ) {
+                self.data.noData = true;
                 //return;
                 throw new Error();
-        }
+            }
 
-        self.data = _({}).extend(self.data, responseData.data.params);
-        self.extractFilters();
-        self.extractDisplayFields();
-        self.paintChart();
+            self.data = _({}).extend(self.data, responseData.data.params);
+            self.extractFilters();
+            self.extractDisplayFields();
+            self.paintChart();
         } catch(err) {
             self.data = self.data || {};
             self.data.filters = responseData.data.params.filters;
