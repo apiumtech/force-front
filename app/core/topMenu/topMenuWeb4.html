@@ -51,7 +51,9 @@
                     <li class="upgrade"></li>
                     <li class="agenda-notifications hide"></li>
                     <li id="unreadNotifications" class="user-notifications">
-                        <a href="#"><i class="icon-alert-notify ic-notifications"></i><span class="badge">756</span></a>
+                        <a href="{{ fn.adjustLinkToParentFolder('calendar.aspx') }}">
+                            <i class="icon-alert-notify ic-notifications"></i><span class="badge" ng-show="fn.hasUnreadNotifications()">{{ data.unreadNotifications }}</span>
+                        </a>
                     </li>
                     <li class="dropup user-dropdown">
                         <!--<button class="btn btn-default btn-icon dropdown-toggle" type="button" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +62,7 @@
                         </button>-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="photouser">
-                                <img width="35" height="35" src="https://fmassets.s3-eu-west-1.amazonaws.com/pro/2130/img/profile.png" alt="" class="img-circle">
+                                <img width="35" height="35" ng-src="{{ 'data:image/png;base64,'+data.userData.userPhoto }}" alt="" class="img-circle">
                             </div>
                             <!--<span class="caret"></span>-->
                             <!--<span class="name-user">Javier</span>-->
@@ -77,7 +79,7 @@
                             <li>
                                 <a id="logout" href="#">Desconectar</a>
                             </li>-->
-                            <li ng-repeat="item in data.userOptions" ng-class="{ 'with-divider': $last }">
+                            <li ng-repeat="item in data.userOptions">
                                 <a id="{{ item.id }}" href="#"
                                    ng-click="fn.doProfileMenuAction(item.id, item.linkToGo, item.target)">
                                     {{ item.name }}

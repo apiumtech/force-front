@@ -7290,7 +7290,7 @@ i.ic-notifications {
     font-size: 25px;
     margin-top: 2px;
     position: relative;
-    left: 2px;
+    /*left: 2px;*/
 }
 .navbar-brand {
     padding: 5px 0px 0px 20px;

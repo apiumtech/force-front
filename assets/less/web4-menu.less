@@ -13,7 +13,7 @@
 @gutter: @grid-gutter-width / 2;
 
 @horizontal-breakpoint: @screen-sm-min;
-@vertical-breakpoint: 650px;
+@vertical-breakpoint: 670px;
 
 //== Media Queries
 @tablet: ~"(max-width: @{horizontal-breakpoint}), (max-height: @{vertical-breakpoint})";
@@ -26,6 +26,8 @@
 @ceniza: #DDDDDD;
 @lobo: #636363;
 @rosa: rgb(214, 52, 52);
+@naranja: #ed8b00;
+@carbon: #212121;
 
 // Text styles
 .standard-text {
@@ -60,6 +62,26 @@
 
 @nav-icon-size: 21px; // The font-size of our icons. We use this to position them centrally
 
+.make-xs-column(@columns; @gutter: @grid-gutter-width) {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+@resources: 'assets/';
+
+
+// ---------------------------------------
+//
+//  Sobreescribir de aquí para abajo
+//
+// ---------------------------------------
+
+
+
 nav {
 
   [class^="ic-"],
@@ -71,53 +93,54 @@ nav {
     top: 0;
   }
 
-  li.agenda-notifications { // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects ORIZONTAL STATE in desktop.
-    position: absolute;
-    top: 37px;
-    left: 267px;
+       li.agenda-notifications {  // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects ORIZONTAL STATE in desktop.
+       position: absolute;
+       top: 37px;
+       left: 267px;
 
-    i {
-      display: none;
-    }
+       i{
+        display: none;
+      }
 
-    a {
-      width: 1px !important;
-      padding: 0px !important;
-      height: 1px !important;
+      a{
+        width: 1px !important;
+        padding: 0px !important;
+        height: 1px !important;
 
-      &:hover {
-        background-color: transparent !important;
+        &:hover{
+          background-color: transparent !important;
+        }
       }
     }
   }
-}
 
-@media @tablet {
 
-  body {
-    padding-top: @vertical-nav-height;
+  @media @tablet {
+
+    body {
+      padding-top: @vertical-nav-height;
+    }
+
+    .sld-panel {
+      top: @vertical-nav-height;
+    }
   }
 
-  .sld-panel {
-    top: @vertical-nav-height;
+  .page {
+
+    @media @desktop {
+      margin-left: @vertical-nav-width;
+    }
   }
-}
 
-.page {
+  .page-header.fixed-top {
 
-  @media @desktop {
-    margin-left: @vertical-nav-width;
-  }
-}
+   @media @desktop {
+     padding-right: @vertical-nav-width + @grid-gutter-width + (@grid-gutter-width / 2);
+   }
+ }
 
-.page-header.fixed-top {
-
-  @media @desktop {
-    padding-right: @vertical-nav-width + @grid-gutter-width + ( @grid-gutter-width / 2 );
-  }
-}
-
-nav {
+ nav {
 
   @media @desktop {
 
@@ -132,250 +155,283 @@ nav {
         height: 45px; //Needs a fixed height to avoid a flash on pageload
       }
     }
+    
 
     .navbar-nav {
 
       li > a {
+       // height: @vertical-nav-height;
         width: @vertical-nav-width;
+        //padding: @vertical-nav-padding-vertical @vertical-nav-padding-horizontal; // bootstrap by default only sets vertical padding, also set horizontal
+        padding-top: 0px;
         padding-bottom: 0px;
-        padding-top: 12px;
-        padding-right: @vertical-nav-padding-horizontal;
-        line-height: 1px;
-      }
+        padding: 12px @vertical-nav-padding-horizontal;
+        line-height: 1px ;
+              }
 
-      li.user-dropdown {
+              li.user-dropdown {
 
-        position: absolute;
-        bottom: 0;
-        left: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
 
-        a {
-          @picture-size: 35px;
-          padding-top: ( @vertical-nav-height - @picture-size ) / 2;
-          padding-right: ( @vertical-nav-width - @picture-size ) / 2;
-        }
+                a {
+                  @picture-size: 35px;
+                  padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);                 
+                }
 
-        &.open a {
-          &:focus, &:active {
-            background-color: darken(@slate, 5%) !important;
-          }
-        }
-      }
+                &.open a {
+                 &:focus, &:active{
+                  background-color: darken(@slate, 5%) !important;
+                }
+              }
+            }
 
-      li.agenda-notifications { // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects VERTICAL STATE in desktop/tablet.
+            li.agenda-notifications {  // Hack to move agenda notifications on top of agenda's menu icon. To be changed. Affects VERTICAL STATE in desktop/tablet.
 
-        top: 264px;
-        left: 11px;
-        position: absolute;
 
-        i {
-          display: none;
-        }
+            top: 264px;
+            left: 11px;
+            position: absolute;
 
-        a {
-          width: 1px !important;
-          padding: 0px !important;
-          height: 1px !important;
-        }
-      }
-    }
+            i{
+              display: none;
+            }
 
-    .dropdown-menu {
-
-      left: 39px !important;
-      bottom: 6px !important;
-      min-width: 300px;
-
-      li {
-        height: 40px !important;
-
-        &:first-child {
-          height: 50px !important;
-        }
-
-        &.divider {
-          height: 1px !important;
-          margin: 0px !important;
-        }
-
-        a {
-          .standard-text;
-          padding: 13px @gutter 7px !important;
-          height: 40px;
-          width: 297px;
-          &:hover {
-            background-color: @fantasma;
+            a{
+              width: 1px !important;
+              padding: 0px !important;
+              height: 1px !important;
+            }
           }
         }
 
-        h3.popover-title {
-          .big-labels;
-          padding: 17px 15px;
-          background-color: transparent;
-          border-bottom: 1px solid @ceniza;
-          min-height: 40px;
+        .dropdown-menu {
+
+          left: 39px!important;
+          bottom: 6px !important;
+          min-width: 300px;
+
+          li {
+            height: 40px !important;
+
+            &:first-child{
+              height: 50px !important;
+            }
+            
+            &.divider{
+              height: 1px !important;
+              margin: 0px !important;
+            }
+
+            a{
+              .standard-text;
+              padding: 13px @gutter 7px !important;
+              height: 40px;
+              width: 297px;
+              &:hover{
+                background-color: @fantasma;
+              }
+            }
+
+            h3.popover-title{
+              .big-labels;
+              padding: 17px 15px;
+              background-color: transparent;
+              border-bottom: 1px solid @ceniza;
+              min-height: 40px;
+            }  
+          }
         }
       }
-    }
-  }
+      
 
-  @media @tablet {
+      @media @tablet {
 
-    .dropup .dropdown-menu {
-      // Fix dropdown (drop-up) menus on small screens
-      top: 100%;
-      bottom: initial;
-    }
+        .dropup .dropdown-menu {
+            // Fix dropdown (drop-up) menus on small screens
+            top: 100%;
+            bottom: initial;
+          }
 
-  }
-
-  .navbar-brand {
-    @logo-size: 30px;
-    padding-top: ( @vertical-nav-height - @logo-size ) / 2 ;
-    padding-right: ( @vertical-nav-width - @logo-size ) / 2;
-  }
-
-  .navbar-collapse {
-
-    @media (max-width: @screen-xs-max) {
-      // Put our navbar into column mode when it is collapsed
-      //.make-xs-column(12, 90px);
-      // CFM: This is the equivalent of the bootstrap 3 mixin above
-      position: relative;
-      float: left;
-      width: 100%;
-      min-height: 1px;
-      padding-left: 45px;
-      padding-right: 45px;
-
-      .nav > li {
-
-        display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
-
-        padding-bottom: @vertical-nav-padding-vertical / 2;
-
-        a {
-          border-radius: 15px;
         }
+
+        .navbar-brand {
+
+          @logo-size: 30px;
+          padding: ((@vertical-nav-height - @logo-size) / 2) ((@vertical-nav-width - @logo-size) / 2);
+        }
+
+        .navbar-toggle {
+
+        /*margin-top: 10px;
+        margin-bottom: 8px;
+        margin-right: 0;
+        padding: 12px 11px;*/
+
       }
-    }
-  }
 
-  .navbar-right {
+      .navbar-collapse {
 
-    margin-right: 0 !important;
-  }
+        @media (max-width: @screen-xs-max) {   // Put our navbar into column mode when it is collapsed
 
-  .navbar-nav {
-    li.user-dropdown {
-      a {
-        padding-top: 7px;
-        padding-bottom: 7px;
-      }
-    }
-  }
+         .make-xs-column(12, 90px);
 
-}
+         .nav > li {
 
-.navbar-inverse {
-  background-color: @slate;
-  box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.50);
-  .navbar-nav > li > a {
-    &:hover, &:focus {
-      background-color: darken(@slate, 5%)
+                 display: inline-block; // This makes our menu items go inline. We want this, even for the collapsed mobile menu, since our menu items are icons.
 
-    }
-  }
+                 padding-bottom: (@vertical-nav-padding-vertical / 2);
 
-}
+                 a {
+                   border-radius: 15px;
+                 }
+               }
+             }
+           }
+
+           .navbar-right {
+             
+             margin-right: 0 !important;
+           }
+
+           .navbar-nav {
+
+             > li {
+
+               > a {
+
+                 //padding-top: 12px;
+                // padding-bottom: 12px;
+
+               }
+
+             }
+
+             li.user-dropdown {
+
+               a {
+
+                 padding-top: 7px;
+                 padding-bottom: 7px;
+
+               }
+
+             }
+
+           }
+
+         }
+
+         .navbar-inverse {
+          background-color: @slate;
+          box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.50);
+          .navbar-nav > li > a{
+            &:hover,&:focus{
+              background-color: darken(@slate, 5%)
+
+            }
+          }
+
+        }
 
 //== Nav Notifications
 
+
+
+
+
+
 nav {
 
+ .badge {
+  background-color: @rosa;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  line-height: 20px;
+  text-align: center;
+  margin-top: -13px;
+}
+
+
+.agenda-notifications {
+
+  margin-right: 30px;
+  width: auto;
+
   .badge {
-    background-color: @rosa;
-    position: absolute;
-    top: 50%;
     left: 15px;
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    line-height: 20px;
-    text-align: center;
-    margin-top: -13px;
+    
   }
 
-  .agenda-notifications {
-
-    margin-right: 30px;
-    width: auto;
-
-    .badge {
-      left: 15px;
-
-    }
-
-    a {
-      position: relative;
-      line-height: 60px;
-    }
-
-    a:hover {
-      text-decoration: none;
-      background-color: inherit;
-    }
-
-    span {
-      /*margin-top: 5px;*/
-      display: inline-block;
-      vertical-align: top;
-    }
-    span.notification {
-      color: #f08d00;
-    }
+  a {
+    position: relative;
+    line-height: 60px;
   }
 
-  .user-notifications {
+  a:hover {
+    text-decoration: none;
+    background-color: inherit;
+  }
 
-    .badge {
+  span {
+    /*margin-top: 5px;*/
+    display: inline-block;
+    vertical-align: top;
+  }
+  span.notification{
+    color: #f08d00;
+  }
+}
 
-      left: 26px;
+.user-notifications {
 
-    }
+  .badge {
+    
+    left: 26px;
+    
+  }
 
-    @media @desktop {
+  @media @desktop {
 
-      & {
-        position: absolute;
-        bottom: 50px; // clear the user dropdown
-        right: 0;
-      }
-    }
 
-    @media @tablet {
+    & {
+      position: absolute;
+                bottom: 50px;      // clear the user dropdown
+                right: 0;
+              }
+            }
 
-      .popover { // fix popover display on small screens
+            @media @tablet {
 
-        top: 40px !important;
-        left: -250px !important;
+            .popover {  // fix popover display on small screens
 
-        .arrow {
-          display: none !important;
+              top: 40px !important;
+              left: -250px !important;
+
+              .arrow {
+                display: none !important;
+              }
+
+            }
+
+          }
+
+        }
+
+        .icon-alert-notify.unread {
+          background-image: url("@{resources}/img/icon_alert.png");
+          background-position: 0px 0px;
         }
 
       }
 
-    }
 
-  }
 
-  .icon-alert-notify.unread {
-    background-image: url("assets/img/icon_alert.png");
-    background-position: 0px 0px;
-  }
-
-}
 
 /*--- end nav ---*/
 
@@ -409,5 +465,32 @@ nav {
     color: #fff;
     width: 50px;
     height: 45px;
+    text-align: center;
   }
+
+  &.active>a {
+    background-color: @naranja;
+  }
+
+  .tooltip {
+    .tooltip-inner {
+      background-color: @carbon;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 12px;
+      width:auto !important;
+      white-space: nowrap;
+    }
+
+    &.left .tooltip-arrow {
+      border-left-color: @carbon !important;
+    }
+    &.right .tooltip-arrow {
+      border-right-color: @carbon !important;
+    }
+    &.top .tooltip-arrow {
+      border-top-color: @carbon !important;
+    }
+  }
+
 }
