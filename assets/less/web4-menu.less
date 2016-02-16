@@ -440,7 +440,8 @@ nav {
   margin-left: 50px;
 }
 
-@media (max-height: 650px) {
+//@media (max-height: 650px) {
+@media @tablet {
   .content.web4 {
     margin-left: 0;
   }
@@ -477,7 +478,7 @@ nav {
       background-color: @carbon;
       text-transform: uppercase;
       text-align: center;
-      font-size: 12px;
+      font-size: 13px;
       width:auto !important;
       white-space: nowrap;
     }
@@ -491,6 +492,10 @@ nav {
     &.top .tooltip-arrow {
       border-top-color: @carbon !important;
     }
+  }
+
+  &.user-dropdown a {
+    padding: 7px 0px !important;
   }
 
 }

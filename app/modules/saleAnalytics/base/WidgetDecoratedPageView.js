@@ -71,7 +71,7 @@ define([
         var onScroll = function(evt) {
             if ($(this).scrollTop() > activateFixedFiltersScroll) {
                 if( $(".content.web4").css("margin-left") === '0px' ){
-                    navBarHeight = 55;
+                    navBarHeight = 50;
                     navBarLeft = 0;
                 } else {
                     navBarHeight = 0;

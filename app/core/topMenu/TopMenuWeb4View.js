@@ -6,9 +6,9 @@ define([
 ], function (BaseView, TopMenuWeb2Model, TopMenuWeb2Presenter, $) {
     'use strict';
 
-    function TopMenuWeb4View($scope, $model, $presenter, $window) {
+    function TopMenuWeb4View($scope, $model, $presenter) {
         BaseView.call(this, $scope, $model, $presenter);
-        this.$window = $window;
+        this.$window = window;
 
         this.configureData();
         this.configureEvents();
@@ -77,7 +77,9 @@ define([
 
     TopMenuWeb4View.prototype.onGetUserDataInfo = function () {
         this.data.userSections = this.event.getUserSections();
-        this.data.userOptions = this.event.getUserOptions();
+        var userOptions = this.event.getUserOptions();
+        userOptions.splice( userOptions.length-1, 0, {id:'__DIVIDER__'} );
+        this.data.userOptions = userOptions;
         this.data.userData = this.event.getUserData();
 
         var unreadNotifications = this.event.getUserNotifications();
@@ -115,17 +117,12 @@ define([
         return 'topMenuWeb4';
     };
 
-    //TopMenuWeb4View.prototype._getUserPhoto = function (userPhoto) {
-    //    return (userPhoto == "" || !userPhoto) ? 'url("../../assets/images/defaultUserPicture.png")' : 'url(data:image/png;base64,'+userPhoto+')';
-    //};
-
-
     TopMenuWeb4View.newInstance = function ($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
         var scope = $scope || {};
         var model = $model || TopMenuWeb2Model.newInstance();
         var presenter = $presenter || TopMenuWeb2Presenter.newInstance();
-        $window = $window || document.window;
-        var view = new TopMenuWeb4View(scope, model, presenter, $window);
+
+        var view = new TopMenuWeb4View(scope, model, presenter);
 
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };

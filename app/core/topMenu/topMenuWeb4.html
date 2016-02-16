@@ -49,42 +49,31 @@
                 <!-- user-tools -->
                 <ul class="nav navbar-nav navbar-right">
                     <li class="upgrade"></li>
-                    <li class="agenda-notifications hide"></li>
-                    <li id="unreadNotifications" class="user-notifications">
+                    <li class="agenda-notifications" style="display: none;"></li>
+                    <li id="unreadNotifications" style="display: none;" class="user-notifications">
                         <a href="{{ fn.adjustLinkToParentFolder('calendar.aspx') }}">
                             <i class="icon-alert-notify ic-notifications"></i><span class="badge" ng-show="fn.hasUnreadNotifications()">{{ data.unreadNotifications }}</span>
                         </a>
                     </li>
                     <li class="dropup user-dropdown">
-                        <!--<button class="btn btn-default btn-icon dropdown-toggle" type="button" id="userDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             User
-                             <span class="caret"></span>
-                        </button>-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="photouser">
-                                <img width="35" height="35" ng-src="{{ 'data:image/png;base64,'+data.userData.userPhoto }}" alt="" class="img-circle">
+                                <img width="35" height="35"
+                                     ng-src="{{ data.userData.userPhoto ? 'data:image/png;base64,' + data.userData.userPhoto : 'assets/img/default.png' }}"
+                                     alt="" class="img-circle">
                             </div>
-                            <!--<span class="caret"></span>-->
-                            <!--<span class="name-user">Javier</span>-->
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-                            <!--<li><h3 class="popover-title">Javier</h3></li>
-                            <li>
-                                <a id="profile" href="../views/settings.aspx" target="">Mi perfil</a>
-                            </li>
-                            <li>
-                                <a id="admin" href="https://cfm.forcemanager.net" target="_blank">Administración</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a id="logout" href="#">Desconectar</a>
-                            </li>-->
-                            <li ng-repeat="item in data.userOptions">
-                                <a id="{{ item.id }}" href="#"
+                            <li><h3 class="popover-title">{{ data.userData.userName }}</h3></li>
+                            <li ng-repeat="item in data.userOptions" ng-class="{ divider: item.id==='__DIVIDER__' }">
+                                <a id="{{ item.id }}"
+                                   href=""
+                                   ng-if="item.id!=='__DIVIDER__'"
                                    ng-click="fn.doProfileMenuAction(item.id, item.linkToGo, item.target)">
                                     {{ item.name }}
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                 </ul>

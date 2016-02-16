@@ -168,8 +168,10 @@ define([
         var element = self.element.find('.chart-place-holder');
         element.empty();
 
+        try {
         if(self.data.serverError){
-            return;
+                //return;
+                throw new Error();
         }
 
         self.data.noData = false;
@@ -178,13 +180,19 @@ define([
         if( !deepData || !deepData.axis || !deepData.fields ||
             deepData.axis.length === 0 || deepData.fields.length === 0 ) {
             self.data.noData = true;
-            return;
+                //return;
+                throw new Error();
         }
 
         self.data = _({}).extend(self.data, responseData.data.params);
         self.extractFilters();
         self.extractDisplayFields();
         self.paintChart();
+        } catch(err) {
+            self.data = self.data || {};
+            self.data.filters = responseData.data.params.filters;
+            self.extractFilters();
+        }
     };
 
 
