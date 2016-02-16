@@ -1,11 +1,11 @@
-<div ng-if="widgets.length==0">
+<div ng-if="i18nextLanguageReady===true && widgets.length==0">
     <div class="no-widget-notice">
         <i class="fa fa-gear"></i>
         <h4>{{'Errors.NoWidgetAvailable.Title' | i18next }}</h4>
         {{'Errors.NoWidgetAvailable.Message' | i18next }}
     </div>
 </div>
-<div ng-if="widgets==null">
+<div ng-if="i18nextLanguageReady===true && widgets==null">
     <div class="no-widget-notice">
         <i class="fa fa-gear fa-spin"></i>
         <h4>{{'Errors.LoadingWidgets' | i18next }}</h4>
