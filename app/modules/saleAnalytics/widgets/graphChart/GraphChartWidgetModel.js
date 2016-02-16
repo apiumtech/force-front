@@ -98,7 +98,9 @@ define([
             }
         };
 
-        responseData.data.params.axis.x = data.Labels[0];
+        if( data.Labels.length > 0 ) {
+            responseData.data.params.axis.x = data.Labels[0];
+        }
 
         data.Series.forEach(function (series) {
             var decorated = {
