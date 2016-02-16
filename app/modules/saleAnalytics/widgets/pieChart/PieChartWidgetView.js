@@ -369,7 +369,7 @@ define([
                 row.push( 'color: '+ serie.color );
             });
             rows.push(row);
-            rowIndex = rows.length-1;
+            rowIndex = rows.length;
         });
         dataTable.addRows(rows);
 
