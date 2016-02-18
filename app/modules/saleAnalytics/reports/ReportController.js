@@ -14,7 +14,7 @@ define([
 
     function ReportController($scope, $rootScope) {
         var permissionsService = PermissionsService.newInstance();
-        var isReportsVisible = permissionsService.getPermission("Reports_sfm", true);
+        var isReportsVisible = permissionsService.getPermission("reports_sfm.isEnabled", true);
         if(!isReportsVisible) {
             location.href = "#/analytics/intensity";
         } else {

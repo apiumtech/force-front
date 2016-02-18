@@ -41,7 +41,7 @@ define([
             this.setupStickyFilters();
         }
 
-        $scope.isReportsVisible = this.permissionsService.getPermission("Reports_sfm", true);
+        $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
     }
 
     WidgetDecoratePageView.inherits(BaseView, {
