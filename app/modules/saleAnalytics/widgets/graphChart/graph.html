@@ -55,7 +55,12 @@
             <div class="pull-right" style="width:15px;height:10px;"></div>
 
             <div class="btn-group pull-right"
-                 ng-show="selectedFilter.key !== 'orders' && selectedFilter.key !== 'quotes' && selectedFilter.key !== 'opportunities'">
+                 ng-show="
+                    selectedFilter.key !== 'orders' &&
+                    selectedFilter.key !== 'quotes' &&
+                    selectedFilter.key !== 'opportunities' &&
+                    selectedFilter.key !== 'activityScores'
+                 ">
                 <button class="btn btn-white btn-sm"
                         tooltip="{{ 'tabIntensity.activities.button.hourDistribution.tooltip' | i18next }}"
                         tooltip-placement="bottom"
