@@ -7,17 +7,42 @@
     <div class="row panel-content" ng-hide="data.serverError || data.noData">
         <div class="panel-content-child col-xs-12">
             <div
-                ng-attr-id="wid-{{ widget.widgetId }}"
-                class="chart-place-holder panel-content-child map-fix">
+                    ng-attr-id="wid-{{ widget.widgetId }}"
+                    class="chart-place-holder panel-content-child map-fix">
             </div>
         </div>
 
 
-        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
+        <!-- DATA EXPLANATION -->
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-if="
+            widget.endPoint=='customerAcquisitionFunnelDataApi' ||
+            widget.endPoint=='customerDevelopmentFunnelDataApi'
+        ">
             <div class="well well-lg">
                 <div class="row">
                     <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
-                        <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
+                        <strong>{{ conversionRate.label }}:</strong> {{ conversionRate.value }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-if="widget.endPoint=='opportunityFunnelDataApi'">
+
+            <div class="well well-lg">
+                <div class="row">
+                    <div class="col-xs-12" ng-repeat="conversionRate in data.conversionRates">
+                        <strong>{{ conversionRate.label }}:</strong> {{ conversionRate.value }}%
+                    </div>
+                    <div class="col-xs-12">
+                        <hr/>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>{{ data.conversionRatesGanadas.label }}:</strong> {{
+                        data.conversionRatesGanadas.value }}%
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>{{ data.conversionRatesPerdidas.label }}:</strong> {{
+                        data.conversionRatesPerdidas.value }}%
                     </div>
                 </div>
             </div>
@@ -25,25 +50,17 @@
 
     </div>
 
-    <!-- DATA EXPLANATION -->
-    <!--<div class="row" ng-hide="data.serverError || data.noData">
-        <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
-            <div class="well well-lg">
-                <div class="row">
-                    <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
-                        <strong>{{ conversionRate.label }}</strong> → {{ conversionRate.value }}%
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
     <!-- DESCRIPTION -->
     <div class="row panel-description" ng-hide="data.serverError || data.noData">
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
             <div class="well">
-                <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'" ng-i18next="[html]tabConversion.customerAcquisitionFunnel.description"></span>
-                <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'" ng-i18next="[html]tabConversion.customerDevelopmentFunnel.description"></span>
+                <span ng-if="widget.endPoint=='customerAcquisitionFunnelDataApi'"
+                      ng-i18next="[html]tabConversion.customerAcquisitionFunnel.description"></span>
+                <span ng-if="widget.endPoint=='customerDevelopmentFunnelDataApi'"
+                      ng-i18next="[html]tabConversion.customerDevelopmentFunnel.description"></span>
+                <span ng-if="widget.endPoint=='opportunityFunnelDataApi'"
+                      ng-i18next="[html]tabConversion.opportunityFunnel.description"></span>
             </div>
         </div>
     </div>
@@ -54,14 +71,17 @@
         <div class="col-xs-12">
             <div class="alert alert-warning" role="alert">
                 {{'commonText.NoDataToDisplay' | i18next}}
-                <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i> {{'commonText.Refresh' | i18next}}</button>
+                <button class="btn btn-outline m-l-10" ng-click="fn.reloadPanel()"><i class="fa fa-refresh"></i>
+                    {{'commonText.Refresh' | i18next}}
+                </button>
             </div>
         </div>
     </div>
 
 
     <!-- SERVER ERROR -->
-    <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster" ng-if="data.serverError===true"></ng-include>
+    <ng-include src="'app/modules/saleAnalytics/base/serverErrorAlert.html?v='+cacheBuster"
+                ng-if="data.serverError===true"></ng-include>
 
 
 </widget-wrapper>

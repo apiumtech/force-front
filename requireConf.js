@@ -50,6 +50,8 @@ var requireConf = {
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
         'moment': '../node_modules/moment/min/moment-with-locales.min',
+        'numbro': '../bower_components/numbro/dist/numbro.min',
+        'numbroLang': '../bower_components/numbro/dist/languages.min',
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
@@ -198,6 +200,13 @@ var requireConf = {
         'moment': {
             exports: 'moment'
         },
+        'numbro': {
+            exports: 'numbro'
+        },
+        'numbroLang': {
+            deps: ['numbro'],
+            exports: 'numbroLang'
+        },
         'i18next': {
             exports: 'i18next'
         },
@@ -239,6 +248,8 @@ var requireConf = {
 
         'functional-option',
         'moment',
+        'numbroLang',
+        'numbro',
 
         'q', 'postal', 'meld',
 
