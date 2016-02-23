@@ -6,9 +6,26 @@ define([
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
-    'd3-funnel'
-], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, D3Funnel){
+    'shared/services/TranslatorService',
+    'd3-funnel',
+    'numbro'
+], function(WidgetBaseView, WidgetEventBus, FunnelChartWidgetPresenter, BaseWidgetEventBus, EventBus, GoogleChartService, GraphColorService, TranslatorService, D3Funnel, numbro) {
     'use strict';
+
+    var decimalsFormat = function(decimals, optionalDecimals){
+        var format = '0,0';
+        if(optionalDecimals===true) {
+            format += '[.]';
+        } else {
+            format += '.';
+        }
+        decimals = decimals===undefined ? 2 : decimals;
+        while(decimals>0) {
+            format += '0';
+            decimals--;
+        }
+        return format;
+    };
 
     function FunnelChartWidgetView(scope, element, presenter) {
         presenter = presenter || new FunnelChartWidgetPresenter();
@@ -17,6 +34,7 @@ define([
         self.colorService = new GraphColorService();
         self.widgetEventBus = EventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
+        self.translator = TranslatorService.newInstance();
         self.configureEvents();
     }
 
@@ -72,6 +90,84 @@ define([
         // D3 Funnel: https://github.com/jakezatecky/d3-funnel
         var self = this;
 
+        if(self.widget.endPoint === 'opportunityFunnelDataApi'){
+            self.paintOpportunityFunnel();
+        } else {
+            self.paintCustomerFunnel();
+        }
+    };
+
+    FunnelChartWidgetView.prototype.paintOpportunityFunnel = function(){
+        var self = this;
+
+        var amounts = {};
+        var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
+        var data = self.data.Series[0].Points
+            .filter(function(item){
+                return item.IsLost === false;
+            })
+            .map(function(item, index){
+                amounts[labels[index]] = item.Amount;
+                return [labels[index], item.Y];
+            });
+
+        var options = {
+            block: {
+                dynamicHeight: false,
+                fill: {
+                    type: 'solid',
+                    scale: self.colorService.$colors.slice()
+                },
+                minHeight: 20
+            },
+            label: {
+                fill: '#333333',
+                format: function(label, value){
+                    var amount = amounts[label];
+                    label = self.translator.translate(label) || label;
+                    return label +': '+ numbro(value).format(decimalsFormat(0)) +' ('+ numbro(amount).format(decimalsFormat(0)) +')';
+                }
+            }
+        };
+
+        var chart = new D3Funnel('#wid-'+ self.widget.widgetId);
+        chart.draw(data, options);
+
+
+        // Paint Conversion Rates Table
+        // COL 1
+        var conversionRates = [];
+        var nRows = data.length;
+        for(var i=1; i<nRows; i++) {
+            var prevRow = data[i-1];
+            var currentRow = data[i];
+            var value =  (currentRow[1]/prevRow[1]) * 100;
+            var prevLabel = self.translator.translate(prevRow[0]) || prevRow[0];
+            var currentLabel = self.translator.translate(currentRow[0]) || currentRow[0];
+            conversionRates.push({
+                label: prevLabel +" > "+ currentLabel,
+                value: isNaN(value) ? '0' : numbro(value).format(decimalsFormat(1,true))
+            });
+        }
+        self.data.conversionRates = conversionRates;
+
+        // COL 2
+        var primera = self.data.Series[0].Points[0];
+        var ganadas = self.data.Series[0].Points[ self.data.Series[0].Points.length-2 ];
+        var perdidas = self.data.Series[0].Points[ self.data.Series[0].Points.length-1 ];
+        self.data.conversionRatesGanadas = {
+            value: numbro( (ganadas.Y/primera.Y)*100 ).format(decimalsFormat(1,true)),
+            label: self.translator.translate(labels[labels.length-2]) || labels[labels.length-2]
+        };
+        self.data.conversionRatesPerdidas = {
+            value: numbro( (perdidas.Y/primera.Y)*100 ).format(decimalsFormat(1,true)),
+            label: self.translator.translate(labels[labels.length-1]) || labels[labels.length-1]
+        };
+    };
+
+    FunnelChartWidgetView.prototype.paintCustomerFunnel = function(){
+        var self = this;
+
         var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
         var data = self.data.Series[0].Points.map(function(item, index){
             return [labels[index], item.Y];
@@ -92,7 +188,8 @@ define([
             label: {
                 fill: '#333333',
                 format: function(label, value){
-                    var percent = self._round(value/percentUnit, 1);
+                    label = self.translator.translate(label) || label;
+                    var percent = numbro(value/percentUnit).format(decimalsFormat(1,true));
                     return label + ': ' + value + ' ('+percent+'%)';
                 }
             }
@@ -111,7 +208,7 @@ define([
             var value = self._round( (currentRow[1]/prevRow[1])*100, 1 );
             conversionRates.push({
                 label: prevRow[0] +" > "+ currentRow[0],
-                value: isNaN(value) ? '0' : value
+                value: isNaN(value) ? '0' : numbro(value).format(decimalsFormat(1,true))
             });
         }
         self.data.conversionRates = conversionRates;
