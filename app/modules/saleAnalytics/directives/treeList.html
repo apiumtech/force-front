@@ -7,24 +7,31 @@
         <div class="item-container" ng-click="$event.stopPropagation()">
 
 
-            <div class="item-box col-xs-8" ng-class="{'checked': item.checked}">
+            <div class="item-box col-xs-8" ng-class="{'checked': item.checked}" style="position: relative;">
 
                 <!-- Collapse icon -->
                 <i class="pull-left fa environment-collapse-icon p-l-10"
+                   style="position: relative; z-index: 99"
                    ng-if="item.children && item.children.length > 0"
                    ng-click="item.isOpen = !item.isOpen;$event.stopPropagation();"
                    ng-class="{'fa-caret-down': item.isOpen, 'fa-caret-right': !item.isOpen}"></i>
 
                 <!-- User Type icon -->
                 <i class="pull-left m-t-2 m-r-10"
-                   ng-class="{'ic-star-filled  m-l-10': item.children && item.ParentId == -1,
+                   style="opacity:{{ item.ComputeInSFM === false ? 0.3 : 'initial' }}"
+                   ng-class="{
+                    'ic-star-filled  m-l-10': item.children && item.ParentId == -1,
                     'ic-team-leader-filled m-l-10': item.children && item.ParentId !== -1,
-                    'ic-sales-rep m-l-10': !item.children}"></i>
+                    'ic-sales-rep m-l-10': !item.children
+                    }"></i>
 
                 <!-- Toggle Node -->
-                <div class="m-l-10" ng-click="toggleNode(item);">
+                <div class="m-l-10"
+                     ng-click="toggleNode(item);"
+                     style="opacity:{{ item.ComputeInSFM === false ? 0.3 : 'initial' }}">
                     <span ng-style="{'font-weight': item.children.length > 0 ? '500' : '300'}">{{item.Name}}</span>
-                    <span ng-show="item.checked" class="pull-right ic-close m-r-10"></span>
+                    <span ng-show="item.checked && item.ComputeInSFM === true"
+                          class="pull-right ic-close m-r-10"></span>
                 </div>
 
             </div>

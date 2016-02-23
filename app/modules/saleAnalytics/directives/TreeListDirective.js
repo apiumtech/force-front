@@ -45,6 +45,11 @@ define([
                     };
 
                     scope.toggleNode = function (item) {
+
+                        if(item.ComputeInSFM===false) {
+                            return;
+                        }
+
                         item.checked = !item.checked;
 
                         /*if (item.children && scope.multipleSelection) {
