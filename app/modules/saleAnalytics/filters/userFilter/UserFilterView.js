@@ -172,7 +172,7 @@ define([
             var flattenedUsers = self.getFilteredUsersList();
 
             var filteredUsers = flattenedUsers.filter(function (node) {
-                return node.checked === true;
+                return node.checked === true && node.ComputeInSFM === true;
             });
             var filteredIds = _.pluck(filteredUsers, 'Id');
 
