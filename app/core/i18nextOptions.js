@@ -2,8 +2,10 @@ define([
     'jquery',
     'config',
     'shared/services/JsonWebTokenService',
-    'shared/services/StorageService'
-], function ($, config, JsonWebTokenService, StorageService) {
+    'shared/services/StorageService',
+    'moment',
+    'numbro'
+], function ($, config, JsonWebTokenService, StorageService, moment, numbro) {
     'use strict';
 
     // --------------------------------------------------------
@@ -41,6 +43,29 @@ define([
         StorageService.newInstance().store(config.implementationCodeKey, implCode, true);
     };
 
+    // en-gb, en-us, de-de, es-es, fr-fr, pt-pt, it-it
+    var configureLibraryLanguages = function(lang) {
+        var locale = window.navigator.userLanguage || window.navigator.language;
+        lang = lang || locale;
+
+        // normalize language code
+        if( lang.split("-").length > 1 ) {
+            var parts = lang.split("-");
+            lang = parts[0].toLowerCase() +"-"+ parts[1].toUpperCase();
+        } else {
+            lang = lang.toLowerCase();
+            lang =  lang === 'es' ? 'es-ES' :
+                    lang === 'en' ? 'en-US' :
+                    lang === 'de' ? 'de-DE' :
+                    lang === 'fr' ? 'fr-FR' :
+                    lang === 'pt' ? 'pt-PT' :
+                    lang === 'it' ? 'it-IT' : 'en-US';
+        }
+
+        moment.locale(lang);
+        numbro.language(lang);
+    };
+
     var token;
     var platform = config.web3PlatformCode;
     var language = config.defaultLiteralLang;
@@ -59,6 +84,7 @@ define([
             (token === undefined || token === null || token === "") ){
             doBadTokenRedirection("Error processing token");
         }
+        configureLibraryLanguages(language);
     }
     // --------------------------------------------------------
 

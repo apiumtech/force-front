@@ -8,22 +8,16 @@ define([
     'core/i18nextOptions',
     'diConfig',
     'moment',
-    'numbro',
     'routeResolverSvc',
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular-validation',
     'angular-validation-rule',
     'angular_touch'
-], function (angular, config, $, i18nextOptions, diConfig, moment, numbro) {
+], function (angular, config, $, i18nextOptions, diConfig, moment) {
     'use strict';
 
-    var locale = window.navigator.userLanguage || window.navigator.language;
-
-    moment.locale(locale);
     window.moment = moment;
-
-    numbro.language(locale);
 
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
         $i18nextProvider.options = i18nextOptions.prod;
