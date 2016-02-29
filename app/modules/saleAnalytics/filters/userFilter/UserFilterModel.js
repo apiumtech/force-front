@@ -76,6 +76,11 @@ define([
             throw new Error("No data received from server");
         }
 
+        var nonComputableUsers = data.filter(function (node) {
+            return node.ComputeInSFM === false;
+        });
+        this.storageService.store('nonComputableUsers', _.pluck(nonComputableUsers,'Id'), true);
+
         // Saved User Filter
         var savedUserFilterArray = this.storageService.retrieve('userFilter', true) || [];
         data.forEach(function(item){
