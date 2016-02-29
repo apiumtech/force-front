@@ -172,7 +172,7 @@ define([
             var flattenedUsers = self.getFilteredUsersList();
 
             var filteredUsers = flattenedUsers.filter(function (node) {
-                return node.checked === true && node.ComputeInSFM === true;
+                return node.checked === true;// && node.ComputeInSFM === true;
             });
             var filteredIds = _.pluck(filteredUsers, 'Id');
 
@@ -219,6 +219,25 @@ define([
 
 
     UserFilterView.prototype.fireUsersFiltered = function () {
+        var self = this;
+
+        if(self.currentUserFilterGroup === UserFilterView.TEAM) {
+            self.fireUsersFilteredTeam();
+        } else {
+            self.fireUsersFilteredEnvironment();
+        }
+    };
+
+    UserFilterView.prototype.fireUsersFilteredTeam = function () {
+        var self = this;
+        var flattenedUsers = self.getFilteredUsersList();
+        var selectionList = flattenedUsers.filter(function (node) {
+            return node.checked === true && node.ComputeInSFM === true;
+        });
+        self.onUsersFiltered(selectionList);
+    };
+
+    UserFilterView.prototype.fireUsersFilteredEnvironment = function () {
         var self = this;
 
         var partiallySelected = self.userFiltered.filter(function (node) {

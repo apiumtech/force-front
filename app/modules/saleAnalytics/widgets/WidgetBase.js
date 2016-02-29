@@ -87,7 +87,12 @@ define([
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
         this.storageService.store('userFilter', userIdsList, true);
-        this.addQuery("users", userIdsList);
+
+        var nonComputableIds = this.storageService.retrieve('nonComputableUsers', true) || [];
+        var correctedUserIdsList = userIdsList.filter(function(id){
+            return nonComputableIds.indexOf(id) === -1;
+        });
+        this.addQuery("users", correctedUserIdsList);
     };
 
     WidgetBase.prototype.reloadWidget = function () {
