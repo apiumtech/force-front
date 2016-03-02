@@ -18,6 +18,8 @@ define([
     var SELECTED_ONE_ENVIRONMENT = "SELECTED_ONE_ENVIRONMENT";
     var SELECTED_MANY = "SELECTED_MANY";
 
+    var firstLoad = true;
+
     function UserFilterView($scope, $presenter, eventBus) {
 
         $presenter = $presenter || new UserFilterPresenter();
@@ -34,8 +36,7 @@ define([
         this.userFilterHasChanged = false;
         this.storageService = StorageService.newInstance();
 
-        this.data.selectionType = SELECTED_NONE;
-        this.data.userSelectionLabel = "";
+        this._initializeUserFilterSelection();
 
         this.configureEvents();
     }
@@ -101,6 +102,22 @@ define([
             }
         }
     });
+
+    UserFilterView.prototype._initializeUserFilterSelection = function () {
+        if(firstLoad) {
+            firstLoad = false;
+            this.storageService.remove("userFilterSelection", true);
+        }
+        var userFilterSelection = this.storageService.retrieve("userFilterSelection", true);
+        if(userFilterSelection) {
+            this.data.userSelectionLabel = userFilterSelection.userSelectionLabel;
+            this.data.userSelectionPicture = userFilterSelection.userSelectionPicture;
+            this.data.selectionType = userFilterSelection.selectionType;
+        } else {
+            this.data.selectionType = SELECTED_NONE;
+            this.data.userSelectionLabel = "";
+        }
+    };
 
     UserFilterView.prototype.configureEvents = function () {
         var self = this;
@@ -306,23 +323,38 @@ define([
         this.data.userSelectionLabel = "";
         //this.data.userSelectionPicture = "";
         this.data.selectionType = SELECTED_NONE;
+        this._saveUserFilterSelection();
     };
     UserFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
         this.data.userSelectionLabel = user.Name;
         this.data.userSelectionPicture = user.PhotoUrl;
         this.data.selectionType = SELECTED_ONE_USER;
+        this._saveUserFilterSelection();
     };
     UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
         this.data.userSelectionLabel = env.Name;
         this.data.userSelectionPicture = env.PhotoUrl;
         this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
+        this._saveUserFilterSelection();
     };
     UserFilterView.prototype._userSelectionIsMoreThanOne = function (nSelectedUsers) {
         this.data.userSelectionLabel = nSelectedUsers + " selected";
         this.data.userSelectionPicture = "moreThanOne";
         this.data.selectionType = SELECTED_MANY;
+        this._saveUserFilterSelection();
     };
 
+    UserFilterView.prototype._saveUserFilterSelection = function () {
+        this.storageService.store(
+            "userFilterSelection",
+            {
+                userSelectionLabel: this.data.userSelectionLabel,
+                userSelectionPicture: this.data.userSelectionPicture,
+                selectionType: this.data.selectionType
+            },
+            true
+        );
+    };
 
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {

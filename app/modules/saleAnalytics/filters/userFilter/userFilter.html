@@ -16,6 +16,7 @@
             <span ng-if="data.selectionType==='SELECTED_NONE'">
                 {{'Filters.AllUsers' | i18next}}
             </span>
+
             <span class="userFilter-selection" ng-if="data.selectionType==='SELECTED_ONE_USER'">
                 <img ng-src="{{ data.userSelectionPicture }}" />
                 {{ data.userSelectionLabel }}
