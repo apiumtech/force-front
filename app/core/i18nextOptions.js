@@ -63,7 +63,7 @@ define([
         }
 
         moment.locale(lang);
-        numbro.language(lang);
+        numbro.culture(lang);
     };
 
     var token;
