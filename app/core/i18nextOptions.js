@@ -109,6 +109,7 @@ define([
             useCookie: false,
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
+            defaultLoadingValue: '',
             customLoad: function (lng, ns, options, loadComplete) {
                 var params = {
                     url: config.api.literalValueDictionary,
