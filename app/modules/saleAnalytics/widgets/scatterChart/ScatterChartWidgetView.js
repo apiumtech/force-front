@@ -139,12 +139,39 @@ define([
         self.chart = chartService.createChart(element[0], 'scatter');
 
 
+        var scatterCalloutTemplate = '<div id="scatterCalloutTemplate">'+
+            '<table style="margin:-5px;width:350px;height:131px;padding:10px;background-color:white;border: 1px solid #DDDDDD;">'+
+                '<tr>'+
+                    '<td rowspan="2" style="width:70px;vertical-align:middle;text-align:center;">'+
+                    '<img src="{PhotoUrl}" style="width:50px;height:50px;border-radius:25px;" />'+
+                    '</td>'+
+                    '<td style="height:45px;vertical-align:bottom;color:#226EB4;font-size:15px;font-weight:400;">{FullName}</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td style="height:45px;vertical-align:top;color:#636363;font-size:13px;">{Description}</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td colspan="2" style="vertical-align:middle;background-color:#F8F8F8;border-top:1px solid #DDDDDD;">'+
+                        '<div style="width:50%;text-align:center;float:left;">'+
+                            '<span style="color:#636363;font-size:13px;padding-right:5px;">{axisXTitle}:</span>'+
+                            '<span style="color:#212121;font-size:13px;font-weight:400;">{X}</span>'+
+                        '</div>'+
+                        '<div style="width:50%;text-align:center;float:right;">'+
+                            '<span style="color:#636363;font-size:13px;padding-right:5px;">{axisYTitle}:</span>'+
+                            '<span style="color:#212121;font-size:13px;font-weight:400;">{Y}</span>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>'+
+            '</table>'+
+        '</div>';
+
         var generateTooltip = function(point) {
             point.axisXTitle = self.axisXTitle;
             point.axisYTitle = self.axisYTitle;
             point.FullName = point.Name +" "+ point.Surname;
-            var template = $("#scatterCalloutTemplate").html();
-            return self.templateParser.parseTemplate(template, point);
+            //var template = $("#scatterCalloutTemplate").html();
+            //var template = $("#scatterCalloutTemplate").html();
+            return self.templateParser.parseTemplate(scatterCalloutTemplate, point);
         };
 
         var dataTable = new google.visualization.DataTable();

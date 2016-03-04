@@ -21,8 +21,9 @@ define([], function () {
     };
 
     StorageService.prototype.store = function (storageName, storageValue, storeInSession) {
-        var s_Value = (typeof storageValue !== 'string')
-            ? JSON.stringify(storageValue) : storageValue;
+        var s_Value = (typeof storageValue !== 'string') ?
+            JSON.stringify(storageValue) :
+            storageValue;
 
         this.getStorage(storeInSession).setItem(storageName, s_Value);
     };

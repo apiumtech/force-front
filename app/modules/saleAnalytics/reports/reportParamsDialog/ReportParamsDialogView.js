@@ -31,6 +31,30 @@ define([
 			self.$modalInstance.dismiss();
 		};
 
+		self.fn.calculateLabel = function (paramConfig) {
+			var label = self.translator.translate(paramConfig.Label);
+			// if the label is not a key , then try to find it within the standard report parameter keys
+			if(!label) {
+				var standard_IdToLiteral = {
+					"[FECHADE]": "common_datestart",
+					"[FECHAA]": "common_dateend",
+					"[IDENVIRONMENT]": "label_environment",
+					"[IDSUCURSAL]": "[IDSUCURSAL]",// still missing literal
+					"[IDEXPEDIENTE]": "title_opportunity",
+					"[IDUSUARIO]": "label_user",
+					"[IDEMPRESA]": "label_account"
+				};
+				var standardLabelLiteralKey = standard_IdToLiteral[paramConfig.Id];
+				if( standardLabelLiteralKey ) {
+					label = self.translator.translate(standardLabelLiteralKey);
+				} else {
+					label = (paramConfig.Label || paramConfig.Id);
+				}
+			}
+
+			return label;
+		};
+
 		self.fn.submit = function(){
             var matchingParams = {
                 "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
@@ -53,17 +77,6 @@ define([
 				}
                 paramList.push({Key:key, Value:value});
             }
-
-			//var paramList = Object.keys(self.report.params).map(function(key){
-             //   var value = self.report.params[key];
-             //   if(key in matchingParams) {
-             //       key = matchingParams[key];
-             //   }
-			//	return {
-			//		key: key,
-			//		value: value
-			//	};
-			//});
 
 			self.report.params = paramList;
 

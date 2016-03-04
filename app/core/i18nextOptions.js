@@ -63,7 +63,7 @@ define([
         }
 
         moment.locale(lang);
-        numbro.language(lang);
+        numbro.culture(lang);
     };
 
     var token;
@@ -109,6 +109,7 @@ define([
             useCookie: false,
             useLocalStorage: false,
             fallbackLng: config.defaultLiteralLang,
+            defaultLoadingValue: '',
             customLoad: function (lng, ns, options, loadComplete) {
                 var params = {
                     url: config.api.literalValueDictionary,

@@ -194,7 +194,20 @@ define([
                 flat: true
             });
 
-            var infoWindowTemplate = $("#userCalloutTemplate").html();
+            //var infoWindowTemplate = $("#userCalloutTemplate").html();
+            var infoWindowTemplate = '<div id="userCalloutTemplate" style="width:250px;height:90px;">'+
+                '<table style="width:100%;height:100%;">'+
+                    '<tr>'+
+                        '<td rowspan="2" style="width:70px;vertical-align:middle;text-align:center;">'+
+                            '<img src="{PhotoUrl}" style="width:50px;height:50px;border-radius:25px;" />'+
+                        '</td>'+
+                        '<td style="width:180px;height:45px;vertical-align:bottom;color:#226EB4;font-size:15px;font-weight:400;">{FullName}</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<td style="width:180px;height:45px;vertical-align:top;color:#636363;font-size:13px;">{Description}</td>'+
+                    '</tr>'+
+                '</table>'+
+            '</div>';
             var infoWindowContent = self.templateParser.parseTemplate(infoWindowTemplate, r);
 
 
