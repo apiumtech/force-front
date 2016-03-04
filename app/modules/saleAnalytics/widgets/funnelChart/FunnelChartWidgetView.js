@@ -101,7 +101,19 @@ define([
         var self = this;
 
         var amounts = {};
-        var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
+
+        var labels0 = self.data.Labels[0];
+        var labels1 = self.data.Labels[1];
+        var labels = labels0 && labels0.length > 0 ?
+                        labels0 :
+                        labels1 && labels1.length > 0 ? labels1 : // hack while Javier fixes this issue.
+                        [];
+
+        if(labels.length === 0) {
+            self.data.noData = true;
+            return;
+        }
+
         var data = self.data.Series[0].Points
             .filter(function(item){
                 return item.IsLost === false;
@@ -168,7 +180,19 @@ define([
     FunnelChartWidgetView.prototype.paintCustomerFunnel = function(){
         var self = this;
 
-        var labels = self.data.Labels[0].length > 0 ? self.data.Labels[0] : self.data.Labels[1];// hack while Javier fixes this issue.
+        var labels0 = self.data.Labels[0];
+        var labels1 = self.data.Labels[1];
+        var labels = labels0 && labels0.length > 0 ?
+            labels0 :
+            labels1 && labels1.length > 0 ? labels1 : // hack while Javier fixes this issue.
+                [];
+
+        if(labels.length === 0) {
+            self.data.noData = true;
+            return;
+        }
+
+
         var data = self.data.Series[0].Points.map(function(item, index){
             return [labels[index], item.Y];
         });
