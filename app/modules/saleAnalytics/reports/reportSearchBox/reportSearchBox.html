@@ -27,7 +27,7 @@
             <span high-light-result="report.Name"
                keywords='searchQuery'>{{ report.Name }}</span>
 
-            <span class="pull-right report-date">{{report.Date | date: 'dd-MM-yyyy'}}</span>
+            <span class="pull-right report-date">{{ fn.timestampToDateString(report.Date) }}</span>
         </li>
     </ul>
     <span class="panel-loader" ng-show="data.isLoading">

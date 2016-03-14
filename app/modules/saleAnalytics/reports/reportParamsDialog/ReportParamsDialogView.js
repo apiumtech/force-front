@@ -34,15 +34,29 @@ define([
 		self.fn.calculateLabel = function (paramConfig) {
 			var label = self.translator.translate(paramConfig.Label);
 			// if the label is not a key , then try to find it within the standard report parameter keys
+
+			/*if( ["[IDPOBLACION]",
+			"[IDPAIS]",
+			"[STRPOBLACION]",
+			"[STRPROVINCIA]"].indexOf(paramConfig.Id) > -1 ) {
+				console.log("*** "+ paramConfig.Id +"-"+ paramConfig.Label);
+			}*/
+
 			if(!label) {
 				var standard_IdToLiteral = {
 					"[FECHADE]": "common_datestart",
 					"[FECHAA]": "common_dateend",
 					"[IDENVIRONMENT]": "label_environment",
-					"[IDSUCURSAL]": "[IDSUCURSAL]",// still missing literal
+					"[IDSUCURSAL]": "label_environment",
 					"[IDEXPEDIENTE]": "title_opportunity",
 					"[IDUSUARIO]": "label_user",
-					"[IDEMPRESA]": "label_account"
+					"[IDEMPRESA]": "label_account",
+					"[IDPROVINCIA]": "label_provinceregion"
+					/*,
+					"[IDPOBLACION]":,
+					"[IDPAIS]":,
+					"[STRPOBLACION]":,
+					"[STRPROVINCIA]":*/
 				};
 				var standardLabelLiteralKey = standard_IdToLiteral[paramConfig.Id];
 				if( standardLabelLiteralKey ) {
