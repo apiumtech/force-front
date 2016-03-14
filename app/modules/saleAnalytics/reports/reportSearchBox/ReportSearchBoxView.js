@@ -3,8 +3,9 @@ define([
     'modules/saleAnalytics/reports/reportSearchBox/ReportSearchBoxPresenter',
     'modules/saleAnalytics/reports/ReportEventBus',
     'shared/services/AwaitHelper',
-    'jquery'
-], function (BaseView, ReportSearchBoxPresenter, ReportEventBus, AwaitHelper, $) {
+    'jquery',
+    'moment'
+], function (BaseView, ReportSearchBoxPresenter, ReportEventBus, AwaitHelper, $, moment) {
     'use strict';
 
     function ReportSearchBoxView($scope, $element, presenter, eventBus, awaitHelper) {
@@ -97,7 +98,7 @@ define([
         self.fn.openResult = function(report){
             var id = report.Id;
             self.showSearchResult = false;
-            if(report.Type=='folder') {
+            if(report.Type==='folder') {
                 self.eventBus.fireFolderReportSelected(id);
             }
             else{
@@ -106,7 +107,15 @@ define([
         };
 
         self.fn.showSearchResult = function(){
-            if(self.searchResultLoaded) self.showSearchResult = true;
+            if(self.searchResultLoaded) {
+                self.showSearchResult = true;
+            }
+        };
+
+        self.fn.timestampToDateString = function(timestamp) {
+            var currentLocale = moment.localeData();
+            return moment(timestamp)
+                    .format(currentLocale.longDateFormat('L'));
         };
 
         $(document).bind('click', self.hideSearchBox.bind(self));
