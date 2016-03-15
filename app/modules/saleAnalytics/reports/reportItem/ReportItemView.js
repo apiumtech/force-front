@@ -108,9 +108,9 @@ define([
 
             return;
 
-            if (self.fireOpenFolder){ return; }
+            /*if (self.fireOpenFolder){ return; }
             self.originalName = self.report.Name;
-            self.editingName = true;
+            self.editingName = true;*/
         };
 
         self.fn.saveName = function () {
@@ -148,8 +148,8 @@ define([
 
             return;
 
-            self.originalDescription = self.report.Description;
-            self.editingDescription = true;
+            /*self.originalDescription = self.report.Description;
+            self.editingDescription = true;*/
         };
 
         self.fn.saveDescription = function () {
@@ -223,7 +223,9 @@ define([
 
     ReportItemView.prototype.onOtherReportInProgressStateChange = function (reportId, state) {
         var self = this;
-        if (reportId === self.report.Id) return;
+        if (reportId === self.report.Id){
+            return;
+        }
         self.otherReportInProgress = state;
     };
 
@@ -237,7 +239,7 @@ define([
     };
 
     ReportItemView.prototype.onSaveNameError = function (data) {
-        console.error("Save name failed");
+        window.console.error("Save name failed");
         this.inProgress = false;
     };
 
@@ -251,7 +253,7 @@ define([
     };
 
     ReportItemView.prototype.onSaveDescriptionError = function (data) {
-        console.error("Save description failed");
+        window.console.error("Save description failed");
         this.inProgress = false;
     };
 

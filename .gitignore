@@ -1,6 +1,7 @@
 _*
 fakeDb.json
 .idea/
+.vscode/
 bower_components/
 node_modules/
 lib/
