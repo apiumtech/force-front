@@ -87,7 +87,7 @@ define([
     };
 
     PreviewDialogView.prototype.onURLReceivedError = function (err) {
-        console.error(err);
+        window.console.error(err);
     };
 
     PreviewDialogView.prototype.onURLReceivedForSend = function (data) {

@@ -73,17 +73,37 @@
 
     <div class="col-md-4 pull-right">
         <div class="form-inline action-form clearfix pull-right">
-            <select ng-if="report.ReportType && report.ReportType.length > 1" class="form-control"
+            <select ng-if="report.IsCrystal && report.ReportType && report.ReportType.length > 1" class="form-control"
                     ng-model="selectedReportType" ng-change="fn.changeReportType(selectedReportType)">
                 <option ng-repeat="type in report.ReportType" value="{{type}}">{{type}}</option>
             </select>
 
             <span class="reportType m-r-4"
-                  ng-if="report.ReportType && report.ReportType.length == 1">{{selectedReportType}}</span>
+                  ng-if="report.ReportType && report.ReportType.length == 1">
+                  {{selectedReportType}}
+            </span>
 
             <!--<button class="btn btn-default btn-sm btn-view-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>-->
-            <div class="report-action-bar-hruler"></div>
-            <button class="btn btn-default btn-download-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.download()"><i class="ic-download"></i></button>
+            <div class="report-action-bar-hruler" ng-if="report.IsCrystal && report.ReportType && report.ReportType.length == 1"></div>
+
+            <!-- DOWNLOAD CRYSTAL REPORT -->
+            <button
+                    ng-if="report.IsCrystal"
+                    class="btn btn-default btn-download-report"
+                    ng-disabled="otherReportInProgress || inProgress"
+                    ng-click="fn.download()">
+                <i class="ic-download"></i>
+            </button>
+
+            <!-- DISPLAY TABLE REPORT -->
+            <button
+                    ng-if="!report.IsCrystal"
+                    class="btn btn-default btn-view-report"
+                    ng-disabled="otherReportInProgress || inProgress"
+                    ng-click="fn.preview()">
+                <i class="ic-views"></i>
+            </button>
+
             <!--<button class="btn btn-default" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.send()"><i class="ic-email"></i></button>-->
 
         </div>
