@@ -56,6 +56,8 @@ define(function () {
         getReportUrl: baseUrl + '/api/queries/stats/reports/downloadReport?idUser=-1&idReport={0}&idCompany=-1&idEnvironment=-1&ReportName={1}&ReportFormat={2}&Parameters={3}',
         searchReport: baseUrl + '/api/queries/stats/reports/searchReports?idCompany=0&idUser=1&idEnvironment=1&searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
+        //https://backenddev.forcemanager.net/api/queries/reports/table/reportData
+        tablePreview: baseUrl + '/api/queries/reports/table/reportData',
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
