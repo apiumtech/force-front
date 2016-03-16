@@ -6,14 +6,16 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/widgets/GraphColorService',
-    'shared/services/GoogleChartService'
-], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GraphColorService, GoogleChartService) {
+    'shared/services/GoogleChartService',
+    'shared/services/TranslatorService'
+], function (WidgetBaseView, SingleLineChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GraphColorService, GoogleChartService, TranslatorService) {
     'use strict';
 
     function SingleLineChartWidgetView(scope, element, presenter) {
         presenter = presenter || new SingleLineChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         var self = this;
+        self.translator = TranslatorService.newInstance();
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
@@ -113,7 +115,7 @@ define([
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn('timeofday', 'Hora');
         self.data.fields.forEach(function(serie){
-            dataTable.addColumn('number', serie.name);
+            dataTable.addColumn('number', self.translator.translate(serie.name) || serie.name );
         });
 
         var columns = [];

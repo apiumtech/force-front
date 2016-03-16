@@ -106,7 +106,7 @@ define([
 
         dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
-            dataTable.addColumn('number', serie.label);
+            dataTable.addColumn('number', self.translator.translate(serie.label) || serie.label);
             dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
         dataTable.addColumn({type:'string', role:'annotation'});

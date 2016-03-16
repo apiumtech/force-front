@@ -263,7 +263,7 @@ define([
         } else {
             self.data.data = [];
         }
-        
+
         self.renderChart();
     };
 
