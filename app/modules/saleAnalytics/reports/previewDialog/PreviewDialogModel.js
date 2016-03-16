@@ -19,5 +19,9 @@ define([
         return this.reportService.loadPreviewImage(report);
     };
 
+    PreviewDialogModel.prototype.loadTablePreview = function(report){
+        return this.reportService.loadTablePreview(report);
+    };
+
     return PreviewDialogModel;
 });

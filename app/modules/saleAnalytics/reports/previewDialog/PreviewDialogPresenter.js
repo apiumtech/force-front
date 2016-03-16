@@ -29,6 +29,12 @@ define([
 				.then(view.onPreviewImageLoaded.bind(view), view.showError.bind(view));
 		};
 
+
+		view.event.onLoadingTablePreview = function(report){
+			self.model.loadTablePreview(report)
+				.then(view.onTablePreviewLoaded.bind(view), view.showError.bind(view));
+		};
+
 	};
 
 	return PreviewDialogPresenter;
