@@ -77,6 +77,21 @@ define([
         return this.authAjaxService.rawAjaxRequest(params);
     };
 
+
+    ReportService.prototype.loadTablePreview = function (report) {
+        var url = Configuration.api.tablePreview;
+
+        var params = {
+            url: url,
+            type: 'GET',
+            data: report.params,
+            contentType: 'application/json',
+            dataType: 'json'
+        };
+
+        return this.authAjaxService.rawAjaxRequest(params);
+    };
+
     ReportService.prototype.searchReport = function(query){
         var url = Configuration.api.searchReport.format(query);
 
