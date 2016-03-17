@@ -64,7 +64,7 @@ define([
             };
 
             $($element).autocomplete({
-                minLength: 3,
+                minLength: 1,
                 source: scope.getAutocompleteOption,
                 select: function (event, ui) {
                     if (ui.item) {
