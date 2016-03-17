@@ -306,6 +306,7 @@ define([
 
     ReportItemView.prototype.previewReport = function () {
         var self = this;
+
         self.modalService.open({
             templateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialog.html?v='+ $('body').attr('id'),
             windowTemplateUrl: 'app/modules/saleAnalytics/reports/previewDialog/previewDialogWindow.html?v='+ $('body').attr('id'),

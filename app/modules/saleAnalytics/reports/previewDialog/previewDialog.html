@@ -1,3 +1,4 @@
+
 <div class="modal-header">
 
     <button type="button" class="close" ng-click="fn.closePreview()">
@@ -23,31 +24,29 @@
                     {{report.Description}}
                 </p>
             </div>
-
-            <div class="text-center col-md-2 button-group">
-                <button
-                        class="btn btn-link right-separator"
-                        ng-click="fn.download()"
-                        tooltip="{{ 'action_download' | i18next }}">
-                    <i class="ic-download download"></i>
-                </button>
-                <button
-                        class="btn btn-link"
-                        ng-click="fn.send()"
-                        tooltip="{{'action_sharebymail' | i18next}}">
-                    <i class="ic-email"></i>
-                </button>
-            </div>
-
         </div>
     </div>
 
 </div>
 
+
 <div class="modal-body" ng-init="fn.init()">
-    <carousel interval="myInterval">
-        <slide ng-repeat="image in images">
-            <img ng-src="{{image}}">
-        </slide>
-    </carousel>
+    <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th ng-repeat="(key, value) in data.tableReportData.data[0]">{{ key }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in data.tableReportData.data">
+        <td ng-repeat="(key, value) in item">{{ value }}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
 </div>
+
+
+
+

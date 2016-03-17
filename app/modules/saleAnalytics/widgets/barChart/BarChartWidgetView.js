@@ -106,7 +106,7 @@ define([
 
         dataTable.addColumn('string', '');
         self.data.forEach(function(serie){
-            dataTable.addColumn('number', serie.label);
+            dataTable.addColumn('number', self.translator.translate(serie.label) || serie.label);
             dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
         });
         dataTable.addColumn({type:'string', role:'annotation'});
@@ -135,7 +135,7 @@ define([
             '</table>';
         };
 
-        var createTooltip = function(tick, serie, index){
+        var createTooltip = function(tick, serie, index) {
             var total = serie.data[index][1].Count || "?";
             var percent = serie.data[index][1].Y;
             var drillDown = serie.data[index][1].DrillDown || [];

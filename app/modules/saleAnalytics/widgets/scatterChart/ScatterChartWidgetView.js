@@ -96,6 +96,10 @@ define([
             self.chart.setSelection([{'row': fieldIndex }]);
         };
 
+        self.fn.calculateFieldName = function(field) {
+          return self.translator.translate(field.name) || field.name;
+        };
+
         self.resizeInterval = null;
         $(window).on('resize', self.onWindowResize.bind(self));
         self.$scope.$on('destroy', function () {

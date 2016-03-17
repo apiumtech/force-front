@@ -7,12 +7,13 @@ define([
     'modules/widgets/WidgetEventBus',
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
+    'shared/services/TranslatorService',
     'jquery',
     'readmore-js',
     'underscore',
     'moment',
     'config'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, $, readmore, _, moment, config) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, TranslatorService, $, readmore, _, moment, config) {
     'use strict';
 
     var LINE = 'line';
@@ -28,6 +29,7 @@ define([
         scope.currentChartType = PIE;
 
         var self = this;
+        self.translator = TranslatorService.newInstance();
         self.colorService = new GraphColorService();
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
@@ -139,6 +141,10 @@ define([
         var columnsPerRow = 3;
         self.fn.serieRollOver = function(field, fieldIndex){
             self.chart.setSelection([{'column': 1 + fieldIndex * columnsPerRow }]);
+        };
+
+        self.fn.calculateFieldName = function(field) {
+          return self.translator.translate(field.name) || field.name;
         };
 
         self.event.getFilters = function(){};
@@ -321,7 +327,8 @@ define([
             if(self.$scope.selectedFilter.key === "phoneCallsTime" && !isPercent) {
                 plotData = self._secondsToHHMMSS(plotData);
             }
-            return serie.label +': '+ plotData + (isPercent ? '%' : '');
+            var label = self.translator.translate(serie.label) || serie.label;
+            return label +': '+ plotData + (isPercent ? '%' : '');
         };
 
         var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {
@@ -546,7 +553,8 @@ define([
         dataTable.addColumn('number', '---');
         var columns = [];
         data.forEach(function(item){
-            columns.push([item.label, item.data]);
+            var label = self.translator.translate(item.label) || item.label;
+            columns.push([label, item.data]);
         });
         dataTable.addRows(columns);
 
@@ -597,7 +605,7 @@ define([
         dataTable.addColumn('date', 'Date');
 
         data.fields.forEach(function(field) {
-            dataTable.addColumn('number', field.name);
+            dataTable.addColumn('number', self.fn.calculateFieldName(field) || field.name);
         });
 
         var rows = [];

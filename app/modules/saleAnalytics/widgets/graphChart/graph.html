@@ -120,7 +120,7 @@
                             class="glyphicon"
                             ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}">
                         </span>
-                        &nbsp;{{field.name}}
+                        &nbsp;{{ fn.calculateFieldName(field) }}
                     </a>
                 </li>
             </ul>

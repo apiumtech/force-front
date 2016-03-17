@@ -79,7 +79,9 @@
             </select>
 
             <span class="reportType m-r-4"
-                  ng-if="report.ReportType && report.ReportType.length == 1">{{selectedReportType}}</span>
+                  ng-if="report.ReportType && report.ReportType.length == 1">
+                  {{selectedReportType}}
+            </span>
 
             <!--<button class="btn btn-default btn-sm btn-view-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>-->
             <div class="report-action-bar-hruler" ng-if="report.IsCrystal && report.ReportType && report.ReportType.length == 1"></div>

@@ -110,6 +110,9 @@
 .ic-expand-left:before {
     content: "\46";
 }
+.ic-expand-right:before {
+    content: "\47";
+}
 .ic-export:before {
     content: "\48";
 }

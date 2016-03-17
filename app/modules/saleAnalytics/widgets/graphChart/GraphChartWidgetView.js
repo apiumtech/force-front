@@ -147,6 +147,10 @@ define([
             }, 2000 );
         };
 
+        self.fn.calculateFieldName = function(field) {
+          return self.translator.translate(field.name) || field.name;
+        };
+
         self.filterChannel.onDateFilterApplySignalReceived(function(filterValue){
             //self.mainFilterFromDate = filterValue.dateStart;
             //self.mainFilterToDate = filterValue.dateEnd;
@@ -314,7 +318,8 @@ define([
             if(self.$scope.selectedFilter.key === "phoneCallsTime" && !isPercent) {
                 plotData = self._secondsToHHMMSS(plotData);
             }
-            return serie.label +': '+ plotData + (isPercent ? '%' : '');
+            var label = self.translator.translate(serie.label) || serie.label;
+            return label +': '+ plotData + (isPercent ? '%' : '');
         };
 
         var createTooltipForSerie = function(rolledOverSerie, date, plotDataIndex) {

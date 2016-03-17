@@ -126,7 +126,7 @@
                             ng-mouseover="fn.serieRollOver(field, $index)"
                             ng-style="{'color':field.color}"
                             tooltip="{{ field.name }}" tooltip-placement="left" tooltip-append-to-body="true">
-                        &nbsp;{{field.name}}
+                        &nbsp;{{ fn.calculateFieldName(field) }}
                     </a>
                 </li>
             </ul>
