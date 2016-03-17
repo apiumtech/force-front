@@ -9,6 +9,7 @@
     <div class="row panel-toolbar" ng-init="fn.init()">
         <div class="col-xs-12 m-b-20">
             <div class="btn-group pull-right">
+
                 <button ng-if="widget.option == 'tab'"
                         class="btn btn-white btn-sm"
                         ng-repeat="filter in filters"
@@ -20,14 +21,8 @@
                     {{filter.name}}
                 </button>
 
-                <!--<select ng-if="widget.option == 'dropdown'" class="form-control pull left"
-                        ng-model="selectedFilter"
-                        ng-change="fn.changeFilter(selectedFilter)">
-                    <option ng-repeat="filter in tabs" value="{{filter.key}}">{{filter.name}}</option>
-                </select>-->
-
-                <div class="form-control pull left"
-                     ng-if="widget.option == 'dropdown'">
+                <div ng-if="widget.option == 'dropdown'"
+                     class="form-control pull left">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle"
                                 type="button"

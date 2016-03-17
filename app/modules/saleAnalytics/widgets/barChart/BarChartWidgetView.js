@@ -135,7 +135,7 @@ define([
             '</table>';
         };
 
-        var createTooltip = function(tick, serie, index){
+        var createTooltip = function(tick, serie, index) {
             var total = serie.data[index][1].Count || "?";
             var percent = serie.data[index][1].Y;
             var drillDown = serie.data[index][1].DrillDown || [];
