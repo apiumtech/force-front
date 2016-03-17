@@ -1,7 +1,7 @@
 {
   "name": "force-front",
   "author": "apiumtech",
-  "version": "1.0.110",
+  "version": "1.0.112",
   "engine": "node 0.12.0",
   "scripts": {
     "test": "grunt test",
