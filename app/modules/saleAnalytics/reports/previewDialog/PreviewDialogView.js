@@ -47,11 +47,6 @@ define([
         };
 
         self.fn.init = function(){
-            self.event.onLoadingPreviewImage(self.report);
-        };
-
-
-        self.fn.init = function(){
             self.event.onLoadingTablePreview(self.report);
         };
 
@@ -82,8 +77,7 @@ define([
 
     PreviewDialogView.prototype.onTablePreviewLoaded = function(data){
         var self = this;
-        console.log('some there', data);
-        //self.images = data;
+        self.data.tableReportData = data;
     };
 
     PreviewDialogView.prototype.onToggledFavouriteReport = function(){

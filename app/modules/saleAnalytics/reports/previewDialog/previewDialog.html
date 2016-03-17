@@ -45,9 +45,16 @@
 </div>
 
 <div class="modal-body" ng-init="fn.init()">
-    <carousel interval="myInterval">
-        <slide ng-repeat="image in images">
-            <img ng-src="{{image}}">
-        </slide>
-    </carousel>
+  <table>
+    <thead>
+      <tr>
+        <th ng-repeat="(key, value) in data.tableReportData.data[0]">{{ key }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in data.tableReportData.data">
+        <td ng-repeat="(key, value) in item">{{ value }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
