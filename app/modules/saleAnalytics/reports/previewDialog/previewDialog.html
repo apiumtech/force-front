@@ -1,3 +1,4 @@
+
 <div class="modal-header">
 
     <button type="button" class="close" ng-click="fn.closePreview()">
@@ -44,8 +45,10 @@
 
 </div>
 
+
 <div class="modal-body" ng-init="fn.init()">
-  <table>
+    <div class="table-responsive">
+  <table class="table">
     <thead>
       <tr>
         <th ng-repeat="(key, value) in data.tableReportData.data[0]">{{ key }}</th>
@@ -57,4 +60,9 @@
       </tr>
     </tbody>
   </table>
+  </div>
 </div>
+
+
+
+
