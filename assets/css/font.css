@@ -176,8 +176,14 @@
 .ic-phone-settings:before {
     content: "\36";
 }
+.ic-plus:before {
+    content: "\37";
+}
 .ic-plus-circle:before {
     content: "\38";
+}
+.ic-print:before {
+    content: "\39";
 }
 .ic-prohibited:before {
     content: "\22";

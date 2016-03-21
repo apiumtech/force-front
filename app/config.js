@@ -8,9 +8,10 @@ define(function () {
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     if(window.location.hostname  === 'webpre.forcemanager.net') {
         baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
-    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
+    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1 || window.location.hostname.indexOf('webtest') > -1 ) {
         baseUrl = "https://backenddev.forcemanager.net";
     }
+
 
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
