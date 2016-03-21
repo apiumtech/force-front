@@ -11,7 +11,7 @@ define(function () {
     } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1 || window.location.hostname.indexOf('webtest') > -1 ) {
         baseUrl = "https://backenddev.forcemanager.net";
     }
-    
+
 
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
@@ -49,7 +49,7 @@ define(function () {
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
         //report
-        getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
+        reportList: baseUrl + '/api/queries/reports/reportList',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
         toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
         updateReport: baseUrl + '/api/queries/stats/reports/update/{0}',
