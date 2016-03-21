@@ -4,6 +4,7 @@
 define([
     'shared/services/notification/NotificationService',
     'core/topMenu/TopMenuWeb2Controller',
+    'core/topMenu/TopMenuWeb4Controller',
     'core/sideMenu/SideMenuController',
     'core/topMenu/TopMenuCFMController',
 
