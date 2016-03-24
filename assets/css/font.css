@@ -13,364 +13,424 @@
 }
 
 [data-icon]:before {
-    font-family: "forcemanager" !important;
-    content: attr(data-icon);
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "forcemanager" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="ic-"]:before,
 [class*=" ic-"]:before {
-    font-family: "forcemanager" !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: "forcemanager" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .ic-accept:before {
-    content: "\61";
+  content: "\61";
 }
 .ic-arr-left:before {
-    content: "\65";
+  content: "\65";
 }
 .ic-arr-left2:before {
-    content: "\66";
+  content: "\66";
 }
 .ic-arr-right:before {
-    content: "\67";
+  content: "\67";
 }
 .ic-arr-right2:before {
-    content: "\68";
+  content: "\68";
 }
 .ic-attachment:before {
-    content: "\69";
+  content: "\69";
 }
 .ic-call-in:before {
-    content: "\6a";
+  content: "\6a";
 }
 .ic-call-missing:before {
-    content: "\6b";
+  content: "\6b";
 }
 .ic-call-out:before {
-    content: "\6c";
+  content: "\6c";
 }
 .ic-camera:before {
-    content: "\6d";
+  content: "\6d";
 }
 .ic-checkin:before {
-    content: "\6e";
+  content: "\6e";
 }
 .ic-conversion:before {
-    content: "\72";
+  content: "\72";
 }
 .ic-conversion2:before {
-    content: "\73";
+  content: "\73";
 }
 .ic-copy:before {
-    content: "\74";
+  content: "\74";
 }
 .ic-dashboard:before {
-    content: "\75";
+  content: "\75";
 }
 .ic-distribution:before {
-    content: "\76";
+  content: "\76";
 }
 .ic-document-generic:before {
-    content: "\77";
+  content: "\77";
 }
 .ic-edit:before {
-    content: "\7a";
+  content: "\7a";
 }
 .ic-edit-circle:before {
-    content: "\41";
+  content: "\41";
 }
 .ic-email:before {
-    content: "\42";
+  content: "\42";
 }
 .ic-email-in:before {
-    content: "\43";
+  content: "\43";
 }
 .ic-email-out:before {
-    content: "\44";
+  content: "\44";
 }
 .ic-enlarge:before {
-    content: "\45";
+  content: "\45";
 }
 .ic-expand-left:before {
-    content: "\46";
-}
-.ic-expand-right:before {
-    content: "\47";
+  content: "\46";
 }
 .ic-export:before {
-    content: "\48";
+  content: "\48";
 }
 .ic-filter:before {
-    content: "\49";
+  content: "\49";
 }
 .ic-flag:before {
-    content: "\4a";
+  content: "\4a";
 }
 .ic-folder-closed:before {
-    content: "\4c";
+  content: "\4c";
 }
 .ic-goals:before {
-    content: "\4d";
+  content: "\4d";
 }
 .ic-help:before {
-    content: "\4e";
+  content: "\4e";
 }
 .ic-ic-account-checkin:before {
-    content: "\4f";
+  content: "\4f";
 }
 .ic-ic-lost:before {
-    content: "\51";
+  content: "\51";
 }
 .ic-ic-opportunity-checkin:before {
-    content: "\52";
+  content: "\52";
 }
 .ic-ic-won:before {
-    content: "\53";
+  content: "\53";
 }
 .ic-image:before {
-    content: "\54";
+  content: "\54";
 }
 .ic-info:before {
-    content: "\55";
+  content: "\55";
 }
 .ic-intensity:before {
-    content: "\56";
+  content: "\56";
 }
 .ic-lock:before {
-    content: "\57";
+  content: "\57";
 }
 .ic-logout:before {
-    content: "\58";
+  content: "\58";
 }
 .ic-map-locator:before {
-    content: "\59";
+  content: "\59";
 }
 .ic-microphone:before {
-    content: "\5a";
+  content: "\5a";
 }
 .ic-minus:before {
-    content: "\30";
+  content: "\30";
 }
 .ic-minus-circle:before {
-    content: "\31";
+  content: "\31";
 }
 .ic-notes:before {
-    content: "\32";
+  content: "\32";
 }
 .ic-phone-settings:before {
-    content: "\36";
-}
-.ic-plus:before {
-    content: "\37";
+  content: "\36";
 }
 .ic-plus-circle:before {
-    content: "\38";
-}
-.ic-print:before {
-    content: "\39";
+  content: "\38";
 }
 .ic-prohibited:before {
-    content: "\22";
+  content: "\22";
 }
 .ic-reduce:before {
-    content: "\23";
+  content: "\23";
 }
 .ic-refresh:before {
-    content: "\24";
+  content: "\24";
 }
 .ic-refresh2:before {
-    content: "\25";
+  content: "\25";
 }
 .ic-route:before {
-    content: "\27";
+  content: "\27";
 }
 .ic-saleanalytics:before {
-    content: "\28";
-}
-.ic-search:before {
-    content: "\2a";
+  content: "\28";
 }
 .ic-settings:before {
-    content: "\2b";
-}
-.ic-share:before {
-    content: "\2c";
+  content: "\2b";
 }
 .ic-shopping-cart:before {
-    content: "\2d";
+  content: "\2d";
 }
 .ic-success:before {
-    content: "\2e";
+  content: "\2e";
 }
 .ic-trash:before {
-    content: "\2f";
+  content: "\2f";
 }
 .ic-user-connection:before {
-    content: "\3b";
+  content: "\3b";
 }
 .ic-warning:before {
-    content: "\3c";
+  content: "\3c";
 }
 .ic-checkin-filled:before {
-    content: "\3d";
+  content: "\3d";
 }
 .ic-cron:before {
-    content: "\3e";
+  content: "\3e";
 }
 .ic-data:before {
-    content: "\3f";
+  content: "\3f";
 }
 .ic-devices:before {
-    content: "\40";
+  content: "\40";
 }
 .ic-permissions:before {
-    content: "\5b";
+  content: "\5b";
 }
 .ic-parameters:before {
-    content: "\5d";
+  content: "\5d";
 }
 .ic-views:before {
-    content: "\5e";
+  content: "\5e";
 }
 .ic-users:before {
-    content: "\5f";
+  content: "\5f";
 }
 .ic-sqltester:before {
-    content: "\60";
+  content: "\60";
 }
 .ic-massives:before {
-    content: "\7b";
-}
-.ic-trophy:before {
-    content: "\7c";
+  content: "\7b";
 }
 .ic-accounts:before {
-    content: "\26";
+  content: "\26";
 }
 .ic-agenda:before {
-    content: "\5c";
+  content: "\5c";
 }
 .ic-opportunities:before {
-    content: "\e000";
-}
-.ic-contact:before {
-    content: "\62";
-}
-.ic-activity:before {
-    content: "\35";
+  content: "\e000";
 }
 .ic-documents:before {
-    content: "\63";
+  content: "\63";
 }
 .ic-offers:before {
-    content: "\70";
-}
-.ic-orders:before {
-    content: "\71";
+  content: "\70";
 }
 .ic-products:before {
-    content: "\7d";
+  content: "\7d";
 }
 .ic-folder-opened:before {
-    content: "\64";
-}
-.ic-salesforce:before {
-    content: "\78";
+  content: "\64";
 }
 .ic-reports:before {
-    content: "\50";
-}
-.ic-notifications:before {
-    content: "\33";
+  content: "\50";
 }
 .ic-star-filled:before {
-    content: "\34";
+  content: "\34";
 }
 .ic-star-outline:before {
-    content: "\21";
+  content: "\21";
 }
 .ic-thick:before {
-    content: "\7e";
+  content: "\7e";
 }
 .ic-download:before {
-    content: "\79";
+  content: "\79";
 }
 .ic-upload:before {
-    content: "\29";
+  content: "\29";
 }
 .ic-team-leader-filled:before {
-    content: "\3a";
+  content: "\3a";
 }
 .ic-sales-rep:before {
-    content: "\e001";
-}
-.ic-resports:before {
-    content: "\e002";
-}
-.ic-iaccount-filled:before {
-    content: "\e003";
+  content: "\e001";
 }
 .ic-action-filled:before {
-    content: "\e004";
+  content: "\e004";
 }
 .ic-lost-filled:before {
-    content: "\e005";
+  content: "\e005";
 }
 .ic-opportunity-alert:before {
-    content: "\e006";
-}
-.ic-opportunity-filled:before {
-    content: "\e007";
+  content: "\e006";
 }
 .ic-shield-filled:before {
-    content: "\e008";
+  content: "\e008";
 }
 .ic-won-filled:before {
-    content: "\e009";
+  content: "\e009";
 }
 .ic-close-filled:before {
-    content: "\e00a";
-}
-.ic-close:before {
-    content: "\6f";
+  content: "\e00a";
 }
 .ic-literals:before {
-    content: "\e00b";
+  content: "\e00b";
 }
 .ic-environment:before {
-    content: "\e00c";
+  content: "\e00c";
 }
 .ic-users-1:before {
-    content: "\e00d";
+  content: "\e00d";
 }
 .ic-flag-filled:before {
-    content: "\4b";
+  content: "\4b";
 }
 .ic-custom-widgets:before {
-    content: "\e00e";
+  content: "\e00e";
 }
-.ic-columns:before {
-    content: "\e00f";
+.ic-share:before {
+  content: "\78";
+}
+.ic-activity-filled:before {
+  content: "\71";
+}
+.ic-arrow:before {
+  content: "\35";
+}
+.ic-arrow-down:before {
+  content: "\37";
+}
+.ic-calendar-view:before {
+  content: "\39";
+}
+.ic-call:before {
+  content: "\2a";
+}
+.ic-close:before {
+  content: "\2c";
+}
+.ic-documents-filled:before {
+  content: "\e003";
+}
+.ic-dots-filled:before {
+  content: "\e007";
+}
+.ic-edit-filled:before {
+  content: "\e00f";
+}
+.ic-expand-right:before {
+  content: "\e010";
+}
+.ic-globe:before {
+  content: "\e011";
+}
+.ic-goto:before {
+  content: "\e012";
+}
+.ic-grid:before {
+  content: "\e013";
+}
+.ic-ic-trophy:before {
+  content: "\62";
 }
 .ic-list:before {
-    content: "\e010";
+  content: "\e014";
 }
 .ic-map:before {
-    content: "\e011";
+  content: "\e016";
+}
+.ic-opportunity-filled:before {
+  content: "\e017";
+}
+.ic-orders-filled:before {
+  content: "\e018";
+}
+.ic-plus:before {
+  content: "\e015";
+}
+.ic-plus-big:before {
+  content: "\e019";
+}
+.ic-print:before {
+  content: "\e01a";
+}
+.ic-product-filled:before {
+  content: "\e01b";
+}
+.ic-quotes-filled:before {
+  content: "\e01c";
+}
+.ic-reports-filled:before {
+  content: "\e01d";
+}
+.ic-salesforce-filled:before {
+  content: "\e01e";
+}
+.ic-search:before {
+  content: "\e01f";
+}
+.ic-share-filled:before {
+  content: "\e020";
+}
+.ic-show:before {
+  content: "\e021";
+}
+.ic-agenda-filled:before {
+  content: "\47";
+}
+.ic-contacts-filled:before {
+  content: "\6f";
+}
+.ic-accounts-filled:before {
+  content: "\7c";
+}
+.ic-documents-filled-1:before {
+  content: "\e002";
+}
+.ic-activity:before {
+  content: "\e022";
+}
+.ic-notifications:before {
+  content: "\e023";
+}
+.ic-sent:before {
+  content: "\33";
+}
+.ic-lock-2:before {
+  content: "\e024";
+}
+.ic-warning-filled:before {
+  content: "\e025";
 }

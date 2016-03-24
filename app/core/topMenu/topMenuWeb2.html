@@ -18,11 +18,16 @@
         <!-- MENU SECTION -->
         <ul class="nav navbar-nav section-nav">
             <li ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
-                <a id="{{ userSection.id }}"
+                <a id="{{ userSection.id }}" ng-if="userSection.section != 'sfm'"
                    tooltip-placement="bottom"
                    tooltip="{{ userSection.name }}"
                    href="{{ fn.adjustLinkToParentFolder(userSection.url) }}">
                     <i class="ic-{{ userSection.icon }}"></i>
+                </a>
+                <a id="{{ userSection.id }}" ng-if="userSection.section == 'sfm'"
+                   tooltip-placement="bottom"
+                   tooltip="{{ userSection.name }}" ng-click="fn.reloadPage()">
+                  <i class="ic-{{ userSection.icon }}"></i>
                 </a>
             </li>
         </ul>

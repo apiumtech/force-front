@@ -44,6 +44,10 @@ define([
         this.fn.hasEventsForToday = this.hasEventsForToday.bind(this);
         this.fn.hasUnreadNotifications = this.hasUnreadNotifications.bind(this);
 
+        this.fn.reloadPage = function() {
+          window.location.reload();
+        };
+
         this.event.getUserDataInfo = function () {};
         this.event.getUserSections = function () {};
         this.event.getUserOptions = function () {};
@@ -110,7 +114,10 @@ define([
 
 
     TopMenuWeb2View.prototype.adjustLinkToParentFolder = function (url) {
-        return "../views/" + url;
+      if(url.indexOf('web3') > -1) {
+        return url + "?" + Date.now();
+      }
+      return "../views/" + url;
     };
 
     TopMenuWeb2View.prototype.adjustDefaultAccessPageLink = function (url) {
