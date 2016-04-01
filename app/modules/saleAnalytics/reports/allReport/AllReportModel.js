@@ -28,11 +28,18 @@ define([
 
     AllReportModel.prototype._reload = function () {
         var self = this;
-        var url = Configuration.api.getAllReports;
-
+        var url = Configuration.api.reportList;
+        var fmRequest = {
+          idCompany: 0,
+          idUser: 1,
+          idEnvironment: 1
+        };
         var params = {
             url: url,
             type: 'GET',
+            headers: {
+              'x-fm-request': JSON.stringify(fmRequest)
+            },
             contentType: 'application/json',
             dataType: 'json'
         };
@@ -41,10 +48,10 @@ define([
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
-
-        //
         data = data.data;
-        if (!data || !data instanceof Array || data.length <= 0) throw new Error("No data received from server");
+        if (!data || !(data instanceof Array) || data.length <= 0) {
+          throw new Error("No data received from server");
+        }
         return this.arrayHelper.makeTree(data, 'IdParent', 'Id', 'children', -1);
     };
 

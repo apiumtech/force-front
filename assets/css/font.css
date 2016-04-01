@@ -434,3 +434,12 @@
 .ic-notifications:before {
     content: "\e023";
 }
+.ic-sent:before {
+  content: "\33";
+}
+.ic-lock-2:before {
+  content: "\e024";
+}
+.ic-warning-filled:before {
+  content: "\e025";
+}

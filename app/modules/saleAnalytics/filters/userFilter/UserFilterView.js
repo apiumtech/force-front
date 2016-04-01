@@ -316,7 +316,10 @@ define([
         }
         else // len > 1
         {
-            self._userSelectionIsMoreThanOne(selectionList.length);
+            var onlyUsersList = selectionList.filter(function(user){
+                return user.IsEnvironment === false;
+            });
+            self._userSelectionIsMoreThanOne(onlyUsersList.length);
         }
     };
     UserFilterView.prototype._userSelectionIsEmpty = function () {
