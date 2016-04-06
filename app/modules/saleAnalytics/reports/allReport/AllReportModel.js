@@ -26,7 +26,7 @@ define([
         return this._reload();
     };
 
-    AllReportModel.prototype._reload = function () {
+    /*AllReportModel.prototype._reload = function () {
         var self = this;
         var url = Configuration.api.reportList;
         var fmRequest = {
@@ -45,6 +45,21 @@ define([
         };
 
         return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
+    };
+    */
+
+   AllReportModel.prototype._reload = function () {
+      var self = this;
+      var url = Configuration.api.getAllReports;
+
+      var params = {
+        url: url,
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json'
+      };
+
+      return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
     };
 
     AllReportModel.prototype.decorateServerData = function (data) {
