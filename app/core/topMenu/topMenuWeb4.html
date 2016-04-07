@@ -20,11 +20,25 @@
                 <ul class="nav navbar-nav main-nav">
                     <li ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
                         <a id="{{ userSection.id }}"
+                           ng-if="userSection.section != 'sfm'"
                            data-placement="right"
+                           data-section-section="{{ userSection.section }}"
                            data-section="{{ userSection.name }}"
                            tooltip-placement="right"
                            tooltip="{{ userSection.name }}"
                            href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
+                           data-original-title="{{ userSection.name }}"
+                           class="toggle-true">
+                            <i class="ic-{{ userSection.icon }}"></i>
+                        </a>
+                        <a id="{{ userSection.id }}"
+                           ng-if="userSection.section == 'sfm'"
+                           data-placement="right"
+                           data-section-section="{{ userSection.section }}"
+                           data-section="{{ userSection.name }}"
+                           tooltip-placement="right"
+                           tooltip="{{ userSection.name }}"
+                           ng-click="fn.reloadPage()"
                            data-original-title="{{ userSection.name }}"
                            class="toggle-true">
                             <i class="ic-{{ userSection.icon }}"></i>

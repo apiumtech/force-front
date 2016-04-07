@@ -38,6 +38,10 @@ define([
         this.fn.hasEventsForToday = this.hasEventsForToday.bind(this);
         this.fn.hasUnreadNotifications = this.hasUnreadNotifications.bind(this);
 
+        this.fn.reloadPage = function() {
+            window.location.reload();
+        };
+
         this.event.getUserDataInfo = function () {};
         this.event.getUserSections = function () {};
         this.event.getUserOptions = function () {};
