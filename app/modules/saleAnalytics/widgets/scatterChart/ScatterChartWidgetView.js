@@ -95,7 +95,7 @@ define([
         self.fn.serieRollOver = function (fieldIndex) {
             self.chart.setSelection([{'row': fieldIndex }]);
         };
-
+        
         self.fn.calculateFieldName = function(field) {
           return self.translator.translate(field.name) || field.name;
         };
