@@ -12,7 +12,6 @@ define([
     'shared/components/ScrollTopButtonDirective',
     'shared/components/datePicker/ForceDatePickerDirective',
     'shared/components/HighLightResultDirective',
-    'shared/components/countrySelector/CountrySelectorDirective',
     'shared/components/ResizableTextAreaDirective',
     'shared/components/CellCompilerDirective',
 

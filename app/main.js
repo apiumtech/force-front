@@ -19,12 +19,12 @@ define([
     'routeConf',
 
     // validation config
-    'validationConfig'
+    /*'validationConfig'*/
 ], function ($, angular, config, app, AppsAdapter) {
     'use strict';
 
     $.migrateMute = true;
     $(document).ready(function () {
-        angular.bootstrap(document, [config.appName]);   
+        angular.bootstrap(document, [config.appName]);
     });
 });
