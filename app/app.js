@@ -33,8 +33,6 @@ define([
         'forcefront.sortable',
         'angularMoment',
         'infinite-scroll',
-        /*'validation',
-        'validation.rule',*/
         'RecursionHelper',
         'daterangepicker'
     ]);

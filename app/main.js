@@ -18,8 +18,6 @@ define([
     // route loader
     'routeConf',
 
-    // validation config
-    /*'validationConfig'*/
 ], function ($, angular, config, app, AppsAdapter) {
     'use strict';
 
