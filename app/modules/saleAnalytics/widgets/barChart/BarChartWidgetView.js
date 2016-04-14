@@ -72,6 +72,11 @@ define([
             self.paintChart();
         };
 
+        self._chartClickFilter = self._chartClickFilter.bind(this);
+        self.$scope.$on('$destroy', function() {
+          document.querySelector('body').removeEventListener('click', self._chartClickFilter, false);
+        });
+
         self.resizeHandling();
     };
 
@@ -221,16 +226,17 @@ define([
             chartArea: chartArea
         };
 
-        $('body').click(function(e) {
-          function clickedWithinChart(){
-            return $('.chart-place-holder').find(e.srcElement).length > 0;
-          }
-          if (!clickedWithinChart()) {
-            self.chart.setSelection([{}]);
-          }
-        });
-
+        document.querySelector('body').addEventListener('click', self._chartClickFilter, false);
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
+    };
+
+    BarChartWidgetView.prototype._chartClickFilter = function(e) {
+      function clickedWithinChart() {
+        return $('.chart-place-holder').find(e.srcElement).length > 0;
+      }
+      if (!clickedWithinChart()) {
+        this.chart.setSelection([{}]);
+      }
     };
 
 
