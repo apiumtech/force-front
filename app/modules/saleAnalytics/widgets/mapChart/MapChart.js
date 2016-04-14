@@ -311,7 +311,7 @@ define([
             if (record.Latitude !== null && record.Latitude !== undefined && record.Latitude !== "0" &&
                 record.Longitude !== null && record.Longitude !== undefined && record.Longitude !== "0") {
 
-                var CurrentActivity = (record.Activity / maxActivity) * 100000 + 100000;
+                var CurrentActivity = record.Activity / maxActivity;//(record.Activity / maxActivity) * 100000 + 100000;
 
                 var current = {
                     Longitude: record.Longitude,
@@ -330,24 +330,26 @@ define([
 
         var latlngbounds = self.mapService.getLatLngBounds();
         var decoratedData = self.decorateHeatMapData(data);
+        var maxIntensity = 0;
         decoratedData.forEach(function (c) {
             if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90){
                 return;
             }
 
             var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude)),
-                coordWeight = {
-                    location: coord,
-                    weight: c.Activity
-                };
+            coordWeight = {
+                location: coord,
+                weight: c.Activity
+            };
+            maxIntensity = Math.max(maxIntensity, c.Activity);
             heatMapData.push(coordWeight);
             latlngbounds.extend(coord);
         });
 
         self.heatMap = self.mapService.createHeatMap({
             data: heatMapData,
-            dissipating: true,
-            opacity: 1
+            opacity: 0.8,
+            maxIntensity: maxIntensity
         });
         self.heatMap.setMap(self.map);
 

@@ -7,12 +7,13 @@ define(function () {
     var apiVersion = "1.3";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     if(window.location.hostname  === 'webpre.forcemanager.net') {
-        baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
-    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('webtest') > -1 ) {
-        // nada
-    } else if(window.location.hostname.indexOf('127.0.0.1') > -1) {
-        baseUrl = "https://backenddev.forcemanager.net";
+      baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
+    } else if(window.location.hostname.indexOf('webtest') > -1 ) {
+      // nada
+    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
+      baseUrl = "https://backenddev.forcemanager.net";
     }
+
 
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
