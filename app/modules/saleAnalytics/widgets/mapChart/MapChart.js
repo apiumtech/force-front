@@ -179,10 +179,13 @@ define([
         var latlngbounds = self.mapService.getLatLngBounds();
 
         var infowindow = null;
+        var cssImgRules = '';
         self.markers = data.map(function (r) {
             var image = r.PhotoUrl;
             if (!image){
                 image = defaultImageUrl;
+            } else {
+              cssImgRules += 'img[src="'+ image +'"]{ border-radius:16px!important;border:1px solid #000 !important; }';
             }
 
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
@@ -191,7 +194,7 @@ define([
             var marker = self.mapService.createMarker({
                 position: coordinate,
                 icon: self.mapService.getMarkerIcon(image),
-                flat: true
+                optimized: false
             });
 
             //var infoWindowTemplate = $("#userCalloutTemplate").html();
@@ -223,6 +226,9 @@ define([
 
             return marker;
         });
+
+        // add the image rounding CSS rules in the page.
+        $('head').append('<style type="text/css">'+ cssImgRules +'</style>');
 
         self.markerCluster = new MarkerClusterer(self.map, self.markers, {
             maxZoom: 10,

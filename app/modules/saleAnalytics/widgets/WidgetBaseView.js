@@ -70,8 +70,8 @@ define([
         $('.row.panel-description .well > div').readmore({
             collapsedHeight: 20,
             speed: 1000,
-            moreLink: '<a href="#">'+ this.translator.translate('action_show') +'</a>',
-            lessLink: '<a href="#">'+ this.translator.translate('action_close') +'</a>'
+            moreLink: '<a class="show-more-link" href="#">'+ this.translator.translate('action_show_more') +'</a>',
+            lessLink: '<a class="show-more-link" href="#">'+ this.translator.translate('action_close') +'</a>'
         });
     };
 
