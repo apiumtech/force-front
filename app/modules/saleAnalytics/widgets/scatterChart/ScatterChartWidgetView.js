@@ -95,7 +95,7 @@ define([
         self.fn.serieRollOver = function (fieldIndex) {
             self.chart.setSelection([{'row': fieldIndex }]);
         };
-        
+
         self.fn.calculateFieldName = function(field) {
           return self.translator.translate(field.name) || field.name;
         };
@@ -144,7 +144,7 @@ define([
 
 
         var scatterCalloutTemplate = '<div id="scatterCalloutTemplate">'+
-            '<table style="margin:-5px;width:350px;height:131px;padding:10px;background-color:white;border: 1px solid #DDDDDD;">'+
+            '<table style="margin:-5px;width:260px;height:100px;padding:10px;background-color:white;border: 1px solid #DDDDDD;">'+
                 '<tr>'+
                     '<td rowspan="2" style="width:70px;vertical-align:middle;text-align:center;">'+
                     '<img src="{PhotoUrl}" style="width:50px;height:50px;border-radius:25px;" />'+
