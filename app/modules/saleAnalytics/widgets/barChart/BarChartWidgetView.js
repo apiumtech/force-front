@@ -221,7 +221,14 @@ define([
             chartArea: chartArea
         };
 
-
+        $('body').click(function(e) {
+          function clickedWithinChart(){
+            return $('.chart-place-holder').find(e.srcElement).length > 0;
+          }
+          if (!clickedWithinChart()) {
+            self.chart.setSelection([{}]);
+          }
+        });
 
         chartService.drawChart(self.chart, self.chartData, self.chartOptions);
     };
