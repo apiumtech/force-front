@@ -149,26 +149,6 @@ define([
         }
     };
 
-    /*MapChart.prototype.createPointMap_ = function (data) {
-        var self = this;
-        this.markers = [];
-
-        data.forEach(function (c) {
-            var latLng = self.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
-
-            var marker = self.mapService.createMarker({
-                position: latLng,
-                title: ''
-            });
-            self.markers.push(marker);
-        });
-        self.markerClusterer = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
-        });
-    };*/
-
-
     MapChart.prototype.createUserMap = function (data) {
         var self = this;
 
@@ -185,7 +165,7 @@ define([
             if (!image){
                 image = defaultImageUrl;
             } else {
-              cssImgRules += 'img[src="'+ image +'"]{ border-radius:16px!important;border:1px solid #000 !important; }';
+              cssImgRules += '.gm-style img[src="'+ image +'"]{ border-radius:16px!important; }';
             }
 
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
