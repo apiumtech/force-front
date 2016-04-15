@@ -156,11 +156,11 @@ define([
                 '</tr>'+
                 '<tr>'+
                     '<td colspan="2" style="vertical-align:middle;background-color:#F8F8F8;border-top:1px solid #DDDDDD;">'+
-                        '<div style="width:50%;text-align:center;float:left;">'+
+                        '<div style="width:40%;padding-top:5px;padding-bottom:5px;text-align:center;float:left;">'+
                             '<span style="color:#636363;font-size:13px;padding-right:5px;">{axisXTitle}:</span>'+
                             '<span style="color:#212121;font-size:13px;font-weight:400;">{X}</span>'+
                         '</div>'+
-                        '<div style="width:50%;text-align:center;float:right;">'+
+                        '<div style="width:60%;padding-top:5px;padding-bottom:5px;text-align:center;float:right;">'+
                             '<span style="color:#636363;font-size:13px;padding-right:5px;">{axisYTitle}:</span>'+
                             '<span style="color:#212121;font-size:13px;font-weight:400;">{Y}</span>'+
                         '</div>'+
