@@ -51,6 +51,7 @@ define(function () {
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
 
         //report
+getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
         reportList: baseUrl + '/api/queries/reports/reportList',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
         toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
