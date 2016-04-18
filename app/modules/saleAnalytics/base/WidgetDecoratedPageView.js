@@ -196,7 +196,7 @@ define([
             var content = $(this).find('.panel-content');
             var description = $(this).find('.panel-description');
             totalHeight += $(heading).outerHeight(true);
-            totalHeight += parseInt($(panelBody).css('padding-top'),10) + parseInt($(panelBody).css('padding-bottom'),10)
+            totalHeight += parseInt($(panelBody).css('padding-top'),10) + parseInt($(panelBody).css('padding-bottom'),10);
             if(toolbar.length > 0){
                 totalHeight += $(toolbar).outerHeight(true);
             }
