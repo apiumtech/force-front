@@ -5,10 +5,10 @@
 <ng-include src="'app/modules/saleAnalytics/filters/analyticsFilter.html?v='+cacheBuster" ng-show="i18nextLanguageReady===true"></ng-include>
 <!-- end filters-->
 
-<!--
+<!-- begin WidgetAdministration -->
 <div class="row">
     <div class="col-md-12">
-        Widget Administration Button
+        <!-- Widget Administration Button -->
         <button type="button" class="btn btn-default btn-xs pull-right btn-widget-administration"
                 ng-click="fn.toggleWidgetAdministration()">
             <i class="ic-settings"></i>
@@ -17,17 +17,15 @@
     </div>
 </div>
 <div class="clearfix"></div>
-
-WidgetAdministration
 <ng-include src="'app/modules/saleAnalytics/widgetAdministration/widgetAdmin.html'"></ng-include>
--->
+<!-- end WidgetAdministration -->
 
 <div class="row m-t-20">
     <ng-include src="'app/modules/saleAnalytics/base/noWidgetAlert.html?v='+cacheBuster"></ng-include>
     <div class="widgets-container"
          as-sortable
          widget-dropped="fn.onWidgetDropped($ui, $widget)">
-        <div ng-repeat="widget in ::widgets"
+        <div ng-repeat="widget in widgets"
              class="col-md-{{widget.position.size}} widget-container"
              data-widgetid="widget-{{widget.widgetId}}"
              ng-class="{'hidden': !widget.isActive}"

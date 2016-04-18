@@ -160,8 +160,8 @@ define([
 
         self.widgetAdministrationEventBus.onRequestWidgetsList( function(){self.onRequestWidgetsList(); });
         self.widgetAdministrationEventBus.onMoveWidgetToIndex( function(widget, index){self.onMoveWidgetToIndex(widget, index);} );
-        self.widgetAdministrationEventBus.onActivateWidget( function(widget){self.toggleActivateWidget(widget, true);} );
-        self.widgetAdministrationEventBus.onDeactivateWidget( function(widget){self.toggleActivateWidget(widget, false);} );
+        self.widgetAdministrationEventBus.onActivateWidget( function(widget){self._toggleActivateWidget(widget, true);} );
+        self.widgetAdministrationEventBus.onDeactivateWidget( function(widget){self._toggleActivateWidget(widget, false);} );
 
         self.event.onWidgetMoved = function(widget, newIndex){
             // To be overriden by inheriting objects
@@ -226,7 +226,7 @@ define([
         this.event.onWidgetMoved (widget, newIndex);
     };
 
-    WidgetDecoratePageView.prototype.toggleActivateWidget = function (widget, isActive) {
+    WidgetDecoratePageView.prototype._toggleActivateWidget = function (widget, isActive) {
         var self = this;
         var currentWidget = _.findWhere(self.widgets, {widgetId: widget.widgetId});
         if(currentWidget){
