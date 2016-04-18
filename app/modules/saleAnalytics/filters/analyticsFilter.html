@@ -5,19 +5,16 @@
     <div class="col-md-12">
         <div class="row m-b-5">
             <div class="col-md-12">
-                <!--<h6>{{'Filters.FilterBy' | i18next}}</h6>-->
-
 
                 <!-- User Filter -->
                 <div class="pull-left no-padding">
-                    <ng-include src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html?v='+cacheBuster"></ng-include>
+                    <ng-include
+                            src="'app/modules/saleAnalytics/filters/userFilter/userFilter.html?v='+cacheBuster"></ng-include>
                 </div>
                 <!-- End User Filter -->
 
-
                 <!-- Date Filter -->
                 <div class="SalesAnalyticsDateFilter">
-
                     <ul class="nav navbar-nav m-t-10">
                         <li>
                             <span class="pull-left date-range m-r-10 m-t-5 inline">
@@ -26,11 +23,11 @@
                             <div class="input-group input-group-sm"
                                  style="width:200px; margin-bottom: 4px; float:left">
                                 <input id="myDateRangePicker"
-                                        date-range-picker
-                                        class="form-control date-picker"
-                                        type="text"
-                                        ng-model="datePicker.date"
-                                        options="datePicker.opts" />
+                                       date-range-picker
+                                       class="form-control date-picker"
+                                       type="text"
+                                       ng-model="datePicker.date"
+                                       options="datePicker.opts"/>
                                 <div class="input-group-btn">
                                     <button type="button"
                                             class="btn btn-sm btn-default"
@@ -43,8 +40,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- End Date Filter -->
-
+                <!-- end Date Filter -->
 
             </div>
         </div>
