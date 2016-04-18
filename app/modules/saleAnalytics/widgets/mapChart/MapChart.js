@@ -1,4 +1,4 @@
-/* global MarkerClusterer */
+/* global MarkerClusterer, google */
 
 define([
     'jquery',
@@ -149,26 +149,6 @@ define([
         }
     };
 
-    /*MapChart.prototype.createPointMap_ = function (data) {
-        var self = this;
-        this.markers = [];
-
-        data.forEach(function (c) {
-            var latLng = self.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
-
-            var marker = self.mapService.createMarker({
-                position: latLng,
-                title: ''
-            });
-            self.markers.push(marker);
-        });
-        self.markerClusterer = new MarkerClusterer(self.map, self.markers, {
-            maxZoom: 15,
-            gridSize: 50
-        });
-    };*/
-
-
     MapChart.prototype.createUserMap = function (data) {
         var self = this;
 
@@ -185,7 +165,7 @@ define([
             if (!image){
                 image = defaultImageUrl;
             } else {
-              cssImgRules += 'img[src="'+ image +'"]{ border-radius:16px!important;border:1px solid #000 !important; }';
+              cssImgRules += '.gm-style img[src="'+ image +'"]{ border-radius:16px!important; }';
             }
 
             var coordinate = self.mapService.getLatLng(parseFloat(r.Latitude), parseFloat(r.Longitude));
@@ -332,18 +312,20 @@ define([
         var decoratedData = self.decorateHeatMapData(data);
         var maxIntensity = 0;
         decoratedData.forEach(function (c) {
-            if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90){
-                return;
+            /*if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 91) { // could be 90.45
+              window.console.warn( "(Lat:"+ c.Latitude +", Lng"+ c.Longitude +")");
+              return;
+            }*/
+            if (c.Latitude !== null && c.Latitude !== undefined && c.Latitude !== "0" && c.Longitude !== null && c.Longitude !== undefined && c.Longitude !== "0") {
+              var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
+              var coordWeight = {
+                  location: coord,
+                  weight: c.Activity
+              };
+              maxIntensity = Math.max(maxIntensity, c.Activity);
+              heatMapData.push(coordWeight);
+              latlngbounds.extend(coord);
             }
-
-            var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude)),
-            coordWeight = {
-                location: coord,
-                weight: c.Activity
-            };
-            maxIntensity = Math.max(maxIntensity, c.Activity);
-            heatMapData.push(coordWeight);
-            latlngbounds.extend(coord);
         });
 
         self.heatMap = self.mapService.createHeatMap({
