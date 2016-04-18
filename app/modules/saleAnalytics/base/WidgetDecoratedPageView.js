@@ -109,6 +109,51 @@ define([
         );
     };
 
+  WidgetDecoratePageView.prototype.setupStickyFilters_winter = function () {
+    var navBarHeight = 0;
+    var navBarLeft = 0;
+    var activateFixedFiltersScroll = 115;
+    //var contentDiv = $(".content.web4");
+    var onScroll = function(evt) {
+      if ($(this).scrollTop() > activateFixedFiltersScroll) {
+        if( $(".content.web4").css("margin-left") === '0px' ){
+          navBarHeight = 50;
+          navBarLeft = 0;
+        } else {
+          navBarHeight = 0;
+          navBarLeft = 50;
+        }
+        $(".sales-filters-div").css({
+          position: "fixed",
+          zIndex: 1030,
+          backgroundColor: "#fff",
+          top: navBarHeight,
+          left: navBarLeft,
+          right: 0,
+          paddingLeft: "15px", paddingRight: "15px",
+          borderBottom: "1px solid #ccc"
+        });
+      } else {
+        $(".sales-filters-div").css({
+          position: "relative",
+          top: "auto", left: "auto", right: "auto",
+          zIndex: "auto",
+          backgroundColor: "transparent",
+          paddingLeft: "0", paddingRight: "0",
+          borderBottom: "none"
+        });
+      }
+    };
+    $(window).scroll(onScroll);
+
+    this.$scope.$on(
+      "$destroy",
+      function handleDestroyEvent() {
+        $(window).off("scroll", onScroll);
+      }
+    );
+  };
+
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
         //self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
