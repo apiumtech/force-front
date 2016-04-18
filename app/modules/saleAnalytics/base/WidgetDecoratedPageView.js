@@ -38,7 +38,7 @@ define([
 
         var hash = window.location.hash.split('#')[1];
         if( hash.indexOf("/analytics/reports") === -1 ){
-            this.setupStickyFilters();
+            this.setupStickyFilters_winter();
         }
 
         $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
@@ -64,6 +64,52 @@ define([
     });
 
     WidgetDecoratePageView.prototype.setupStickyFilters = function () {
+        var contentDefaultMarginTop = parseInt($(".content").css("margin-top"), 10);
+        var navBarHeight = 60;
+        var marginTopAfterFixed = 70;
+        var activateFixedFiltersScroll = 110;
+        var onScroll = function(evt) {
+            if ($(this).scrollTop() > activateFixedFiltersScroll) {
+                $(".sales-filters-div").css("top", navBarHeight + "px");
+                $(".content").css("margin-top", marginTopAfterFixed+"px");
+                $(".sales-filters-div").css({
+                    position: "fixed",
+                    zIndex: 1030,
+                    backgroundColor: "white",
+                    left: 0, right: 0,
+                    paddingLeft: "15px", paddingRight: "15px"
+                });
+                $(".sales-filters-div .line-border").css({
+                    marginLeft: "-15px",
+                    marginRight: "-15px"
+                });
+            } else {
+                $(".content").css("margin-top", contentDefaultMarginTop+"px");
+                $(".sales-filters-div").css({
+                    position: "relative",
+                    top: "auto",
+                    zIndex: "auto",
+                    backgroundColor: "transparent",
+                    left: "auto", right: "auto",
+                    paddingLeft: "0", paddingRight: "0"
+                });
+                $(".sales-filters-div .line-border").css({
+                    marginLeft: "0",
+                    marginRight: "0"
+                });
+            }
+        };
+        $(window).scroll(onScroll);
+
+        this.$scope.$on(
+            "$destroy",
+            function handleDestroyEvent() {
+                $(window).off("scroll", onScroll);
+            }
+        );
+    };
+
+    WidgetDecoratePageView.prototype.setupStickyFilters_winter = function () {
         var navBarHeight = 0;
         var navBarLeft = 0;
         var activateFixedFiltersScroll = 115;
