@@ -1,4 +1,4 @@
-/* global MarkerClusterer */
+/* global MarkerClusterer, google */
 
 define([
     'jquery',
@@ -312,18 +312,20 @@ define([
         var decoratedData = self.decorateHeatMapData(data);
         var maxIntensity = 0;
         decoratedData.forEach(function (c) {
-            if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 90){
-                return;
+            /*if (Math.abs(c.Latitude) > 180 || Math.abs(c.Longitude) > 91) { // could be 90.45
+              window.console.warn( "(Lat:"+ c.Latitude +", Lng"+ c.Longitude +")");
+              return;
+            }*/
+            if (c.Latitude !== null && c.Latitude !== undefined && c.Latitude !== "0" && c.Longitude !== null && c.Longitude !== undefined && c.Longitude !== "0") {
+              var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude));
+              var coordWeight = {
+                  location: coord,
+                  weight: c.Activity
+              };
+              maxIntensity = Math.max(maxIntensity, c.Activity);
+              heatMapData.push(coordWeight);
+              latlngbounds.extend(coord);
             }
-
-            var coord = self.mapService.getLatLng(parseFloat(c.Latitude), parseFloat(c.Longitude)),
-            coordWeight = {
-                location: coord,
-                weight: c.Activity
-            };
-            maxIntensity = Math.max(maxIntensity, c.Activity);
-            heatMapData.push(coordWeight);
-            latlngbounds.extend(coord);
         });
 
         self.heatMap = self.mapService.createHeatMap({
