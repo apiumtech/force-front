@@ -24,12 +24,6 @@ define([
         this.event.onLoaded();
     };
 
-    IntensityView.prototype.updateWidgetIndex = function (movingElement, widget) {
-        var self = this;
-
-        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
-    };
-
     IntensityView.prototype.configureEvents = function(){
         var self = this;
         self.__configureEvents.call(this);
