@@ -6,6 +6,7 @@ define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
     'modules/saleAnalytics/intensity/IntensityPresenter'
 ], function (WidgetDecoratedPageView, IntensityPresenter) {
+  'use strict';
 
     function IntensityView($scope, $presenter) {
         $presenter = $presenter || new IntensityPresenter();
