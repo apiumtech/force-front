@@ -159,35 +159,6 @@ define([
         );
     };
 
-    /*UserFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(
-            data,
-            "children",
-            "Name",
-            searchQuery,
-            "Id",
-            true,
-            "ParentId",
-            "Id",
-            -1
-        );
-    };
-
-    UserFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(
-            data,
-            "children",
-            "Name",
-            searchQuery,
-            "Id",
-            true,
-            "ParentId",
-            "Id",
-            -1
-        );
-
-    };*/
-
     UserFilterModel.ENVIRONMENT = ENVIRONMENT;
     UserFilterModel.TEAM = TEAM;
 
