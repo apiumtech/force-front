@@ -1,11 +1,13 @@
 define([
-    'q'
-], function (Q) {
+    'q',
+    'underscore'
+], function (Q, _) {
+  'use strict';
 
     function WidgetDecoratedPageModel(widgetService, storageService) {
-        this.widgetService = widgetService;
-        this.storageService = storageService;
-        this.pageName = null;
+      this.widgetService = widgetService;
+      this.storageService = storageService;
+      this.pageName = null;
     }
 
     WidgetDecoratedPageModel.inherits(Object, {
@@ -19,8 +21,9 @@ define([
         },
         widgetsList: {
             get: function () {
-                if (this.modelData && this.modelData.body)
-                    return this.modelData.body;
+                if (this.modelData && this.modelData.body) {
+                  return this.modelData.body;
+                }
                 return [];
             },
             set: function (value) {
@@ -31,8 +34,9 @@ define([
 
     WidgetDecoratedPageModel.prototype._getWidgets = function () {
         var self = this;
-        if (this.pageName == null)
-            throw new Error("Page Name is not defined");
+        if (this.pageName === null) {
+          throw new Error("Page Name is not defined");
+        }
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
@@ -60,6 +64,9 @@ define([
 
         var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
+
+        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);
+
         self.storageService.store(pageLayoutStorageKey, self.modelData, true);
 
         self.widgetService.updatePageWidgets(self.modelData)
@@ -81,8 +88,9 @@ define([
             return widget.widgetId === item.widgetId;
         });
 
-        if (widgetToMove == null)
-            throw new Error("Requesting widget doesn't exist in widgets list");
+        if (widgetToMove === null){
+          throw new Error("Requesting widget doesn't exist in widgets list");
+        }
 
         widgetToMove.position.size = widget.position.size;
         var oldIndex = _.indexOf(self.widgetsList, widgetToMove);
