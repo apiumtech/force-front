@@ -4,7 +4,7 @@
 define(function () {
     'use strict';
 
-    var apiVersion = "1.3";
+    var apiVersion = "1.4";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     if(window.location.hostname  === 'webpre.forcemanager.net') {
       baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;

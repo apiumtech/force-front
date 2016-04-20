@@ -86,6 +86,14 @@ define([
         data.forEach(function(item){
             item.visible = true; // needed for the tree to display correctltly
             item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
+            var parentFound = false;
+            for(var i=0; i<data.length; i++) {
+              if(item.ParentId === -1 || data[i].Id === item.ParentId) {
+                parentFound = true;
+                break;
+              }
+            }
+            item.ParentId = parentFound ? item.ParentId : -1;
         });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
