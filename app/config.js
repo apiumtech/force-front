@@ -65,6 +65,10 @@ getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUs
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
+        changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
+        changeWidgetVisibilityToVisible: '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
+        changeWidgetVisibilityToHidden: '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
+
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',

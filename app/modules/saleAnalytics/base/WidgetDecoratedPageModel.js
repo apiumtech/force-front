@@ -62,14 +62,42 @@ define([
     WidgetDecoratedPageModel.prototype._updateWidgets = function () {
         var self = this;
 
-        var deferred = self.defer();
+        //var deferred = self.defer();
         var pageLayoutStorageKey = "pageLayout_" + self.pageName;
-
-        var pageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);
+        var oldPageLayoutData = self.storageService.retrieve(pageLayoutStorageKey, true);
 
         self.storageService.store(pageLayoutStorageKey, self.modelData, true);
 
-        self.widgetService.updatePageWidgets(self.modelData)
+        var oldWidget;
+        var newWidget;
+        var promises = [];
+        var position;
+
+        // widget order sync
+        for(position = 0; position < oldPageLayoutData.body.length; position++ ) {
+          oldWidget = oldPageLayoutData.body[position];
+          newWidget = self.modelData.body[position];
+          if( oldWidget.widgetId !== newWidget.widgetId ) {
+            promises.push(
+              self.widgetService.updateWidgetPosition( newWidget.widgetId, position )
+            );
+          }
+        }
+
+        // widget visibility sync
+        for( position = 0; position < oldPageLayoutData.body.length; position++ ) {
+          oldWidget = oldPageLayoutData.body[position];
+          newWidget = _.findWhere(self.modelData.body, {widgetId: oldWidget.widgetId});
+          if( oldWidget.isActive !== newWidget.isActive ) {
+            promises.push(
+              self.widgetService.updateWidgetVisibility( newWidget.widgetId, newWidget.isActive )
+            );
+          }
+        }
+
+        return Q.all(promises);
+
+      /*self.widgetService.updatePageWidgets(self.modelData)
             .then(function (data) {
                 self.storageService.store(pageLayoutStorageKey, data.data, true);
                 self.modelData = data.data;
@@ -79,7 +107,7 @@ define([
                 deferred.reject(error);
             });
 
-        return deferred.promise;
+        return deferred.promise;*/
     };
 
     WidgetDecoratedPageModel.prototype.moveWidget = function (widget, newIndex) {
