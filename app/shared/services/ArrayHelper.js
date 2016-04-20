@@ -105,30 +105,6 @@ define([
         return makeTree(allNodes, parentKey, elementIdentifier, nestedProp, rootValue);
     };
 
-    /*var queryTree__ = function (array, nestedProp, propToQuery, queryString, sortBy, makeTreeAfterSearch, parentKey, elementIdentifier, rootValue) {
-        var newArray = clone(array);
-        var flattened = flatten(newArray, nestedProp);
-
-        var sortFunction = function (nodeBefore, nodeAfter) {
-            return nodeBefore[sortBy] - nodeAfter[sortBy];
-        };
-
-        var queriedNodes = flattened.filter(function (node) {
-            return node[propToQuery].toLowerCase().indexOf(queryString.toLowerCase()) > -1;
-        }).sort(sortFunction);
-
-        if (!makeTreeAfterSearch)
-            return queriedNodes;
-
-        var allNodes = [];
-        queriedNodes.forEach(function (node) {
-            allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
-        });
-        allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
-
-        return makeTree(allNodes, parentKey, elementIdentifier, nestedProp, rootValue);
-    };*/
-
     var clone = function (array) {
         return JSON.parse(JSON.stringify(array));
     };
