@@ -1,8 +1,9 @@
 define([
     'modules/saleAnalytics/reports/ReportTabBaseView',
     'modules/saleAnalytics/reports/allReport/AllReportPresenter',
-    'shared/services/ArrayHelper'
-], function (ReportTabBaseView, AllReportPresenter, ArrayHelper) {
+    'shared/services/ArrayHelper',
+    'underscore'
+], function (ReportTabBaseView, AllReportPresenter, ArrayHelper, _) {
     'use strict';
 
     function AllReportView($scope, $presenter, eventBus) {
@@ -59,11 +60,20 @@ define([
               );
           });
           self.reports = arrayHelper.makeTree(filtered, 'IdParent', 'Id', 'children', -1);
-          // open all folders
-          flattened.filter(function(report) {
-            return report.Type === 'folder';
-          }).forEach(function(report){
-            self.openReport(report.Id);
+
+          // open all search results parent folders
+          filtered.filter(function(report) {
+            return report.Type === 'report';
+          })
+          .forEach(function(report) {
+            var nodeHasParent = function(node){
+              return node && node.IdParent !== -1;
+            };
+            var currentNode = report;
+            while(nodeHasParent(currentNode)){
+              self.openReport(currentNode.IdParent);
+              currentNode = _.findWhere(filtered, {Id:currentNode.IdParent});
+            }
           });
         });
 
