@@ -28,6 +28,12 @@ define([
             model.updateWidgets()
                 .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
         };
+
+        view.event.onWidgetVisibilityToggled = function (widget, isActive) {
+            model.changeWidgetVisibility(widget, isActive);
+            model.updateWidgets()
+                .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
+        };
     };
 
     DistributionPresenter.newInstance = function () {

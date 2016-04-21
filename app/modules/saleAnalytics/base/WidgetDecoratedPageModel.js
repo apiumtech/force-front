@@ -96,18 +96,6 @@ define([
         }
 
         return Q.all(promises);
-
-      /*self.widgetService.updatePageWidgets(self.modelData)
-            .then(function (data) {
-                self.storageService.store(pageLayoutStorageKey, data.data, true);
-                self.modelData = data.data;
-                deferred.resolve(data.data);
-            },
-            function (error) {
-                deferred.reject(error);
-            });
-
-        return deferred.promise;*/
     };
 
     WidgetDecoratedPageModel.prototype.moveWidget = function (widget, newIndex) {
@@ -123,6 +111,14 @@ define([
         widgetToMove.position.size = widget.position.size;
         var oldIndex = _.indexOf(self.widgetsList, widgetToMove);
         self.widgetsList.splice(newIndex, 0, self.widgetsList.splice(oldIndex, 1)[0]);
+    };
+
+    WidgetDecoratedPageModel.prototype.changeWidgetVisibility = function (widget, isActive) {
+        var self = this;
+        var currentWidget = _.findWhere(self.widgetsList, {widgetId: widget.widgetId});
+        if(currentWidget){
+            currentWidget.isActive = isActive;
+        }
     };
 
     WidgetDecoratedPageModel.prototype.updateWidgets = function () {
