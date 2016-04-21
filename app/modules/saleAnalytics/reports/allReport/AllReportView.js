@@ -59,6 +59,12 @@ define([
               );
           });
           self.reports = arrayHelper.makeTree(filtered, 'IdParent', 'Id', 'children', -1);
+          // open all folders
+          flattened.filter(function(report) {
+            return report.Type === 'folder';
+          }).forEach(function(report){
+            self.openReport(report.Id);
+          });
         });
 
         self.reportEventBus.onSearchDeactivated(function(){
