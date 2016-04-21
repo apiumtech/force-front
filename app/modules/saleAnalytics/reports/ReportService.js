@@ -2,8 +2,9 @@ define([
     'shared/services/ajax/AuthAjaxService',
     'modules/saleAnalytics/reports/ReportFakeData',
     'config',
-    'shared/services/ajax/CQRSUnwrapper'
-], function (AjaxService, ReportFakeData, Configuration, CQRSUnwrapper) {
+    'shared/services/ajax/CQRSUnwrapper',
+    'q'
+], function (AjaxService, ReportFakeData, Configuration, CQRSUnwrapper, Q) {
     'use strict';
 
     function ReportService(ajaxService) {
@@ -93,6 +94,7 @@ define([
     };
 
     ReportService.prototype.searchReport = function(query){
+
         var url = Configuration.api.searchReport.format(query);
 
         var params = {
@@ -103,6 +105,11 @@ define([
         };
 
         return CQRSUnwrapper.unwrapData( this.authAjaxService.rawAjaxRequest(params) );//.then(this.decorateServerData.bind(this));
+
+
+        /*return Q.fcall(function () {
+            return [];
+        });*/
     };
 
     ReportService.prototype.getReportListOfValues = function(list){
