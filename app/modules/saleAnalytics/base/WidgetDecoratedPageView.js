@@ -113,7 +113,6 @@ define([
         var navBarHeight = 0;
         var navBarLeft = 0;
         var activateFixedFiltersScroll = 115;
-        //var contentDiv = $(".content.web4");
         var onScroll = function(evt) {
             if ($(this).scrollTop() > activateFixedFiltersScroll) {
                 if( $(".content.web4").css("margin-left") === '0px' ){
@@ -156,7 +155,6 @@ define([
 
     WidgetDecoratePageView.prototype.configureEvents = function () {
         var self = this;
-        //self.eventBus.onRemovingWidget(self.onRemovingWidget.bind(self));
 
         self.widgetAdministrationEventBus.onRequestWidgetsList( function(){self.onRequestWidgetsList(); });
         self.widgetAdministrationEventBus.onMoveWidgetToIndex( function(widget, index){self.onMoveWidgetToIndex(widget, index);} );
@@ -187,8 +185,6 @@ define([
         var anyIsExpanded = false;
         smallWidgets.each(function() {
             anyIsExpanded = $(this).find('.panel-expand').length > 0 || anyIsExpanded;
-            //maxHeight = Math.max( $(this).height(), maxHeight );
-
             var totalHeight = 0;
             var heading = $(this).find('.panel-heading');
             var panelBody = $(this).find('.panel-body');
@@ -227,11 +223,7 @@ define([
     };
 
     WidgetDecoratePageView.prototype._toggleActivateWidget = function (widget, isActive) {
-        var self = this;
-        var currentWidget = _.findWhere(self.widgets, {widgetId: widget.widgetId});
-        if(currentWidget){
-            currentWidget.isActive = isActive;
-        }
+        this.event.onWidgetVisibilityToggled(widget, isActive);
     };
 
     WidgetDecoratePageView.prototype.onDisposing = function () {
@@ -245,13 +237,6 @@ define([
         clearInterval(self.adjustWidgetSizesInterval);
         self.disposer();
     };
-
-    /*WidgetDecoratePageView.prototype.onRemovingWidget = function(widgetId){
-        var self = this;
-        self.widgets = self.widgets.filter(function(widget){
-           return widget.widgetId !== widgetId;
-        });
-    };*/
 
     WidgetDecoratePageView.prototype.decorateWidget = function (widgetsData) {
         var self = this;

@@ -86,6 +86,14 @@ define([
         data.forEach(function(item){
             item.visible = true; // needed for the tree to display correctltly
             item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
+            var parentFound = false;
+            for(var i=0; i<data.length; i++) {
+              if(item.ParentId === -1 || data[i].Id === item.ParentId) {
+                parentFound = true;
+                break;
+              }
+            }
+            item.ParentId = parentFound ? item.ParentId : -1;
         });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
@@ -150,35 +158,6 @@ define([
             -1
         );
     };
-
-    /*UserFilterModel.prototype.getFilteredDataForEnvironment = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(
-            data,
-            "children",
-            "Name",
-            searchQuery,
-            "Id",
-            true,
-            "ParentId",
-            "Id",
-            -1
-        );
-    };
-
-    UserFilterModel.prototype.getFilteredDataForHierarqhy = function (data, searchQuery) {
-        return this.arrayHelper.queryTree(
-            data,
-            "children",
-            "Name",
-            searchQuery,
-            "Id",
-            true,
-            "ParentId",
-            "Id",
-            -1
-        );
-
-    };*/
 
     UserFilterModel.ENVIRONMENT = ENVIRONMENT;
     UserFilterModel.TEAM = TEAM;

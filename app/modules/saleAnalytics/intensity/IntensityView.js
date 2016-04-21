@@ -6,6 +6,7 @@ define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView',
     'modules/saleAnalytics/intensity/IntensityPresenter'
 ], function (WidgetDecoratedPageView, IntensityPresenter) {
+  'use strict';
 
     function IntensityView($scope, $presenter) {
         $presenter = $presenter || new IntensityPresenter();
@@ -21,12 +22,6 @@ define([
     IntensityView.prototype.show = function () {
         this.__base__.show.call(this);
         this.event.onLoaded();
-    };
-
-    IntensityView.prototype.updateWidgetIndex = function (movingElement, widget) {
-        var self = this;
-
-        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };
 
     IntensityView.prototype.configureEvents = function(){

@@ -4,13 +4,11 @@
 define(function () {
     'use strict';
 
-    var apiVersion = "1.3";
+    var apiVersion = "1.4";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
     if(window.location.hostname  === 'webpre.forcemanager.net') {
       baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
-    } else if(window.location.hostname.indexOf('webtest') > -1 ) {
-      // nada
-    } else if(window.location.hostname  === 'websta.forcemanager.net' || window.location.hostname.indexOf('127.0.0.1') > -1) {
+    } else if(window.location.hostname.indexOf('127.0.0.1') > -1) {
       baseUrl = "https://backenddev.forcemanager.net";
     }
 
@@ -65,6 +63,10 @@ getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUs
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
 
         widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
+        changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
+        changeWidgetVisibilityToVisible: '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
+        changeWidgetVisibilityToHidden: '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
+
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',

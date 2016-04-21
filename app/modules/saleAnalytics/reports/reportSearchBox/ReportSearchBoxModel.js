@@ -1,7 +1,8 @@
 define([
     'shared/services/ajax/AuthAjaxService',
-    'modules/saleAnalytics/reports/ReportService'
-], function (AjaxService, ReportService) {
+    'modules/saleAnalytics/reports/ReportService',
+    'q'
+], function (AjaxService, ReportService, Q) {
     'use strict';
 
     function ReportSearchBoxModel(ajaxService, reportService) {
@@ -10,7 +11,10 @@ define([
     }
 
     ReportSearchBoxModel.prototype.search = function(query){
-        return this.reportService.searchReport(query);
+      //return this.reportService.searchReport(query);
+      return Q.fcall(function () {
+          return [];
+      });
     };
 
     return ReportSearchBoxModel;

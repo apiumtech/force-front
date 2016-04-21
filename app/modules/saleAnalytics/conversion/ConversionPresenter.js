@@ -14,7 +14,7 @@ define([
         var view = $view,
             model = this.model;
 
-        if (!view.event) view.event = {};
+        if (!view.event) {view.event = {};}
         view.event.onLoaded = function () {
             model.getWidgets()
                 .then(view.onWidgetsLoaded.bind(view), view.onWidgetsLoadFail.bind(view));
@@ -26,6 +26,12 @@ define([
 
         view.event.onWidgetMoved = function (widget, newIndex) {
             model.moveWidget(widget, newIndex);
+            model.updateWidgets()
+                .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
+        };
+
+        view.event.onWidgetVisibilityToggled = function (widget, isActive) {
+            model.changeWidgetVisibility(widget, isActive);
             model.updateWidgets()
                 .then(view.onWidgetsUpdated.bind(view), view.onWidgetsUpdatedFail.bind(view));
         };

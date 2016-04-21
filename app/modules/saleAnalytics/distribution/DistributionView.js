@@ -26,30 +26,7 @@ define([
 
     DistributionView.prototype.configureEvents = function () {
         var self = this;
-
         self.__configureEvents.call(this);
-
-        //self.fn.makeFullSize = function (movingElement, widget) {
-        //    widget.position.size = 12;
-        //};
-
-        self.fn.highlightDroppableZones = function () {
-            $(self.fixedAreaSelector).addClass(self.dropZoneClassName);
-        };
-
-        self.fn.removeHighlightDroppableZones = function () {
-            $(self.fixedAreaSelector).removeClass(self.dropZoneClassName);
-        };
-
-        //self.fn.moveWidgetToContainer = function (movingElement, widget) {
-        //    self._moveElementToContainer(movingElement);
-        //    self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
-        //};
-    };
-
-    DistributionView.prototype._moveElementToContainer = function (movingElement) {
-        var self = this;
-        $(movingElement.item).detach().prependTo(self.widgetContainerSelector);
     };
 
     DistributionView.prototype.onWidgetsUpdated = function (data) {
@@ -58,17 +35,6 @@ define([
 
     DistributionView.prototype.onWidgetsUpdatedFail = function (error) {
         this.showError(error);
-    };
-
-    DistributionView.prototype.updateWidgetSize = function (movingElement, widget) {
-        var self = this;
-        //var element = $(movingElement.item);
-
-        /*if (element.is(".col-md-12") && (element.next().is(".col-md-6") || element.prev().is(".col-md-6"))) {
-            widget.position.size = 6;
-        }*/
-
-        self.event.onWidgetMoved(widget, self.getElementIndex(movingElement.item));
     };
 
     DistributionView.newInstance = function ($scope, $presenter, $viewRepAspect, $logErrorAspect) {

@@ -6,8 +6,9 @@ define([
     'shared/services/ajax/FakeAjaxService',
     'shared/services/ajax/AuthAjaxService',
     'config',
-    'q'
-], function (FakeAjaxService, AjaxService, Configuration, Q) {
+    'q',
+    'underscore'
+], function (FakeAjaxService, AjaxService, Configuration, Q, _) {
     'use strict';
 
     function WidgetService(ajaxService) {
@@ -41,7 +42,50 @@ define([
         return deferred.promise;
     };
 
-    WidgetService.prototype.updatePageWidgets = function (data) {
+    WidgetService.prototype.updateWidgetPosition = function (widgetId, position) {
+      var deferred = Q.defer();
+      var params = {
+          url: Configuration.api.changeWidgetOrder,
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          accept: 'application/json',
+          data: {
+            id: widgetId,
+            position: position
+          }
+      };
+      this.ajaxService.rawAjaxRequest(params).then(
+          function(res){deferred.resolve({});},
+          function (err) {deferred.reject(err);}
+      );
+      return deferred.promise;
+    };
+
+    WidgetService.prototype.updateWidgetVisibility = function (widgetId, isVisible) {
+      var deferred = Q.defer();
+      var url = Configuration.api.changeWidgetVisibilityToVisible;
+      if(!isVisible){
+        url = Configuration.api.changeWidgetVisibilityToHidden;
+      }
+      var params = {
+          url: url,
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          accept: 'application/json',
+          data: {
+            id: widgetId
+          }
+      };
+      this.ajaxService.rawAjaxRequest(params).then(
+          function(res){deferred.resolve({});},
+          function (err) {deferred.reject(err);}
+      );
+      return deferred.promise;
+    };
+
+    /*WidgetService.prototype.updatePageWidgets = function (data) {
 
         //TODO: request updates to server when having real API
         var deferred = Q.defer();
@@ -49,7 +93,7 @@ define([
         return deferred.promise;
 
         //return this.ajaxService.rawAjaxRequest();
-    };
+    };*/
 
     WidgetService.newInstance = function (ajaxService) {
         var _ajaxService = ajaxService || AjaxService.newInstance();

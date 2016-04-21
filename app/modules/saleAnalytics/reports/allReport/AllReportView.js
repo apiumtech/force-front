@@ -1,8 +1,9 @@
 define([
     'modules/saleAnalytics/reports/ReportTabBaseView',
     'modules/saleAnalytics/reports/allReport/AllReportPresenter',
-    'shared/services/ArrayHelper'
-], function (ReportTabBaseView, AllReportPresenter, ArrayHelper) {
+    'shared/services/ArrayHelper',
+    'underscore'
+], function (ReportTabBaseView, AllReportPresenter, ArrayHelper, _) {
     'use strict';
 
     function AllReportView($scope, $presenter, eventBus) {
@@ -38,7 +39,7 @@ define([
         var self = this;
 
         self.fn.loadReports = function (isOpeningFolder) {
-            if (isOpeningFolder) return;
+            if (isOpeningFolder){return;}
             self.isLoading = true;
             self.event.onReloading();
         };
@@ -46,16 +47,49 @@ define([
         self.reportEventBus.onAllReportTabSelected(self.fn.loadReports);
         self.reportEventBus.onFolderReportSelected(self.openReport.bind(self));
         self.reportEventBus.onReportSelected(self.openReport.bind(self));
+
+        self.reportEventBus.onSearchActivated(function(searchQuery){
+          var arrayHelper = self.arrayHelper;
+          var cloned = JSON.parse(self.serializedReports);
+          var flattened = arrayHelper.flatten(cloned, 'children');
+          //self.allReportsFlattened = arrayHelper.clone(flattened);
+          var filtered = flattened.filter(function(report){
+            return report.Type === 'folder' ||
+              (report.Type === 'report' &&
+                (report.Description.indexOf(searchQuery) > -1 || report.Name.indexOf(searchQuery) > -1)
+              );
+          });
+          self.reports = arrayHelper.makeTree(filtered, 'IdParent', 'Id', 'children', -1);
+
+          // open all search results parent folders
+          filtered.filter(function(report) {
+            return report.Type === 'report';
+          })
+          .forEach(function(report) {
+            var nodeHasParent = function(node){
+              return node && node.IdParent !== -1;
+            };
+            var currentNode = report;
+            while(nodeHasParent(currentNode)){
+              self.openReport(currentNode.IdParent);
+              currentNode = _.findWhere(filtered, {Id:currentNode.IdParent});
+            }
+          });
+        });
+
+        self.reportEventBus.onSearchDeactivated(function(){
+          self.reports = JSON.parse(self.serializedReports);
+        });
     };
 
     AllReportView.prototype.onReportsLoaded = function (reports) {
-
+        this.serializedReports = JSON.stringify(reports);
         this.reports = reports;
         this.isLoading = false;
     };
 
     AllReportView.prototype.openReport = function (id) {
-        if (!id) return;
+        if (!id){return;}
 
         var self = this;
         var arrayHelper = self.arrayHelper;
@@ -70,11 +104,11 @@ define([
         var parents = arrayHelper.findParents(flattened, "IdParent", "Id", id, -1);
 
         parents.forEach(function (p) {
-            if (p.Id === id && p.Type == "folder") {
+            if (p.Id === id && p.Type === "folder") {
                 p.selected = true;
                 p.isOpen = true;
             }
-            else if(p.Id === id && p.Type == "report"){
+            else if(p.Id === id && p.Type === "report"){
                 p.selected = true;
             }
             else {
@@ -87,7 +121,7 @@ define([
 
 
     AllReportView.prototype.showError = function (error) {
-        console.error(error);
+        window.console.error(error);
     };
 
     AllReportView.newInstance = function ($scope, $presenter, viewRepaintAspect, logErrorAspect) {
