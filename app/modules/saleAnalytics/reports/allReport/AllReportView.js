@@ -48,67 +48,40 @@ define([
         self.reportEventBus.onFolderReportSelected(self.openReport.bind(self));
         self.reportEventBus.onReportSelected(self.openReport.bind(self));
 
-        /*self.reportEventBus.onSearchActivated(function(searchQuery){
-          var arrayHelper = self.arrayHelper;
-
-          var cloned = JSON.parse(self.serializedReports);
-          var flattened = arrayHelper.flatten(cloned, 'children');
-
-          var filtered = flattened.filter(function(report){
-            return report.Type === 'folder' ||
-              (report.Type === 'report' &&
-                (report.Description.indexOf(searchQuery) > -1 || report.Name.indexOf(searchQuery) > -1)
-              );
-          });
-
-          self.reports = arrayHelper.makeTree(filtered, 'IdParent', 'Id', 'children', -1);
-
-          // open all search results parent folders
-          filtered.filter(function(report) {
-            return report.Type === 'report';
-          })
-          .forEach(function(report) {
-            var nodeHasParent = function(node){
-              return node && node.IdParent !== -1;
-            };
-            var currentNode = report;
-            while(nodeHasParent(currentNode)){
-              self.openReport(currentNode.IdParent);
-              currentNode = _.findWhere(filtered, {Id:currentNode.IdParent});
-            }
-          });
-        });*/
-
         self.reportEventBus.onSearchActivated(function(searchQuery){
           var arrayHelper = self.arrayHelper;
 
-          var cloned = JSON.parse(self.serializedReports);
-          var flattened = arrayHelper.flatten(cloned, 'children');
+          try{
+              var cloned = JSON.parse(self.serializedReports);
+              var flattened = arrayHelper.flatten(cloned, 'children');
 
-          var matchingReports = flattened.filter(function(report){
-            return report.Type === 'report' && (report.Description.indexOf(searchQuery) > -1 || report.Name.indexOf(searchQuery) > -1);
-          });
+              var matchingReports = flattened.filter(function(report){
+                return report.Type === 'report' && (report.Description.indexOf(searchQuery) > -1 || report.Name.indexOf(searchQuery) > -1);
+              });
 
-          var matchingReportsFolders = [];
-          matchingReports.forEach(function(report) {
-            var nodeHasParent = function(node){
-              return node && node.IdParent !== -1;
-            };
-            var currentNode = report;
-            while(nodeHasParent(currentNode)){
-              currentNode = _.findWhere(flattened, {Id:currentNode.IdParent});
-              if(matchingReportsFolders.indexOf(currentNode) === -1){
-                matchingReportsFolders.push(currentNode);
-              }
-            }
-          });
+              var matchingReportsFolders = [];
+              matchingReports.forEach(function(report) {
+                var nodeHasParent = function(node){
+                  return node && node.IdParent !== -1;
+                };
+                var currentNode = report;
+                while(nodeHasParent(currentNode)){
+                  currentNode = _.findWhere(flattened, {Id:currentNode.IdParent});
+                  if(matchingReportsFolders.indexOf(currentNode) === -1){
+                    matchingReportsFolders.push(currentNode);
+                  }
+                }
+              });
 
-          self.reports = arrayHelper.makeTree(matchingReports.concat(matchingReportsFolders), 'IdParent', 'Id', 'children', -1);
+              self.reports = arrayHelper.makeTree(matchingReports.concat(matchingReportsFolders), 'IdParent', 'Id', 'children', -1);
 
-          // open all search results parent folders
-          matchingReportsFolders.forEach(function(folder) {
-            self.openReport(folder.Id);
-          });
+              // open all search results parent folders
+              matchingReportsFolders.forEach(function(folder) {
+                self.openReport(folder.Id);
+              });
+          }catch(err) {
+              self.reports = [];
+          }
         });
 
         self.reportEventBus.onSearchDeactivated(function(){
