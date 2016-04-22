@@ -1,6 +1,7 @@
 <div ng-controller="AllReportController" ng-init="fn.loadReports()"
      class="panel" ng-class="{'panel-loading': isLoading}">
     <div class="panel-body">
+
         <div class="panel-loader" ng-show="isLoading">
             <span class="spinner-small"></span>
         </div>
@@ -10,5 +11,14 @@
                 <div tree-directory="reports" tree-level="0" ng-show="reports"></div>
             </accordion>
         </div>
+
+        <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
+            <div class="empty-search">
+                <img src="assets/img/filter-icon.png" alt="" />
+                <h4>{{'commonText.NoSearchResultsMessage' | i18next}}</h4>
+                <p>{{'Reports.widenSearchMessage'  | i18next}}</p>
+            </div>
+        </div>
+
     </div>
 </div>
