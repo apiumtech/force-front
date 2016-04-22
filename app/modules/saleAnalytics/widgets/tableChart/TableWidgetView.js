@@ -8,8 +8,9 @@ define([
     'modules/widgets/BaseWidgetEventBus',
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
     'underscore',
-    'jquery'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $) {
+    'jquery',
+    'numbro'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $, numbro) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
@@ -112,6 +113,29 @@ define([
             UserTreeListEventBus.getInstance().fireSelectSingleNode({
                 Id: row.Id
             });
+        };
+
+        var decimalsFormat = function(decimals, optionalDecimals){
+          var format = '0,0';
+          if(optionalDecimals===true) {
+            format += '[.]';
+          } else {
+            format += '.';
+          }
+          decimals = decimals===undefined ? 2 : decimals;
+          while(decimals>0) {
+            format += '0';
+            decimals--;
+          }
+          return format;
+        };
+
+        self.fn.localizeFloat = function(value, nDecimals, optionalDecimals) {
+          return isNaN(value) ? '0' : numbro(value).format(decimalsFormat(nDecimals, optionalDecimals));
+        };
+
+        self.fn.localizeInt = function(value) {
+          return isNaN(value) ? '0' : numbro(value).format(decimalsFormat(0));
         };
 
         /**
