@@ -64,8 +64,8 @@ define(function () {
 
         widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
         changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
-        changeWidgetVisibilityToVisible: '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
-        changeWidgetVisibilityToHidden: '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
+        changeWidgetVisibilityToVisible: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
+        changeWidgetVisibilityToHidden: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
 
         fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
         //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
