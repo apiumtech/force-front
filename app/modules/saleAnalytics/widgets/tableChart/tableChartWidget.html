@@ -86,10 +86,12 @@
                                         </span>
                                     </a>
                                 </div>
+
                                 <div ng-switch-when="doughnut" class="text-center"
                                      style="width:100%;height:40px;overflow:hidden;background-size:contain;background-position:center;background-repeat:no-repeat;"
                                      ng-style="{'background-image': 'url('+ record.$doughnut_cellData +')'}">
                                 </div>
+
                                 <div ng-switch-when="doughnut_old" class="text-center"
                                      tooltip="{{ record[col.key] }}" tooltip-placement="bottom"
                                      style="width:42px; height:42px; overflow:hidden;margin: 1px auto;">
@@ -97,8 +99,9 @@
                                             style="width:44px; height:44px;background-size:cover;margin-left:-1px;margin-top:-1px"
                                             ng-style="{'background-image': 'url('+ record.$doughnut_cellData +')'}" />
                                 </div>
-                                <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:2 }}</p>
-                                <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ record[col.key] | number:0 }}</p>
+
+                                <p ng-switch-when="float" class="m-t-10" style="text-align:right;">{{ fn.localizeFloat(record[col.key], 2, true) }}</p>
+                                <p ng-switch-when="int" class="m-t-10" style="text-align:right;">{{ fn.localizeInt(record[col.key]) }}</p>
                                 <p ng-switch-when="seconds" class="m-t-10" style="text-align:right;">{{ fn.secondsToTime(record[col.key]) }}</p>
                                 <p ng-switch-default class="m-t-10">{{ record[col.key] }}</p>
 

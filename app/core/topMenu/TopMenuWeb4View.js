@@ -86,10 +86,10 @@ define([
         this.data.userOptions = userOptions;
         this.data.userData = this.event.getUserData();
 
-        var unreadNotifications = this.event.getUserNotifications();
+        /*var unreadNotifications = this.event.getUserNotifications();
         this.data.unreadNotifications = unreadNotifications.notifications;
         this.data.tasksForToday = unreadNotifications.tasks;
-        this.data.eventsForToday = unreadNotifications.events;
+        this.data.eventsForToday = unreadNotifications.events;*/
     };
     TopMenuWeb4View.prototype.onGetUserDataInfoError = function (error) {
         this.data.currentError = error;
