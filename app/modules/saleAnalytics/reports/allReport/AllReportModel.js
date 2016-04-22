@@ -28,7 +28,7 @@ define([
     };
 
     // winter version
-    AllReportModel.prototype._reload = function () {
+    /*AllReportModel.prototype._reload = function () {
         var self = this;
         var url = Configuration.api.reportList;
         var fmRequest = {
@@ -47,10 +47,10 @@ define([
         };
 
         return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
-    };
+    };*/
 
     // old version
-   /*AllReportModel.prototype._reload = function () {
+   AllReportModel.prototype._reload = function () {
       var self = this;
       var url = Configuration.api.getAllReports;
 
@@ -62,7 +62,7 @@ define([
       };
 
       return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
-    };*/
+    };
 
     AllReportModel.prototype.decorateServerData = function (data) {
         data = data.data;

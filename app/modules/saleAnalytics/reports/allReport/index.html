@@ -12,7 +12,7 @@
             </accordion>
         </div>
 
-        <div class="report-item-box panel" ng-show="!reports || reports.length <= 0">
+        <div class="report-item-box panel" ng-show="!isLoading && (!reports || reports.length <= 0)">
             <div class="empty-search">
                 <img src="assets/img/filter-icon.png" alt="" />
                 <h4>{{'commonText.NoSearchResultsMessage' | i18next}}</h4>
