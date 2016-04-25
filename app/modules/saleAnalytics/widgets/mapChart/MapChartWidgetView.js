@@ -99,17 +99,23 @@ define([
 
     MapChartWidgetView.prototype.refreshChart = function (data) {
         var self = this;
-        if(data && data.length){
+        /*if(data && data.length){
             self.mapData = data;
         }
 
         if(!self.mapData) {
             return;
-        }
+        }*/
+
+        self.mapData = data;
 
         self.paintChart(self.element.find('.chart-place-holder'));
         self.mapChart.clearHeatMap();
         self.mapChart.clearPointMap();
+
+        if(!self.mapData) {
+            return;
+        }
 
         if( self.$scope.selectedFilter.key === 'users' ) {
             self.mapChart.createUserMap(self.mapData);

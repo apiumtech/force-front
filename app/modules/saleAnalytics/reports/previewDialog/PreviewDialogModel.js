@@ -1,6 +1,7 @@
 define([
-    'modules/saleAnalytics/reports/ReportService'
-], function (ReportService) {
+    'modules/saleAnalytics/reports/ReportService',
+    'q'
+], function (ReportService, Q) {
     'use strict';
 
     function PreviewDialogModel(reportService) {
@@ -20,7 +21,20 @@ define([
     };
 
     PreviewDialogModel.prototype.loadTablePreview = function(report){
-        return this.reportService.loadTablePreview(report);
+        return this.reportService
+                .loadTablePreview(report)
+                .then(function(data) {
+                    data = data.data;
+                    if (data[0].hasOwnProperty('Properties')) {
+                        data = data.map(function (item) {
+                            return item.Properties;
+                        });
+                    }
+                    return data;
+                })
+                .catch(function(err){
+                    return err;
+                });
     };
 
     return PreviewDialogModel;

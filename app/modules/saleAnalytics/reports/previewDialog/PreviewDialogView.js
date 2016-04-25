@@ -47,6 +47,7 @@ define([
         };
 
         self.fn.init = function(){
+            self.inProgress();
             self.event.onLoadingTablePreview(self.report);
         };
 
@@ -69,6 +70,12 @@ define([
 
     };
 
+    PreviewDialogView.prototype.inProgress = function(){
+        var self = this;
+        self.data.inProgress = true;
+        self.data.tableReportData = [];
+    };
+
     PreviewDialogView.prototype.onPreviewImageLoaded = function(data){
         var self = this;
         self.images = data;
@@ -78,6 +85,7 @@ define([
     PreviewDialogView.prototype.onTablePreviewLoaded = function(data){
         var self = this;
         self.data.tableReportData = data;
+        self.data.inProgress = false;
     };
 
     PreviewDialogView.prototype.onToggledFavouriteReport = function(){
@@ -94,6 +102,7 @@ define([
 
     PreviewDialogView.prototype.onURLReceivedError = function (err) {
         window.console.error(err);
+        this.data.inProgress = false;
     };
 
     PreviewDialogView.prototype.onURLReceivedForSend = function (data) {

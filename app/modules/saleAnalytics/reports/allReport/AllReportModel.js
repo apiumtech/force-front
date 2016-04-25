@@ -27,19 +27,20 @@ define([
         return this._reload();
     };
 
+    // winter version
     /*AllReportModel.prototype._reload = function () {
         var self = this;
         var url = Configuration.api.reportList;
         var fmRequest = {
           idCompany: 0,
-          idUser: 1,
-          idEnvironment: 1
+          idEnvironment: 0,
+          searchQuery: ''
         };
         var params = {
             url: url,
             type: 'GET',
             headers: {
-              'x-fm-request': JSON.stringify(fmRequest)
+              'x-fm-requestData': JSON.stringify(fmRequest)
             },
             contentType: 'application/json',
             dataType: 'json'
@@ -49,6 +50,7 @@ define([
     };
     */
 
+    // old version
    AllReportModel.prototype._reload = function () {
       var self = this;
       var url = Configuration.api.getAllReports;
@@ -67,6 +69,24 @@ define([
         data = data.data;
         if (!data || !(data instanceof Array) || data.length <= 0) {
           throw new Error("No data received from server");
+        }
+        if(data[0].hasOwnProperty('Properties')) {
+            data = data.map(function(item){
+                var props = item.Properties;
+                return {
+                    Id : props.id,
+                    IdParent : props.idParent,
+                    Date : props.date,
+                    Description : props.description,
+                    Favorite : props.favorite,
+                    IsCrystal : props.hasOwnProperty('isCrystal') ? props.isCrystal : true,
+                    IsShared : props.isShared,
+                    Name : props.name,
+                    Path : props.path,
+                    Type : props.type,
+                    ReportType : props.reportType
+                };
+            });
         }
         if(!data[0].hasOwnProperty('IsCrystal')) {
           data = data.map(function(item) {
