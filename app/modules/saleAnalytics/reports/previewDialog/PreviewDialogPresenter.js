@@ -31,6 +31,7 @@ define([
 
 
 		view.event.onLoadingTablePreview = function(report){
+			view.inProgress();
 			self.model.loadTablePreview(report)
 				.then(view.onTablePreviewLoaded.bind(view), view.showError.bind(view));
 		};

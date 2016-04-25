@@ -81,11 +81,19 @@ define([
 
     ReportService.prototype.loadTablePreview = function (report) {
         var url = Configuration.api.tablePreview;
+        var requestData = {
+            idReport: report.Id,
+            idCompany:0,
+            idEnvironment:0,
+            reportFormat:'',
+            reportName:'',
+            parameters:''
+        };
         var params = {
             url: url,
             type: 'GET',
             headers: {
-                'x-fm-requestData': JSON.stringify(report.params)
+                'x-fm-requestData': JSON.stringify(requestData)
             },
             contentType: 'application/json',
             dataType: 'json'

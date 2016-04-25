@@ -69,6 +69,24 @@ define([
         if (!data || !(data instanceof Array) || data.length <= 0) {
           throw new Error("No data received from server");
         }
+        if(data[0].hasOwnProperty('Properties')) {
+            data = data.map(function(item){
+                var props = item.Properties;
+                return {
+                    Id : props.id,
+                    IdParent : props.idParent,
+                    Date : props.date,
+                    Description : props.description,
+                    Favorite : props.favorite,
+                    IsCrystal : props.hasOwnProperty('isCrystal') ? props.isCrystal : true,
+                    IsShared : props.isShared,
+                    Name : props.name,
+                    Path : props.path,
+                    Type : props.type,
+                    ReportType : props.reportType
+                };
+            });
+        }
         if(!data[0].hasOwnProperty('IsCrystal')) {
           data = data.map(function(item) {
             return _.extend({IsCrystal: true}, item);

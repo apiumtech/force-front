@@ -16,7 +16,7 @@
             <!--</div>-->
 
             <div class="col-md-5">
-                <h5>{{report.Name}}</h5>
+                <h5>{{report.Name}} ({{ data.tableReportData.length || 0 }})</h5>
                 <p
                     class="modal-title-description with-ellipsis"
                     tooltip="{{ report.Description }}"
@@ -32,19 +32,22 @@
 
 <div class="modal-body" ng-init="fn.init()">
     <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th ng-repeat="(key, value) in data.tableReportData.data[0]">{{ key }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="item in data.tableReportData.data">
-        <td ng-repeat="(key, value) in item">{{ value }}</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, value) in data.tableReportData[0]">{{ key }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in data.tableReportData">
+                    <td ng-repeat="(key, value) in item">{{ value }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="panel-loader" ng-show="data.inProgress">
+            <i class="spinner"></i>
+        </span>
+    </div>
 </div>
 
 
