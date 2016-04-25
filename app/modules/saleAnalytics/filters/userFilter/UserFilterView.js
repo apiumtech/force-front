@@ -251,7 +251,22 @@ define([
         var selectionList = flattenedUsers.filter(function (node) {
             return node.checked === true && node.ComputeInSFM === true;
         });
-        self.onUsersFiltered(selectionList);
+        //self.onUsersFiltered(selectionList);
+        var len = selectionList.length;
+
+        if(len === 0)
+        {
+            self._userSelectionIsEmpty();
+        }
+        else if (len === 1)
+        {
+            var selection = selectionList[0];
+            self._userSelectionIsOneNormalUser(selection);
+        }
+        else // len > 1
+        {
+            self._userSelectionIsMoreThanOne(selectionList.length);
+        }
     };
 
     UserFilterView.prototype.fireUsersFilteredEnvironment = function () {
@@ -362,7 +377,7 @@ define([
 
     UserFilterView.prototype.onNodeSelected = function (selectedItem) {
         var self = this;
-        self.checkStateForTeamList(selectedItem);
+        self._checkStateForTeamList(selectedItem);
         /*if (self.currentUserFilterGroup===UserFilterView.ENVIRONMENT){
             self.checkStateForTeamList(selectedItem);
         }else{
@@ -422,7 +437,7 @@ define([
 
     };
 
-    UserFilterView.prototype.checkStateForTeamList = function (selectedNode, flattened, notRoot) {
+    UserFilterView.prototype._checkStateForTeamList = function (selectedNode, flattened, notRoot) {
         if (!selectedNode) {
             return;
         }
@@ -457,7 +472,7 @@ define([
 
         parentNode.checked = (unselectedData === siblings.length) ? false : ( (unselectedData === 0) ? true : null );
 
-        self.checkStateForTeamList(parentNode, flattened, true);
+        self._checkStateForTeamList(parentNode, flattened, true);
 
         if (!notRoot){
             self.userFiltered = arrayHelper.makeTree(flattened, 'ParentId', 'Id', 'children', -1);

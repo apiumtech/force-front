@@ -28,29 +28,29 @@ define([
     };
 
     // winter version
-    /*AllReportModel.prototype._reload = function () {
+    AllReportModel.prototype._reload = function () {
         var self = this;
         var url = Configuration.api.reportList;
         var fmRequest = {
           idCompany: 0,
-          idUser: 1,
-          idEnvironment: 1
+          idEnvironment: 0,
+          searchQuery: ''
         };
         var params = {
             url: url,
             type: 'GET',
             headers: {
-              'x-fm-request': JSON.stringify(fmRequest)
+              'x-fm-requestData': JSON.stringify(fmRequest)
             },
             contentType: 'application/json',
             dataType: 'json'
         };
 
         return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
-    };*/
+    };
 
     // old version
-   AllReportModel.prototype._reload = function () {
+   /*AllReportModel.prototype._reload = function () {
       var self = this;
       var url = Configuration.api.getAllReports;
 
@@ -62,7 +62,7 @@ define([
       };
 
       return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
-    };
+    };*/
 
     AllReportModel.prototype.decorateServerData = function (data) {
         data = data.data;
