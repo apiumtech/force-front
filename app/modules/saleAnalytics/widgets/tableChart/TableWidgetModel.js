@@ -127,6 +127,21 @@ define([
                     key === 'Sales' ? 11 : 999;
         };
 
+        var calculateColumnSize = function(key){
+            return  key === 'ActivityScore' ? 180 :
+                    key === 'Name' ? 260 :
+                    key === 'Visits' ? 82 :
+                    key === 'Activities' ? 90 :
+                    key === 'PhoneCallsTime' ? 120 :
+                    key === 'Emails' ? 80 :
+                    key === 'Orders' ? 80 :
+                    key === 'Quotes' ? 80 :
+                    key === 'Opportunities' ? 100 :
+                    key === 'SalesScore' ? 120 :
+                    key === 'SalesActivityRatio' ? 160 :
+                    key === 'Sales' ? 110 : 100;
+        };
+
         var calculateColumnLabel = function(key){
             return  key === 'ActivityScore' ? 'tabIntensity.ranking.fieldActivityScore' :
                     key === 'Name' ? 'tabIntensity.ranking.fieldName' :
@@ -152,7 +167,8 @@ define([
                 visible: true, // wether the column is visible at a particular moment.
                 available: calculateColumnAvailable(key), // wether the column is even available to be shown.
                 order: calculateColumnOrder(key), // position
-                tooltip: self.translator.translate('commonText.table.column.'+ key +'.tooltip')
+                tooltip: self.translator.translate('commonText.table.column.'+ key +'.tooltip'),
+                minWidth: calculateColumnSize(key)
             });
         });
 
