@@ -14,6 +14,8 @@ define(function () {
       baseUrl = "https://backenddev.forcemanager.net";
     }
 
+    var baseLiteralsUrl = "https://literals.forcemanager.net";
+
 
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";
 
@@ -102,7 +104,7 @@ define(function () {
         customLiteralById: baseUrl + '/api/queries/commons/literals/customLiteralById',
 
 
-        literalValueDictionary: baseUrl + '/api/queries/commons/literalValues/literalValueObject',
+        literalValueDictionary: baseLiteralsUrl + '/api/queries/commons/literalValues/literalValueObject',
 
 
 
