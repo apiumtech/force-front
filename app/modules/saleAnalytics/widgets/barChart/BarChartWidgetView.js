@@ -165,7 +165,7 @@ define([
             });
             var tableData = {
                 Agrupacion: tick,
-                ActivityType: serie.label,
+                ActivityType: self.translator.translate(serie.label) || serie.label,
                 ActivityCount: total,
                 ActivityPercentage: percent.toFixed(1),
                 HeaderBgColor1: serie.color,
