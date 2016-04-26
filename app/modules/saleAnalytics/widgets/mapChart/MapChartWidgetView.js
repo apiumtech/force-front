@@ -5,6 +5,7 @@
 define([
     'modules/saleAnalytics/widgets/WidgetBaseView',
     'modules/saleAnalytics/eventBus/WidgetEventBus',
+    'modules/saleAnalytics/eventBus/SalesAnalyticsFilterChannel',
     'modules/saleAnalytics/widgets/mapChart/MapChartWidgetPresenter',
     'modules/widgets/BaseWidgetEventBus',
     'modules/widgets/WidgetEventBus',
@@ -13,7 +14,7 @@ define([
     'shared/services/TranslatorService',
     'shared/services/StorageService',
     'jquery'
-], function(WidgetBaseView, WidgetEventBus, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, TranslatorService, StorageService, $) {
+], function(WidgetBaseView, WidgetEventBus, SalesAnalyticsFilterChannel, MapChartWidgetPresenter, BaseWidgetEventBus, EventBus, MapChart, PermissionsService, TranslatorService, StorageService, $) {
     'use strict';
 
     var HEAT_MAP = 'HEAT_MAP';
@@ -25,6 +26,7 @@ define([
 
         var self = this;
         self.widgetEventBus = EventBus.getInstance();
+        self.filterChannel = SalesAnalyticsFilterChannel.newInstance("WidgetDecoratedPage");
         self.mapChart = mapChart;
         self.permissionsService = permissionsService;
         self.translator = TranslatorService.newInstance();
@@ -59,11 +61,13 @@ define([
         var self = this;
 
         var eventChannel = self.eventChannel;
-
         eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
-
         eventChannel.onExpandingWidget(function(){
             setTimeout(self.reDraw.bind(self), 250);
+        });
+
+        self.filterChannel.onUserFilterApplySignalReceived(function(){
+            self.mapChart.clearSavedZoomAndCenter();
         });
 
         self.fn.changeFilter = function (selectedFilter) {
