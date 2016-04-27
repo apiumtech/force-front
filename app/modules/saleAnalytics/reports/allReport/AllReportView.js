@@ -56,7 +56,8 @@ define([
               var flattened = arrayHelper.flatten(cloned, 'children');
 
               var matchingReports = flattened.filter(function(report){
-                return report.Type === 'report' && (report.Description.indexOf(searchQuery) > -1 || report.Name.indexOf(searchQuery) > -1);
+                return report.Type === 'report' &&
+                  (report.Description.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1 || report.Name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1);
               });
 
               var matchingReportsFolders = [];
