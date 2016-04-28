@@ -73,14 +73,36 @@
 
     <div class="col-md-4 pull-right">
         <div class="form-inline action-form clearfix pull-right">
-            <select ng-if="report.IsCrystal && report.ReportType && report.ReportType.length > 1" class="form-control"
-                    ng-model="selectedReportType" ng-change="fn.changeReportType(selectedReportType)">
+            <!--<select ng-if="report.IsCrystal && report.ReportType && report.ReportType.length > 1" class="form-control"
+                    ng-model="data.selectedReportType" ng-change="fn.changeReportType(data.selectedReportType)">
                 <option ng-repeat="type in report.ReportType" value="{{type}}">{{type}}</option>
-            </select>
+            </select>-->
+            <div
+              class="dropdown form-control"
+              ng-if="report.IsCrystal && report.ReportType && report.ReportType.length > 1"
+              style="border:none;">
+                <button class="btn btn-default dropdown-toggle"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        style="min-width: 160px;">
+                    {{ data.selectedReportType }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="type in report.ReportType"
+                        ng-class="{active: type===data.selectedReportType}">
+                        <a href ng-click="fn.changeReportType(type)">
+                            {{ type }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
             <span class="reportType m-r-4"
                   ng-if="report.ReportType && report.ReportType.length == 1">
-                  {{selectedReportType}}
+                  {{data.selectedReportType}}
             </span>
 
             <!--<button class="btn btn-default btn-sm btn-view-report" ng-disabled="otherReportInProgress || inProgress" ng-click="fn.preview()">View</button>-->
