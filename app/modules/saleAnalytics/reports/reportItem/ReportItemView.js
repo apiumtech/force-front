@@ -336,8 +336,14 @@ define([
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
-        a.click();
-        //window.alert("Link URL: " + data);
+        var event = new MouseEvent('click', {
+          'view': window,
+          'bubbles': true,
+          'cancelable': true
+        });
+        a.style.position = 'absolute';
+        a.style.left = '-100px';
+        a.dispatchEvent(event);
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {
