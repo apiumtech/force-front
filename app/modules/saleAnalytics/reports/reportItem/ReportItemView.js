@@ -341,8 +341,6 @@ define([
           'bubbles': true,
           'cancelable': true
         });
-        a.style.position = 'absolute';
-        a.style.left = '-100px';
         a.dispatchEvent(event);
     };
 
