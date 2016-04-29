@@ -1,6 +1,8 @@
 define([
-    'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetModel'
-], function (FunnelChartWidgetModel) {
+    'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetModel',
+    'config'
+], function (FunnelChartWidgetModel, config) {
+  "use strict";
 
     function FunnelChartWidgetPresenter(model) {
         this.model = model || new FunnelChartWidgetModel();
@@ -27,7 +29,7 @@ define([
         var model = this.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data = {};
             self._executeLoadWidget();
         };

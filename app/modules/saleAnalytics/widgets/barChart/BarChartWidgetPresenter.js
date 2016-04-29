@@ -3,8 +3,10 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel'
-], function (BarChartWidgetModel) {
+    'modules/saleAnalytics/widgets/barChart/BarChartWidgetModel',
+    'config'
+], function (BarChartWidgetModel, config) {
+  "use strict";
 
     function BarChartWidgetPresenter(model) {
         this.model = model || new BarChartWidgetModel();
@@ -32,7 +34,7 @@ define([
         var model = this.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data = {};
             self._executeLoadWidget();
         };

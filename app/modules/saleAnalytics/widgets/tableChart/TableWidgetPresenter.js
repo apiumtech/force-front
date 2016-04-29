@@ -3,8 +3,9 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/tableChart/TableWidgetModel'
-], function (TableWidgetModel) {
+    'modules/saleAnalytics/widgets/tableChart/TableWidgetModel',
+    'config'
+], function (TableWidgetModel, config) {
     'use strict';
 
     function TableWidgetPresenter(model) {
@@ -32,7 +33,7 @@ define([
         var model = self.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data = {};
             self._executeLoadWidget();
         };

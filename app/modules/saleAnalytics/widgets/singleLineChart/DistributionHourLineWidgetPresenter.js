@@ -3,8 +3,10 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel'
-], function (DistributionHourLineWidgetModel) {
+    'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel',
+    'config'
+], function (DistributionHourLineWidgetModel, config) {
+  "use strict";
 
     function SingleLineChartWidgetPresenter(model) {
         this.model = model || new DistributionHourLineWidgetModel();
@@ -33,7 +35,7 @@ define([
         view.event = view.event || {};
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data = {};
             self._executeLoadWidget();
         };

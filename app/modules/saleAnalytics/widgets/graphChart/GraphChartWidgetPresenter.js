@@ -2,8 +2,9 @@
  * Created by justin on 12/22/14.
  */
 define([
-    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel'
-], function (GraphChartWidgetModel) {
+    'modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel',
+    'config'
+], function (GraphChartWidgetModel, config) {
     'use strict';
 
     function GraphChartWidgetPresenter(model) {
@@ -31,7 +32,7 @@ define([
         var model = self.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data.axis = undefined;
             view.data.fields = undefined;
             view.data.filters = undefined;
