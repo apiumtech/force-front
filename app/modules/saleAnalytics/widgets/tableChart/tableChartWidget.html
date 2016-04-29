@@ -56,14 +56,14 @@
                              ng-if="column.available && column.visible"
                              style="text-align: center; border-right: 1px solid #e2e7eb;"
                              ng-style="{'width': column.minWidth+'px'}">
-                              <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
-                                  {{ column.name }}
-                                  <i ng-class="{
-                                          'fa fa-sort':      sortingState.column.key !== column.key,
-                                          'fa fa-sort-asc':  sortingState.column.key === column.key && sortingState.asc,
-                                          'fa fa-sort-desc': sortingState.column.key === column.key && sortingState.desc
-                                      }"
-                                  ></i>
+                             <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
+                                {{ column.name }}
+                                <i ng-class="{
+                                    'fa fa-sort':      sortingState.column.key !== column.key,
+                                    'fa fa-sort-asc':  sortingState.column.key === column.key && sortingState.asc,
+                                    'fa fa-sort-desc': sortingState.column.key === column.key && sortingState.desc
+                                   }"
+                                ></i>
                               </a>
                             <span ng-if="!column.sortable">{{ column.name }}</span>
                         </th>
