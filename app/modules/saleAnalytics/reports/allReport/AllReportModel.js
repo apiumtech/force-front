@@ -69,9 +69,12 @@ define([
         if (!data || !(data instanceof Array) || data.length <= 0) {
           throw new Error("No data received from server");
         }
-        if(data[0].hasOwnProperty('Properties')) {
+
+        // Soportamos objeto Properties y objeto con props en minúsculas.
+        // Originalmente era en capitalizado a lo .NET, la app espera eso...
+        if(data[0].hasOwnProperty('Properties') || data[0].hasOwnProperty('id')) {
             data = data.map(function(item){
-                var props = item.Properties;
+                var props = item.hasOwnProperty('Properties') ? item.Properties : item;
                 return {
                     Id : props.id,
                     IdParent : props.idParent,
