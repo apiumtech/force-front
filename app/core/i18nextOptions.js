@@ -35,6 +35,14 @@ define([
         }
     });
 
+    var clearPageLayouts = function() {
+      ['intensity','distribution','conversion'].forEach(function(pageName){
+        var pageLayoutStorageKey = "pageLayout_" + pageName;
+        StorageService.newInstance().remove(pageLayoutStorageKey, true);
+      });
+    };
+    clearPageLayouts();
+
     var saveUserCode = function (userCode) {
         StorageService.newInstance().store(config.userCodeKey, userCode, true);
     };

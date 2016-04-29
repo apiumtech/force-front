@@ -3,8 +3,9 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
-], function(PieChartWidgetModel){
+    'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel',
+    'config'
+], function(PieChartWidgetModel, config){
     'use strict';
 
     function PieChartWidgetPresenter(model) {
@@ -33,7 +34,7 @@ define([
         var model = self.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data.axis = undefined;
             view.data.fields = undefined;
             view.data.filters = undefined;

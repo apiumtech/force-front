@@ -3,8 +3,10 @@
  */
 
 define([
-    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetModel'
-], function (ScatterChartWidgetModel) {
+    'modules/saleAnalytics/widgets/scatterChart/ScatterChartWidgetModel',
+    'config'
+], function (ScatterChartWidgetModel, config) {
+  "use strict";
 
     function ScatterChartWidgetPresenter(model) {
         this.model = model || new ScatterChartWidgetModel();
@@ -32,7 +34,7 @@ define([
         var model = self.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(view.widget.dataEndpoint);
+            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
             view.data = {};
             self._executeLoadWidget();
         };
