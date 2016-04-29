@@ -232,7 +232,7 @@ define([
 
     BarChartWidgetView.prototype._chartClickFilter = function(e) {
       function clickedWithinChart() {
-        return $('.chart-place-holder').find(e.srcElement).length > 0;
+        return $('.chart-place-holder').find(e.target).length > 0;
       }
       if (!clickedWithinChart()) {
         this.chart.setSelection([{}]);
