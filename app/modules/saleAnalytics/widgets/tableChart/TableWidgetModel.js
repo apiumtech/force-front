@@ -128,15 +128,15 @@ define([
         };
 
         var calculateColumnSize = function(key){
-            return  key === 'ActivityScore' ? 180 :
-                    key === 'Name' ? 260 :
+            return  key === 'ActivityScore' ? 150 :
+                    key === 'Name' ? 200 :
                     key === 'Visits' ? 82 :
                     key === 'Activities' ? 90 :
-                    key === 'PhoneCallsTime' ? 120 :
+                    key === 'PhoneCallsTime' ? 110 :
                     key === 'Emails' ? 80 :
                     key === 'Orders' ? 80 :
                     key === 'Quotes' ? 80 :
-                    key === 'Opportunities' ? 100 :
+                    key === 'Opportunities' ? 110 :
                     key === 'SalesScore' ? 120 :
                     key === 'SalesActivityRatio' ? 160 :
                     key === 'Sales' ? 110 : 100;
