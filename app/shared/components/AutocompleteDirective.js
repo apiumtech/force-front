@@ -70,6 +70,9 @@ define([
                     if (ui.item) {
                         ctrl.$setViewValue(ui.item.id);
                     }
+                    if(scope.onSelected) {
+                      scope.onSelected(ui.item.id, scope.onSelectedParam1, scope.onSelectedParam2);
+                    }
                 },
                 search: function(){
                     if(scope.onLoading) {
@@ -87,7 +90,10 @@ define([
         return {
             scope: {
                 onLoaded: "=",
-                onLoading: "="
+                onLoading: "=",
+                onSelected: "=",
+                onSelectedParam1: "=",
+                onSelectedParam2: "="
             },
             restrict: "EA",
             require: 'ngModel',

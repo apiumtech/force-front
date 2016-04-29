@@ -32,7 +32,9 @@ define([
         var self = this;
         var reportId = report.Id;
         var reportName = report.Name;
-        var reportFormat = report.selectedReportType;
+        var reportFormat = report.selectedReportType.toLowerCase().indexOf('doc') > -1 ? 'doc' :
+          report.selectedReportType.toLowerCase().indexOf('xsl') > -1 || report.selectedReportType.toLowerCase().indexOf('xls') > -1 ? 'xls' :
+          report.selectedReportType;
         var parameters = report.params.map(function(item){
             return {
                 Key: item.Key,

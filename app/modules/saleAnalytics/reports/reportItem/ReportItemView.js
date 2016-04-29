@@ -72,14 +72,6 @@ define([
                 this.$scope.fireOpenFolder = value;
             }
         },
-        selectedReportType: {
-            get: function () {
-                return this.$scope.selectedReportType;
-            },
-            set: function (value) {
-                this.$scope.selectedReportType = value;
-            }
-        },
         inProgress: {
             get: function () {
                 return this.$scope.inProgress;
@@ -101,7 +93,7 @@ define([
     ReportItemView.prototype.configureEvents = function () {
         var self = this;
 
-        this.selectedReportType = this.report && this.report.ReportType ? this.report.ReportType[0] : '';
+        this.data.selectedReportType = this.report && this.report.ReportType ? this.report.ReportType[0] : '';
 
         // TODO: Enable it back when functionality is in place
         self.fn.startEditingName = function () {
@@ -169,7 +161,7 @@ define([
         };
 
         self.fn.changeReportType = function (selectedReportType) {
-            self.selectedReportType = selectedReportType;
+            self.data.selectedReportType = selectedReportType;
         };
 
         self.fn.toggleFavouriteReport = function () {
@@ -323,13 +315,13 @@ define([
 
     ReportItemView.prototype.sendReport = function () {
         var self = this;
-        self.report.selectedReportType = self.selectedReportType;
+        self.report.selectedReportType = self.data.selectedReportType;
         self.event.getReportURL(self.report, self.onReportURLLoadedForSend.bind(self), self.onGetReportURLError.bind(self));
     };
 
     ReportItemView.prototype.downloadReport = function () {
         var self = this;
-        self.report.selectedReportType = self.selectedReportType;
+        self.report.selectedReportType = self.data.selectedReportType;
         self.event.getReportURL(self.report, self.onReportURLLoadedForDownload.bind(self), self.onGetReportURLError.bind(self));
     };
 
@@ -344,8 +336,12 @@ define([
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
-        a.click();
-        //window.alert("Link URL: " + data);
+        var event = new MouseEvent('click', {
+          'view': window,
+          'bubbles': true,
+          'cancelable': true
+        });
+        a.dispatchEvent(event);
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {

@@ -75,10 +75,14 @@
             <label class="col-md-2 control-label">{{ fn.calculateLabel(paramConfig) }}</label>
 
             <div class="col-md-10 ui-widget">
+              <!--ng-model="report.params[paramConfig.Id]"-->
                 <input class="form-control"
-                       ng-model="report.params[paramConfig.Id]"
+                      ng-model="report.autocompletemodel"
                        on-loaded="fn.onAutocompleteLoaded"
                        on-loading="fn.onAutocompleteLoading"
+                       on-selected="fn.onAutocompleteSelected"
+                       on-selected-param1="report"
+                       on-selected-param2="paramConfig.Id"
                        autocomplete="{{ config.api.fuzzysearch }}"/>
                 <span class="spinner-small" ng-if="data.isLoading"></span>
             </div>

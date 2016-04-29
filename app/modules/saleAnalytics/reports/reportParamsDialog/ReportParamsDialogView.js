@@ -70,54 +70,53 @@ define([
 		};
 
 		self.fn.submit = function(){
-            var matchingParams = {
-                "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
-                "[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
-                "[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
-                "[IDSUCURSAL]": {name:"idEnvironment", valueAdapter:function(val){return val.Id;}},
-                "[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
-                "[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
-                "[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}
-            };
+	    var matchingParams = {
+	        "[FECHADE]": {name:"[FECHADE]", valueAdapter:function(val){return val;}},
+	        "[FECHAA]": {name:"[FECHAA]", valueAdapter:function(val){return val;}},
+	        "[IDENVIRONMENT]": {name:"idEntorno", valueAdapter:function(val){return val.Id;}},
+	        "[IDSUCURSAL]": {name:"idEnvironment", valueAdapter:function(val){return val.Id;}},
+	        "[IDEXPEDIENTE]": {name:"idExpediente", valueAdapter:function(val){return val;}},
+	        "[IDUSUARIO]": {name:"IdUsuario", valueAdapter:function(val){return val;}},
+	        "[IDEMPRESA]": {name:"idEmpresa", valueAdapter:function(val){return val;}}
+	    };
 
-            var paramList = [];
-            for(var key in self.report.params) {
-                var value = self.report.params[key];
-                if(key in matchingParams) {
-                    value = matchingParams[key].valueAdapter.call(null, value);
-                    key = matchingParams[key].name;
-                } else if( typeof value !== 'string' ){
+      var paramList = [];
+      for( var key in self.report.params ) {
+        var value = self.report.params[key];
+        if(key in matchingParams) {
+          value = matchingParams[key].valueAdapter.call(null, value);
+          key = matchingParams[key].name;
+        } else if( typeof value !== 'string' ) {
 					value = value.Id;
 				}
-                paramList.push({Key:key, Value:value});
-            }
-
+        paramList.push({Key:key, Value:value});
+      }
 			self.report.params = paramList;
-
 			self.$modalInstance.close(self.report);
 		};
 
-        self.fn.getReportListOfValues = function(paramConfig){
+    self.fn.getReportListOfValues = function(paramConfig){
 			paramConfig.Value = [{
 				Description: self.translator.translate('wait_loading')
 			}];
-            self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
-                /*listOfValues.forEach(function(item){
-                    item.Key = self.translator.translate(item.Key);
-                });*/
-                paramConfig.Value = listOfValues;
+      self.event.getReportListOfValues(paramConfig.List).then(function(listOfValues){
+        /*listOfValues.forEach(function(item){
+            item.Key = self.translator.translate(item.Key);
+        });*/
+        paramConfig.Value = listOfValues;
 				self.$scope.$apply();
-            });
-        };
-        self.fn.getEnvironmentsLoV = function(paramConfig){
+      });
+    };
+
+    self.fn.getEnvironmentsLoV = function(paramConfig){
 			paramConfig.Value = [{
 				Description: self.translator.translate('wait_loading')
 			}];
-            self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
-                paramConfig.Value = listOfValues;
-                self.$scope.$apply();
-            });
-        };
+      self.event.getReportListOfValues('tblSucursales').then(function(listOfValues){
+          paramConfig.Value = listOfValues;
+          self.$scope.$apply();
+      });
+    };
 
 		self.data.isLoading = false;
 		self.fn.onAutocompleteLoaded = function(){
@@ -127,6 +126,11 @@ define([
 		self.fn.onAutocompleteLoading = function(){
 			self.data.isLoading = true;
 			self.$scope.$apply();
+		};
+		self.fn.onAutocompleteSelected = function(itemId, reportRef, paramConfigId){
+			//console.log("onAutocompleteSelected", itemId, reportRef, paramConfigId);
+			reportRef.params = reportRef.params || {};
+			reportRef.params[paramConfigId] = itemId;
 		};
 	};
 
