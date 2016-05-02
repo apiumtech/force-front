@@ -248,18 +248,6 @@ define([
                 };
             });
 
-            describe("input is invalid", function () {
-                describe("widget to move is not exist in list", function () {
-                    it("should throw exception", function () {
-                        var movingWidget = {widgetId: 10};
-                        expect(function () {
-                            sut.moveWidget(movingWidget, 2);
-                        }).toThrow(new Error("Requesting widget doesn't exist in widgets list"));
-                    });
-                });
-            });
-
-
             describe("input is valid", function () {
                 [{
                     movingWidget: getWidget(5, 6),

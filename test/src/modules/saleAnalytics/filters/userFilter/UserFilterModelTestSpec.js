@@ -212,11 +212,15 @@ define([
 							"Id": 1,
 							"Name": 'A',
 							"ParentId": -1,
+              "checked": false,
+              "visible": true,
 							"children": [
 								{
 									"Id": 5,
 									"Name": "Child of A",
-									"ParentId": 1
+									"ParentId": 1,
+                  "visible": true,
+                  "checked": false
 								}
 							]
 						},
@@ -224,48 +228,66 @@ define([
 							"Id": 2,
 							"Name": "B",
 							"ParentId": -1,
-							children: [
+              "visible": true,
+              "checked": false,
+							"children": [
 								{
 									"Id": 6,
 									"Name": "Child of B 1",
-									"ParentId": 2
+									"ParentId": 2,
+                  "visible": true,
+                  "checked": false
 								},
 								{
 									"Id": 7,
 									"Name": "Child of B 2",
-									"ParentId": 2
+									"ParentId": 2,
+                  "visible": true,
+                  "checked": false
 								}
 							]
 						},
 						{
 							"Id": 3,
 							"Name": "C",
-							"ParentId": -1
+							"ParentId": -1,
+              "visible": true,
+              "checked": false
 						},
 						{
 							"Id": 4,
 							"Name": "D",
 							"ParentId": -1,
+              "visible": true,
+              "checked": false,
 							children: [
 								{
 									"Id": 8,
 									"Name": "Child of D 1",
-									"ParentId": 4
+									"ParentId": 4,
+                  "visible": true,
+                  "checked": false
 								},
 								{
 									"Id": 9,
 									"Name": "Child of D 2",
 									"ParentId": 4,
+                  "visible": true,
+                  "checked": false,
 									children: [
 										{
 											"Id": 10,
 											"Name": "Child of Child of D 2",
 											"ParentId": 9,
+                      "visible": true,
+                      "checked": false,
 											children: [
 												{
 													"Id": 11,
 													"Name": "Child of Child of Child of D 2",
-													"ParentId": 10
+													"ParentId": 10,
+                          "visible": true,
+                          "checked": false
 												}
 											]
 										}
@@ -304,264 +326,7 @@ define([
 							sut.getFilteredData(data, filter);
 						}).toThrow(new Error('Invalid filterGroup passed'));
 					});
-				})
-			});
-
-			describe('searchQuery is empty', function () {
-				var data = [{
-					"data": "data"
-				}];
-				var filter = 'Hierarqhy';
-				it("should return the same data without touching it", function () {
-					var actual = sut.getFilteredData(data, filter);
-					expect(actual).toEqual(data);
 				});
-			});
-
-			describe('currentUserFilterGroup is "Environment" or "Team"', function () {
-				beforeEach(function () {
-					// Arrange
-					var data = [{
-						"data": 'data'
-					}];
-					Object.keys(Object.getPrototypeOf(sut)).filter(function (methodName) {
-						return methodName.match(/^(getFilteredDataFor)+/);
-					}).forEach(function (method) {
-						spyOn(sut, method);
-					});
-				});
-
-				[{
-					query: 'Environment', expectedCallMethod: 'getFilteredDataForEnvironment'
-				}, {
-					query: 'Hierarqhy', expectedCallMethod: 'getFilteredDataForHierarqhy'
-				}].forEach(function (testCase) {
-						it("should call proper function base on currentUserFilterGroup", function () {
-							var data = [{
-								data: "data"
-							}];
-							var searchQuery = "what ever";
-							// action
-							sut.getFilteredData(data, testCase.query, searchQuery);
-
-							// Assert
-							expect(sut[testCase.expectedCallMethod]).toHaveBeenCalledWith(data, searchQuery);
-						})
-					});
-			});
-
-		});
-
-		describe('getFilteredDataForEnvironment', function () {
-			it("should return filtered data base on searchQuery", function () {
-				var searchQuery = "o";
-				var input = [
-					{
-						"Id": 1,
-						"Name": "Antonio",
-						"ParentId": -1,
-						"isEnvironment": true,
-						"checked": false,
-						"children": [{
-							"Id": 3,
-							"Name": "Beck",
-							"ParentId": 1,
-							"isEnvironment": false,
-							"checked": false
-						}, {
-							"Id": 4,
-							"Name": "Victoria",
-							"ParentId": 1,
-							"isEnvironment": false,
-							"checked": false
-						}]
-					},
-					{
-						"Id": 2,
-						"Name": "Kevin",
-						"ParentId": -1,
-						"isEnvironment": true,
-						"checked": false,
-						"children": [{
-							"Id": 5,
-							"Name": "Thomas",
-							"ParentId": 2,
-							"isEnvironment": false,
-							"checked": false
-						}, {
-							"Id": 6,
-							"Name": "Cindy",
-							"ParentId": 2,
-							"isEnvironment": false,
-							"checked": false
-						}]
-					}
-				];
-				var output = [
-					{
-						"Id": 1,
-						"Name": "Antonio",
-						"ParentId": -1,
-						"isEnvironment": true,
-						"checked": false,
-						"children": [{
-							"Id": 4,
-							"Name": "Victoria",
-							"ParentId": 1,
-							"isEnvironment": false,
-							"checked": false
-						}]
-					},
-					{
-						"Id": 2,
-						"Name": "Kevin",
-						"ParentId": -1,
-						"checked": false,
-						"isEnvironment": true,
-						"children": [{
-							"Id": 5,
-							"Name": "Thomas",
-							"ParentId": 2,
-							"isEnvironment": false,
-							"checked": false
-						}]
-					}
-				];
-				spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
-				var filteredData = sut.getFilteredDataForEnvironment(input, searchQuery);
-				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
-				expect(filteredData).toEqual(output);
-			});
-		});
-
-		describe('getFilteredDataForHierarqhy', function () {
-			it("should return filtered data base on searchQuery", function () {
-				var searchQuery = "o";
-				var input = [
-					{
-						"Id": 1,
-						"Name": "Antonio",
-						"ParentId": -1,
-						"checked": false,
-						"children": [{
-							"Id": 3,
-							"Name": "Beck",
-							"ParentId": 1,
-							"checked": false
-						}, {
-							"Id": 4,
-							"Name": "Victoria",
-							"ParentId": 1,
-							"checked": false,
-							"children": [
-								{
-									"Id": 41,
-									"Name": "Hank",
-									"ParentId": 4,
-									"checked": false
-								},
-								{
-									"Id": 42,
-									"Name": "John",
-									"ParentId": 4,
-									"checked": false
-								}
-							]
-						}]
-					},
-					{
-						"Id": 2,
-						"Name": "Kevin",
-						"ParentId": -1,
-						"checked": false,
-						"children": [{
-							"Id": 5,
-							"Name": "Thomas",
-							"ParentId": 2,
-							"checked": false
-						}, {
-							"Id": 6,
-							"Name": "Cindy",
-							"ParentId": 2,
-							"checked": false,
-							"children": [
-								{
-									"Id": 61,
-									"Name": "Alex",
-									"ParentId": 6,
-									"checked": false,
-									"children": [
-										{
-											"Id": 611,
-											"Name": "Tom",
-											"ParentId": 61,
-											"checked": false
-										}
-									]
-								}
-							]
-						}]
-					}
-				];
-				var expectedOutput = [
-					{
-						"Id": 1,
-						"Name": "Antonio",
-						"ParentId": -1,
-						"checked": false,
-						"children": [{
-							"Id": 4,
-							"Name": "Victoria",
-							"ParentId": 1,
-							"checked": false,
-							"children": [
-								{
-									"Id": 42,
-									"Name": "John",
-									"ParentId": 4,
-									"checked": false
-								}
-							]
-						}]
-					},
-					{
-						"Id": 2,
-						"Name": "Kevin",
-						"ParentId": -1,
-						"checked": false,
-						"children": [{
-							"Id": 5,
-							"Name": "Thomas",
-							"ParentId": 2,
-							"checked": false
-						}, {
-							"Id": 6,
-							"Name": "Cindy",
-							"ParentId": 2,
-							"checked": false,
-							"children": [
-								{
-									"Id": 61,
-									"Name": "Alex",
-									"ParentId": 6,
-									"checked": false,
-									"children": [
-										{
-											"Id": 611,
-											"Name": "Tom",
-											"ParentId": 61,
-											"checked": false
-										}
-									]
-								}
-							]
-						}]
-					}
-				];
-				spyOn(sut.arrayHelper, 'queryTree').and.callThrough();
-				var filteredData = sut.getFilteredDataForHierarqhy(input, searchQuery);
-				expect(sut.arrayHelper.queryTree).toHaveBeenCalledWith(input, "children", "Name", searchQuery, "Id", true, "ParentId", "Id", -1);
-				expect(filteredData).toEqual(expectedOutput);
 			});
 		});
 	});
