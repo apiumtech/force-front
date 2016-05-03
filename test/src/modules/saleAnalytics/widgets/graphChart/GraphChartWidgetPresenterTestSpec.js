@@ -6,7 +6,7 @@ define([
     "modules/saleAnalytics/widgets/graphChart/GraphChartWidgetModel"
 ], function (GraphChartWidgetPresenter, GraphChartWidgetModel) {
     'use strict';
-    xdescribe("GraphChartWidgetPresenter", function () {
+    describe("GraphChartWidgetPresenter", function () {
 
         var sut, model;
 
@@ -20,16 +20,10 @@ define([
             var view;
             [
                 {
-                    viewEvent: "onReloading", test: onReloadingTest
-                },
-                {
                     viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
                 },
                 {
                     viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
-                },
-                {
-                    viewEvent: "onFilterChanged", test: onFilterChangedTest
                 },
                 {
                     viewEvent: "onFilterRangeChanged", test: onFilterRangeChangedTest
@@ -49,19 +43,6 @@ define([
 
                     describe("when event '" + viewEvent + "' fired", test);
                 });
-
-            function onReloadingTest() {
-                beforeEach(function () {
-                    view.widget = {};
-                    spyOn(sut, '_executeLoadWidget');
-                });
-
-                it("should call '_executeLoadWidget' method", function () {
-                    view.event.onReloading();
-                    expect(sut._executeLoadWidget).toHaveBeenCalled();
-                });
-            }
-
 
             function onDateFilterAppliedTest() {
                 var filterValue = {
@@ -96,22 +77,6 @@ define([
                 });
 
                 it("should call 'sendReloadCommandToChannel' on the view", function () {
-                    expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
-                });
-            }
-
-            function onFilterChangedTest() {
-                beforeEach(function () {
-                    spyOn(view, 'sendReloadCommandToChannel');
-                    view.selectedFilter = "abcdef";
-                    view.event.onFilterChanged();
-                });
-
-                it("should call addQuery on model", function () {
-                    expect(model.changeQueryFilter).toHaveBeenCalledWith('abcdef');
-                });
-
-                it("should fire sendReloadCommandToChannel signal on view", function () {
                     expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
                 });
             }

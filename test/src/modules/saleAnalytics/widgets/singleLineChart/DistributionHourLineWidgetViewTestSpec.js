@@ -76,11 +76,6 @@ define([
                     sut.fn.changeFilter(newValue);
                 }
 
-                it("should assign selected tab with new value", function () {
-                    exerciseChangeTab();
-                    expect(sut.selectedFilter).toEqual(newValue);
-                });
-
                 it("should fire onTabChanged event", function () {
                     exerciseChangeTab();
                     expect(sut.event.onFilterChanged).toHaveBeenCalled();
@@ -139,43 +134,6 @@ define([
                 spyOn(sut.event, 'onReloadWidgetDone');
                 sut.onReloadWidgetSuccess(fakeResponseData);
                 expect(sut._onReloadWidgetSuccess).toHaveBeenCalled();
-            });
-        });
-
-        describe("extractFilters", function () {
-
-            it("should assign filters from data", function () {
-                sut.data.filters = [{name: "name1", key: "key1"}, {name: "name2", key: "key2"}];
-                sut.extractFilters();
-                expect(sut.filters).toEqual(sut.data.filters);
-            });
-
-            describe("assign new value to selectedFilter", function () {
-                describe("current value is empty", function () {
-                    it("should assign selectedFilter to the first element in array", function () {
-                        sut.data.filters = [{name: "name1", key: "key1"}, {name: "name2", key: "key2"}];
-                        sut.extractFilters();
-                        expect(sut.$scope.selectedFilter).toEqual('key1');
-                    });
-                });
-
-                describe("current value is not in filters list", function () {
-                    it("should assign selectedFilter to the first element in array", function () {
-                        sut.selectedFilter = 'filterNotInList';
-                        sut.data.filters = [{name: "name1", key: "key1"}, {name: "name2", key: "key2"}];
-                        sut.extractFilters();
-                        expect(sut.selectedFilter).toEqual('key1');
-                    });
-                });
-
-                describe("current value is in filters list", function () {
-                    it("should not assign selectedFilter if it has value", function () {
-                        sut.selectedFilter = 'key2';
-                        sut.data.filters = [{name: "name1", key: "key1"}, {name: "name2", key: "key2"}];
-                        sut.extractFilters();
-                        expect(sut.selectedFilter).toEqual('key2');
-                    });
-                });
             });
         });
 

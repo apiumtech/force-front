@@ -18,6 +18,7 @@ define([
         beforeEach(inject(function (_$controller_, _$rootScope_) {
             $controller = _$controller_;
             scope = _$rootScope_.$new();
+            scope.i18nextLanguageReady = false;
         }));
 
         describe("loading asynchronously", function () {
@@ -25,19 +26,6 @@ define([
                 var ctrl = $controller('SalesAnalyticsFilterController', {$scope: scope});
                 expect(ctrl).not.toBeNull();
                 expect(ctrl).not.toBeUndefined();
-            });
-        });
-
-        describe('construct', function () {
-            beforeEach(inject(function () {
-                sinon.stub(SalesAnalyticsFilterController, 'configureView');
-            }));
-            afterEach(function () {
-                SalesAnalyticsFilterController.configureView.restore();
-            });
-            it("should call ConversionController.configureView global method", function () {
-                new SalesAnalyticsFilterController(scope);
-                expect(SalesAnalyticsFilterController.configureView).toHaveBeenCalledWith(scope);
             });
         });
 

@@ -1,7 +1,3 @@
-/**
- * Created by justin on 2/2/15.
- */
-
 define([
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetPresenter',
     'modules/saleAnalytics/widgets/singleLineChart/DistributionHourLineWidgetModel'
@@ -20,16 +16,10 @@ define([
             var view;
             [
                 {
-                    viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
-                },
-                {
                     viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
                 },
                 {
                     viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
-                },
-                {
-                    viewEvent: "onFilterChanged", test: onFilterChangedTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,

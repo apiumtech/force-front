@@ -45,32 +45,6 @@ define([
                 };
             });
 
-            // TODO: reenable when
-            xdescribe('fn.startEditingName', function () {
-                describe('fireOpenReport is false', function () {
-                    beforeEach(function () {
-                        sut.fireOpenReport = false;
-                        sut.fn.startEditingName();
-                    });
-                    it("should save the original name to backup", function () {
-                        expect(sut.originalName).toEqual("123456");
-                    });
-                    it("should turn on editing name", function () {
-                        expect(sut.editingName).toEqual(true);
-                    });
-                });
-                describe('fireOpenFolder is true', function () {
-                    it("should not save original name nor turn on editing name", function () {
-                        sut.originalName = "some old name";
-                        sut.fireOpenFolder = true;
-                        sut.fn.startEditingName();
-                        expect(sut.originalName).not.toEqual("123456");
-                        expect(sut.originalName).toEqual("some old name");
-                        expect(sut.editingName).not.toEqual(true);
-                    });
-                });
-            });
-
             describe('fn.saveName', function () {
 
                 it("should show error if the name is empty", function () {
@@ -133,21 +107,6 @@ define([
                 });
             });
 
-            // TODO: reenable when functionality is activated
-            xdescribe('fn.startEditingDescription', function () {
-
-                beforeEach(function () {
-                    sut.fn.startEditingDescription();
-                });
-                it("should save the original desc to backup", function () {
-                    expect(sut.originalDescription).toEqual("description_blahblah");
-                });
-
-                it("should turn on editing description", function () {
-                    expect(sut.editingDescription).toEqual(true);
-                });
-            });
-
             describe('fn.saveDescription', function () {
                 it("should show error if the description is empty", function () {
                     sut.report.Description = "";
@@ -202,10 +161,10 @@ define([
             describe('fn.saveName', function () {
                 it("should assign new value to selectedReportType", function () {
                     sut.$scope.report.ReportType = ['PDF', 'DOC', 'XSL'];
-                    sut.selectedReportType = 'PDF';
+                    sut.data.selectedReportType = 'PDF';
                     var newValue = 'DOC';
                     sut.fn.changeReportType(newValue);
-                    expect(sut.selectedReportType).toEqual(newValue);
+                    expect(sut.data.selectedReportType).toEqual(newValue);
                 });
             });
 

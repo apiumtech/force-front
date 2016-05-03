@@ -20,9 +20,6 @@ define([
             var view;
             [
                 {
-                    viewEvent: "onReloadWidgetStart", test: onReloadWidgetStartTest
-                },
-                {
                     viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
                 },
                 {

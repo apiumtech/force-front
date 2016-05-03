@@ -24,23 +24,6 @@ define([
                     sut.getWidgetsForPage();
                 }).toThrow(new Error("Page name cannot be null"));
             });
-
-            xit("should call ajax from its ajaxService with correct fetch url", function () {
-                var pageName = "ABC";
-
-                //TODO: update when having real API
-                sut.getWidgetsForPage(pageName);
-                expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            });
-        });
-
-        describe("updatePageWidgets", function () {
-            xit("should call ajax from its ajaxService with correct params", function () {
-                //TODO: update when having real API
-                var updateData = {};
-                sut.updatePageWidgets(updateData);
-                expect(ajaxService.rawAjaxRequest).toHaveBeenCalled();
-            });
         });
     });
 

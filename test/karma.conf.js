@@ -25,7 +25,7 @@ module.exports = function (config) {
         // use dots reporter, as travis terminal does not support escaping sequences
         // possible values: 'dots', 'progress', 'junit', 'teamcity'
         // CLI --reporters progress
-        reporters: ['progress', 'junit', 'coverage'],
+        reporters: ['progress'], // ['progress', 'junit', 'coverage']
 
         junitReporter: {
             outputFile: 'reports/test-results.xml',

@@ -33,17 +33,6 @@ define([
             });
         });
 
-        describe("_reload", function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
-                });
-            });
-        });
-
         describe("decorateCheckins", function () {
 
             it("should return correct decorated format", function () {
@@ -119,21 +108,24 @@ define([
                                     "X": 2.1294551,
                                     "Name": "Demo1",
                                     "Surname": "Demos1",
-                                    "Description": "desc1"
+                                    "Description": "desc1",
+                                    "PhotoUrl": "url1"
                                 },
                                 {
                                     "Y": 41.3883789,
                                     "X": 2.1269342,
                                     "Name": "Demo2",
                                     "Surname": "Demos2",
-                                    "Description": "desc2"
+                                    "Description": "desc2",
+                                    "PhotoUrl": "url2"
                                 },
                                 {
                                     "Y": 40.54424281666666,
                                     "X": -3.6193708833333336,
                                     "Name": "Demo3",
                                     "Surname": "Demos3",
-                                    "Description": "desc3"
+                                    "Description": "desc3",
+                                    "PhotoUrl": "url3"
                                 }
                             ]
                         }
@@ -149,17 +141,23 @@ define([
                             {
                                 "FullName": 'Demo1 Demos1',
                                 "Latitude": 41.3912049,
-                                "Longitude": 2.1294551
+                                "Longitude": 2.1294551,
+                                "Description": "desc1",
+                                "PhotoUrl": "url1"
                             },
                             {
                                 "FullName": 'Demo2 Demos2',
                                 "Latitude": 41.3883789,
-                                "Longitude": 2.1269342
+                                "Longitude": 2.1269342,
+                                "Description": "desc2",
+                                "PhotoUrl": "url2"
                             },
                             {
                                 "FullName": 'Demo3 Demos3',
                                 "Latitude": 40.54424281666666,
-                                "Longitude": -3.6193708833333336
+                                "Longitude": -3.6193708833333336,
+                                "Description": "desc3",
+                                "PhotoUrl": "url3"
                             }
                         ],
                         "filters": []

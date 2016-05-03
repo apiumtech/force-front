@@ -28,9 +28,6 @@ define([
                 },
                 {
                     viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
-                },
-                {
-                    viewEvent: "onFilterChanged", test: onFilterChangedTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,

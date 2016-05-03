@@ -141,44 +141,6 @@ define([
             });
         });
 
-        xdescribe('deleteLiteralPrompt', function () {
-            var sut;
-            beforeEach(function () {
-                sut = exerciseCreateView();
-                sut.translator = {translate: function(){
-                    return "the message";
-                }};
-            });
-            it('should do nothing when not confirmed', function () {
-                spyOn(window, "confirm").and.returnValue(false);
-                spyOn(sut, "_doDeleteLiteralPrompt");
-                sut.deleteLiteralPrompt(44);
-                expect(sut._doDeleteLiteralPrompt).not.toHaveBeenCalled();
-            });
-            it('should call _doDeleteLiteralPrompt when confirmed', function () {
-                spyOn(window, "confirm").and.returnValue(true);
-                spyOn(sut, "_doDeleteLiteralPrompt");
-                sut.deleteLiteralPrompt(44);
-                expect(sut._doDeleteLiteralPrompt).toHaveBeenCalledWith(44);
-            });
-
-            describe('_doDeleteLiteralPrompt', function () {
-                beforeEach(function () {
-                    spyOn(sut, "clearTable");
-                    spyOn(sut.event, "fireLiteralsDeleteRequest");
-                });
-                it('should clearTable', function () {
-                    sut._doDeleteLiteralPrompt(33);
-                    expect(sut.clearTable).toHaveBeenCalled();
-                });
-                it('should clearTable', function () {
-                    sut._doDeleteLiteralPrompt(33);
-                    expect(sut.event.fireLiteralsDeleteRequest).toHaveBeenCalledWith(33);
-                });
-            });
-
-        });
-
         describe('onDisposing', function () {
             var sut;
             beforeEach(function () {
@@ -219,7 +181,7 @@ define([
                 expect(sut.data.rows.length).toBe(0);
             });
         });
-        
+
 
         describe("_createLanguageColumns", function () {
             it("should resolve html template", function () {

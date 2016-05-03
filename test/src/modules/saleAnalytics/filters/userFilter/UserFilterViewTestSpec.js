@@ -5,7 +5,7 @@ define([
 ], function (UserFilterView, UserFilterPresenter, UserTreeListEventBus) {
     'use strict';
 
-    xdescribe('UserFilterView', function () {
+    describe('UserFilterView', function () {
         var sut, $scope,
             presenter = mock(UserFilterPresenter),
             eventBus = mock(UserTreeListEventBus);
@@ -42,13 +42,7 @@ define([
                     method: "initializeFilters", test: initializeFiltersTest
                 },
                 {
-                    method: "getFilteredUsersList", test: getFilteredUsersListTest
-                },
-                {
                     method: "userSelectionChanged", test: userSelectionChangedTest
-                },
-                {
-                    method: "__applyUserFilter", test: __applyUserFilterTest
                 },
                 {
                     method: "applyUserFilter", test: applyUserFilterTest
@@ -77,14 +71,6 @@ define([
                 it("should fire onFilterByGroup event", function () {
                     sut.fn.initializeFilters();
                     expect(sut.event.onFilterByGroup).toHaveBeenCalled();
-                });
-            }
-
-            function getFilteredUsersListTest() {
-                it("should fire event 'onFilteringUsers'", function () {
-                    sut.event.onFilteringUsers = jasmine.createSpy();
-                    sut.fn.getFilteredUsersList();
-                    expect(sut.event.onFilteringUsers).toHaveBeenCalledWith(sut.usersList, sut.currentUserFilterGroup, sut.searchingUser);
                 });
             }
 
@@ -176,23 +162,6 @@ define([
                 })
             }
 
-            function __applyUserFilterTest() {
-                var filtered = [1, 4, 5];
-                beforeEach(function () {
-                    spyOn(sut, 'getFilteredUserIdsList').and.returnValue(filtered);
-                    spyOn(sut.filterChannel, 'sendUserFilterApplySignal');
-                    sut.fn.__applyUserFilter();
-                });
-
-                it("should call getFilteredUserIdsList to have filtered list", function () {
-                    expect(sut.getFilteredUserIdsList).toHaveBeenCalled();
-                });
-
-                it("should broadcast event bus with filtered list", function () {
-                    expect(sut.filterChannel.sendUserFilterApplySignal).toHaveBeenCalled();
-                });
-            }
-
         });
 
         describe("onUsersLoadedSuccess()", function () {
@@ -209,11 +178,6 @@ define([
             }, {
                 group: "fake group 2", children: []
             }];
-
-            it("should assign data", function () {
-                sut.onUsersLoadedSuccess(data);
-                expect(sut.usersList).toEqual(data);
-            });
 
             it("should call filter user", function () {
                 sut.onUsersLoadedSuccess(data);
@@ -393,45 +357,6 @@ define([
             });
         });
 
-        describe("getFilteredUserIdsList", function () {
-            beforeEach(function () {
-
-                sut.userFiltered = [{
-                    group: "groupA",
-                    children: [{
-                        Id: 1,
-                        Name: "groupa-1",
-                        checked: false
-                    }, {
-                        Id: 2,
-                        Name: "groupa-2",
-                        checked: true
-                    }]
-                }, {
-                    group: "groupB",
-                    children: [{
-                        Id: 3,
-                        Name: "groupb-1",
-                        checked: false
-                    }, {
-                        Id: 4,
-                        Name: "groupb-2",
-                        checked: false
-                    }, {
-                        Id: 5,
-                        Name: "groupb-3",
-                        checked: true
-                    }]
-                }];
-            });
-
-            it("should return correct ids list", function () {
-                var expected = [2, 5];
-                var actual = sut.getFilteredUserIdsList();
-                expect(actual).toEqual(expected);
-            });
-        });
-
         describe('setUserFilteredData', function () {
             describe('data is empty', function () {
                 beforeEach(function () {
@@ -461,211 +386,6 @@ define([
                     expect(sut.userFiltered).toEqual(filteredData);
                 });
             });
-        });
-
-        describe('checkStateForTeamList', function () {
-            [
-                {
-                    input: [
-                        {
-                            Id: 1,
-                            checked: false,
-                            ParentId: -1,
-                            children: [{
-                                Id: 2,
-                                ParentId: 1,
-                                checked: true
-                            }, {
-                                Id: 3,
-                                ParentId: 1,
-                                checked: false,
-                                children: [
-                                    {
-                                        Id: 5,
-                                        ParentId: 3,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 6,
-                                        ParentId: 3,
-                                        checked: true
-                                    }
-                                ]
-                            }]
-                        }
-                    ],
-
-                    expectedOutput: [
-                        {
-                            Id: 1,
-                            checked: true,
-                            ParentId: -1,
-                            children: [{
-                                Id: 2,
-                                ParentId: 1,
-                                checked: true
-                            }, {
-                                Id: 3,
-                                ParentId: 1,
-                                checked: true,
-                                children: [
-                                    {
-                                        Id: 5,
-                                        ParentId: 3,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 6,
-                                        ParentId: 3,
-                                        checked: true
-                                    }
-                                ]
-                            }]
-                        }
-                    ],
-                    testNode: {
-                        Id: 5,
-                        ParentId: 3,
-                        checked: true
-                    }
-                },
-                {
-                    input: [
-                        {
-                            Id: 1,
-                            ParentId: -1,
-                            checked: false,
-                            children: [{
-                                Id: 2,
-                                ParentId: 1,
-                                checked: true
-                            }, {
-                                Id: 3,
-                                ParentId: 1,
-                                checked: false,
-                                children: [
-                                    {
-                                        Id: 5,
-                                        ParentId: 3,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 6,
-                                        ParentId: 3,
-                                        checked: true
-                                    }
-                                ]
-                            }]
-                        },
-                        {
-                            Id: 4,
-                            checked: true,
-                            ParentId: -1,
-                            children: [{
-                                Id: 7,
-                                ParentId: 4,
-                                checked: true
-                            }, {
-                                Id: 8,
-                                ParentId: 4,
-                                checked: false,
-                                children: [
-                                    {
-                                        Id: 9,
-                                        ParentId: 8,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 10,
-                                        ParentId: 8,
-                                        checked: false
-                                    }
-                                ]
-                            }]
-                        }
-                    ],
-
-                    expectedOutput: [
-                        {
-                            Id: 1,
-                            checked: true,
-                            ParentId: -1,
-                            children: [{
-                                Id: 2,
-                                ParentId: 1,
-                                checked: true
-                            }, {
-                                Id: 3,
-                                ParentId: 1,
-                                checked: true,
-                                children: [
-                                    {
-                                        Id: 5,
-                                        ParentId: 3,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 6,
-                                        ParentId: 3,
-                                        checked: true
-                                    }
-                                ]
-                            }]
-                        },
-                        {
-                            Id: 4,
-                            checked: null,
-                            ParentId: -1,
-                            children: [{
-                                Id: 7,
-                                ParentId: 4,
-                                checked: true
-                            }, {
-                                Id: 8,
-                                ParentId: 4,
-                                checked: null,
-                                children: [
-                                    {
-                                        Id: 9,
-                                        ParentId: 8,
-                                        checked: true
-                                    },
-                                    {
-                                        Id: 10,
-                                        ParentId: 8,
-                                        checked: false
-                                    }
-                                ]
-                            }]
-                        }
-                    ],
-                    testNode: [{
-                        Id: 9,
-                        ParentId: 8,
-                        checked: true
-                    }, {
-                        Id: 5,
-                        ParentId: 3,
-                        checked: true
-                    }]
-                }
-            ].forEach(function (test) {
-                    describe('Having input value', function () {
-                        it("should turn into correct output", function () {
-                            sut.userFiltered = test.input;
-                            sut.usersList = test.input;
-
-                            if (test.testNode.map) {
-                                test.testNode.forEach(function (t) {
-                                    sut.checkStateForTeamList(t);
-                                });
-                            } else {
-                                sut.checkStateForTeamList(test.testNode);
-                            }
-                            expect(sut.userFiltered).toEqual(test.expectedOutput);
-                        });
-                    });
-                });
         });
 
         describe('selectSingle', function () {

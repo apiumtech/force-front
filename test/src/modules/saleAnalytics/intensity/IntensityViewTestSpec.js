@@ -6,7 +6,7 @@ define([
     'modules/saleAnalytics/intensity/IntensityPresenter'
 ], function (IntensityView, IntensityPresenter) {
     'use strict';
-    xdescribe("IntensityView", function () {
+    describe("IntensityView", function () {
         var view, presenter, scope;
 
         beforeEach(function () {
@@ -40,28 +40,6 @@ define([
             it("should fire event onLoaded", function () {
                 expect(view.event.onLoaded).toHaveBeenCalled();
             });
-        });
-
-        describe("updateWidgetIndex", function () {
-
-            beforeEach(function () {
-                view.event.onWidgetMoved = sinon.stub();
-            });
-
-            it("should pickup index by calling getElementIndex()", function () {
-                var element = {item: {}}, widget = {widgetId: 10};
-                spyOn(view, 'getElementIndex');
-                view.updateWidgetIndex(element, widget);
-                expect(view.getElementIndex).toHaveBeenCalledWith({});
-            });
-
-            it("should fire event onWidgetMoved", function () {
-                var element = {item: {}}, widget = {widgetId: 10};
-                spyOn(view, 'getElementIndex').and.returnValue(1003);
-                view.updateWidgetIndex(element, widget);
-                expect(view.event.onWidgetMoved).toHaveBeenCalledWith(widget, 1003);
-            });
-
         });
     });
 });

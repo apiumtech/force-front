@@ -100,31 +100,6 @@ define([
             });
         });
 
-        describe("fn.toggleCollapsePanel", function () {
-            var fakeElement = {
-                slideToggle: function () {
-                }
-            };
-
-            beforeEach(function () {
-                element.find = function () {
-                    return fakeElement;
-                }
-            });
-
-            it("should find the body from element", function () {
-                spyOn(element, 'find').and.returnValue(fakeElement);
-                sut.fn.toggleCollapsePanel();
-                expect(element.find).toHaveBeenCalledWith('.panel-body');
-            });
-
-            it("should slide the body element", function () {
-                spyOn(fakeElement, 'slideToggle');
-                sut.fn.toggleCollapsePanel();
-                expect(fakeElement.slideToggle).toHaveBeenCalled();
-            });
-        });
-
         describe("fn.expandPanel", function () {
             beforeEach(function () {
                 sut.eventBusChannel = {
@@ -140,11 +115,6 @@ define([
                 sut.isExpanded = false;
                 sut.fn.expandPanel();
                 expect(sut.isExpanded).toBeTruthy();
-            });
-            xit('should send expanding widget signal', function () {
-                sut.fn.expandPanel();
-                spyOn(sut.eventBusChannel, "sendExpandingWidget");
-                expect(sut.eventBusChannel.sendExpandingWidget).toHaveBeenCalled();
             });
         });
 

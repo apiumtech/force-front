@@ -2,21 +2,13 @@ define([
     'modules/saleAnalytics/base/WidgetDecoratedPageView'
 ], function (WidgetDecoratedPageView) {
     'use strict';
-    xdescribe("WidgetDecoratedPageView", function () {
+    describe("WidgetDecoratedPageView", function () {
         function exerciseCreateView(model, presenter) {
             return new WidgetDecoratedPageView(mockAngularScope(), model, presenter || {
                     show: function () {
                     }
                 });
         }
-
-        it("should call presenter's show method on show()", function () {
-            var model = {};
-            var view = exerciseCreateView(model, {show: jasmine.createSpy()});
-            view.event.onLoaded = jasmine.createSpy();
-            view.show();
-            expect(view.presenter.show).toHaveBeenCalledWith(view, model);
-        });
 
         describe("decorateWidget", function () {
             it("Should specific template for widgets", function () {

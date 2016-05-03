@@ -108,22 +108,6 @@ define([
                     expect(sut.onURLReceivedForSend).toHaveBeenCalledWith(response);
                 })
             });
-
-            describe('fn.init', function () {
-                var report = {
-                    Id: 123,
-                    Name: "sample report"
-                };
-                it('should fire onLoadingPreviewImage event', function () {
-                    sut.event = {
-                        onLoadingPreviewImage: sinon.stub()
-                    };
-                    sut.report = report;
-                    sut.fn.init();
-                    expect(sut.event.onLoadingPreviewImage).toHaveBeenCalledWith(report);
-                });
-            });
-
         });
 
         describe('onPreviewImageLoaded', function () {

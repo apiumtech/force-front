@@ -140,29 +140,6 @@ define([
             });
         });
 
-        xdescribe("onLiteralsDeleteRequest", function(){
-            var sut, view, model;
-            beforeEach(function () {
-                sut = exerciseCreatePresenter();
-                view = mockView();
-                model = mockModel();
-                sut.show(view, model);
-            });
-
-            it("should fire Literals Request when promise succeeds", function(){
-                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakeOkPromise());
-                spyOn(sut.eventBus, "fireLiteralsRequest");
-                sut.onLiteralsDeleteRequest();
-                expect(sut.eventBus.fireLiteralsRequest).toHaveBeenCalled();
-            });
-
-            it("should call view's showError when promise fails", function(){
-                spyOn(model, "onLiteralsDeleteRequest").and.returnValue(exerciseFakeKoPromise());
-                sut.onLiteralsDeleteRequest();
-                expect(view.showError).toHaveBeenCalled();
-            });
-        });
-
         describe("nextPage", function () {
             var sut, view, model;
             beforeEach(function () {
