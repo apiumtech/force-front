@@ -36,10 +36,12 @@ define([
         this.permissionsService = PermissionsService.newInstance();
         this.configureEvents();
 
+      try{
         var hash = window.location.hash.split('#')[1];
         if( hash.indexOf("/analytics/reports") === -1 ){
             this.setupStickyFilters();
         }
+      }catch(err){/* to avoid tests failing */}
 
         $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
     }

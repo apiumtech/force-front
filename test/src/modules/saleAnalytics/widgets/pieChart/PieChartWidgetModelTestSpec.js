@@ -5,7 +5,7 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
 ], function (PieChartWidgetModel) {
     'use strict';
-    xdescribe("PieChartWidgetModel", function () {
+    describe("PieChartWidgetModel", function () {
 
         var sut, ajaxService;
 
@@ -32,27 +32,15 @@ define([
             });
             describe('the selected filter is not available in acceptance list', function () {
                 it('should assign the default one (the first element\'s key in the list to currentFilter', function () {
-                    sut.changeQueryFilter('f10000');
-                    expect(sut.currentFilter).toEqual('f1');
+                    sut.changeQueryFilter({key:'f10000'});
+                    expect(sut.currentFilter).toEqual({key:'f1',name:'f1'});
                 });
             });
 
             describe('the selected filter is in acceptance list', function () {
                 it('should assign the input value to currentFilter', function () {
-                    sut.changeQueryFilter('f3');
-                    expect(sut.currentFilter).toEqual('f3');
-                });
-            });
-        });
-
-        describe('_reload', function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut.fetchPoint = "fake_url";
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
+                    sut.changeQueryFilter({key:'f3',name:'f3'});
+                    expect(sut.currentFilter).toEqual({key:'f3',name:'f3'});
                 });
             });
         });
@@ -92,13 +80,6 @@ define([
                             }, {
                                 label: "Label3",
                                 data: 2
-                            }],
-                            filters: [{
-                                name: "Total Activities",
-                                key: "allActivities"
-                            }, {
-                                name: "Visits",
-                                key: "visits"
                             }]
                         }
                     }

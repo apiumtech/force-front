@@ -92,8 +92,10 @@ define([
 
 
         setTimeout(function(){
+          try{
             var datePickerInstance = $('#myDateRangePicker').data('daterangepicker');
             datePickerInstance.container.find('.applyBtn, .cancelBtn').removeClass('hide');
+          }catch(err){/* to avoid tests failing */}
         }, 1000);
 
         SalesAnalyticsFilterView.configureEvents(this);

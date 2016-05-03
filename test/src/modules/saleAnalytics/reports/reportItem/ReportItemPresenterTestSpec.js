@@ -52,14 +52,6 @@ define([
                     });
             });
 
-            xdescribe('view.event.toggleFavouriteReport', function () {
-                it("should call toggleFavouriteReport function from model", function () {
-                    var reportId = 123;
-                    view.event.toggleFavouriteReport(reportId);
-                    expect(mockModel.toggleFavouriteReport).toHaveBeenCalledWith(reportId);
-                });
-            });
-
             describe('view.event.getParameterConfiguration', function () {
                 it("should call getParameterConfiguration from model", function () {
                     var reportId = 123;

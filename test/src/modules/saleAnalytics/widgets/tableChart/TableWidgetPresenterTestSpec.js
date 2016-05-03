@@ -1,7 +1,3 @@
-/**
- * Created by justin on 12/22/14.
- */
-
 define([
     'modules/saleAnalytics/widgets/tableChart/TableWidgetPresenter',
     'modules/saleAnalytics/widgets/tableChart/TableWidgetModel'
@@ -21,9 +17,6 @@ define([
             //region test should declare methods
             var view;
             [
-                {
-                    viewEvent: "onReloading", test: onReloadingTest
-                },
                 {
                     viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
                 },

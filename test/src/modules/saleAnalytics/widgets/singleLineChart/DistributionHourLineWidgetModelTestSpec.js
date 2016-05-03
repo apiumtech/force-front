@@ -34,24 +34,16 @@ define([
             });
             describe('the selected filter is not available in acceptance list', function () {
                 it('should assign the default one (the first element\'s key in the list to currentFilter', function(){
-                    sut.changeQueryFilter('f10000');
+                    sut.changeQueryFilter({key:'f999'});
                     expect(sut.currentFilter).toEqual('f1');
                 });
             });
 
             describe('the selected filter is in acceptance list', function () {
                 it('should assign the input value to currentFilter', function(){
-                    sut.changeQueryFilter('f3');
+                    sut.changeQueryFilter({key:'f3'});
                     expect(sut.currentFilter).toEqual('f3');
                 });
-            });
-        });
-
-        describe("changeFilterTab", function () {
-            it("should call addQuery from base to add filter", function () {
-                spyOn(sut, 'addQuery');
-                sut.changeFilterTab("tab1");
-                expect(sut.addQuery).toHaveBeenCalledWith("selectedFilter", "tab1");
             });
         });
 
@@ -66,17 +58,6 @@ define([
 
                 expect(Configuration.api.hourWidgetDistributionDataApi.format).toHaveBeenCalledWith(sut.currentFilter);
                 expect(result).toEqual(expectedUrl);
-            });
-        });
-
-        describe('_reload', function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
-                });
             });
         });
 

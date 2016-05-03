@@ -27,77 +27,6 @@ define([
             });
         });
 
-        describe("configureEvents", function () {
-            [
-                {method: 'assignWidget', exercise: assignWidgetTestExercise},
-                {method: 'changeFilter', exercise: changeTabTestExercise}
-            ].forEach(function (testCase) {
-                    var method = testCase.method,
-                        exercise = testCase.exercise;
-
-                    it("should declare method fn." + method, function () {
-                        expect(sut.fn[method]).not.toBeNull();
-                        expect(isFunction(sut.fn[method])).toEqual(true);
-                    });
-
-                    if (exercise)
-                        describe("calling fn." + method, function () {
-                            beforeEach(function () {
-                                spyOn(sut, 'paintChart');
-                            });
-
-                            exercise();
-                        });
-                });
-
-            function assignWidgetTestExercise() {
-                var outerWidgetScope = {
-                    widgetId: 10,
-                    order: 10
-                };
-
-                function spyEvent() {
-                    sut.event.onReloadWidgetStart = jasmine.createSpy();
-                }
-
-                it("should assign outer scope to current instance", function () {
-                    spyEvent();
-                    sut.fn.assignWidget(outerWidgetScope);
-                    expect(sut.widget).toEqual(outerWidgetScope);
-                });
-
-                it("should fire event 'onReloadWidgetStart'", function () {
-                    spyEvent();
-                    sut.fn.assignWidget(outerWidgetScope);
-                    expect(sut.event.onReloadWidgetStart).toHaveBeenCalled();
-                });
-
-            }
-
-            function changeTabTestExercise() {
-                beforeEach(function () {
-                    sut.event = sut.event || {};
-                    sut.event.onTabChanged = jasmine.createSpy();
-                });
-                var newValue = "tab2";
-
-                function exerciseChangeTab() {
-                    sut.fn.changeFilter(newValue);
-                }
-
-                it("should assign selected tab with new value", function () {
-                    exerciseChangeTab();
-                    expect(sut.selectedFilter).toEqual(newValue);
-                });
-
-                it("should fire onTabChanged event", function () {
-                    exerciseChangeTab();
-                    expect(sut.event.onTabChanged).toHaveBeenCalled();
-                });
-            }
-
-        });
-
         describe("onReloadWidgetSuccess", function () {
             var fakeResponseData = {
                 data: {
@@ -127,18 +56,6 @@ define([
                 sut.event.onReloadWidgetDone=function(){};
                 sut.paintChart = jasmine.createSpy();
                 spyOn(sut, '_onReloadWidgetSuccess');
-            });
-
-            it("Should assign filters to scope", function () {
-                spyOn(sut.event, 'onReloadWidgetDone');
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.tabs).toEqual(fakeResponseData.data.params.filters);
-            });
-
-            it("Should assign selectedFiler to scope with value is first element of filters", function () {
-                spyOn(sut.event, 'onReloadWidgetDone');
-                sut.onReloadWidgetSuccess(fakeResponseData);
-                expect(sut.selectedFilter).toEqual(fakeResponseData.data.params.filters[0].key);
             });
 
             it("Should not assign selectedFiler if it has value", function () {

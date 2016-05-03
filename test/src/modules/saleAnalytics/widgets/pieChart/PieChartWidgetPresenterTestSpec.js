@@ -7,7 +7,7 @@ define([
     'modules/saleAnalytics/widgets/pieChart/PieChartWidgetModel'
 ], function (PieChartWidgetPresenter, PieChartWidgetModel) {
     'use strict';
-    xdescribe("PieChartWidgetPresenter", function () {
+    describe("PieChartWidgetPresenter", function () {
         var sut, model;
 
         beforeEach(function () {
@@ -20,16 +20,10 @@ define([
             var view;
             [
                 {
-                    viewEvent: "onReloading", test: onReloadingTest
-                },
-                {
                     viewEvent: "onDateFilterApplied", test: onDateFilterAppliedTest
                 },
                 {
                     viewEvent: "onUsersFilterApplied", test: onUsersFilterAppliedTest
-                },
-                {
-                    viewEvent: "onTabChanged", test: onTabChangedTest
                 }
             ].forEach(function (testCase) {
                     var viewEvent = testCase.viewEvent,
@@ -45,24 +39,6 @@ define([
 
                     describe("when event '" + viewEvent + "' fired", test);
                 });
-
-            function onReloadingTest() {
-                beforeEach(function () {
-                    view.widget = {
-                        dataEndpoint: "/test/end/point"
-                    };
-                    spyOn(sut, '_executeLoadWidget');
-                });
-                it("should add endpoint to model", function () {
-                    view.event.onReloading();
-                    expect(model.setFetchEndPoint).toHaveBeenCalledWith('/test/end/point');
-                });
-
-                it("should call '_executeLoadWidget' method", function () {
-                    view.event.onReloading();
-                    expect(sut._executeLoadWidget).toHaveBeenCalled();
-                });
-            }
 
             function onUsersFilterAppliedTest() {
                 var filterValue = [1, 2, 3, 4, 5];
@@ -93,22 +69,6 @@ define([
 
                 it("should call 'addDateFilter' on the model", function () {
                     expect(model.addDateFilter).toHaveBeenCalledWith(filterValue.dateStart, filterValue.dateEnd);
-                });
-
-                it("should fire sendReloadCommandToChannel", function () {
-                    expect(view.sendReloadCommandToChannel).toHaveBeenCalled();
-                });
-            }
-
-            function onTabChangedTest() {
-                beforeEach(function () {
-                    view.selectedFilter = "tab1";
-                    spyOn(view, 'sendReloadCommandToChannel');
-                    view.event.onTabChanged();
-                });
-
-                it("should call addQuery with new value", function () {
-                    expect(model.changeQueryFilter).toHaveBeenCalledWith("tab1");
                 });
 
                 it("should fire sendReloadCommandToChannel", function () {

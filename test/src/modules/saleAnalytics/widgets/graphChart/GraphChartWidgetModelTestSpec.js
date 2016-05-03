@@ -7,7 +7,7 @@ define([
     'config'
 ], function (GraphChartWidgetModel, Configuration) {
     'use strict';
-    xdescribe("GraphChartWidgetModel", function () {
+    describe("GraphChartWidgetModel", function () {
         var sut, ajaxService;
 
         beforeEach(function () {
@@ -55,18 +55,6 @@ define([
                 sut.fetchPoint = "fetch point url";
                 sut.getUrl();
                 expect(sut.fetchPoint.format).toHaveBeenCalledWith(sut.currentFilter);
-            });
-        });
-
-        describe("_reload", function () {
-            it('should call decoration method to decorate data from server', function (done) {
-                spyOn(sut, 'decorateServerData');
-                spyOn(ajaxService, 'rawAjaxRequest').and.returnValue(exerciseFakeOkPromise());
-                sut.fetchPoint = "fake_url";
-                sut._reload().then(function () {
-                    expect(sut.decorateServerData).toHaveBeenCalled();
-                    done();
-                });
             });
         });
 

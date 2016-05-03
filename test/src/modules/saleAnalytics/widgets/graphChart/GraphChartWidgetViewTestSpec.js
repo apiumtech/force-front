@@ -29,7 +29,6 @@ define([
         describe("configureEvents", function () {
             [
                 {method: 'changeFilterRange', exercise: changeFilterRangeTestExercise},
-                {method: 'changeFilter', exercise: changeFilterTestExercise},
                 {method: 'switchToFilled', exercise: switchToFilledTestExercise},
                 {method: 'switchToLine', exercise: switchToLineTestExercise},
                 {method: 'toggleDisplayField', exercise: toggleDisplayFieldTestExercise}
@@ -60,19 +59,6 @@ define([
                 it("should assign correct value", function () {
                     var param = performFilterChange();
                     expect(sut.$scope.selectedRangeOption).toEqual(param);
-                });
-
-                it("Should fire event onFilterRangeChanged", function () {
-                    performFilterChange();
-                    expect(sut.event.onFilterRangeChanged).toHaveBeenCalled();
-                });
-            }
-
-            function changeFilterTestExercise() {
-                it("Should fire event onFilterChanged", function () {
-                    sut.event.onFilterChanged = jasmine.createSpy();
-                    sut.fn.changeFilter();
-                    expect(sut.event.onFilterChanged).toHaveBeenCalled();
                 });
             }
 
@@ -139,57 +125,10 @@ define([
 
 
         describe("extractFilters", function () {
-
             it("should assign filters from data", function () {
                 sut.data.filters = ['filter1', 'filter2'];
                 sut.extractFilters();
                 expect(sut.$scope.filters).toEqual(sut.data.filters);
-            });
-
-            describe("assign new value to selectedFilter", function () {
-                describe("current value is empty", function () {
-                    it("should assign selectedFilter to the first element in array", function () {
-                        sut.data.filters = [{
-                            key: 'filter1',
-                            name: 'Filter1'
-                        }, {
-                            key: 'filter2',
-                            name: 'Filter2'
-                        }];
-                        sut.extractFilters();
-                        expect(sut.$scope.selectedFilter).toEqual('filter1');
-                    });
-                });
-
-                describe("current value is not in filters list", function () {
-                    it("should assign selectedFilter to the first element in array", function () {
-                        sut.$scope.selectedFilter = 'filterNotInList';
-                        sut.data.filters = [{
-                            key: 'filter1',
-                            name: 'Filter1'
-                        }, {
-                            key: 'filter2',
-                            name: 'Filter2'
-                        }];
-                        sut.extractFilters();
-                        expect(sut.$scope.selectedFilter).toEqual('filter1');
-                    });
-                });
-
-                describe("current value is in filters list", function () {
-                    it("should not assign selectedFilter if it has value", function () {
-                        sut.$scope.selectedFilter = 'filter2';
-                        sut.data.filters = [{
-                            key: 'filter1',
-                            name: 'Filter1'
-                        }, {
-                            key: 'filter2',
-                            name: 'Filter2'
-                        }];
-                        sut.extractFilters();
-                        expect(sut.$scope.selectedFilter).toEqual('filter2');
-                    });
-                });
             });
         });
 

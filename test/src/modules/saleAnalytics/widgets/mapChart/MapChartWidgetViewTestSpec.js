@@ -121,7 +121,6 @@ define([
             });
 
             [
-                {selectedFilter: "checkins", method: "applyHeatLayer"},
                 {selectedFilter: "users", method: "createUserMap"}
             ].forEach(function (test) {
                     var filter = test.selectedFilter;
