@@ -1,9 +1,62 @@
 define([
-], function () {
+  'q',
+  'modules/saleAnalytics/widgets/WidgetService',
+  'shared/services/TranslatorService'
+], function (Q, WidgetService, TranslatorService) {
   "use strict";
 
-    function MarkeplaceModel() {
+    function MarkeplaceModel(widgetService, translatorService) {
+      this.widgetService = widgetService || new WidgetService();
+      this.translator = translatorService || TranslatorService.newInstance();
     }
+
+    MarkeplaceModel.prototype.filterWidgetsByCategory = function(category) {
+      if(category === 'all') {
+        return this.getAllWidgets();
+      }
+      return this.widgetService.getWidgetsForPage(category)
+        .then(this.decorateWidgets.bind(this, category));
+    };
+
+    MarkeplaceModel.prototype.getAllWidgets = function() {
+      return Q.all([
+        this.widgetService.getWidgetsForPage('intensity').then(this.decorateWidgets.bind(this, 'intensity')),
+        this.widgetService.getWidgetsForPage('distribution').then(this.decorateWidgets.bind(this, 'distribution')),
+        this.widgetService.getWidgetsForPage('conversion').then(this.decorateWidgets.bind(this, 'conversion'))
+      ]).then(function(results) {
+        var all = [];
+        results.forEach(function(widgets){
+          all = all.concat(widgets);
+        });
+        return all;
+      });
+    };
+
+    MarkeplaceModel.prototype.decorateWidgets = function(category, widgets) {
+      return widgets.data.body.map(function(widget){
+        return {
+          id: widget.widgetId,
+          name: widget.widgetName,
+          description: widget.description,
+          thumbnail: 'assets/images/chart-sample.png',
+          category: category
+        };
+      });
+    };
+
+    MarkeplaceModel.prototype.getFilters = function() {
+      var self = this;
+      var deferred = Q.defer();
+      setTimeout(function () {
+        deferred.resolve([
+          {key: 'all', name: self.translator.translate('label_all')},
+          {key: 'intensity', name: self.translator.translate('LeftMenu.Intensity')},
+          {key: 'distribution', name: self.translator.translate('LeftMenu.Distribution')},
+          {key: 'conversion', name: self.translator.translate('LeftMenu.Conversion')}
+        ]);
+      } ,1);
+      return deferred.promise;
+    };
 
     return MarkeplaceModel;
 });

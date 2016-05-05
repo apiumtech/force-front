@@ -1,19 +1,13 @@
-/**
- * Created by Justin on 1/5/2015.
- */
-
 define([
-    'shared/services/ajax/FakeAjaxService',
     'shared/services/ajax/AuthAjaxService',
     'config',
     'q',
     'underscore'
-], function (FakeAjaxService, AjaxService, Configuration, Q, _) {
+], function (AjaxService, Configuration, Q, _) {
     'use strict';
 
     function WidgetService(ajaxService) {
         this.ajaxService = ajaxService || new AjaxService();
-        this.fakeAjaxService = new FakeAjaxService();
     }
 
     WidgetService.inherits(Object, {});

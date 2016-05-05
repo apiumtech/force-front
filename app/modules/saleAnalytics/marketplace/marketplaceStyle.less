@@ -1,3 +1,17 @@
 .marketplace-container {
 
+  .marketplace-widget-list {
+    & > .marketplace-widget-list-row {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      &.active {
+        height: 200px;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
 }

@@ -1,23 +1,18 @@
 define([
   'shared/BaseView',
   'shared/services/config/PermissionsService',
-  'modules/saleAnalytics/marketplace/MarketplacePresenter',
-  'shared/services/TranslatorService'
-], function (BaseView, PermissionsService, MarketplacePresenter, TranslatorService) {
+  'modules/saleAnalytics/marketplace/MarketplacePresenter'
+], function (BaseView, PermissionsService, MarketplacePresenter) {
   'use strict';
 
   function MarketplaceView($scope, presenter, permissionsService) {
     BaseView.call(this, $scope, null, presenter || new MarketplacePresenter());
     this.$scope = $scope;
     this.pageName = 'marketplace';
-    this.translator = TranslatorService.newInstance();
-    this.data.filters = [
-      {key: 'all', name: this.translator.translate('label_all')},
-      {key: 'intensity', name: this.translator.translate('LeftMenu.Intensity')},
-      {key: 'distribution', name: this.translator.translate('LeftMenu.Distribution')},
-      {key: 'conversion', name: this.translator.translate('LeftMenu.Conversion')}
-    ];
-    this.data.selectedFilter = this.data.filters[0];
+    this.data.filters = [];
+    this.data.selectedFilter = null;
+    this.data.selectedWidget = null;
+    this.data.widgets = [];
     this.permissionsService = permissionsService || PermissionsService.newInstance();
     this.configureEvents();
     $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
@@ -37,12 +32,37 @@ define([
   MarketplaceView.prototype.configureEvents = function() {
     var self = this;
 
+    self.fn.onInit = function() {
+      self.event.getFilters();
+    };
+
+    self.fn.selectWidget = self.selectWidget.bind(self);
+
     self.fn.filterWidgetsByCategory = function(category) {
       self.data.selectedFilter = category;
-      self.event.filterWidgetsByCategory(category).then(self.onWidgetsLoaded.bind(this));
+      self.event.filterWidgetsByCategory(category.key);
     };
 
     this.show();
+  };
+
+  MarketplaceView.prototype.onFilterWidgetsByCategory = function(widgets) {
+    this.data.widgets = widgets;
+  };
+
+  MarketplaceView.prototype.onGetFilters = function(filters) {
+    this.data.filters = filters;
+    this.fn.filterWidgetsByCategory( this.data.filters[0] );
+  };
+
+  MarketplaceView.prototype.selectWidget = function(widget) {
+    this.data.selectedWidget = widget;
+  };
+
+  MarketplaceView.prototype.show = function() {
+    var self = this;
+    self.__base__.show.call(self);
+    self.fn.onInit();
   };
 
   MarketplaceView.newInstance = function ($scope) {
