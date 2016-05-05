@@ -1,10 +1,7 @@
-/**
- * Created by justin on 5/20/15.
- */
-
-
 define([
 ], function () {
+  "use strict";
+
     return {
         register: function ($routeProvider, resolveRoute) {
             var modulePath = 'modules/saleAnalytics/';
@@ -19,6 +16,7 @@ define([
 
                 .when('/analytics/reports', resolveRoute(modulePath + 'reports/ReportController', modulePath + 'reports/index'))
 
+                .when('/analytics/marketplace', resolveRoute(modulePath + 'marketplace/MarketplaceController', modulePath + 'marketplace/index'))
             ;
         }
     };

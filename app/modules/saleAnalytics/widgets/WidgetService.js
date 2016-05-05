@@ -42,7 +42,11 @@ define([
         return deferred.promise;
     };
 
-    WidgetService.prototype.updateWidgetPosition = function (widgetId, position) {
+    /**
+     * updateWidgetPosition()
+     * @param newPositions Array<{id,position}>
+     */
+    WidgetService.prototype.updateWidgetPosition = function (newPositions) {
       var deferred = Q.defer();
       var params = {
           url: Configuration.api.changeWidgetOrder,
@@ -51,8 +55,7 @@ define([
           contentType: 'application/json',
           accept: 'application/json',
           data: {
-            id: widgetId,
-            position: position
+            order: newPositions
           }
       };
       this.ajaxService.rawAjaxRequest(params).then(
