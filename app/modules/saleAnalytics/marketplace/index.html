@@ -57,14 +57,22 @@
       ng-repeat="widget in data.widgets"
       ng-class="{ active: data.selectedWidget === widget }"
       ng-click="fn.selectWidget(widget)">
-      <div class="col-xs-3"
-        style="height: 120px;background-size: contain;background-repeat: no-repeat;"
-        ng-style="{'background-image': 'url('+ widget.thumbnail +')'}">
+
+      <div class="col-xs-12 marketplace-widget-list-row-overview">
+        <div class="col-xs-3"
+          style="height: 120px;background-size: contain;background-repeat: no-repeat;"
+          ng-style="{'background-image': 'url('+ widget.thumbnail +')'}">
+        </div>
+        <div class="col-xs-9">
+          <h3>{{ widget.name }} <span class="label label-default">{{ widget.category }}</span></h3>
+          <span>{{ widget.description }}</span>
+        </div>
       </div>
-      <div class="col-xs-9">
-        <h3>{{ widget.name }} <span class="label label-default">{{ widget.category }}</span></h3>
-        <span>{{ widget.description }}</span>
+
+      <div class="col-xs-12 marketplace-widget-list-row-detail">
+        <h2>Detail</h2>
       </div>
+
     </div>
 
   </div><!-- End Widget list -->
