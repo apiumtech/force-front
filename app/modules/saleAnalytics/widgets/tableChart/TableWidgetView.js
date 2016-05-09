@@ -9,8 +9,9 @@ define([
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
     'underscore',
     'jquery',
-    'numbro'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $, numbro) {
+    'numbro',
+    'agGrid'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $, numbro, agGrid) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
@@ -25,7 +26,6 @@ define([
             desc: false
         };
     }
-
 
     TableWidgetView.inherits(WidgetBaseView, {
         dataSource: {
@@ -54,6 +54,27 @@ define([
         }
     });
 
+    TableWidgetView.prototype.createTable = function() {
+      var columnDefs = [
+          {headerName: "Make", field: "make"},
+          {headerName: "Model", field: "model"},
+          {headerName: "Price", field: "price"}
+      ];
+
+      var rowData = [
+          {make: "Toyota", model: "Celica", price: 35000},
+          {make: "Ford", model: "Mondeo", price: 32000},
+          {make: "Porsche", model: "Boxter", price: 72000}
+      ];
+
+      var gridOptions = {
+          columnDefs: columnDefs,
+          rowData: rowData
+      };
+
+      var eGridDiv = document.querySelector('#myGrid');
+      new agGrid.Grid(eGridDiv, gridOptions);
+    };
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -97,16 +118,17 @@ define([
         };
 
         self.fn.tableInit = function() {
-            setTimeout(function(){
-                $('.userColumnLink').mouseover(function () {
-                    var icon = $(this).find('.glyphicon.glyphicon-filter');
-                    icon.css('visibility', 'visible');
-                });
-                $('.userColumnLink').mouseout(function () {
-                    var icon = $(this).find('.glyphicon.glyphicon-filter');
-                    icon.css('visibility', 'hidden');
-                });
-            }, 3000);
+          setTimeout(function(){
+            $('.userColumnLink').mouseover(function () {
+              var icon = $(this).find('.glyphicon.glyphicon-filter');
+              icon.css('visibility', 'visible');
+            });
+            $('.userColumnLink').mouseout(function () {
+              var icon = $(this).find('.glyphicon.glyphicon-filter');
+              icon.css('visibility', 'hidden');
+            });
+          }, 3000);
+          self.createTable();
         };
 
         self.fn.singleSelectUser = function(row) {

@@ -42,9 +42,7 @@ var requireConf = {
         'q': '../node_modules/q/q',
         'meld': '../node_modules/meld/meld',
         'i18next': '../bower_components/i18next/i18next.min',
-
         'di4js': '../bower_components/di4js/di4js',
-
         'signals': '../node_modules/signals/dist/signals.min',
         'underscore': '../node_modules/underscore/underscore-min',
         'moment': '../node_modules/moment/min/moment-with-locales.min',
@@ -53,9 +51,9 @@ var requireConf = {
         'crypto': "../node_modules/cryptojs/lib/Crypto",
         'crypto.SHA1': "../node_modules/cryptojs/lib/SHA1",
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
-
         'd3': "../node_modules/d3/d3.min",
         'd3-funnel': "../node_modules/d3-funnel/dist/d3-funnel.min",
+        'agGrid': '../bower_components/ag-grid/dist/ag-grid.min',
 
 
         // TODO: delete or not
@@ -209,6 +207,9 @@ var requireConf = {
         },
         'di': {
             exports: 'di'
+        },
+        'agGrid': {
+            exports: 'agGrid'
         }
         //endregion
     },
@@ -239,7 +240,7 @@ var requireConf = {
         'numbroLang',
         'numbro',
 
-        'q', 'postal', 'meld',
+        'q', 'postal', 'meld', 'agGrid',
 
         'underscore', 'signals',
 

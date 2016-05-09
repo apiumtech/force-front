@@ -36,7 +36,8 @@
     "toastr": "~2.1.1",
     "angular-daterangepicker": "~0.2.2",
     "bootstrap-daterangepicker": "~2.1.17",
-    "numbro": "^1.6.2"
+    "numbro": "^1.6.2",
+    "ag-grid": "^4.1.5"
   },
   "resolutions": {
     "angular": ">=1.2"

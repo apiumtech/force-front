@@ -223,26 +223,23 @@ define([
         pageWidgets = _.sortBy(pageWidgets, function (widget) {
             return widget.Order;
         });
-
-        var list = [];
-        _.each(pageWidgets, function (widget) {
-            var w = {
-                type: (widget.WidgetType === "code" ? "custom" : widget.WidgetType),
-                widgetName: widget.WidgetName,
-                widgetId: widget.Id,
-                widgetContent: widget.WidgetContent,
-                position: {
-                    size: widget.NumColums
-                },
-                isActive: true,// (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
-                //dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
-                dataEndpoint: widget.EndPoint,
-                option: widget.WidgetOptions,
-                endPoint: widget.EndPoint
-            };
-            list.push(w);
+        
+        return pageWidgets.map(function(widget){
+          return {
+              type: (widget.WidgetType === "code" ? "custom" : widget.WidgetType),
+              widgetName: widget.WidgetName,
+              widgetId: widget.Id,
+              widgetContent: widget.WidgetContent,
+              position: {
+                  size: widget.NumColums
+              },
+              isActive: true,// (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
+              //dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
+              dataEndpoint: widget.EndPoint,
+              option: widget.WidgetOptions,
+              endPoint: widget.EndPoint
+          }
         });
-        return list;
     };
 
     return WidgetService;

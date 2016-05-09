@@ -13,6 +13,7 @@ define([
     'use strict';
 
     function ReportController($scope, $rootScope) {
+        var removei18nextLanguageChangeListener;
         var permissionsService = PermissionsService.newInstance();
         var isReportsVisible = permissionsService.getPermission("reports_sfm.isEnabled", true);
         if(!isReportsVisible) {
@@ -21,10 +22,12 @@ define([
             if($rootScope.i18nextLanguageReady === true){
                 ReportController.configureView($scope);
             } else {
-                $rootScope.$on('i18nextLanguageChange', function(){
+              if(removei18nextLanguageChangeListener){removei18nextLanguageChangeListener();}
+                removei18nextLanguageChangeListener = $rootScope.$on('i18nextLanguageChange', function(){
                     setTimeout(function(){
                         ReportController.configureView($scope);
                     }, 1000);
+                    removei18nextLanguageChangeListener();
                 });
             }
         }

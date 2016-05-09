@@ -10,13 +10,16 @@ define([
     'use strict';
 
     function DistributionController($scope, $rootScope) {
+      var removei18nextLanguageChangeListener;
         if($rootScope.i18nextLanguageReady === true){
             DistributionController.configureView($scope);
         } else {
-            $rootScope.$on('i18nextLanguageChange', function(){
+            if(removei18nextLanguageChangeListener){removei18nextLanguageChangeListener();}
+            removei18nextLanguageChangeListener = $rootScope.$on('i18nextLanguageChange', function(){
                 setTimeout(function(){
                     DistributionController.configureView($scope);
                 }, 1000);
+                removei18nextLanguageChangeListener();
             });
         }
     }
