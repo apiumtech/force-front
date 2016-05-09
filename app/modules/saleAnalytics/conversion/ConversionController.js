@@ -6,13 +6,16 @@ define([
     'use strict';
 
     function ConversionController($scope, $rootScope) {
+      var removei18nextLanguageChangeListener;
         if($rootScope.i18nextLanguageReady === true){
             ConversionController.configureView($scope);
         } else {
-            $rootScope.$on('i18nextLanguageChange', function(){
+          if(removei18nextLanguageChangeListener){removei18nextLanguageChangeListener();}
+            removei18nextLanguageChangeListener = $rootScope.$on('i18nextLanguageChange', function(){
                 setTimeout(function(){
                     ConversionController.configureView($scope);
                 }, 1000);
+                removei18nextLanguageChangeListener();
             });
         }
     }

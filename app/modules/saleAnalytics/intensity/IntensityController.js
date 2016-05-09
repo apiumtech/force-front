@@ -10,14 +10,17 @@ define([
     'use strict';
 
     function IntensityController($scope, $rootScope) {
+        var removei18nextLanguageChangeListener;
         if($rootScope.i18nextLanguageReady === true){
             IntensityController.configureView($scope);
         } else {
-            $rootScope.$on('i18nextLanguageChange', function(){
-                setTimeout(function(){
-                    IntensityController.configureView($scope);
-                }, 1000);
-            });
+          if(removei18nextLanguageChangeListener){removei18nextLanguageChangeListener();}
+          removei18nextLanguageChangeListener = $rootScope.$on('i18nextLanguageChange', function(){
+            setTimeout(function(){
+              IntensityController.configureView($scope);
+            }, 1000);
+            removei18nextLanguageChangeListener();
+          });
         }
     }
 
