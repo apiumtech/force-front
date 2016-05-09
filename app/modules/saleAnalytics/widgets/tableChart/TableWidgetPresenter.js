@@ -34,7 +34,7 @@ define([
 
         view.event.onReloading = function () {
             model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
-            view.data = {};
+            //view.data = {};
             self._executeLoadWidget();
         };
 

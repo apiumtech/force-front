@@ -14,10 +14,10 @@ define([
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
+      var self = this;
         presenter = presenter || new TableWidgetPresenter();
-        WidgetBaseView.call(this, scope, element, presenter);
-        this.dataSource = [];
-        var self = this;
+        WidgetBaseView.call(self, scope, element, presenter);
+        self.dataSource = [];
         self.configureEvents();
         self.sortingState = {
             column: null,
@@ -25,7 +25,6 @@ define([
             desc: false
         };
     }
-
 
     TableWidgetView.inherits(WidgetBaseView, {
         dataSource: {
@@ -53,7 +52,6 @@ define([
             }
         }
     });
-
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -97,16 +95,16 @@ define([
         };
 
         self.fn.tableInit = function() {
-            setTimeout(function(){
-                $('.userColumnLink').mouseover(function () {
-                    var icon = $(this).find('.glyphicon.glyphicon-filter');
-                    icon.css('visibility', 'visible');
-                });
-                $('.userColumnLink').mouseout(function () {
-                    var icon = $(this).find('.glyphicon.glyphicon-filter');
-                    icon.css('visibility', 'hidden');
-                });
-            }, 3000);
+          setTimeout(function(){
+            $('.userColumnLink').mouseover(function () {
+              var icon = $(this).find('.glyphicon.glyphicon-filter');
+              icon.css('visibility', 'visible');
+            });
+            $('.userColumnLink').mouseout(function () {
+              var icon = $(this).find('.glyphicon.glyphicon-filter');
+              icon.css('visibility', 'hidden');
+            });
+          }, 3000);
         };
 
         self.fn.singleSelectUser = function(row) {

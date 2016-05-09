@@ -43,9 +43,8 @@
             </div>
         </div>
 
-
         <!-- FIXED TABLE HEADER -->
-        <div class="row m-t-20">
+        <!--<div class="row m-t-20">
           <div class="col-xs-12 table-responsive">
               <table class="table table-striped table-picture-40" ng-init="fn.tableInit()" style="margin-bottom:0;">
                   <thead>
@@ -71,12 +70,33 @@
                 </thead>
               </table>
             </div>
-        </div>
+        </div>-->
 
         <!-- CONTENT (TABLE) -->
         <div class="row table-chart-widget-content">
             <div class="col-xs-12 table-responsive">
                 <table class="table table-striped table-picture-40" ng-init="fn.tableInit()">
+                  <thead>
+                      <tr>
+                          <th
+                             ng-repeat="column in data.columns | filter:{key:'!$'}"
+                             tooltip="{{ column.tooltip }}" tooltip-placement="bottom" tooltip-append-to-body="true"
+                             ng-if="column.available && column.visible"
+                             style="text-align: center; border-right: 1px solid #e2e7eb;"
+                             ng-style="{'width': column.minWidth+'px'}">
+                             <a class="btn-link" ng-click="fn.sortColumnBy(column, $event)" ng-if="column.sortable">
+                                {{ column.name }}
+                                <i ng-class="{
+                                    'fa fa-sort':      sortingState.column.key !== column.key,
+                                    'fa fa-sort-asc':  sortingState.column.key === column.key && sortingState.asc,
+                                    'fa fa-sort-desc': sortingState.column.key === column.key && sortingState.desc
+                                   }"
+                                ></i>
+                              </a>
+                            <span ng-if="!column.sortable">{{ column.name }}</span>
+                        </th>
+                    </tr>
+                  </thead>
                     <tbody>
                         <tr class="gradeX" ng-repeat="record in dataSource">
                             <td
