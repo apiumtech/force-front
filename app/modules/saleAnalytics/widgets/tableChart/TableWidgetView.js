@@ -9,16 +9,15 @@ define([
     'modules/saleAnalytics/eventBus/UserTreeListEventBus',
     'underscore',
     'jquery',
-    'numbro',
-    'agGrid'
-], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $, numbro, agGrid) {
+    'numbro'
+], function (WidgetBaseView, TableWidgetModel, TableWidgetPresenter, BaseWidgetEventBus, UserTreeListEventBus, _, $, numbro) {
     'use strict';
 
     function TableWidgetView(scope, element, presenter) {
+      var self = this;
         presenter = presenter || new TableWidgetPresenter();
-        WidgetBaseView.call(this, scope, element, presenter);
-        this.dataSource = [];
-        var self = this;
+        WidgetBaseView.call(self, scope, element, presenter);
+        self.dataSource = [];
         self.configureEvents();
         self.sortingState = {
             column: null,
@@ -53,28 +52,6 @@ define([
             }
         }
     });
-
-    TableWidgetView.prototype.createTable = function() {
-      var columnDefs = [
-          {headerName: "Make", field: "make"},
-          {headerName: "Model", field: "model"},
-          {headerName: "Price", field: "price"}
-      ];
-
-      var rowData = [
-          {make: "Toyota", model: "Celica", price: 35000},
-          {make: "Ford", model: "Mondeo", price: 32000},
-          {make: "Porsche", model: "Boxter", price: 72000}
-      ];
-
-      var gridOptions = {
-          columnDefs: columnDefs,
-          rowData: rowData
-      };
-
-      var eGridDiv = document.querySelector('#myGrid');
-      new agGrid.Grid(eGridDiv, gridOptions);
-    };
 
     TableWidgetView.prototype.configureEvents = function () {
         var self = this;
@@ -128,7 +105,6 @@ define([
               icon.css('visibility', 'hidden');
             });
           }, 3000);
-          self.createTable();
         };
 
         self.fn.singleSelectUser = function(row) {

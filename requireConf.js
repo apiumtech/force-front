@@ -53,7 +53,6 @@ var requireConf = {
         'crypto.MD5': "../node_modules/cryptojs/lib/MD5",
         'd3': "../node_modules/d3/d3.min",
         'd3-funnel': "../node_modules/d3-funnel/dist/d3-funnel.min",
-        'agGrid': '../bower_components/ag-grid/dist/ag-grid.min',
 
 
         // TODO: delete or not
@@ -207,9 +206,6 @@ var requireConf = {
         },
         'di': {
             exports: 'di'
-        },
-        'agGrid': {
-            exports: 'agGrid'
         }
         //endregion
     },
@@ -240,7 +236,7 @@ var requireConf = {
         'numbroLang',
         'numbro',
 
-        'q', 'postal', 'meld', 'agGrid',
+        'q', 'postal', 'meld', 
 
         'underscore', 'signals',
 
