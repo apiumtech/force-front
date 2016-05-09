@@ -37,6 +37,7 @@ define([
     };
 
     self.fn.selectWidget = self.selectWidget.bind(self);
+    self.fn.unselectCurrentWidget = self.unselectCurrentWidget.bind(self);
 
     self.fn.filterWidgetsByCategory = function(category) {
       self.data.selectedFilter = category;
@@ -57,6 +58,10 @@ define([
 
   MarketplaceView.prototype.selectWidget = function(widget) {
     this.data.selectedWidget = widget;
+  };
+
+  MarketplaceView.prototype.unselectCurrentWidget = function() {
+    this.data.selectedWidget = null;
   };
 
   MarketplaceView.prototype.show = function() {
