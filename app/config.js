@@ -179,6 +179,7 @@ define(function () {
                 window.location.hostname === "localhost" ||
                 window.location.hostname.indexOf("192.168") > -1;
         },
+        isWinter: false,
         salesAnalytics: {
             intensityActivityChartDateFormat: 'dddd D MMMM YYYY',
             intensityActivityChartWeekFormat: 'D MMM YYYY',

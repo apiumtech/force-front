@@ -3,6 +3,7 @@
  */
 
 define([
+    'config',
     'shared/BaseView',
     'modules/widgets/WidgetEventBus',
     'modules/saleAnalytics/eventBus/WidgetAdministrationEventBus',
@@ -22,7 +23,7 @@ define([
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
     'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetDirective',
     'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
-], function (BaseView, WidgetEventBus, WidgetAdministrationEventBus, PermissionsService, angular, $, _) {
+], function (config, BaseView, WidgetEventBus, WidgetAdministrationEventBus, PermissionsService, angular, $, _) {
     'use strict';
 
     function WidgetDecoratePageView($scope, $model, $presenter) {
@@ -39,7 +40,11 @@ define([
       try{
         var hash = window.location.hash.split('#')[1];
         if( hash.indexOf("/analytics/reports") === -1 ){
+          if(config.isWinter) {
             this.setupStickyFilters();
+          } else {
+            this.setupStickyFilters_winter();
+          }
         }
       }catch(err){/* to avoid tests failing */}
 

@@ -74,14 +74,18 @@ define([
         var position;
 
         // widget order sync
+        var positionChanges = [];
         for(position = 0; position < oldPageLayoutData.body.length; position++ ) {
           oldWidget = oldPageLayoutData.body[position];
           newWidget = self.modelData.body[position];
           if( oldWidget.widgetId !== newWidget.widgetId ) {
-            promises.push(
-              self.widgetService.updateWidgetPosition( newWidget.widgetId, position )
-            );
+            positionChanges.push({id: newWidget.widgetId, position: position});
           }
+        }
+        if(positionChanges.length > 0) {
+          promises.push(
+            self.widgetService.updateWidgetPosition( positionChanges )
+          );
         }
 
         // widget visibility sync
