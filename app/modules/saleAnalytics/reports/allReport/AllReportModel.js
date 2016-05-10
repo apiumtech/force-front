@@ -27,8 +27,17 @@ define([
         return this._reload();
     };
 
-    // winter version
     AllReportModel.prototype._reload = function () {
+      var self = this;
+      if(Configuration.isWinter) {
+        self._reload_winter();
+      } else {
+        self._reload_master();
+      }
+    };
+
+    // winter version
+    AllReportModel.prototype._reload_winter = function () {
         var self = this;
         var url = Configuration.api.reportList;
         var fmRequest = {
@@ -50,7 +59,7 @@ define([
     };
 
     // old version
-   /*AllReportModel.prototype._reload = function () {
+   AllReportModel.prototype._reload_master = function () {
       var self = this;
       var url = Configuration.api.getAllReports;
 
@@ -62,7 +71,7 @@ define([
       };
 
       return self.authAjaxService.rawAjaxRequest(params).then(self.decorateServerData.bind(self));
-    };*/
+    };
 
     AllReportModel.prototype.decorateServerData = function (data) {
         data = data.data;
