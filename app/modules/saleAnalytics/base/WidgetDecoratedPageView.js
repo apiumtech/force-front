@@ -41,9 +41,9 @@ define([
         var hash = window.location.hash.split('#')[1];
         if( hash.indexOf("/analytics/reports") === -1 ){
           if(config.isWinter) {
-            this.setupStickyFilters();
-          } else {
             this.setupStickyFilters_winter();
+          } else {
+            this.setupStickyFilters();
           }
         }
       }catch(err){/* to avoid tests failing */}
