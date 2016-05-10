@@ -110,9 +110,6 @@
 .ic-expand-left:before {
     content: "\46";
 }
-.ic-expand-right:before {
-    content: "\47";
-}
 .ic-export:before {
     content: "\48";
 }
@@ -176,14 +173,8 @@
 .ic-phone-settings:before {
     content: "\36";
 }
-.ic-plus:before {
-    content: "\37";
-}
 .ic-plus-circle:before {
     content: "\38";
-}
-.ic-print:before {
-    content: "\39";
 }
 .ic-prohibited:before {
     content: "\22";
@@ -350,9 +341,6 @@
 .ic-close:before {
     content: "\2c";
 }
-.ic-documents-filled:before {
-    content: "\e003";
-}
 .ic-dots-filled:before {
     content: "\e007";
 }
@@ -404,9 +392,6 @@
 .ic-reports-filled:before {
     content: "\e01d";
 }
-.ic-salesforce-filled:before {
-    content: "\e01e";
-}
 .ic-search:before {
     content: "\e01f";
 }
@@ -419,15 +404,6 @@
 .ic-agenda-filled:before {
     content: "\47";
 }
-.ic-contacts-filled:before {
-    content: "\6f";
-}
-.ic-accounts-filled:before {
-    content: "\7c";
-}
-.ic-documents-filled-1:before {
-    content: "\e002";
-}
 .ic-activity:before {
     content: "\e022";
 }
@@ -435,11 +411,24 @@
     content: "\e023";
 }
 .ic-sent:before {
-  content: "\33";
+    content: "\33";
 }
 .ic-lock-2:before {
-  content: "\e024";
+    content: "\e024";
 }
 .ic-warning-filled:before {
-  content: "\e025";
+    content: "\e025";
 }
+.ic-accounts-filled:before {
+    content: "\7c";
+}
+.ic-contacts-filled:before {
+    content: "\6f";
+}
+.ic-documents-filled:before {
+    content: "\e002";
+}
+.ic-salesforce-filled:before {
+    content: "\e026";
+}
+
