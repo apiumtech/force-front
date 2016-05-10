@@ -30,9 +30,9 @@ define([
     AllReportModel.prototype._reload = function () {
       var self = this;
       if(Configuration.isWinter) {
-        self._reload_winter();
+        return self._reload_winter();
       } else {
-        self._reload_master();
+        return self._reload_master();
       }
     };
 
