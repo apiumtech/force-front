@@ -1,6 +1,3 @@
-/**
- * Created by justin on 3/20/15.
- */
 define([
     'angular',
     'config',
@@ -53,6 +50,10 @@ define([
             diConfig.register("modalService").instance($modal);
         }
     ]);
+
+    app.config(['$compileProvider', function ($compileProvider) {
+      $compileProvider.debugInfoEnabled(false);
+    }]);
 
     return app;
 });
