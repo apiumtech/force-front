@@ -26,7 +26,7 @@ define([
         };
         this.ajaxService.rawAjaxRequest(params).then(
             function(res){
-                var data = self.getWidgetData(page, res);
+                var data = self.getWidgetData(page, res.data || res);
                 deferred.resolve({data:{body:data}});
             },
             function (err) {
@@ -99,119 +99,7 @@ define([
     };
 
     WidgetService.prototype.getWidgetData = function (page, widgetList) {
-        /*widgetList = widgetList || [
-            {
-                page: "intensity",
-                widgetType: "graph",
-                endPoint: "graphWidgetIntensityDataApi",
-                widgetName: "Widget A",
-                order: 0,
-                size: 12,
-                id: 1
-            },
-            {
-                page: "intensity",
-                widgetType: "table",
-                widgetName: "Ranking",
-                endPoint: "rankingWidgetIntensityDataApi",
-                order: 1,
-                size: 12,
-                id: 2
-            },
-            {
-                page: "intensity",
-                widgetType: "code",
-                widgetName: "Custom",
-                endPoint: "",
-                order: 2,
-                size: 12,
-                id: 3
-            },
-            {
-                page: "intensity",
-                widgetType: "table",
-                widgetName: "User extra fields",
-                endPoint: "userExtraFieldsDataApi",
-                widgetOptions: "userExtraFieldsDecorator",
-                order: 3,
-                size: 12,
-                id: 4
-            },
-            {
-                page: "distribution",
-                widgetType: "map",
-                widgetName: "GEOGRAPHICAL DISTRIBUTION",
-                endPoint: "geographicalWidgetDistributionDataApi",
-                order: 1,
-                size: 12,
-                id: 3
-            },
-            {
-                page: "distribution",
-                widgetType: "segment_distribution",
-                widgetName: "Distribucion por segmento",
-                endPoint: "segmentWidgetDistributionDataApi",
-                order: 3,
-                size: 6,
-                id: 4
-            },
-            {
-                page: "distribution",
-                widgetType: "hour_distribution",
-                widgetName: "DISTRIBUCION POR TIPO",
-                endPoint: "typeWidgetDistributionDataApi",
-                order: 3,
-                size: 6,
-                id: 5
-            },
-            {
-                page: "distribution",
-                widgetType: "hour_distribution_singleline",
-                widgetName: "DISTRIBUCION HORARIA",
-                endPoint: "hourWidgetDistributionDataApi",
-                order: 4,
-                size: 6,
-                id: 6
-            },
-            {
-                page: "distribution",
-                widgetType: "bar",
-                widgetOptions: 'tab',
-                widgetName: "ANALISIS DE COBERTURA",
-                endPoint: "coverageWidgetDistributionDataApi",
-                order: 5,
-                size: 6,
-                id: 7
-            },
-            {
-                page: "conversion",
-                widgetType: "scatter",
-                widgetName: "DIAGRAMA ACTIVIDAD / VENTAS",
-                endPoint: "activityWidgetConversionDataApi",
-                order: 0,
-                size: 6,
-                id: 8
-            },
-            {
-                page: "conversion",
-                widgetType: "bar",
-                widgetOptions: 'dropdown',
-                widgetName: "Efectividad visitas/venta",
-                endPoint: "visitWidgetConversionDataApi",
-                order: 1,
-                size: 6,
-                id: 9
-            },
-            {
-                page: "conversion",
-                widgetType: "table",
-                widgetName: "Ranking",
-                endPoint: "rankingWidgetConversionDataApi",
-                order: 1,
-                size: 12,
-                id: 10
-            }
-        ];*/
+        widgetList = widgetList.data || widgetList;
 
         var pageWidgets = _.clone(_.filter(widgetList, function (widget) {
             return widget.Page === page;
