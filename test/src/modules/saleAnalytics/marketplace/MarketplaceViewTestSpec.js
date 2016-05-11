@@ -5,7 +5,7 @@ define([
 ], function (MarketplaceView, MarketplacePresenter) {
   'use strict';
 
-  ddescribe("MarketplaceView", function () {
+  describe("MarketplaceView", function () {
 
     function exerciseView() {
       var mockPermissionsService = {getPermission:function(){}};
