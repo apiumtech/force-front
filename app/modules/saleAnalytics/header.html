@@ -1,6 +1,6 @@
 <!-- title -->
 <h1 class="page-header">
-    {{'LeftMenu.SaleAnalytics' | i18next}}
+  {{'LeftMenu.SaleAnalytics' | i18next}}
 </h1>
 
 
@@ -13,9 +13,12 @@
         <li ng-class="{'active': pageName=='reports'}" ng-if="isReportsVisible">
             <a href="#/analytics/reports">{{'LeftMenu.Reports' | i18next}}</a>
         </li>
-        <!--<li ng-class="{'active': pageName=='marketplace'}">
-            <a href="#/analytics/marketplace">Marketplace</a>
-        </li>-->
+        <li ng-class="{'active': pageName=='marketplace'}" ng-if="isMarketplaceVisible">
+            <i class="ic-settings"></i>
+            <a href="#/analytics/marketplace">
+              {{'Filters.Widget.Administration' | i18next}}
+            </a>
+        </li>
     </ul>
 </div>
 

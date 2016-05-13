@@ -16,6 +16,7 @@ define([
     this.permissionsService = permissionsService || PermissionsService.newInstance();
     this.configureEvents();
     $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
+    $scope.isMarketplaceVisible = this.permissionsService.getPermission("markeplace_sfm.isEnabled", true);
   }
 
   MarketplaceView.inherits(BaseView, {
