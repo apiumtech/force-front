@@ -6,9 +6,12 @@ define([
 ], function (BaseView, TopMenuWeb2Model, TopMenuWeb2Presenter, $) {
     'use strict';
 
-    function TopMenuWeb4View($scope, $model, $presenter) {
-        BaseView.call(this, $scope, $model, $presenter);
+    function TopMenuWeb4View($scope, $rootScope) {
+        var model = TopMenuWeb2Model.newInstance();
+        var presenter = TopMenuWeb2Presenter.newInstance();
+        BaseView.call(this, $scope, model, presenter);
         this.$window = window;
+        this.$rootScope = $rootScope;
 
         this.configureData();
         this.configureEvents();
@@ -90,6 +93,14 @@ define([
         this.data.unreadNotifications = unreadNotifications.notifications;
         this.data.tasksForToday = unreadNotifications.tasks;
         this.data.eventsForToday = unreadNotifications.events;*/
+
+        var self = this;
+        self.$rootScope.menuData = {
+          userSections: self.data.userSections,
+          userOptions: self.data.userOptions,
+          userData: self.data.userData,
+          doProfileMenuAction: self.doProfileMenuAction.bind(self)
+        };
     };
     TopMenuWeb4View.prototype.onGetUserDataInfoError = function (error) {
         this.data.currentError = error;
@@ -121,14 +132,11 @@ define([
         return 'topMenuWeb4';
     };
 
-    TopMenuWeb4View.newInstance = function ($scope, $model, $presenter, $window, $viewRepAspect, $logErrorAspect) {
+    TopMenuWeb4View.newInstance = function ($scope, $rootScope) {
         var scope = $scope || {};
-        var model = $model || TopMenuWeb2Model.newInstance();
-        var presenter = $presenter || TopMenuWeb2Presenter.newInstance();
+        var view = new TopMenuWeb4View(scope, $rootScope);
 
-        var view = new TopMenuWeb4View(scope, model, presenter);
-
-        return view._injectAspects($viewRepAspect, $logErrorAspect);
+        return view._injectAspects();
     };
 
 

@@ -16,7 +16,7 @@ define([
 
                 .when('/analytics/reports', resolveRoute(modulePath + 'reports/ReportController', modulePath + 'reports/index'))
 
-                //.when('/analytics/marketplace', resolveRoute(modulePath + 'marketplace/MarketplaceController', modulePath + 'marketplace/index'))
+                .when('/analytics/marketplace', resolveRoute(modulePath + 'marketplace/MarketplaceController', modulePath + 'marketplace/index'))
             ;
         }
     };
