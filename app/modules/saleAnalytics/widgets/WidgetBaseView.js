@@ -99,8 +99,10 @@ define([
     };
 
     WidgetBaseView.prototype.unbindEventChannelEventListeners = function () {
+      try{
         this.eventChannel.unsubscribeReloadCommand();
         this.eventChannel.unsubscribeReloadCompleteCommand();
+      }catch(err){}
     };
 
     WidgetBaseView.prototype.onReloadCommandReceived = function () {
