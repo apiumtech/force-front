@@ -27,7 +27,6 @@ define([
         'jm.i18next',
         'forcefront.sortable',
         'angularMoment',
-        'infinite-scroll',
         'RecursionHelper',
         'daterangepicker'
     ]);

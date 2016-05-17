@@ -24,8 +24,6 @@ var requireConf = {
         'angular-daterangepicker': '../bower_components/angular-daterangepicker/js/angular-daterangepicker',
         'ng-i18next': '../bower_components/ng-i18next/dist/ng-i18next',
 
-        'infinite-scroll': '../node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min',
-
         // jquery & stuffs
         'jquery': '../bower_components/jquery/dist/jquery.min',
         'jquery_migrate': '../bower_components/jquery-migrate/jquery-migrate',
@@ -110,11 +108,6 @@ var requireConf = {
         'ng-i18next': {
             deps: ['angular', 'i18next'],
             exports: 'ng_i18next'
-        },
-
-        'infinite-scroll': {
-            deps: ['angular'],
-            exports: 'infinite_scroll'
         },
 
         'angular-daterangepicker': {
@@ -224,7 +217,7 @@ var requireConf = {
         'angular-route',
 
         'angular-bootstrap',
-        'angular-moment', 'ng-i18next', 'infinite-scroll',
+        'angular-moment', 'ng-i18next',
 
         'angularRecursion',
 
