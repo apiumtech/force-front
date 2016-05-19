@@ -90,14 +90,18 @@ define([
         // D3 Funnel: https://github.com/jakezatecky/d3-funnel
         var self = this;
 
-        if(self.widget.endPoint === 'opportunityFunnelDataApi'){
-            self.paintOpportunityFunnel();
-        } else {
-            self.paintCustomerFunnel();
+        try{
+          if(self.widget.endPoint === 'opportunityFunnelDataApi'){
+            self._paintOpportunityFunnel();
+          } else {
+            self._paintCustomerFunnel();
+          }
+        }catch(err){
+          // window.console.error('funnel chart error', err);
         }
     };
 
-    FunnelChartWidgetView.prototype.paintOpportunityFunnel = function(){
+    FunnelChartWidgetView.prototype._paintOpportunityFunnel = function(){
         var self = this;
 
         var amounts = {};
@@ -177,7 +181,7 @@ define([
         };
     };
 
-    FunnelChartWidgetView.prototype.paintCustomerFunnel = function(){
+    FunnelChartWidgetView.prototype._paintCustomerFunnel = function(){
         var self = this;
 
         var labels0 = self.data.Labels[0];
@@ -247,8 +251,9 @@ define([
         value = +value;
         exp = +exp;
 
-        if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
-            return NaN;
+        if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+          return NaN;
+        }
 
         // Shift
         value = value.toString().split('e');

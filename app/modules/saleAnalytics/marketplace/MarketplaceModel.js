@@ -18,6 +18,23 @@ define([
         .then(this.decorateWidgets.bind(this, category));
     };
 
+    MarkeplaceModel.prototype.searchWidgetByKeywords = function(keywords, selectedFilter) {
+      var filterByKeyword = function(widgets) {
+          var filtered = widgets.filter(function(widget){
+            return widget.name.toLowerCase().indexOf(keywords.toLowerCase()) > -1 || widget.description.toLowerCase().indexOf(keywords.toLowerCase());
+          });
+          return filtered;
+      };
+
+      if(selectedFilter==='all') {
+        return this.getAllWidgets().then(filterByKeyword);
+      } else {
+        return this.widgetService.getWidgetsForPage(selectedFilter)
+                .then(this.decorateWidgets.bind(this, selectedFilter))
+                .then(filterByKeyword);
+      }
+    };
+
     MarkeplaceModel.prototype.getAllWidgets = function() {
       return Q.all([
         this.widgetService.getWidgetsForPage('intensity').then(this.decorateWidgets.bind(this, 'intensity')),

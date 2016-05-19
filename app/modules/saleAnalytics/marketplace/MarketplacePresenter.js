@@ -15,6 +15,12 @@ define([
         return model.filterWidgetsByCategory(category)
           .then(view.onFilterWidgetsByCategory.bind(view));
       };
+
+      view.event.searchWidgetByKeywords = function(keywords, selectedFilter){
+        return model.searchWidgetByKeywords(keywords, selectedFilter)
+          .then(view.onSearchWidgetByKeywords.bind(view));
+      };
+
       view.event.getFilters = function(){
         return model.getFilters()
           .then(view.onGetFilters.bind(view));

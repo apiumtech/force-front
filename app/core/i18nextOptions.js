@@ -67,6 +67,7 @@ define([
                     lang === 'de' ? 'de-DE' :
                     lang === 'fr' ? 'fr-FR' :
                     lang === 'pt' ? 'pt-PT' :
+                    lang === 'ru' ? 'ru-RU' :
                     lang === 'it' ? 'it-IT' : 'en-US';
         }
 

@@ -13,9 +13,9 @@
     <!-- Header - search box -->
     <div class="col-sm-4">
       <div class="search-box input-group">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" ng-model="data.searchFieldValue">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
+          <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords( data.searchFieldValue )">
             <i class="fa ic-search"></i>
           </button>
         </span>

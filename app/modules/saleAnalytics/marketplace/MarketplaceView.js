@@ -12,6 +12,7 @@ define([
     this.data.filters = [];
     this.data.selectedFilter = null;
     this.data.selectedWidget = null;
+    this.data.searchFieldValue = "";
     this.data.widgets = [];
     this.permissionsService = permissionsService || PermissionsService.newInstance();
     this.configureEvents();
@@ -45,10 +46,18 @@ define([
       self.event.filterWidgetsByCategory(category.key);
     };
 
+    self.fn.searchWidgetByKeywords = function( searchFieldValue ){
+      self.event.searchWidgetByKeywords(searchFieldValue, self.data.selectedFilter.key);
+    };
+
     this.show();
   };
 
   MarketplaceView.prototype.onFilterWidgetsByCategory = function(widgets) {
+    this.data.widgets = widgets;
+  };
+
+  MarketplaceView.prototype.onSearchWidgetByKeywords = function(widgets) {
     this.data.widgets = widgets;
   };
 

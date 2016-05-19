@@ -32,6 +32,8 @@ define([
                 endDate: moment().toDate().getTime()
             };
             this.storageService.store('dateFilter', savedDateFilter, true);
+            var event = new CustomEvent('dateFilterChanged', {'detail': savedDateFilter});
+            window.dispatchEvent(event);
         }
         this.addDateFilter(
             moment(savedDateFilter.startDate),
@@ -87,6 +89,8 @@ define([
 
     WidgetBase.prototype.addUserFilter = function (userIdsList) {
         this.storageService.store('userFilter', userIdsList, true);
+        var event = new CustomEvent('userFilterChanged', {'detail': userIdsList});
+        window.dispatchEvent(event);
 
         var nonComputableIds = this.storageService.retrieve('nonComputableUsers', true) || [];
         var correctedUserIdsList = userIdsList.filter(function(id){

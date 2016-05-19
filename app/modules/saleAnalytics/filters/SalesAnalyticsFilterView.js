@@ -26,6 +26,8 @@ define([
                 endDate: moment().toDate().getTime()
             };
             self.storageService.store('dateFilter', savedDateFilter, true);
+            var event = new CustomEvent('dateFilterChanged', {'detail': savedDateFilter});
+            window.dispatchEvent(event);
         }
 
         $scope.datePicker = $scope.datePicker || {};
