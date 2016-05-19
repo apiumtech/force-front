@@ -39,12 +39,6 @@ define([
         scope.$on('$destroy', this.unbindEventChannelEventListeners.bind(this));
 
 
-        /*meld.before(self, 'onReloadWidgetSuccess', function () {
-            if(self.serverError===true) {
-                self.serverError = false;
-            }
-        });*/
-
         meld.after(self, 'onReloadWidgetSuccess', function () {
             self._onReloadWidgetSuccess.call(self);
             self.applyWidgetDescription();
@@ -59,9 +53,6 @@ define([
             },
             set: function (value) {
                 this.$scope.widget = value;
-                //this.model.widgetId = value.widgetId;
-                //this.model.order = value.order;
-                //this.model.column = value.column;
             }
         }
     });
@@ -142,23 +133,6 @@ define([
         var self = this;
         var errorTitle = self.translator.translate("Errors.GeneralServerError.Title");
         var errorMessage = self.translator.translate("Errors.GeneralServerError.Message");
-
-        /*switch (error.readyState) {
-            case 0:
-                errorMessage = "Error while requesting data. Cannot open connection to the server. Please check internet setting";
-                break;
-            case 4:
-                errorMessage = "Error while requesting data.";// Error: " + error.responseText || error.statusText;
-                break;
-
-            default:
-                var err = "";
-                if (error instanceof Error)
-                    err = error.message;
-                errorMessage = "Error while requesting data.";// " + err;
-                break;
-        }*/
-
         this.data.serverError = true;
         this.data.serverErrorTitle = errorTitle;
         this.data.serverErrorMessage = errorMessage;

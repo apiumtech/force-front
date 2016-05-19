@@ -109,6 +109,7 @@ define([
             return widget.Order;
         });
 
+        var loremIpsum = 'Lorem ipsum dolor sit amet, ex pri meis disputationi. Quot alienum no pro, nam et tamquam deseruisse. Eam ei augue detracto, idque civibus definitiones no his. Mea copiosae praesent cotidieque eu. Ridens delenit consulatu no sea. Nisl volumus iudicabit eu qui. Te regione appetere concludaturque vim. Liber eruditi eum ad, fugit altera mel te, facilisi recteque mei at. Magna doming euripidis sed ei, ridens petentium vix in, libris officiis adipiscing in duo. Mel choro repudiandae an, porro percipitur dissentiet eos et.';
         var list = [];
         _.each(pageWidgets, function (widget) {
             var w = {
@@ -123,7 +124,9 @@ define([
                 //dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
                 dataEndpoint: widget.EndPoint,
                 option: widget.WidgetOptions,
-                endPoint: widget.EndPoint
+                endPoint: widget.EndPoint,
+                description: loremIpsum, // widget.Description,
+                images: ['assets/images/chart-sample.png', 'assets/images/chart-sample.png'] // widget.Images
             };
             list.push(w);
         });

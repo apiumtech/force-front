@@ -7,17 +7,15 @@
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
       }
-      .marketplace-widget-list-row-detail {
-        display: none;
-      }
       &.active {
-        height: 200px;
+        min-height: 200px;
         background-color: rgba(0, 0, 0, 0.2);
-        .marketplace-widget-list-row-overview {
-          display: none;
-        }
-        .marketplace-widget-list-row-detail {
-          display: block;
+      }
+      .marketplace-widget-list-row-detail {
+        .close {
+          position: absolute;
+          right: 10px;
+          top: 10px;
         }
       }
     }

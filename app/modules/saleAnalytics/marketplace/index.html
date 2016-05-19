@@ -1,25 +1,35 @@
 <ng-include
   src="'app/modules/saleAnalytics/header.html?v='+cacheBuster"
-  ng-show="i18nextLanguageReady===true"
-></ng-include>
+  ng-show="i18nextLanguageReady===true">
+</ng-include>
 
 <div
   class="marketplace-container m-t-20"
-  ng-show="i18nextLanguageReady===true"
-  >
+  ng-show="i18nextLanguageReady===true">
 
   <!-- Header -->
   <div class="row">
 
+    <!-- Header - search box -->
+    <div class="col-sm-4">
+      <div class="search-box input-group">
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <i class="fa ic-search"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+
     <!-- Header - dropdown -->
-    <div class="col-md-2">
+    <div class="col-sm-2">
       <div class="dropdown">
         <button
           class="btn btn-default dropdown-toggle"
           type="button"
           data-toggle="dropdown"
-          style="width:100%"
-        >
+          style="width:100%">
           {{ data.selectedFilter.name }}
           <span class="caret"></span>
         </button>
@@ -33,20 +43,9 @@
       </div>
     </div>
 
-    <!-- Header - search box -->
-    <div class="col-md-4">
-      <div class="search-box input-group">
-        <input type="text" class="form-control">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <i class="fa ic-search"></i>
-          </button>
-        </span>
-      </div>
-    </div>
-
   </div>
   <!-- End Header -->
+
 
 
   <!-- Widget list -->
@@ -58,30 +57,45 @@
       ng-class="{ active: data.selectedWidget === widget }"
       ng-click="fn.selectWidget(widget)">
 
-      <div class="col-xs-12 marketplace-widget-list-row-overview">
+      <!-- Overview -->
+      <div class="col-xs-12 marketplace-widget-list-row-overview" ng-hide="data.selectedWidget === widget">
         <div class="col-xs-3"
-          style="height: 120px;background-size: contain;background-repeat: no-repeat;"
-          ng-style="{'background-image': 'url('+ widget.thumbnail +')'}">
+          style="height: 150px;background-size: contain; background-position: 50%; background-repeat: no-repeat;"
+          ng-style="{'background-image': 'url('+ widget.images[0].url +')'}">
         </div>
         <div class="col-xs-9">
-          <h3>{{ widget.name }} <span class="label label-default">{{ widget.category }}</span></h3>
-          <span>{{ widget.description }}</span>
+          <h3>{{ widget.name }}</h3>
+          <span class="label label-default">{{ widget.category }}</span>
+          <p class="m-t-10">
+            {{ widget.description | limitTo:250 }}{{widget.description.length > 250 ? '...' : ''}}
+          </p>
         </div>
       </div>
 
-      <div class="col-xs-12 marketplace-widget-list-row-detail">
+      <!-- Detail -->
+      <div class="col-xs-12 marketplace-widget-list-row-detail" ng-show="data.selectedWidget === widget">
+        <div class="col-xs-6" style="min-height: 350px;">
+          <carousel interval="2000">
+            <slide ng-repeat="slide in widget.images" active="slide.active">
+              <img ng-src="{{ slide.url }}" style="margin:auto;">
+            </slide>
+          </carousel>
+        </div>
+        <div class="col-xs-6">
+          <h3>{{ widget.name }}</h3>
+          <span class="label label-default">{{ widget.category }}</span>
+          <p class="m-t-10">{{ widget.description }}</p>
+        </div>
         <button
           type="button"
           class="close"
           data-dismiss="alert"
-          ng-click="fn.unselectCurrentWidget()"
-        >
+          ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
           <span>&times;</span>
         </button>
-        <h2>Detail</h2>
       </div>
 
-    </div>
+    </div><!-- En row -->
 
   </div><!-- End Widget list -->
 

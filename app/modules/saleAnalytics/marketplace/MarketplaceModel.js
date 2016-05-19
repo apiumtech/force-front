@@ -33,12 +33,18 @@ define([
     };
 
     MarkeplaceModel.prototype.decorateWidgets = function(category, widgets) {
+      var self = this;
       return widgets.data.body.map(function(widget){
         return {
           id: widget.widgetId,
           name: widget.widgetName,
-          description: widget.description,
-          thumbnail: 'assets/images/chart-sample.png',
+          description: self.translator.translate(widget.description) || widget.description,
+          images: widget.images.map(function(img, index) {
+            return {
+              url: img,
+              id: index
+            };
+          }),
           category: category
         };
       });
