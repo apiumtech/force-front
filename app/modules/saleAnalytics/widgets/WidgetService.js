@@ -1,13 +1,17 @@
+/* global assertNotNull */
+
 define([
     'shared/services/ajax/AuthAjaxService',
     'config',
     'q',
-    'underscore'
-], function (AjaxService, Configuration, Q, _) {
+    'underscore',
+    'shared/services/TranslatorService'
+], function (AjaxService, Configuration, Q, _, TranslatorService) {
     'use strict';
 
-    function WidgetService(ajaxService) {
+    function WidgetService(ajaxService, translatorService) {
         this.ajaxService = ajaxService || new AjaxService();
+        this.translator = translatorService || TranslatorService.newInstance();
     }
 
     WidgetService.inherits(Object, {});
@@ -99,6 +103,7 @@ define([
     };
 
     WidgetService.prototype.getWidgetData = function (page, widgetList) {
+        var self = this;
         widgetList = widgetList.data || widgetList;
 
         var pageWidgets = _.clone(_.filter(widgetList, function (widget) {
@@ -114,7 +119,7 @@ define([
         _.each(pageWidgets, function (widget) {
             var w = {
                 type: (widget.WidgetType === "code" ? "custom" : widget.WidgetType),
-                widgetName: widget.WidgetName,
+                widgetName: self.translator.translate(widget.WidgetName) || widget.WidgetName,
                 widgetId: widget.Id,
                 widgetContent: widget.WidgetContent,
                 position: {
@@ -125,7 +130,7 @@ define([
                 dataEndpoint: widget.EndPoint,
                 option: widget.WidgetOptions,
                 endPoint: widget.EndPoint,
-                description: loremIpsum, // widget.Description,
+                description: loremIpsum, // self.translator.translate(widget.Description) || widget.Description,
                 images: ['assets/images/chart-sample.png', 'assets/images/chart-sample.png'] // widget.Images
             };
             list.push(w);
