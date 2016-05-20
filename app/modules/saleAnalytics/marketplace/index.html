@@ -102,10 +102,10 @@
         </button>
       </div>
 
-      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget)" ng-if="widget.visible">
+      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget);$event.stopImmediatePropagation();" ng-if="widget.visible">
         {{'Marketplace.uninstallWidget' | i18next}}
       </button>
-      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.installWidget(widget)" ng-if="!widget.visible">
+      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.installWidget(widget);$event.stopImmediatePropagation();" ng-if="!widget.visible">
         {{'Marketplace.installWidget' | i18next}}
       </button>
 
