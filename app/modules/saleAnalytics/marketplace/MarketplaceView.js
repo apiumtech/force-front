@@ -35,6 +35,7 @@ define([
     var self = this;
 
     self.fn.onInit = function() {
+      self.data.loading = true;
       self.event.getFilters();
     };
 
@@ -60,17 +61,25 @@ define([
       self.event.updateWidgetVisibility(widget.id, false, widget.category).then(function(){
         self.data.loading = false;
         widget.visible = false;
+        self.digest();
       });
+      self.digest();
     };
     self.fn.installWidget = function(widget) {
       self.data.loading = true;
       self.event.updateWidgetVisibility(widget.id, true, widget.category).then(function(){
         self.data.loading = false;
         widget.visible = true;
+        self.digest();
       });
+      self.digest();
     };
 
     this.show();
+  };
+
+  MarketplaceView.prototype.digest = function() {
+    // take advantage of view Repaint aspect
   };
 
   MarketplaceView.prototype.onFilterWidgetsByCategory = function(widgets) {

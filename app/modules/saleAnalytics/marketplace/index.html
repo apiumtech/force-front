@@ -57,11 +57,13 @@
     <!-- row -->
     <div class="col-xs-12 m-t-10 marketplace-widget-list-row"
       ng-repeat="widget in data.widgets"
-      ng-class="{ active: data.selectedWidget === widget }"
+      ng-class="{ active: data.selectedWidget === widget, uninstalled: widget.visible === false }"
       ng-click="fn.selectWidget(widget)">
 
       <!-- Overview -->
-      <div class="col-xs-12 marketplace-widget-list-row-overview" ng-hide="data.selectedWidget === widget">
+      <div
+        class="col-xs-12 marketplace-widget-list-row-overview"
+        ng-hide="data.selectedWidget === widget">
         <div class="col-xs-3"
           style="height: 150px;background-size: contain; background-position: 50%; background-repeat: no-repeat;"
           ng-style="{'background-image': 'url('+ widget.images[0].url +')'}">
@@ -76,7 +78,9 @@
       </div>
 
       <!-- Detail -->
-      <div class="col-xs-12 marketplace-widget-list-row-detail" ng-show="data.selectedWidget === widget">
+      <div
+        class="col-xs-12 marketplace-widget-list-row-detail"
+        ng-show="data.selectedWidget === widget">
         <div class="col-xs-6" style="min-height: 350px;">
           <carousel interval="2000">
             <slide ng-repeat="slide in widget.images" active="slide.active">
@@ -113,6 +117,6 @@
 
 
 <!-- Loading spinner -->
-<div class="panel-loader" ng-show="!i18nextLanguageReady">
+<div class="modal show" style="background-color: #f8f8f8; opacity: 0.5;" ng-show="!i18nextLanguageReady || data.loading">
     <span class="spinner-small"></span>
 </div>

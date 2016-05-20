@@ -2,16 +2,27 @@
 
   .marketplace-widget-list {
     margin: 0;
+
     & > .marketplace-widget-list-row {
       padding-top: 10px;
       padding-bottom: 10px;
+
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-      &.active {
-        min-height: 200px;
         background-color: rgba(0, 0, 0, 0.2);
       }
+
+      &.active {
+        min-height: 200px;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &.uninstalled {
+        background-color: rgba(0, 0, 0, 0.1);
+        .marketplace-widget-list-row-overview {
+          opacity: 0.3;
+        }
+      }
+
       .marketplace-widget-list-row-detail {
         .close {
           position: absolute;
@@ -24,12 +35,14 @@
           opacity: .5;
         }
       }
+
       .widget-install-button {
         position: absolute;
         right: 40px;
         top: 15px;
       }
-    }
+
+    }// End row
   }
 
 }

@@ -1,23 +1,30 @@
 define([
   'q',
   'modules/saleAnalytics/widgets/WidgetService',
-  'shared/services/TranslatorService'
-], function (Q, WidgetService, TranslatorService) {
+  'shared/services/TranslatorService',
+  'shared/services/StorageService'
+], function (Q, WidgetService, TranslatorService, StorageService) {
   "use strict";
 
     function MarkeplaceModel(widgetService, translatorService) {
       this.widgetService = widgetService || new WidgetService();
       this.translator = translatorService || TranslatorService.newInstance();
+      this.storageService = StorageService.newInstance();
     }
 
     MarkeplaceModel.prototype.updateWidgetVisibility = function (widgetId, isVisible, pageName) {
       var self = this;
-      return self.widgetService.updateWidgetVisibility(widgetId, isVisible)
-                .then(function(){
-                  var pageLayoutStorageKey = "pageLayout_" + pageName;
-                  self.storageService.remove(pageLayoutStorageKey, true);
-                  return "ok";
-                });
+      var deferred = Q.defer();
+      self.widgetService.updateWidgetVisibility(widgetId, isVisible)
+        .then(function(){
+          var pages = pageName === 'all' ? ['intensity','distribution','conversion'] : [pageName];
+          pages.forEach(function(page){
+            var pageLayoutStorageKey = "pageLayout_" + page;
+            self.storageService.remove(pageLayoutStorageKey, true);
+          });
+          deferred.resolve("ok");
+        });
+      return deferred.promise;
     };
 
     MarkeplaceModel.prototype.filterWidgetsByCategory = function(category) {
