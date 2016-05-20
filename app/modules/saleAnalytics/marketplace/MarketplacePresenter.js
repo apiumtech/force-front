@@ -25,6 +25,10 @@ define([
         return model.getFilters()
           .then(view.onGetFilters.bind(view));
       };
+
+      view.event.updateWidgetVisibility = function (widgetId, isVisible, pageName) {
+        return model.updateWidgetVisibility(widgetId, isVisible, pageName);
+      };
     };
 
     return MarketplacePresenter;

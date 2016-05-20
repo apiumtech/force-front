@@ -13,9 +13,12 @@
     <!-- Header - search box -->
     <div class="col-sm-4">
       <div class="search-box input-group">
-        <input type="text" class="form-control" ng-model="data.searchFieldValue">
+        <input type="text"
+          class="form-control"
+          ng-model="data.searchFieldValue"
+          ng-keydown="fn.searchWidgetByKeywords(data.searchFieldValue, $event.which === 13)">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords( data.searchFieldValue )">
+          <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords(data.searchFieldValue, true)">
             <i class="fa ic-search"></i>
           </button>
         </span>
@@ -94,6 +97,13 @@
           <span>&times;</span>
         </button>
       </div>
+
+      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget)" ng-if="widget.visible">
+        {{'Marketplace.uninstallWidget' | i18next}}
+      </button>
+      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.installWidget(widget)" ng-if="!widget.visible">
+        {{'Marketplace.installWidget' | i18next}}
+      </button>
 
     </div><!-- En row -->
 

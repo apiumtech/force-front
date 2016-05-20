@@ -22,38 +22,30 @@ define(function () {
     var api = {
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
-        authentication: baseUrl + '/api/commands/security/login',
-        getContacts: baseUrl + '/api/queries/crm/contacts',
 
-        intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
-
-        userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
-
-        graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
-
-        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
-        rankingWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod',
 
         userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList',
-
+        userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
+        intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
+        graphWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/{0}IntensityByUsersAndPeriod',
+        rankingWidgetIntensityDataApi: baseUrl + '/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod',
+        rankingWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod',
         geographicalWidgetDistributionDataApi: baseUrl + '/api/queries/stats/dashboard/distribution/{0}GeographicalDistributionByUsersAndPeriod',
         segmentWidgetDistributionDataApi: baseUrl +      '/api/queries/stats/dashboard/distribution/{0}SegmentDistributionByUsersAndPeriod',
         hourWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TimeDistributionByUsersAndPeriod',
         typeWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}TypeDistributionByUsersAndPeriod',
-
         coverageWidgetDistributionDataApi: baseUrl +     '/api/queries/stats/dashboard/distribution/coverage{0}DistributionByUsersAndPeriod',
         cycleCoverageWidgetDistributionDataApi: baseUrl +'/api/queries/stats/dashboard/distribution/cycleCoverageSegmentDistributionByUsersAndPeriod',
-
         stateWidgetDistributionDataApi: baseUrl +         '/api/queries/stats/dashboard/distribution/{0}StateDistributionByUsersAndPeriod',
-
-        //conversion activity/sales
         activityWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/activitySalesConversionByUsersAndPeriod',
-
-        //conversion visits/sales
         visitWidgetConversionDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/visitsSalesBy{0}ConversionByUsersAndPeriod',
+        customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
+        customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
+        opportunityFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod',
+
 
         //report
-  getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
+        getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
         reportList: baseUrl + '/api/queries/reports/reportList',
         getFavouriteReports: baseUrl + '/api/queries/stats/reports/favouriteReports',
         toggleFavouriteReport: baseUrl + '/api/queries/stats/reports/toggleFavourite/{0}',
@@ -62,23 +54,16 @@ define(function () {
         getReportUrl: baseUrl + '/api/queries/stats/reports/downloadReport?idUser=-1&idReport={0}&idCompany=-1&idEnvironment=-1&ReportName={1}&ReportFormat={2}&Parameters={3}',
         searchReport: baseUrl + '/api/queries/stats/reports/searchReports?idCompany=0&idUser=1&idEnvironment=1&searchQuery={0}',
         previewReport: baseUrl + '/api/queries/stats/reports/{0}/previewImageUrl',
-        //https://backenddev.forcemanager.net/api/queries/reports/table/reportData
         tablePreview: baseUrl + '/api/queries/reports/table/reportData',
         getReportListOfValues: baseUrl + '/api/queries/stats/reportValues/reportValueList?tableName={0}',
+        fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
 
+
+        customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
         widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
         changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
         changeWidgetVisibilityToVisible: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
         changeWidgetVisibilityToHidden: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
-
-        fuzzysearch: baseUrl + '/api/queries/stats/fuzzysearch/getfuzzy?service=sfm&textToSearch={0}&maxRowCount={1}&entity={2}',
-        //getCustomWidget: baseUrl + '/api/queries/stats/widgets/customWidget',
-        customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
-
-        customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
-        customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
-
-        opportunityFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod',
 
 
         literals: {
@@ -103,56 +88,7 @@ define(function () {
         customLiteralList: baseUrl + '/api/queries/commons/literals/customLiteralList',
         customLiteralById: baseUrl + '/api/queries/commons/literals/customLiteralById',
 
-
         literalValueDictionary: baseLiteralsUrl + '/api/queries/commons/literalValues/literalValueObject',
-
-
-
-
-
-        /* unused stuff, still needed for some tests to pass */
-
-        dataTableRequest: baseUrl + '/api/accounts/dataTables',
-         getAvailableOwners: baseUrl + '/api/accounts/availableOwners',
-         getAvailableEnvironments: baseUrl + '/api/accounts/environments',
-         getAvailableViews: baseUrl + '/api/accounts/views',
-         getAvailableAccountTypes: baseUrl + '/api/accounts/accountTypes',
-
-         getAccount: baseUrl + '/api/accounts/getAccount/{0}',
-         getAccountSummary: baseUrl + '/api/accounts/{0}/summary',
-         updateAccount: baseUrl + '/api/accounts/update/{0}',
-         createAccount: baseUrl + '/api/accounts/create',
-         deleteAccount: baseUrl + '/api/accounts/delete/{0}',
-         getAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/contacts',
-         addAccountRelatedContact: baseUrl + '/api/queries/accounts/{0}/addContact',
-         getAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/companies',
-         addAccountRelatedCompany: baseUrl + '/api/queries/accounts/{0}/addCompany',
-         getCompanyRelationType: baseUrl + '/api/queries/getCompanyRelationTypes',
-         getCompanyNameSuggestions: baseUrl + '/api/queries/getCompanyNameSuggestions?query={0}',
-
-         getCompany: baseUrl + '/api/queries/companies?companyName={0}',
-
-         getActivity: baseUrl + "/api/queries/accounts/{0}/activities",
-         toggleFollow: baseUrl + '/api/accounts/{0}/toggleFollow',
-         accountGeoLocation: baseUrl + '/api/accounts/{0}/geolocation',
-         toggleFollowActivity: baseUrl + '/api/queries/activities/{0}/toggleFollow',
-
-         getOpportunities: baseUrl + '/api/queries/account/opportunities',
-
-         getAgenda: baseUrl + '/api/queries/account/{0}/agenda',
-         deleteAgenda: baseUrl + '/api/queries/account/agenda/delete',
-         createAgenda: baseUrl + '/api/queries/account/agenda/create',
-
-         uploadFile: baseUrl + '/api/upload',
-         uploadDocuments: baseUrl + '/api/uploadDocument',
-
-         getFilterValues: baseUrl + '/api/accounts/getFilterValues',
-         getAvailableFields: baseUrl + '/api/accounts/availableFields',
-
-         getDocuments: baseUrl + '/api/accounts/{0}/documents',
-         deleteDocument: baseUrl + '/api/documents/{0}',
-         updateDocument: baseUrl + '/api/documents/{0}'
-
     };
 
     return {
@@ -186,6 +122,9 @@ define(function () {
             intensityActivityChartDateFormat: 'dddd D MMMM YYYY',
             intensityActivityChartWeekFormat: 'D MMM YYYY',
             intensityActivityChartMonthFormat: 'MMM YYYY'
+        },
+        appendBaseUrl: function(urlFragment){
+          return baseUrl + urlFragment;
         }
     };
 });

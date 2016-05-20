@@ -10,6 +10,16 @@ define([
       this.translator = translatorService || TranslatorService.newInstance();
     }
 
+    MarkeplaceModel.prototype.updateWidgetVisibility = function (widgetId, isVisible, pageName) {
+      var self = this;
+      return self.widgetService.updateWidgetVisibility(widgetId, isVisible)
+                .then(function(){
+                  var pageLayoutStorageKey = "pageLayout_" + pageName;
+                  self.storageService.remove(pageLayoutStorageKey, true);
+                  return "ok";
+                });
+    };
+
     MarkeplaceModel.prototype.filterWidgetsByCategory = function(category) {
       if(category === 'all') {
         return this.getAllWidgets();
@@ -19,20 +29,28 @@ define([
     };
 
     MarkeplaceModel.prototype.searchWidgetByKeywords = function(keywords, selectedFilter) {
+      var deferred = Q.defer();
       var filterByKeyword = function(widgets) {
           var filtered = widgets.filter(function(widget){
-            return widget.name.toLowerCase().indexOf(keywords.toLowerCase()) > -1 || widget.description.toLowerCase().indexOf(keywords.toLowerCase());
+            return widget.name.toLowerCase().indexOf(keywords.toLowerCase()) > -1 ||
+                   widget.description.toLowerCase().indexOf(keywords.toLowerCase()) > -1;
           });
           return filtered;
       };
 
       if(selectedFilter==='all') {
-        return this.getAllWidgets().then(filterByKeyword);
+        this.getAllWidgets()
+          .then(function(widgets){
+            deferred.resolve(filterByKeyword(widgets));
+          });
       } else {
-        return this.widgetService.getWidgetsForPage(selectedFilter)
-                .then(this.decorateWidgets.bind(this, selectedFilter))
-                .then(filterByKeyword);
+        this.widgetService.getWidgetsForPage(selectedFilter)
+          .then(this.decorateWidgets.bind(this, selectedFilter))
+          .then(function(widgets){
+            deferred.resolve(filterByKeyword(widgets));
+          });
       }
+      return deferred.promise;
     };
 
     MarkeplaceModel.prototype.getAllWidgets = function() {
@@ -62,7 +80,8 @@ define([
               id: index
             };
           }),
-          category: category
+          category: category,
+          visible: widget.isActive
         };
       });
     };
