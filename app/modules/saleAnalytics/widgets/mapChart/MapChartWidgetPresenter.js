@@ -33,6 +33,7 @@ define([
 
         view.event.onReloading = function () {
             view.data = {};
+            model.setFetchEndPoint(view.widget.dataEndpoint);
             self._executeLoadWidget();
         };
 

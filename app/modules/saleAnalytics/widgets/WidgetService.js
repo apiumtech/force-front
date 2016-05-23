@@ -124,7 +124,7 @@ define([
                 position: {
                     size: widget.NumColums
                 },
-                isActive: widget.IsActive,
+                isActive: widget.Visible,
                 dataEndpoint: widget.EndPoint,
                 option: widget.WidgetOptions,
                 endPoint: widget.EndPoint,

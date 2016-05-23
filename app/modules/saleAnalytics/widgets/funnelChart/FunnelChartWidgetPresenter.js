@@ -29,7 +29,8 @@ define([
         var model = this.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
+            //model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
+            model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data = {};
             self._executeLoadWidget();
         };

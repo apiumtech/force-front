@@ -49,7 +49,8 @@ define([
 
 
     MapChartWidgetModel.prototype.getUrl = function () {
-        return Configuration.api.geographicalWidgetDistributionDataApi.format(this.currentFilter);
+        //return Configuration.api.geographicalWidgetDistributionDataApi.format(this.currentFilter);
+        return this.fetchPoint.format(this.currentFilter);
     };
 
     MapChartWidgetModel.prototype.__baseReload = WidgetBase.prototype._reload;

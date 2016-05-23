@@ -32,7 +32,8 @@ define([
         var model = self.model;
 
         view.event.onReloading = function () {
-            model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
+            //model.setFetchEndPoint(config.api[view.widget.dataEndpoint]);
+            model.setFetchEndPoint(view.widget.dataEndpoint);
             view.data.axis = undefined;
             view.data.fields = undefined;
             view.data.filters = undefined;

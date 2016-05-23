@@ -49,7 +49,8 @@ define([
     };*/
 
     SingleLineChartWidgetModel.prototype.getUrl = function () {
-        return Configuration.api.hourWidgetDistributionDataApi.format(this.currentFilter);
+        //return Configuration.api.hourWidgetDistributionDataApi.format(this.currentFilter);
+        return this.fetchPoint.format(this.currentFilter);
     };
 
     SingleLineChartWidgetModel.prototype.decorateServerData = function (data) {

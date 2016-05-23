@@ -22,8 +22,9 @@ define(function () {
     var api = {
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
-
-
+        userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
+        
+        /*
         userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList',
         userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
         intensityWidgetApi: baseUrl + '/api/stats/dashboard/intensity/{0}',
@@ -42,6 +43,7 @@ define(function () {
         customerAcquisitionFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod',
         customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
         opportunityFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod',
+        */
 
 
         //report
@@ -60,7 +62,8 @@ define(function () {
 
 
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
-        widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
+        //widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
+        widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList_v2',
         changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
         changeWidgetVisibilityToVisible: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
         changeWidgetVisibilityToHidden: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',

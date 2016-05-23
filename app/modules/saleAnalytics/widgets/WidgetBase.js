@@ -64,7 +64,7 @@ define([
         if (!endpoint) {
             throw new Error("Input data cannot be null");
         }
-        this.fetchPoint = endpoint;
+        this.fetchPoint = Configuration.appendBaseUrl( endpoint );
     };
 
     WidgetBase.prototype.addQuery = function (key, value) {
