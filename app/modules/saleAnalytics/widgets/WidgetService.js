@@ -114,7 +114,6 @@ define([
             return widget.Order;
         });
 
-        var loremIpsum = 'Lorem ipsum dolor sit amet, ex pri meis disputationi. Quot alienum no pro, nam et tamquam deseruisse. Eam ei augue detracto, idque civibus definitiones no his. Mea copiosae praesent cotidieque eu. Ridens delenit consulatu no sea. Nisl volumus iudicabit eu qui. Te regione appetere concludaturque vim. Liber eruditi eum ad, fugit altera mel te, facilisi recteque mei at. Magna doming euripidis sed ei, ridens petentium vix in, libris officiis adipiscing in duo. Mel choro repudiandae an, porro percipitur dissentiet eos et.';
         var list = [];
         _.each(pageWidgets, function (widget) {
             var w = {
@@ -125,12 +124,12 @@ define([
                 position: {
                     size: widget.NumColums
                 },
-                isActive: true, // TODO: change to widget.IsActive,
+                isActive: widget.IsActive,
                 dataEndpoint: widget.EndPoint,
                 option: widget.WidgetOptions,
                 endPoint: widget.EndPoint,
-                description: loremIpsum, // self.translator.translate(widget.Description) || widget.Description,
-                images: widget.Images // ['assets/images/chart-sample.png', 'assets/images/chart-sample.png']
+                description: self.translator.translate(widget.Description) || widget.Description,
+                images: widget.Images
             };
             list.push(w);
         });
