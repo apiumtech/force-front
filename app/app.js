@@ -2,6 +2,7 @@ define([
     'angular',
     'config',
     'jquery',
+    'core/appInitializations',
     'core/i18nextOptions',
     'diConfig',
     'moment',
@@ -9,13 +10,18 @@ define([
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
     'angular_touch'
-], function (angular, config, $, i18nextOptions, diConfig, moment) {
+], function (angular, config, $, appInitializations, i18nextOptions, diConfig, moment) {
     'use strict';
 
     window.moment = moment;
 
+    var i18nOptions = i18nextOptions.createOptions(
+      appInitializations.language,
+      appInitializations.implementationCode,
+      appInitializations.platform
+    );
     angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
-        $i18nextProvider.options = i18nextOptions.prod;
+        $i18nextProvider.options = i18nOptions.prod;
     }]);
 
     var app = angular.module(config.appName, [
