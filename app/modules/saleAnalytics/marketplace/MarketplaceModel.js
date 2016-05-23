@@ -6,13 +6,13 @@ define([
 ], function (Q, WidgetService, TranslatorService, StorageService) {
   "use strict";
 
-    function MarkeplaceModel(widgetService, translatorService) {
+    function MarketplaceModel(widgetService, translatorService) {
       this.widgetService = widgetService || new WidgetService();
       this.translator = translatorService || TranslatorService.newInstance();
       this.storageService = StorageService.newInstance();
     }
 
-    MarkeplaceModel.prototype.updateWidgetVisibility = function (widgetId, isVisible, pageName) {
+    MarketplaceModel.prototype.updateWidgetVisibility = function (widgetId, isVisible, pageName) {
       var self = this;
       var deferred = Q.defer();
       self.widgetService.updateWidgetVisibility(widgetId, isVisible)
@@ -27,7 +27,7 @@ define([
       return deferred.promise;
     };
 
-    MarkeplaceModel.prototype.filterWidgetsByCategory = function(category) {
+    MarketplaceModel.prototype.filterWidgetsByCategory = function(category) {
       if(category === 'all') {
         return this.getAllWidgets();
       }
@@ -35,7 +35,7 @@ define([
         .then(this.decorateWidgets.bind(this, category));
     };
 
-    MarkeplaceModel.prototype.searchWidgetByKeywords = function(keywords, selectedFilter) {
+    MarketplaceModel.prototype.searchWidgetByKeywords = function(keywords, selectedFilter) {
       var deferred = Q.defer();
       var filterByKeyword = function(widgets) {
           var filtered = widgets.filter(function(widget){
@@ -60,7 +60,7 @@ define([
       return deferred.promise;
     };
 
-    MarkeplaceModel.prototype.getAllWidgets = function() {
+    MarketplaceModel.prototype.getAllWidgets = function() {
       return Q.all([
         this.widgetService.getWidgetsForPage('intensity').then(this.decorateWidgets.bind(this, 'intensity')),
         this.widgetService.getWidgetsForPage('distribution').then(this.decorateWidgets.bind(this, 'distribution')),
@@ -74,7 +74,7 @@ define([
       });
     };
 
-    MarkeplaceModel.prototype.decorateWidgets = function(category, widgets) {
+    MarketplaceModel.prototype.decorateWidgets = function(category, widgets) {
       var self = this;
       return widgets.data.body.map(function(widget){
         return {
@@ -93,7 +93,7 @@ define([
       });
     };
 
-    MarkeplaceModel.prototype.getFilters = function() {
+    MarketplaceModel.prototype.getFilters = function() {
       var self = this;
       var deferred = Q.defer();
       setTimeout(function () {
@@ -107,5 +107,5 @@ define([
       return deferred.promise;
     };
 
-    return MarkeplaceModel;
+    return MarketplaceModel;
 });

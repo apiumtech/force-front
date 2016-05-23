@@ -49,7 +49,7 @@ define([
       }catch(err){/* to avoid tests failing */}
 
         $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
-        $scope.isMarketplaceVisible = this.permissionsService.getPermission("markeplace_sfm.isEnabled", true);
+        $scope.isMarketplaceVisible = this.permissionsService.getPermission("markeptlace_sfm.isEnabled", true);
     }
 
     WidgetDecoratePageView.inherits(BaseView, {
