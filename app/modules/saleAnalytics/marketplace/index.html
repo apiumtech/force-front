@@ -93,13 +93,13 @@
           <span class="label label-default">{{ widget.category }}</span>
           <p class="m-t-10">{{ widget.description }}</p>
         </div>
-        <button
+        <!--<button
           type="button"
           class="close"
           data-dismiss="alert"
           ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
           <span>&times;</span>
-        </button>
+        </button>-->
       </div>
 
       <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget);$event.stopImmediatePropagation();" ng-if="widget.visible">

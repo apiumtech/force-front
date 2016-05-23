@@ -125,13 +125,12 @@ define([
                 position: {
                     size: widget.NumColums
                 },
-                isActive: true,// (Math.random() - 0.5 > 0),//TODO: change to widget.IsActive,
-                //dataEndpoint: Configuration.api[widget.EndPoint],//TODO: (joanllenas) WIP, yet to be decided how to resolve endpoints
+                isActive: true, // TODO: change to widget.IsActive,
                 dataEndpoint: widget.EndPoint,
                 option: widget.WidgetOptions,
                 endPoint: widget.EndPoint,
                 description: loremIpsum, // self.translator.translate(widget.Description) || widget.Description,
-                images: ['assets/images/chart-sample.png', 'assets/images/chart-sample.png'] // widget.Images
+                images: widget.Images // ['assets/images/chart-sample.png', 'assets/images/chart-sample.png']
             };
             list.push(w);
         });
