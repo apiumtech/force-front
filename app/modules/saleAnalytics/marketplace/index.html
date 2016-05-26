@@ -18,6 +18,12 @@
           ng-model="data.searchFieldValue"
           ng-keydown="fn.searchWidgetByKeywords(data.searchFieldValue, $event.which === 13)">
         <span class="input-group-btn">
+          <button
+            class="btn btn-default" type="button"
+            ng-show="data.searchFieldValue.length > 0"
+            ng-click="data.searchFieldValue='';fn.searchWidgetByKeywords('', true);">
+            <i class="fa ic-close"></i>
+          </button>
           <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords(data.searchFieldValue, true)">
             <i class="fa ic-search"></i>
           </button>
