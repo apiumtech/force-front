@@ -70,7 +70,7 @@
         </div>
         <div class="col-xs-9">
           <h3>{{ widget.name }}</h3>
-          <span class="label label-default">{{ widget.category }}</span>
+          <span class="label label-default">{{ widget.categoryLabel }}</span>
           <p class="m-t-10">
             {{ widget.description | limitTo:250 }}{{widget.description.length > 250 ? '...' : ''}}
           </p>
@@ -91,7 +91,7 @@
         </div>
         <div class="col-xs-6">
           <h3>{{ widget.name }}</h3>
-          <span class="label label-default">{{ widget.category }}</span>
+          <span class="label label-default">{{ widget.categoryLabel }}</span>
           <p class="m-t-10">{{ widget.description }}</p>
         </div>
         <!--<button

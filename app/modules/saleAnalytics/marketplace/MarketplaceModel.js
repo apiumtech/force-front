@@ -83,6 +83,12 @@ define([
             };
           }),
           category: category,
+          categoryLabel:  self.translator.translate(
+            category === 'intensity' ? 'LeftMenu.Intensity' :
+              category === 'distribution' ? 'LeftMenu.Distribution' :
+              category === 'conversion' ? 'LeftMenu.Conversion' :
+              '~ NADA ~'
+          ) || category,
           visible: widget.isActive
         };
       });
