@@ -26,15 +26,15 @@
     </div>
 
     <!-- Header - dropdown -->
-    <div class="col-sm-2">
+    <div class="col-sm-2 pull-right">
       <div class="dropdown">
         <button
           class="btn btn-default dropdown-toggle"
           type="button"
           data-toggle="dropdown"
-          style="width:100%">
+          style="width:100%; text-align: left;">
           {{ data.selectedFilter.name }}
-          <span class="caret"></span>
+          <span class="caret" style="position: absolute;right: 10px;top: 15px;"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="filter in data.filters">
