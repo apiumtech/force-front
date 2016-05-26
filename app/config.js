@@ -63,8 +63,7 @@ define(function () {
 
 
         customDataAccess: baseUrl + '/api/queries/stats/customDataAccess?storedName={0}&storedParams={1}',
-        //widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
-        widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList_v2',
+        widgetList: baseUrl + '/api/queries/config/widgets/userWidgetList',
         changeWidgetOrder: baseUrl + '/api/commands/config/widgets/userWidget/changeOrder',
         changeWidgetVisibilityToVisible: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToVisible',
         changeWidgetVisibilityToHidden: baseUrl + '/api/commands/config/widgets/userWidget/changeVisibilityToHidden',
