@@ -17,11 +17,6 @@ define([
       var deferred = Q.defer();
       self.widgetService.updateWidgetVisibility(widgetId, isVisible)
         .then(function(){
-          var pages = pageName === 'all' ? ['intensity','distribution','conversion'] : [pageName];
-          pages.forEach(function(page){
-            var pageLayoutStorageKey = "pageLayout_" + page;
-            self.storageService.remove(pageLayoutStorageKey, true);
-          });
           deferred.resolve("ok");
         });
       return deferred.promise;

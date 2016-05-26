@@ -28,10 +28,12 @@ define([
     });
 
     var clearPageLayouts = function() {
+      var storageService = StorageService.newInstance();
       ['intensity','distribution','conversion'].forEach(function(pageName){
         var pageLayoutStorageKey = "pageLayout_" + pageName;
-        StorageService.newInstance().remove(pageLayoutStorageKey, true);
+        storageService.remove(pageLayoutStorageKey, true);
       });
+      storageService.remove('all_widgets', true);
     };
     clearPageLayouts();
 

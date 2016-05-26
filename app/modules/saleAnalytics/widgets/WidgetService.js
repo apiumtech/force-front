@@ -5,13 +5,15 @@ define([
     'config',
     'q',
     'underscore',
-    'shared/services/TranslatorService'
-], function (AjaxService, Configuration, Q, _, TranslatorService) {
+    'shared/services/TranslatorService',
+    'shared/services/StorageService'
+], function (AjaxService, Configuration, Q, _, TranslatorService, StorageService) {
     'use strict';
 
     function WidgetService(ajaxService, translatorService) {
         this.ajaxService = ajaxService || new AjaxService();
         this.translator = translatorService || TranslatorService.newInstance();
+        this.storageService = StorageService.newInstance();
     }
 
     WidgetService.inherits(Object, {});
@@ -19,24 +21,34 @@ define([
     WidgetService.prototype.getWidgetsForPage = function (page) {
         assertNotNull("Page name", page);
         var self = this;
-
         var deferred = Q.defer();
-        var params = {
-            url: Configuration.api.widgetList,
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            accept: 'application/json'
-        };
-        this.ajaxService.rawAjaxRequest(params).then(
-            function(res){
-                var data = self.getWidgetData(page, res.data || res);
-                deferred.resolve({data:{body:data}});
-            },
-            function (err) {
-                deferred.reject(err);
-            }
-        );
+
+        var allWidgets = self.storageService.retrieve('all_widgets', true);
+        if(!allWidgets) {
+          var params = {
+              url: Configuration.api.widgetList,
+              type: 'GET',
+              dataType: 'json',
+              contentType: 'application/json',
+              accept: 'application/json'
+          };
+          this.ajaxService.rawAjaxRequest(params).then(
+              function(res){
+                  self.storageService.store('all_widgets', res.data || res, true);
+                  var data = self.getWidgetData(page, res.data || res);
+                  deferred.resolve({data:{body:data}});
+              },
+              function (err) {
+                  deferred.reject(err);
+              }
+          );
+        } else {
+          setTimeout(function(){
+            var data = self.getWidgetData(page, allWidgets.data || allWidgets);
+            deferred.resolve({data:{body:data}});
+          },1);
+        }
+
         return deferred.promise;
     };
 
@@ -45,6 +57,7 @@ define([
      * @param newPositions Array<{id,position}>
      */
     WidgetService.prototype.updateWidgetPosition = function (newPositions) {
+      this.clearWidgetData();
       var deferred = Q.defer();
       var params = {
           url: Configuration.api.changeWidgetOrder,
@@ -52,9 +65,7 @@ define([
           dataType: 'json',
           contentType: 'application/json',
           accept: 'application/json',
-          data: {
-            order: newPositions
-          }
+          data: newPositions
       };
       this.ajaxService.rawAjaxRequest(params).then(
           function(res){deferred.resolve({});},
@@ -64,6 +75,7 @@ define([
     };
 
     WidgetService.prototype.updateWidgetVisibility = function (widgetId, isVisible) {
+      this.clearWidgetData();
       var deferred = Q.defer();
       var url = Configuration.api.changeWidgetVisibilityToVisible;
       if(!isVisible){
@@ -86,20 +98,14 @@ define([
       return deferred.promise;
     };
 
-    /*WidgetService.prototype.updatePageWidgets = function (data) {
-
-        //TODO: request updates to server when having real API
-        var deferred = Q.defer();
-        setTimeout(deferred.reject.bind(deferred), 100, "WidgetService.updatePageWidgets dummy");
-        return deferred.promise;
-
-        //return this.ajaxService.rawAjaxRequest();
-    };*/
-
-    WidgetService.newInstance = function (ajaxService) {
-        var _ajaxService = ajaxService || AjaxService.newInstance();
-        var widgetService = new WidgetService(_ajaxService);
-        return widgetService;
+    WidgetService.prototype.clearWidgetData = function () {
+      var self = this;
+      self.storageService.remove('all_widgets', true);
+      var pages = ['intensity','distribution','conversion'];
+      pages.forEach(function(page){
+        var pageLayoutStorageKey = "pageLayout_" + page;
+        self.storageService.remove(pageLayoutStorageKey, true);
+      });
     };
 
     WidgetService.prototype.getWidgetData = function (page, widgetList) {
@@ -122,7 +128,7 @@ define([
                 widgetId: widget.Id,
                 widgetContent: widget.WidgetContent,
                 position: {
-                    size: widget.NumColums
+                    size: widget.NumColumns
                 },
                 isActive: widget.Visible,
                 dataEndpoint: widget.EndPoint,
@@ -134,6 +140,12 @@ define([
             list.push(w);
         });
         return list;
+    };
+
+    WidgetService.newInstance = function (ajaxService) {
+        var _ajaxService = ajaxService || AjaxService.newInstance();
+        var widgetService = new WidgetService(_ajaxService);
+        return widgetService;
     };
 
     return WidgetService;
