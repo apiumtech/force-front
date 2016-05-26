@@ -80,8 +80,9 @@
       <!-- Detail -->
       <div
         class="col-xs-12 marketplace-widget-list-row-detail"
-        ng-show="data.selectedWidget === widget">
-        <div class="col-xs-6" style="min-height: 350px;">
+        ng-show="data.selectedWidget === widget"
+        ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
+        <div class="col-xs-6" style="min-height: 350px;" ng-click="$event.stopImmediatePropagation();">
           <carousel interval="2000">
             <slide ng-repeat="slide in widget.images" active="slide.active">
               <!-- <img ng-src="{{ slide.url }}" class="img-responsive"> -->
@@ -92,7 +93,9 @@
         <div class="col-xs-6">
           <h3>{{ widget.name }}</h3>
           <span class="label label-default">{{ widget.categoryLabel }}</span>
-          <p class="m-t-10">{{ widget.description }}</p>
+          <p class="m-t-10" ng-click="$event.stopImmediatePropagation();">
+            {{ widget.description }}
+          </p>
         </div>
         <!--<button
           type="button"
