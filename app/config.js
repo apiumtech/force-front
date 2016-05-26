@@ -1,16 +1,17 @@
-/**
- * Created by kevin on 10/29/14.
- */
 define(function () {
     'use strict';
 
-    var apiVersion = "1.4";
+    var apiVersion = "1.5";
     var baseUrl = "https://backend.forcemanager.net/" + apiVersion;
-    if(window.location.hostname  === 'webpre.forcemanager.net' ||
-       window.location.hostname  === 'websta.forcemanager.net' ||
-       window.location.hostname.indexOf('webtest') > -1) {
+
+    if (window.location.hostname.indexOf('webpre') > -1) {
       baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
-    } else if(window.location.hostname.indexOf('127.0.0.1') > -1) {
+    }
+    else if (
+      window.location.hostname.indexOf('127.0.0.1') > -1 ||
+      window.location.hostname  === 'websta.forcemanager.net' ||
+      window.location.hostname.indexOf('webtest') > -1
+    ) {
       baseUrl = "https://backenddev.forcemanager.net";
     }
 
@@ -23,7 +24,7 @@ define(function () {
         getUserDataInfo: baseProxy + '/getUserDataInfo',
         logout: baseProxy + '/LogOff',
         userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
-        
+
         /*
         userExtraFieldsDataApi: baseUrl + '/api/queries/stats/extrafields/extrafieldList',
         userTreeFiltersApi: baseUrl + '/api/queries/stats/users/users{0}Tree',
