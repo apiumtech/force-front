@@ -21,8 +21,7 @@ define([
     'modules/saleAnalytics/widgets/barChart/BarChartWidgetDirective',
     'modules/saleAnalytics/widgets/tableChart/TableChartWidgetDirective',
     'modules/saleAnalytics/widgets/custom/CustomWidgetDirective',
-    'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetDirective',
-    'modules/saleAnalytics/widgetAdministration/WidgetAdministrationController'
+    'modules/saleAnalytics/widgets/funnelChart/FunnelChartWidgetDirective'
 ], function (config, BaseView, WidgetEventBus, WidgetAdministrationEventBus, PermissionsService, angular, $, _) {
     'use strict';
 
