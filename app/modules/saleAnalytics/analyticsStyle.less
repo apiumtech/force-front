@@ -31,6 +31,7 @@
   padding-left: 0;
   margin-right: 20px;
 }
+
 .submenu-analytics ul.list-inline li a {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
@@ -40,13 +41,36 @@
   text-transform: uppercase;
 }
 .submenu-analytics ul.list-inline li.active {
-  border-bottom: 4px solid #ED8B00;
+  border-bottom: 1px solid #ED8B00;
 }
 .submenu-analytics ul.list-inline li.active a {
   color: #ED8B00;
 }
 .submenu-analytics ul.list-inline li.active i {
   color: #ED8B00;
+}
+
+// marketplace-menu-item
+.submenu-analytics ul.list-inline li.marketplace-menu-item {
+  margin-right: 0;
+  color: #216DB3;
+  &.active {
+    margin-top: -1px;
+    border-bottom: 1px solid #216DB3;
+    i {
+      color: #216DB3;
+    }
+  }
+  i {
+    font-size: 18px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  a {
+    text-transform: none;
+    font-size: 13px;
+    color: #216DB3;
+  }
 }
 
 .no-widget-notice{

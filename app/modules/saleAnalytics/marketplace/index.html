@@ -4,7 +4,7 @@
 </ng-include>
 
 <div
-  class="marketplace-container m-t-20"
+  class="marketplace-container m-t-10"
   ng-show="i18nextLanguageReady===true">
 
   <!-- Header -->
@@ -55,73 +55,86 @@
   </div>
   <!-- End Header -->
 
+  <div class="line-border clearfix m-t-10 m-b-20"></div>
 
 
-  <!-- Widget list -->
-  <div class="row marketplace-widget-list">
 
-    <!-- row -->
-    <div class="col-xs-12 m-t-10 marketplace-widget-list-row"
-      ng-repeat="widget in data.widgets"
-      ng-class="{ active: data.selectedWidget === widget, uninstalled: widget.visible === false }"
-      ng-click="fn.selectWidget(widget)">
 
-      <!-- Overview -->
-      <div
-        class="col-xs-12 marketplace-widget-list-row-overview"
-        ng-hide="data.selectedWidget === widget">
-        <div class="col-xs-3"
-          style="height: 150px;background-size: contain; background-position: 50%; background-repeat: no-repeat;"
-          ng-style="{'background-image': 'url('+ widget.images[0].url +')'}">
+
+
+
+  <div class="marketplace-panel m-t-20">
+    <div class="marketplace-panel-header">
+      Market
+    </div>
+
+    <!-- Widget list -->
+    <div class="row marketplace-widget-list">
+
+      <!-- row -->
+      <div class="col-xs-12 marketplace-widget-list-row"
+        ng-repeat="widget in data.widgets"
+        ng-class="{ active: data.selectedWidget === widget, uninstalled: widget.visible === false }"
+        ng-click="fn.selectWidget(widget)">
+
+        <!-- Overview -->
+        <div
+          class="col-xs-12 marketplace-widget-list-row-overview"
+          ng-hide="data.selectedWidget === widget">
+          <div class="col-xs-3"
+            style="height: 150px;background-size: contain; background-position: 50%; background-repeat: no-repeat;"
+            ng-style="{'background-image': 'url('+ widget.images[0].url +')'}">
+          </div>
+          <div class="col-xs-9">
+            <span class="title">{{ widget.name }}</span> <span class="label label-default">{{ widget.categoryLabel }}</span>
+            <p class="m-t-10">
+              {{ widget.description | limitTo:250 }}{{widget.description.length > 250 ? '...' : ''}}
+            </p>
+          </div>
         </div>
-        <div class="col-xs-9">
-          <h3>{{ widget.name }}</h3>
-          <span class="label label-default">{{ widget.categoryLabel }}</span>
-          <p class="m-t-10">
-            {{ widget.description | limitTo:250 }}{{widget.description.length > 250 ? '...' : ''}}
-          </p>
-        </div>
-      </div>
 
-      <!-- Detail -->
-      <div
-        class="col-xs-12 marketplace-widget-list-row-detail"
-        ng-show="data.selectedWidget === widget"
-        ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
-        <div class="col-xs-6" style="min-height: 350px;" ng-click="$event.stopImmediatePropagation();">
-          <carousel interval="2000">
-            <slide ng-repeat="slide in widget.images" active="slide.active">
-              <!-- <img ng-src="{{ slide.url }}" class="img-responsive"> -->
-              <div class="item-image" ng-style="{ 'background-image': 'url('+ slide.url +')' }"></div>
-            </slide>
-          </carousel>
-        </div>
-        <div class="col-xs-6">
-          <h3>{{ widget.name }}</h3>
-          <span class="label label-default">{{ widget.categoryLabel }}</span>
-          <p class="m-t-10" ng-click="$event.stopImmediatePropagation();">
-            {{ widget.description }}
-          </p>
-        </div>
-        <!--<button
-          type="button"
-          class="close"
-          data-dismiss="alert"
+        <!-- Detail -->
+        <div
+          class="col-xs-12 marketplace-widget-list-row-detail"
+          ng-show="data.selectedWidget === widget"
           ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
-          <span>&times;</span>
-        </button>-->
-      </div>
+          <div class="col-xs-6" style="min-height: 350px;" ng-click="$event.stopImmediatePropagation();">
+            <carousel interval="2000">
+              <slide ng-repeat="slide in widget.images" active="slide.active">
+                <!-- <img ng-src="{{ slide.url }}" class="img-responsive"> -->
+                <div class="item-image" ng-style="{ 'background-image': 'url('+ slide.url +')' }"></div>
+              </slide>
+            </carousel>
+          </div>
+          <div class="col-xs-6">
+            <div>
+              <span class="title">{{ widget.name }}</span> <span class="label label-default">{{ widget.categoryLabel }}</span>
+              </div>
+            <p class="m-t-10" ng-click="$event.stopImmediatePropagation();">
+              {{ widget.description }}
+            </p>
+          </div>
+          <!--<button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
+            <span>&times;</span>
+          </button>-->
+        </div>
 
-      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget);$event.stopImmediatePropagation();" ng-if="widget.visible">
-        {{'Marketplace.uninstallWidget' | i18next}}
-      </button>
-      <button class="btn btn-default widget-install-button" type="button" ng-click="fn.installWidget(widget);$event.stopImmediatePropagation();" ng-if="!widget.visible">
-        {{'Marketplace.installWidget' | i18next}}
-      </button>
+        <button class="btn btn-default widget-install-button" type="button" ng-click="fn.uninstallWidget(widget);$event.stopImmediatePropagation();" ng-if="widget.visible">
+          {{'Marketplace.uninstallWidget' | i18next}}
+        </button>
+        <button class="btn btn-default widget-install-button" type="button" ng-click="fn.installWidget(widget);$event.stopImmediatePropagation();" ng-if="!widget.visible">
+          {{'Marketplace.installWidget' | i18next}}
+        </button>
 
-    </div><!-- En row -->
+      </div><!-- En row -->
 
-  </div><!-- End Widget list -->
+    </div><!-- End Widget list -->
+
+  </div>
 
 </div><!-- End marketplace-container -->
 
