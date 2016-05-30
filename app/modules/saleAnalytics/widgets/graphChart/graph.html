@@ -115,7 +115,7 @@
                         ng-click="fn.toggleDisplayField(field.name)"
                         ng-mouseover="fn.serieRollOver(field, $index)"
                         ng-style="{'color':field.color}"
-                        tooltip="{{ field.name }}" tooltip-placement="bottom" tooltip-popup-delay="1000">
+                        tooltip="{{ fn.calculateFieldName(field) }}" tooltip-placement="bottom" tooltip-popup-delay="1000">
                         <span
                             class="glyphicon"
                             ng-class="{'glyphicon-check':field.isDisplaying, 'glyphicon-unchecked':!field.isDisplaying}">
