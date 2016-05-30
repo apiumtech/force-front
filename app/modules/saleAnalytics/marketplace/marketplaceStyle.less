@@ -19,14 +19,29 @@
     & > .marketplace-widget-list-row {
       padding-top: 20px;
       padding-bottom: 20px;
+      border-bottom: 1px solid #eaeaea;
+      border-left: 1px solid #FFF;
+      border-right: 1px solid #FFF;
+
+      .label.label-default {
+        background-color: #989B9C;
+        color: #FFF;
+        font-size: 13px;
+      }
+
+      .title {
+        color: #216DB3;
+        font-size: 18px;
+      }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: #F8F8F8;
+        cursor: pointer;
       }
 
       &.active {
         min-height: 200px;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: #F8F8F8;
       }
 
       .widget-install-button {
