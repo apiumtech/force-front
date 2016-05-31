@@ -96,14 +96,14 @@
 
         <!-- Detail -->
         <div
-          class="col-xs-12 marketplace-widget-list-row-detail"
+          class="col-xs-12 marketplace-widget-list-row-detail animated fadeIn"
           ng-show="data.selectedWidget === widget"
           ng-click="fn.unselectCurrentWidget();$event.stopImmediatePropagation();">
           <div class="col-xs-6" style="min-height: 350px;" ng-click="$event.stopImmediatePropagation();">
             <carousel interval="2000">
               <slide ng-repeat="slide in widget.images" active="slide.active">
                 <!-- <img ng-src="{{ slide.url }}" class="img-responsive"> -->
-                <div class="item-image" ng-style="{ 'background-image': 'url('+ slide.url +')' }"></div>
+                <div class="item-image animated fadeIn" ng-style="{ 'background-image': 'url('+ slide.url +')' }"></div>
               </slide>
             </carousel>
           </div>
