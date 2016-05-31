@@ -17,6 +17,8 @@ var requireConf = {
         'angular-bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
         'angularRecursion': "../bower_components/angular-recursion/angular-recursion.min",
         'angular_touch': '../bower_components/angular-touch/angular-touch.min',
+        'angular-validation': '../bower_components/angular-validation/dist/angular-validation.min',
+        'angular-validation-rule': '../bower_components/angular-validation/dist/angular-validation-rule.min',
 
         'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
         'angular-moment': '../bower_components/angular-moment/angular-moment.min',
@@ -83,6 +85,16 @@ var requireConf = {
         'angular_touch': {
             deps: ['angular'],
             exports: 'angular_touch'
+        },
+
+        'angular-validation': {
+            deps: ['angular'],
+            exports: 'angular_validation'
+        },
+
+        'angular-validation-rule': {
+            deps: ['angular', 'angular-validation'],
+            exports: 'angular_validation_rule'
         },
 
         'angular-route': {
@@ -214,7 +226,7 @@ var requireConf = {
 
         /* Angular & Its plugins */
         'angular', 'angular_touch', 'ngSanitize',
-        'angular-route',
+        'angular-route', 'angular-validation', 'angular-validation-rule',
 
         'angular-bootstrap',
         'angular-moment', 'ng-i18next',

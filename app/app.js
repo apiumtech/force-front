@@ -9,6 +9,8 @@ define([
     'routeResolverSvc',
     'ng-i18next',
     'shared/components/sortableComponent/ng-sortable',
+    'angular-validation',
+    'angular-validation-rule',
     'angular_touch'
 ], function (angular, config, $, appInitializations, i18nextOptions, diConfig, moment) {
     'use strict';
@@ -33,6 +35,8 @@ define([
         'jm.i18next',
         'forcefront.sortable',
         'angularMoment',
+        'validation',
+        'validation.rule',
         'RecursionHelper',
         'daterangepicker'
     ]);
