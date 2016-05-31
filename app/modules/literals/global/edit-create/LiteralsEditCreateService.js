@@ -29,7 +29,7 @@ define([
             platformIds: [],
             literalTypeId: null,
             oldKey: '',
-            description: literal.description,
+            description: literal.description || '',
             image: literal.image
         };
         _.each(literal.LanguageValues, function(value, key){

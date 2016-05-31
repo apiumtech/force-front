@@ -114,7 +114,6 @@ define([
     };
 
     proto.readImage = function (imageFile) {
-      debugger;
       var self = this;
       var reader = new FileReader();
       reader.onload = function (loadEvent) {
