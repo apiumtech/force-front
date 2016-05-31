@@ -4,7 +4,7 @@ define([
     'modules/literals/global/edit-create/LiteralsEditCreateModel',
     'underscore'
 ], function (BaseLiteralsEditCreateView, LiteralsEditCreatePresenter, LiteralsEditCreateModel, _) {
-    
+
     function LiteralsEditCreateView($scope, $model, $presenter, $routeParams, $window) {
         BaseLiteralsEditCreateView.call(this, $scope, $model, $presenter, $routeParams, $window);
     }
@@ -30,6 +30,7 @@ define([
         this.__base__.configureEvents.call(this);
 
         this.fn.onTogglePlatform = this.onTogglePlatform.bind(this);
+        this.fn.readImage = this.readImage.bind(this);
 
         this.event.getLiteralTypeList = function () {};
         this.event.getPlatformList = function () {};
@@ -111,6 +112,18 @@ define([
         var successMessage = this.translator.translate("Literal.Detail.Form.SaveSuccessMessage");
         this.__base__.onSaveSuccess.call(this, successMessage);
     };
+
+    proto.readImage = function (imageFile) {
+      debugger;
+      var self = this;
+      var reader = new FileReader();
+      reader.onload = function (loadEvent) {
+        self.$scope.$apply(function () {
+          self.$scope.data.literal.image = loadEvent.target.result;
+        });
+      }
+      reader.readAsDataURL(imageFile);
+    }
 
 
 

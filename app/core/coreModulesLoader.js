@@ -14,6 +14,7 @@ define([
     'shared/components/HighLightResultDirective',
     'shared/components/ResizableTextAreaDirective',
     'shared/components/CellCompilerDirective',
+    'shared/components/FilereadDirective',
 
     'shared/components/confirmationDialog/ConfirmationDialogController',
     'shared/components/confirmationDialog/NotificationDialogController'

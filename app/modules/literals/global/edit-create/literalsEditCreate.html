@@ -120,6 +120,31 @@
             </div>
             <!-- END Literal languages -->
 
+            <!-- Description field -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Description</label>
+              <div class="col-md-9">
+                <textarea resizable-text-area
+                          class="form-control" rows="1"
+                          ng-model="data.literal.description"
+                          placeholder="Description"
+                >
+                </textarea>
+              </div>
+            </div>
+            <!-- End Description field -->
+
+            <!-- Image field -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Image</label>
+              <div class="col-md-9">
+                <input type="file"
+                       class="form-control"
+                       fileread="fn.readImage"
+                />
+              </div>
+            </div>
+            <!-- End image field -->
 
         </form>
     </div>

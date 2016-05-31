@@ -28,7 +28,9 @@ define([
             languageValues: {},
             platformIds: [],
             literalTypeId: null,
-            oldKey: ''
+            oldKey: '',
+            description: literal.description,
+            image: literal.image
         };
         _.each(literal.LanguageValues, function(value, key){
             body.languageValues[key] = value;
