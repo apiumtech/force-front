@@ -10,29 +10,8 @@
   <!-- Header -->
   <div class="row">
 
-    <!-- Header - search box -->
-    <div class="col-sm-4">
-      <div class="search-box input-group">
-        <input type="text"
-          class="form-control"
-          ng-model="data.searchFieldValue"
-          ng-keydown="fn.searchWidgetByKeywords(data.searchFieldValue, $event.which === 13)">
-        <span class="input-group-btn">
-          <button
-            class="btn btn-default" type="button"
-            ng-show="data.searchFieldValue.length > 0"
-            ng-click="data.searchFieldValue='';fn.searchWidgetByKeywords('', true);">
-            <i class="fa ic-close"></i>
-          </button>
-          <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords(data.searchFieldValue, true)">
-            <i class="fa ic-search"></i>
-          </button>
-        </span>
-      </div>
-    </div>
-
     <!-- Header - dropdown -->
-    <div class="col-sm-2 pull-right">
+    <div class="col-sm-2">
       <div class="dropdown">
         <button
           class="btn btn-default dropdown-toggle"
@@ -49,6 +28,27 @@
             </a>
           </li>
         </ul>
+      </div>
+    </div>
+
+    <!-- Header - search box -->
+    <div class="col-sm-4 pull-right">
+      <div class="search-box input-group">
+        <input type="text"
+          class="form-control"
+          ng-model="data.searchFieldValue"
+          ng-keydown="fn.searchWidgetByKeywords(data.searchFieldValue, $event.which === 13)">
+        <span class="input-group-btn">
+          <button
+            class="btn btn-default" type="button"
+            ng-show="data.searchFieldValue.length > 0"
+            ng-click="data.searchFieldValue='';fn.searchWidgetByKeywords('', true);">
+            <i class="fa ic-close"></i>
+          </button>
+          <button class="btn btn-default" type="button" ng-click="fn.searchWidgetByKeywords(data.searchFieldValue, true)">
+            <i class="fa ic-search"></i>
+          </button>
+        </span>
       </div>
     </div>
 
@@ -86,7 +86,7 @@
             ng-style="{'background-image': 'url('+ widget.images[0].url +')'}">
           </div>
           <div class="col-xs-9">
-            <span class="title">{{ widget.name }}</span> <span class="label label-default">{{ widget.categoryLabel }}</span>
+            <span class="title">{{ widget.name }}</span><span class="label label-default">{{ widget.categoryLabel }}</span>
             <p class="m-t-10">
               {{ widget.description | limitTo:250 }}{{widget.description.length > 250 ? '...' : ''}}
             </p>
@@ -109,7 +109,7 @@
           </div>
           <div class="col-xs-6">
             <div>
-              <span class="title">{{ widget.name }}</span> <span class="label label-default">{{ widget.categoryLabel }}</span>
+              <span class="title">{{ widget.name }}</span><span class="label label-default">{{ widget.categoryLabel }}</span>
               </div>
             <p class="m-t-10" ng-click="$event.stopImmediatePropagation();">
               {{ widget.description }}
