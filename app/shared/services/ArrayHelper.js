@@ -91,12 +91,9 @@ define([
             return queriedNodes;
         }
 
-        var allNodes = [];
-        queriedNodes.forEach(function (node) {
-            allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
-        });
-        allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
-
+        var allNodes = [];                
+        allNodes = _.uniq(queriedNodes);//.sort(sortFunction);
+        
         return allNodes;
     };
 
