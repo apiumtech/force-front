@@ -44,41 +44,11 @@ define([
 
         output = filtered.concat(output);
 
-        if (!notRecursive) {
-            filtered.forEach(function (node) {
-                output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
-            });
-        }
-
-        return output;
-    };
-
-    var findParents2 = function (flattenedArray, parentKey, elementIdentifier, parentValue, rootValue, output, notRecursive) {
-        if (!output) {
-            output = [];
-        }
-
-        if (parentValue == rootValue) {
-            return output;
-        }
-        
-        var filtered = _.filter(flattenedArray, function (node) {
-            return node[elementIdentifier] == parentValue;
-        });
-
-        var newFlatten = _.filter(flattenedArray, function (node) {
-            return _.find(output, function (n) {
-                    return n[elementIdentifier] == node[elementIdentifier];
-                }) === undefined;
-        });
-
-        output = filtered.concat(output);
-
-        if (!notRecursive) {
-            filtered.forEach(function (node) {
-                output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
-            });
-        }
+        // if (!notRecursive) {
+        //     filtered.forEach(function (node) {
+        //         output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
+        //     });
+        // }
 
         return output;
     };
@@ -123,11 +93,10 @@ define([
 
         var allNodes = [];
         queriedNodes.forEach(function (node) {
-            // allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
-            allNodes = findParents2(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
+            allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
         });
         allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
-        
+
         return allNodes;
     };
 
