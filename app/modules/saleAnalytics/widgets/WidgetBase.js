@@ -114,15 +114,22 @@ define([
     WidgetBase.prototype._reload = function () {
         var url = this.getUrl();
 
-        if (this.queries && !isEmptyObject(this.queries)) {
+        /*if (this.queries && !isEmptyObject(this.queries)) {
             var queries = this.buildQueryString();
             url += "?" + queries;
-        }
-
+        }*/
+        var requestData = {
+          users: this.queries.users ? this.queries.users.join() : '',
+          period: this.queries.period ? this.queries.period : '',
+          grouping: this.queries.grouping ? this.queries.grouping : ''
+        };
         var request = {
-            url: url,
+            url: url + '?users=&period=&grouping=',
             type: 'get',
-            contentType: 'application/json'
+            contentType: 'application/json',
+            headers: {
+                'x-fm-requestData': JSON.stringify(requestData)
+            },
         };
 
         var cache = AjaxCacheService.getByParams(request);
