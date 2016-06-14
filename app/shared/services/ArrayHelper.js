@@ -32,23 +32,13 @@ define([
             return output;
         }
 
-        var filtered = _.filter(flattenedArray, function (node) {
-            return node[elementIdentifier] == parentValue;
-        });
-
-        var newFlatten = _.filter(flattenedArray, function (node) {
-            return _.find(output, function (n) {
-                    return n[elementIdentifier] == node[elementIdentifier];
-                }) === undefined;
-        });
-
-        output = filtered.concat(output);
-
-        // if (!notRecursive) {
-        //     filtered.forEach(function (node) {
-        //         output = findParents(newFlatten, parentKey, elementIdentifier, node[parentKey], rootValue, output);
-        //     });
-        // }
+        for(var key in flattenedArray) {
+          if (flattenedArray[key][elementIdentifier] == parentValue) {
+            output.unshift(flattenedArray[key]);
+            output = findParents(flattenedArray, parentKey, elementIdentifier, flattenedArray[key][parentKey], rootValue, output);
+            break;
+          }
+        }
 
         return output;
     };
@@ -82,9 +72,9 @@ define([
             queriedNodes = flattened.filter(function (node) {
                 return removeAccents(node[propToQuery].toLowerCase())
                             .indexOf(removeAccents(queryString.toLowerCase())) > -1;
-            }).sort(sortFunction);
+            });
         } else {
-            queriedNodes = flattened.sort(sortFunction);
+            queriedNodes = flattened;
         }
 
         if (!makeTreeAfterSearch){
@@ -95,7 +85,7 @@ define([
         queriedNodes.forEach(function (node) {
             allNodes = findParents(flattened, parentKey, elementIdentifier, node[parentKey], rootValue, allNodes);
         });
-        allNodes = _.uniq(allNodes.concat(queriedNodes)).sort(sortFunction);
+        allNodes = _.uniq(allNodes.concat(queriedNodes));
 
         return allNodes;
     };

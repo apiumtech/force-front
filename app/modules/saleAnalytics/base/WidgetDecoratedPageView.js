@@ -36,19 +36,19 @@ define([
         this.permissionsService = PermissionsService.newInstance();
         this.configureEvents();
 
-      try{
-        var hash = window.location.hash.split('#')[1];
-        if( hash.indexOf("/analytics/reports") === -1 ){
-          if(config.isWinter) {
-            this.setupStickyFilters_winter();
-          } else {
-            this.setupStickyFilters();
+        try{
+          var hash = window.location.hash.split('#')[1];
+          if( hash.indexOf("/analytics/reports") === -1 ){
+            if(config.isWinter) {
+              this.setupStickyFilters_winter();
+            } else {
+              this.setupStickyFilters();
+            }
           }
-        }
-      }catch(err){/* to avoid tests failing */}
+        }catch(err){/* to avoid tests failing */}
 
         $scope.isReportsVisible = this.permissionsService.getPermission("reports_sfm.isEnabled", true);
-        $scope.isMarketplaceVisible = this.permissionsService.getPermission("markeptlace_sfm.isEnabled", true);
+        $scope.isMarketplaceVisible = this.permissionsService.getPermission("marketplace_sfm.isEnabled", true);
     }
 
     WidgetDecoratePageView.inherits(BaseView, {

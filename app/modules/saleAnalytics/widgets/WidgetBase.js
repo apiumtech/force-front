@@ -124,7 +124,7 @@ define([
           grouping: this.queries.grouping ? this.queries.grouping : ''
         };
         var request = {
-            url: url + '?users=&period=&grouping=',
+            url: url,
             type: 'get',
             contentType: 'application/json',
             headers: {

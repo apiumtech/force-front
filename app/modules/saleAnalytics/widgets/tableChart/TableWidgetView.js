@@ -277,11 +277,11 @@ define([
             var res = this.event.parseData(data, this.widget.option);
             self.data.data = self.precalculateCellRendererData(res.data);
             self.data.columns = res.columns;
-            self.data.columns.sort(function (a, b) {
-                if (a.order > b.order) { return 1; }
-                if (a.order < b.order) { return -1; }
-                return 0;
-            });
+            // self.data.columns.sort(function (a, b) {
+            //     if (a.order > b.order) { return 1; }
+            //     if (a.order < b.order) { return -1; }
+            //     return 0;
+            // });
         } else {
             self.data.data = [];
         }

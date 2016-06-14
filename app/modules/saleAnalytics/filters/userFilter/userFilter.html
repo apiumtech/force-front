@@ -59,6 +59,7 @@
                 <form>
                     <input type="text" class="form-control ic-user"
                            ng-model="searchingUser"
+                           ng-model-options='{ debounce: 300 }'
                            ng-change="fn.getFilteredUsersList()"
                            ng-click="$event.stopPropagation()"
                            ng-i18next="[placeholder]Filters.SearchOwner">

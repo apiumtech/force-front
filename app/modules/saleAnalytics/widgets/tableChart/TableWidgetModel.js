@@ -35,7 +35,7 @@ define([
         if( widgetOption && widgetOption === "userExtraFieldsDecorator" ) {
             return this.userExtraFieldsDataParser(data);
         }
-
+        
         return this.parseFlatStructure(data);
     };
 
