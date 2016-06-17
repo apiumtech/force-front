@@ -68,7 +68,12 @@ define([
         );
 
         var changeHandler = function() {
-            self.storageService.store('mapZoom', self.map.getZoom(), true);
+            var zoom = self.map.getZoom();
+            if (zoom === 21) {
+                zoom = 13;
+                self.map.setZoom(zoom);
+            }
+            self.storageService.store('mapZoom', zoom, true);
             self.storageService.store('mapCenter', self.map.getCenter(), true);
         };
         self.map.addListener('center_changed', changeHandler);
