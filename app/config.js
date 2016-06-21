@@ -8,6 +8,7 @@ define(function () {
       baseUrl = "https://backendpre.forcemanager.net/" + apiVersion;
     }
     else if (
+      window.location.hostname.indexOf('localhost') > -1 ||
       window.location.hostname.indexOf('127.0.0.1') > -1 ||
       window.location.hostname  === 'websta.forcemanager.net' ||
       window.location.hostname.indexOf('webtest') > -1

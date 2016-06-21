@@ -146,8 +146,11 @@
         <div class="row panel-description">
             <div class="col-xs-12 m-t-10 p-l-20 p-r-20">
                 <div class="well">
-                    <div ng-if="widget.endPoint=='rankingWidgetIntensityDataApi'"><p ng-i18next="[html]tabIntensity.ranking.description"></p></div>
-                    <div ng-if="widget.endPoint=='rankingWidgetConversionDataApi'"><p ng-i18next="[html]tabConversion.ranking.description"></p></div>
+                 <!--    <div ng-if="widget.endPoint=='rankingWidgetIntensityDataApi'"><p ng-i18next="[html]tabIntensity.ranking.description"></p></div>
+                    <div ng-if="widget.endPoint=='rankingWidgetConversionDataApi'"><p ng-i18next="[html]tabConversion.ranking.description"></p></div> -->
+
+                    <div ng-if="widget.endPoint=='/api/queries/stats/dashboard/intensity/usersIntensityStatsTableByUsersAndPeriod'"><p ng-i18next="[html]tabIntensity.ranking.description"></p></div>
+                    <div ng-if="widget.endPoint=='/api/queries/stats/dashboard/conversion/usersConversionStatsTableByUsersAndPeriod'"><p ng-i18next="[html]tabConversion.ranking.description"></p></div>
                 </div>
             </div>
         </div>
