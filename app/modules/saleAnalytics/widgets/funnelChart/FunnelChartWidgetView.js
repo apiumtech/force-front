@@ -91,7 +91,7 @@ define([
         var self = this;
 
         try{
-          if(self.widget.endPoint === 'opportunityFunnelDataApi'){
+          if(self.widget.endPoint === '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod'){
             self._paintOpportunityFunnel();
           } else {
             self._paintCustomerFunnel();

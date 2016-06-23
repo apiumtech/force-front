@@ -46,8 +46,6 @@ define(function () {
         customerDevelopmentFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod',
         opportunityFunnelDataApi: baseUrl + '/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod',
         */
-
-
         //report
         getAllReports: baseUrl + '/api/queries/stats/reports/allReports?idCompany=0&idUser=1&idEnvironment=1',
         reportList: baseUrl + '/api/queries/reports/reportList',
