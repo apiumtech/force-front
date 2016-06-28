@@ -16,8 +16,7 @@
         <!-- DATA EXPLANATION -->
         <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-if="
             widget.endPoint=='/api/queries/stats/dashboard/conversion/customerAcquisitionFunnelByUsersAndPeriod' ||
-            widget.endPoint=='/api/queries/stats/dashboard/conversion/customerDevelopmentFunnelByUsersAndPeriod'
-        ">
+            widget.endPoint=='/api/queries/stats/dashboard/conversion/ustomerDevelopmentFunnelByUsersAndPeriod'>
             <div class="well well-lg">
                 <div class="row">
                     <div class="col-md-6" ng-repeat="conversionRate in data.conversionRates">
@@ -26,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-if="widget.endPoint=='1/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod'">
+        <div class="col-xs-12 m-t-10 p-l-20 p-r-20" ng-if="widget.endPoint=='/api/queries/stats/dashboard/conversion/opportunityFunnelConversionByUsersAndPeriod'">
 
             <div class="well well-lg">
                 <div class="row">
