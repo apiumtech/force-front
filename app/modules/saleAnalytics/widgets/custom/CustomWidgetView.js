@@ -40,15 +40,14 @@ define([
 
 
         this._dateFilterApplySignal = (function(dateRange){
-            //console.log("dateFilterApplySignal",dateRange)
-            var event = new CustomEvent('dateRangeChanged', {'detail': dateRange});
-            window.dispatchEvent(event);
-        }).bind(this);
+          var event = new CustomEvent('dateRangeChanged', {'detail': { 'data': dateRange, 'widgetId': this.widget.widgetId }});
+          window.dispatchEvent(event);
+        }).bind(self);
         self.filterChannel.onDateFilterApplySignalReceived(this._dateFilterApplySignal);
 
         this._userFilterApplySignal = (function(users){
-            var event = new CustomEvent('userFilterChanged', {'detail': users});
-            window.dispatchEvent(event);
+          var event = new CustomEvent('userFilterChanged', {'detail': { 'data': users, 'widgetId': this.widget.widgetId }});
+          window.dispatchEvent(event);
         }).bind(self);
         self.filterChannel.onUserFilterApplySignalReceived(this._userFilterApplySignal);
     };

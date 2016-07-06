@@ -1,22 +1,9 @@
 <widget-wrapper body-class=""
                 wtitle="{{widget.widgetName}}"
                 event-bus-channel="eventChannel"
-                widget-id="widget.widgetId">
+                widget-id="widget.widgetId"
+                data-widget-id-event="{{widget.widgetId}}">
     <div ng-attr-id="customWidget{{ widget.widgetId }}">
         <!-- Content dynamically created from server -->
     </div>
-    <script>
-        /*console.log("template loaded");
-        function dateRangeChangedHandler(e){
-            console.log("date changed", e.detail);
-        }
-        function initCustomWidgetHandler () {
-            console.log("initCustomWidgetHandler");
-            window.addEventListener('dateRangeChanged',dateRangeChangedHandler, false);
-        }
-        function destroyCustomWidgetHandler () {
-            console.log("destroyCustomWidgetHandler");
-            window.removeEventListener('dateRangeChanged',dateRangeChangedHandler, false);
-        }*/
-    </script>
 </widget-wrapper>
