@@ -29,6 +29,10 @@ define([
     CustomWidgetView.prototype.configureEvents = function () {
         var self = this;
         self.eventChannel.onReloadCommandReceived(self.onReloadCommandReceived.bind(self));
+        self.eventChannel.onExpandingWidget(function(){
+            setTimeout(self.reDraw.bind(self), 250);
+        });
+
 
         self.event.customDataAccess = function(){};
         self.fn.customDataAccess = function(callbackEventName, storedName, storedParams) {
@@ -67,6 +71,11 @@ define([
         data = this.widget.widgetContent;
         var htmlSrc = this.$compile(data)(this.$scope);
         this.getCustomWidgetDiv().html(htmlSrc);
+    };
+
+    CustomWidgetView.prototype.reDraw = function () {
+      var event = new CustomEvent('widgetExpanded', {'detail': { 'widgetId': this.widget.widgetId }});
+      window.dispatchEvent(event);
     };
 
 
