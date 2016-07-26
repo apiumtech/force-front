@@ -88,6 +88,18 @@ define([
         userOptions.splice( userOptions.length-1, 0, {id:'__DIVIDER__'} );
         this.data.userOptions = userOptions;
         this.data.userData = this.event.getUserData();
+        
+        var jsonLiterals = JSON.parse(window.sessionStorage.getItem('fm_newLiterals'));
+        for (var i = 0; i < this.data.userSections.length; i++) {
+          var key = this.data.userSections[i].name;
+          var literal = jsonLiterals[key];
+          this.data.userSections[i].name = literal;
+        }
+        for (var i = 0; i < this.data.userOptions.length; i++) {
+          var key = this.data.userOptions[i].name;
+          var literal = jsonLiterals[key];
+          this.data.userOptions[i].name = literal;
+        }
 
         /*var unreadNotifications = this.event.getUserNotifications();
         this.data.unreadNotifications = unreadNotifications.notifications;
