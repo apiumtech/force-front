@@ -336,10 +336,13 @@ define([
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
         var a = document.createElement("A");
         a.href = data;
+        document.body.appendChild(a);
 
         var event = document.createEvent("MouseEvents");
         event.initEvent("click", true, false);
         a.dispatchEvent(event);
+
+        document.body.removeChild(a);
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {
