@@ -43,7 +43,7 @@ define([
         });
         parameters = JSON.stringify(parameters);
 
-        var url = Configuration.api.getReportUrl.format(reportId, reportName, reportFormat, parameters);
+        var url = encodeURI(Configuration.api.getReportUrl.format(reportId, reportName, reportFormat, parameters));
         var params = {
             url: url,
             type: 'GET',
