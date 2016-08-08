@@ -334,14 +334,15 @@ define([
     };
 
     ReportItemView.prototype.onReportURLLoadedForDownload = function (data) {
-        var a = document.createElement("A");
-        a.href = data;
-        var event = new MouseEvent('click', {
-          'view': window,
-          'bubbles': true,
-          'cancelable': true
-        });
-        a.dispatchEvent(event);
+      var a = document.createElement("A");
+      a.href = data;
+      document.body.appendChild(a);
+
+      var event = document.createEvent("MouseEvents");
+      event.initEvent("click", true, false);
+      a.dispatchEvent(event);
+
+      document.body.removeChild(a);
     };
 
     ReportItemView.prototype.onParameterSet = function (data) {
