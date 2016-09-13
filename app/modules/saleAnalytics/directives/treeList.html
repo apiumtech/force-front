@@ -51,7 +51,7 @@
     </accordion-heading>
 
     <accordion>
-        <div tree-list="item.children" multiple-selection="multipleSelection"></div>
+        <div tree-list="item.children" multiple-selection="multipleSelection" ng-if="item.isOpen"></div>
     </accordion>
 
 </accordion-group>

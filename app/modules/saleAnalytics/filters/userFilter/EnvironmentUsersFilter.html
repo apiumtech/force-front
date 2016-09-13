@@ -31,7 +31,7 @@
             </div>
         </accordion-heading>
 
-        <ul ng-if="group.children && group.children.length">
+        <ul ng-if="group.children && group.children.length && group.isOpen">
             <li class="clearfix p-t-5 p-b-5 img-user-tree" ng-repeat="user in group.children | filter: { visible: true }">
                 <input type="checkbox"
                        value="{{user.Id}}"
