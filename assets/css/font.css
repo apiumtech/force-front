@@ -110,6 +110,9 @@
 .ic-expand-left:before {
     content: "\46";
 }
+.ic-expand-right:before {
+    content: "\47";
+}
 .ic-export:before {
     content: "\48";
 }
@@ -173,8 +176,14 @@
 .ic-phone-settings:before {
     content: "\36";
 }
+.ic-plus:before {
+    content: "\37";
+}
 .ic-plus-circle:before {
     content: "\38";
+}
+.ic-print:before {
+    content: "\39";
 }
 .ic-prohibited:before {
     content: "\22";
@@ -194,8 +203,14 @@
 .ic-saleanalytics:before {
     content: "\28";
 }
+.ic-search:before {
+    content: "\2a";
+}
 .ic-settings:before {
     content: "\2b";
+}
+.ic-share:before {
+    content: "\2c";
 }
 .ic-shopping-cart:before {
     content: "\2d";
@@ -242,6 +257,9 @@
 .ic-massives:before {
     content: "\7b";
 }
+.ic-trophy:before {
+    content: "\7c";
+}
 .ic-accounts:before {
     content: "\26";
 }
@@ -251,11 +269,20 @@
 .ic-opportunities:before {
     content: "\e000";
 }
+.ic-contact:before {
+    content: "\62";
+}
+.ic-activity:before {
+    content: "\35";
+}
 .ic-documents:before {
     content: "\63";
 }
 .ic-offers:before {
     content: "\70";
+}
+.ic-orders:before {
+    content: "\71";
 }
 .ic-products:before {
     content: "\7d";
@@ -263,8 +290,14 @@
 .ic-folder-opened:before {
     content: "\64";
 }
+.ic-salesforce:before {
+    content: "\78";
+}
 .ic-reports:before {
     content: "\50";
+}
+.ic-notifications:before {
+    content: "\33";
 }
 .ic-star-filled:before {
     content: "\34";
@@ -287,6 +320,12 @@
 .ic-sales-rep:before {
     content: "\e001";
 }
+.ic-resports:before {
+    content: "\e002";
+}
+.ic-iaccount-filled:before {
+    content: "\e003";
+}
 .ic-action-filled:before {
     content: "\e004";
 }
@@ -296,6 +335,9 @@
 .ic-opportunity-alert:before {
     content: "\e006";
 }
+.ic-opportunity-filled:before {
+    content: "\e007";
+}
 .ic-shield-filled:before {
     content: "\e008";
 }
@@ -304,6 +346,9 @@
 }
 .ic-close-filled:before {
     content: "\e00a";
+}
+.ic-close:before {
+    content: "\6f";
 }
 .ic-literals:before {
     content: "\e00b";
@@ -320,115 +365,12 @@
 .ic-custom-widgets:before {
     content: "\e00e";
 }
-.ic-share:before {
-    content: "\78";
-}
-.ic-activity-filled:before {
-    content: "\71";
-}
-.ic-arrow:before {
-    content: "\35";
-}
-.ic-arrow-down:before {
-    content: "\37";
-}
-.ic-calendar-view:before {
-    content: "\39";
-}
-.ic-call:before {
-    content: "\2a";
-}
-.ic-close:before {
-    content: "\2c";
-}
-.ic-dots-filled:before {
-    content: "\e007";
-}
-.ic-edit-filled:before {
+.ic-columns:before {
     content: "\e00f";
 }
-.ic-expand-right:before {
+.ic-list:before {
     content: "\e010";
 }
-.ic-globe:before {
+.ic-map:before {
     content: "\e011";
 }
-.ic-goto:before {
-    content: "\e012";
-}
-.ic-grid:before {
-    content: "\e013";
-}
-.ic-ic-trophy:before {
-    content: "\62";
-}
-.ic-list:before {
-    content: "\e014";
-}
-.ic-map:before {
-    content: "\e016";
-}
-.ic-opportunity-filled:before {
-    content: "\e017";
-}
-.ic-orders-filled:before {
-    content: "\e018";
-}
-.ic-plus:before {
-    content: "\e015";
-}
-.ic-plus-big:before {
-    content: "\e019";
-}
-.ic-print:before {
-    content: "\e01a";
-}
-.ic-product-filled:before {
-    content: "\e01b";
-}
-.ic-quotes-filled:before {
-    content: "\e01c";
-}
-.ic-reports-filled:before {
-    content: "\e01d";
-}
-.ic-search:before {
-    content: "\e01f";
-}
-.ic-share-filled:before {
-    content: "\e020";
-}
-.ic-show:before {
-    content: "\e021";
-}
-.ic-agenda-filled:before {
-    content: "\47";
-}
-.ic-activity:before {
-    content: "\e022";
-}
-.ic-notifications:before {
-    content: "\e023";
-}
-.ic-sent:before {
-    content: "\33";
-}
-.ic-lock-2:before {
-    content: "\e024";
-}
-.ic-warning-filled:before {
-    content: "\e025";
-}
-.ic-accounts-filled:before {
-    content: "\7c";
-}
-.ic-contacts-filled:before {
-    content: "\6f";
-}
-.ic-documents-filled:before {
-    content: "\e002";
-}
-.ic-salesforce-filled:before {
-    content: "\e026";
-}
-

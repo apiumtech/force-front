@@ -39,11 +39,12 @@ define([
         try{
           var hash = window.location.hash.split('#')[1];
           if( hash.indexOf("/analytics/reports") === -1 ){
-            if(config.isWinter) {
-              this.setupStickyFilters_winter();
-            } else {
-              this.setupStickyFilters();
-            }
+            // if(config.isWinter) {
+            //   this.setupStickyFilters_winter();
+            // } else {
+            //   this.setupStickyFilters();
+            // }
+            this.setupStickyFilters();
           }
         }catch(err){/* to avoid tests failing */}
 

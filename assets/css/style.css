@@ -3119,10 +3119,10 @@ legend {
     padding-left: 12px;
     padding-right: 12px;
 }
-/* 
-    Button Generator (inside _mixins.less) 
+/*
+    Button Generator (inside _mixins.less)
     ----------------
-    .generate-button-styling(@buttonClassName; @defaultColor; @hoverColor;); 
+    .generate-button-styling(@buttonClassName; @defaultColor; @hoverColor;);
 */
 .btn.btn-default {
     color: #fff;
@@ -7000,7 +7000,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
     }
 }
 /* Widget List */
-/* Forcemager filters 
+/* Forcemager filters
 */
 .line-border {
     border-bottom: 1px solid #babebf;
@@ -7290,7 +7290,7 @@ i.ic-notifications {
     font-size: 25px;
     margin-top: 2px;
     position: relative;
-    /*left: 2px;*/
+    left: 2px;
 }
 .navbar-brand {
     padding: 5px 0px 0px 20px;
@@ -7656,7 +7656,7 @@ tr.odd tr.even td.sorting_1 {
 .table tbody tr.align-middle td {
     vertical-align: middle;
 }
-/* Forcemager Sales analisys 
+/* Forcemager Sales analisys
 */
 /* Small devices (tablets, 768px and up) - no movil */
 @media screen and (min-width: 769px) {
