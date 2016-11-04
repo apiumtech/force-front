@@ -155,7 +155,7 @@ nav {
         height: 45px; //Needs a fixed height to avoid a flash on pageload
       }
     }
-    
+
 
     .navbar-nav {
 
@@ -177,7 +177,7 @@ nav {
 
                 a {
                   @picture-size: 35px;
-                  padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);                 
+                  padding: ((@vertical-nav-height - @picture-size) / 2) ((@vertical-nav-width - @picture-size) / 2);
                 }
 
                 &.open a {
@@ -218,7 +218,7 @@ nav {
             &:first-child{
               height: 50px !important;
             }
-            
+
             &.divider{
               height: 1px !important;
               margin: 0px !important;
@@ -240,11 +240,11 @@ nav {
               background-color: transparent;
               border-bottom: 1px solid @ceniza;
               min-height: 40px;
-            }  
+            }
           }
         }
       }
-      
+
 
       @media @tablet {
 
@@ -291,7 +291,7 @@ nav {
            }
 
            .navbar-right {
-             
+
              margin-right: 0 !important;
            }
 
@@ -365,7 +365,7 @@ nav {
 
   .badge {
     left: 15px;
-    
+
   }
 
   a {
@@ -391,9 +391,9 @@ nav {
 .user-notifications {
 
   .badge {
-    
+
     left: 26px;
-    
+
   }
 
   @media @desktop {
@@ -444,6 +444,76 @@ nav {
 @media @tablet {
   .content.web4 {
     margin-left: 0;
+  }
+}
+
+@media @desktop {
+  .user-dropdown {
+    h3.popover-title {
+      padding: 17px 15px;
+      background-color: #f7f7f7;
+      border-bottom: 1px solid #eaeaea;
+      font-size: 13px;
+      font-weight: 100 !important;
+      margin: 0;
+      color: @slate;
+    }
+  }
+
+  .divider {
+    margin: 0 !important;
+  }
+}
+
+@media @tablet {
+  .divider {
+    margin: 8px 0 !important;
+  }
+}
+
+.user-dropdown {
+  top: 44px;
+  right: -13px;
+  min-width: 300px;
+  padding: 0 !important;
+  padding-bottom: 5px !important;
+  margin: 0 !important;
+
+  &:before {
+    content: "";
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f8f8f8;
+    height: 50px;
+    width: 15px;
+    position: absolute;
+    top: -48px;
+    right: 20px;
+  }
+
+  .popover-title {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+    font-size: 13px;
+    font-weight: 100 !important;
+    margin: 0;
+    padding: 8px 14px;
+    color: #54585a;
+    line-height: 1.1;
+  }
+
+  > li > a {
+    color: #636363 !important;
+    font-size: 13px !important;
+    font-weight: 200 !important;
+    padding: 10px 20px !important;
+    clear: both;
+    display: block;
+    line-height: 1.42857;
+    white-space: nowrap;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
   }
 }
 

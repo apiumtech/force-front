@@ -10,7 +10,7 @@
               ng-src="{{ menuData.userData.userImg  || menuData.userData.imgUrl }}">
         </div>
     </a>
-    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="dropdownMenu1">
       <li><h3 class="popover-title">{{ menuData.userData.userName }}</h3></li>
       <li ng-repeat="item in menuData.userOptions" ng-class="{ divider: item.id==='__DIVIDER__' }">
           <a id="{{ item.id }}"
