@@ -110,8 +110,9 @@ define([
             if (literal) {
               if (this.data.userOptions[i].id === 'contact_support') {
                 // make this link a lot more special
-                var body = '&body=' +
-                    '\n\n\n\n***** ADDITIONAL INFO *****' + '\n' +
+                var literal2 = jsonLiterals[this.data.userOptions[i]['label_additional_info']] || 'label_additional_info';
+                var body = '?body=' +
+                    '\n\n\n\n***** ' + literal2 + ' *****' + '\n' +
                     'Preferred language: ' + this.data.userData.cultureLang + '\n' +
                     'Browser language: ' + window.navigator.language + '\n' +
                     'Release: ' + this.data.userData.versionSession + '\n' +
@@ -119,7 +120,6 @@ define([
                     'Member email: ' + this.data.userData.userEmail + '\n' +
                     'User Agent: ' + window.navigator.userAgent;
                 literal = encodeURI('mailto:' + literal + body);
-                window.console.log(literal);
               }
               this.data.userOptions[i].linkToGo = literal;
             }
