@@ -110,7 +110,7 @@ define([
             if (literal) {
               if (this.data.userOptions[i].id === 'contact_support') {
                 // make this link a lot more special
-                var literal2 = jsonLiterals[this.data.userOptions[i]['label_additional_info']] || 'label_additional_info';
+                var literal2 = jsonLiterals['label_additional_info'] || 'label_additional_info';
                 var body = '?body=' +
                     '\n\n\n\n***** ' + literal2 + ' *****' + '\n' +
                     'Preferred language: ' + this.data.userData.cultureLang + '\n' +
