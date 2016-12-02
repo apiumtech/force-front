@@ -455,7 +455,7 @@ nav {
       background-color: #f7f7f7;
       border-bottom: 1px solid #eaeaea;
       font-size: 13px;
-      font-weight: 100 !important;
+      font-weight: 400 !important;
       margin: 0;
       color: @slate;
       letter-spacing: 0.5px;
@@ -474,8 +474,8 @@ nav {
 }
 
 .user-dropdown {
-  top: 44px;
-  right: -13px;
+  top: 41px;
+  right: -15px;
   min-width: 300px;
   padding: 0 !important;
   padding-bottom: 5px !important;
@@ -498,7 +498,7 @@ nav {
     border-bottom: 1px solid #ebebeb;
     border-radius: 5px 5px 0 0;
     font-size: 13px;
-    font-weight: 100 !important;
+    font-weight: 400 !important;
     margin: 0;
     padding: 8px 14px;
     color: #54585a;
@@ -509,13 +509,29 @@ nav {
     color: #636363 !important;
     font-size: 13px !important;
     font-weight: 200 !important;
-    padding: 10px 20px !important;
+    // padding: 10px 20px !important;
     clear: both;
     display: block;
     line-height: 1.42857;
     white-space: nowrap;
     text-transform: initial;
     letter-spacing: 0.5px;
+
+    height: 40px;
+    line-height: 40px;
+    padding: 0 !important;
+    width: auto;
+
+    i {
+      padding: 0 15px;
+      font-size: 15px;
+      color: #989b9c;
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+    }
   }
 }
 
@@ -570,4 +586,13 @@ nav {
     padding: 7px 0px !important;
   }
 
+}
+
+h1.page-header .dropdown .photouser img.img-circle { height: 30px; width: 30px; }
+h1.page-header .dropdown .photouser img.desktop { display: none; }
+h1.page-header .dropdown .photouser img.nodesktop { display: inline-block; }
+
+@media @desktop {
+  h1.page-header .dropdown .photouser img.desktop { display: inline-block; }
+  h1.page-header .dropdown .photouser img.nodesktop { display: none; }
 }

@@ -4,20 +4,23 @@
   <div class="dropdown" style="float:right;">
     <a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <div class="photouser">
-            <img
+            <!--<img
               width="35" height="35"
               class="img-circle"
-              ng-src="{{ menuData.userData.userImg  || menuData.userData.imgUrl }}">
+              ng-src="{{ menuData.userData.userImg  || menuData.userData.imgUrl }}">-->
+              <img width="35" height="35" class="img-circle desktop" ng-src="assets/images/profile.png" />
+              <img width="35" height="35" class="img-circle nodesktop" ng-src="assets/images/profile_white.png" />
         </div>
     </a>
     <ul class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="dropdownMenu1">
       <li><h3 class="popover-title">{{ menuData.userData.userName }}</h3></li>
-      <li ng-repeat="item in menuData.userOptions" ng-class="{ divider: item.id==='__DIVIDER__' }">
+      <li ng-repeat="item in menuData.userOptions" ng-class="{ divider: item.id==='__DIVIDER__' || item.isDivider }">
           <a id="{{ item.id }}"
              href=""
              ng-if="item.id!=='__DIVIDER__'"
              ng-click="menuData.doProfileMenuAction(item.id, item.linkToGo, item.target)">
-              {{ item.name }}
+             <i class="{{item.icon}}"></i>
+             <span>{{ item.name }}</span>
           </a>
       </li>
     </ul>
