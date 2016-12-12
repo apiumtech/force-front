@@ -515,3 +515,12 @@
 .ic-info-filled:before {
   content: "\e040";
 }
+.ic-play-circle-o:before {
+  content: "\e041";
+}
+.ic-youtube-play:before {
+  content: "\e042";
+}
+.ic-video:before {
+  content: "\e043";
+}

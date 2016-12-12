@@ -4,12 +4,13 @@
   <div class="dropdown" style="float:right;">
     <a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <div class="photouser">
-            <!--<img
-              width="35" height="35"
-              class="img-circle"
-              ng-src="{{ menuData.userData.userImg  || menuData.userData.imgUrl }}">-->
-              <img width="35" height="35" class="img-circle desktop" ng-src="assets/images/profile.png" />
-              <img width="35" height="35" class="img-circle nodesktop" ng-src="assets/images/profile_white.png" />
+          <div ng-if="menuData.userData.userPhoto">
+            <img width="35" height="35" class="img-circle desktop" ng-src="{{'data:image/png;base64,' + menuData.userData.userPhoto}}" />
+          </div>
+          <div ng-if="!menuData.userData.userPhoto">
+            <img width="35" height="35" class="img-circle desktop" ng-src="assets/images/profile.png" />
+            <img width="35" height="35" class="img-circle nodesktop" ng-src="assets/images/profile_white.png" />
+          </div>
         </div>
     </a>
     <ul class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="dropdownMenu1">
