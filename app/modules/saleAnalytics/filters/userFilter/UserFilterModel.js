@@ -54,8 +54,16 @@ define([
                 }
 
                 try{
-                    var formattedData = self.decorateData(data);
-                    deferred.resolve(formattedData);
+                  // patch for Google Chrome. Transform every id as integer to string to prevent problems in hasOwnProperty method
+                  for (var i = 0; i < data.length; i++) {
+                    for (var key in data[i]) {
+                      if (!isNaN(data[i][key])) {
+                        data[i][key] = data[i][key].toString();
+                      }
+                    }
+                  }
+                  var formattedData = self.decorateData(data);
+                  deferred.resolve(formattedData);
                 }catch(err){
                     deferred.reject(err);
                 }
@@ -88,7 +96,7 @@ define([
             item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
             var parentFound = false;
             for(var i=0; i<data.length; i++) {
-              if(item.ParentId === -1 || data[i].Id === item.ParentId) {
+              if(item.ParentId === '-1' || data[i].Id === item.ParentId) {
                 parentFound = true;
                 break;
               }
