@@ -57,7 +57,7 @@ define([
                   // patch for Google Chrome. Transform every id as integer to string to prevent problems in hasOwnProperty method
                   for (var i = 0; i < data.length; i++) {
                     for (var key in data[i]) {
-                      if (!isNaN(data[i][key])) {
+                      if (!isNaN(data[i][key]) && typeof data[i][key] !== 'boolean') {
                         data[i][key] = data[i][key].toString();
                       }
                     }
