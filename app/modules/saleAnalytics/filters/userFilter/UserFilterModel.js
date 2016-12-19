@@ -101,7 +101,7 @@ define([
                 break;
               }
             }
-            item.ParentId = parentFound ? item.ParentId : -1;
+            item.ParentId = parentFound ? item.ParentId : '-1';
         });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
