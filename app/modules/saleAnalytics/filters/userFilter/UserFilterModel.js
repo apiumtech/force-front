@@ -56,7 +56,7 @@ define([
                 try{
                   // patch for Google Chrome. Transform every id as integer to string to prevent problems in hasOwnProperty method
                   for (var i = 0; i < data.length; i++) {
-                    for (var key in data) {
+                    for (var key in data[i]) {
                       if (!isNaN(data[i][key])) {
                         data[i][key] = data[i][key].toString();
                       }
@@ -101,7 +101,7 @@ define([
                 break;
               }
             }
-            item.ParentId = parentFound ? item.ParentId : -1;
+            item.ParentId = parentFound ? item.ParentId : '-1';
         });
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
