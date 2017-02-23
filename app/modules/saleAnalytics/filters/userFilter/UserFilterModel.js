@@ -55,13 +55,13 @@ define([
 
                 try{
                   // patch for Google Chrome. Transform every id as integer to string to prevent problems in hasOwnProperty method
-                  for (var i = 0; i < data.length; i++) {
-                    for (var key in data[i]) {
-                      if (!isNaN(data[i][key]) && typeof data[i][key] !== 'boolean') {
-                        data[i][key] = data[i][key].toString();
-                      }
-                    }
-                  }
+                  // for (var i = 0; i < data.length; i++) {
+                  //   for (var key in data[i]) {
+                  //     if (!isNaN(data[i][key]) && typeof data[i][key] !== 'boolean') {
+                  //       data[i][key] = data[i][key].toString();
+                  //     }
+                  //   }
+                  // }
                   var formattedData = self.decorateData(data);
                   deferred.resolve(formattedData);
                 }catch(err){
@@ -96,13 +96,28 @@ define([
             item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
             var parentFound = false;
             for(var i=0; i<data.length; i++) {
-              if(item.ParentId === '-1' || data[i].Id === item.ParentId) {
+              if(item.ParentId === -1 || data[i].Id === item.ParentId) {
                 parentFound = true;
                 break;
               }
             }
-            item.ParentId = parentFound ? item.ParentId : '-1';
+            item.ParentId = parentFound ? item.ParentId : -1;
         });
+
+        /*
+        Google Chrome version 55 has a bug in hasOwnProperty method.
+        The function makeTree use groupBy (from underscore), that uses the method hasOwnProperty
+        to sort the array by the key. Because we are comparing by 'ParentId', the parentKey argument,
+        we need to convert the ParentId value of every element in the array to string, to let
+        underscore to groupBy correctly, and then restore to a number type to keep all the
+        functionallity working correctly.
+        The old patch is some lines above, commented, to not lose the way...
+         */
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].hasOwnProperty('ParentId') && !isNaN(data[i]['ParentId'])) {
+            data[i]['ParentId'] = data[i]['ParentId'].toString();
+          }
+        }
         return this.arrayHelper.makeTree(data, 'ParentId', 'Id', 'children', -1);
     };
 
