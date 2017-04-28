@@ -698,8 +698,7 @@ define([
     };
   
     PieChartWidgetView.prototype.canDisplayExportButton = function () {
-      //return this.permissionsService.getPermission("geotrackviewenabled.isEnabled", true) ;
-      return true;
+      return this.permissionsService.getPermission("exportsfm.isEnabled", true) ;
     };
 
 
