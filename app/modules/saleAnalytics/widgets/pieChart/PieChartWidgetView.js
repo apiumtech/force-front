@@ -8,12 +8,13 @@ define([
     'shared/services/GoogleChartService',
     'modules/saleAnalytics/widgets/GraphColorService',
     'shared/services/TranslatorService',
+    'shared/services/config/PermissionsService',
     'jquery',
     'readmore-js',
     'underscore',
     'moment',
     'config'
-], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, TranslatorService, $, readmore, _, moment, config) {
+], function (WidgetBaseView, PieChartWidgetPresenter, BaseWidgetEventBus, WidgetEventBus, GoogleChartService, GraphColorService, TranslatorService, PermissionsService, $, readmore, _, moment, config) {
     'use strict';
 
     var LINE = 'line';
@@ -22,7 +23,7 @@ define([
     var PIE = 'pie';
     var TABLE = 'table';
 
-    function PieChartWidgetView(scope, element, presenter) {
+    function PieChartWidgetView(scope, element, presenter, permissionsService) {
         presenter = presenter || new PieChartWidgetPresenter();
         WidgetBaseView.call(this, scope, element, presenter);
         scope.selectedRangeOption = "pie";
@@ -34,6 +35,7 @@ define([
         self.widgetEventBus = WidgetEventBus.getInstance();
         self.chartService = GoogleChartService.newInstance();
         self.data.noData = false;
+        self.permissionsService = permissionsService;
 
         self.configureEvents();
     }
@@ -148,6 +150,8 @@ define([
         };
 
         self.event.getFilters = function(){};
+  
+        self.fn.canDisplayExportButton = self.canDisplayExportButton.bind(self);
 
         self.resizeHandling();
     };
@@ -692,10 +696,15 @@ define([
         this.data.serverErrorTitle = "Error";
         this.data.serverErrorMessage = "Something went wrong";
     };
+  
+    PieChartWidgetView.prototype.canDisplayExportButton = function () {
+      return this.permissionsService.getPermission("exportsfm.isEnabled", true) ;
+    };
 
 
-    PieChartWidgetView.newInstance = function ($scope, $element, $viewRepAspect, $logErrorAspect) {
-        var view = new PieChartWidgetView($scope, $element);
+    PieChartWidgetView.newInstance = function ($scope, $element, permissionsService, $viewRepAspect, $logErrorAspect) {
+        permissionsService = permissionsService || PermissionsService.newInstance();
+        var view = new PieChartWidgetView($scope, $element, undefined, permissionsService);
         return view._injectAspects($viewRepAspect, $logErrorAspect);
     };
 

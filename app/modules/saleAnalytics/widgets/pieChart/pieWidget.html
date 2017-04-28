@@ -99,7 +99,7 @@
                 </button>
                 <button class="btn btn-white btn-sm p-t-5 p-b-5"
                         ng-click="fn.exportToCSV()"
-                        ng-if="currentChartType=='table'"
+                        ng-if="currentChartType=='table' && fn.canDisplayExportButton()"
                         tooltip="{{ 'commonText.tableChart.button.csvDownload.tooltip' | i18next }}" tooltip-append-to-body="true">
                     <img src="assets/img/csv.png" style="width: 24px; height: 24px;">
                 </button>
