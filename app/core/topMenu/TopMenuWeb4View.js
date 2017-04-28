@@ -75,7 +75,11 @@ define([
 
 
     TopMenuWeb4View.prototype.onLogout = function () {
-        this.$window.location.href = "/Login.aspx";
+        var config = JSON.parse(window.sessionStorage.getItem('config'));
+        var jsonLiterals = JSON.parse(window.sessionStorage.getItem('fm_newLiterals'));
+        window.sessionStorage.setItem('purchaseProvider', config.userData.purchaseProvider);
+        window.sessionStorage.setItem('purchaseProviderLiteral', jsonLiterals['url_appdirect_logout']);
+        this.$window.location.href = "/loginproxy.aspx";
     };
     TopMenuWeb4View.prototype.onLogoutError = function (error) {
         this.data.currentError = error;
