@@ -47,9 +47,6 @@
 .ic-arr-left2:before {
   content: "\66";
 }
-.ic-arr-right:before {
-  content: "\67";
-}
 .ic-arr-right2:before {
   content: "\68";
 }
@@ -158,9 +155,6 @@
 .ic-microphone:before {
   content: "\5a";
 }
-.ic-minus:before {
-  content: "\30";
-}
 .ic-minus-circle:before {
   content: "\31";
 }
@@ -254,9 +248,6 @@
 .ic-reports:before {
   content: "\50";
 }
-.ic-thick:before {
-  content: "\7e";
-}
 .ic-download:before {
   content: "\79";
 }
@@ -329,9 +320,6 @@
 .ic-expand-right:before {
   content: "\e010";
 }
-.ic-globe:before {
-  content: "\e011";
-}
 .ic-goto:before {
   content: "\e012";
 }
@@ -356,17 +344,11 @@
 .ic-print:before {
   content: "\e01a";
 }
-.ic-search:before {
-  content: "\e01f";
-}
 .ic-share-filled:before {
   content: "\e020";
 }
 .ic-activity:before {
   content: "\e022";
-}
-.ic-notifications:before {
-  content: "\e023";
 }
 .ic-sent:before {
   content: "\33";
@@ -494,23 +476,11 @@
 .ic-logout-filled:before {
   content: "\e039";
 }
-.ic-list-filled:before {
-  content: "\e03a";
-}
-.ic-cards-filled:before {
-  content: "\e03b";
-}
-.ic-filter-filled:before {
-  content: "\49";
-}
 .ic-duplicate:before {
   content: "\e03c";
 }
 .ic-archive:before {
   content: "\e03e";
-}
-.ic-sign:before {
-  content: "\e03f";
 }
 .ic-info-filled:before {
   content: "\e040";
@@ -523,4 +493,67 @@
 }
 .ic-video:before {
   content: "\e043";
+}
+.ic-question-filled:before {
+  content: "\e045";
+}
+.ic-minus:before {
+  content: "\30";
+}
+.ic-thick:before {
+  content: "\e047";
+}
+.ic-arr-right:before {
+  content: "\67";
+}
+.ic-globe:before {
+  content: "\e011";
+}
+.ic-info-outline:before {
+  content: "\e044";
+}
+.ic-list-filled:before {
+  content: "\49";
+}
+.ic-linkedin:before {
+  content: "\e046";
+}
+.ic-cards-filled:before {
+  content: "\e03b";
+}
+.ic-filter-filled:before {
+  content: "\e048";
+}
+.ic-notifications:before {
+  content: "\e023";
+}
+.ic-search:before {
+  content: "\e01f";
+}
+.ic-telephone-filled:before {
+  content: "\7e";
+}
+.ic-opportunity-outline-28px:before {
+  content: "\e03a";
+}
+.ic-agenda-outline-28px:before {
+  content: "\e049";
+}
+.ic-contact-outline-28px:before {
+  content: "\e04a";
+}
+.ic-microphone-filled-18px:before {
+  content: "\e04b";
+}
+.ic-tel-keyboad-filled-18px:before {
+  content: "\e04c";
+}
+.ic-question-outline:before {
+  content: "\e04d";
+}
+.ic-sign:before {
+  content: "\e03f";
+}
+.ic-salesorder-filled:before {
+  content: "\e04e";
 }
