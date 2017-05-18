@@ -15,6 +15,9 @@ define(function () {
     ) {
       baseUrl = "https://backenddev.forcemanager.net";
     }
+    else if (window.location.hostname  === 'sd.forcemanager.net') {
+      baseUrl = "https://backendsd.forcemanager.net/" + apiVersion;
+    }
 
     var baseLiteralsUrl = "https://literals.forcemanager.net";
 
