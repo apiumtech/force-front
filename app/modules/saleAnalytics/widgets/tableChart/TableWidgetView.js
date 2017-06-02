@@ -268,6 +268,10 @@ define([
             }
         }
         self.dataSource = self.data.data;
+        
+        for (var i = 0; i < self.dataSource.length; i++) {
+          self.dataSource[i].PhotoUrl = self.dataSource[i].PhotoUrl.replace(/\+/g, '%2b');
+        }
     };
 
 

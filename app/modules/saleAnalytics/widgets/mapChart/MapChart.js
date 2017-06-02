@@ -166,7 +166,7 @@ define([
         var infowindow = null;
         var cssImgRules = '';
         self.markers = data.map(function (r) {
-            var image = r.PhotoUrl;
+            var image = r.PhotoUrl.replace(/\+/g, '%2b');
             if (!image){
                 image = defaultImageUrl;
             } else {

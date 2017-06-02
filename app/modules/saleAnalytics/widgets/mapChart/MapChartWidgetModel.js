@@ -94,7 +94,7 @@ define([
                 Latitude: record.Y,
                 Longitude: record.X,
                 FullName: record.Name + " " + record.Surname,
-                PhotoUrl: record.PhotoUrl,
+                PhotoUrl: record.PhotoUrl.replace(/\+/g, '%2b'),
                 Description: record.Description
             };
         });

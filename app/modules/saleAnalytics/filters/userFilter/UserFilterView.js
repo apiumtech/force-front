@@ -345,13 +345,13 @@ define([
     };
     UserFilterView.prototype._userSelectionIsOneNormalUser = function (user) {
         this.data.userSelectionLabel = user.Name;
-        this.data.userSelectionPicture = user.PhotoUrl;
+        this.data.userSelectionPicture = user.PhotoUrl.replace(/\+/g, '%2b');
         this.data.selectionType = SELECTED_ONE_USER;
         this._saveUserFilterSelection();
     };
     UserFilterView.prototype._userSelectionIsOneEnvironment = function (env) {
         this.data.userSelectionLabel = env.Name;
-        this.data.userSelectionPicture = env.PhotoUrl;
+        this.data.userSelectionPicture = env.PhotoUrl.replace(/\+/g, '%2b');
         this.data.selectionType = SELECTED_ONE_ENVIRONMENT;
         this._saveUserFilterSelection();
     };
