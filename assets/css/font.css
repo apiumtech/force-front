@@ -86,9 +86,6 @@
 .ic-document-generic:before {
   content: "\77";
 }
-.ic-edit:before {
-  content: "\7a";
-}
 .ic-edit-circle:before {
   content: "\41";
 }
@@ -299,9 +296,6 @@
 .ic-arrow:before {
   content: "\35";
 }
-.ic-arrow-down:before {
-  content: "\37";
-}
 .ic-calendar-view:before {
   content: "\39";
 }
@@ -500,9 +494,6 @@
 .ic-minus:before {
   content: "\30";
 }
-.ic-thick:before {
-  content: "\e047";
-}
 .ic-arr-right:before {
   content: "\67";
 }
@@ -556,4 +547,43 @@
 }
 .ic-salesorder-filled:before {
   content: "\e04e";
+}
+.ic-thick:before {
+  content: "\37";
+}
+.ic-kpi-aggregated:before {
+  content: "\e047";
+}
+.ic-kpi-boss:before {
+  content: "\e04f";
+}
+.ic-kpi-personal:before {
+  content: "\e050";
+}
+.ic-kpi-team:before {
+  content: "\e051";
+}
+.ic-edit:before {
+  content: "\e052";
+}
+.ic-tool:before {
+  content: "\e053";
+}
+.ic-integrations:before {
+  content: "\e054";
+}
+.ic-arr-right-1:before {
+  content: "\7a";
+}
+.ic-kpi-menu:before {
+  content: "\e055";
+}
+.ic-minus-10px:before {
+  content: "\e056";
+}
+.ic-thick-10px:before {
+  content: "\e057";
+}
+.ic-plus-10px:before {
+  content: "\e058";
 }
