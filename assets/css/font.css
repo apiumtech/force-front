@@ -287,23 +287,14 @@
 .ic-flag-filled:before {
   content: "\4b";
 }
-.ic-custom-widgets:before {
-  content: "\e00e";
-}
 .ic-share:before {
   content: "\78";
-}
-.ic-arrow:before {
-  content: "\35";
 }
 .ic-calendar-view:before {
   content: "\39";
 }
 .ic-call:before {
   content: "\2a";
-}
-.ic-close:before {
-  content: "\2c";
 }
 .ic-dots-filled:before {
   content: "\e007";
@@ -425,9 +416,6 @@
 .ic-opportunity-filled:before {
   content: "\e018";
 }
-.ic-product-filled:before {
-  content: "\e01c";
-}
 .ic-quotes-filled:before {
   content: "\e01d";
 }
@@ -548,9 +536,6 @@
 .ic-salesorder-filled:before {
   content: "\e04e";
 }
-.ic-thick:before {
-  content: "\37";
-}
 .ic-kpi-aggregated:before {
   content: "\e047";
 }
@@ -575,9 +560,6 @@
 .ic-arr-right-1:before {
   content: "\7a";
 }
-.ic-kpi-menu:before {
-  content: "\e055";
-}
 .ic-minus-10px:before {
   content: "\e056";
 }
@@ -586,4 +568,22 @@
 }
 .ic-plus-10px:before {
   content: "\e058";
+}
+.ic-thick:before {
+  content: "\37";
+}
+.ic-kpi-menu:before {
+  content: "\e059";
+}
+.ic-product-filled:before {
+  content: "\e01c";
+}
+.ic-arrow:before {
+  content: "\35";
+}
+.ic-close:before {
+  content: "\2c";
+}
+.ic-custom-widgets:before {
+  content: "\e055";
 }
