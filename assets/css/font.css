@@ -587,3 +587,12 @@
 .ic-custom-widgets:before {
   content: "\e055";
 }
+.ic-close-10px:before {
+  content: "\e00e";
+}
+.ic-warning-rounded:before {
+  content: "\e05a";
+}
+.ic-microphone-mute-filled:before {
+  content: "\e05b";
+}
