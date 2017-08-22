@@ -91,6 +91,15 @@ define([
 
         // Saved User Filter
         var savedUserFilterArray = this.storageService.retrieve('userFilter', true) || [];
+        
+        var web3UserFilter = decodeURIComponent((new RegExp('[?|&]' + 'iu' + '=' + '([^&;]+?)(&|#|;|$)').exec(window.location) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        if (web3UserFilter) {
+          // if we have a filter from web3, suppress all the other filters by user
+          savedUserFilterArray = [];
+          savedUserFilterArray.push(parseInt(web3UserFilter, 10));
+          this.storageService.store('userFilter', savedUserFilterArray, true);
+        }
+        
         data.forEach(function(item){
             item.visible = true; // needed for the tree to display correctltly
             item.checked = savedUserFilterArray.indexOf(item.Id) > -1;
