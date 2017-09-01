@@ -419,7 +419,7 @@ define([
             timeFormat = 'HH:mm';
         if (web3Config) {
             web3Config = JSON.parse(web3Config);
-            var format = dotNetLocaleDateFormat.split(' ');
+            var format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
             dateFormat = format[0].replace('yyyy', 'yy');
             timeFormat = format[1];
             if (format.length === 3) {

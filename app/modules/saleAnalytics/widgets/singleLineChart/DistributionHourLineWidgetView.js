@@ -134,7 +134,7 @@ define([
             timeFormat = "H'h'";
         if (web3Config) {
             web3Config = JSON.parse(web3Config);
-            var format = dotNetLocaleDateFormat.split(' ');
+            var format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
             if (format.length === 3) {
                 // the third element is to show AM/PM, but there we have tt, and for google charts
                 // should be aa
