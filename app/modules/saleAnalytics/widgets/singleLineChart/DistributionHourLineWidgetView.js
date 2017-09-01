@@ -131,14 +131,14 @@ define([
         self.chart = chartService.createChart(element[0], 'bar');
     
         var web3Config = window.sessionStorage.getItem('config'),
-            timeFormat = "H'h'";
+            userTimeFormat = "H'h'";
         if (web3Config) {
             web3Config = JSON.parse(web3Config);
-            var format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
-            if (format.length === 3) {
+            var web3Format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
+            if (web3Format.length === 3) {
                 // the third element is to show AM/PM, but there we have tt, and for google charts
                 // should be aa
-                timeFormat = format[1].replace(':ss', '').replace(':SS', '') + ' aa';
+                userTimeFormat = "h a";
             }
         }
 
@@ -146,7 +146,7 @@ define([
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
             hAxis: {
-                format: timeFormat,
+                format: userTimeFormat,
                 viewWindow: {
                     min: [0, 0, 0],
                     max: [24, 0, 0]

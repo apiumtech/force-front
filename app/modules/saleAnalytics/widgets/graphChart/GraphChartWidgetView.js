@@ -413,40 +413,41 @@ define([
                 self.chartOptions.vAxis.ticks = self.getVaxisTicksFilled(chartFields);
             }
         }
-        
+    
         var web3Config = window.sessionStorage.getItem('config'),
-            dateFormat = 'd/M/yy',
-            timeFormat = 'HH:mm';
+            userDateFormat = "d/M/yy",
+            userTimeFormat = "HH:mm",
+            is24Hours = true;
         if (web3Config) {
             web3Config = JSON.parse(web3Config);
-            var format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
-            dateFormat = format[0].replace('yyyy', 'yy');
-            timeFormat = format[1];
-            if (format.length === 3) {
+            var web3Format = web3Config.userData.dotNetLocaleDateFormat.split(' ');
+            userDateFormat = web3Format[0].replace('yyyy', 'yy');
+            if (web3Format.length === 3) {
                 // the third element is to show AM/PM, but there we have tt, and for google charts
                 // should be aa
-                timeFormat = format[1].replace(':ss', '').replace(':SS', '') + ' aa';
+                userTimeFormat = "h a";
+                is24Hours = false;
             }
         }
   
-      var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
-        self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
-          self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
-            self.$scope.selectedRangeOption === 'hour' ? 'HH:mm' : 'd/M/yy';
+      // var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
+      //   self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
+      //     self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
+      //       self.$scope.selectedRangeOption === 'hour' ? 'HH:mm' : 'd/M/yy';
     
-        // var computedFormat = 'd/M/yy';
-        // switch (self.$scope.selectedRangeOption) {
-        //     case 'month':
-        //         computedFormat = 'MMM yy';
-        //         break;
-        //     case 'week':
-        //     case 'date':
-        //         computedFormat = dateFormat;
-        //         break;
-        //     case 'hour':
-        //         computedFormat = timeFormat;
-        //         break;
-        // }
+        var computedFormat = 'd/M/yy';
+        switch (self.$scope.selectedRangeOption) {
+            case 'month':
+                computedFormat = 'MMM yy';
+                break;
+            case 'week':
+            case 'date':
+                computedFormat = userDateFormat;
+                break;
+            case 'hour':
+                computedFormat = userTimeFormat;
+                break;
+        }
 
         // For d3 time intervals
         // @see http://stackoverflow.com/a/23957607/779529
@@ -469,9 +470,20 @@ define([
 
         if( isHours() ){
             self.chartOptions.bar = {groupWidth: "75%"};
-            var hourTicks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map( function(n){
-                return {f:("0"+ n + "h").substr(-3), v:[n,0,0]};
-            });
+            var hourTicks;
+            if (is24Hours) {
+                hourTicks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].map( function(n){
+                    return {f:("0"+ n + "h").substr(-3), v:[n,0,0]};
+                });
+            }
+            else {
+                var hourAux = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+                var morning = ["0 a.m.", "1 a.m.", "2 a.m.", "3 a.m.", "4 a.m.", "5 a.m.", "6 a.m.", "7 a.m.", "8 a.m.", "9 a.m.", "10 a.m.", "11 a.m."];
+                var afternoon = ["12 p.m.", "1 p.m.", "2 p.m.", "3 p.m.", "4 p.m.", "5 p.m.", "6 p.m.", "7 p.m.", "8 p.m.", "9 p.m.", "10 p.m.", "11 p.m."];
+                hourTicks = morning.concat(afternoon).map( function(n, index){
+                    return {f: n, v:[hourAux[index],0,0]};
+                });
+            }
             self.chartOptions.hAxis = {ticks: hourTicks};
             self.chart = chartService.createChart(element[0], 'bar');
         } else {
