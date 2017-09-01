@@ -38,6 +38,7 @@ define([
             }
 
             token = token || dev_token;
+            token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiIwYzZkY2E4OS01NDllLTQzYjMtODAxNy1kNjAzN2JlZGYzYjAiLCJpYXQiOiIiLCJleHAiOiIiLCJxc2giOiIiLCJ1c2VyQ29kZSI6IjExNyIsImltcGxlbWVudGF0aW9uQ29kZSI6IjYwMDMiLCJsYW5ndWFnZSI6ImVzIiwibG9jYXRlIjoiZXMtRVMiLCJpbXBlcnNvbmF0ZWQiOiJGYWxzZSJ9.7IGEJdAl3N680WTWF16bJEV7EVpPpVo0ADw1yCv6uQE";
             request.headers = request.headers || {};
             request.headers.token = token;
         }

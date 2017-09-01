@@ -138,7 +138,7 @@ define([
             if (format.length === 3) {
                 // the third element is to show AM/PM, but there we have tt, and for google charts
                 // should be aa
-                timeFormat = format[1] + ' aa';
+                timeFormat = format[1].replace(':ss', '').replace(':SS', '') + ' aa';
             }
         }
 
