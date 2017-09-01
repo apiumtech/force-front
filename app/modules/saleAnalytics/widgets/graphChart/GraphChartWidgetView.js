@@ -413,11 +413,40 @@ define([
                 self.chartOptions.vAxis.ticks = self.getVaxisTicksFilled(chartFields);
             }
         }
+        
+        var web3Config = window.sessionStorage.getItem('config'),
+            dateFormat = 'd/M/yy',
+            timeFormat = 'HH:mm';
+        if (web3Config) {
+            web3Config = JSON.parse(web3Config);
+            var format = dotNetLocaleDateFormat.split(' ');
+            dateFormat = format[0].replace('yyyy', 'yy');
+            timeFormat = format[1];
+            if (format.length === 3) {
+                // the third element is to show AM/PM, but there we have tt, and for google charts
+                // should be aa
+                timeFormat = format[1] + ' aa';
+            }
+        }
 
-        var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
-            self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
-            self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
-            self.$scope.selectedRangeOption === 'hour' ? 'HH:mm' : 'd/M/yy';
+        // var computedFormat = self.$scope.selectedRangeOption === 'month' ? 'MMM yy' :
+        //     self.$scope.selectedRangeOption === 'week' ? 'd/M/yy' :
+        //     self.$scope.selectedRangeOption === 'date' ? 'd/M/yy' :
+        //     self.$scope.selectedRangeOption === 'hour' ? 'hh:mm aa' : 'd/M/yy';
+    
+        var computedFormat = 'd/M/yy';
+        switch (self.$scope.selectedRangeOption) {
+            case 'month':
+                computedFormat = 'MMM yy';
+                break;
+            case 'week':
+            case 'date':
+                computedFormat = dateFormat;
+                break;
+            case 'hour':
+                computedFormat = timeFormat;
+                break;
+        }
 
         // For d3 time intervals
         // @see http://stackoverflow.com/a/23957607/779529

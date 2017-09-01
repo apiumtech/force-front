@@ -129,12 +129,24 @@ define([
 
         self.chartData = dataTable;
         self.chart = chartService.createChart(element[0], 'bar');
+    
+        var web3Config = window.sessionStorage.getItem('config'),
+            timeFormat = "H'h'";
+        if (web3Config) {
+            web3Config = JSON.parse(web3Config);
+            var format = dotNetLocaleDateFormat.split(' ');
+            if (format.length === 3) {
+                // the third element is to show AM/PM, but there we have tt, and for google charts
+                // should be aa
+                timeFormat = format[1] + ' aa';
+            }
+        }
 
         self.chartOptions = {
             title: self.widgetName,
             colors: self.colorService.$colors.slice(),
             hAxis: {
-                format: "H'h'",
+                format: timeFormat,
                 viewWindow: {
                     min: [0, 0, 0],
                     max: [24, 0, 0]
