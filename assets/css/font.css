@@ -50,9 +50,6 @@
 .ic-arr-right2:before {
   content: "\68";
 }
-.ic-attachment:before {
-  content: "\69";
-}
 .ic-call-in:before {
   content: "\6a";
 }
@@ -92,10 +89,10 @@
 .ic-email:before {
   content: "\42";
 }
-.ic-email-in:before {
+.ic-email-in-old:before {
   content: "\43";
 }
-.ic-email-out:before {
+.ic-email-out-old:before {
   content: "\44";
 }
 .ic-enlarge:before {
@@ -106,9 +103,6 @@
 }
 .ic-export:before {
   content: "\48";
-}
-.ic-flag:before {
-  content: "\4a";
 }
 .ic-folder-closed:before {
   content: "\4c";
@@ -125,7 +119,7 @@
 .ic-ic-lost:before {
   content: "\51";
 }
-.ic-ic-opportunity-checkin:before {
+.ic-ic-opportunity-checkin-old:before {
   content: "\52";
 }
 .ic-ic-won:before {
@@ -197,7 +191,7 @@
 .ic-warning:before {
   content: "\3c";
 }
-.ic-checkin-filled:before {
+.ic-checkin-filled-old:before {
   content: "\3d";
 }
 .ic-cron:before {
@@ -227,7 +221,7 @@
 .ic-accounts:before {
   content: "\26";
 }
-.ic-agenda:before {
+.ic-agenda-old:before {
   content: "\5c";
 }
 .ic-opportunities:before {
@@ -284,17 +278,11 @@
 .ic-users-1:before {
   content: "\e00d";
 }
-.ic-flag-filled:before {
-  content: "\4b";
-}
 .ic-share:before {
   content: "\78";
 }
 .ic-calendar-view:before {
   content: "\39";
-}
-.ic-call:before {
-  content: "\2a";
 }
 .ic-dots-filled:before {
   content: "\e007";
@@ -329,7 +317,7 @@
 .ic-print:before {
   content: "\e01a";
 }
-.ic-share-filled:before {
+.ic-share-filled-old:before {
   content: "\e020";
 }
 .ic-activity:before {
@@ -355,9 +343,6 @@
 }
 .ic-settings-filled:before {
   content: "\e027";
-}
-.ic-download-filled:before {
-  content: "\e029";
 }
 .ic-star-filled-18px:before {
   content: "\e02a";
@@ -403,9 +388,6 @@
 }
 .ic-activity-filled:before {
   content: "\71";
-}
-.ic-agenda-filled:before {
-  content: "\47";
 }
 .ic-contacts-filled:before {
   content: "\e002";
@@ -530,9 +512,6 @@
 .ic-question-outline:before {
   content: "\e04d";
 }
-.ic-sign:before {
-  content: "\e03f";
-}
 .ic-salesorder-filled:before {
   content: "\e04e";
 }
@@ -569,9 +548,6 @@
 .ic-plus-10px:before {
   content: "\e058";
 }
-.ic-thick:before {
-  content: "\37";
-}
 .ic-kpi-menu:before {
   content: "\e059";
 }
@@ -595,4 +571,67 @@
 }
 .ic-microphone-mute-filled:before {
   content: "\e05b";
+}
+.ic-thick:before {
+  content: "\37";
+}
+.ic-agenda:before {
+  content: "\e05c";
+}
+.ic-download-filled:before {
+  content: "\e05d";
+}
+.ic-share-filled:before {
+  content: "\e05e";
+}
+.ic-sign:before {
+  content: "\e05f";
+}
+.ic-tree:before {
+  content: "\e029";
+}
+.ic-billboard-filled:before {
+  content: "\e03f";
+}
+.ic-flag:before {
+  content: "\4a";
+}
+.ic-flag-filled:before {
+  content: "\4b";
+}
+.ic-agenda-filled:before {
+  content: "\47";
+}
+.ic-call:before {
+  content: "\2a";
+}
+.ic-call-in-1:before {
+  content: "\e060";
+}
+.ic-call-lost:before {
+  content: "\e061";
+}
+.ic-call-out-1:before {
+  content: "\e062";
+}
+.ic-fast-checkin:before {
+  content: "\e065";
+}
+.ic-activity-1:before {
+  content: "\e066";
+}
+.ic-checkin-filled:before {
+  content: "\e067";
+}
+.ic-opportunity-checkin:before {
+  content: "\e068";
+}
+.ic-email-in:before {
+  content: "\e063";
+}
+.ic-email-out:before {
+  content: "\e064";
+}
+.ic-attachment:before {
+  content: "\e069";
 }
