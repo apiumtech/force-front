@@ -127,7 +127,8 @@ define([
                     navBarLeft = 0;
                 } else {
                     navBarHeight = 0;
-                    navBarLeft = 50;
+                    // navBarLeft = 50;
+                    navBarLeft = parseInt($(".content.web4").css("margin-left"), 10);
                 }
                 $(".sales-filters-div").css({
                     position: "fixed",

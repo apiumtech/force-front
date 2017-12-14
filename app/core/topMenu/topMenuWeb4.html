@@ -10,7 +10,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ fn.adjustDefaultAccessPageLink(data.userData.defaultAccessPage) }}"><img alt="ForceManager CRM" class="img-responsive" src="assets/img/logo-symbol-only.png"></a>
+                <a class="navbar-brand" href="{{ fn.adjustDefaultAccessPageLink(data.userData.defaultAccessPage) }}">
+                    <img alt="ForceManager CRM" class="img-responsive collapsed" src="assets/img/negative-logo-collapsed.svg">
+                    <img alt="ForceManager CRM" class="img-responsive expanded" src="assets/img/negative-logo-expanded.svg">
+                </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,7 +21,7 @@
 
                 <!-- primary navigation -->
                 <ul class="nav navbar-nav main-nav">
-                    <li ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
+                    <li class="web3-navigation-button" ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
                         <a id="{{ userSection.id }}"
                            ng-if="userSection.section != 'sfm'"
                            data-placement="right"
@@ -28,8 +31,8 @@
                            tooltip="{{ userSection.name }}"
                            href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
                            data-original-title="{{ userSection.name }}"
-                           class="toggle-true">
-                            <i class="ic-{{ userSection.icon }}"></i>
+                           class="toggle-true collapsed">
+                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span>
                         </a>
                         <a id="{{ userSection.id }}"
                            ng-if="userSection.section == 'sfm'"
@@ -40,9 +43,28 @@
                            tooltip="{{ userSection.name }}"
                            ng-click="fn.reloadPage()"
                            data-original-title="{{ userSection.name }}"
-                           class="toggle-true">
-                            <i class="ic-{{ userSection.icon }}"></i>
+                           class="toggle-true collapsed">
+                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span>
                         </a>
+                        <a id="{{ userSection.id }}"
+                           ng-if="userSection.section != 'sfm'"
+                           data-section-section="{{ userSection.section }}"
+                           data-section="{{ userSection.name }}"
+                           href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
+                           data-original-title="{{ userSection.name }}"
+                           class="toggle-true expanded">
+                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
+                        </a>
+                        <a id="{{ userSection.id }}"
+                           ng-if="userSection.section == 'sfm'"
+                           data-section-section="{{ userSection.section }}"
+                           data-section="{{ userSection.name }}"
+                           ng-click="fn.reloadPage()"
+                           data-original-title="{{ userSection.name }}"
+                           class="toggle-true expanded">
+                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
+                        </a>
+                        <div class="has-limit-separator" ng-if="userSection.hasLimit"></div>
                     </li>
                     <!--<li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
                     <li><a id="opps-top-menu" data-placement="right" data-section="opportunity" href="opportunitylist.aspx" data-original-title="Oportunidades" class="toggle-true"><i class="ic-opportunity-filled"></i></a></li>

@@ -29,6 +29,33 @@
 @naranja: #ed8b00;
 @carbon: #212121;
 
+// Zepling styleguide
+@fmHint: #cccccc;
+@fmGreen: #86ad20;
+@fmRed: #f04540;
+@fmBlack: #212121;
+@fmOrange: #ed8b00;
+@fmCaptionGrey: #757575;
+@fmStatusBar: #c87600;
+@fmSky: #226eb4;
+@fmTurquoise: #00a8be;
+@fmYellow: #e9b200;
+@fmPageBackground: #f0f3f5;
+@fmColorGrey: #dddddd;
+@fmPlaceholders: #e1e4e7;
+@fmOrangeDisabled: #f9dcb3;
+@fmOrangeLight: #fdf3e4;
+@fmGrey: #b5bdc5;
+@fmYellowLight: #fff9dd;
+@fmMenuDark: #2d3950;
+@fmMenu: #3e495e;
+@warmGrey: #8e8e8e;
+@barfGreen: #90a700;
+@webLinegrey: #eaeaea;
+@lightGrey: #f7f8f8;
+@charcoalGrey: #2D323C;
+@fmLightGrey: #f7f8f9;
+
 // Text styles
 .standard-text {
   font-size: @font-size-base;
@@ -146,7 +173,6 @@ nav {
     & {
       height: 100%;
       width: @vertical-nav-width;
-
       box-shadow: 1px 0 1px gainsboro;
 
       ul > li {
@@ -238,6 +264,15 @@ nav {
         }
       }
     }
+
+    // this media @tablet is still present in web3
+    @media @tablet {
+        .dropup .dropdown-menu {
+            // Fix dropdown (drop-up) menus on small screens
+            top: 100%;
+            bottom: initial;
+        }
+    }
   //}
 
   //@media @tablet {
@@ -322,6 +357,172 @@ nav {
     }
   }
 
+}
+
+/* New menu styles */
+#main-navigation-bar, .navbar-inverse {
+    background-color: @fmMenu !important;
+    height: 100vh !important;
+    box-shadow: none !important;
+    border: none !important;
+
+    .navbar-brand {
+        width: 50px !important;
+        height: 50px;
+        text-align: center;
+        margin-right: 0;
+
+        &:hover, &:active {
+            background-color: @fmMenuDark;
+        }
+
+        img {
+            width: 100%;
+            height: 30px;
+        }
+
+        img.collapsed {
+            display: block;
+        }
+
+        img.expanded {
+            display: none;
+        }
+    }
+
+    .navbar-nav {
+        li.web3-navigation-button {
+            position: relative;
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            float: none;
+
+            &.active {
+                background-color: @fmMenuDark;
+
+                a {
+                    background-color: initial;
+
+                    span.button-content {
+                        background-color: @fmOrange;
+                        border-radius: 50%;
+
+                        i {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            &:hover, &:active {
+                background-color: @fmMenuDark;
+
+                a {
+                    background-color: @fmMenuDark;
+                }
+            }
+
+            a {
+                position: relative;
+                display: block;
+                width: 100%;
+                text-align: center;
+                text-decoration: none;
+                height: 40px;
+                padding: 5px 10px !important;
+
+                span.button-content {
+                    display: block;
+                    height: 30px;
+                    width: 30px;
+
+                    i {
+                        position: relative;
+                        display: block;
+                        top: 5px;
+                        width: 100%;
+                        text-align: center;
+                        font-size: 19px; // to get 22px of height
+                        color: @fmPlaceholders;
+                    }
+                }
+
+                span.button-content-text {
+                    display: none;
+                    width: 0;
+                }
+
+                &.collapsed {
+                    display: block;
+                }
+
+                &.expanded {
+                    display: none;
+                }
+            }
+
+            .has-limit-separator {
+                margin: 0 10px;
+                border-bottom: 1px solid @fmMenuDark;
+            }
+        }
+    }
+
+    @media (min-width: 1600px) {
+        width: 220px;
+
+        .navbar-brand {
+            width: 220px !important;
+
+            img.collapsed {
+                display: none;
+            }
+
+            img.expanded {
+                display: block;
+            }
+        }
+
+        .navbar-nav {
+            li.web3-navigation-button {
+                width: 220px;
+                text-align: left;
+
+                a {
+                    text-align: left;
+
+                    span.button-content {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+
+                    span.button-content-text {
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: ~"calc(100% - 30px)";
+                        padding-left: 10px;
+                        letter-spacing: 0.5px;
+                        font-weight: 400;
+                        font-size: 13px;
+                        color: @fmPlaceholders;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        line-height: 1.1;
+                    }
+
+                    &.collapsed {
+                        display: none;
+                    }
+
+                    &.expanded {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
 }
 
 //== Nav Notifications
@@ -415,7 +616,10 @@ nav {
 
 /*--- SFM integration ---*/
 .content.web4 {
-  margin-left: 50px;
+    margin-left: 50px;
+    @media (min-width: 1600px) {
+        margin-left: 220px;
+    }
 }
 
 //@media (max-height: 650px) {
@@ -529,10 +733,10 @@ nav {
   background-color: transparent !important;
 }
 
-.navbar.navbar-inverse {
-  background-color: #54585a !important;
-  //box-shadow: 0 2px 3px 1px rgba(0,0,0,.5);
-}
+//.navbar.navbar-inverse {
+//  background-color: #54585a !important;
+//  //box-shadow: 0 2px 3px 1px rgba(0,0,0,.5);
+//}
 
 #main-navigation-bar ul li {
   & > a {

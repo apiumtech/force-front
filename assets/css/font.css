@@ -13,625 +13,676 @@
 }
 
 [data-icon]:before {
-  font-family: "forcemanager" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "forcemanager" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="ic-"]:before,
 [class*=" ic-"]:before {
-  font-family: "forcemanager" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "forcemanager" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .ic-accept:before {
-  content: "\61";
+    content: "\61";
 }
 .ic-arr-left:before {
-  content: "\65";
+    content: "\65";
 }
 .ic-arr-left2:before {
-  content: "\66";
+    content: "\66";
 }
 .ic-arr-right2:before {
-  content: "\68";
+    content: "\68";
 }
 .ic-call-in:before {
-  content: "\6a";
+    content: "\6a";
 }
 .ic-call-missing:before {
-  content: "\6b";
+    content: "\6b";
 }
 .ic-call-out:before {
-  content: "\6c";
+    content: "\6c";
 }
 .ic-camera:before {
-  content: "\6d";
+    content: "\6d";
 }
 .ic-checkin:before {
-  content: "\6e";
+    content: "\6e";
 }
 .ic-conversion:before {
-  content: "\72";
+    content: "\72";
 }
 .ic-conversion2:before {
-  content: "\73";
+    content: "\73";
 }
 .ic-copy:before {
-  content: "\74";
+    content: "\74";
 }
 .ic-dashboard:before {
-  content: "\75";
+    content: "\75";
 }
 .ic-distribution:before {
-  content: "\76";
+    content: "\76";
 }
 .ic-document-generic:before {
-  content: "\77";
+    content: "\77";
 }
 .ic-edit-circle:before {
-  content: "\41";
+    content: "\41";
 }
 .ic-email:before {
-  content: "\42";
+    content: "\42";
 }
 .ic-email-in-old:before {
-  content: "\43";
+    content: "\43";
 }
 .ic-email-out-old:before {
-  content: "\44";
+    content: "\44";
 }
 .ic-enlarge:before {
-  content: "\45";
+    content: "\45";
 }
 .ic-expand-left:before {
-  content: "\46";
+    content: "\46";
 }
 .ic-export:before {
-  content: "\48";
+    content: "\48";
 }
 .ic-folder-closed:before {
-  content: "\4c";
+    content: "\4c";
 }
 .ic-goals:before {
-  content: "\4d";
+    content: "\4d";
 }
 .ic-help:before {
-  content: "\4e";
+    content: "\4e";
 }
 .ic-ic-account-checkin:before {
-  content: "\4f";
+    content: "\4f";
 }
 .ic-ic-lost:before {
-  content: "\51";
+    content: "\51";
 }
 .ic-ic-opportunity-checkin-old:before {
-  content: "\52";
+    content: "\52";
 }
 .ic-ic-won:before {
-  content: "\53";
-}
-.ic-image:before {
-  content: "\54";
+    content: "\53";
 }
 .ic-info:before {
-  content: "\55";
+    content: "\55";
 }
 .ic-intensity:before {
-  content: "\56";
+    content: "\56";
 }
 .ic-lock:before {
-  content: "\57";
+    content: "\57";
 }
 .ic-logout:before {
-  content: "\58";
+    content: "\58";
 }
 .ic-map-locator:before {
-  content: "\59";
+    content: "\59";
 }
 .ic-microphone:before {
-  content: "\5a";
+    content: "\5a";
 }
 .ic-minus-circle:before {
-  content: "\31";
+    content: "\31";
 }
 .ic-notes:before {
-  content: "\32";
+    content: "\32";
 }
 .ic-phone-settings:before {
-  content: "\36";
+    content: "\36";
 }
 .ic-plus-circle:before {
-  content: "\38";
+    content: "\38";
 }
 .ic-prohibited:before {
-  content: "\22";
+    content: "\22";
 }
 .ic-reduce:before {
-  content: "\23";
+    content: "\23";
 }
 .ic-refresh:before {
-  content: "\24";
+    content: "\24";
 }
 .ic-refresh2:before {
-  content: "\25";
+    content: "\25";
 }
 .ic-route:before {
-  content: "\27";
+    content: "\27";
 }
 .ic-saleanalytics:before {
-  content: "\28";
+    content: "\28";
 }
 .ic-shopping-cart:before {
-  content: "\2d";
+    content: "\2d";
 }
 .ic-success:before {
-  content: "\2e";
+    content: "\2e";
 }
 .ic-trash:before {
-  content: "\2f";
+    content: "\2f";
 }
 .ic-user-connection:before {
-  content: "\3b";
+    content: "\3b";
 }
 .ic-warning:before {
-  content: "\3c";
+    content: "\3c";
 }
 .ic-checkin-filled-old:before {
-  content: "\3d";
+    content: "\3d";
 }
 .ic-cron:before {
-  content: "\3e";
+    content: "\3e";
 }
 .ic-data:before {
-  content: "\3f";
+    content: "\3f";
 }
 .ic-devices:before {
-  content: "\40";
+    content: "\40";
 }
 .ic-permissions:before {
-  content: "\5b";
+    content: "\5b";
 }
 .ic-parameters:before {
-  content: "\5d";
+    content: "\5d";
 }
 .ic-users:before {
-  content: "\5f";
+    content: "\5f";
 }
 .ic-sqltester:before {
-  content: "\60";
+    content: "\60";
 }
 .ic-massives:before {
-  content: "\7b";
+    content: "\7b";
 }
 .ic-accounts:before {
-  content: "\26";
+    content: "\26";
 }
 .ic-agenda-old:before {
-  content: "\5c";
+    content: "\5c";
 }
 .ic-opportunities:before {
-  content: "\e000";
+    content: "\e000";
 }
 .ic-documents:before {
-  content: "\63";
+    content: "\63";
 }
 .ic-offers:before {
-  content: "\70";
+    content: "\70";
 }
 .ic-folder-opened:before {
-  content: "\64";
+    content: "\64";
 }
 .ic-reports:before {
-  content: "\50";
+    content: "\50";
 }
 .ic-download:before {
-  content: "\79";
+    content: "\79";
 }
 .ic-upload:before {
-  content: "\29";
+    content: "\29";
 }
 .ic-team-leader-filled:before {
-  content: "\3a";
+    content: "\3a";
 }
 .ic-sales-rep:before {
-  content: "\e001";
+    content: "\e001";
 }
 .ic-action-filled:before {
-  content: "\e004";
+    content: "\e004";
 }
 .ic-lost-filled:before {
-  content: "\e005";
+    content: "\e005";
 }
 .ic-opportunity-alert:before {
-  content: "\e006";
+    content: "\e006";
 }
 .ic-shield-filled:before {
-  content: "\e008";
+    content: "\e008";
 }
 .ic-won-filled:before {
-  content: "\e009";
+    content: "\e009";
 }
 .ic-close-filled:before {
-  content: "\e00a";
+    content: "\e00a";
 }
 .ic-literals:before {
-  content: "\e00b";
+    content: "\e00b";
 }
 .ic-environment:before {
-  content: "\e00c";
+    content: "\e00c";
 }
 .ic-users-1:before {
-  content: "\e00d";
+    content: "\e00d";
 }
 .ic-share:before {
-  content: "\78";
+    content: "\78";
 }
 .ic-calendar-view:before {
-  content: "\39";
+    content: "\39";
 }
 .ic-dots-filled:before {
-  content: "\e007";
+    content: "\e007";
 }
 .ic-edit-filled:before {
-  content: "\e00f";
+    content: "\e00f";
 }
 .ic-expand-right:before {
-  content: "\e010";
+    content: "\e010";
 }
 .ic-goto:before {
-  content: "\e012";
+    content: "\e012";
 }
 .ic-grid:before {
-  content: "\e013";
+    content: "\e013";
 }
 .ic-ic-trophy:before {
-  content: "\62";
+    content: "\62";
 }
 .ic-list:before {
-  content: "\e014";
+    content: "\e014";
 }
 .ic-map:before {
-  content: "\e016";
+    content: "\e016";
 }
 .ic-plus:before {
-  content: "\e015";
+    content: "\e015";
 }
 .ic-plus-big:before {
-  content: "\e019";
+    content: "\e019";
 }
 .ic-print:before {
-  content: "\e01a";
+    content: "\e01a";
 }
 .ic-share-filled-old:before {
-  content: "\e020";
+    content: "\e020";
 }
 .ic-activity:before {
-  content: "\e022";
+    content: "\e022";
 }
 .ic-sent:before {
-  content: "\33";
+    content: "\33";
 }
 .ic-lock-2:before {
-  content: "\e024";
+    content: "\e024";
 }
 .ic-warning-filled:before {
-  content: "\e025";
+    content: "\e025";
 }
 .ic-merge:before {
-  content: "\e01e";
+    content: "\e01e";
 }
 .ic-tel-headset:before {
-  content: "\e003";
+    content: "\e003";
 }
 .ic-settings:before {
-  content: "\2b";
+    content: "\2b";
 }
 .ic-settings-filled:before {
-  content: "\e027";
+    content: "\e027";
 }
 .ic-star-filled-18px:before {
-  content: "\e02a";
+    content: "\e02a";
 }
 .ic-star-outline-18px:before {
-  content: "\e02b";
+    content: "\e02b";
 }
 .ic-trash-filled-18px:before {
-  content: "\e028";
+    content: "\e028";
 }
 .ic-recents-filled-18px:before {
-  content: "\e02c";
+    content: "\e02c";
 }
 .ic-folder-filled-18px:before {
-  content: "\e02d";
+    content: "\e02d";
 }
 .ic-link-filled-18px:before {
-  content: "\e02e";
+    content: "\e02e";
 }
 .ic-document-filled-18px:before {
-  content: "\e02f";
+    content: "\e02f";
 }
 .ic-products:before {
-  content: "\7d";
+    content: "\7d";
 }
 .ic-star-filled:before {
-  content: "\34";
+    content: "\34";
 }
 .ic-star-outline:before {
-  content: "\21";
+    content: "\21";
 }
 .ic-thick-filled-18px:before {
-  content: "\e031";
+    content: "\e031";
 }
-.ic-menu-task-22px:before {
-  content: "\e03d";
+.ic-task-filled:before {
+    content: "\e03d";
 }
 .ic-cloud-filled-50px:before {
-  content: "\7c";
-}
-.ic-accounts-filled:before {
-  content: "\6f";
-}
-.ic-activity-filled:before {
-  content: "\71";
-}
-.ic-contacts-filled:before {
-  content: "\e002";
-}
-.ic-documents-filled:before {
-  content: "\e017";
-}
-.ic-opportunity-filled:before {
-  content: "\e018";
-}
-.ic-quotes-filled:before {
-  content: "\e01d";
-}
-.ic-reports-filled:before {
-  content: "\e026";
-}
-.ic-salesforce-filled:before {
-  content: "\e030";
-}
-.ic-orders-filled:before {
-  content: "\e01b";
+    content: "\7c";
 }
 .ic-views:before {
-  content: "\e021";
+    content: "\e021";
 }
 .ic-show:before {
-  content: "\e032";
+    content: "\e032";
 }
 .ic-clock:before {
-  content: "\5e";
+    content: "\5e";
 }
 .ic-open-web:before {
-  content: "\e033";
+    content: "\e033";
 }
 .ic-caret:before {
-  content: "\e034";
+    content: "\e034";
 }
 .ic-clock-filled:before {
-  content: "\e035";
+    content: "\e035";
 }
-.ic-menu-contacts-22px:before {
-  content: "\e036";
+.ic-contacts-filled:before {
+    content: "\e036";
 }
 .ic-launch:before {
-  content: "\e037";
+    content: "\e037";
 }
 .ic-email-filled:before {
-  content: "\e038";
+    content: "\e038";
 }
 .ic-logout-filled:before {
-  content: "\e039";
+    content: "\e039";
 }
 .ic-duplicate:before {
-  content: "\e03c";
+    content: "\e03c";
 }
 .ic-archive:before {
-  content: "\e03e";
+    content: "\e03e";
 }
 .ic-info-filled:before {
-  content: "\e040";
+    content: "\e040";
 }
 .ic-play-circle-o:before {
-  content: "\e041";
+    content: "\e041";
 }
 .ic-youtube-play:before {
-  content: "\e042";
+    content: "\e042";
 }
 .ic-video:before {
-  content: "\e043";
+    content: "\e043";
 }
 .ic-question-filled:before {
-  content: "\e045";
+    content: "\e045";
 }
 .ic-minus:before {
-  content: "\30";
+    content: "\30";
 }
 .ic-arr-right:before {
-  content: "\67";
+    content: "\67";
 }
 .ic-globe:before {
-  content: "\e011";
+    content: "\e011";
 }
 .ic-info-outline:before {
-  content: "\e044";
+    content: "\e044";
 }
 .ic-list-filled:before {
-  content: "\49";
+    content: "\49";
 }
 .ic-linkedin:before {
-  content: "\e046";
+    content: "\e046";
 }
 .ic-cards-filled:before {
-  content: "\e03b";
+    content: "\e03b";
 }
 .ic-filter-filled:before {
-  content: "\e048";
+    content: "\e048";
 }
 .ic-notifications:before {
-  content: "\e023";
+    content: "\e023";
 }
 .ic-search:before {
-  content: "\e01f";
+    content: "\e01f";
 }
 .ic-telephone-filled:before {
-  content: "\7e";
+    content: "\7e";
 }
 .ic-opportunity-outline-28px:before {
-  content: "\e03a";
+    content: "\e03a";
 }
 .ic-agenda-outline-28px:before {
-  content: "\e049";
+    content: "\e049";
 }
 .ic-contact-outline-28px:before {
-  content: "\e04a";
+    content: "\e04a";
 }
 .ic-microphone-filled-18px:before {
-  content: "\e04b";
+    content: "\e04b";
 }
 .ic-tel-keyboad-filled-18px:before {
-  content: "\e04c";
+    content: "\e04c";
 }
 .ic-question-outline:before {
-  content: "\e04d";
+    content: "\e04d";
 }
 .ic-salesorder-filled:before {
-  content: "\e04e";
+    content: "\e04e";
 }
 .ic-kpi-aggregated:before {
-  content: "\e047";
+    content: "\e047";
 }
 .ic-kpi-boss:before {
-  content: "\e04f";
+    content: "\e04f";
 }
 .ic-kpi-personal:before {
-  content: "\e050";
-}
-.ic-kpi-team:before {
-  content: "\e051";
+    content: "\e050";
 }
 .ic-edit:before {
-  content: "\e052";
+    content: "\e052";
 }
 .ic-tool:before {
-  content: "\e053";
+    content: "\e053";
 }
 .ic-integrations:before {
-  content: "\e054";
+    content: "\e054";
 }
 .ic-arr-right-1:before {
-  content: "\7a";
+    content: "\7a";
 }
 .ic-minus-10px:before {
-  content: "\e056";
+    content: "\e056";
 }
 .ic-thick-10px:before {
-  content: "\e057";
+    content: "\e057";
 }
 .ic-plus-10px:before {
-  content: "\e058";
+    content: "\e058";
 }
 .ic-kpi-menu:before {
-  content: "\e059";
+    content: "\e059";
 }
 .ic-product-filled:before {
-  content: "\e01c";
+    content: "\e01c";
 }
 .ic-arrow:before {
-  content: "\35";
+    content: "\35";
 }
 .ic-close:before {
-  content: "\2c";
+    content: "\2c";
 }
 .ic-custom-widgets:before {
-  content: "\e055";
+    content: "\e055";
 }
 .ic-close-10px:before {
-  content: "\e00e";
+    content: "\e00e";
 }
 .ic-warning-rounded:before {
-  content: "\e05a";
+    content: "\e05a";
 }
 .ic-microphone-mute-filled:before {
-  content: "\e05b";
+    content: "\e05b";
 }
 .ic-thick:before {
-  content: "\37";
+    content: "\37";
 }
 .ic-agenda:before {
-  content: "\e05c";
+    content: "\e05c";
 }
 .ic-download-filled:before {
-  content: "\e05d";
+    content: "\e05d";
 }
 .ic-share-filled:before {
-  content: "\e05e";
+    content: "\e05e";
 }
 .ic-sign:before {
-  content: "\e05f";
+    content: "\e05f";
 }
 .ic-tree:before {
-  content: "\e029";
-}
-.ic-billboard-filled:before {
-  content: "\e03f";
+    content: "\e029";
 }
 .ic-flag:before {
-  content: "\4a";
+    content: "\4a";
 }
 .ic-flag-filled:before {
-  content: "\4b";
+    content: "\4b";
 }
 .ic-agenda-filled:before {
-  content: "\47";
+    content: "\47";
 }
 .ic-call:before {
-  content: "\2a";
+    content: "\2a";
 }
 .ic-call-in-1:before {
-  content: "\e060";
+    content: "\e060";
 }
 .ic-call-lost:before {
-  content: "\e061";
+    content: "\e061";
 }
 .ic-call-out-1:before {
-  content: "\e062";
+    content: "\e062";
 }
 .ic-fast-checkin:before {
-  content: "\e065";
+    content: "\e065";
 }
 .ic-activity-1:before {
-  content: "\e066";
+    content: "\e066";
 }
 .ic-checkin-filled:before {
-  content: "\e067";
+    content: "\e067";
 }
 .ic-opportunity-checkin:before {
-  content: "\e068";
+    content: "\e068";
 }
 .ic-email-in:before {
-  content: "\e063";
+    content: "\e063";
 }
 .ic-email-out:before {
-  content: "\e064";
+    content: "\e064";
 }
 .ic-attachment:before {
-  content: "\e069";
+    content: "\e069";
+}
+.ic-inbox:before {
+    content: "\69";
+}
+.ic-outbox:before {
+    content: "\e06a";
+}
+.ic-bold:before {
+    content: "\e06b";
+}
+.ic-italic:before {
+    content: "\e06d";
+}
+.ic-underline:before {
+    content: "\e06e";
+}
+.ic-image:before {
+    content: "\e06f";
+}
+.ic-unorderedlist:before {
+    content: "\54";
+}
+.ic-orderedlist:before {
+    content: "\e070";
+}
+.ic-environment-1:before {
+    content: "\e06c";
+}
+.ic-customgroups:before {
+    content: "\e071";
+}
+.ic-myteam:before {
+    content: "\e051";
+}
+.ic-wholecompany:before {
+    content: "\e072";
+}
+.ic-comment-12px:before {
+    content: "\e073";
+}
+.ic-like-12px:before {
+    content: "\e074";
+}
+.ic-attachment-12px:before {
+    content: "\e075";
+}
+.ic-replied:before {
+    content: "\e076";
+}
+.ic-gif:before {
+    content: "\e077";
+}
+.ic-emoji:before {
+    content: "\e078";
+}
+.ic-offsite-checkin:before {
+    content: "\e079";
+}
+.ic-resend:before {
+    content: "\e07a";
+}
+.ic-accounts-filled:before {
+    content: "\6f";
+}
+.ic-opportunity-filled:before {
+    content: "\e002";
+}
+.ic-reports-filled:before {
+    content: "\e018";
+}
+.ic-salesforce-filled:before {
+    content: "\e026";
+}
+.ic-orders-filled:before {
+    content: "\e01b";
+}
+.ic-documents-filled:before {
+    content: "\e017";
+}
+.ic-quotes-filled:before {
+    content: "\e01d";
+}
+.ic-activity-filled:before {
+    content: "\71";
+}
+.ic-billboard-filled:before {
+    content: "\e030";
 }
