@@ -74,10 +74,12 @@ define([
     var platform = config.web3PlatformCode;
     var language = config.defaultLiteralLang;
     var implementationCode = config.noImplementationCode;
+    var locale = language;
     try {
         token = StorageService.newInstance().retrieve(config.tokenStorageKey, true);
         var payload = new JsonWebTokenService(token).getPayload();
         language = payload.language || config.defaultLiteralLang;
+        locale = payload.locate || language;
         implementationCode = payload.implementationCode;
         saveUserCode(payload.userCode);
         saveImplementationCode(implementationCode);
@@ -88,7 +90,7 @@ define([
             (token === undefined || token === null || token === "") ){
             doBadTokenAction("Error processing token");
         }
-        configureLibraryLanguages(language);
+        configureLibraryLanguages(locale);
     }
 
 
