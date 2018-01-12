@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" ng-init="fn.onInit()">
 
-        <div class="">
+        <div class="" style="height: 100%;">
 
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -21,41 +21,19 @@
                            data-placement="right"
                            data-section-section="{{ userSection.section }}"
                            data-section="{{ userSection.name }}"
-                           tooltip-placement="right"
-                           tooltip="{{ userSection.name }}"
                            href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
                            data-original-title="{{ userSection.name }}"
                            class="toggle-true collapsed">
-                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span>
+                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
                         </a>
                         <a id="{{ userSection.id }}"
                            ng-if="userSection.section == 'sfm'"
                            data-placement="right"
                            data-section-section="{{ userSection.section }}"
                            data-section="{{ userSection.name }}"
-                           tooltip-placement="right"
-                           tooltip="{{ userSection.name }}"
                            ng-click="fn.reloadPage()"
                            data-original-title="{{ userSection.name }}"
                            class="toggle-true collapsed">
-                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span>
-                        </a>
-                        <a id="{{ userSection.id }}"
-                           ng-if="userSection.section != 'sfm'"
-                           data-section-section="{{ userSection.section }}"
-                           data-section="{{ userSection.name }}"
-                           href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
-                           data-original-title="{{ userSection.name }}"
-                           class="toggle-true expanded">
-                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
-                        </a>
-                        <a id="{{ userSection.id }}"
-                           ng-if="userSection.section == 'sfm'"
-                           data-section-section="{{ userSection.section }}"
-                           data-section="{{ userSection.name }}"
-                           ng-click="fn.reloadPage()"
-                           data-original-title="{{ userSection.name }}"
-                           class="toggle-true expanded">
                             <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
                         </a>
                         <div class="has-limit-separator" ng-if="userSection.hasLimit"></div>

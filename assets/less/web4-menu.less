@@ -361,9 +361,42 @@ nav {
 
 /* New menu styles */
 #main-navigation-bar, .navbar-inverse {
+    //width: 50px;
+    overflow: hidden;
+    transition: width 0.5s;
+
+    @media(min-width: 0) {
+        display: block !important;
+        padding: 0;
+        overflow: visible !important;
+
+        .navbar-header {
+            background: none;
+            float: none;
+            overflow: hidden;
+        }
+    }
+
+    .navbar-nav {
+        @media (min-width: 0) {
+            float: left;
+            margin: 0;
+
+            > li {
+                float: left;
+
+                > a {
+                    //padding-top: @navbar-padding-vertical;
+                    //padding-bottom: @navbar-padding-vertical;
+                }
+            }
+        }
+    }
+
     background-color: @fmMenu !important;
     //height: 100vh !important;
     height: 100% !important;
+    max-height: none !important;
     box-shadow: none !important;
     border: none !important;
 
@@ -392,10 +425,13 @@ nav {
     }
 
     .navbar-nav {
+        width: 100%;
+
         li.web3-navigation-button {
+            display: block;
             position: relative;
-            width: 50px;
-            height: 40px;
+            width: 100% !important;
+            height: 40px !important;
             text-align: center;
             float: none;
 
@@ -427,14 +463,15 @@ nav {
             a {
                 position: relative;
                 display: block;
-                width: 100%;
-                text-align: center;
+                width: 100% !important;
+                text-align: left;
                 text-decoration: none;
-                height: 40px;
+                height: 40px !important;
                 padding: 5px 10px !important;
 
                 span.button-content {
-                    display: block;
+                    display: inline-block;
+                    vertical-align: middle;
                     height: 30px;
                     width: 30px;
 
@@ -450,16 +487,18 @@ nav {
                 }
 
                 span.button-content-text {
-                    display: none;
-                    width: 0;
-                }
-
-                &.collapsed {
-                    display: block;
-                }
-
-                &.expanded {
-                    display: none;
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: ~"calc(100% - 30px)";
+                    padding-left: 10px;
+                    letter-spacing: 0.5px;
+                    font-weight: 400;
+                    font-size: 13px;
+                    color: @fmPlaceholders;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    line-height: 1.1;
                 }
             }
 
@@ -484,41 +523,40 @@ nav {
                 display: block;
             }
         }
+    }
+}
 
-        .navbar-nav {
+.navbar-inverse {
+    @media (max-width: 1599px) {
+        li.web3-navigation-button {
+            a {
+                span.button-content-text {
+                    opacity: 0;
+                    transition: opacity 0.5s;
+                }
+            }
+        }
+
+        &:hover {
+            width: 220px;
+            overflow: hidden;
+
+            .navbar-brand {
+                width: 220px !important;
+
+                img.collapsed {
+                    display: none;
+                }
+
+                img.expanded {
+                    display: block;
+                }
+            }
+
             li.web3-navigation-button {
-                width: 220px;
-                text-align: left;
-
                 a {
-                    text-align: left;
-
-                    span.button-content {
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-
                     span.button-content-text {
-                        display: inline-block;
-                        vertical-align: middle;
-                        width: ~"calc(100% - 30px)";
-                        padding-left: 10px;
-                        letter-spacing: 0.5px;
-                        font-weight: 400;
-                        font-size: 13px;
-                        color: @fmPlaceholders;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                        line-height: 1.1;
-                    }
-
-                    &.collapsed {
-                        display: none;
-                    }
-
-                    &.expanded {
-                        display: block;
+                        opacity: 1;
                     }
                 }
             }
