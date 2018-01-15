@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" ng-init="fn.onInit()">
 
-        <div class="" style="height: 100%;">
+        <div class="" style="height: 100%;overflow:hidden;">
 
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -14,42 +14,44 @@
             <div class="collapse navbar-collapse" id="main-navigation-bar">
 
                 <!-- primary navigation -->
-                <ul class="nav navbar-nav main-nav">
-                    <li class="web3-navigation-button" ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
-                        <a id="{{ userSection.id }}"
-                           ng-if="userSection.section != 'sfm'"
-                           data-placement="right"
-                           data-section-section="{{ userSection.section }}"
-                           data-section="{{ userSection.name }}"
-                           href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
-                           data-original-title="{{ userSection.name }}"
-                           class="toggle-true collapsed">
-                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
-                        </a>
-                        <a id="{{ userSection.id }}"
-                           ng-if="userSection.section == 'sfm'"
-                           data-placement="right"
-                           data-section-section="{{ userSection.section }}"
-                           data-section="{{ userSection.name }}"
-                           ng-click="fn.reloadPage()"
-                           data-original-title="{{ userSection.name }}"
-                           class="toggle-true collapsed">
-                            <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
-                        </a>
-                        <div class="has-limit-separator" ng-if="userSection.hasLimit"></div>
-                    </li>
-                    <!--<li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
-                    <li><a id="opps-top-menu" data-placement="right" data-section="opportunity" href="opportunitylist.aspx" data-original-title="Oportunidades" class="toggle-true"><i class="ic-opportunity-filled"></i></a></li>
-                    <li><a id="activty-top-menu" data-placement="right" data-section="activity" href="activitylist.aspx" data-original-title="Actividades" class="toggle-true"><i class="ic-activity-filled"></i></a></li>
-                    <li><a id="agenda-top-menu" data-placement="right" data-section="calendar" href="calendar.aspx" data-original-title="Calendario" class="toggle-true"><i class="ic-agenda-filled"></i></a></li>
-                    <li><a id="prod-top-menu" data-placement="right" data-section="product" href="productlist.aspx" data-original-title="Productos" class="toggle-true"><i class="ic-product-filled"></i></a></li>
-                    <li><a id="documents-top-menu" data-placement="right" data-section="file" href="filesmanager.aspx" data-original-title="Documentos" class="toggle-true"><i class="ic-documents-filled"></i></a></li>
-                    <li><a id="offers-top-menu" data-placement="right" data-section="offer" href="offerslist.aspx" data-original-title="Ofertas" class="toggle-true"><i class="ic-quotes-filled"></i></a></li>
-                    <li><a id="order-top-menu" data-placement="right" data-section="order" href="orderslist.aspx" data-original-title="Pedidos" class="toggle-true"><i class="ic-orders-filled"></i></a></li>
-                    <li><a id="informe-top-menu" data-placement="right" data-section="report" href="reportlist.aspx" data-original-title="Informes" class="toggle-true"><i class="ic-reports-filled"></i></a></li>
-                    <li><a id="sfm-top-menu" data-placement="right" data-section="sfm" href="../web3/index.html" data-original-title="Análisis de ventas" class="toggle-true"><i class="ic-salesforce-filled"></i></a></li>
-                    <li><a id="page-top-menu" data-placement="right" data-section="page" href="custompage.aspx" data-original-title="Custom page" class="toggle-true"><i class="ic-custom-widgets-filled"></i></a></li>-->
-                </ul>
+                <div class="scroll-navbar-nav">
+                    <ul class="nav navbar-nav main-nav">
+                        <li class="web3-navigation-button" ng-class="{ active: userSection.section == 'sfm' }" ng-repeat="userSection in data.userSections">
+                            <a id="{{ userSection.id }}"
+                               ng-if="userSection.section != 'sfm'"
+                               data-placement="right"
+                               data-section-section="{{ userSection.section }}"
+                               data-section="{{ userSection.name }}"
+                               href="{{ fn.adjustLinkToParentFolder(userSection.url) }}"
+                               data-original-title="{{ userSection.name }}"
+                               class="toggle-true collapsed">
+                                <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
+                            </a>
+                            <a id="{{ userSection.id }}"
+                               ng-if="userSection.section == 'sfm'"
+                               data-placement="right"
+                               data-section-section="{{ userSection.section }}"
+                               data-section="{{ userSection.name }}"
+                               ng-click="fn.reloadPage()"
+                               data-original-title="{{ userSection.name }}"
+                               class="toggle-true collapsed">
+                                <span class="button-content"><i class="ic-{{ userSection.icon }}"></i></span><span class="button-content-text">{{ userSection.name }}</span>
+                            </a>
+                            <div class="has-limit-separator" ng-if="userSection.hasLimit"></div>
+                        </li>
+                        <!--<li><a id="contacts-top-menu" data-placement="right" data-section="contact" href="contactslist.aspx" data-original-title="Contactos" class="toggle-true"><i class="ic-contacts-filled"></i></a></li>
+                        <li><a id="opps-top-menu" data-placement="right" data-section="opportunity" href="opportunitylist.aspx" data-original-title="Oportunidades" class="toggle-true"><i class="ic-opportunity-filled"></i></a></li>
+                        <li><a id="activty-top-menu" data-placement="right" data-section="activity" href="activitylist.aspx" data-original-title="Actividades" class="toggle-true"><i class="ic-activity-filled"></i></a></li>
+                        <li><a id="agenda-top-menu" data-placement="right" data-section="calendar" href="calendar.aspx" data-original-title="Calendario" class="toggle-true"><i class="ic-agenda-filled"></i></a></li>
+                        <li><a id="prod-top-menu" data-placement="right" data-section="product" href="productlist.aspx" data-original-title="Productos" class="toggle-true"><i class="ic-product-filled"></i></a></li>
+                        <li><a id="documents-top-menu" data-placement="right" data-section="file" href="filesmanager.aspx" data-original-title="Documentos" class="toggle-true"><i class="ic-documents-filled"></i></a></li>
+                        <li><a id="offers-top-menu" data-placement="right" data-section="offer" href="offerslist.aspx" data-original-title="Ofertas" class="toggle-true"><i class="ic-quotes-filled"></i></a></li>
+                        <li><a id="order-top-menu" data-placement="right" data-section="order" href="orderslist.aspx" data-original-title="Pedidos" class="toggle-true"><i class="ic-orders-filled"></i></a></li>
+                        <li><a id="informe-top-menu" data-placement="right" data-section="report" href="reportlist.aspx" data-original-title="Informes" class="toggle-true"><i class="ic-reports-filled"></i></a></li>
+                        <li><a id="sfm-top-menu" data-placement="right" data-section="sfm" href="../web3/index.html" data-original-title="Análisis de ventas" class="toggle-true"><i class="ic-salesforce-filled"></i></a></li>
+                        <li><a id="page-top-menu" data-placement="right" data-section="page" href="custompage.aspx" data-original-title="Custom page" class="toggle-true"><i class="ic-custom-widgets-filled"></i></a></li>-->
+                    </ul>
+                </div>
 
                 <!-- session info -->
                 <!-- REMOVED -->
