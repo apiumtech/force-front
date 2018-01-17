@@ -374,9 +374,6 @@
 .ic-thick-filled-18px:before {
     content: "\e031";
 }
-.ic-task-filled:before {
-    content: "\e03d";
-}
 .ic-cloud-filled-50px:before {
     content: "\7c";
 }
@@ -515,9 +512,6 @@
 .ic-plus-10px:before {
     content: "\e058";
 }
-.ic-kpi-menu:before {
-    content: "\e059";
-}
 .ic-product-filled:before {
     content: "\e01c";
 }
@@ -526,9 +520,6 @@
 }
 .ic-close:before {
     content: "\2c";
-}
-.ic-custom-widgets:before {
-    content: "\e055";
 }
 .ic-close-10px:before {
     content: "\e00e";
@@ -562,9 +553,6 @@
 }
 .ic-flag-filled:before {
     content: "\4b";
-}
-.ic-agenda-filled:before {
-    content: "\47";
 }
 .ic-call:before {
     content: "\2a";
@@ -662,20 +650,8 @@
 .ic-accounts-filled:before {
     content: "\6f";
 }
-.ic-opportunity-filled:before {
-    content: "\e002";
-}
-.ic-reports-filled:before {
-    content: "\e018";
-}
-.ic-salesforce-filled:before {
-    content: "\e026";
-}
 .ic-orders-filled:before {
     content: "\e01b";
-}
-.ic-documents-filled:before {
-    content: "\e017";
 }
 .ic-quotes-filled:before {
     content: "\e01d";
@@ -685,4 +661,28 @@
 }
 .ic-billboard-filled:before {
     content: "\e030";
+}
+.ic-agenda-filled:before {
+    content: "\47";
+}
+.ic-custom-widgets:before {
+    content: "\e002";
+}
+.ic-documents-filled:before {
+    content: "\e017";
+}
+.ic-kpi-menu:before {
+    content: "\e018";
+}
+.ic-reports-filled:before {
+    content: "\e026";
+}
+.ic-salesforce-filled:before {
+    content: "\e03d";
+}
+.ic-tasks-filled:before {
+    content: "\e03f";
+}
+.ic-opportunity-filled:before {
+    content: "\e055";
 }
