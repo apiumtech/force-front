@@ -120,6 +120,14 @@ define([
                 self.isMinimized = !self.isMinimized;
                 self.element.find('.panel-body').slideToggle();
             }
+
+            // sorry for this patch. I don't understand the "framework" :-)
+            if (self.isExpanded) {
+                $('body').css('overflow', 'hidden');
+            }
+            else {
+                $('body').css('overflow', '');
+            }
             self.eventBusChannel.sendExpandingWidget();
         };
 
