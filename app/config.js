@@ -19,7 +19,7 @@ define(function () {
       baseUrl = "https://backendsd.forcemanager.net/" + apiVersion;
     }
 
-    var baseLiteralsUrl = "https://literals.forcemanager.net";
+    var baseLiteralsUrl = "https://xliterals.forcemanager.net";
 
 
     var baseProxy = window.location.protocol +"//"+ window.location.hostname + "/ASMX/Proxy.asmx";

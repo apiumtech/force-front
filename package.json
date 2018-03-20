@@ -1,7 +1,7 @@
 {
   "name": "force-front",
   "author": "apiumtech",
-  "version": "2.0.136",
+  "version": "2.0.137",
   "engine": "node 0.12.0",
   "scripts": {
     "test": "grunt test",
@@ -20,7 +20,7 @@
     "postal": "= 0.12.4",
     "q": ">= 1.0.1",
     "readmore-js": "^2.1.0",
-    "requirejs": "^2.1.17",
+    "requirejs": "=2.1.17",
     "signals": "^1.0.0",
     "underscore": "^1.7.0"
   },
