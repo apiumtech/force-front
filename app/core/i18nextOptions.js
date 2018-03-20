@@ -32,7 +32,8 @@ define([
                       data: {
                           language: language,
                           implementationCode: implementationCode,
-                          platform: platform
+                          platform: platform,
+                          date: "2018-01-30"
                       },
                       crossDomain: true,
                       jsonp: false,
